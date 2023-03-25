@@ -8,12 +8,11 @@ const products = [
     price: 12,
     currency: "$",
     frecuency: "month",
-    description: "(Autocom, Delphi DS150e и т.п.)",
+    description: "Программы и инструкции по установке для приборов серии Autocom/Delphi",
     features: [
-      "Unlimited vouchers ∞",
-      "02 users",
-      "Point of sale",
-      "Customers",
+      "Delphi DS150e",
+      "Autocom CDP+",
+      "Wurth WoW Snooper+",
     ],
     href: "#",
     cta: "Buy Hobby",
@@ -254,7 +253,7 @@ export default function Pricing() {
                     {/* features */}
                     <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
                       <p className="mt-6 font-semibold dark:text-neutral-300">
-                        What&apos;s included
+                        Для приборов:
                       </p>
                       {features.map((features) => (
                         <li key={features} className="leading-6 flex">
