@@ -2,10 +2,11 @@ import Image from "next/image";
 
 const services = [
   {
-    title: "<a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank">WhatsApp</a>",
+    title: "<a href="https://i.getspace.us/cloud/s/ydF5sRELzHEwzQn/ target="_blank">Мультимарочники</a>",
     description:
       "(Autocom, Delphi DS150e и т.п.)",
     image: "/images/services/1.svg",
+    link: "ydF5sRELzHEwzQn",
     alt: "Service description",
   },
   {
@@ -69,7 +70,7 @@ export function Services() {
                 priority
               />
             </div>
-            <h2 className="font-bold text-lg text-center">{title}</h2>
+            <h2 className="font-bold text-lg text-center"><a href="https://i.getspace.us/cloud/s/{link}/ target="_blank">{title}</a></h2>
             <p className="pt-2 text-base text-center dark:text-neutral-400">
               {description}
             </p>
