@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const services = [
   {
-    title: "Мультимарочники",
+    title: "<a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank">WhatsApp</a>",
     description:
       "(Autocom, Delphi DS150e и т.п.)",
     image: "/images/services/1.svg",
