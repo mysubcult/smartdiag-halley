@@ -4,7 +4,7 @@ import ThemeSwitchOption from "./ThemeSwitchOption";
 
 const social = [
   {
-    name: "facebook",
+    name: "WhatsApp",
     href: "https://www.facebook.com/",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
@@ -83,12 +83,12 @@ export default function Footer() {
         <div className="col-span-2 sm:col-span-3 md:col-span-3 lg:col-span-2 2xl:col-span-2">
           <Link href="/">
             <Image
-              className="h-8 w-auto"
-              src="/images/logos/logo-rose.svg"
-              alt="Logo Your Company"
-              width={150}
-              height={150}
-              quality={75}
+              className="h-10 w-auto"
+              src="/images/logos/logo.png"
+              alt="SmartDiag"
+              width={180}
+              height={180}
+              quality={100}
               sizes="100vw"
             />
           </Link>
