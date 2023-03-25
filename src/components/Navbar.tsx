@@ -38,7 +38,6 @@ export default function Navbar() {
                       width={180}
                       height={180}
                       quality={100}
-                      sizes="100vw"
                     />
                   </Link>
                 </div>
