@@ -6,7 +6,7 @@ import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { PhoneIcon } from "@heroicons/react/24/outline";
 
 type Info = {
-  access_key: c39d2187-6537-4c0b-87e1-3cff0bf0c1c3;
+  access_key: c39d2187-6537-4c0b-87e1-3cff0bf0c1c3
   subject: string;
   from_name: string;
   botcheck: string;
