@@ -230,7 +230,7 @@ export default function Contact() {
                   Успешно!
                 </h3>
                 <p className="text-neutral-900 dark:text-neutral-300 md:px-4">
-                  Ваше сообщение успешно отправлено.
+                  Ваше сообщение отправлено.
                 </p>
                 <button
                   className="mt-6 py-2 px-4 bg-rose-500 rounded-full focus:outline-none text-neutral-100"
