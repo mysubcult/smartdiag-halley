@@ -16,7 +16,7 @@ const products = [
     ],
     href: "#",
     cta: "Скачать",
-    mostPopular: false,
+    mostPopular: true,
   },
     {
     title: "Delphi",
@@ -62,7 +62,7 @@ const products = [
     ],
     href: "#",
     cta: "Buy Freelancer",
-    mostPopular: true,
+    mostPopular: false,
   },
   {
     title: "Freelancer",
