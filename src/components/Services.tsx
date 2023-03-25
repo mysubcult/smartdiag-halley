@@ -2,9 +2,9 @@ import Image from "next/image";
 
 const services = [
   {
-    title: "Dolorum molestiae",
+    title: "Мультимарочники",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit laudantium",
+      "(Autocom, Delphi DS150e и т.п.)",
     image: "/images/services/1.svg",
     alt: "Service description",
   },
@@ -48,11 +48,10 @@ export function Services() {
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="services">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 text-center">
-        <h2 className="text-4xl font-bold">What is Halley?</h2>
+        <h2 className="text-4xl font-bold">Программы для оборудования</h2>
 
         <p className="pt-6 pb-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          Halley is consectetur Obcaecati veniam explicabo perspiciatis sapiente
-          saepe sequi atque aut ullam aliquam.
+          В этом разделе сайта мы объединили все программное обеспечение для нашего оборудования. Для того, чтобы скачать программы, просто кликните по необходимой ссылке, а затем в новом окне нажмите на 3 точки, расположенные рядом с папкой с нужной вам версией, и нажмите на кнопку "Скачать".
         </p>
       </div>
 
