@@ -15,7 +15,7 @@ const products = [
       "Wurth WoW Snooper+",
     ],
     href: "#",
-    cta: "Buy Hobby",
+    cta: "Скачать",
     mostPopular: false,
   },
   {
@@ -31,7 +31,7 @@ const products = [
       "Customers",
     ],
     href: "#",
-    cta: "Buy Hobby",
+    cta: "Скачать",
     mostPopular: false,
   },
   {
