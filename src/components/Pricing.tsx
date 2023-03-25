@@ -8,7 +8,7 @@ const products = [
     price: 12,
     currency: "$",
     frecuency: "month",
-    description: "Программы и инструкции по установке Autocom для приборов серии Autocom/Delphi",
+    description: "Программы и инструкции по установке для приборов серии Autocom/Delphi",
     features: [
       "Delphi DS150e",
       "Autocom CDP+",
@@ -23,7 +23,7 @@ const products = [
     price: 12,
     currency: "$",
     frecuency: "month",
-    description: "Программы и инструкции по установке Delphi для приборов серии Autocom/Delphi",
+    description: "Программы и инструкции по установке для приборов серии Autocom/Delphi",
     features: [
       "Delphi DS150e",
       "Autocom CDP+",
@@ -34,20 +34,18 @@ const products = [
     mostPopular: false,
   },
   {
-    title: "Hobby",
+    title: "VCDS + Вася",
     price: 120,
     currency: "$",
     frecuency: "year",
     description: "All the features you need to grow your business.",
     features: [
-      "Unlimited vouchers ∞",
-      "02 users",
-      "Point of sale",
-      "Customers",
+      "VCDS",
+      "VCDS HEX-V2",
     ],
     href: "#",
     cta: "Скачать",
-    mostPopular: false,
+    mostPopular: true,
   },
   {
     title: "Freelancer",
@@ -236,7 +234,7 @@ export default function Pricing() {
                     </h3>
                     {mostPopular && (
                       <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-rose-100 text-rose-500  rounded-full text-sm font-semibold tracking-wide shadow-md">
-                        Самое популярное
+                        Наиболее популярное
                       </p>
                     )}
 
