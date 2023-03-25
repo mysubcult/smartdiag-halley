@@ -116,31 +116,6 @@ export default function Navbar() {
               </Link>
             </div>
           </Disclosure.Panel>
-          <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 px-4 min-h-screen border-t border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "text-neutral-900 dark:text-neutral-400"
-                      : "text-neutral-900 dark:text-neutral-400",
-                    "block py-4 text-base font-medium border-b border-neutral-200 dark:border-neutral-700"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
-              <Link href="https://github.com/humberni/halley" target="_blank">
-                <button className="mt-12 bg-rose-500 text-white px-4 p-3 font-medium rounded-full w-full">
-                  Filen.io
-                </button>
-              </Link>
-            </div>
-          </Disclosure.Panel> 
         </>
       )}
     </Disclosure>
