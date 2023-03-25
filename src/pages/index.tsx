@@ -14,7 +14,6 @@ export default function Home() {
       <Faq />
       <Services />
       <Contact />
-      <Customers />
     </Layout>
   );
 }
