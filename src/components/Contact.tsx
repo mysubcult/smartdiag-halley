@@ -227,16 +227,16 @@ export default function Contact() {
                   />
                 </svg>
                 <h3 className="py-5 text-2xl font-medium text-green-500">
-                  Success
+                  Успешно!
                 </h3>
                 <p className="text-neutral-900 dark:text-neutral-300 md:px-4">
-                  {Message}
+                  Ваше сообщение успешно отправлено.
                 </p>
                 <button
                   className="mt-6 py-2 px-4 bg-rose-500 rounded-full focus:outline-none text-neutral-100"
                   onClick={() => reset()}
                 >
-                  Go back
+                  Вернуться
                 </button>
               </div>
             </>
