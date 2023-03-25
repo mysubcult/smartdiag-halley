@@ -2,44 +2,44 @@ import Image from "next/image";
 
 const services = [
   {
-    title: "Мультимарочники",
+    title: "Широкий ассортимент оборудования",
     description:
-      "(Autocom, Delphi DS150e и т.п.)",
+      "У нас вы найдете все необходимое для компьютерной диагностики автомобилей, включая сканеры, программное обеспечение, кабели и другие аксессуары.",
     image: "/images/services/1.svg",
     alt: "Service description",
   },
   {
-    title: "Commodi mollitia",
+    title: "Качественные товары",
     description:
-      "Nemo quos doloribus quo omnis mollitia nostrum excepturi impedit veniam ",
+      "Мы работаем только с проверенными поставщиками и гарантируем качество продукции.",
     image: "/images/services/2.svg",
     alt: "Service description",
   },
   {
-    title: "Neque numquam",
+    title: "Опытные специалисты",
     description:
-      "Accusantium eius omnis minus debitis est odio earum labore ad itaque mollitia",
+      "Наши сотрудники имеют большой опыт работы с диагностическим оборудованием и всегда готовы помочь с выбором и использованием продукции.",
     image: "/images/services/3.svg",
     alt: "Service description",
   },
   {
-    title: "Vero animi",
+    title: "Конкурентные цены",
     description:
-      "Dolores nemo labore soluta incidunt cumque repellat quod ducimus explicabo",
+      "Мы стараемся предложить нашим клиентам наилучшее соотношение цены и качества.",
     image: "/images/services/4.svg",
     alt: "Service description",
   },
   {
-    title: "Repudiandae pariatur",
+    title: "Быстрая доставка",
     description:
-      "voluptatum ex molestiae quae alias quasi eum magnam maxime autem atque",
+      "Мы оперативно обрабатываем заказы и быстро доставляем товары по всей России.",
     image: "/images/services/5.svg",
     alt: "Service description",
   },
   {
-    title: "Placeat voluptas",
+    title: "Онлайн-поддержка",
     description:
-      "vitae iure impedit magni consequuntur nihil consectetur laboriosam perspiciatis",
+      "Мы всегда готовы ответить на ваши вопросы и помочь в решении любых проблем, связанных с диагностическим оборудованием, через наш сайт или мессенджеры.",
     image: "/images/services/6.svg",
     alt: "Service description",
   },
