@@ -48,7 +48,7 @@ export function Services() {
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="services">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 text-center">
-        <h2 className="text-4xl font-bold">О нас</h2>
+        <h2 className="text-4xl font-bold">О нас 👋</h2>
 
         <p className="pt-6 pb-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
           Наша компания занимается этим бизнесом уже многие годы и за это время мы зарекомендовали себя как надежный поставщик качественного оборудования.
