@@ -62,8 +62,7 @@ export default function Contact() {
         <h2 className="text-4xl font-bold">Contact</h2>
 
         <p className="pt-6 pb-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          Want to contact us? Choose an option below and well be happy to show
-          you how Halley can transform her companys web experience.
+          Наша команда постоянно на связи, мы прилагаем все усилия, чтобы ответить на ваши сообщения максимально быстро. Ответ на вашу заявку не займет более 12 часов. Если у вас есть срочные вопросы, пожалуйста, напишите нам в онлайн-чате на сайте.
         </p>
       </div>
 
