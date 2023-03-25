@@ -74,7 +74,7 @@ export default function Contact() {
           </p>
 
           <div className="flex items-center mt-8 space-x-2 text-dark-600 dark:text-neutral-400">
-            <MapIcon className="w-4 h-4" />
+            <CarIcon className="w-4 h-4" />
             <span>Av Tomas Marsano 700, Lima - Perú</span>
           </div>
 
