@@ -4,11 +4,11 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 
 const products = [
   {
-    title: "Hobby",
+    title: "Мультимарочники",
     price: 12,
     currency: "$",
     frecuency: "month",
-    description: "All the features you need to grow your business.",
+    description: "(Autocom, Delphi DS150e и т.п.)",
     features: [
       "Unlimited vouchers ∞",
       "02 users",
@@ -223,7 +223,7 @@ export default function Pricing() {
                     </h3>
                     {mostPopular && (
                       <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-rose-100 text-rose-500  rounded-full text-sm font-semibold tracking-wide shadow-md">
-                        Most popular
+                        Самое популярное
                       </p>
                     )}
 
