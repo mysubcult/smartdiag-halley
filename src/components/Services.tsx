@@ -6,6 +6,7 @@ const services = [
     description:
       "(Autocom, Delphi DS150e и т.п.)",
     image: "/images/services/1.svg",
+    link: "/images/services/1.svg",
     alt: "Service description",
   },
   {
@@ -72,6 +73,9 @@ export function Services() {
             <h2 className="font-bold text-lg text-center">{title}</h2>
             <p className="pt-2 text-base text-center dark:text-neutral-400">
               {description}
+            </p>
+            <p className="pt-2 text-base text-center dark:text-neutral-400">
+              {link}
             </p>
           </div>
         ))}
