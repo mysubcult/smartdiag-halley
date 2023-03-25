@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const services = [
   {
-    title: "<a href="https://i.getspace.us/cloud/s/ydF5sRELzHEwzQn/ target="_blank">Мультимарочники</a>",
+    title: "Мультимарочники",
     description:
       "(Autocom, Delphi DS150e и т.п.)",
     image: "/images/services/1.svg",
