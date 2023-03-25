@@ -4,11 +4,11 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 
 const products = [
   {
-    title: "Мультимарочники",
+    title: "Autocom",
     price: 12,
     currency: "$",
     frecuency: "month",
-    description: "Программы и инструкции по установке для приборов серии Autocom/Delphi",
+    description: "Программы и инструкции по установке Autocom для приборов серии Autocom/Delphi",
     features: [
       "Delphi DS150e",
       "Autocom CDP+",
@@ -19,11 +19,11 @@ const products = [
     mostPopular: false,
   },
     {
-    title: "Мультимарочники",
+    title: "Delphi",
     price: 12,
     currency: "$",
     frecuency: "month",
-    description: "Программы и инструкции по установке для приборов серии Autocom/Delphi",
+    description: "Программы и инструкции по установке Delphi для приборов серии Autocom/Delphi",
     features: [
       "Delphi DS150e",
       "Autocom CDP+",
