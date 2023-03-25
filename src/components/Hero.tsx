@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-<script>var LHC_API = LHC_API||{};
+
+export function Hero() {
+  return (
+    <script>var LHC_API = LHC_API||{};
 LHC_API.args = {mode:'widget',lhc_base_url:'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/',wheight:450,wwidth:350,pheight:520,pwidth:500,domain:'смартдиаг.рф',leaveamessage:true,department:["1"],theme:"1",check_messages:false,lang:'rus/'};
 (function() {
 var po = document.createElement('script'); po.type = 'text/javascript'; po.setAttribute('crossorigin','anonymous'); po.async = true;
@@ -8,8 +11,6 @@ var date = new Date();po.src = 'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/de
 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 })();
 </script>
-export function Hero() {
-  return (
     <div className="bg-white dark:bg-neutral-900">
       <div className="max-w-7xl mx-auto pt-20 pb-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2">
         <div className="pt-6 md:pt-32 justify-center text-center sm:justify-start sm:text-start">
