@@ -74,12 +74,12 @@ export default function Contact() {
           </p>
 
           <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
-            <EnvelopeIcon className="w-4 h-4" />
+            <EnvelopeIcon className="w-5 h-5" />
             <a href="https://t.me/smartdiag_robot" target="_blank">Telegram Bot</a>
           </div>
 
           <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
-            <PhoneIcon className="w-4 h-4" />
+            <PhoneIcon className="w-5 h-5" />
             <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank">WhatsApp</a>
           </div>
         </div>
