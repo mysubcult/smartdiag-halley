@@ -31,12 +31,11 @@ export default function Faq() {
       id="faq"
     >
       <h2 className="text-4xl font-bold text-center">
-        Frequently Asked Questions
+        Часто задаваемые вопросы (FAQ)
       </h2>
 
       <p className="pt-6 pb-16 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-        Answer your customers possible questions here, it will increase the
-        conversion rate as well as support or chat requests.
+        Здесь вы можете найти полезную информацию о наших товарах и услугах, оплате, доставке, гарантии, возврате и других аспектах, которые могут вас интересовать. Этот раздел был создан для вашего удобства, чтобы вы могли быстро получить ответы на свои вопросы и сэкономить время на общении с нашей поддержкой.
       </p>
       <div className="mx-auto w-full max-w-2xl rounded-2xl bg-transparent dark:bg-transparent">
         {faqitems.map(({ question, response }) => (
