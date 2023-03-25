@@ -52,7 +52,7 @@ const products = [
     price: 24,
     currency: "$",
     frecuency: "month",
-    description: "All the features you need to grow your business.",
+    description: "Программа и инструкции по установке для приборов серии Autocom/Delphi.",
     features: [
       "Delphi DS150e",
       "Autocom CDP+",
