@@ -191,7 +191,7 @@ export default function Pricing() {
                 : "ml-0.5 relative w-1/2 text-neutral-900 dark:text-neutral-400"
             } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8`}
           >
-            Мультимарочные приборы
+            Мультимарочные
           </button>
           <button
             onClick={() => setBillingInterval("year")}
@@ -202,7 +202,7 @@ export default function Pricing() {
                 : "ml-0.5 relative w-1/2 text-neutral-900 dark:text-neutral-400"
             } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8`}
           >
-            Марочные приборы
+            Марочные
           </button>
         </div>
       </div>
