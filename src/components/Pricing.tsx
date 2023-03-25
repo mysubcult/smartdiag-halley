@@ -241,13 +241,6 @@ export default function Pricing() {
                     <p className="px-6 mt-4 leading-6 dark:text-neutral-400">
                       {description}
                     </p>
-                    <div className="mt-2 p-6 -mx-6">
-                      <p className="px-6 font-medium flex place-items-end">
-                        <span className="text-4xl font-bold">{currency}</span>
-                        <span className="text-4xl font-bold">{price}</span>
-                        <span className="ml-1.5">/{frecuency}</span>
-                      </p>
-                    </div>
 
                     {/* Call to action */}
                     <Link
