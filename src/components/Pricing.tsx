@@ -18,6 +18,21 @@ const products = [
     cta: "Скачать",
     mostPopular: false,
   },
+    {
+    title: "Мультимарочники",
+    price: 12,
+    currency: "$",
+    frecuency: "month",
+    description: "Программы и инструкции по установке для приборов серии Autocom/Delphi",
+    features: [
+      "Delphi DS150e",
+      "Autocom CDP+",
+      "Wurth WoW Snooper+",
+    ],
+    href: "#",
+    cta: "Скачать",
+    mostPopular: false,
+  },
   {
     title: "Hobby",
     price: 120,
