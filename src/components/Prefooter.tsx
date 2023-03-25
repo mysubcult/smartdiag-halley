@@ -5,7 +5,7 @@ export default function Prefooter() {
     <div className="bg-white dark:bg-neutral-900">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 pt-20 pb-10">
         <h1 className="text-4xl font-bold text-center">
-          Скачать все программы
+          Все программы в одном месте
         </h1>
       </div>
 
