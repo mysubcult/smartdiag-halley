@@ -15,17 +15,17 @@ export function Hero() {
           </p>
           <div className="flex flex-auto pt-10 gap-2 min-w-[350px] justify-center sm:justify-start">
             <div>
-              <Link href="#services">
+              <Link href="#pricing">
                 <button className="bg-black dark:bg-white text-white dark:text-black text-base rounded-full px-4 p-2 font-medium">
-                  Ver más
+                  Программы для приборов
                 </button>
               </Link>
             </div>
 
             <div>
-              <Link href="https://github.com/humberni/halley/blob/main/README.md" target="_blank">
+              <Link href="#contact">
                 <button className="bg-rose-500 text-white text-base rounded-full px-4 p-2 font-medium">
-                  Documentación
+                  Обратная связь
                 </button>
               </Link>
             </div>
