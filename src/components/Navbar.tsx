@@ -35,9 +35,9 @@ export default function Navbar() {
                       className="block h-8 w-auto"
                       src="/images/logos/logo.png"
                       alt="Logo Your Company"
-                      width={150}
-                      height={150}
-                      quality={75}
+                      width={180}
+                      height={180}
+                      quality={100}
                       sizes="100vw"
                     />
                   </Link>
