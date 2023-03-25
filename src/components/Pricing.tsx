@@ -8,7 +8,7 @@ const products = [
     price: 12,
     currency: "$",
     frecuency: "month",
-    description: "Программы и инструкции по установке для приборов серии Autocom/Delphi",
+    description: "Программа и инструкции по установке для приборов серии Autocom/Delphi.",
     features: [
       "Delphi DS150e",
       "Autocom CDP+",
@@ -23,7 +23,7 @@ const products = [
     price: 12,
     currency: "$",
     frecuency: "month",
-    description: "Программы и инструкции по установке для приборов серии Autocom/Delphi",
+    description: "Программа и инструкции по установке для приборов серии Autocom/Delphi.",
     features: [
       "Delphi DS150e",
       "Autocom CDP+",
@@ -38,7 +38,7 @@ const products = [
     price: 120,
     currency: "$",
     frecuency: "year",
-    description: "All the features you need to grow your business.",
+    description: "Программа и инструкции по установке для приборов серии VCDS.",
     features: [
       "VCDS",
       "VCDS HEX-V2",
