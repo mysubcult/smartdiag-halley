@@ -68,14 +68,13 @@ export default function Contact() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 grid md:grid-cols-2 lg:grid-cols-2 gap-y-8 md:gap-x-8 md:gap-y-8 lg:gap-x-8 lg:gap-y-16">
         <div>
-          <h2 className="text-lg font-bold">Contact Halley</h2>
+          <h2 className="text-lg font-bold">📱💬 Мы в мессенджерах!</h2>
           <p className="max-w-sm mt-4 mb-4 dark:text-neutral-400">
-            Have something to say? We are here to help. Fill up the form or send
-            email or call phone.
+            Оставайтесь на связи с нами в любом месте и в любое время: мы доступны в Телеграм и WhatsApp.
           </p>
 
           <div className="flex items-center mt-8 space-x-2 text-dark-600 dark:text-neutral-400">
-            <MapIcon className="w-4 h-4" />
+            <TelegramIcon className="w-4 h-4" />
             <span>Av Tomas Marsano 700, Lima - Perú</span>
           </div>
 
