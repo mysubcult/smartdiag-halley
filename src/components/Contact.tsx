@@ -94,7 +94,7 @@ export default function Contact() {
             <form onSubmit={handleSubmit(onSubmit)}>
               <input
                 type="hidden"
-                value={process.env.NEXT_PUBLIC_FORM_CONTACT_API}
+                value="c39d2187-6537-4c0b-87e1-3cff0bf0c1c3"
                 {...register("access_key")}
               />
               <input type="hidden" {...register("subject")} />
