@@ -111,8 +111,11 @@ export default function Navbar() {
               ))}
               <Link href="https://github.com/humberni/halley" target="_blank">
                 <button className="mt-12 bg-rose-500 text-white px-4 p-3 font-medium rounded-full w-full">
-                  GitHub
+                  Filen.io
                 </button>
+                <button className="mt-12 bg-rose-500 text-white px-4 p-3 font-medium rounded-full w-full">
+                  MEGA.nz
+                </button> 
               </Link>
             </div>
           </Disclosure.Panel>
