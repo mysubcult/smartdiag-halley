@@ -31,7 +31,7 @@ export default function Faq() {
       id="faq"
     >
       <h2 className="text-4xl font-bold text-center">
-        Часто задаваемые вопросы (FAQ)
+        Часто задаваемые вопросы (FAQ) ❓
       </h2>
 
       <p className="pt-6 pb-16 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
