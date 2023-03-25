@@ -73,19 +73,14 @@ export default function Contact() {
             Оставайтесь на связи с нами в любом месте и в любое время: мы доступны в Телеграм и WhatsApp.
           </p>
 
-          <div className="flex items-center mt-8 space-x-2 text-dark-600 dark:text-neutral-400">
-            <MapIcon className="w-5 h-5" />
-            <span>Av Tomas Marsano 700, Lima - Perú</span>
-          </div>
-
           <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
             <EnvelopeIcon className="w-4 h-4" />
-            <a href="mailto:hello@halley.vercel.app">hello@halley.vercel.app</a>
+            <a href="https://t.me/smartdiag_robot" target="_blank">Telegram Bot</a>
           </div>
 
           <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
             <PhoneIcon className="w-4 h-4" />
-            <a href="tel:51931999999">+51 931999999</a>
+            <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank">WhatsApp</a>
           </div>
         </div>
 
@@ -98,7 +93,7 @@ export default function Contact() {
                 {...register("access_key")}
               />
               <input type="hidden" {...register("subject")} />
-              <input type="hidden" value="Halley" {...register("from_name")} />
+              <input type="hidden" value="SmartDiag" {...register("from_name")} />
               <input
                 type="checkbox"
                 id=""
