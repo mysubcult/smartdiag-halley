@@ -14,6 +14,7 @@ const services = [
     description:
       "Nemo quos doloribus quo omnis mollitia nostrum excepturi impedit veniam ",
     image: "/images/services/2.svg",
+        link: "/images/services/1.svg",
     alt: "Service description",
   },
   {
@@ -21,6 +22,7 @@ const services = [
     description:
       "Accusantium eius omnis minus debitis est odio earum labore ad itaque mollitia",
     image: "/images/services/3.svg",
+        link: "/images/services/1.svg",
     alt: "Service description",
   },
   {
@@ -28,6 +30,7 @@ const services = [
     description:
       "Dolores nemo labore soluta incidunt cumque repellat quod ducimus explicabo",
     image: "/images/services/4.svg",
+        link: "/images/services/1.svg",
     alt: "Service description",
   },
   {
@@ -35,6 +38,7 @@ const services = [
     description:
       "voluptatum ex molestiae quae alias quasi eum magnam maxime autem atque",
     image: "/images/services/5.svg",
+        link: "/images/services/1.svg",
     alt: "Service description",
   },
   {
@@ -42,6 +46,7 @@ const services = [
     description:
       "vitae iure impedit magni consequuntur nihil consectetur laboriosam perspiciatis",
     image: "/images/services/6.svg",
+        link: "/images/services/1.svg",
     alt: "Service description",
   },
 ];
