@@ -145,10 +145,10 @@ export default function Contact() {
                       : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
                   }`}
                   {...register("email", {
-                    required: "Enter your email",
+                    required: "Введите ваш Email",
                     pattern: {
                       value: /^\S+@\S+$/i,
-                      message: "Please enter a valid email",
+                      message: "Введите, пожалуйста, правильный адрес электронной почты",
                     },
                   })}
                 />
@@ -203,7 +203,7 @@ export default function Contact() {
                     ></path>
                   </svg>
                 ) : (
-                  "Send Message"
+                  "Отправить сообщение"
                 )}
               </button>
             </form>
