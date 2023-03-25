@@ -110,7 +110,7 @@ export default function Contact() {
               <div className="mb-5">
                 <input
                   type="text"
-                  placeholder="Full Name"
+                  placeholder="Введите Ваше имя"
                   autoComplete="false"
                   className={`w-full px-4 py-3 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4 ${
                     errors.name
@@ -118,7 +118,7 @@ export default function Contact() {
                       : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
                   }`}
                   {...register("name", {
-                    required: "Full name is required",
+                    required: "Необходимо ввести Ваше имя",
                     maxLength: 80,
                   })}
                 />
@@ -136,7 +136,7 @@ export default function Contact() {
                 <input
                   id="email_address"
                   type="email"
-                  placeholder="Email Address"
+                  placeholder="Введите ваш Email"
                   // name="email"
                   autoComplete="false"
                   className={`w-full px-4 py-3 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900   focus:ring-4  ${
@@ -162,7 +162,7 @@ export default function Contact() {
               <div className="mb-3">
                 <textarea
                   // name="message"
-                  placeholder="Your Message"
+                  placeholder="Введите ваше сообщение"
                   className={`w-full px-4 py-3 border-2 placeholder:text-neutral-800 dark:text-white dark:placeholder:text-neutral-200 dark:bg-neutral-900   rounded-md outline-none  h-36 focus:ring-4  ${
                     errors.message
                       ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
