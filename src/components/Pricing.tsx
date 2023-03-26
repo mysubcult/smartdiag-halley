@@ -19,7 +19,7 @@ const products = [
     mostPopular: true,
   },
     {
-    title: "Delphi",
+    title: "Delphi DS150e",
     price: 12,
     currency: "$",
     frecuency: "month",
@@ -31,7 +31,7 @@ const products = [
     ],
     href: "https://i.getspace.us/cloud/s/H8rFC8dwz2cTpJJ",
     cta: "Скачать",
-    mostPopular: false,
+    mostPopular: true,
   },
   {
     title: "VCDS + Вася",
