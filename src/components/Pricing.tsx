@@ -4,15 +4,15 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 
 const products = [
   {
-    title: "Autocom",
+    title: "Autocom CDP+",
     price: 12,
     currency: "$",
     frecuency: "month",
     description: "Программа и инструкции по установке для приборов серии Autocom/Delphi.",
     features: [
-      "Delphi DS150e",
-      "Autocom CDP+",
-      "Wurth WoW Snooper+",
+      "Delphi 2021.10b",
+      "Autocom 2021.11",
+      "Wurth WoW 5.00.8",
     ],
     href: "https://i.getspace.us/cloud/s/ydF5sRELzHEwzQn",
     cta: "Скачать",
@@ -25,9 +25,9 @@ const products = [
     frecuency: "month",
     description: "Программа и инструкции по установке для приборов серии Autocom/Delphi.",
     features: [
-      "Delphi DS150e",
-      "Autocom CDP+",
-      "Wurth WoW Snooper+",
+      "Delphi 2021.10b",
+      "Autocom 2021.11",
+      "Wurth WoW 5.00.8",
     ],
     href: "https://i.getspace.us/cloud/s/H8rFC8dwz2cTpJJ",
     cta: "Скачать",
@@ -41,7 +41,7 @@ const products = [
     description: "Программа и инструкции по установке для приборов серии VCDS.",
     features: [
       "VCDS",
-      "VCDS HEX-V2",
+      "Вася 19.6",
     ],
     href: "https://i.getspace.us/cloud/s/R7ycKecn9P6b55a",
     cta: "Скачать",
@@ -54,9 +54,9 @@ const products = [
     frecuency: "month",
     description: "Программа и инструкции по установке для приборов серии Autocom/Delphi.",
     features: [
-      "Delphi DS150e",
-      "Autocom CDP+",
-      "Wurth WoW Snooper+",
+      "Delphi 2021.10b",
+      "Autocom 2021.11",
+      "Wurth WoW 5.00.8",
     ],
     href: "#",
     cta: "Buy Freelancer",
@@ -216,7 +216,7 @@ export default function Pricing() {
                     {/* features */}
                     <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
                       <p className="mt-6 font-semibold dark:text-neutral-300">
-                        Для приборов:
+                        Программы:
                       </p>
                       {features.map((features) => (
                         <li key={features} className="leading-6 flex">
