@@ -36,7 +36,7 @@ const Layout = (props: any) => {
       <main id="skip" className="bg-white dark:bg-neutral-900">
         <Navbar />
         {children}
-    //  <Prefooter />   
+        <Prefooter />   
         <Footer />
       </main>
     </div>
