@@ -23,7 +23,7 @@ const products = [
     price: 12,
     currency: "$",
     frecuency: "month",
-    description: "Программа и инструкции по установке для приборов серии Autocom/Delphi.",
+    description: "Универсальный прибор для диагностики автомобилей с широким набором функций.",
     features: [
       "Delphi 2021.10b",
       "Autocom 2021.11",
