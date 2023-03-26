@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-// import Prefooter from "./Prefooter";
+<-- import Prefooter from "./Prefooter";  -->
 
 const Layout = (props: any) => {
   const { children, ...customMeta } = props;
@@ -36,7 +36,7 @@ const Layout = (props: any) => {
       <main id="skip" className="bg-white dark:bg-neutral-900">
         <Navbar />
         {children}
-//       <Prefooter />
+<--      <Prefooter />   -->
         <Footer />
       </main>
     </div>
