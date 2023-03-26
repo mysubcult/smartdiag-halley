@@ -75,7 +75,7 @@ export default function Contact() {
 
           <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
             <EnvelopeIcon className="w-5 h-5" />
-            <a href="https://t.me/smartdiag_robot" target="_blank">Telegram Bot</a>
+            <a href="https://t.me/smartdiag_robot" target="_blank">Telegram</a>
           </div>
 
           <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
