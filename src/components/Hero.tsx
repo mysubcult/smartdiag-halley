@@ -39,7 +39,7 @@ export function Hero() {
             width={1025}
             height={662}
             quality={75}
-            sizes="100vw"
+            sizes="50vw"
             priority
           />
         </div>
