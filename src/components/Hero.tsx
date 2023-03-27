@@ -8,7 +8,7 @@ export function Hero() {
         <div className="pt-6 md:pt-32 justify-center text-center sm:justify-start sm:text-start">
           <h1 className="text-5xl font-bold">
             Добро пожаловать в <br />{" "}
-            <span className="text-rose-500 font-extrabold">SmartDiag</span>
+            <span className="text-red-600 font-extrabold">SmartDiag</span>
           </h1>
           <p className="pt-6 text-base w-auto sm:w-10/12 md:w-10/12 dark:text-neutral-400">
             Здесь Вы можете найти все необходимое программное обеспечение для диагностики и обслуживания вашего автомобиля. Мы предоставляем высококачественное и надежное оборудование, которое поможет вам провести быстрый и эффективный анализ и ремонт вашего автомобиля.
@@ -24,7 +24,7 @@ export function Hero() {
 
             <div>
               <Link href="#contact">
-                <button className="bg-rose-500 text-white text-base rounded-full px-4 p-2 font-medium">
+                <button className="bg-red-600 text-white text-base rounded-full px-4 p-2 font-medium">
                   Обратная связь
                 </button>
               </Link>
