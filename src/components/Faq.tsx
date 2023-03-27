@@ -3,9 +3,9 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
 const faqitems = [
   {
-    question: "What is your refund policy?",
+    question: "Какие модели легковых и грузовых автомобилей поддерживаются программами в приборах Delphi DS150E и Autocom CDP+? Какие функции можно выполнять с помощью этих приборов?",
     response:
-      "If youre unhappy with your purchase for any reason, email us within 90 days and well refund you in full, no questions asked.",
+      "Для легковых автомобилей перечень поддерживаемых моделей можно посмотреть <a href="https://github.com/mysubcult/smartdiag-halley/edit/main/src/components/Faq.tsx>здесь</a>. Для грузовых автомобилей список поддерживаемых моделей можно найти здесь. Оба прибора поддерживают диагностику большинства моделей легковых и грузовых автомобилей. Поддерживаемые функции включают в себя чтение кодов неисправностей, очистку ошибок, чтение и вывод параметров датчиков и другие функции, которые могут отличаться в зависимости от модели автомобиля и версии программного обеспечения прибора.",
   },
   {
     question: "Do you offer technical support?",
