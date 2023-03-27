@@ -18,6 +18,21 @@ const products = [
     cta: "Скачать",
     mostPopular: true,
   },
+  {
+    title: "Autocom",
+    price: 12,
+    currency: "$",
+    frecuency: "elm",
+    description: "Последняя версия программного обеспечения 2021.11",
+    features: [
+      "Delphi DS150e",
+      "Autocom CDP+",
+      "WoW Snipper",
+    ],
+    href: "https://i.getspace.us/cloud/s/ydF5sRELzHEwzQn",
+    cta: "Скачать",
+    mostPopular: true,
+  },
     {
     title: "Delphi",
     price: 12,
@@ -164,12 +179,12 @@ export default function Pricing() {
             onClick={() => setBillingInterval("year")}
             type="button"
             className={`${
-              billingInterval === "year"
+              billingInterval === "elm"
                 ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "ml-0.5 relative w-1/2 text-neutral-900 dark:text-neutral-400"
             } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8`}
           >
-            Марочные
+            Приложения ELM
           </button>
         </div>
       </div>
