@@ -4,15 +4,15 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 
 const products = [
   {
-    title: "Autocom CDP+",
+    title: "Autocom",
     price: 12,
     currency: "$",
     frecuency: "month",
     description: "Универсальный прибор для диагностики автомобилей, позволяющий проводить чтение и очистку кодов ошибок.",
     features: [
-      "Delphi 2021.10b",
-      "Autocom 2021.11",
-      "Wurth WoW 5.00.8",
+      "Delphi DS150e",
+      "Autocom CDP+",
+      "WoW Snipper",
     ],
     href: "https://i.getspace.us/cloud/s/ydF5sRELzHEwzQn",
     cta: "Скачать",
@@ -25,9 +25,9 @@ const products = [
     frecuency: "month",
     description: "Универсальный прибор для диагностики автомобилей с широким набором функций.",
     features: [
-      "Delphi 2021.10b",
-      "Autocom 2021.11",
-      "Wurth WoW 5.00.8",
+      "Delphi DS150e",
+      "Autocom CDP+",
+      "WoW Snipper",
     ],
     href: "https://i.getspace.us/cloud/s/H8rFC8dwz2cTpJJ",
     cta: "Скачать",
@@ -54,12 +54,12 @@ const products = [
     frecuency: "month",
     description: "Прибор для диагностики автомобилей, обладающий широким функционалом, включающим чтение и очистку кодов ошибок, проверку параметров и компонентов системы",
     features: [
-      "Delphi 2021.10b",
-      "Autocom 2021.11",
-      "Wurth WoW 5.00.8",
+      "Delphi DS150e",
+      "Autocom CDP+",
+      "WoW Snipper",
     ],
     href: "#",
-    cta: "Buy Freelancer",
+    cta: "Скачать",
     mostPopular: false,
   },
   {
@@ -216,7 +216,7 @@ export default function Pricing() {
                     {/* features */}
                     <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
                       <p className="mt-6 font-semibold dark:text-neutral-300">
-                        Программы:
+                        Для приборов:
                       </p>
                       {features.map((features) => (
                         <li key={features} className="leading-6 flex">
