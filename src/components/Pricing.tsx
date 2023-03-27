@@ -183,7 +183,7 @@ export default function Pricing() {
                     key={title}
                     className={`rounded-lg py-8 relative flex flex-col ${
                       mostPopular
-                        ? "border-rose-300 border-2 border-solid dark:border-red-600"
+                        ? "border-red-300 border-2 border-solid dark:border-red-600"
                         : "border-neutral-300 border dark:border-neutral-600"
                     }`}
                   >
@@ -191,7 +191,7 @@ export default function Pricing() {
                       {title}
                     </h3>
                     {mostPopular && (
-                      <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-rose-100 text-red-600  rounded-full text-sm font-semibold tracking-wide shadow-md">
+                      <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600  rounded-full text-sm font-semibold tracking-wide shadow-md">
                         Наиболее популярное
                       </p>
                     )}
