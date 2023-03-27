@@ -45,9 +45,9 @@ const column2 = [
 
 const column3 = [
   { name: "Главная", href: "/" },
-  { name: "О нас", href: "#services" },
   { name: "Программы", href: "#soft" },
   { name: "ЧАВО", href: "#faq" },
+  { name: "О нас", href: "#services" },
   { name: "Обратная связь", href: "#contact" },
 ];
 
