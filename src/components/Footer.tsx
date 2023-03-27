@@ -84,8 +84,14 @@ export default function Footer() {
         </div>
 
         <div>
+        </div>
+
+        <div>
+        </div>
+
+        <div>
           <h3 className="text-sm md:text-xs font-bold pb-4 pt-12 lg:pt-0">
-            Навигация
+            НАВИГАЦИЯ
           </h3>
           {column3.map((item) => (
             <Link
