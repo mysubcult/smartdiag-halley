@@ -22,7 +22,7 @@ const products = [
     title: "Autocom CDP+",
     price: 12,
     currency: "$",
-    frecuency: "elm",
+    frecuency: "month",
     description: "Последняя версия программного обеспечения 2021.11",
     features: [
       "Delphi 2021.10b",
@@ -34,7 +34,7 @@ const products = [
     mostPopular: true,
   },
     {
-    title: "WoW Snipper",
+    title: "Wurth WoW",
     price: 12,
     currency: "$",
     frecuency: "month",
