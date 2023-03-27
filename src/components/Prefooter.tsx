@@ -15,6 +15,11 @@ export default function Prefooter() {
             Скачать
           </button>
         </Link>
+        <Link href="https://github.com/humberni/halley" target="_blank">
+          <button className="bg-red-500 text-white rounded-full px-6 p-3 font-medium">
+            Скачать
+          </button>
+        </Link>
       </div>
     </div>
   );
