@@ -69,7 +69,7 @@ export default function Navbar() {
                     target="_blank"
                     className="hidden sm:block"
                   >
-                    <button className="bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 px-4 p-2 text-base font-medium dark:hover:bg-rose-500 hover:bg-rose-500 hover:text-white dark:hover:text-white rounded-full">
+                    <button className="bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 px-4 p-2 text-base font-medium dark:hover:bg-red-600 hover:bg-red-600 hover:text-white dark:hover:text-white rounded-full">
                       GitHub
                     </button>
                   </Link>
@@ -110,7 +110,7 @@ export default function Navbar() {
                 </Disclosure.Button>
               ))}
               <Link href="https://github.com/humberni/halley" target="_blank">
-                <button className="mt-12 bg-rose-500 text-white px-4 p-3 font-medium rounded-full w-full">
+                <button className="mt-12 bg-red-600 text-white px-4 p-3 font-medium rounded-full w-full">
                   Filen.io
                 </button>
               </Link>
