@@ -53,7 +53,7 @@ const products = [
     price: 120,
     currency: "$",
     frecuency: "year",
-    description: "Программа и инструкции по установке для приборов серии VCDS.",
+    description: "Диагностический инструмент для автомобилей Volkswagen Group.",
     features: [
       "VCDS",
       "Вася 19.6",
@@ -63,11 +63,11 @@ const products = [
     mostPopular: true,
   },
   {
-    title: "BNW E-NET (E-Sys)",
+    title: "BMW E-NET (E-Sys)",
     price: 120,
     currency: "$",
     frecuency: "year",
-    description: "Программа и инструкции по установке для приборов серии VCDS.",
+    description: "Диагностическая система для автомобилей BMW.",
     features: [
       "VCDS",
       "Вася 19.6",
@@ -81,7 +81,7 @@ const products = [
     price: 120,
     currency: "$",
     frecuency: "year",
-    description: "Программа и инструкции по установке для приборов серии VCDS.",
+    description: "Диагностическая система для автомобилей BMW.",
     features: [
       "VCDS",
       "Вася 19.6",
@@ -95,7 +95,7 @@ const products = [
     price: 120,
     currency: "$",
     frecuency: "year",
-    description: "Программа и инструкции по установке для приборов серии VCDS.",
+    description: "Диагностический интерфейс для автомобилей Ford и Mazda.",
     features: [
       "VCDS",
       "Вася 19.6",
@@ -109,7 +109,7 @@ const products = [
     price: 120,
     currency: "$",
     frecuency: "year",
-    description: "Программа и инструкции по установке для приборов серии VCDS.",
+    description: "Диагностический инструмент для автомобилей Toyota и Lexus.",
     features: [
       "VCDS",
       "Вася 19.6",
@@ -123,7 +123,7 @@ const products = [
     price: 120,
     currency: "$",
     frecuency: "year",
-    description: "Программа и инструкции по установке для приборов серии VCDS.",
+    description: "Диагностический инструмент для автомобилей Peugeot и Citroen.",
     features: [
       "VCDS",
       "Вася 19.6",
@@ -137,7 +137,7 @@ const products = [
     price: 120,
     currency: "$",
     frecuency: "elm",
-    description: "Программа и инструкции по установке для приборов серии VCDS.",
+    description: "Универсальный диагностический сканер для автомобилей, который подключается к порту OBD-II и работает через приложение на смартфоне или компьютере.",
     features: [
       "VCDS",
       "Вася 19.6",
@@ -151,7 +151,7 @@ const products = [
     price: 120,
     currency: "$",
     frecuency: "elm",
-    description: "Программа и инструкции по установке для приборов серии VCDS.",
+    description: "Диагностический инструмент для автомобилей, оснащенный функцией Bluetooth/Wi-Fi и поддерживающий различные протоколы OBD-II, что позволяет работать с разными автомобильными брендами.",
     features: [
       "VCDS",
       "Вася 19.6",
