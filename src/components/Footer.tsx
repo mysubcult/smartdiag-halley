@@ -44,9 +44,11 @@ const column2 = [
 ];
 
 const column3 = [
-  { name: "Privacy Policy", href: "/" },
-  { name: "Terms of Service", href: "/" },
-  { name: "Support Terms", href: "/" },
+  { name: "Главная", href: "/" },
+  { name: "О нас", href: "#services" },
+  { name: "Программы", href: "#pricing" },
+  { name: "ЧАВО", href: "#faq" },
+  { name: "Обратная связь", href: "#contact" },
 ];
 
 export default function Footer() {
@@ -113,7 +115,7 @@ export default function Footer() {
 
         <div>
           <h3 className="text-sm md:text-xs font-bold pb-4 pt-12 lg:pt-0">
-            LEGAL
+            Навигация
           </h3>
           {column3.map((item) => (
             <Link
