@@ -11,7 +11,7 @@ export default function Prefooter() {
 
       <div className="text-center pb-20">
         <Link href="https://github.com/humberni/halley" target="_blank">
-          <button className="bg-rose-500 text-white rounded-full px-6 p-3 font-medium">
+          <button className="bg-red-500 text-white rounded-full px-6 p-3 font-medium">
             Скачать
           </button>
         </Link>
