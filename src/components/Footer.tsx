@@ -133,7 +133,7 @@ export default function Footer() {
 
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 p-6 text-center border-t border-neutral-800">
         <Link
-          href="https://humbersanchez.com"
+          href="https://смартдиаг.рф"
           target="_blank"
           className="text-neutral-300 dark:text-neutral-400 text-sm hover:text-rose-500 dark:hover:text-rose-500 transition duration-300"
         >
