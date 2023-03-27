@@ -36,10 +36,10 @@ export function Hero() {
           <Image
             src="/images/hero/hero.svg"
             alt="Image hero description"
-            width={1025}
+            width={825}
             height={662}
             quality={75}
-            sizes="50vw"
+            sizes="100vw"
             priority
           />
         </div>
