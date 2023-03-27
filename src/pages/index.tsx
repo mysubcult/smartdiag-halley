@@ -1,5 +1,5 @@
 import Contact from "../components/Contact";
-import Pricing from "../components/Soft";
+import Soft from "../components/Soft";
 import { Hero } from "../components/Hero";
 import Layout from "../components/Layout";
 import Faq from "../components/Faq";
