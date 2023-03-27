@@ -142,7 +142,7 @@ export default function Pricing() {
   const [billingInterval, setBillingInterval] =
     useState<BillingInterval>("month");
   return (
-    <div className="bg-gray-50 dark:bg-neutral-900" id="pricing">
+    <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
 
