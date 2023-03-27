@@ -67,8 +67,7 @@ export default function Footer() {
           </Link>
 
           <p className="md:text-sm pt-4 w-auto sm:w-6/12 md:w-6/12 lg:w-8/12">
-            Halley is ipsum dolor sit amet consectetur adipisicing itaque enim
-            labore dolores culpa consequatur harum.
+            SmartDiag - это комплексное программное обеспечение и оборудование для диагностики и обслуживания автомобилей высокого качества, обеспечивающее быстрый и эффективный анализ и ремонт.
           </p>
 
           <div className="flex gap-2 pt-6 sm:pt-6 md:pt-6 lg:pt-12 max-w-[300px]">
