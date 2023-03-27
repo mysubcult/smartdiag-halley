@@ -5,19 +5,19 @@ export default function Prefooter() {
     <div className="bg-white dark:bg-neutral-900">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 pt-20 pb-10">
         <h1 className="text-4xl font-bold text-center">
-          Все программы в одном месте
+          Зеркала для скачивания
         </h1>
       </div>
 
       <div className="text-center pb-20">
-        <Link href="https://github.com/humberni/halley" target="_blank">
+        <Link href="https://drive.filen.io/f/2a56c53b-d111-4237-927e-e888d41ca33f#SyzwqKMV3IGSLMDVPoQvnQ7vzhw7BtbV" target="_blank">
           <button className="bg-red-500 text-white rounded-full px-6 p-3 font-medium">
-            Скачать&nbsp;&nbsp;&nbsp;
+            Зеркало #1
           </button>&nbsp;&nbsp;&nbsp;
-        </Link>&nbsp;&nbsp;&nbsp;
-        <Link href="https://github.com/humberni/halley" target="_blank">
+        </Link>
+        <Link href="https://mega.nz/folder/N8BGBBRC#F4YYgKdUlFZmL2UGqfgK-Q" target="_blank">
           <button className="bg-red-500 text-white rounded-full px-6 p-3 font-medium">
-            Скачать&nbsp;
+            Зеркало #2
           </button>
         </Link>
       </div>
