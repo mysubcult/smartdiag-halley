@@ -31,7 +31,7 @@ const social = [
 const column1 = [
   { name: "Главная", href: "/" },
   { name: "О нас", href: "#services" },
-  { name: "Программы", href: "#pricing" },
+  { name: "Программы", href: "#soft" },
   { name: "ЧАВО", href: "#faq" },
   { name: "Обратная связь", href: "#contact" },
 ];
@@ -46,7 +46,7 @@ const column2 = [
 const column3 = [
   { name: "Главная", href: "/" },
   { name: "О нас", href: "#services" },
-  { name: "Программы", href: "#pricing" },
+  { name: "Программы", href: "#soft" },
   { name: "ЧАВО", href: "#faq" },
   { name: "Обратная связь", href: "#contact" },
 ];
