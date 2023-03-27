@@ -8,7 +8,7 @@ const products = [
     price: 12,
     currency: "$",
     frecuency: "month",
-    description: "Универсальный прибор для диагностики автомобилей, позволяющий проводить чтение и очистку кодов ошибок.",
+    description: "Последняя версия программного обеспечения 2021.11",
     features: [
       "Delphi DS150e",
       "Autocom CDP+",
@@ -19,11 +19,11 @@ const products = [
     mostPopular: true,
   },
     {
-    title: "Delphi DS150e",
+    title: "Delphi",
     price: 12,
     currency: "$",
     frecuency: "month",
-    description: "Универсальный прибор для диагностики автомобилей с широким набором функций.",
+    description: "Последняя версия программного обеспечения 2021.10b",
     features: [
       "Delphi DS150e",
       "Autocom CDP+",
@@ -48,11 +48,11 @@ const products = [
     mostPopular: true,
   },
   {
-    title: "WoW Snipper",
+    title: "Wurth WoW",
     price: 24,
     currency: "$",
     frecuency: "month",
-    description: "Прибор для диагностики автомобилей, обладающий широким функционалом, включающим чтение и очистку кодов ошибок, проверку параметров и компонентов системы",
+    description: "Последняя версия программного обеспечения 5.00.8",
     features: [
       "Delphi DS150e",
       "Autocom CDP+",
