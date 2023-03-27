@@ -138,7 +138,7 @@ const products = [
 
 type BillingInterval = "year" | "month" | "elm";
 
-export default function Pricing() {
+export default function Soft() {
   const [billingInterval, setBillingInterval] =
     useState<BillingInterval>("month");
   return (
