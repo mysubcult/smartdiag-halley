@@ -4,45 +4,45 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 
 const products = [
   {
-    title: "Autocom",
+    title: "Delphi DS150e",
     price: 12,
     currency: "$",
     frecuency: "month",
     description: "Последняя версия программного обеспечения 2021.11",
     features: [
-      "Delphi DS150e",
-      "Autocom CDP+",
-      "WoW Snipper",
+      "Delphi 2021.10b",
+      "Autocom 2021.11",
+      "Wurth WoW 5.00.8",
     ],
     href: "https://i.getspace.us/cloud/s/ydF5sRELzHEwzQn",
     cta: "Скачать",
     mostPopular: true,
   },
   {
-    title: "Autocom",
+    title: "Autocom CDP+",
     price: 12,
     currency: "$",
     frecuency: "elm",
     description: "Последняя версия программного обеспечения 2021.11",
     features: [
-      "Delphi DS150e",
-      "Autocom CDP+",
-      "WoW Snipper",
+      "Delphi 2021.10b",
+      "Autocom 2021.11",
+      "Wurth WoW 5.00.8",
     ],
     href: "https://i.getspace.us/cloud/s/ydF5sRELzHEwzQn",
     cta: "Скачать",
     mostPopular: true,
   },
     {
-    title: "Delphi",
+    title: "WoW Snipper",
     price: 12,
     currency: "$",
     frecuency: "month",
     description: "Последняя версия программного обеспечения 2021.10b",
     features: [
-      "Delphi DS150e",
-      "Autocom CDP+",
-      "WoW Snipper",
+      "Delphi 2021.10b",
+      "Autocom 2021.11",
+      "Wurth WoW 5.00.8",
     ],
     href: "https://i.getspace.us/cloud/s/H8rFC8dwz2cTpJJ",
     cta: "Скачать",
@@ -242,7 +242,7 @@ export default function Soft() {
                     {/* features */}
                     <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
                       <p className="mt-6 font-semibold dark:text-neutral-300">
-                        Для приборов:
+                        Программы:
                       </p>
                       {features.map((features) => (
                         <li key={features} className="leading-6 flex">
