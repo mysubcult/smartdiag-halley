@@ -13,8 +13,8 @@ export default function Prefooter() {
         <Link href="https://github.com/humberni/halley" target="_blank">
           <button className="bg-red-500 text-white rounded-full px-6 p-3 font-medium">
             Скачать&nbsp;&nbsp;&nbsp;
-          </button>
-        </Link>
+          </button>&nbsp;&nbsp;&nbsp;
+        </Link>&nbsp;&nbsp;&nbsp;
         <Link href="https://github.com/humberni/halley" target="_blank">
           <button className="bg-red-500 text-white rounded-full px-6 p-3 font-medium">
             Скачать&nbsp;
