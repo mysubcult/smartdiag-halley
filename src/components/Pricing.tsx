@@ -183,7 +183,7 @@ export default function Pricing() {
                     key={title}
                     className={`rounded-lg py-8 relative flex flex-col ${
                       mostPopular
-                        ? "border-rose-300 border-2 border-solid dark:border-rose-500"
+                        ? "border-rose-300 border-2 border-solid dark:border-red-600"
                         : "border-neutral-300 border dark:border-neutral-600"
                     }`}
                   >
@@ -191,7 +191,7 @@ export default function Pricing() {
                       {title}
                     </h3>
                     {mostPopular && (
-                      <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-rose-100 text-rose-500  rounded-full text-sm font-semibold tracking-wide shadow-md">
+                      <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-rose-100 text-red-600  rounded-full text-sm font-semibold tracking-wide shadow-md">
                         Наиболее популярное
                       </p>
                     )}
@@ -206,7 +206,7 @@ export default function Pricing() {
                       target="_blank"
                       className={`mt-4 mx-6 block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
                         mostPopular
-                          ? "bg-rose-500 text-white shadow-md"
+                          ? "bg-red-600 text-white shadow-md"
                           : "bg-black text-white dark:bg-white dark:text-black"
                       }`}
                     >
@@ -220,7 +220,7 @@ export default function Pricing() {
                       </p>
                       {features.map((features) => (
                         <li key={features} className="leading-6 flex">
-                          <CheckIcon className="mt-2 w-3 h-3 text-rose-500 shrink-0" />
+                          <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
                           <span className="ml-3 dark:text-neutral-400">
                             {features}
                           </span>
