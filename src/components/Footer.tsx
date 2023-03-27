@@ -29,11 +29,11 @@ const social = [
 ];
 
 const column1 = [
-  { name: "Home", href: "/" },
-  { name: "Services", href: "#services" },
-  { name: "Pricing", href: "#pricing" },
-  { name: "Faq", href: "#faq" },
-  { name: "Contact", href: "#contact" },
+  { name: "Главная", href: "/" },
+  { name: "О нас", href: "#services" },
+  { name: "Программы", href: "#pricing" },
+  { name: "ЧАВО", href: "#faq" },
+  { name: "Обратная связь", href: "#contact" },
 ];
 
 const column2 = [
