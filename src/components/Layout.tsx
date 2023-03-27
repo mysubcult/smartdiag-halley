@@ -17,32 +17,13 @@ const Layout = (props: any) => {
   };
   return (
     <div className="min-w-[350px] overflow-x-hidden">
-      <Head><script>
-  var LHC_API = LHC_API || {};
-  LHC_API.args = {
-    mode: 'widget',
-    lhc_base_url: 'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/',
-    wheight: 450,
-    wwidth: 350,
-    pheight: 520,
-    pwidth: 500,
-    domain: 'смартдиаг.рф',
-    leaveamessage: true,
-    department: ["1"],
-    theme: "1",
-    check_messages: false,
-    lang: 'rus/'
-  };
-  (function () {
-    var po = document.createElement('script');
-    po.type = 'text/javascript';
-    po.setAttribute('crossorigin', 'anonymous');
-    po.async = true;
-    var date = new Date();
-    po.src = 'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js?' + ("" + date.getFullYear() + date.getMonth() + date.getDate());
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(po, s);
-  })();
+      <Head><script type="text/javascript">
+var LHCFAQOptions = {status_text:'FAQ',url:'replace_me_with_dynamic_url',identifier:''};
+(function() {
+var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+po.src = '//xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/faq/getstatus/(position)/bottom_right/(top)/450/(units)/pixels';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
 </script>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
