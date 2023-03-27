@@ -85,36 +85,6 @@ export default function Footer() {
 
         <div>
           <h3 className="text-sm md:text-xs font-bold pb-4 pt-12 lg:pt-0">
-            COMPANY
-          </h3>
-          {column1.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="hover:text-red-500 md:text-sm my-4 grid"
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
-
-        <div>
-          <h3 className="text-sm md:text-xs font-bold pb-4 pt-12 lg:pt-0">
-            RESOURCES
-          </h3>
-          {column2.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="hover:text-red-500 md:text-sm my-4 grid"
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
-
-        <div>
-          <h3 className="text-sm md:text-xs font-bold pb-4 pt-12 lg:pt-0">
             Навигация
           </h3>
           {column3.map((item) => (
