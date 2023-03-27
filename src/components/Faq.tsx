@@ -27,7 +27,7 @@ const faqitems = [
 export default function Faq() {
   return (
     <div
-      className="bg-white dark:bg-neutral-900"d
+      className="bg-white dark:bg-neutral-900"
       id="faq"
     >
       <h2 className="text-4xl font-bold text-center">
