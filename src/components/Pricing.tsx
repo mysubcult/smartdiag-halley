@@ -136,7 +136,7 @@ const products = [
   },
 ];
 
-type BillingInterval = "year" | "month";
+type BillingInterval = "year" | "month" | "elm";
 
 export default function Pricing() {
   const [billingInterval, setBillingInterval] =
@@ -176,7 +176,7 @@ export default function Pricing() {
             Марочные
           </button>
           <button
-            onClick={() => setBillingInterval("year")}
+            onClick={() => setBillingInterval("elm")}
             type="button"
             className={`${
               billingInterval === "elm"
