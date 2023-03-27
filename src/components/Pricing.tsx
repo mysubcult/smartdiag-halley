@@ -31,7 +31,7 @@ const products = [
     ],
     href: "https://i.getspace.us/cloud/s/H8rFC8dwz2cTpJJ",
     cta: "Скачать",
-    mostPopular: true,
+    mostPopular: false,
   },
   {
     title: "VCDS + Вася",
