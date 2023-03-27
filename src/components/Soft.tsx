@@ -16,7 +16,7 @@ const products = [
     ],
     href: "https://i.getspace.us/cloud/s/ydF5sRELzHEwzQn",
     cta: "Скачать",
-    mostPopular: true,
+    mostPopular: false,
   },
   {
     title: "Autocom CDP+",
