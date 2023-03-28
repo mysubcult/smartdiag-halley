@@ -156,9 +156,6 @@ export default function Contact() {
               </div>
 
 <div className="mb-5">
-  <label htmlFor="topic" className="block mb-1 font-medium text-gray-700 dark:text-white">
-    Тема сообщения
-  </label>
   <select
     id="topic"
     className={`w-full px-4 py-3 border-2 rounded-md outline-none dark:bg-neutral-900 focus:ring-4 ${
