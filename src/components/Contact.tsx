@@ -166,9 +166,11 @@ export default function Contact() {
     {...register("topic", { required: "Выберите тему сообщения" })}
   >
     <option value="">Выберите тему сообщения</option>
-    <option value="Технические вопросы">Технические вопросы</option>
-    <option value="Предложения и идеи">Предложения и идеи</option>
-    <option value="Общие вопросы">Общие вопросы</option>
+    <option value="Вопрос о товаре">Вопрос о товаре</option>
+    <option value="Активация прибора">Активация прибора</option>
+    <option value="Помощь с установкой ПО">Помощь с установкой ПО</option>
+    <option value="Сообщить о проблеме">Сообщить о проблеме</option>
+    <option value="Другое">Другое</option>
   </select>
   {errors.topic && (
     <div className="mt-1 text-rose-500">
