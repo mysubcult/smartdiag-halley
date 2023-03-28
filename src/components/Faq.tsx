@@ -3,19 +3,19 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
 const faqitems = [
   {
-    question: "What is your refund policy?",
+    question: "Я установил программу, но через какое-то время она не запускается, и ярлыки исчезли. Что мне делать?",
     response:
-      "If youre unhappy with your purchase for any reason, email us within 90 days and well refund you in full, no questions asked.",
+      "Наиболее частой причиной такой проблемы является антивирусное ПО. В этом случае вам следует удалить программу полностью с компьютера и затем установить ее заново, следуя инструкции. Не забудьте добавить папку с программой в исключения антивируса после ее установки, чтобы предотвратить повторное блокирование.",
   },
   {
     question: "Do you offer technical support?",
     response:
-      "No, we dont offer technical support for free downloads. Please purchase a support plan to get 6 months of support.",
+      "Нет, для каждого устройства генерируется уникальный ключ активации. Если вы хотите установить программное обеспечение на другое устройство, вам нужно обратиться в техническую поддержку, чтобы мы могли сгенерировать для вас новый ключ активации. Обращайтесь к нам в любое время, мы всегда готовы помочь вам с любыми вопросами по нашему ПО.",
   },
   {
     question: "What is your refund policy?",
     response:
-      "If youre unhappy with your purchase for any reason, email us within 90 days and well refund you in full, no questions asked.",
+      "Конечно, мы готовы помочь всем нашим клиентам с установкой и настройкой программного обеспечения по необходимости. Для этого вам нужно связаться с нами через мобильные мессенджеры или заполнить форму обратной связи на нашем сайте и оставить заявку на помощь в установке. Мы свяжемся с вами в кратчайшие сроки и окажем необходимую помощь. Не стесняйтесь обращаться к нам в любое время, мы всегда готовы помочь вам с любыми вопросами по нашему ПО.",
   },
   {
     question: "What forms of payment do you accept?",
