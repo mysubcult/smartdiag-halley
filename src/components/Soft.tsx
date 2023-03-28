@@ -235,8 +235,6 @@ export default function Soft() {
         </div>
       </div>
 
-import { useState } from "react";
-
 function ProductGrid({ products }) {
   const [visibleProducts, setVisibleProducts] = useState(8);
 
