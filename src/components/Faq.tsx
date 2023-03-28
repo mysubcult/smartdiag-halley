@@ -49,7 +49,7 @@ export default function Faq() {
                     <ChevronDownIcon
                       className={`${
                         open ? "rotate-180 transition-transform" : ""
-                      } h-5 w-5`}
+                      } h-5 w-5 flex-shrink-0`}
                     />
                   </Disclosure.Button>
                   <Disclosure.Panel
