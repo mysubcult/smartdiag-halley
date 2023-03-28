@@ -109,9 +109,9 @@ export default function Navbar() {
                   {item.name}
                 </Disclosure.Button>
               ))}
-              <Link href="https://github.com/humberni/halley" target="_blank">
+              <Link href="https://i.getspace.us/cloud/s/dzkdXFpscgCFsjH" target="_blank">
                 <button className="mt-12 bg-red-600 text-white px-4 p-3 font-medium rounded-full w-full">
-                  Filen.io
+                  Скачать
                 </button>
               </Link>
             </div>
