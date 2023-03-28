@@ -13,6 +13,7 @@ type Info = {
   name: string;
   email: string;
   message: string;
+  topic: string;
 };
 
 export default function Contact() {
