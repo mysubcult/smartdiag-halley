@@ -154,6 +154,32 @@ export default function Contact() {
                 )}
               </div>
 
+<div className="mb-5">
+  <label htmlFor="topic" className="block mb-1 font-medium text-gray-700 dark:text-white">
+    Тема сообщения
+  </label>
+  <select
+    id="topic"
+    className={`w-full px-4 py-3 border-2 rounded-md outline-none dark:bg-neutral-900 focus:ring-4 ${
+      errors.topic
+        ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
+        : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
+    }`}
+    {...register("topic", { required: "Выберите тему сообщения" })}
+  >
+    <option value="">Выберите тему сообщения</option>
+    <option value="Технические вопросы">Технические вопросы</option>
+    <option value="Предложения и идеи">Предложения и идеи</option>
+    <option value="Общие вопросы">Общие вопросы</option>
+  </select>
+  {errors.topic && (
+    <div className="mt-1 text-rose-500">
+      <small>{errors.topic.message}</small>
+    </div>
+  )}
+</div>
+  
+              
               <div className="mb-3">
                 <textarea
                   // name="message"
