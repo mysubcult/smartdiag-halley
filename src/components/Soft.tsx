@@ -235,95 +235,77 @@ export default function Soft() {
         </div>
       </div>
 
-function ProductGrid({ products }) {
-  const [visibleProducts, setVisibleProducts] = useState(8);
-
-  const loadMore = () => {
-    setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 4);
-  };
-
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
-      {products.slice(0, visibleProducts).map(
-        ({
-          title,
-          mostPopular,
-          description,
-          currency,
-          price,
-          frecuency,
-          cta,
-          features,
-          href,
-        }) => {
-          return (
-            <>
-              {billingInterval === frecuency ? (
-                <div
-                  key={title}
-                  className={`rounded-lg py-8 relative flex flex-col ${
-                    mostPopular
-                      ? "border-red-300 border-2 border-solid dark:border-red-600"
-                      : "border-neutral-300 border dark:border-neutral-600"
-                  }`}
-                >
-                  <h3 className="px-6 text-lg font-semibold leading-5">
-                    {title}
-                  </h3>
-                  {mostPopular && (
-                    <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600  rounded-full text-sm font-semibold tracking-wide shadow-md">
-                      Популярное
-                    </p>
-                  )}
-
-                  <p className="px-6 mt-4 leading-6 dark:text-neutral-400">
-                    {description}
-                  </p>
-
-                  {/* Call to action */}
-                  <Link
-                    href={href}
-                    target="_blank"
-                    className={`mt-4 mx-6 block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
+<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
+        {products.map(
+          ({
+            title,
+            mostPopular,
+            description,
+            currency,
+            price,
+            frecuency,
+            cta,
+            features,
+            href,
+          }) => {
+            return (
+              <>
+                {billingInterval === frecuency ? (
+                  <div
+                    key={title}
+                    className={`rounded-lg py-8 relative flex flex-col ${
                       mostPopular
-                        ? "bg-red-600 text-white shadow-md"
-                        : "bg-black text-white dark:bg-white dark:text-black"
+                        ? "border-red-300 border-2 border-solid dark:border-red-600"
+                        : "border-neutral-300 border dark:border-neutral-600"
                     }`}
                   >
-                    {cta}
-                  </Link>
+                    <h3 className="px-6 text-lg font-semibold leading-5">
+                      {title}
+                    </h3>
+                    {mostPopular && (
+                      <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600  rounded-full text-sm font-semibold tracking-wide shadow-md">
+                        Популярное
+                      </p>
+                    )}
 
-                  {/* features */}
-                  <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
-                    <p className="mt-6 font-semibold dark:text-neutral-300">
-                      Программы:
+                    <p className="px-6 mt-4 leading-6 dark:text-neutral-400">
+                      {description}
                     </p>
-                    {features.map((features) => (
-                      <li key={features} className="leading-6 flex">
-                        <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
-                        <span className="ml-3 dark:text-neutral-400">
-                          {features}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-            </>
-          );
-        }
-      )}
-      {visibleProducts < products.length && (
-        <button
-          className="mx-auto my-6 block bg-transparent hover:bg-black text-black font-semibold hover:text-white py-3 px-6 border border-black hover:border-transparent rounded"
-          onClick={loadMore}
-        >
-          Загрузить еще
-        </button>
-      )}
-    </div>
-  );
-}
 
+                    {/* Call to action */}
+                    <Link
+                      href={href}
+                      target="_blank"
+                      className={`mt-4 mx-6 block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
+                        mostPopular
+                          ? "bg-red-600 text-white shadow-md"
+                          : "bg-black text-white dark:bg-white dark:text-black"
+                      }`}
+                    >
+                      {cta}
+                    </Link>
+
+                    {/* features */}
+                    <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
+                      <p className="mt-6 font-semibold dark:text-neutral-300">
+                        Программы:
+                      </p>
+                      {features.map((features) => (
+                        <li key={features} className="leading-6 flex">
+                          <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
+                          <span className="ml-3 dark:text-neutral-400">
+                            {features}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </>
+            );
+          }
+        )}
+      </div>
+    </div> 
   );
 }
