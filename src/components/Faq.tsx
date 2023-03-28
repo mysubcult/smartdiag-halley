@@ -3,19 +3,24 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
 const faqitems = [
   {
-    question: "Я установил программу, но через какое-то время она не запускается, и ярлыки исчезли. Что мне делать?",
+    question: "What is your refund policy?",
     response:
-      "Наиболее частой причиной такой проблемы является антивирусное ПО. В этом случае вам следует удалить программу полностью с компьютера и затем установить ее заново, следуя инструкции. Не забудьте добавить папку с программой в исключения антивируса после ее установки, чтобы предотвратить повторное блокирование.",
+      "If youre unhappy with your purchase for any reason, email us within 90 days and well refund you in full, no questions asked.",
   },
   {
-    question: "Я получил ключ активации, но хочу установить программу на другое устройство. Могу ли я использовать тот же самый ключ?",
+    question: "Do you offer technical support?",
     response:
-      "Нет, для каждого устройства генерируется уникальный ключ активации. Если вы хотите установить программное обеспечение на другое устройство, вам нужно обратиться в техническую поддержку, чтобы мы могли сгенерировать для вас новый ключ активации. Обращайтесь к нам в любое время, мы всегда готовы помочь вам с любыми вопросами по нашему ПО.",
+      "No, we dont offer technical support for free downloads. Please purchase a support plan to get 6 months of support.",
   },
   {
-    question: "У меня не получается установить программное обеспечение, можете ли вы мне помочь?",
+    question: "What is your refund policy?",
     response:
-      "Конечно, мы готовы помочь всем нашим клиентам с установкой и настройкой программного обеспечения по необходимости. Для этого вам нужно связаться с нами через мобильные мессенджеры или заполнить форму обратной связи на нашем сайте и оставить заявку на помощь в установке. Мы свяжемся с вами в кратчайшие сроки и окажем необходимую помощь. Не стесняйтесь обращаться к нам в любое время, мы всегда готовы помочь вам с любыми вопросами по нашему ПО.",
+      "If youre unhappy with your purchase for any reason, email us within 90 days and well refund you in full, no questions asked.",
+  },
+  {
+    question: "What forms of payment do you accept?",
+    response:
+      "You can use any debit or credit card to pay for a subscription. We secure your card details and process payments via Stripe. Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
   },
 ];
 
@@ -26,11 +31,12 @@ export default function Faq() {
       id="faq"
     >
       <h2 className="text-4xl font-bold text-center">
-        Часто задаваемые вопросы (FAQ) ❓
+        Frequently Asked Questions
       </h2>
 
       <p className="pt-6 pb-16 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-        Здесь вы можете найти полезную информацию о наших товарах и услугах, оплате, доставке, гарантии, возврате и других аспектах, которые могут вас интересовать. Этот раздел был создан для вашего удобства, чтобы вы могли быстро получить ответы на свои вопросы и сэкономить время на общении с нашей поддержкой.
+        Answer your customers possible questions here, it will increase the
+        conversion rate as well as support or chat requests.
       </p>
       <div className="mx-auto w-full max-w-2xl rounded-2xl bg-transparent dark:bg-transparent">
         {faqitems.map(({ question, response }) => (
