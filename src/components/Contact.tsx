@@ -158,7 +158,7 @@ export default function Contact() {
 <div className="mb-5">
   <select
     id="topic"
-    className={`w-full px-5 py-3 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4  ${
+    className={`w-full px-4 py-3 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4  ${
       errors.topic
         ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
         : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
@@ -281,7 +281,7 @@ export default function Contact() {
               </svg>
 
               <h3 className=" py-5 text-2xl font-medium text-rose-500">
-                Oops, Something went wrong!
+                Упс, что-то пошло не так!
               </h3>
               <p className="text-neutral-900 dark:text-neutral-300 md:px-4">
                 {Message}
