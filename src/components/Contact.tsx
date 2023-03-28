@@ -172,6 +172,30 @@ export default function Contact() {
                 )}
               </div>
 
+              <div className="mb-3">
+                <select>
+                  <option value="">--Please choose an option--</option>
+    <option value="dog">Dog</option>
+    <option value="cat">Cat</option>
+    <option value="hamster">Hamster</option>
+    <option value="parrot">Parrot</option>
+    <option value="spider">Spider</option>
+    <option value="goldfish">Goldfish</option>
+                  placeholder="Введите ваше сообщение"
+                  className={`w-full px-4 py-3 border-2 placeholder:text-neutral-800 dark:text-white dark:placeholder:text-neutral-200 dark:bg-neutral-900   rounded-md outline-none  h-36 focus:ring-4  ${
+                    errors.message
+                      ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
+                      : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
+                  }`}
+                  {...register("message", { required: "Необходимо ввести текст сообщения" })}
+                />
+                {errors.message && (
+                  <div className="mt-1 text-rose-500">
+                    <small>{errors.message.message}</small>
+                  </div>
+                )}
+              </div>   
+              
               <button
                 type="submit"
                 className="w-full py-4 font-semibold text-white transition-colors bg-neutral-900 rounded-md hover:bg-neutral-800 focus:outline-none focus:ring-offset-2 focus:ring focus:ring-neutral-200 px-7 dark:bg-white dark:text-black "
