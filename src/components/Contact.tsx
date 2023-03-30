@@ -155,21 +155,19 @@ export default function Contact() {
                 )}
               </div>
 
-<div className="mb-3">
+<div className="mb-3 relative">
   <label htmlFor="topic" className="sr-only">
     Тема сообщения
   </label>
   <select
     id="topic"
-    placeholder="Введите тему сообщения"
     autoComplete="off"
-    // name="topic"
-    className={`w-full px-4 py-3.5 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4 bg-white ${
+    className={`w-full px-4 py-3.5 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4 bg-white appearance-none ${
       errors.topic
-        ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
+        ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:border-rose-500 dark:focus:border-white dark:ring-0"
         : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
     }`}
-style={{ paddingLeft: '6px', textIndent: '6px' }}
+    style={{ paddingLeft: '6px', textIndent: '6px', paddingRight: '2rem' }}
     {...register("topic", { required: "Выберите тему сообщения" })}
   >
     <option value="">Выберите тему сообщения</option>
@@ -179,12 +177,26 @@ style={{ paddingLeft: '6px', textIndent: '6px' }}
     <option value="Сообщить о проблеме">Сообщить о проблеме</option>
     <option value="Другое">Другое</option>
   </select>
+  <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+    <svg
+      className="w-4 h-4 fill-current text-gray-400"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M14.707 7.293a1 1 0 00-1.414 0L10 10.586 6.707 7.293a1 1 0 00-1.414 1.414l3.707 3.707a1 1 0 001.414 0l3.707-3.707a1 1 0 000-1.414z"
+        clipRule="evenodd"
+        fillRule="evenodd"
+      ></path>
+    </svg>
+  </div>
   {errors.topic && (
     <div className="mt-1 text-rose-500">
       <small>{errors.topic.message}</small>
     </div>
   )}
 </div>
+
               
               <div className="mb-3">
                 <textarea
