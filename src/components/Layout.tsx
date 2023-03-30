@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
@@ -17,15 +16,8 @@ const Layout = (props: any) => {
 
   return (
     <div className="min-w-[350px] overflow-x-hidden">
-      <Head><script>var LHC_API = LHC_API||{};
-LHC_API.args = {mode:'widget',lhc_base_url:'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/',wheight:450,wwidth:350,pheight:520,pwidth:500,domain:'смартдиаг.рф',leaveamessage:true,department:["1"],theme:"1",check_messages:false,lang:'rus/'};
-(function() {
-var po = document.createElement('script'); po.type = 'text/javascript'; po.setAttribute('crossorigin','anonymous'); po.async = true;
-var date = new Date();po.src = 'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js?'+(""+date.getFullYear() + date.getMonth() + date.getDate());
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-})();
-</script>
-   <title>{meta.title}</title>
+      <Head>
+        <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
         <link href="/favicon.ico" rel="shortcut icon" />
         <meta content={meta.description} name="description" />
@@ -38,14 +30,25 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
         <meta property="og:description" content={meta.description} />
         <meta property="og:title" content={meta.title} />
         <meta property="og:image" content={meta.image} />
-       
-
+        <script
+          type="text/javascript"
+          src="https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js"
+          async
+          defer
+          crossOrigin="anonymous"
+        ></script>
+        <style jsx global>{`
+          .lhc_widget_container {
+            background-color: transparent !important;
+            box-shadow: none !important;
+          }
+        `}</style>
       </Head>
 
       <main id="skip" className="bg-white dark:bg-neutral-900">
         <Navbar />
         {children}
-        <Prefooter />   
+        <Prefooter />
         <Footer />
       </main>
     </div>
