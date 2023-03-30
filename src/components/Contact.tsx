@@ -162,7 +162,7 @@ export default function Contact() {
   <select
     id="topic"
     autoComplete="off"
-    name="topic"
+    // name="topic"
     className={`w-full px-4 py-3 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4 ${
       errors.topic
         ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
