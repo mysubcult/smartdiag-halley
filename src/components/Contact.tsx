@@ -169,7 +169,7 @@ export default function Contact() {
         ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
         : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
     }`}
-style={{ paddingLeft: '1rem', textIndent: '1rem' }}
+style={{ paddingLeft: '4px', textIndent: '4px' }}
     {...register("topic", { required: "Выберите тему сообщения" })}
   >
     <option value="">Выберите тему сообщения</option>
