@@ -155,7 +155,7 @@ export default function Contact() {
                 )}
               </div>
 
-<div className="mb-5">
+<div className="mb-3">
   <select
     id="topic"
     className={`w-full px-4 py-3 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4  ${
