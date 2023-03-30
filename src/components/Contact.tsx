@@ -161,7 +161,6 @@ export default function Contact() {
   </label>
   <select
     id="topic"
-    type="email"
     placeholder="Введите ваш Email"
     autoComplete="off"
     // name="topic"
