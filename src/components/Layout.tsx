@@ -18,19 +18,8 @@ const Layout = (props: any) => {
   };
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.setAttribute("crossorigin", "anonymous");
-    script.async = true;
-    script.src =
-      "https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js";
-
-    const date = new Date();
-    script.src +=
-      "?" + ("" + date.getFullYear() + date.getMonth() + date.getDate());
-
-    script.onload = () => {
-      var LHC_API = (window.LHC_API = {});
+    window.onload = function () {
+      var LHC_API = LHC_API || {};
       LHC_API.args = {
         mode: "widget",
         lhc_base_url: "https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/",
@@ -45,13 +34,18 @@ const Layout = (props: any) => {
         check_messages: false,
         lang: "rus/",
       };
-    };
-
-    const s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(script, s);
-
-    return () => {
-      document.body.removeChild(script);
+      (function () {
+        var po = document.createElement("script");
+        po.type = "text/javascript";
+        po.setAttribute("crossorigin", "anonymous");
+        po.async = true;
+        var date = new Date();
+        po.src =
+          "https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js?" +
+          ("" + date.getFullYear() + date.getMonth() + date.getDate());
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(po, s);
+      })();
     };
   }, []);
 
