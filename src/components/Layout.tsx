@@ -18,20 +18,6 @@ const Layout = (props: any) => {
   return (
     <div className="min-w-[350px] overflow-x-hidden">
       <Head>
-        <title>{meta.title}</title>
-        <meta name="robots" content="follow, index" />
-        <link href="/favicon.ico" rel="shortcut icon" />
-        <meta content={meta.description} name="description" />
-        <meta
-          property="og:url"
-          content={`https://halley.vercel.app${router.asPath}`}
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content={meta.title} />
-        <meta property="og:description" content={meta.description} />
-        <meta property="og:title" content={meta.title} />
-        <meta property="og:image" content={meta.image} />
-        
 <script>
   {
     `
@@ -45,6 +31,20 @@ const Layout = (props: any) => {
     `
   }
 </script>
+        <title>{meta.title}</title>
+        <meta name="robots" content="follow, index" />
+        <link href="/favicon.ico" rel="shortcut icon" />
+        <meta content={meta.description} name="description" />
+        <meta
+          property="og:url"
+          content={`https://halley.vercel.app${router.asPath}`}
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={meta.title} />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:image" content={meta.image} />
+       
 
       </Head>
 
