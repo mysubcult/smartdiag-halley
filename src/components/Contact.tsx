@@ -201,7 +201,7 @@ export default function Contact() {
               <div className="mb-3">
                 <textarea
                   // name="message"
-                  placeholder="Введите ваше сообщение"
+                  placeholder={watch("topic") === "Активация прибора" ? "Введите код активации" : "Введите ваше сообщение"}
                   className={`w-full px-4 py-3 border-2 placeholder:text-neutral-800 dark:text-white dark:placeholder:text-neutral-200 dark:bg-neutral-900   rounded-md outline-none  h-36 focus:ring-4  ${
                     errors.message
                       ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
