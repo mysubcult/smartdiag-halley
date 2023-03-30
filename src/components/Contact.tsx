@@ -19,6 +19,7 @@ type Info = {
 export default function Contact() {
   const {
     register,
+    watch,
     handleSubmit,
     reset,
     formState: { errors, isSubmitSuccessful, isSubmitting },
