@@ -1,12 +1,11 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Prefooter from "./Prefooter";
-import Script from "next/script";
 
-const Layout = (props: any) => {
-  const { children, ...customMeta } = props;
+const Layout = ({ children, ...customMeta }) => {
   const router = useRouter();
   const meta = {
     title: "SmartDiag",
@@ -16,6 +15,20 @@ const Layout = (props: any) => {
     ...customMeta,
   };
 
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.setAttribute("src", "https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js");
+    script.setAttribute("crossorigin", "anonymous");
+    script.setAttribute("async", "");
+    script.setAttribute("id", "lhcChatWidget");
+    script.setAttribute("data-pnkey", "your_public_key"); // replace with your actual public key
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <div className="min-w-[350px] overflow-x-hidden">
       <Head>
@@ -23,7 +36,7 @@ const Layout = (props: any) => {
         <meta name="robots" content="follow, index" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="description" content={meta.description} />
-        <meta property="og:url" content={`https://смартдиаг.рф${router.asPath}`} />
+        <meta property="og:url" content={`https://halley.vercel.app${router.asPath}`} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content={meta.title} />
         <meta property="og:description" content={meta.description} />
@@ -31,40 +44,10 @@ const Layout = (props: any) => {
         <meta property="og:image" content={meta.image} />
       </Head>
 
-      <Script strategy="beforeInteractive">
-        {`
-          var LHC_API = LHC_API||{};
-          LHC_API.args = {
-            mode:'widget',
-            lhc_base_url:'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/',
-            wheight:450,
-            wwidth:350,
-            pheight:520,
-            pwidth:500,
-            domain:'смартдиаг.рф',
-            leaveamessage:true,
-            department:["1"],
-            theme:"1",
-            check_messages:false,
-            lang:'rus/'
-          };
-          (function() {
-            var po = document.createElement('script');
-            po.type = 'text/javascript';
-            po.setAttribute('crossorigin','anonymous');
-            po.async = true;
-            var date = new Date();
-            po.src = 'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js?'+(""+date.getFullYear() + date.getMonth() + date.getDate());
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(po, s);
-          })();
-        `}
-      </Script>
-
       <main id="skip" className="bg-white dark:bg-neutral-900">
         <Navbar />
         {children}
-        <Prefooter />   
+        <Prefooter />
         <Footer />
       </main>
     </div>
