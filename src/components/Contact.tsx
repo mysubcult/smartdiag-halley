@@ -156,9 +156,13 @@ export default function Contact() {
               </div>
 
 <div className="mb-3">
+  <label htmlFor="email_address" className="sr-only">
+                  Email Address
+                </label>
   <select
     id="topic"
     placeholder="Введите ваш Email"
+    autoComplete="false"
     className={`w-full px-4 py-3.5 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4  ${
       errors.topic
         ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
