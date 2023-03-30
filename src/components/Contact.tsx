@@ -155,7 +155,7 @@ export default function Contact() {
                 )}
               </div>
 
-<div className="mb-3 relative">
+<div className="mb-3 sr-only">
   <label htmlFor="topic" className="sr-only">
     Тема сообщения
   </label>
