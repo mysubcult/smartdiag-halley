@@ -161,15 +161,14 @@ export default function Contact() {
   </label>
   <select
     id="topic"
-    placeholder="Введите ваш Email"
+    placeholder="Введите тему сообщения"
     autoComplete="off"
     // name="topic"
-    className={`w-full px-4 py-3.5 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4 ${
+    className={`w-full px-4 py-3.5 mb-5 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4 ${
       errors.topic
         ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
         : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
     }`}
-  style={{ paddingLeft: 0, textIndent: 0 }}
     {...register("topic", { required: "Выберите тему сообщения" })}
   >
     <option value="">Выберите тему сообщения</option>
