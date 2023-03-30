@@ -161,6 +161,8 @@ export default function Contact() {
   </label>
   <select
     id="topic"
+    type="email"
+    placeholder="Введите ваш Email"
     autoComplete="off"
     // name="topic"
     className={`w-full px-4 py-3.5 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4 ${
