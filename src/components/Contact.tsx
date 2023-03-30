@@ -156,14 +156,14 @@ export default function Contact() {
               </div>
 
 <div className="mb-3">
-  <label htmlFor="email_address" className="sr-only">
-                  Email Address
-                </label>
+  <label htmlFor="topic" className="sr-only">
+    Тема сообщения
+  </label>
   <select
     id="topic"
-    placeholder="Введите ваш Email"
-    autoComplete="false"
-    className={`w-full px-4 py-3.5 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4  ${
+    autoComplete="off"
+    name="topic"
+    className={`w-full px-4 py-3 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4 ${
       errors.topic
         ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
         : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
@@ -183,7 +183,6 @@ export default function Contact() {
     </div>
   )}
 </div>
-  
               
               <div className="mb-3">
                 <textarea
