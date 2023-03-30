@@ -23,7 +23,7 @@ export default function Contact() {
     reset,
     formState: { errors, isSubmitSuccessful, isSubmitting },
   } = useForm<Info, any>({
-    mode: "onTouched",
+    mode: "onSubmit",
   });
 
   const [isSuccess, setIsSuccess] = React.useState(false);
