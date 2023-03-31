@@ -19,7 +19,7 @@ export default function Document() {
           defer
         />
       </Head>
-      <body className="bg-black dark:bg-white">
+      <body>
         <Main />
         <NextScript />
       </body>
