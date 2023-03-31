@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 export function Hero() {
   return (
@@ -27,7 +25,7 @@ export function Hero() {
             <div>
               <Link href="#contact">
                 <button className="bg-red-600 text-white text-base rounded-full px-4 p-2 font-medium">
-                  Обратная связь <FontAwesomeIcon icon={faArrowRight} />
+                  Обратная связь
                 </button>
               </Link>
             </div>
