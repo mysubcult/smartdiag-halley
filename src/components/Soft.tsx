@@ -205,7 +205,7 @@ export default function Soft() {
             className={`${
               billingInterval === "month"
                 ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                : "ml-0.5 relative w-1/2 text-neutral-900 dark:text-neutral-400"
+                : "relative w-1/2 text-neutral-900 dark:text-neutral-400"
             } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8`}
           >
             Мультимарочные
@@ -216,7 +216,7 @@ export default function Soft() {
             className={`${
               billingInterval === "year"
                 ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                : "ml-0.5 relative w-1/2 text-neutral-900 dark:text-neutral-400"
+                : "relative w-1/2 text-neutral-900 dark:text-neutral-400"
             } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8`}
           >
             Марочные
