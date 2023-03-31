@@ -52,7 +52,7 @@ export default function Navbar() {
                         className={classNames(
                           item.current
                             ? "text-neutral-900 dark:text-neutral-400 "
-                            : "text-neutral-900 dark:text-neutral-400 hover:bg-gradient-to-r from-neutral-900 to-neutral-400",
+                            : "text-neutral-900 dark:text-neutral-400 hover:underline",
                           "text-base font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
