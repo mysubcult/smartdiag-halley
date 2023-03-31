@@ -18,19 +18,17 @@ const Layout = (props: any) => {
   };
 
   useEffect(() => {
-    const po = document.createElement("script");
-    po.type = "text/javascript";
-    po.setAttribute("crossorigin", "anonymous");
-    po.async = false;
-    po.onload = () => {
-      console.log("Script loaded!");
+    const script = document.createElement("script");
+    script.src =
+      "https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js";
+    script.async = true;
+    script.setAttribute("crossorigin", "anonymous");
+    script.onload = () => console.log("Script loaded!");
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
     };
-    const date = new Date();
-    po.src =
-      "https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js?" +
-      ("" + date.getFullYear() + date.getMonth() + date.getDate());
-    const s = document.getElementsByTagName("script")[0];
-    s.parentNode?.insertBefore(po, s);
   }, []);
 
   return (
