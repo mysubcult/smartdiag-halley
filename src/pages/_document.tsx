@@ -5,7 +5,6 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <script
-          className="bg-black dark:bg-white"
           dangerouslySetInnerHTML={{
             __html: `
               var LHC_API = LHC_API||{};
