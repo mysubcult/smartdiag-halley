@@ -4,7 +4,11 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <script
+      </Head>
+      <body>
+        <Main />
+        <NextScript />
+              <script
           dangerouslySetInnerHTML={{
             __html: `
               var LHC_API = LHC_API||{};
@@ -18,10 +22,6 @@ export default function Document() {
           }}
           defer
         />
-      </Head>
-      <body>
-        <Main />
-        <NextScript />
       </body>
     </Html>
   )
