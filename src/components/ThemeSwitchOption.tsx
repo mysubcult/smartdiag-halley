@@ -8,20 +8,7 @@ const ThemeSwitchOption = () => {
     // useEffect only runs on the client, so now we can safely show the UI
     useEffect(() => {
         setMounted(true)
-
-        // add script on theme change
-        const script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.setAttribute('crossorigin', 'anonymous');
-        script.async = true;
-        script.src = `https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js?${new Date().getFullYear()}${new Date().getMonth()}${new Date().getDate()}`;
-        document.head.appendChild(script);
-
-        // cleanup function to remove script on unmount and theme change
-        return () => {
-            document.head.removeChild(script);
-        }
-    }, [theme])
+    }, [])
 
     if (!mounted) {
         return null
