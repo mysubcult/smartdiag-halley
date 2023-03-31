@@ -156,7 +156,7 @@ export default function Contact() {
                 )}
               </div>
 
-<div className="mb-3 relative">
+<div className="mb-3 relative flex items-center">
   <label htmlFor="topic" className="sr-only">
     Тема сообщения
   </label>
@@ -178,7 +178,7 @@ export default function Contact() {
     <option value="Сообщить о проблеме">Сообщить о проблеме</option>
     <option value="Другое">Другое</option>
   </select>
-  <div className="absolute right-2 flex items-center pointer-events-none">
+  <div className="absolute right-2 pointer-events-none" style={{ top: '50%', transform: 'translateY(-50%)' }}>
     <svg
       className="w-6 h-6 fill-current text-gray-400"
       viewBox="0 0 20 20"
