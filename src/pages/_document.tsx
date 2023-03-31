@@ -17,24 +17,6 @@ export default function Document() {
             `
           }}
         />
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-              .lhc-chat-widget-button.lhc-chat-widget-button-closed {
-                background-color: #222;
-              }
-              .lhc-chat-widget-button.lhc-chat-widget-button-closed:hover {
-                background-color: #444;
-              }
-              .lhc-chat-widget-button.lhc-chat-widget-button-opened {
-                background-color: #fff;
-              }
-              .lhc-chat-widget-button.lhc-chat-widget-button-opened:hover {
-                background-color: #eee;
-              }
-            `
-          }}
-        />
       </Head>
       <body>
         <Main />
