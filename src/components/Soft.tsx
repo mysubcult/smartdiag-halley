@@ -204,9 +204,9 @@ export default function Soft() {
       type="button"
       className={`${
         billingInterval === "month"
-          ? "relative w-36 h-10 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "ml-0.5 relative w-36 h-10 text-neutral-900 dark:text-neutral-400"
-      } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+          ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "ml-0.5 relative w-1/2 text-neutral-900 dark:text-neutral-400"
+      } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8 flex-shrink-0 flex-grow-1`}
     >
       Мультимарочные
     </button>
@@ -215,9 +215,9 @@ export default function Soft() {
       type="button"
       className={`${
         billingInterval === "year"
-          ? "relative w-36 h-10 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "ml-0.5 relative w-36 h-10 text-neutral-900 dark:text-neutral-400"
-      } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+          ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "ml-0.5 relative w-1/2 text-neutral-900 dark:text-neutral-400"
+      } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8 flex-shrink-0 flex-grow-1`}
     >
       Марочные
     </button>
@@ -226,14 +226,15 @@ export default function Soft() {
       type="button"
       className={`${
         billingInterval === "elm"
-          ? "relative w-36 h-10 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "ml-0.5 relative w-36 h-10 text-neutral-900 dark:text-neutral-400"
-      } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+          ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "ml-0.5 relative w-1/2 text-neutral-900 dark:text-neutral-400"
+      } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8 flex-shrink-0 flex-grow-1`}
     >
       Приложения ELM
     </button>
   </div>
 </div>
+
 
 
 
