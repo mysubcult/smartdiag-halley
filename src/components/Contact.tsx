@@ -178,7 +178,7 @@ export default function Contact() {
     <option value="Сообщить о проблеме">Сообщить о проблеме</option>
     <option value="Другое">Другое</option>
   </select>
-  <div className="inset-y-0 right-2 flex items-center px-2 pointer-events-none">
+  <div className="inset-y-0 right-2 flex items-center justify-center pointer-events-none">
     <svg
       className="w-6 h-6 fill-current text-gray-400"
       viewBox="0 0 20 20"
