@@ -156,7 +156,7 @@ export default function Contact() {
                 )}
               </div>
 
-<div className="mb-3 relative flex items-center">
+<div className="mb-3 relative">
   <label htmlFor="topic" className="sr-only">
     Тема сообщения
   </label>
@@ -178,7 +178,7 @@ export default function Contact() {
     <option value="Сообщить о проблеме">Сообщить о проблеме</option>
     <option value="Другое">Другое</option>
   </select>
-  <div className="absolute right-2 pointer-events-none" style={{ top: '50%', transform: 'translateY(-50%)' }}>
+  <div className="absolute inset-y-0 right-2 flex items-center px-2 pointer-events-none">
     <svg
       className="w-6 h-6 fill-current text-gray-400"
       viewBox="0 0 20 20"
@@ -192,7 +192,7 @@ export default function Contact() {
     </svg>
   </div>
   {errors.topic && (
-    <div className="absolute mt-1 text-rose-500">
+    <div className="mt-1 text-rose-500">
       <small>{errors.topic.message}</small>
     </div>
   )}
@@ -206,7 +206,7 @@ export default function Contact() {
   watch("topic") === "Активация прибора" 
     ? "В зависимости от типа прибора, необходимо предоставить соответствующую информацию, такую как серийный номер, идентификационный номер системы и т.п."
     : watch("topic") === "Помощь с установкой ПО"
-      ? "Введите ваше сообщение. Уточните модель прибора и удобное для вас время, когда мы можем связаться с вами для дистанционной установки ПО."
+      ? "Тест"
       : "Введите ваше сообщение"
 }
                   className={`w-full px-4 py-3 border-2 placeholder:text-neutral-400 dark:text-white dark:placeholder:text-neutral-500 dark:bg-neutral-900   rounded-md outline-none  h-36 focus:ring-4  ${
