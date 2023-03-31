@@ -43,25 +43,25 @@ export default function Navbar() {
                   </Link>
                 </div>
 
-                <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-5 items-center">
-                    {navigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? "text-neutral-900 dark:text-neutral-400 "
-                            : "text-neutral-900 dark:text-neutral-400 hover:bg-gradient-to-r from-neutral-900 to-neutral-400",
-                          "text-base font-medium"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
+<div className="hidden sm:ml-6 sm:block">
+  <div className="flex space-x-5 items-center">
+    {navigation.map((item) => (
+      <Link
+        key={item.name}
+        href={item.href}
+        className={classNames(
+          "text-base font-medium",
+          item.current
+            ? "text-neutral-900 dark:text-neutral-400"
+            : "text-neutral-900 dark:text-neutral-400 bg-gradient-to-r from-neutral-900 to-neutral-400 hover:bg-gradient-to-r"
+        )}
+        aria-current={item.current ? "page" : undefined}
+      >
+        {item.name}
+      </Link>
+    ))}
+  </div>
+</div>
 
                 <div className="absolute inset-y-0 right-10 sm:right-0 flex items-center gap-2">
                   <Link
