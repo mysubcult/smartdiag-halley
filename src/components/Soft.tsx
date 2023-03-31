@@ -199,7 +199,7 @@ export default function Soft() {
 
 <div className="mx-auto px-4 sm:px-6 lg:px-8 sm:flex sm:flex-col sm:align-center">
   <div className="relative self-center text-base font-semibold mt-6 bg-neutral-200  dark:bg-neutral-800 rounded-lg flex sm:mt-8">
-    <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+    <div style={{ display: "flex", justifyContent: "center", width: "100%", flexWrap: "wrap" }}>
       <button
         onClick={() => setBillingInterval("month")}
         type="button"
@@ -208,6 +208,7 @@ export default function Soft() {
             ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
             : "ml-0.5 relative w-1/2 text-neutral-900 dark:text-neutral-400"
         } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8`}
+        style={{ flexBasis: "100%", maxWidth: "100%" }}
       >
         Мультимарочные
       </button>
@@ -219,6 +220,7 @@ export default function Soft() {
             ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
             : "ml-0.5 relative w-1/2 text-neutral-900 dark:text-neutral-400"
         } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8`}
+        style={{ flexBasis: "100%", maxWidth: "100%" }}
       >
         Марочные
       </button>
@@ -230,6 +232,7 @@ export default function Soft() {
             ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
             : "ml-0.5 relative w-1/2 text-neutral-900 dark:text-neutral-400"
         } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8`}
+        style={{ flexBasis: "100%", maxWidth: "100%" }}
       >
         Приложения ELM
       </button>
@@ -237,8 +240,13 @@ export default function Soft() {
   </div>
 </div>
 
-
-
+<style>
+@media screen and (max-width: 640px) {
+  .rounded-md {
+    margin: 5px 0;
+  }
+}
+</style>
 
 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {products.map(
