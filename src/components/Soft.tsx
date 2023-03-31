@@ -204,8 +204,8 @@ export default function Soft() {
       type="button"
       className={`${
         billingInterval === "month"
-          ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "ml-0.5 relative w-1/2 text-neutral-900 dark:text-neutral-400"
+          ? "relative w-1/3 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "ml-0.5 relative w-1/3 text-neutral-900 dark:text-neutral-400"
       } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8 flex-shrink-0 flex-grow-1`}
     >
       Мультимарочные
@@ -215,8 +215,8 @@ export default function Soft() {
       type="button"
       className={`${
         billingInterval === "year"
-          ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "ml-0.5 relative w-1/2 text-neutral-900 dark:text-neutral-400"
+          ? "relative w-1/3 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "ml-0.5 relative w-1/3 text-neutral-900 dark:text-neutral-400"
       } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8 flex-shrink-0 flex-grow-1`}
     >
       Марочные
@@ -226,8 +226,8 @@ export default function Soft() {
       type="button"
       className={`${
         billingInterval === "elm"
-          ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "ml-0.5 relative w-1/2 text-neutral-900 dark:text-neutral-400"
+          ? "relative w-1/3 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "ml-0.5 relative w-1/3 text-neutral-900 dark:text-neutral-400"
       } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8 flex-shrink-0 flex-grow-1`}
     >
       Приложения ELM
