@@ -16,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider attribute="class">
         <Head>
           <script
+            data-iframe="false"
             dangerouslySetInnerHTML={{
               __html: `
                 var LHC_API = LHC_API||{};
