@@ -61,8 +61,8 @@ export default function Footer() {
               className="h-10 w-auto"
               src="/images/logos/logo.png"
               alt="SmartDiag"
-              width={180}
-              height={180}
+              width={256}
+              height={117}
               quality={100}
               sizes="100vw"
             />
