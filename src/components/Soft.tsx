@@ -197,14 +197,19 @@ export default function Soft() {
         </p>
       </div>
 
-<div class="mx-auto px-4 sm:px-6 lg:px-8">
-  <div class="relative self-center text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg sm:mt-8 flex flex-col items-center sm:flex-row sm:justify-center sm:flex-wrap">
-    <button onClick={() => setBillingInterval("month")} type="button" class="relative w-full sm:w-auto text-center sm:text-left ${billingInterval === "month" ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100" : "ml-0.5 text-neutral-900 dark:text-neutral-400"} rounded-md m-1 py-2 whitespace-nowrap sm:px-8">
-      Мультимарочные
-    </button>
-  </div>
-</div>
-
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 sm:flex sm:flex-col sm:align-center">
+        <div className="relative self-center text-base font-semibold mt-6 bg-neutral-200  dark:bg-neutral-800 rounded-lg flex sm:mt-8">
+          <button
+            onClick={() => setBillingInterval("month")}
+            type="button"
+            className={`${
+              billingInterval === "month"
+                ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                : "ml-0.5 relative w-1/2 text-neutral-900 dark:text-neutral-400"
+            } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8`}
+          >
+            Мультимарочные
+          </button>
           <button
             onClick={() => setBillingInterval("year")}
             type="button"
