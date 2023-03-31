@@ -34,9 +34,9 @@ export default function Navbar() {
                     <Image
                       className="block h-12 w-auto"
                       src="/images/logos/logo.png"
-                      alt="Logo Your Company"
-                      width={180}
-                      height={180}
+                      alt="SmartDiag"
+                      width={256}
+                      height={117}
                       quality={100}
                       sizes="100vw"
                     />
