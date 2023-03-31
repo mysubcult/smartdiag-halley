@@ -235,6 +235,8 @@ export default function Soft() {
         </div>
       </div>
 
+import { useState } from "react";
+
 function ProductList({ products, billingInterval }) {
   const [showMore, setShowMore] = useState(false);
 
