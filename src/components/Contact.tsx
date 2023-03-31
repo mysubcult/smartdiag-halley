@@ -206,7 +206,7 @@ export default function Contact() {
   watch("topic") === "Активация прибора" 
     ? "В зависимости от типа прибора, необходимо предоставить соответствующую информацию, такую как серийный номер, идентификационный номер системы и т.п."
     : watch("topic") === "Помощь с установкой ПО"
-      ? "Тест"
+      ? "Введите ваше сообщение. Уточните модель прибора и удобное для вас время, когда мы можем связаться с вами для дистанционной установки ПО."
       : "Введите ваше сообщение"
 }
                   className={`w-full px-4 py-3 border-2 placeholder:text-neutral-400 dark:text-white dark:placeholder:text-neutral-500 dark:bg-neutral-900   rounded-md outline-none  h-36 focus:ring-4  ${
