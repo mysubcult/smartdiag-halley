@@ -192,13 +192,13 @@ export default function Soft() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
 
-        <p className="pt-6 text-base max-w-1xl text-center m-auto dark:text-neutral-400">
+        <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
           В данном разделе сайта собраны все необходимые программы для оборудования. Чтобы загрузить ПО, нужно выбрать оборудование из списка и нажать кнопку &quot;Скачать&quot;. Далее откроется окно, где можно выбрать желаемую версию программы. Чтобы начать загрузку, нужно нажать на иконку с тремя точками рядом с версией и выбрать &quot;Скачать&quot;.
         </p>
       </div>
 
       <div className="mx-auto px-4 sm:px-6 lg:px-8 sm:flex sm:flex-col sm:align-center flex-wrap">
-        <div className="relative self-center text-base font-semibold mt-6 bg-neutral-200  dark:bg-neutral-800 rounded-lg flex sm:mt-8 flex-wrap">
+        <div className="relative self-center font-semibold mt-6 bg-neutral-200  dark:bg-neutral-800 rounded-lg flex sm:mt-8 flex-wrap">
           <button
             onClick={() => setBillingInterval("month")}
             type="button"
