@@ -192,7 +192,7 @@ export default function Contact() {
     </svg>
   </div>
   {errors.topic && (
-    <div className="mt-1 text-rose-500">
+    <div className="absolute mt-1 text-rose-500">
       <small>{errors.topic.message}</small>
     </div>
   )}
