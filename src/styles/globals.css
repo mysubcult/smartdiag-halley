@@ -3,8 +3,14 @@
 @tailwind utilities;
 
 ::selection {
-    @apply bg-red-600 text-white ;
+    @apply bg-red-600 text-white;
 }
+
 #lhc_status_container {
-  background-color: transparent;
+    background-color: transparent;
+}
+
+#lhc_status_container i,
+#lhc_status_container a {
+    background-color: transparent;
 }
