@@ -11,57 +11,42 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={`${inter.variable} font-sans`}>
-      <ThemeProvider attribute="class">
+    <ThemeProvider attribute="class">
+      <div className={`${inter.variable} font-sans`}>
         <Component {...pageProps} />
         <Analytics />
-      </ThemeProvider>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            var LHC_API = LHC_API || {};
-            LHC_API.args = {
-              mode: 'widget',
-              lhc_base_url: 'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/',
-              wheight: 450,
-              wwidth: 350,
-              pheight: 520,
-              pwidth: 500,
-              domain: 'смартдиаг.рф',
-              leaveamessage: true,
-              department: ['1'],
-              theme: '1',
-              check_messages: false,
-              lang: 'rus/'
-            };
-            (function() {
-              var po = document.createElement('script');
-              po.type = 'text/javascript';
-              po.setAttribute('crossorigin', 'anonymous');
-              po.async = true;
-              var date = new Date();
-              po.src = 'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js?' + ('' + date.getFullYear() + date.getMonth() + date.getDate());
-              var s = document.getElementsByTagName('script')[0];
-              s.parentNode.insertBefore(po, s);
-            })();
-
-            // добавляем функцию, чтобы изменить тему виджета в зависимости от темы сайта
-            function setWidgetTheme(theme) {
-              var s = document.createElement('style');
-              s.textContent = '.online-chat-widget { --color-widget-bg: ' + (theme === 'light' ? '#f7f7f7' : '#121212') + '; --color-widget-text: ' + (theme === 'light' ? '#121212' : '#f7f7f7') + '; }';
-              document.head.appendChild(s);
-            }
-
-            // вызываем функцию для первичной установки темы виджета
-            setWidgetTheme(localStorage.getItem('theme'));
-
-            // обрабатываем событие смены темы сайта и изменяем тему виджета
-            document.addEventListener('themeChange', (event) => {
-              setWidgetTheme(event.detail);
-            });
-          `
-        }}
-      />
-    </main>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              var LHC_API = LHC_API || {};
+              LHC_API.args = {
+                mode: 'widget',
+                lhc_base_url: 'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/',
+                wheight: 450,
+                wwidth: 350,
+                pheight: 520,
+                pwidth: 500,
+                domain: 'смартдиаг.рф',
+                leaveamessage: true,
+                department: ['1'],
+                theme: '1',
+                check_messages: false,
+                lang: 'rus/'
+              };
+              (function() {
+                var po = document.createElement('script');
+                po.type = 'text/javascript';
+                po.setAttribute('crossorigin', 'anonymous');
+                po.async = true;
+                var date = new Date();
+                po.src = 'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js?' + ('' + date.getFullYear() + date.getMonth() + date.getDate());
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(po, s);
+              })();
+            `
+          }}
+        />
+      </div>
+    </ThemeProvider>
   );
 }
