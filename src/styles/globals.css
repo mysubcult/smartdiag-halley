@@ -5,3 +5,12 @@
 ::selection {
     @apply bg-red-600 text-white ;
 }
+:root {
+    --fg: #000;
+    --bg: #fff;
+  }
+
+  [data-theme="dark"] {
+    --fg: #fff;
+    --bg: #000;
+  }
