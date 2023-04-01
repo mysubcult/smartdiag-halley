@@ -11,10 +11,11 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider attribute="class">
-      <Inter />
-      <Component {...pageProps} />
-      <Analytics />
+    <main className={`${inter.variable} font-sans`}>
+      <ThemeProvider attribute="class">
+        <Component {...pageProps} />
+        <Analytics />
+      </ThemeProvider>
       <script
         dangerouslySetInnerHTML={{
           __html: `
@@ -43,9 +44,24 @@ export default function App({ Component, pageProps }: AppProps) {
               var s = document.getElementsByTagName('script')[0];
               s.parentNode.insertBefore(po, s);
             })();
+
+            // добавляем функцию, чтобы изменить тему виджета в зависимости от темы сайта
+            function setWidgetTheme(theme) {
+              var s = document.createElement('style');
+              s.textContent = '.online-chat-widget { --color-widget-bg: ' + (theme === 'light' ? '#f7f7f7' : '#121212') + '; --color-widget-text: ' + (theme === 'light' ? '#121212' : '#f7f7f7') + '; }';
+              document.head.appendChild(s);
+            }
+
+            // вызываем функцию для первичной установки темы виджета
+            setWidgetTheme(localStorage.getItem('theme'));
+
+            // обрабатываем событие смены темы сайта и изменяем тему виджета
+            document.addEventListener('themeChange', (event) => {
+              setWidgetTheme(event.detail);
+            });
           `
         }}
       />
-    </ThemeProvider>
+    </main>
   );
 }
