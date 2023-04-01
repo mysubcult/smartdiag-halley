@@ -201,7 +201,7 @@ export default function Contact() {
 </div>
 
               
-              <div className="mb-3">
+              <div className="mb-5">
                 <textarea
                   // name="message"
                   placeholder={
