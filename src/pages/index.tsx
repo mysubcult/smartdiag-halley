@@ -15,7 +15,11 @@ export default function Home() {
       <Faq />
       <Services />
       <Contact />
-      <Script src="https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/rus/chat/getstatus/(click)/internal/(position)/bottom_right/(ma)/br/(top)/350/(units)/pixels/(leaveamessage)/true/(department)/1/(theme)/1" />
-    </Layout>
+    <div Style={{
+* { background: 'red';}
+}}>
+<Script src="https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/rus/chat/getstatus/(click)/internal/(position)/bottom_right/(ma)/br/(top)/350/(units)/pixels/(leaveamessage)/true/(department)/1/(theme)/1" />
+</div>  
+ </Layout>
   );
 }
