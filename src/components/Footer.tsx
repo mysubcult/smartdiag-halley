@@ -90,7 +90,7 @@ export default function Footer() {
         <div>
         </div>
 
-        <div class="bg-transparent h-5"><Script src="https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/rus/chat/getstatus/(click)/internal/(position)/bottom_right/(ma)/br/(top)/350/(units)/pixels/(leaveamessage)/true/(department)/1/(theme)/1" /></div>
+        <div className="bg-transparent h-5"><Script src="https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/rus/chat/getstatus/(click)/internal/(position)/bottom_right/(ma)/br/(top)/350/(units)/pixels/(leaveamessage)/true/(department)/1/(theme)/1" /></div>
         <div>
           <h3 className="text-sm md:text-xs font-bold pb-4 pt-12 lg:pt-0">
             НАВИГАЦИЯ
