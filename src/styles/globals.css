@@ -5,3 +5,6 @@
 ::selection {
     @apply bg-red-600 text-white ;
 }
+#lhc_status_container {
+  background-color: transparent;
+}
