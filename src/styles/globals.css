@@ -6,5 +6,5 @@
     @apply bg-red-600 text-white ;
 }
 body > html {
-background: transparent;!important
+background: transparent!important;
 }
