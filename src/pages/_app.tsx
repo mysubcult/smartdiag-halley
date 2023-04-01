@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider attribute="class">
         <Component {...pageProps} />
         <Analytics />
-        <Script>
+        <Script id="widget-script">
           {`var LHC_API = LHC_API||{};
           LHC_API.args = {mode:'widget',lhc_base_url:'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/',wheight:450,wwidth:350,pheight:520,pwidth:500,domain:'смартдиаг.рф',leaveamessage:true,department:["1"],theme:"1",check_messages:false,lang:'rus/'};
           (function() {
