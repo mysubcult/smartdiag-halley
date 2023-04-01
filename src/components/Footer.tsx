@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ThemeSwitchOption from "./ThemeSwitchOption";
+import Script from 'next/script'
 
 const social = [
   {
