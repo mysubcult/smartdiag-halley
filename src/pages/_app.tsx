@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import { ThemeProvider, ThemeProviderProps } from "next-themes";
+import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
@@ -9,17 +9,12 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-interface MyThemeProviderProps extends ThemeProviderProps {
-  classDark?: string;
-}
-
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={`${inter.variable} font-sans`}>
-      <ThemeProvider attribute="class" defaultTheme="light" classDark="dark" as={MyThemeProvider}>
-        <Component {...pageProps} />
-        <Analytics />
-      </ThemeProvider>
+    <ThemeProvider attribute="class">
+      <Inter />
+      <Component {...pageProps} />
+      <Analytics />
       <script
         dangerouslySetInnerHTML={{
           __html: `
@@ -51,10 +46,6 @@ export default function App({ Component, pageProps }: AppProps) {
           `
         }}
       />
-    </main>
+    </ThemeProvider>
   );
-}
-
-function MyThemeProvider({ children, ...props }: MyThemeProviderProps) {
-  return <ThemeProvider {...props}>{children}</ThemeProvider>;
 }
