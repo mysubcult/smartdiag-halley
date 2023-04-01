@@ -142,7 +142,7 @@ export default function Contact() {
                       : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
                   }`}
                   {...register("email", {
-                    required: "Введите ваш Email",
+                    required: "Необходимо ввести Ваш Email",
                     pattern: {
                       value: /^\S+@\S+$/i,
                       message: "Введите, пожалуйста, правильный адрес электронной почты",
@@ -170,7 +170,7 @@ export default function Contact() {
           : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
       }`}
       style={{ paddingLeft: '6px', textIndent: '10px', paddingRight: '2rem' }}
-      {...register("topic", { required: "Выберите тему сообщения" })}
+      {...register("topic", { required: "Необходимо выбрать тему сообщения" })}
     >
       <option value="">Выберите тему сообщения</option>
       <option value="Вопрос о товаре">Вопрос о товаре</option>
