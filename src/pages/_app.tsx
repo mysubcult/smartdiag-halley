@@ -3,6 +3,7 @@ import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
+import { useEffect } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -10,42 +11,26 @@ const inter = Inter({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src =
+      "//xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/rus/chat/getstatus/(click)/internal/(position)/bottom_right/(ma)/br/(top)/350/(units)/pixels/(leaveamessage)/true/(department)/1/(theme)/1";
+    script.async = true;
+    const referrer = encodeURIComponent(
+      document.referrer.substr(document.referrer.indexOf("://") + 1)
+    );
+    const location = encodeURIComponent(
+      window.location.href.substring(window.location.protocol.length)
+    );
+    script.src += `?r=${referrer}&l=${location}`;
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <ThemeProvider attribute="class">
       <div className={`${inter.variable} font-sans`}>
         <Component {...pageProps} />
         <Analytics />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              var LHC_API = LHC_API || {};
-              LHC_API.args = {
-                mode: 'widget',
-                lhc_base_url: 'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/',
-                wheight: 450,
-                wwidth: 350,
-                pheight: 520,
-                pwidth: 500,
-                domain: 'смартдиаг.рф',
-                leaveamessage: true,
-                department: ['1'],
-                theme: '1',
-                check_messages: false,
-                lang: 'rus/'
-              };
-              (function() {
-                var po = document.createElement('script');
-                po.type = 'text/javascript';
-                po.setAttribute('crossorigin', 'anonymous');
-                po.async = true;
-                var date = new Date();
-                po.src = 'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js?' + ('' + date.getFullYear() + date.getMonth() + date.getDate());
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(po, s);
-              })();
-            `
-          }}
-        />
       </div>
     </ThemeProvider>
   );
