@@ -48,6 +48,21 @@ const products = [
     cta: "Скачать",
     mostPopular: false,
   },
+    {
+    title: "Wurth WoW",
+    price: 12,
+    currency: "$",
+    frecuency: "month",
+    description: "Инструмент диагностики автомобилей для чтения и удаления кодов неисправностей.",
+    features: [
+      "Delphi 2021.10b",
+      "Autocom 2021.11",
+      "Wurth WoW 5.00.8",
+    ],
+    href: "https://i.getspace.us/cloud/s/ydF5sRELzHEwzQn",
+    cta: "Скачать",
+    mostPopular: false,
+  },
   {
     title: "VCDS + Вася",
     price: 120,
