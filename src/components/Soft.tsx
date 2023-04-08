@@ -53,7 +53,7 @@ const products = [
     price: 12,
     currency: "$",
     frecuency: "month",
-    description: "Инструмент диагностики автомобилей для чтения и удаления кодов неисправностей.",
+    description: "Универсальные мобильные приборы для диагностики автомобилей.",
     features: [
       "Diagzone",
       "X-DIAG",
