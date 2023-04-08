@@ -34,7 +34,7 @@ const products = [
     mostPopular: true,
   },
     {
-    title: "Wurth WoW",
+    title: "Wurth WoW Snooper+",
     price: 12,
     currency: "$",
     frecuency: "month",
