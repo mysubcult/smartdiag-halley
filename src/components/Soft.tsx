@@ -294,10 +294,26 @@ export default function Soft() {
     mostPopular
       ? "bg-red-600 text-white shadow-md"
       : "bg-black text-white dark:bg-white dark:text-black"
-  } hover:bg-white hover:text-black hover:shadow-md transition duration-300 ease-in-out`}
+  }`}
+  style={{transition: "all .3s"}}
+  onMouseEnter={(e) => {
+    e.target.classList.add(
+      "dark:bg-gray-400", // Для темной темы
+      "bg-gray-400", // Для светлой темы
+      mostPopular ? "bg-red-500" : "bg-lightRed" // Общее для обеих тем
+    );
+  }}
+  onMouseLeave={(e) => {
+    e.target.classList.remove(
+      "dark:bg-gray-400",
+      "bg-gray-400",
+      mostPopular ? "bg-red-500" : "bg-lightRed"
+    );
+  }}
 >
   {cta}
 </Link>
+
 
 
                     {/* features */}
