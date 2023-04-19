@@ -16,7 +16,7 @@ export function Hero() {
           <div className="flex flex-auto pt-10 gap-2 min-w-[350px] justify-center sm:justify-start">
             <div>
               <Link href="#soft">
-                <button className="bg-black dark:bg-white text-white dark:text-black text-base rounded-full px-4 p-2 font-medium hover:bg-gray-300 hover:text-white transition-all">
+                <button className="bg-black dark:bg-white text-white dark:text-black text-base rounded-full px-4 p-2 font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors">
                   Программы для приборов
                 </button>
               </Link>
@@ -24,7 +24,7 @@ export function Hero() {
 
             <div>
               <Link href="#contact">
-                <button className="bg-red-600 text-white text-base rounded-full px-4 p-2 font-medium hover:bg-red-800 transition-all">
+                <button className="bg-red-600 text-white text-base rounded-full px-4 p-2 font-medium hover:bg-red-700 transition-colors">
                   Обратная связь
                 </button>
               </Link>
