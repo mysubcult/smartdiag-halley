@@ -8,7 +8,7 @@ const products = [
     price: 12,
     currency: "$",
     frecuency: "month",
-    description: "Многофункциональный диагностический инструмент для автомобилей.",
+    description: "Многофункциональный диагностический инструмент для легковых и грузовых автомобилей.",
     features: [
       "Delphi 2021.10b",
       "Autocom 2021.11",
