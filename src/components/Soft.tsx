@@ -286,18 +286,19 @@ export default function Soft() {
                       {description}
                     </p>
 
-                    {/* Call to action */}
-                    <Link
-                      href={href}
-                      target="_blank"
-                      className={`mt-4 mx-6 block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
-                        mostPopular
-                          ? "bg-red-600 text-white shadow-md"
-                          : "bg-black text-white dark:bg-white dark:text-black"
-                      }`}
-                    >
-                      {cta}
-                    </Link>
+{/* Call to action */}
+<Link
+  href={href}
+  target="_blank"
+  className={`mt-4 mx-6 block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
+    mostPopular
+      ? "bg-red-600 text-white shadow-md"
+      : "bg-black text-white dark:bg-white dark:text-black"
+  } hover:bg-white hover:text-black hover:shadow-md transition duration-300 ease-in-out`}
+>
+  {cta}
+</Link>
+
 
                     {/* features */}
                     <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
