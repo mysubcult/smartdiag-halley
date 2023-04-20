@@ -27,7 +27,7 @@ export default function Home() {
         data-domain="смартдиаг.рф"
         data-leaveamessage="true"
         data-department="1"
-        data-theme="5"
+        data-theme="1"
         data-check_messages="false"
         data-lang="rus/"
       />
