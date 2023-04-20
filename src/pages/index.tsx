@@ -10,27 +10,20 @@ import Script from 'next/script';
 export default function Home() {
   return (
     <Layout>
+      <Script
+        strategy="lazyOnload"
+        src="https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js"
+        onLoad={() => {
+          var LHC_API = LHC_API||{};
+          LHC_API.args = {mode:'widget',lhc_base_url:'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/',wheight:450,wwidth:350,pheight:520,pwidth:500,domain:'смартдиаг.рф',department:["1"],theme:"1",check_messages:false,lang:'rus/'};
+          LHC_API.init();
+        }}
+      />
       <Hero />
       <Soft />
       <Faq />
       <Services />
       <Contact />
-      <Script
-        src="https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js"
-        strategy="lazyOnload"
-        data-mode="widget"
-        data-lhc_base_url="https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/"
-        data-wheight="450"
-        data-wwidth="350"
-        data-pheight="520"
-        data-pwidth="500"
-        data-domain="смартдиаг.рф"
-        data-leaveamessage="true"
-        data-department="1"
-        data-theme="1"
-        data-check_messages="false"
-        data-lang="rus/"
-      />
     </Layout>
   );
 }
