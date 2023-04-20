@@ -11,6 +11,7 @@ const inter = Inter({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  let LHC_API: Record<string, any> | undefined;
   return (
     <main className={`${inter.variable} font-sans`}>
       <ThemeProvider attribute="class">
@@ -20,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
           strategy="afterInteractive"
           src="https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js"
           onLoad={() => {
-            var LHC_API: Record<string, any> = LHC_API || {};
+            LHC_API = LHC_API || {};
             LHC_API.args = {mode:'widget',lhc_base_url:'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/',wheight:450,wwidth:350,pheight:520,pwidth:500,domain:'смартдиаг.рф',leaveamessage:true,department:["1"],theme:"1",check_messages:false,lang:'rus/'};
           }}
         />
