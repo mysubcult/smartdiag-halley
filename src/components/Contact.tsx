@@ -72,7 +72,7 @@ export default function Contact() {
         <div>
           <h2 className="text-lg font-bold">💬 Мы в мессенджерах!</h2>
           <p className="max-w-sm mt-4 mb-4 dark:text-neutral-400">
-            Оставайтесь на связи с нами в любом месте и в любое время: мы доступны в Телеграм и WhatsApp.
+            Оставайтесь на связи с нами в любом месте. Мы доступны в Телеграм и WhatsApp:
           </p>
 
 <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
