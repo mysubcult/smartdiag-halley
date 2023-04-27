@@ -115,7 +115,7 @@ export default function Footer() {
           target="_blank"
           className="text-neutral-300 dark:text-neutral-400 text-sm hover:text-red-500 dark:hover:text-red-500 transition duration-300"
         >
-          &copy; Copyright {new Date().getFullYear()}. All rights reserved.
+          &copy; Copyright {new Date().getFullYear()}. Все права защищены.
         </Link>
       </div>
     </footer>
