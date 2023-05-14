@@ -19,7 +19,7 @@ export default function Prefooter() {
         <Link href="https://mega.nz/folder/N8BGBBRC#F4YYgKdUlFZmL2UGqfgK-Q" target="_blank">
           <button className="bg-red-500 hover:bg-red-600 text-white rounded-full px-6 p-3 font-medium transition duration-300 ease-in-out">
             Зеркало #2
-            <img src="https://filen.io/img/favicon.png" className="inline-block w-5 h-5 ml-2" />
+            <img src="https://filen.io/favicon.ico" className="inline-block w-5 h-5 ml-2" />
           </button>
         </Link>
       </div>
