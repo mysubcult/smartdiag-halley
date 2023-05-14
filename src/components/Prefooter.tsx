@@ -12,14 +12,15 @@ export default function Prefooter() {
       <div className="text-center pb-20">
         <Link href="https://drive.filen.io/f/2a56c53b-d111-4237-927e-e888d41ca33f#SyzwqKMV3IGSLMDVPoQvnQ7vzhw7BtbV" target="_blank">
           <button className="bg-red-500 hover:bg-red-600 text-white rounded-full px-6 p-3 font-medium transition duration-300 ease-in-out">
-            Зеркало #1
+            Зеркало
+            <img src="https://filen.io/favicon.ico" className="inline-block w-5 h-5 ml-2" />
           </button>
         </Link>
         &nbsp;&nbsp;&nbsp;
         <Link href="https://mega.nz/folder/N8BGBBRC#F4YYgKdUlFZmL2UGqfgK-Q" target="_blank">
           <button className="bg-red-500 hover:bg-red-600 text-white rounded-full px-6 p-3 font-medium transition duration-300 ease-in-out">
-            Зеркало #2
-            <img src="https://filen.io/favicon.ico" className="inline-block w-5 h-5 ml-2" />
+            Зеркало
+            <img src="https://mega.nz/favicon.ico" className="inline-block w-5 h-5 ml-2" />
           </button>
         </Link>
       </div>
