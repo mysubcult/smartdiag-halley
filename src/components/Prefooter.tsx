@@ -10,6 +10,13 @@ export default function Prefooter() {
       </div>
 
       <div className="text-center pb-20">
+        <Link href="https://i.getspace.us/cloud/s/dzkdXFpscgCFsjH" target="_blank">
+          <button className="bg-red-500 hover:bg-red-600 text-white rounded-full px-6 p-3 font-medium transition duration-300 ease-in-out">
+            Зеркало
+            <img src="https://getspace.us/wp-content/uploads/2020/02/FAVICON-GS-01.png" className="inline-block w-5 h-5 ml-2" />
+          </button>
+        </Link>
+        &nbsp;&nbsp;&nbsp;
         <Link href="https://drive.filen.io/f/2a56c53b-d111-4237-927e-e888d41ca33f#SyzwqKMV3IGSLMDVPoQvnQ7vzhw7BtbV" target="_blank">
           <button className="bg-red-500 hover:bg-red-600 text-white rounded-full px-6 p-3 font-medium transition duration-300 ease-in-out">
             Зеркало
