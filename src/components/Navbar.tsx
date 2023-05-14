@@ -56,6 +56,7 @@ export default function Navbar() {
                           "text-base font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
+                        style={{ textDecoration: "none", display: "inline-block" }}    
                       >
                         {item.name}
                       </Link>
