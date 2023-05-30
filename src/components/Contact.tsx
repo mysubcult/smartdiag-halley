@@ -14,7 +14,6 @@ type Info = {
   email: string;
   message: string;
   topic: string;
-  agree: boolean; // добавляем поле "agree" с типом boolean
 };
 
 export default function Contact() {
@@ -26,7 +25,6 @@ export default function Contact() {
     formState: { errors, isSubmitSuccessful, isSubmitting },
   } = useForm<Info, any>({
     mode: "onSubmit",
-    agree: false,
   });
 
   const [isSuccess, setIsSuccess] = React.useState(false);
@@ -227,22 +225,6 @@ export default function Contact() {
                   </div>
                 )}
               </div>
-<div className="flex items-center mt-3">
-  <input
-    type="checkbox"
-    id="agree"
-    className="mr-2"
-    {...register("agree", { required: true })}
-  />
-  <label htmlFor="agree" className="text-sm">
-    Я согласен с обработкой персональных данных
-  </label>
-</div>
-{errors.agree && (
-  <div className="mt-1 text-rose-500">
-    <small>Необходимо согласиться с обработкой персональных данных</small>
-  </div>
-)}
               <button
                 type="submit"
                 className="w-full py-4 font-semibold text-white transition-colors bg-neutral-900 rounded-md hover:bg-neutral-800 focus:outline-none focus:ring-offset-2 focus:ring focus:ring-neutral-200 px-7 dark:bg-white dark:text-black"
