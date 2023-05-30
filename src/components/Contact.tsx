@@ -14,6 +14,7 @@ type Info = {
   email: string;
   message: string;
   topic: string;
+  agree: boolean; // добавляем поле "agree" с типом boolean
 };
 
 export default function Contact() {
@@ -25,7 +26,7 @@ export default function Contact() {
     formState: { errors, isSubmitSuccessful, isSubmitting },
   } = useForm<Info, any>({
     mode: "onSubmit",
-    agree: false, // добавляем поле "agree" с значением по умолчанию false
+    agree: false,
   });
 
   const [isSuccess, setIsSuccess] = React.useState(false);
