@@ -25,6 +25,7 @@ export default function Contact() {
     formState: { errors, isSubmitSuccessful, isSubmitting },
   } = useForm<Info, any>({
     mode: "onSubmit",
+    agree: false, // добавляем поле "agree" с значением по умолчанию false
   });
 
   const [isSuccess, setIsSuccess] = React.useState(false);
