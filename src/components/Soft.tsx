@@ -249,8 +249,6 @@ export default function Soft() {
         </div>
       </div>
     </div>
-  );
-}
 
 
 
