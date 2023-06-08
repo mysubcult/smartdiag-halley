@@ -196,7 +196,7 @@ const products = [
   },
 ];
 
-type BillingInterval = "" | "month" | "elm";
+type BillingInterval = "year" | "month" | "elm";
 
 export default function Soft() {
   const [billingInterval, setBillingInterval] =
@@ -204,49 +204,50 @@ export default function Soft() {
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
-        <h2 className="text-4xl font-bold text">Программы для оборудования 💻</h2>
+        <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
 
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
           В данном разделе сайта собраны все необходимые программы для оборудования. Перед выбором прибора из списка, необходимо определиться с категорией оборудования, выбрав между &quot;мультимарочным&quot; или &quot;марочным&quot;. После выбора категории и нахождения нужного прибора в списке, можно перейти к загрузке ПО. Для этого необходимо нажать кнопку &quot;Скачать&quot; и выбрать желаемую версию программы в появившемся окне. Чтобы начать загрузку, нужно нажать на иконку с тремя точками рядом с необходимой версией и выбрать &quot;Скачать&quot;.
         </p>
       </div>
 
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center">
-        <button
-          onClick={() => setBillingInterval("month")}
-          type="button"
-          className={`${
-            billingInterval === "month"
-              ? "w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-              : "w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-          } rounded-md m-1 py-2 whitespace-nowrap`}
-        >
-          Мультимарочные
-        </button>
-        <button
-          onClick={() => setBillingInterval("year")}
-          type="button"
-          className={`${
-            billingInterval === "year"
-              ? "w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-              : "w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-          } rounded-md m-1 py-2 whitespace-nowrap`}
-        >
-          Марочные
-        </button>
-        <button
-          onClick={() => setBillingInterval("elm")}
-          type="button"
-          className={`${
-            billingInterval === "elm"
-              ? "w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-              : "w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-          } rounded-md m-1 py-2 whitespace-nowrap`}
-        >
-          Адаптеры ELM
-        </button>
+<div className="mx-auto px-4 sm:px-6 lg:px-8 sm:flex sm:flex-col sm:align-center">
+        <div className="relative self-center text-base font-semibold mt-6 bg-neutral-200  dark:bg-neutral-800 rounded-lg flex sm:mt-8">
+          <button
+            onClick={() => setBillingInterval("month")}
+            type="button"
+            className={`${
+              billingInterval === "month"
+                ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                : "relative w-1/2 text-neutral-900 dark:text-neutral-400"
+            } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8`}
+          >
+            Мультимарочные
+          </button>
+          <button
+            onClick={() => setBillingInterval("year")}
+            type="button"
+            className={`${
+              billingInterval === "year"
+                ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                : "relative w-1/2 text-neutral-900 dark:text-neutral-400"
+            } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8`}
+          >
+            Марочные
+          </button>
+          <button
+            onClick={() => setBillingInterval("elm")}
+            type="button"
+            className={`${
+              billingInterval === "elm"
+                ? "relative w-1/2 bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                : "relative w-1/2 text-neutral-900 dark:text-neutral-400"
+            } rounded-md m-1 py-2 whitespace-nowrap sm:w-auto sm:px-8`}
+          >
+            Адаптеры ELM
+          </button>
+        </div>
       </div>
-    </div>
 
 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {products.map(
