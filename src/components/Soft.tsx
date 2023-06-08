@@ -211,7 +211,7 @@ export default function Soft() {
         </p>
       </div>
 
-<div className="mx-auto px-4 sm:px-6 lg:px-8 sm:flex sm:flex-col sm:align-center">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 sm:flex sm:flex-col sm:align-center">
         <div className="relative self-center text-base font-semibold mt-6 bg-neutral-200  dark:bg-neutral-800 rounded-lg flex sm:mt-8 flex-wrap">
           <button
             onClick={() => setBillingInterval("month")}
@@ -248,6 +248,10 @@ export default function Soft() {
           </button>
         </div>
       </div>
+    </div>
+  );
+}
+
 
 
 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
