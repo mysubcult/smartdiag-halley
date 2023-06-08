@@ -220,7 +220,7 @@ export default function Soft() {
               billingInterval === "month"
                 ? "relative bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap w-full md:w-1/3 sm:w-auto sm:px-8`}
+            } rounded-md m-1 py-2 whitespace-nowrap w-1/2 lg:w-1/3 sm:w-auto sm:px-8`}
           >
             Мультимарочные
           </button>
@@ -231,7 +231,7 @@ export default function Soft() {
               billingInterval === "year"
                 ? "relative bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap w-full md:w-1/3 sm:w-auto sm:px-8`}
+            } rounded-md m-1 py-2 whitespace-nowrap w-1/2 lg:w-1/3 sm:w-auto sm:px-8`}
           >
             Марочные
           </button>
@@ -242,7 +242,7 @@ export default function Soft() {
               billingInterval === "elm"
                 ? "relative bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap w-full md:w-1/3 sm:w-auto sm:px-8`}
+            } rounded-md m-1 py-2 whitespace-nowrap w-1/2 lg:w-1/3 sm:w-auto sm:px-8`}
           >
             Адаптеры ELM
           </button>
