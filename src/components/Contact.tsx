@@ -234,7 +234,7 @@ export default function Contact() {
       required
     />
     <label htmlFor="agree" className="text-sm">
-      Отправляя сообщение, вы соглашаетесь на обработку персональных данных
+      Я прочитал и согласен с правилами Согласие на обработку персональных данных.
     </label>
   </div>
               <button
