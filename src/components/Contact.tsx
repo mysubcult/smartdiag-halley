@@ -230,6 +230,7 @@ export default function Contact() {
       type="checkbox"
       id="agree"
       className="mr-2"
+      defaultChecked
       required
     />
     <label htmlFor="agree" className="text-sm">
