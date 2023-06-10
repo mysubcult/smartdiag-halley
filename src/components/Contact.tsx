@@ -225,6 +225,16 @@ export default function Contact() {
                   </div>
                 )}
               </div>
+                <div className="flex items-center mb-4">
+    <input
+      type="checkbox"
+      id="agree"
+      className="mr-2"
+    />
+    <label htmlFor="agree" className="text-sm">
+      Отправляя сообщение, вы соглашаетесь на обработку персональных данных
+    </label>
+  </div>
               <button
                 type="submit"
                 className="w-full py-4 font-semibold text-white transition-colors bg-neutral-900 rounded-md hover:bg-neutral-800 focus:outline-none focus:ring-offset-2 focus:ring focus:ring-neutral-200 px-7 dark:bg-white dark:text-black"
