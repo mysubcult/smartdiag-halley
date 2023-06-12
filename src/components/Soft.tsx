@@ -327,35 +327,6 @@ export default function Soft() {
 >
   {cta}
 </Link>
-                      <Link
-    href="/installation-instructions"
-    target="_blank"
-    className={`mt-4 mx-2 block px-4 py-2 font-medium leading-4 text-center rounded-lg ${
-      mostPopular
-        ? "bg-red-600 text-white shadow-md"
-        : "bg-gray-500 text-white dark:bg-white dark:text-black"
-    }`}
-    style={{ transition: "all 0.3s ease" }}
-    onMouseEnter={(e) => {
-      if (
-        e.currentTarget.classList.contains("bg-gray-500") ||
-        e.currentTarget.classList.contains("dark:bg-white")
-      ) {
-        e.currentTarget.classList.remove("bg-gray-500", "dark:bg-white");
-        e.currentTarget.classList.add("bg-red-600");
-      }
-    }}
-    onMouseLeave={(e) => {
-      if (
-        e.currentTarget.classList.contains("bg-red-600")
-      ) {
-        e.currentTarget.classList.remove("bg-red-600");
-        e.currentTarget.classList.add("bg-gray-500", "dark:bg-white");
-      }
-    }}
-  >
-    Инструкция по установке
-  </Link>
                     {/* features */}
                     <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
                       <p className="mt-6 font-semibold dark:text-neutral-300">
