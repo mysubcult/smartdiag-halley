@@ -231,35 +231,17 @@ export default function Contact() {
                 )}
               </div>
                 <div className="flex items-center mb-4">
-function App() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  return (
-    <div>
-      <input
-        type="checkbox"
-        id="agree"
-        className="mr-2"
-        defaultChecked
-        required
-        onClick={() => setModalIsOpen(true)}
-      />
-      <label htmlFor="agree" className="text-sm">
-        Я прочитал и согласен с правилами на обработку персональных данных.
-      </label>
-
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        contentLabel="Правила обработки персональных данных"
-      >
-        <h2>Правила обработки персональных данных</h2>
-        <p>Здесь должны быть ваши правила обработки персональных данных...</p>
-        <button onClick={() => setModalIsOpen(false)}>Закрыть</button>
-      </Modal>
-    </div>
-  );
-}
+<input
+      type="checkbox"
+      id="agree"
+      className="mr-2"
+      defaultChecked
+      required
+    />
+    <label htmlFor="agree" className="text-sm">
+      Я прочитал и согласен с правилами на обработку персональных данных.
+    </label>
+  </div>
               <button
                 type="submit"
                 className="w-full py-4 font-semibold text-white transition-colors bg-neutral-900 rounded-md hover:bg-neutral-800 focus:outline-none focus:ring-offset-2 focus:ring focus:ring-neutral-200 px-7 dark:bg-white dark:text-black"
