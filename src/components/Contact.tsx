@@ -226,30 +226,17 @@ export default function Contact() {
                 )}
               </div>
                 <div className="flex items-center mb-4">
-<div>
-  <input
-    type="checkbox"
-    id="agree"
-    className="mr-2"
-    defaultChecked
-    required
-  />
-  <label htmlFor="agree" className="text-sm">
-    Я прочитал и согласен с правилами на обработку персональных данных.
-  </label>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function() {
-    $('#agree').click(function() {
-      if ($(this).is(':checked')) {
-        alert('Правила обработки персональных данных:\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae justo ac nisl tincidunt aliquet. Mauris auctor, nunc id lacinia tincidunt, velit nunc tincidunt nunc, id lacinia nunc nunc id nunc. Integer nec nunc id nunc lacinia tincidunt.');
-      }
-    });
-  });
-</script>
-
+<input
+      type="checkbox"
+      id="agree"
+      className="mr-2"
+      defaultChecked
+      required
+    />
+    <label htmlFor="agree" className="text-sm">
+      Я прочитал и согласен с правилами на обработку персональных данных.
+    </label>
+  </div>
               <button
                 type="submit"
                 className="w-full py-4 font-semibold text-white transition-colors bg-neutral-900 rounded-md hover:bg-neutral-800 focus:outline-none focus:ring-offset-2 focus:ring focus:ring-neutral-200 px-7 dark:bg-white dark:text-black"
