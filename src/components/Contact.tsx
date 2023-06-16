@@ -244,7 +244,7 @@ export default function Contact() {
   $(document).ready(function() {
     $('#agree').click(function() {
       if ($(this).is(':checked')) {
-        alert('Правила обработки персональных данных:\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae justo ac nisl tincidunt aliquet. Mauris auctor, nunc id lacinia tincidunt, velit nunc tincidunt nunc, id lacinia nunc nunc id nunc. Integer nec nunc id nunc lacinia tincidunt. Sed vitae justo ac nisl tincidunt aliquet. Mauris auctor, nunc id lacinia tincidunt, velit nunc tincidunt nunc, id lacinia nunc nunc id nunc. Integer nec nunc id nunc lacinia tincidunt.');
+        alert('Правила обработки персональных данных:\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae justo ac nisl tincidunt aliquet. Mauris auctor, nunc id lacinia tincidunt, velit nunc tincidunt nunc, id lacinia nunc nunc id nunc. Integer nec nunc id nunc lacinia tincidunt.');
       }
     });
   });
