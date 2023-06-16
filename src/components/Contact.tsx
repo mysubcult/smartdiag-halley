@@ -1,11 +1,6 @@
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 
-import React, { useState } from 'react';
-import Modal from 'react-modal';
-
-Modal.setAppElement('#root');
-
 import { MapIcon } from "@heroicons/react/24/outline";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { PhoneIcon } from "@heroicons/react/24/outline";
