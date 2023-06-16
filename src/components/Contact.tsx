@@ -226,40 +226,17 @@ export default function Contact() {
                 )}
               </div>
                 <div className="flex items-center mb-4">
-<!-- Ваша форма -->
-<div>
-  <input
-    type="checkbox"
-    id="agree"
-    className="mr-2"
-    defaultChecked
-    required
-  />
-  <label htmlFor="agree" className="text-sm">
-    Я прочитал и согласен с 
-    <a href="#" data-toggle="modal" data-target="#privacyPolicyModal">правилами на обработку персональных данных</a>.
-  </label>
-</div>
-
-<!-- Модальное окно -->
-<div class="modal fade" id="privacyPolicyModal" tabindex="-1" role="dialog" aria-labelledby="privacyPolicyModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="privacyPolicyModalLabel">Правила обработки персональных данных</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- Здесь вставьте текст правил обработки персональных данных -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-      </div>
-    </div>
+<input
+      type="checkbox"
+      id="agree"
+      className="mr-2"
+      defaultChecked
+      required
+    />
+    <label htmlFor="agree" className="text-sm">
+      Я прочитал и согласен с правилами на обработку персональных данных.
+    </label>
   </div>
-</div>
 
               <button
                 type="submit"
