@@ -229,9 +229,9 @@ export default function Soft() {
       type="button"
       className={`${
         billingInterval === "year"
-          ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-      } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+          ? "w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
+      } relative rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
     >
       Марочные
     </button>
@@ -240,9 +240,9 @@ export default function Soft() {
       type="button"
       className={`${
         billingInterval === "elm"
-          ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-      } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+          ? "w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
+      } relative rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
     >
       Адаптеры ELM
     </button>
