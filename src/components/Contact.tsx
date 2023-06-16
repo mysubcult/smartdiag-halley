@@ -239,18 +239,17 @@ export default function Contact() {
   </label>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  function showPopup() {
-    alert("Правила обработки персональных данных:\n\n1. ...");
-  }
-
-  const agreeCheckbox = document.getElementById("agree");
-  agreeCheckbox.addEventListener("click", function () {
-    if (agreeCheckbox.checked) {
-      showPopup();
-    }
+  $(document).ready(function() {
+    $('#agree').click(function() {
+      if ($(this).is(':checked')) {
+        alert('Правила обработки персональных данных:\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae justo ac nisl tincidunt aliquet. Mauris auctor, nunc id lacinia tincidunt, velit nunc tincidunt nunc, id lacinia nunc nunc id nunc. Integer nec nunc id nunc lacinia tincidunt. Sed vitae justo ac nisl tincidunt aliquet. Mauris auctor, nunc id lacinia tincidunt, velit nunc tincidunt nunc, id lacinia nunc nunc id nunc. Integer nec nunc id nunc lacinia tincidunt.');
+      }
+    });
   });
 </script>
+
               <button
                 type="submit"
                 className="w-full py-4 font-semibold text-white transition-colors bg-neutral-900 rounded-md hover:bg-neutral-800 focus:outline-none focus:ring-offset-2 focus:ring focus:ring-neutral-200 px-7 dark:bg-white dark:text-black"
