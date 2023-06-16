@@ -226,18 +226,31 @@ export default function Contact() {
                 )}
               </div>
                 <div className="flex items-center mb-4">
-<input
-      type="checkbox"
-      id="agree"
-      className="mr-2"
-      defaultChecked
-      required
-    />
-    <label htmlFor="agree" className="text-sm">
-      Я прочитал и согласен с правилами на обработку персональных данных.
-    </label>
-  </div>
+<div>
+  <input
+    type="checkbox"
+    id="agree"
+    className="mr-2"
+    defaultChecked
+    required
+  />
+  <label htmlFor="agree" className="text-sm">
+    Я прочитал и согласен с правилами на обработку персональных данных.
+  </label>
+</div>
 
+<script>
+  function showPopup() {
+    alert("Правила обработки персональных данных:\n\n1. ...");
+  }
+
+  const agreeCheckbox = document.getElementById("agree");
+  agreeCheckbox.addEventListener("click", function () {
+    if (agreeCheckbox.checked) {
+      showPopup();
+    }
+  });
+</script>
               <button
                 type="submit"
                 className="w-full py-4 font-semibold text-white transition-colors bg-neutral-900 rounded-md hover:bg-neutral-800 focus:outline-none focus:ring-offset-2 focus:ring focus:ring-neutral-200 px-7 dark:bg-white dark:text-black"
