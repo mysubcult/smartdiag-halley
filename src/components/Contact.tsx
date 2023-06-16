@@ -329,7 +329,7 @@ export default function Contact() {
                 className="mt-6 py-2 px-4 bg-rose-500 rounded-full focus:outline-none text-neutral-100"
                 onClick={() => reset()}
               >
-                Try Again
+                Попробовать еще
               </button>
             </div>
           )}
