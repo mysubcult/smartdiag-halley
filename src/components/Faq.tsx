@@ -27,13 +27,13 @@ export default function News() {
         {newsItems.map((item, index) => (
           <Disclosure key={index}>
             {({ open }) => (
-              <>
+              <div className="mb-4">
                 <Disclosure.Button
                   className={`${
                     open
                       ? "bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-100"
                       : ""
-                  } flex justify-between items-center w-full py-4 px-6 mb-4 rounded-lg bg-neutral-100 dark:bg-neutral-800 dark:hover:bg-neutral-800 focus:outline-none focus-visible:ring focus-visible:ring-primary-500 focus-visible:ring-opacity-50`}
+                  } flex justify-between items-center w-full py-4 px-6 rounded-lg bg-neutral-100 dark:bg-neutral-800 dark:hover:bg-neutral-800 focus:outline-none focus-visible:ring focus-visible:ring-primary-500 focus-visible:ring-opacity-50`}
                 >
                   <div>
                     <h3 className="text-lg font-semibold">{item.title}</h3>
@@ -50,11 +50,11 @@ export default function News() {
                 <Disclosure.Panel
                   className={`${
                     open ? "px-6 py-4 text-base" : "hidden"
-                  } bg-neutral-100 dark:bg-neutral-800 rounded-lg`}
+                  } bg-neutral-100 dark:bg-neutral-800 rounded-lg mt-2`}
                 >
                   <p>{item.content}</p>
                 </Disclosure.Panel>
-              </>
+              </div>
             )}
           </Disclosure>
         ))}
