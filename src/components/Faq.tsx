@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Disclosure } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/outline";
+import { ChevronDownIcon } from "@heroicons/react/solid";
 
 const newsItems = [
   {
