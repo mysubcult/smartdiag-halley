@@ -57,6 +57,7 @@ const products = [
     features: [
       "Diagzone",
       "X-DIAG",
+      "X-PRO5",
     ],
     href: "https://i.getspace.us/cloud/s/fAMr3QsBMekwR2n",
     cta: "Скачать",
