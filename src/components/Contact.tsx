@@ -30,7 +30,7 @@ export default function Contact() {
   const [isSuccess, setIsSuccess] = React.useState(false);
   const [Message, setMessage] = React.useState("");
 
-  const termsHtml = `<style>
+  const termsHtml = (`<style>
   .popup { display: none; }
   .popup.open { display: block; }
 
@@ -87,7 +87,7 @@ function showPopup() {
 function hidePopup() {
   popup.classList.remove('open');
 }
-</script>`;
+</script>`);
 
   const onSubmit = async (data: any, e: any) => {
     console.log(data);
