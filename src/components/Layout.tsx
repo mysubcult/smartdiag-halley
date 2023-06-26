@@ -50,7 +50,7 @@ const Layout = (props: any) => {
     color: black;
   }
 
-  a.close:hover {color: pink}
+  a.close:hover {color: red}
 
   .sd-contents p {
     margin-bottom: 20px;
