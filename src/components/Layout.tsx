@@ -57,6 +57,16 @@ const Layout = (props: any) => {
     display: block;
   }
 
+  a.terms-link {
+    color: black;
+    border-bottom: 1px solid black;
+  }
+
+  a.terms-link:hover {
+    color: rgb(220, 38, 38);
+    border-bottom: 1px solid rgb(220, 38, 38);
+  }
+
   .sd-contents p:last-child {
     margin-bottom: 0px;
   }
