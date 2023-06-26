@@ -89,6 +89,8 @@ function hidePopup() {
 }
 </script>`);
 
+const htmlLinkToTerms = (`Я прочитал и согласен с <a href="#" onclick="showPopup()">правилами на обработку персональных данных</a>.`);
+
   const onSubmit = async (data: any, e: any) => {
     console.log(data);
     await fetch("https://api.web3forms.com/submit", {
@@ -295,7 +297,7 @@ function hidePopup() {
       required
     />
     <label htmlFor="agree" className="text-sm">
-      Я прочитал и согласен с <a href="#" onСlick="showPopup()">правилами на обработку персональных данных</a>.
+      <div dangerouslySetInnerHTML={{ __html: htmlLinkToTerms }} />
     </label>
   </div>
               <button
