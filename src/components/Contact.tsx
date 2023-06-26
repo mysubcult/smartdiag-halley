@@ -295,7 +295,7 @@ function hidePopup() {
       required
     />
     <label htmlFor="agree" className="text-sm">
-      Я прочитал и согласен с <a href="#" onclick="showPopup()">правилами на обработку персональных данных</a>.
+      Я прочитал и согласен с <a href="#" onСlick="showPopup()">правилами на обработку персональных данных</a>.
     </label>
   </div>
               <button
