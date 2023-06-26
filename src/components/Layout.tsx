@@ -61,6 +61,12 @@ const Layout = (props: any) => {
     margin-bottom: 0px;
   }
 
+  @media only screen and (max-width: 600px) {
+  .smartdiag-popup .sd-contents {
+    width: 90vw;
+  }
+  }
+
 </style>
 
 <div class="smartdiag-popup">
