@@ -118,8 +118,8 @@ function hidePopup() {
       });
   };
   return (
-    <div dangerouslySetInnerHTML={{ __html: termsHtml }} />
     <div className="bg-white-50 dark:bg-neutral-900" id="contact">
+      <div dangerouslySetInnerHTML={{ __html: termsHtml }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 text-center">
         <h2 className="text-4xl font-bold">Обратная связь 📩</h2>
 
