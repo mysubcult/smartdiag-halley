@@ -35,10 +35,11 @@ const Layout = (props: any) => {
     border-radius: 5px;
     width: 500px;
     padding: 25px;
-    height: auto;
+    /*height: auto;*/
     background: #FFF;
     z-index: 1000;
     position: fixed;
+    overflow-y: scroll;
     top: 50vh;
     left: 50vw;
     transform: translate(-50%, -50%);
