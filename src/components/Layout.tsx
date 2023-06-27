@@ -35,7 +35,7 @@ const Layout = (props: any) => {
     border-radius: 5px;
     width: 500px;
     padding: 25px;
-    /*height: auto;*/
+    height: 90vh;
     background: #FFF;
     z-index: 1000;
     position: fixed;
