@@ -33,7 +33,7 @@ const Layout = (props: any) => {
   .smartdiag-popup .sd-contents {
     border: 0px solid #ccc;
     border-radius: 5px;
-    width: 500px;
+    width: 700px;
     padding: 25px;
     height: 90vh;
     background: #FFF;
