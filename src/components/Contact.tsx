@@ -88,7 +88,7 @@ export default function Contact() {
 <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
   <PhoneIcon className="w-5 h-5" />
   <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank" className="hover:text-green-500">WhatsApp</a>
-  <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://wa.me/message/XVMV4LKBTXB4E1&amp;size=50x50" alt="QR Code" />
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=https://wa.me/message/XVMV4LKBTXB4E1" alt="QR Code" />
 </div>
 
         </div>
