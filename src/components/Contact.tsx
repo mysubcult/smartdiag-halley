@@ -81,7 +81,9 @@ export default function Contact() {
 <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
   <EnvelopeIcon className="w-5 h-5" />
   <a href="https://t.me/smartdiag_robot" target="_blank" className="hover:text-blue-500">Telegram</a>
+  <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://t.me/smartdiag_robot&amp;size=100x100" alt="QR Code" />
 </div>
+
 
 <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
   <PhoneIcon className="w-5 h-5" />
