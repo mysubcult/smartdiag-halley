@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
+import { useState } from 'react';
 
 import { MapIcon } from "@heroicons/react/24/outline";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
@@ -89,7 +90,50 @@ export default function Contact() {
   <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank" className="hover:text-green-500">WhatsApp</a>
   <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://wa.me/message/XVMV4LKBTXB4E1&amp;size=70x70&amp;color=28A745" alt="QR Code" />
 </div>
+function App() {
+  const [showQRTelegram, setShowQRTelegram] = useState(false);
+  const [showQRWhatsApp, setShowQRWhatsApp] = useState(false);
 
+  const toggleQRTelegram = () => {
+    setShowQRTelegram(!showQRTelegram);
+  };
+
+  const toggleQRWhatsApp = () => {
+    setShowQRWhatsApp(!showQRWhatsApp);
+  };
+
+  return (
+    <div>
+      <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
+        <EnvelopeIcon className="w-5 h-5" />
+        <a href="https://t.me/smartdiag_robot" target="_blank" className="hover:text-blue-500">
+          Telegram
+        </a>
+        {showQRTelegram && (
+          <img
+            src="https://api.qrserver.com/v1/create-qr-code/?data=https://t.me/smartdiag_robot&amp;size=70x70&amp;color=007BFF"
+            alt="QR Code"
+          />
+        )}
+        <button onClick={toggleQRTelegram}>Показать QR Код</button>
+      </div>
+
+      <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
+        <PhoneIcon className="w-5 h-5" />
+        <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank" className="hover:text-green-500">
+          WhatsApp
+        </a>
+        {showQRWhatsApp && (
+          <img
+            src="https://api.qrserver.com/v1/create-qr-code/?data=https://wa.me/message/XVMV4LKBTXB4E1&amp;size=70x70&amp;color=28A745"
+            alt="QR Code"
+          />
+        )}
+        <button onClick={toggleQRWhatsApp}>Показать QR Код</button>
+      </div>
+    </div>
+  );
+}
 
         </div>
 
