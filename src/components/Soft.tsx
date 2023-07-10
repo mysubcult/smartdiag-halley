@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
+import { FaDownload } from 'react-icons/fa';
 
 const products = [
   {
@@ -328,15 +329,20 @@ export default function Soft() {
 >
   {cta}
 </Link>
-
-                    {/* Кнопка с ссылкой на инструкцию по установке */}
-<Link
-  href="/инструкция-по-установке"
-  className="mt-2 mx-6 block text-sm text-gray-500 hover:text-gray-700"
-  target="_blank"
->
-  Инструкция по установке
-</Link>
+                {/* Кнопка с ссылкой на инструкцию по установке */}
+                <IconButton
+                  href="/инструкция-по-установке"
+                  target="_blank"
+                  className="ml-2"
+                  style={{
+                    backgroundColor: "#000",
+                    color: "#fff",
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  <FaDownload />
+                </IconButton>
+              </div>
                     
                     {/* features */}
                     <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
