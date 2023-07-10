@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
-import { FaDownload } from 'react-icons/fa';
 
 const products = [
   {
