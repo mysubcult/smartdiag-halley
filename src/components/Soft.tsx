@@ -251,84 +251,90 @@ export default function Soft() {
   </div>
 </div>
 
+import { FaDownload } from 'react-icons/fa';
+
+// ...
+
 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
-        {products.map(
-          ({
-            title,
-            mostPopular,
-            description,
-            currency,
-            price,
-            frecuency,
-            cta,
-            features,
-            href,
-          }) => {
-            return (
-              <>
-                {billingInterval === frecuency ? (
-                  <div
-                    key={title}
-                    className={`rounded-lg py-8 relative flex flex-col ${
-                      mostPopular
-                        ? "border-red-300 border-2 border-solid dark:border-red-600"
-                        : "border-neutral-300 border dark:border-neutral-600"
-                    }`}
-                  >
-                    <h3 className="px-6 text-lg font-semibold leading-5">
-                      {title}
-                    </h3>
-                    {mostPopular && (
-                      <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600  rounded-full text-sm font-semibold tracking-wide shadow-md">
-                        Популярное
-                      </p>
-                    )}
+  {products.map(
+    ({
+      title,
+      mostPopular,
+      description,
+      currency,
+      price,
+      frecuency,
+      cta,
+      features,
+      href,
+    }) => {
+      return (
+        <>
+          {billingInterval === frecuency ? (
+            <div
+              key={title}
+              className={`rounded-lg py-8 relative flex flex-col ${
+                mostPopular
+                  ? "border-red-300 border-2 border-solid dark:border-red-600"
+                  : "border-neutral-300 border dark:border-neutral-600"
+              }`}
+            >
+              <h3 className="px-6 text-lg font-semibold leading-5">
+                {title}
+              </h3>
+              {mostPopular && (
+                <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600  rounded-full text-sm font-semibold tracking-wide shadow-md">
+                  Популярное
+                </p>
+              )}
 
-                    <p className="px-6 mt-4 leading-6 dark:text-neutral-400">
-                      {description}
-                    </p>
+              <p className="px-6 mt-4 leading-6 dark:text-neutral-400">
+                {description}
+              </p>
 
-{/* Call to action */}
-<Link
-  href={href}
-  target="_blank"
-  className={`mt-4 mx-6 block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
-    mostPopular
-      ? "bg-red-600 text-white shadow-md"
-      : "bg-black text-white dark:bg-white dark:text-black"
-  }`}
-  style={{ transition: "all 0.3s ease" }}
-  onMouseEnter={(e) => {
-    if (
-      e.currentTarget.classList.contains("bg-black") ||
-      e.currentTarget.classList.contains("dark:bg-white")
-    ) {
-      e.currentTarget.classList.remove("bg-black", "dark:bg-white");
-      e.currentTarget.classList.add("bg-gray-500", "dark:bg-gray-500");
-    } else if (
-      e.currentTarget.classList.contains("bg-red-600")
-    ) {
-      e.currentTarget.classList.remove("bg-red-600");
-      e.currentTarget.classList.add("bg-red-400");
-    }
-  }}
-  onMouseLeave={(e) => {
-    if (
-      e.currentTarget.classList.contains("bg-gray-500") ||
-      e.currentTarget.classList.contains("dark:bg-gray-500")
-    ) {
-      e.currentTarget.classList.remove("bg-gray-500", "dark:bg-gray-500");
-      e.currentTarget.classList.add("bg-black", "dark:bg-white");
-    } else if (
-      e.currentTarget.classList.contains("bg-red-400")
-    ) {
-      e.currentTarget.classList.remove("bg-red-400");
-      e.currentTarget.classList.add("bg-red-600");
-    }
-  }}
->
-  {cta}
-</Link>
+              {/* Call to action */}
+              <div className="flex justify-between items-center mt-4 mx-6">
+                <Link
+                  href={href}
+                  target="_blank"
+                  className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
+                    mostPopular
+                      ? "bg-red-600 text-white shadow-md"
+                      : "bg-black text-white dark:bg-white dark:text-black"
+                  }`}
+                  style={{ transition: "all 0.3s ease" }}
+                  onMouseEnter={(e) => {
+                    if (
+                      e.currentTarget.classList.contains("bg-black") ||
+                      e.currentTarget.classList.contains("dark:bg-white")
+                    ) {
+                      e.currentTarget.classList.remove("bg-black", "dark:bg-white");
+                      e.currentTarget.classList.add("bg-gray-500", "dark:bg-gray-500");
+                    } else if (
+                      e.currentTarget.classList.contains("bg-red-600")
+                    ) {
+                      e.currentTarget.classList.remove("bg-red-600");
+                      e.currentTarget.classList.add("bg-red-400");
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (
+                      e.currentTarget.classList.contains("bg-gray-500") ||
+                      e.currentTarget.classList.contains("dark:bg-gray-500")
+                    ) {
+                      e.currentTarget.classList.remove("bg-gray-500", "dark:bg-gray-500");
+                      e.currentTarget.classList.add("bg-black", "dark:bg-white");
+                    } else if (
+                      e.currentTarget.classList.contains("bg-red-400")
+                    ) {
+                      e.currentTarget.classList.remove("bg-red-400");
+                      e.currentTarget.classList.add("bg-red-600");
+                    }
+                  }}
+                >
+                  {cta}
+                </Link>
+
                 {/* Кнопка с ссылкой на инструкцию по установке */}
                 <IconButton
                   href="/инструкция-по-установке"
@@ -343,28 +349,25 @@ export default function Soft() {
                   <FaDownload />
                 </IconButton>
               </div>
-                    
-                    {/* features */}
-                    <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
-                      <p className="mt-6 font-semibold dark:text-neutral-300">
-                        Программы:
-                      </p>
-                      {features.map((features) => (
-                        <li key={features} className="leading-6 flex">
-                          <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
-                          <span className="ml-3 dark:text-neutral-400">
-                            {features}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-              </>
-            );
-          }
-        )}
-      </div>
-    </div> 
-  );
-}
+
+              {/* features */}
+              <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
+                <p className="mt-6 font-semibold dark:text-neutral-300">
+                  Программы:
+                </p>
+                {features.map((feature) => (
+                  <li key={feature} className="leading-6 flex">
+                    <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
+                    <span className="ml-3 dark:text-neutral-400">
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </>
+      );
+    }
+  )}
+</div>
