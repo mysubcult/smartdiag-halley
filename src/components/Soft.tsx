@@ -328,6 +328,16 @@ export default function Soft() {
 >
   {cta}
 </Link>
+
+                    {/* Кнопка с ссылкой на инструкцию по установке */}
+<Link
+  href="/инструкция-по-установке"
+  className="mt-2 mx-6 block text-sm text-gray-500 hover:text-gray-700"
+  target="_blank"
+>
+  Инструкция по установке
+</Link>
+                    
                     {/* features */}
                     <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
                       <p className="mt-6 font-semibold dark:text-neutral-300">
