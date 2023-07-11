@@ -10,7 +10,7 @@ const products = [
     frecuency: "month",
     description: "Многофункциональный диагностический инструмент для легковых и грузовых автомобилей.",
     features: [
-      "Delphi 2021.10b",
+      "Delphi 2021.10b, Autocom 2021.11, Wurth WoW 5.00.8",
       "Autocom 2021.11",
       "Wurth WoW 5.00.8",
     ],
@@ -331,7 +331,7 @@ export default function Soft() {
                     {/* features */}
                     <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
                       <p className="mt-6 font-semibold dark:text-neutral-300">
-                        Программы:
+                        В комплекте:
                       </p>
                       {features.map((features) => (
                         <li key={features} className="leading-6 flex">
