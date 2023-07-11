@@ -70,7 +70,7 @@ const products = [
     frecuency: "year",
     description: "Диагностический инструмент для автомобилей Volkswagen Group.",
     features: [
-      "VCDS, Вася 19.6",
+      "Вася, VCDS",
       "Инструкции по установке ПО",
       "Сборники кодировок",
       "Видеокурсы",
