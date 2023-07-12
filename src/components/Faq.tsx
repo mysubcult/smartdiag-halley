@@ -27,14 +27,14 @@ const faqitems = [
 export default function Faq() {
   return (
     <div
-      className="bg-white dark:bg-neutral-900 w-full px-4 pt-16 pb-8"
+      className="bg-white dark:bg-neutral-900 w-full px-4 pt-16 pb-16"
       id="faq"
     >
       <h2 className="text-4xl font-bold text-center">
         Часто задаваемые вопросы (FAQ) ❓
       </h2>
 
-      <p className="pt-6 pb-16 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+      <p className="pt-6 pb-8 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
         Здесь вы можете найти полезную информацию о наших товарах и услугах, оплате, доставке, гарантии, возврате и других аспектах, которые могут вас интересовать. Этот раздел был создан для вашего удобства, чтобы вы могли быстро получить ответы на свои вопросы и сэкономить время на общении с нашей поддержкой.
       </p>
       <div className="mx-auto w-full max-w-2xl rounded-2xl bg-transparent dark:bg-transparent">
