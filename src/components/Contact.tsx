@@ -76,7 +76,7 @@ export default function Contact() {
           <p className="max-w-sm mt-4 mb-4 dark:text-neutral-400">
             Оставайтесь на связи с нами в любом месте. Получайте оперативную помощь и ответы на вопросы от нашей поддержки через мессенджеры. Мы доступны в Телеграм и WhatsApp:
           </p>
-<div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
+<div className="flex flex-col items-center mt-2 space-y-2 text-dark-600 dark:text-neutral-400">
   <EnvelopeIcon className="w-5 h-5" />
   <a href="https://t.me/smartdiag_robot" target="_blank" className="hover:text-blue-500">Telegram</a>
   <a href="https://t.me/smartdiag_robot" target="_blank">
@@ -84,7 +84,7 @@ export default function Contact() {
   </a>
 </div>
 
-<div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
+<div className="flex flex-col items-center mt-2 space-y-2 text-dark-600 dark:text-neutral-400">
   <PhoneIcon className="w-5 h-5" />
   <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank" className="hover:text-green-500">WhatsApp</a>
   <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank">
