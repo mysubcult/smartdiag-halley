@@ -91,7 +91,7 @@ export default function Contact() {
     <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://wa.me/message/XVMV4LKBTXB4E1&amp;size=70x70&amp;color=28A745" alt="QR Code" />
   </a>
 </div>
-
+        </div>
         <div>
           {!isSubmitSuccessful && (
             <form onSubmit={handleSubmit(onSubmit)}>
