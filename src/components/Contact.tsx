@@ -76,18 +76,14 @@ export default function Contact() {
           <p className="max-w-sm mt-4 mb-4 dark:text-neutral-400">
             Оставайтесь на связи с нами в любом месте. Получайте оперативную помощь и ответы на вопросы от нашей поддержки через мессенджеры. Мы доступны в Телеграм и WhatsApp:
           </p>
-
-
 <div className="flex flex-col items-center mt-2 space-y-2 text-dark-600 dark:text-neutral-400">
   <div className="flex items-center space-x-2">
     <EnvelopeIcon className="w-5 h-5" />
     <a href="https://t.me/smartdiag_robot" target="_blank" className="hover:text-blue-500">Telegram</a>
   </div>
-  <div className="flex items-center space-x-2">
-    <a href="https://t.me/smartdiag_robot" target="_blank">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://t.me/smartdiag_robot&amp;size=70x70&amp;color=007BFF" alt="QR Code" />
-    </a>
-  </div>
+  <a href="https://t.me/smartdiag_robot" target="_blank">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://t.me/smartdiag_robot&amp;size=70x70&amp;color=007BFF" alt="QR Code" />
+  </a>
 </div>
 
 <div className="flex flex-col items-center mt-2 space-y-2 text-dark-600 dark:text-neutral-400">
@@ -95,14 +91,10 @@ export default function Contact() {
     <PhoneIcon className="w-5 h-5" />
     <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank" className="hover:text-green-500">WhatsApp</a>
   </div>
-  <div className="flex items-center space-x-2">
-    <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://wa.me/message/XVMV4LKBTXB4E1&amp;size=70x70&amp;color=28A745" alt="QR Code" />
-    </a>
-  </div>
+  <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://wa.me/message/XVMV4LKBTXB4E1&amp;size=70x70&amp;color=28A745" alt="QR Code" />
+  </a>
 </div>
-
-
         <div>
           {!isSubmitSuccessful && (
             <form onSubmit={handleSubmit(onSubmit)}>
