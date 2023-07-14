@@ -79,10 +79,8 @@ export default function Contact() {
 <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
   <EnvelopeIcon className="w-5 h-5" />
   <a href="https://t.me/smartdiag_robot" target="_blank" className="hover:text-blue-500">Telegram</a>
-  </div>
-      <div className="flex flex-col items-center mt-2 space-y-2 text-dark-600 dark:text-neutral-400"><a href="https://t.me/smartdiag_robot" target="_blank">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://t.me/smartdiag_robot&amp;size=70x70&amp;color=007BFF" alt="QR Code" />
-    </div>
+  <a href="https://t.me/smartdiag_robot" target="_blank">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://t.me/smartdiag_robot&amp;size=70x70&amp;color=007BFF" alt="QR Code" />
   </a>
 </div>
 
@@ -90,9 +88,7 @@ export default function Contact() {
   <PhoneIcon className="w-5 h-5" />
   <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank" className="hover:text-green-500">WhatsApp</a>
   <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank">
-    <div className="flex flex-col items-center mt-2 space-y-2 text-dark-600 dark:text-neutral-400">
     <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://wa.me/message/XVMV4LKBTXB4E1&amp;size=70x70&amp;color=28A745" alt="QR Code" />
-    </div>
   </a>
 </div>
         </div>
