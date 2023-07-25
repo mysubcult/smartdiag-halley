@@ -78,24 +78,16 @@ export default function Contact() {
           </p>
 
           
-<div className="flex flex-col items-center mt-2 space-y-2 text-dark-600 dark:text-neutral-400">
-  <div className="flex items-center space-x-2">
+<div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
+  <div>
     <EnvelopeIcon className="w-5 h-5" />
     <a href="https://t.me/smartdiag_robot" target="_blank" className="hover:text-blue-500">Telegram</a>
+    <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank" className="hover:text-green-500">WhatsApp</a>
   </div>
   <div>
     <a href="https://t.me/smartdiag_robot" target="_blank">
       <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://t.me/smartdiag_robot&amp;size=70x70&amp;color=007BFF" alt="Telegram QR Code" />
     </a>
-  </div>
-</div>
-
-<div className="flex flex-col items-center mt-2 space-y-2 text-dark-600 dark:text-neutral-400">
-  <div className="flex items-center space-x-2">
-    <PhoneIcon className="w-5 h-5" />
-    <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank" className="hover:text-green-500">WhatsApp</a>
-  </div>
-  <div>
     <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank">
       <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://wa.me/message/XVMV4LKBTXB4E1&amp;size=70x70&amp;color=28A745" alt="WhatsApp QR Code" />
     </a>
