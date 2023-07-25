@@ -121,7 +121,6 @@ function hidePopup() {
       <main id="skip" className="bg-white dark:bg-neutral-900">
         <Navbar />
         {children}
-        <Prefooter />
         <Footer />
       </main>
     </div>
