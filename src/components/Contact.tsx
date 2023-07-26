@@ -116,7 +116,6 @@ export default function Contact() {
                 style={{ display: "none" }}
                 {...register("botcheck")}
               ></input>
-          <h2 className="text-lg font-bold">💬 Мы в мессенджерах!</h2>
               <div className="mb-5">
                 <input
                   type="text"
