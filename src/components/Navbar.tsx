@@ -5,6 +5,7 @@ import ThemeSwitchButton from "./ThemeSwitchButton";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import { FaYandex } from 'react-icons/fa';
 
 const navigation = [
   { name: "Главная", href: "/", current: false },
@@ -69,24 +70,23 @@ export default function Navbar() {
   <a
     href="https://www.ozon.ru/"
     target="_blank"
-    className="hidden sm:block bg-yellow-500 text-white px-4 p-2 text-base font-medium rounded-full"
+    rel="noopener noreferrer"
   >
-    OZON
+    <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 p-2 text-base font-medium rounded-full flex items-center gap-2">
+      <FaOzon className="w-5 h-5" />
+      OZON
+    </button>
   </a>
   <a
     href="https://market.yandex.ru/"
     target="_blank"
-    className="hidden sm:block bg-blue-500 text-white px-4 p-2 text-base font-medium rounded-full"
+    rel="noopener noreferrer"
   >
-    Яндекс Маркет
+    <button className="bg-red-600 hover:bg-red-700 text-white px-4 p-2 text-base font-medium rounded-full flex items-center gap-2">
+      <FaYandex className="w-5 h-5" />
+      Яндекс Маркет
+    </button>
   </a>
-  <Link
-    href="https://i.getspace.us/cloud/s/dzkdXFpscgCFsjH"
-    target="_blank"
-    className="hidden sm:block bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 px-4 p-2 text-base font-medium dark:hover:bg-red-600 hover:bg-red-600 hover:text-white dark:hover:text-white rounded-full"
-  >
-    Скачать
-  </Link>
   <ThemeSwitchButton />
 </div>
 
