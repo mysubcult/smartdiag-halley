@@ -65,18 +65,31 @@ export default function Navbar() {
                   </div>
                  </div>
 
-                <div className="absolute inset-y-0 right-10 sm:right-0 flex items-center gap-2">
-                  <Link
-                    href="https://i.getspace.us/cloud/s/dzkdXFpscgCFsjH"
-                    target="_blank"
-                    className="hidden sm:block"
-                  >
-                    <button className="bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 px-4 p-2 text-base font-medium dark:hover:bg-red-600 hover:bg-red-600 hover:text-white dark:hover:text-white rounded-full">
-                      Скачать
-                    </button>
-                  </Link>
-                  <ThemeSwitchButton />
-                </div>
+<div className="absolute inset-y-0 right-10 sm:right-0 flex items-center gap-2">
+  <a
+    href="https://www.ozon.ru/"
+    target="_blank"
+    className="hidden sm:block bg-yellow-500 text-white px-4 p-2 text-base font-medium rounded-full"
+  >
+    OZON
+  </a>
+  <a
+    href="https://market.yandex.ru/"
+    target="_blank"
+    className="hidden sm:block bg-blue-500 text-white px-4 p-2 text-base font-medium rounded-full"
+  >
+    Яндекс Маркет
+  </a>
+  <Link
+    href="https://i.getspace.us/cloud/s/dzkdXFpscgCFsjH"
+    target="_blank"
+    className="hidden sm:block bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 px-4 p-2 text-base font-medium dark:hover:bg-red-600 hover:bg-red-600 hover:text-white dark:hover:text-white rounded-full"
+  >
+    Скачать
+  </Link>
+  <ThemeSwitchButton />
+</div>
+
 
                 <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
                   {/* Mobile menu button*/}
