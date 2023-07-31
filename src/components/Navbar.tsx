@@ -84,6 +84,7 @@ export default function Navbar() {
     href="https://market.yandex.ru/business--smartdiag/50025236"
     target="_blank"
     rel="noopener noreferrer"
+    className="hidden sm:block"
   >
     <button className="bg-yellow-400 hover:bg-yellow-500 text-black px-3 p-1 text-base font-medium rounded-full flex items-center gap-2">
       <img src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico" alt="Яндекс Маркет" className="w-4 h-4" />
