@@ -66,26 +66,33 @@ export default function Navbar() {
                  </div>
 
 <div className="absolute inset-y-0 right-10 sm:right-0 flex items-center gap-2">
+  {/* OZON */}
   <a
     href="https://www.ozon.ru/"
     target="_blank"
     rel="noopener noreferrer"
   >
     <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 p-2 text-base font-medium rounded-full flex items-center gap-2">
+      <img src="https://www.ozon.ru/favicon.ico" alt="OZON" className="w-4 h-4" />
       OZON
     </button>
   </a>
+  
+  {/* Яндекс Маркет */}
   <a
     href="https://market.yandex.ru/"
     target="_blank"
     rel="noopener noreferrer"
   >
     <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 p-2 text-base font-medium rounded-full flex items-center gap-2">
+      <img src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico" alt="Яндекс Маркет" className="w-4 h-4" />
       Яндекс Маркет
     </button>
   </a>
+
   <ThemeSwitchButton />
 </div>
+
 
 
 
