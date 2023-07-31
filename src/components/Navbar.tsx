@@ -68,7 +68,7 @@ export default function Navbar() {
 <div className="absolute inset-y-0 right-10 sm:right-0 flex items-center gap-2">
   {/* OZON */}
   <a
-    href="https://www.ozon.ru/"
+    href="https://www.ozon.ru/seller/smartdiag-862410/"
     target="_blank"
     rel="noopener noreferrer"
   >
@@ -80,7 +80,7 @@ export default function Navbar() {
   
   {/* Яндекс Маркет */}
   <a
-    href="https://market.yandex.ru/"
+    href="https://market.yandex.ru/business--smartdiag/50025236"
     target="_blank"
     rel="noopener noreferrer"
   >
