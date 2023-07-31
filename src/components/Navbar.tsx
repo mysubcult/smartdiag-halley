@@ -73,7 +73,7 @@ export default function Navbar() {
     rel="noopener noreferrer"
   >
     <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 p-2 text-base font-medium rounded-full flex items-center gap-2">
-      <FaOzon className="w-5 h-5" />
+      <FaYandex className="w-5 h-5" />
       OZON
     </button>
   </a>
