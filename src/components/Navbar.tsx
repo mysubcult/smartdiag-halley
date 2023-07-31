@@ -84,7 +84,7 @@ export default function Navbar() {
     target="_blank"
     rel="noopener noreferrer"
   >
-    <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 p-2 text-base font-medium rounded-full flex items-center gap-2">
+    <button className="bg-yellow-300 hover:bg-yellow-400 text-white px-4 p-2 text-base font-medium rounded-full flex items-center gap-2">
       <img src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico" alt="Яндекс Маркет" className="w-4 h-4" />
       Яндекс Маркет
     </button>
@@ -92,9 +92,6 @@ export default function Navbar() {
 
   <ThemeSwitchButton />
 </div>
-
-
-
 
 
                 <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
