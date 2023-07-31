@@ -71,7 +71,7 @@ export default function Navbar() {
     target="_blank"
     rel="noopener noreferrer"
   >
-    <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 p-2 text-base font-medium rounded-full flex items-center gap-2">
+    <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 p-2 text-base font-medium rounded-full flex items-center gap-2" style={{ backgroundColor: '#005BFF' }}>
       OZON
     </button>
   </a>
@@ -80,12 +80,13 @@ export default function Navbar() {
     target="_blank"
     rel="noopener noreferrer"
   >
-    <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 p-2 text-base font-medium rounded-full flex items-center gap-2">
+    <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 p-2 text-base font-medium rounded-full flex items-center gap-2 style={{ backgroundColor: '#FC0' }}">
       Яндекс Маркет
     </button>
   </a>
   <ThemeSwitchButton />
 </div>
+
 
 
                 <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
