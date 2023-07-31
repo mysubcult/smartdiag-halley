@@ -5,7 +5,6 @@ import ThemeSwitchButton from "./ThemeSwitchButton";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { FaYandex } from 'react-icons/fa';
 
 const navigation = [
   { name: "Главная", href: "/", current: false },
@@ -73,7 +72,7 @@ export default function Navbar() {
     rel="noopener noreferrer"
   >
     <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 p-2 text-base font-medium rounded-full flex items-center gap-2">
-      <FaYandex className="w-5 h-5" />
+      <XMarkIcon className="w-5 h-5" />
       OZON
     </button>
   </a>
@@ -83,7 +82,7 @@ export default function Navbar() {
     rel="noopener noreferrer"
   >
     <button className="bg-red-600 hover:bg-red-700 text-white px-4 p-2 text-base font-medium rounded-full flex items-center gap-2">
-      <FaYandex className="w-5 h-5" />
+      <XMarkIcon className="w-5 h-5" />
       Яндекс Маркет
     </button>
   </a>
