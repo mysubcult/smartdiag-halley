@@ -91,6 +91,18 @@ export default function Navbar() {
       Яндекс Маркет
     </button>
   </a>
+    {/* Wildberries */}
+  <a
+    href="https://www.wildberries.ru/seller/1343369"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hidden sm:block"
+  >
+    <button className="bg-purple-700 hover:bg-purple-800 text-white px-3 p-1 text-base font-medium rounded-full flex items-center gap-2">
+      <img src="https://www.wildberries.ru/favicon.ico" alt="Wildberries" className="w-4 h-4" />
+      Wildberries
+    </button>
+  </a>
 
   <ThemeSwitchButton />
 </div>
