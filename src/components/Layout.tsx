@@ -95,7 +95,7 @@ const Layout = (props: any) => {
     window.intergramCustomizations = {
     titleClosed: 'Онлайн-чат!',
     titleOpen: 'Онлайн поддержка',
-    closedStyle: 'chat',
+    closedStyle: 'button',
     closedChatAvatarUrl: 'https://смартдиаг.рф/images/logos/logo.png',
     placeholderText: 'Введите сообщение...',
     humanReadableIds: true,
