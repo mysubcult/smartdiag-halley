@@ -89,6 +89,11 @@ const Layout = (props: any) => {
     <p><button onclick="hidePopup()" class="bg-red-500 hover:bg-red-600 text-white rounded-full px-6 p-3 font-medium transition duration-300 ease-in-out">Принимаю</button></p>
   </div>
 </div>
+<script>  
+    window.intergramId = "-939654854" 
+    window.intergramServer = "https://telegram-chat-widget.onrender.com" 
+</script> 
+<script id="intergram" type="text/javascript" src="https://telegram-chat-widget.onrender.com/js/widget.js"></script>
 <script>
 const popup = document.querySelector('.smartdiag-popup');
 function showPopup() {
