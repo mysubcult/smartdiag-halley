@@ -97,6 +97,7 @@ const Layout = (props: any) => {
     titleOpen: 'Онлайн поддержка',
     closedStyle: 'chat',
     closedChatAvatarUrl: 'https://смартдиаг.рф/images/logos/logo.png',
+    placeholderText: 'Введите сообщение...',
     }
 </script> 
 <script id="intergram" type="text/javascript" src="https://telegram-chat-widget.onrender.com/js/widget.js"></script>
