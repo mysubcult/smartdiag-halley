@@ -93,7 +93,9 @@ const Layout = (props: any) => {
     window.intergramId = "-939654854" 
     window.intergramServer = "https://telegram-chat-widget.onrender.com" 
     window.intergramCustomizations = {
-    titleClosed: 'Cdhat!'
+    titleClosed: 'Онлайн-чат!',
+    titleOpen: 'Онлайн поддержка',
+    closedStyle: 'button',
     }
 </script> 
 <script id="intergram" type="text/javascript" src="https://telegram-chat-widget.onrender.com/js/widget.js"></script>
