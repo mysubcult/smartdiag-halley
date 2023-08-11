@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { menus } from "./NavLinks";
-import { InstagramIcon, WhatsAppIcon } from "../Icons";
 
 const social = [
   {
