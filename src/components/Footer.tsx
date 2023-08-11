@@ -5,12 +5,10 @@ const social = [
   {
     name: "instagram",
     href: "https://www.instagram.com/quinaerp/",
-    icon: <InstagramIcon />,
   },
   {
     name: "whatsapp",
     href: "https://api.whatsapp.com/send?phone=51931133631&text=Hola!%20necesito%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios%20y%20productos.",
-    icon: <WhatsAppIcon />,
   },
 ];
 
