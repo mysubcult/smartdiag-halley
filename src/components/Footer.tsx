@@ -2,17 +2,18 @@ import Link from "next/link";
 import { menus } from "./NavLinks";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { PhoneIcon } from "@heroicons/react/24/outline";
+import { SocialIcons } from '@rodneylab/svelte-social-icons';
 
 const social = [
   {
     name: "telegram",
     href: "https://t.me",
-    icon: <EnvelopeIcon className="w-5 h-5" />
+    icon: <SocialIcons network="telegram" className="w-5 h-5" />
   },
   {
     name: "whatsapp",
     href: "https://api.whatsapp.com/send?phone=51931133631&text=Hola!%20necesito%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios%20y%20productos.",
-    icon: <PhoneIcon className="w-5 h-5" />
+    icon: <SocialIcons network="whatsapp" className="w-5 h-5" />
   },
 ];
 
