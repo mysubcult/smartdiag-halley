@@ -4,10 +4,6 @@ export const menus = [
     url: "/",
   },
   {
-    title: "Servicios",
-    url: "/#servicios",
-  },
-  {
     title: "Программы",
     url: "/#soft",
   },
