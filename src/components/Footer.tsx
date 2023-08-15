@@ -18,10 +18,9 @@ interface FooterProps {
   hoverColor: string;
 }
 
-export default function Footer(props: FooterProps) {
-  const { bgColor, textColor, hoverColor } = props;
+export default function Footer() {
   return (
-    <footer className={`${bgColor} ${textColor}`}>
+    <footer className="bg-white border-t border-neutral-200 text-black">
       <div className="mx-auto px-6 lg:px-8 py-24 lg:py-4 grid grid-cols-1 lg:grid-cols-3">
         <div className="text-center lg:text-left justify-center my-auto order-3 lg:order-1">
           <Link href="https://www.humbernieto.pro/" target="_blank">
@@ -50,7 +49,7 @@ export default function Footer(props: FooterProps) {
               title={red.name}
             >
               <div
-                className={`${hoverColor} h-6 w-6 flex items-center justify-center`}
+                className="hover:text-[#00B19A] h-6 w-6 flex items-center justify-center"
               >
                 {red.name}
               </div>
