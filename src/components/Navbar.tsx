@@ -73,7 +73,7 @@ export default function Navbar() {
     rel="noopener noreferrer"
     className="hidden sm:block"
   >
-    <button className="bg-blue-600 hover:scale-110 bg-blue-700 text-white px-3 p-1 text-base font-medium rounded-full flex items-center gap-2">
+    <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 p-1 text-base font-medium rounded-full flex items-center gap-2">
       <img src="https://www.ozon.ru/favicon.ico" alt="OZON" className="w-4 h-4" />
       OZON
     </button>
