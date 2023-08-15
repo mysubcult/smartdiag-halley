@@ -7,12 +7,12 @@ const social = [
   {
     name: "telegram",
     href: "https://t.me",
-    icon: EnvelopeIcon
+    icon: <EnvelopeIcon className="w-5 h-5" />
   },
   {
     name: "whatsapp",
     href: "https://api.whatsapp.com/send?phone=51931133631&text=Hola!%20necesito%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios%20y%20productos.",
-    icon: PhoneIcon
+    icon: <PhoneIcon className="w-5 h-5" />
   },
 ];
 
@@ -55,7 +55,7 @@ export default function Footer() {
               <div
                 className="hover:text-[#00B19A] h-6 w-6 flex items-center justify-center"
               >
-                <{red.icon} className="w-5 h-5" />
+                {red.icon}
               </div>
             </Link>
           ))}
