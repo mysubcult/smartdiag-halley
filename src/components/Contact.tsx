@@ -83,18 +83,7 @@ export default function Contact() {
   <a href="https://t.me/smartdiag_robot" target="_blank" className="hover:text-blue-500" style={{ width: "90px" }}>Telegram</a>
   <div>
     <a href="https://t.me/smartdiag_robot" target="_blank">
-      <img
-        src="/images/hero/telegram-qr.svg"
-        width="120"
-        height="120"
-        alt="QR Code"
-        style={{
-          transition: "transform 0.3s",  // Добавляем плавную анимацию при ховере
-          "&:hover": {
-            transform: "scale(1.1)",  // Увеличиваем картинку при ховере
-          },
-        }}
-      />
+      <img src="/images/hero/telegram-qr.svg"  width="120" height="120" alt="QR Code" />
     </a>
   </div>
 </div>
