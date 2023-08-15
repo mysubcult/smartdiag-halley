@@ -27,7 +27,7 @@ export default function Footer() {
     <footer className="bg-white dark:bg-neutral-900 border-t border-neutral-200">
       <div className="mx-auto px-6 lg:px-8 py-24 lg:py-4 grid grid-cols-1 lg:grid-cols-3">
         <div className="text-center lg:text-left justify-center my-auto order-3 lg:order-1">
-          <Link href="https://www.humbernieto.pro/" target="_blank">
+          <Link href="/" target="_self">
             SmartDiag &copy; {new Date().getFullYear()}
           </Link>
         </div>
