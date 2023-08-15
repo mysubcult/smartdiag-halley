@@ -1,14 +1,18 @@
 import Link from "next/link";
 import { menus } from "./NavLinks";
+import { EnvelopeIcon } from "@heroicons/react/24/outline";
+import { PhoneIcon } from "@heroicons/react/24/outline";
 
 const social = [
   {
-    name: "instagram",
-    href: "https://www.instagram.com/quinaerp/"
+    name: "telegram",
+    href: "https://t.me",
+    icon: EnvelopeIcon
   },
   {
     name: "whatsapp",
     href: "https://api.whatsapp.com/send?phone=51931133631&text=Hola!%20necesito%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios%20y%20productos.",
+    icon: PhoneIcon
   },
 ];
 
@@ -20,7 +24,7 @@ interface FooterProps {
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-neutral-200 text-black">
+    <footer className="bg-white dark:bg-neutral-900 border-t border-neutral-200">
       <div className="mx-auto px-6 lg:px-8 py-24 lg:py-4 grid grid-cols-1 lg:grid-cols-3">
         <div className="text-center lg:text-left justify-center my-auto order-3 lg:order-1">
           <Link href="https://www.humbernieto.pro/" target="_blank">
@@ -51,7 +55,7 @@ export default function Footer() {
               <div
                 className="hover:text-[#00B19A] h-6 w-6 flex items-center justify-center"
               >
-                {red.name}
+                <{red.icon} className="w-5 h-5" />
               </div>
             </Link>
           ))}
