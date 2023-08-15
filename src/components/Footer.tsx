@@ -36,7 +36,7 @@ export default function Footer() {
             <div key={menu.title}>
               <ul>
                 <Link href={menu.url}>
-                  <li className="py-2 hover:underline font-medium">
+                  <li className="py-2 hover:text-red-500 font-medium">
                     {menu.title}
                   </li>
                 </Link>
