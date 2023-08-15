@@ -93,7 +93,7 @@ export default function Contact() {
   <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank" className="hover:text-green-500" style={{ width: "90px" }}>WhatsApp</a>
   <div>
     <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank">
-      <img src="/images/hero/whatsapp-qr.svg" alt="QR Code" />
+      <img src="/images/hero/whatsapp-qr.svg"  width="50" height="50" alt="QR Code" />
     </a>
   </div>
 </div>
