@@ -83,7 +83,7 @@ export default function Contact() {
   <a href="https://t.me/smartdiag_robot" target="_blank" className="hover:text-blue-500" style={{ width: "90px" }}>Telegram</a>
   <div>
     <a href="https://t.me/smartdiag_robot" target="_blank">
-      <img src="/images/hero/telegram-qr.svg"  width="150" height="150" alt="QR Code" />
+      <img src="/images/hero/telegram-qr.svg"  width="120" height="120" alt="QR Code" />
     </a>
   </div>
 </div>
@@ -93,7 +93,7 @@ export default function Contact() {
   <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank" className="hover:text-green-500" style={{ width: "90px" }}>WhatsApp</a>
   <div>
     <a href="https://wa.me/message/XVMV4LKBTXB4E1" target="_blank">
-      <img src="/images/hero/whatsapp-qr.svg"  width="150" height="150" alt="QR Code" />
+      <img src="/images/hero/whatsapp-qr.svg"  width="120" height="120" alt="QR Code" />
     </a>
   </div>
 </div>
