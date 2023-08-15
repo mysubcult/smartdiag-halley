@@ -18,7 +18,7 @@ interface FooterProps {
   hoverColor: string;
 }
 
-export function Footer(props: FooterProps) {
+export default function Footer(props: FooterProps) {
   const { bgColor, textColor, hoverColor } = props;
   return (
     <footer className={`${bgColor} ${textColor}`}>
