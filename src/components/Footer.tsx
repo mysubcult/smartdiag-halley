@@ -53,7 +53,7 @@ export default function Footer() {
               title={red.name}
             >
               <div
-                className="hover:text-[#f83d3f] h-6 w-6 flex items-center justify-center"
+                className="hover:text-red-500 h-6 w-6 flex items-center justify-center"
               >
                 {red.icon}
               </div>
