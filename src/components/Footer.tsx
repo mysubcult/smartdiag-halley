@@ -2,7 +2,7 @@ import Link from "next/link";
 import { menus } from "./NavLinks";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { PhoneIcon } from "@heroicons/react/24/outline";
-import { SocialIcons } from '@rodneylab/svelte-social-icons';
+import { SocialIcons } from "@rodneylab/svelte-social-icons";
 
 const social = [
   {
