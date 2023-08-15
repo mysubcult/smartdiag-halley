@@ -1,23 +1,27 @@
 export const menus = [
   {
-    title: "Nosotros",
-    url: "/#nosotros",
+    title: "Главная",
+    url: "/",
   },
   {
     title: "Servicios",
     url: "/#servicios",
   },
   {
-    title: "Precios",
-    url: "/#precios",
+    title: "Программы",
+    url: "/#soft",
   },
   {
-    title: "App",
-    url: "/app",
+    title: "О нас",
+    url: "/#services",
   },
   {
-    title: "Tienda",
-    url: "/tienda",
+    title: "ЧАВО",
+    url: "/#faq",
+  },
+  {
+    title: "Обратная связь",
+    url: "/#contact",
   },
   // {
   //   title: "Quina",
