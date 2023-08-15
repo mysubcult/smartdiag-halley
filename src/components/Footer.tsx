@@ -55,7 +55,7 @@ export default function Footer() {
               <div
                 className="hover:text-[#00B19A] h-6 w-6 flex items-center justify-center"
               >
-                <img src="{red.icon}">
+                <img src="{red.icon}" />
               </div>
             </Link>
           ))}
