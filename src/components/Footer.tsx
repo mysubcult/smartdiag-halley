@@ -1,17 +1,14 @@
 import Link from "next/link";
 import { menus } from "./NavLinks";
-import { InstagramIcon, WhatsAppIcon } from "../Icons";
 
 const social = [
   {
     name: "instagram",
-    href: "https://www.instagram.com/quinaerp/",
-    icon: <InstagramIcon />,
+    href: "https://www.instagram.com/quinaerp/"
   },
   {
     name: "whatsapp",
     href: "https://api.whatsapp.com/send?phone=51931133631&text=Hola!%20necesito%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios%20y%20productos.",
-    icon: <WhatsAppIcon />,
   },
 ];
 
@@ -55,7 +52,7 @@ export function Footer(props: FooterProps) {
               <div
                 className={`${hoverColor} h-6 w-6 flex items-center justify-center`}
               >
-                {red.icon}
+                {red.name}
               </div>
             </Link>
           ))}
