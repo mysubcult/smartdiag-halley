@@ -83,7 +83,7 @@ export default function Contact() {
   <a href="https://t.me/smartdiag_robot" target="_blank" className="hover:text-blue-500" style={{ width: "90px" }}>Telegram</a>
   <div>
     <a href="https://t.me/smartdiag_robot" target="_blank">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://t.me/smartdiag_robot&amp;size=70x70&amp;color=007BFF" alt="QR Code" />
+      <img src="/images/hero/telegram-qr.svg"  width="150" height="150" alt="QR Code" />
     </a>
   </div>
 </div>
