@@ -84,13 +84,8 @@ export default function Contact() {
   <div>
     <a href="https://t.me/smartdiag_robot" target="_blank">
      <img src="/images/hero/telegram-qr.svg"  className="transition-transform duration-300 ease-in-out transform hover:scale-110" width="120" height="120" alt="QR Code" />
-    </a>
+      </a>
     </div>
-     <div>
-    <a href="https://t.me/smartdiag_robot" target="_blank">
-     <img src="/images/hero/telegram-qr.svg"  className="transition-transform duration-300 ease-in-out transform hover:scale-110" width="120" height="120" alt="QR Code" />
-    </a>
-    </div> 
 </div>
 
 <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-neutral-400">
