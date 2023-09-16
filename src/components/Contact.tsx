@@ -146,7 +146,7 @@ export default function Contact() {
                   id="email_address"
                   type="email"
                   placeholder="Введите Ваш Email"
-                  name="emaвввil"
+                  // name="email"
                   autoComplete="false"
                   className={`w-full px-4 py-3 border-2 placeholder:text-neutral-400 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-500 dark:bg-neutral-900   focus:ring-4  ${
                     errors.email
