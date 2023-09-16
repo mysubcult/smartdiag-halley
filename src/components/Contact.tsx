@@ -107,7 +107,7 @@ export default function Contact() {
                 value="c39d2187-6537-4c0b-87e1-3cff0bf0c1c3"
                 {...register("access_key")}
               />
-              <input type="hidden" value="Новая обращение через форму обратной связи с сайта" {...register("subject")} />
+              <input type="hidden" value="Новое обращение через форму обратной связи с сайта" {...register("subject")} />
               <input type="hidden" value="SmartDiag" {...register("from_name")} />
               <input
                 type="checkbox"
@@ -146,7 +146,7 @@ export default function Contact() {
                   id="email_address"
                   type="email"
                   placeholder="Введите Ваш Email"
-                  // name="email"
+                  name="emaвввil"
                   autoComplete="false"
                   className={`w-full px-4 py-3 border-2 placeholder:text-neutral-400 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-500 dark:bg-neutral-900   focus:ring-4  ${
                     errors.email
