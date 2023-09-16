@@ -107,7 +107,7 @@ export default function Contact() {
                 value="c39d2187-6537-4c0b-87e1-3cff0bf0c1c3"
                 {...register("access_key")}
               />
-              <input type="hidden" {...register("subject")} />
+              <input type="hidden" value="Новая обращение через форму обратной связи с сайта" {...register("subject")} />
               <input type="hidden" value="SmartDiag" {...register("from_name")} />
               <input
                 type="checkbox"
