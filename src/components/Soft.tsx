@@ -55,7 +55,7 @@ const products = [
     frecuency: "month",
     description: "Универсальные мобильные приборы для диагностики автомобилей.",
     features: [
-      "Diagzone,",
+      "Diagzone",
       "X-DIAG",
       "X-PRO5",
     ],
@@ -71,6 +71,7 @@ const products = [
     description: "Универсальный программатор для чип-тюнинга, чтения и удаления кодов неисправностей.",
     features: [
       "Galletto 1260",
+      "Драйвер",
     ],
     href: "https://i.getspace.us/cloud/s/dfYejQP9rZGK9Td",
     cta: "Скачать",
