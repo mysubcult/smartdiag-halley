@@ -10,7 +10,7 @@ const products = [
     frecuency: "month",
     description: "Многофункциональный диагностический инструмент для легковых и грузовых автомобилей.",
     features: [
-      "Delphi 2021.10b, Delphi + Autocom 2020.23",
+      "Delphi 2021.10b, Delphi + Delphi 2020.23",
       "Инструкции по установке ПО",
       "Руководство пользователя",
     ],
