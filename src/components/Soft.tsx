@@ -63,6 +63,19 @@ const products = [
     cta: "Скачать",
     mostPopular: false,
   },
+    {
+    title: "Galletto 1260",
+    price: 12,
+    currency: "$",
+    frecuency: "month",
+    description: "Универсальный программатор для чип-тюнинга, чтения и удаления кодов неисправностей.",
+    features: [
+      "Galletto 1260",
+    ],
+    href: "https://i.getspace.us/cloud/s/dfYejQP9rZGK9Td",
+    cta: "Скачать",
+    mostPopular: false,
+  },
   {
     title: "VCDS + Вася",
     price: 120,
