@@ -51,7 +51,7 @@ export default function Navbar() {
   href={item.href}
   className={classNames(
     item.current
-      ? "text-neutral-900 dark:text-neutral-400 hover:text-red-500"
+      ? "text-neutral-900 dark:text-neutral-400"
       : "text-neutral-900 dark:text-neutral-400 hover:text-red-500",
     "text-base font-medium",
   )}
