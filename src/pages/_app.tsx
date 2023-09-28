@@ -28,7 +28,6 @@ export default function App({ Component, pageProps }: AppProps) {
             pheight: 520,
             pwidth: 500,
             department: ["1"],
-            theme: "1",
             check_messages: false,
             lang: 'rus/'
           };
