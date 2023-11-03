@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
         <Analytics />
       </ThemeProvider>
-<script>
+<Script>
 var LHC_API = LHC_API||{};
 LHC_API = {
   "args": {
