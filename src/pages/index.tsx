@@ -15,30 +15,6 @@ export default function Home() {
       <Faq />
       <Services />
       <Contact />
-      <Script
-        id="live-helper-chat-script" // Добавьте атрибут id
-        dangerouslySetInnerHTML={{
-          __html: `
-            var LHC_API = LHC_API||{};
-            LHC_API = {
-              "args": {
-                "mode": "widget",
-                "lhc_base_url": "//xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/",
-                "wheight": 450,
-                "wwidth": 350,
-                "pheight": 520,
-                "pwidth": 500,
-                "department": [
-                  1
-                ],
-                "leaveamessage": true,
-                "check_messages": false,
-                "theme": 9
-              }
-            };
-          `
-        }}
-      />
     </Layout>
   );
 }
