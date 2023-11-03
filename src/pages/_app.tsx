@@ -1,4 +1,5 @@
-import Script from 'next/script'
+import Head from 'next/head';
+import React from 'react';
 import "@/styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
@@ -13,29 +14,31 @@ const inter = Inter({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <main className={`${inter.variable} font-sans`}>
+      <Head>
+        <script dangerouslySetInnerHTML={{ __html: `
+          var LHC_API = LHC_API||{};
+          LHC_API = {
+            "args": {
+              "mode": "widget",
+              "lhc_base_url": "//xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/",
+              "wheight": 450,
+              "wwidth": 350,
+              "pheight": 520,
+              "pwidth": 500,
+              "department": [
+                1
+              ],
+              "leaveamessage": true,
+              "check_messages": false,
+              "theme": 9
+            }
+          }
+        `}}></script>
+      </Head>
       <ThemeProvider attribute="class">
         <Component {...pageProps} />
         <Analytics />
       </ThemeProvider>
-<Script>
-var LHC_API = LHC_API||{};
-LHC_API = {
-  "args": {
-    "mode": "widget",
-    "lhc_base_url": "//xn----7sbabnedajkp5ap8aokkew.xn--p1ai/index.php/",
-    "wheight": 450,
-    "wwidth": 350,
-    "pheight": 520,
-    "pwidth": 500,
-    "department": [
-      1
-    ],
-    "leaveamessage": true,
-    "check_messages": false,
-    "theme": 9
-  }
-}
-</script>
     </main>
   );
 }
