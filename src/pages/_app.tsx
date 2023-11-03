@@ -30,7 +30,6 @@ export default function App({ Component, pageProps }: AppProps) {
               ],
               "leaveamessage": true,
               "check_messages": false,
-              "theme": 9
             }
           }
         `}}></script>
