@@ -16,6 +16,7 @@ export default function Home() {
       <Services />
       <Contact />
       <Script
+        id="live-helper-chat-script" // Добавьте атрибут id
         dangerouslySetInnerHTML={{
           __html: `
             var LHC_API = LHC_API||{};
