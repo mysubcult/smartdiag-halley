@@ -49,7 +49,7 @@ const products = [
     mostPopular: false,
   },
     {
-    title: "MUCAR BT200/Thinkcar Mini/Thinkdiag/Thinkdiag Mini",
+    title: "MUCAR BT200/Thinkcar Mini/Thinkdiag",
     price: 12,
     currency: "$",
     frecuency: "month",
