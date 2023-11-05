@@ -56,6 +56,7 @@ const products = [
     description: "Универсальные мобильные приборы для диагностики автомобилей.",
     features: [
       "Diagzone",
+      "ProDiag",
       "X-DIAG",
       "X-PRO5",
     ],
