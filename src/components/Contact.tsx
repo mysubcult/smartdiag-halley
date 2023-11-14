@@ -188,6 +188,7 @@ export default function Contact() {
       <option value="Вопрос о товаре">Вопрос о товаре</option>
       <option value="Активация прибора">Активация прибора</option>
       <option value="Помощь с установкой ПО">Помощь с установкой ПО</option>
+      <option value="Заказ оборудования">Заказ оборудования</option>
       <option value="Сообщить о проблеме">Сообщить о проблеме</option>
       <option value="Другое">Другое</option>
     </select>
@@ -221,6 +222,8 @@ export default function Contact() {
     ? "В зависимости от типа прибора, необходимо предоставить соответствующую информацию, такую как номер заказа, серийный номер, ACTIVATION ID и т.п."
     : watch("topic") === "Помощь с установкой ПО"
       ? "Введите ваше сообщение. Уточните модель прибора и удобное для вас время, когда мы можем связаться с вами для дистанционной установки ПО."
+    : watch("topic") === "Заказ оборудования"
+      ? "Введите ваше сообщение. выфвыфвыфвгда мы можем связаться с вами для дистанционной установки ПО."                
       : "Введите ваше сообщение"
 }
                   className={`w-full px-4 py-3 border-2 placeholder:text-neutral-400 dark:text-white dark:placeholder:text-neutral-500 dark:bg-neutral-900   rounded-md outline-none  h-36 focus:ring-4  ${
