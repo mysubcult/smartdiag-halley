@@ -15,9 +15,7 @@ const products = [
       "Руководство пользователя",
     ],
     href: "https://i.getspace.us/cloud/s/BiaqYzKpxZRTc58",
-    mirrorHref: "https://mirror.example.com/delphi-ds150e",
     cta: "Скачать",
-    mirrorCta: "Зеркало",
     mostPopular: false,
   },
   {
@@ -220,8 +218,8 @@ const products = [
 type BillingInterval = "year" | "month" | "elm";
 
 export default function Soft() {
-  const [billingInterval, setBillingInterval] = useState<BillingInterval>("month");
-
+  const [billingInterval, setBillingInterval] =
+    useState<BillingInterval>("month");
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
@@ -232,45 +230,45 @@ export default function Soft() {
         </p>
       </div>
 
-      <div className="max-w-max mx-auto px-6">
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
-          <button
-            onClick={() => setBillingInterval("month")}
-            type="button"
-            className={`${
-              billingInterval === "month"
-                ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
-          >
-            Мультимарочные
-          </button>
-          <button
-            onClick={() => setBillingInterval("year")}
-            type="button"
-            className={`${
-              billingInterval === "year"
-                ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
-          >
-            Марочные
-          </button>
-          <button
-            onClick={() => setBillingInterval("elm")}
-            type="button"
-            className={`${
-              billingInterval === "elm"
-                ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
-          >
-            Адаптеры ELM
-          </button>
-        </div>
-      </div>
+<div className="max-w-max mx-auto px-6">
+  <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
+    <button
+      onClick={() => setBillingInterval("month")}
+      type="button"
+      className={`${
+        billingInterval === "month"
+          ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
+      } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+    >
+      Мультимарочные
+    </button>
+    <button
+      onClick={() => setBillingInterval("year")}
+      type="button"
+      className={`${
+        billingInterval === "year"
+          ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
+      } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+    >
+      Марочные
+    </button>
+    <button
+      onClick={() => setBillingInterval("elm")}
+      type="button"
+      className={`${
+        billingInterval === "elm"
+          ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
+      } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+    >
+      Адаптеры ELM
+    </button>
+  </div>
+</div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
+<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {products.map(
           ({
             title,
@@ -280,8 +278,6 @@ export default function Soft() {
             price,
             frecuency,
             cta,
-            mirrorHref,
-            mirrorCta,
             features,
             href,
           }) => {
@@ -309,42 +305,57 @@ export default function Soft() {
                       {description}
                     </p>
 
-                    {/* Call to action */}
-                    <div className="flex justify-between mx-6 mt-4">
-                      <Link
-                        href={href}
-                        target="_blank"
-                        className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
-                          mostPopular
-                            ? "bg-red-600 text-white shadow-md w-2/3"
-                            : "bg-black text-white dark:bg-white dark:text-black w-full"
-                        }`}
-                      >
-                        {cta}
-                      </Link>
-                      <Link
-                        href={mirrorHref}
-                        target="_blank"
-                        className={`block px-3 py-2 font-medium leading-4 text-center rounded-lg ${
-                          mostPopular
-                            ? "bg-red-600 text-white shadow-md w-1/3"
-                            : "bg-gray-500 dark:bg-gray-500 text-white dark:text-black w-full"
-                        }`}
-                      >
-                        {mirrorCta}
-                      </Link>
-                    </div>
-
+{/* Call to action */}
+<Link
+  href={href}
+  target="_blank"
+  className={`mt-4 mx-6 block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
+    mostPopular
+      ? "bg-red-600 text-white shadow-md"
+      : "bg-black text-white dark:bg-white dark:text-black"
+  }`}
+  style={{ transition: "all 0.3s ease" }}
+  onMouseEnter={(e) => {
+    if (
+      e.currentTarget.classList.contains("bg-black") ||
+      e.currentTarget.classList.contains("dark:bg-white")
+    ) {
+      e.currentTarget.classList.remove("bg-black", "dark:bg-white");
+      e.currentTarget.classList.add("bg-gray-500", "dark:bg-gray-500");
+    } else if (
+      e.currentTarget.classList.contains("bg-red-600")
+    ) {
+      e.currentTarget.classList.remove("bg-red-600");
+      e.currentTarget.classList.add("bg-red-400");
+    }
+  }}
+  onMouseLeave={(e) => {
+    if (
+      e.currentTarget.classList.contains("bg-gray-500") ||
+      e.currentTarget.classList.contains("dark:bg-gray-500")
+    ) {
+      e.currentTarget.classList.remove("bg-gray-500", "dark:bg-gray-500");
+      e.currentTarget.classList.add("bg-black", "dark:bg-white");
+    } else if (
+      e.currentTarget.classList.contains("bg-red-400")
+    ) {
+      e.currentTarget.classList.remove("bg-red-400");
+      e.currentTarget.classList.add("bg-red-600");
+    }
+  }}
+>
+  {cta}
+</Link>        
                     {/* features */}
                     <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
                       <p className="mt-6 font-semibold dark:text-neutral-300">
                         В комплекте:
                       </p>
-                      {features.map((feature) => (
-                        <li key={feature} className="leading-6 flex">
+                      {features.map((features) => (
+                        <li key={features} className="leading-6 flex">
                           <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
                           <span className="ml-3 dark:text-neutral-400">
-                            {feature}
+                            {features}
                           </span>
                         </li>
                       ))}
@@ -356,6 +367,6 @@ export default function Soft() {
           }
         )}
       </div>
-    </div>
+    </div> 
   );
 }
