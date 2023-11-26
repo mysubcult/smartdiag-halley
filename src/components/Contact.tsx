@@ -126,7 +126,7 @@ export default function Contact() {
                       ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
                       : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
                   }`}
-                  {...register("имя", {
+                  {...register("name", {
                     required: "Необходимо ввести Ваше имя",
                     maxLength: 80,
                   })}
