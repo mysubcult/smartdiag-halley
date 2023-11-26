@@ -107,7 +107,7 @@ export default function Contact() {
                 value="c39d2187-6537-4c0b-87e1-3cff0bf0c1c3"
                 {...register("access_key")}
               />
-              <input type="hidden" value="Новое обращение через форму обратной связи с сайта" {...register("subject")} />
+              <input type="hidden" value="Обращение через форму обратной связи на сайте SmartDiag" {...register("subject")} />
               <input type="hidden" value="SmartDiag" {...register("from_name")} />
               <input
                 type="checkbox"
@@ -126,7 +126,7 @@ export default function Contact() {
                       ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
                       : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
                   }`}
-                  {...register("name", {
+                  {...register("имя", {
                     required: "Необходимо ввести Ваше имя",
                     maxLength: 80,
                   })}
