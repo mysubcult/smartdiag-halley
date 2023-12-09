@@ -146,11 +146,6 @@ export default function Navbar() {
                   Скачать
                 </button>
               </Link>
-              <Link href="https://i.getspace.us/cloud/s/dzkdXFpscgCFsjH" target="_blank">
-                <button className="mt-12 bg-red-600 text-white px-4 p-3 font-medium rounded-full w-full">
-                  Скачать
-                </button>
-              </Link>
             </div>
           </Disclosure.Panel>
         </>
