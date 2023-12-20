@@ -26,7 +26,7 @@ export default function Home() {
         <div className="mt-16 text-center">
           <Link href="/">
             <button className="bg-rose-500 text-white text-base rounded-full px-16 p-3 font-medium">
-              Return Home
+              На главную
             </button>
           </Link>
         </div>
