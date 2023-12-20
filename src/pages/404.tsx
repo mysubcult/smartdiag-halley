@@ -9,11 +9,10 @@ export default function Home() {
         className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16"
         id="faq"
       >
-        <h2 className="text-4xl font-bold text-center">404 - Not Found</h2>
+        <h2 className="text-4xl font-bold text-center">404 - Упс! Что-то пошло не так.</h2>
 
         <p className="pt-6 pb-16 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          Im guessing you spelled something wrong. Can you double check that
-          URL?
+          Страница не найдена.
         </p>
         <Image
           src="/images/404/404.svg"
