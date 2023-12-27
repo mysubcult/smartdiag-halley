@@ -30,7 +30,7 @@ export default function Contact() {
   const [isSuccess, setIsSuccess] = React.useState(false);
   const [Message, setMessage] = React.useState("");
 
-  const htmlLinkToTerms = (`Я прочитал и согласен с <a href="#!" onclick="showPopup()" class="terms-link">правилами на обработку персональных данных</a>.`);
+  const htmlLinkToTerms = (`Я прочитал и согласен с <a href="#!" onclick="showPopup()" class="terms-link" style="color: inherit; text-decoration: inherit;">правилами на обработку персональных данных</a>.`);
 
   const onSubmit = async (data: any, e: any) => {
     console.log(data);
