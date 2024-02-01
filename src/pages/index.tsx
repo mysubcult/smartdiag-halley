@@ -32,7 +32,7 @@ export default function Home() {
               department: ["1"],
               theme: "9",
               check_messages: false,
-              lang: 'ru/'
+              lang: 'esp/'
             };
             (function() {
               var po = document.createElement('script');
