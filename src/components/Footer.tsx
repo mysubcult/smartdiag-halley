@@ -28,7 +28,7 @@ export default function Footer() {
       <div className="mx-auto px-6 lg:px-8 py-24 lg:py-4 grid grid-cols-1 lg:grid-cols-3">
         <div className="text-center lg:text-left justify-center my-auto order-3 lg:order-1">
           <Link href="/" target="_self">
-            SmartDiag &copy; {new Date().getFullYear()}
+            SmartDiag &copy; 2023-{new Date().getFullYear()}
           </Link>
         </div>
         <div className="order-2 lg:order-2 py-10 lg:py-0 lg:flex gap-6 text-center mx-auto">
