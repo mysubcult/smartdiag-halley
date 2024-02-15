@@ -18,7 +18,7 @@ const products = [
     cta: "Скачать",
     mostPopular: false,
     docs: true,
-    docsLink: "https://_",
+    docsLink: "https://i.getspace.us/cloud/s/qJRfJdgjsqkPxme",
     docsLabel: "Инструкция",
   },
   {
@@ -36,8 +36,8 @@ const products = [
     cta: "Скачать",
     mostPopular: true,
     docs: false,
-    docsLink: "",
-    docsLabel: ""
+    docsLink: "https://i.getspace.us/cloud/s/bbRzaksyH6LkSg4",
+    docsLabel: "Инструкция"
   },
     {
     title: "Wurth WoW Snooper+",
