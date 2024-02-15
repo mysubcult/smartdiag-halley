@@ -351,7 +351,7 @@ export default function Soft() {
 <Link
   href={href}
   target="_blank"
-  className={`mt-4 ml-4 mr-2 block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
+  className={`mt-4 ml-4 mr-2 flex px-6 py-3 font-medium leading-4 text-center rounded-lg ${
     mostPopular
       ? "bg-red-600 text-white shadow-md"
       : "bg-black text-white dark:bg-white dark:text-black"
@@ -394,7 +394,7 @@ export default function Soft() {
             docs && (<Link
   href={docsLink}
   target="_blank"
-  className={`mt-4 ml-2 mr-4 block px-6 py-3 font-small leading-4 text-center rounded-lg ${
+  className={`mt-4 ml-2 mr-4 flex px-6 py-3 font-small leading-4 text-center rounded-lg ${
     mostPopular
       ? "bg-red-600 text-black shadow-md"
       : "bg-black text-black dark:bg-white dark:text-white"
