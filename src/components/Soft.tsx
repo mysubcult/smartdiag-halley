@@ -398,8 +398,8 @@ export default function Soft() {
     mostPopular
       ? "bg-red-600 text-black shadow-md"
       : "bg-black text-black dark:bg-white dark:text-white"
-  }`}
-  style={{ transition: "all 0.3s ease", marginLeft: "0 !important", opacity: "0.7", backgroundColor: "transparent" }}
+  } border-neutral-300 border dark:border-neutral-600`}
+  style={{ transition: "all 0.3s ease", marginLeft: "0 !important", opacity: "1", backgroundColor: "transparent" }}
   onMouseEnter={(e) => {
     if (
       e.currentTarget.classList.contains("bg-black") ||
