@@ -393,7 +393,7 @@ export default function Soft() {
             docs && (<Link
   href={docsLink}
   target="_blank"
-  className={`ml-2 block px-6 py-3 font-small leading-4 text-center rounded-lg ${
+  className={`block px-6 py-3 font-small leading-4 text-center rounded-lg ${
     mostPopular
       ? "bg-red-600 text-black shadow-md"
       : "bg-black text-black dark:bg-white dark:text-white"
