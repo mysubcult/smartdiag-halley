@@ -396,10 +396,10 @@ export default function Soft() {
   target="_blank"
   className={`mt-4 mx-6 block px-6 py-3 font-small leading-4 text-center rounded-lg ${
     mostPopular
-      ? "bg-red-600 text-white shadow-md"
-      : "bg-black text-white dark:bg-white dark:text-black"
+      ? "bg-red-600 text-black shadow-md"
+      : "bg-black text-black dark:bg-white dark:text-white"
   }`}
-  style={{ transition: "all 0.3s ease", marginLeft: "0 !important", opacity: "0.7" }}
+  style={{ transition: "all 0.3s ease", marginLeft: "0 !important", opacity: "0.7", backgroundColor: "transparent" }}
   onMouseEnter={(e) => {
     if (
       e.currentTarget.classList.contains("bg-black") ||
