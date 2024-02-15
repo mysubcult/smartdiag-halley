@@ -346,7 +346,6 @@ export default function Soft() {
                     <p className="px-6 mt-4 leading-6 dark:text-neutral-400">
                       {description}
                     </p>
-<div style={{ display: "flex" }}>
 {/* Call to action */}
 <Link
   href={href}
@@ -436,7 +435,6 @@ export default function Soft() {
 
   
   
-  </div>
                     {/* features */}
                     <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
                       <p className="mt-6 font-semibold dark:text-neutral-300">
