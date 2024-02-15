@@ -356,7 +356,7 @@ export default function Soft() {
       ? "bg-red-600 text-white shadow-md"
       : "bg-black text-white dark:bg-white dark:text-black"
   }`}
-  style={{ transition: "all 0.3s ease" }}
+  style={{ transition: "all 0.3s ease", width: "100%" }}
   onMouseEnter={(e) => {
     if (
       e.currentTarget.classList.contains("bg-black") ||
@@ -393,7 +393,7 @@ export default function Soft() {
             docs && (<Link
   href={docsLink}
   target="_blank"
-  className={`block px-3 py-3 font-small leading-4 text-center rounded-lg ${
+  className={`ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg ${
     mostPopular
       ? "bg-red-600 text-black shadow-md"
       : "bg-black text-black dark:bg-white dark:text-white"
