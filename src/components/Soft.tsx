@@ -346,12 +346,12 @@ export default function Soft() {
                     <p className="px-6 mt-4 leading-6 dark:text-neutral-400">
                       {description}
                     </p>
-<p className="flex mx-4">
+<p className="flex mt-4 mx-4">
 {/* Call to action */}
 <Link
   href={href}
   target="_blank"
-  className={`mt-4 mx-4 grid px-6 py-3 font-medium leading-4 text-center rounded-lg ${
+  className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
     mostPopular
       ? "bg-red-600 text-white shadow-md"
       : "bg-black text-white dark:bg-white dark:text-black"
@@ -394,7 +394,7 @@ export default function Soft() {
             docs && (<Link
   href={docsLink}
   target="_blank"
-  className={`mt-4 ml-2 mr-4 grid px-6 py-3 font-small leading-4 text-center rounded-lg ${
+  className={`block px-6 py-3 font-small leading-4 text-center rounded-lg ${
     mostPopular
       ? "bg-red-600 text-black shadow-md"
       : "bg-black text-black dark:bg-white dark:text-white"
