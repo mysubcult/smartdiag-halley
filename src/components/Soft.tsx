@@ -346,7 +346,7 @@ export default function Soft() {
                     <p className="px-6 mt-4 leading-6 dark:text-neutral-400">
                       {description}
                     </p>
-<p className="flex">
+<p className="flex mx-4">
 {/* Call to action */}
 <Link
   href={href}
