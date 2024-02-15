@@ -389,7 +389,7 @@ export default function Soft() {
   {cta}
 </Link>
 
-
+&nbsp;&nbsp;&nbsp;
 {
             docs && (<Link
   href={docsLink}
