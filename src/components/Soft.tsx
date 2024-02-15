@@ -346,7 +346,7 @@ export default function Soft() {
                     <p className="px-6 mt-4 leading-6 dark:text-neutral-400">
                       {description}
                     </p>
-<div className="flex mt-4 mx-4">
+<div className="flex mt-4 mx-6">
 {/* Call to action */}
 <Link
   href={href}
@@ -356,7 +356,7 @@ export default function Soft() {
       ? "bg-red-600 text-white shadow-md"
       : "bg-black text-white dark:bg-white dark:text-black"
   }`}
-  style={{ transition: "all 0.3s ease", width: "100%" }}
+  style={{ transition: "all 0.3s ease" }}
   onMouseEnter={(e) => {
     if (
       e.currentTarget.classList.contains("bg-black") ||
@@ -393,7 +393,7 @@ export default function Soft() {
             docs && (<Link
   href={docsLink}
   target="_blank"
-  className={`block px-6 py-3 font-small leading-4 text-center rounded-lg ${
+  className={`block px-3 py-3 font-small leading-4 text-center rounded-lg ${
     mostPopular
       ? "bg-red-600 text-black shadow-md"
       : "bg-black text-black dark:bg-white dark:text-white"
