@@ -108,9 +108,9 @@ const products = [
     href: "https://i.getspace.us/cloud/s/R7ycKecn9P6b55a",
     cta: "Скачать",
     mostPopular: true,
-    docs: false,
-    docsLink: "",
-    docsLabel: ""
+    docs: true,
+    docsLink: "https://i.getspace.us/cloud/s/4eoMD3wNiLCHTLe",
+    docsLabel: "Инструкция"
   },
   {
     title: "BMW E-NET (E-Sys)",
