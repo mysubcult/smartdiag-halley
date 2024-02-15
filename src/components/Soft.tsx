@@ -399,7 +399,7 @@ export default function Soft() {
       ? "bg-red-600 text-white shadow-md"
       : "bg-black text-white dark:bg-white dark:text-black"
   }`}
-  style={{ transition: "all 0.3s ease", marginLeft: "0 !important", opacity: "0.7 }}
+  style={{ transition: "all 0.3s ease", marginLeft: "0 !important", opacity: "0.7" }}
   onMouseEnter={(e) => {
     if (
       e.currentTarget.classList.contains("bg-black") ||
