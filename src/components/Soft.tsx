@@ -304,7 +304,7 @@ export default function Soft() {
                     <p className="px-6 mt-4 leading-6 dark:text-neutral-400">
                       {description}
                     </p>
-
+<div style={{ display: "flex" }}>
 {/* Call to action */}
 <Link
   href={href}
@@ -314,7 +314,7 @@ export default function Soft() {
       ? "bg-red-600 text-white shadow-md"
       : "bg-black text-white dark:bg-white dark:text-black"
   }`}
-  style={{ transition: "all 0.3s ease" }}
+  style={{ transition: "all 0.3s ease", marginRight: "0", width: "100%" }}
   onMouseEnter={(e) => {
     if (
       e.currentTarget.classList.contains("bg-black") ||
@@ -345,7 +345,8 @@ export default function Soft() {
   }}
 >
   {cta}
-</Link>        
+</Link>
+  </div>
                     {/* features */}
                     <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
                       <p className="mt-6 font-semibold dark:text-neutral-300">
