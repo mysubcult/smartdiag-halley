@@ -17,6 +17,9 @@ const products = [
     href: "https://i.getspace.us/cloud/s/BiaqYzKpxZRTc58",
     cta: "Скачать",
     mostPopular: false,
+    docs: true,
+    docsLink: "https://_",
+    docsLabel: "Инструкция",
   },
   {
     title: "Autocom CDP+",
@@ -32,6 +35,9 @@ const products = [
     href: "https://i.getspace.us/cloud/s/S9CKwWMNDbeB2XH",
     cta: "Скачать",
     mostPopular: true,
+    docs: false,
+    docsLink: "",
+    docsLabel: ""
   },
     {
     title: "Wurth WoW Snooper+",
@@ -47,6 +53,9 @@ const products = [
     href: "https://i.getspace.us/cloud/s/eTR2gqbEbZi66Md",
     cta: "Скачать",
     mostPopular: false,
+    docs: false,
+    docsLink: "",
+    docsLabel: ""
   },
     {
     title: "MUCAR BT200/Thinkcar Mini/Thinkdiag",
@@ -63,6 +72,9 @@ const products = [
     href: "https://i.getspace.us/cloud/s/fAMr3QsBMekwR2n",
     cta: "Скачать",
     mostPopular: false,
+    docs: false,
+    docsLink: "",
+    docsLabel: ""
   },
     {
     title: "Galletto 1260",
@@ -77,6 +89,9 @@ const products = [
     href: "https://i.getspace.us/cloud/s/dfYejQP9rZGK9Td",
     cta: "Скачать",
     mostPopular: false,
+    docs: false,
+    docsLink: "",
+    docsLabel: ""
   },
   {
     title: "VCDS + Вася",
@@ -93,6 +108,9 @@ const products = [
     href: "https://i.getspace.us/cloud/s/R7ycKecn9P6b55a",
     cta: "Скачать",
     mostPopular: true,
+    docs: false,
+    docsLink: "",
+    docsLabel: ""
   },
   {
     title: "BMW E-NET (E-Sys)",
@@ -110,6 +128,9 @@ const products = [
     href: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS",
     cta: "Скачать",
     mostPopular: false,
+    docs: false,
+    docsLink: "",
+    docsLabel: ""
   },
   {
     title: "K-Dcan INPA",
@@ -128,6 +149,9 @@ const products = [
     href: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS",
     cta: "Скачать",
     mostPopular: false,
+    docs: false,
+    docsLink: "",
+    docsLabel: ""
   },
   {
     title: "ELS 27",
@@ -144,6 +168,9 @@ const products = [
     href: "https://i.getspace.us/cloud/s/oBNcC2w85wnj2Lx",
     cta: "Скачать",
     mostPopular: false,
+    docs: false,
+    docsLink: "",
+    docsLabel: ""
   },
   {
     title: "Mini-VCI",
@@ -158,6 +185,9 @@ const products = [
     href: "https://i.getspace.us/cloud/s/TKZPwL7Cfqgjx5D",
     cta: "Скачать",
     mostPopular: false,
+    docs: false,
+    docsLink: "",
+    docsLabel: ""
   },
   {
     title: "Lexia 3/PP2000",
@@ -172,6 +202,9 @@ const products = [
     href: "https://i.getspace.us/cloud/s/eBmZpZWza2kt2Dc",
     cta: "Скачать",
     mostPopular: false,
+    docs: false,
+    docsLink: "",
+    docsLabel: ""
   },
   {
     title: "ELM 327 Mini",
@@ -192,6 +225,9 @@ const products = [
     href: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe",
     cta: "Скачать",
     mostPopular: true,
+    docs: false,
+    docsLink: "",
+    docsLabel: ""
   },
   {
     title: "Kingbolen ELM",
@@ -212,6 +248,9 @@ const products = [
     href: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe",
     cta: "Скачать",
     mostPopular: false,
+    docs: false,
+    docsLink: "",
+    docsLabel: ""
   },
 ];
 
@@ -280,6 +319,9 @@ export default function Soft() {
             cta,
             features,
             href,
+            docs,
+            docsLink,
+            docsLabel
           }) => {
             return (
               <>
@@ -314,7 +356,7 @@ export default function Soft() {
       ? "bg-red-600 text-white shadow-md"
       : "bg-black text-white dark:bg-white dark:text-black"
   }`}
-  style={{ transition: "all 0.3s ease", marginRight: "0", width: "100%" }}
+  style={{ transition: "all 0.3s ease", width: "100%" }}
   onMouseEnter={(e) => {
     if (
       e.currentTarget.classList.contains("bg-black") ||
@@ -346,6 +388,53 @@ export default function Soft() {
 >
   {cta}
 </Link>
+
+
+{
+            docs && (<Link
+  href={docsLink}
+  target="_blank"
+  className={`mt-4 mx-6 block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
+    mostPopular
+      ? "bg-red-600 text-white shadow-md"
+      : "bg-black text-white dark:bg-white dark:text-black"
+  }`}
+  style={{ transition: "all 0.3s ease", marginLeft: "0 !important" }}
+  onMouseEnter={(e) => {
+    if (
+      e.currentTarget.classList.contains("bg-black") ||
+      e.currentTarget.classList.contains("dark:bg-white")
+    ) {
+      e.currentTarget.classList.remove("bg-black", "dark:bg-white");
+      e.currentTarget.classList.add("bg-gray-500", "dark:bg-gray-500");
+    } else if (
+      e.currentTarget.classList.contains("bg-red-600")
+    ) {
+      e.currentTarget.classList.remove("bg-red-600");
+      e.currentTarget.classList.add("bg-red-400");
+    }
+  }}
+  onMouseLeave={(e) => {
+    if (
+      e.currentTarget.classList.contains("bg-gray-500") ||
+      e.currentTarget.classList.contains("dark:bg-gray-500")
+    ) {
+      e.currentTarget.classList.remove("bg-gray-500", "dark:bg-gray-500");
+      e.currentTarget.classList.add("bg-black", "dark:bg-white");
+    } else if (
+      e.currentTarget.classList.contains("bg-red-400")
+    ) {
+      e.currentTarget.classList.remove("bg-red-400");
+      e.currentTarget.classList.add("bg-red-600");
+    }
+  }}
+>{docsLabel}
+</Link>
+        )} 
+
+
+  
+  
   </div>
                     {/* features */}
                     <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
