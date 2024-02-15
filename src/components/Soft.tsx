@@ -35,7 +35,7 @@ const products = [
     href: "https://i.getspace.us/cloud/s/S9CKwWMNDbeB2XH",
     cta: "Скачать",
     mostPopular: true,
-    docs: false,
+    docs: true,
     docsLink: "https://i.getspace.us/cloud/s/bbRzaksyH6LkSg4",
     docsLabel: "Инструкция"
   },
