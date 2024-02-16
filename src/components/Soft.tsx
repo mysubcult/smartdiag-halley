@@ -395,8 +395,8 @@ export default function Soft() {
   target="_blank"
   className={`ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg ${
     mostPopular
-      ? "bg-transparent text-black shadow-md"
-      : "bg-transparent text-black dark:bg-white dark:text-white"
+      ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white"
+      : "bg-transparent text-black dark:bg-transparent dark:text-white"
   } border-neutral-300 border dark:border-neutral-600`}
   style={{ transition: "all 0.3s ease" }}
   onMouseEnter={(e) => {
@@ -410,7 +410,7 @@ export default function Soft() {
       e.currentTarget.classList.contains("bg-transparent")
     ) {
       e.currentTarget.classList.remove("bg-transparent");
-      e.currentTarget.classList.add("bg-black");
+      e.currentTarget.classList.add("bg-black text-white");
     }
   }}
   onMouseLeave={(e) => {
@@ -424,7 +424,7 @@ export default function Soft() {
       e.currentTarget.classList.contains("bg-black")
     ) {
       e.currentTarget.classList.remove("bg-black");
-      e.currentTarget.classList.add("bg-transparent");
+      e.currentTarget.classList.add("bg-transparent text-black");
     }
   }}
 >{docsLabel}
