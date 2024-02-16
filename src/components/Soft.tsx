@@ -410,7 +410,8 @@ export default function Soft() {
       e.currentTarget.classList.contains("bg-transparent")
     ) {
       e.currentTarget.classList.remove("bg-transparent");
-      e.currentTarget.classList.add("bg-black");
+      e.currentTarget.classList.remove("text-black");
+      e.currentTarget.classList.add("bg-red-600");
       e.currentTarget.classList.add("text-white");
     }
   }}
@@ -422,9 +423,10 @@ export default function Soft() {
       e.currentTarget.classList.remove("bg-gray-500", "dark:bg-gray-500");
       e.currentTarget.classList.add("bg-black", "dark:bg-white");
     } else if (
-      e.currentTarget.classList.contains("bg-black")
+      e.currentTarget.classList.contains("bg-red-600")
     ) {
-      e.currentTarget.classList.remove("bg-black");
+      e.currentTarget.classList.remove("bg-red-600");
+      e.currentTarget.classList.remove("text-white");
       e.currentTarget.classList.add("bg-transparent");
       e.currentTarget.classList.add("text-black");
     }
