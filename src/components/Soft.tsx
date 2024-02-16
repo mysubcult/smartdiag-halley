@@ -368,7 +368,7 @@ export default function Soft() {
   className={`ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg ${
     mostPopular
       ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white"
-      : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-sky-700 hover:bg-sky-700"
+      : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-sky-700 hover:bg-sky-700 hover:text-white"
   } border-neutral-300 border dark:border-neutral-600`}
   style={{ transition: "all 0.3s ease" }}
 >{docsLabel}
