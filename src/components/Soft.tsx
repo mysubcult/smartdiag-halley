@@ -357,34 +357,7 @@ export default function Soft() {
       : "bg-black text-white dark:bg-white dark:text-black hover:bg-sky-700"
   }`}
   style={{ transition: "all 0.3s ease", width: "100%" }}
-  onMouseEnter={(e) => {
-    if (
-      e.currentTarget.classList.contains("bg-black") ||
-      e.currentTarget.classList.contains("dark:bg-white")
-    ) {
-      e.currentTarget.classList.remove("bg-black", "dark:bg-white");
-      e.currentTarget.classList.add("bg-gray-500", "dark:bg-gray-500");
-    } else if (
-      e.currentTarget.classList.contains("bg-red-600")
-    ) {
-      e.currentTarget.classList.remove("bg-red-600");
-      e.currentTarget.classList.add("bg-red-400");
-    }
-  }}
-  onMouseLeave={(e) => {
-    if (
-      e.currentTarget.classList.contains("bg-gray-500") ||
-      e.currentTarget.classList.contains("dark:bg-gray-500")
-    ) {
-      e.currentTarget.classList.remove("bg-gray-500", "dark:bg-gray-500");
-      e.currentTarget.classList.add("bg-black", "dark:bg-white");
-    } else if (
-      e.currentTarget.classList.contains("bg-red-400")
-    ) {
-      e.currentTarget.classList.remove("bg-red-400");
-      e.currentTarget.classList.add("bg-red-600");
-    }
-  }}
+  
 >
   {cta}
 </Link>
