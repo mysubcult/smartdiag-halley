@@ -353,8 +353,8 @@ export default function Soft() {
   target="_blank"
   className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
     mostPopular
-      ? "bg-red-600 text-white shadow-md hover:bg-green-600"
-      : "bg-black text-white dark:bg-white dark:text-black dark:hover:bg-sky-700 hover:bg-sky-700"
+      ? "bg-red-600 text-white shadow-md hover:bg-green-500"
+      : "bg-black text-white dark:bg-white dark:text-black dark:hover:bg-sky-700 hover:bg-green-500"
   }`}
   style={{ transition: "all 0.5s ease", width: "100%" }}
 >
