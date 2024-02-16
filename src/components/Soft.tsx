@@ -347,38 +347,98 @@ export default function Soft() {
                       {description}
                     </p>
 <div className="flex mt-4 mx-6">
-  {/* Call to action */}
-  <Link
-    href={href}
-    target="_blank"
-    className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
-      mostPopular
-        ? "bg-red-600 text-white shadow-md"
-        : "bg-black text-white dark:bg-white dark:text-black"
-    }`}
-    style={{ transition: "all 0.3s ease", width: "100%" }}
-    onMouseEnter={toggleHover}
-    onMouseLeave={toggleHover}
-  >
-    {cta}
-  </Link>
+{/* Call to action */}
+<Link
+  href={href}
+  target="_blank"
+  className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
+    mostPopular
+      ? "bg-red-600 text-white shadow-md"
+      : "bg-black text-white dark:bg-white dark:text-black"
+  }`}
+  style={{ transition: "all 0.3s ease", width: "100%" }}
+  onMouseEnter={(e) => {
+    if (
+      e.currentTarget.classList.contains("bg-black") ||
+      e.currentTarget.classList.contains("dark:bg-white")
+    ) {
+      e.currentTarget.classList.remove("bg-black", "dark:bg-white");
+      e.currentTarget.classList.add("bg-gray-500", "dark:bg-gray-500");
+    } else if (
+      e.currentTarget.classList.contains("bg-red-600")
+    ) {
+      e.currentTarget.classList.remove("bg-red-600");
+      e.currentTarget.classList.add("bg-red-400");
+    }
+  }}
+  onMouseLeave={(e) => {
+    if (
+      e.currentTarget.classList.contains("bg-gray-500") ||
+      e.currentTarget.classList.contains("dark:bg-gray-500")
+    ) {
+      e.currentTarget.classList.remove("bg-gray-500", "dark:bg-gray-500");
+      e.currentTarget.classList.add("bg-black", "dark:bg-white");
+    } else if (
+      e.currentTarget.classList.contains("bg-red-400")
+    ) {
+      e.currentTarget.classList.remove("bg-red-400");
+      e.currentTarget.classList.add("bg-red-600");
+    }
+  }}
+>
+  {cta}
+</Link>
 
-  {docs && (
-    <Link
-      href={docsLink}
-      target="_blank"
-      className={`ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg ${
-        mostPopular
-          ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white"
-          : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white"
-      } border-neutral-300 border dark:border-neutral-600`}
-      style={{ transition: "all 0.3s ease" }}
-      onMouseEnter={toggleHover}
-      onMouseLeave={toggleHover}
-    >
-      {docsLabel}
-    </Link>
-  )}
+{
+            docs && (<Link
+  href={docsLink}
+  target="_blank"
+  className={`ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg ${
+    mostPopular
+      ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white"
+      : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white"
+  } border-neutral-300 border dark:border-neutral-600`}
+  style={{ transition: "all 0.3s ease" }}
+  onMouseEnter={(e) => {
+    if (
+      e.currentTarget.classList.contains("bg-black") ||
+      e.currentTarget.classList.contains("dark:bg-white")
+    ) {
+      e.currentTarget.classList.remove("bg-black", "dark:bg-white");
+      e.currentTarget.classList.add("bg-gray-500", "dark:bg-gray-500");
+    } else if (
+      e.currentTarget.classList.contains("bg-transparent")
+    ) {
+      e.currentTarget.classList.remove("bg-transparent");
+      e.currentTarget.classList.remove("text-black");
+      e.currentTarget.classList.add("bg-red-600");
+      e.currentTarget.classList.add("text-white");
+    }
+  }}
+  onMouseLeave={(e) => {
+    if (
+      e.currentTarget.classList.contains("bg-gray-500") ||
+      e.currentTarget.classList.contains("dark:bg-gray-500")
+    ) {
+      e.currentTarget.classList.remove("bg-gray-500", "dark:bg-gray-500");
+      e.currentTarget.classList.add("bg-black", "dark:bg-white");
+    } else if (
+      e.currentTarget.classList.contains("bg-red-600")
+    ) {
+      e.currentTarget.classList.remove("bg-red-600");
+      e.currentTarget.classList.remove("text-white");
+      e.currentTarget.classList.add("bg-transparent");
+      e.currentTarget.classList.add("text-black");
+    }
+  }}
+>{docsLabel}
+
+</Link>
+        )} 
+
+
+  
+  
 </div>
                     {/* features */}
                     <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
