@@ -145,12 +145,13 @@ export default function Navbar() {
                 <button className="mt-12 bg-red-600 text-white px-4 p-3 font-medium rounded-full w-full">
                   Скачать
                 </button>
-{/* OZON */}
+<div className="flex flex-col gap-4 items-center">
+  {/* OZON */}
   <a
     href="https://www.ozon.ru/seller/smartdiag-862410/"
     target="_blank"
   >
-    <button className="mt-12 bg-blue-600 hover:bg-blue-700 text-white px-3 p-1 text-base font-medium rounded-full flex items-center gap-2 w-full">
+    <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-base font-medium rounded-full flex items-center gap-2">
       <img src="https://www.ozon.ru/favicon.ico" alt="OZON" className="w-4 h-4" />
       OZON
     </button>
@@ -161,21 +162,24 @@ export default function Navbar() {
     href="https://market.yandex.ru/business--smartdiag/50025236"
     target="_blank"
   >
-    <button className="bg-yellow-400 hover:bg-yellow-500 text-black px-3 p-1 text-base font-medium rounded-full flex items-center gap-2">
+    <button className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 text-base font-medium rounded-full flex items-center gap-2">
       <img src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico" alt="Яндекс Маркет" className="w-4 h-4" />
       Яндекс Маркет
     </button>
   </a>
-    {/* Wildberries */}
+  
+  {/* Wildberries */}
   <a
     href="https://www.wildberries.ru/seller/1343369"
     target="_blank"
   >
-    <button className="bg-purple-700 hover:bg-purple-800 text-white px-3 p-1 text-base font-medium rounded-full flex items-center gap-2">
+    <button className="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 text-base font-medium rounded-full flex items-center gap-2">
       <img src="https://www.wildberries.ru/favicon.ico" alt="Wildberries" className="w-4 h-4" />
       Wildberries
     </button>
   </a>
+</div>
+
               </Link>
             </div>
           </Disclosure.Panel>
