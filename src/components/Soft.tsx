@@ -355,7 +355,7 @@ export default function Soft() {
     mostPopular
       ? "bg-red-600 text-white shadow-md hover:bg-green-500"
       : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
-  } transition duration-300 ease-in-out w-2/3`}
+  } transition duration-300 ease-in-out w-full`}
 >
   {cta}
 </Link>
@@ -368,7 +368,7 @@ export default function Soft() {
     mostPopular
       ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
       : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
-  } border-neutral-300 border dark:border-neutral-600 transition duration-300 ease-in-out w-1/3`}
+  } border-neutral-300 border dark:border-neutral-600 transition duration-300 ease-in-out w-full`}
 >{docsLabel}
 
 </Link>
