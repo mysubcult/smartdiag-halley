@@ -150,7 +150,7 @@ export default function Navbar() {
     href="https://www.ozon.ru/seller/smartdiag-862410/"
     target="_blank"
   >
-    <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 p-1 text-base font-medium rounded-full flex items-center gap-2">
+    <button className="mt-12 bg-blue-600 hover:bg-blue-700 text-white px-3 p-1 text-base font-medium rounded-full flex items-center gap-2 w-full">
       <img src="https://www.ozon.ru/favicon.ico" alt="OZON" className="w-4 h-4" />
       OZON
     </button>
