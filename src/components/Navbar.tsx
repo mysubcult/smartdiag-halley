@@ -145,10 +145,43 @@ export default function Navbar() {
                 <button className="mt-12 bg-red-600 text-white px-4 p-3 font-medium rounded-full w-full">
                   Скачать
                 </button>
-<button className="bg-purple-700 hover:bg-purple-800 text-white px-3 p-1 text-base font-medium rounded-full flex items-center gap-2">
+{/* OZON */}
+  <a
+    href="https://www.ozon.ru/seller/smartdiag-862410/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hidden sm:block"
+  >
+    <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 p-1 text-base font-medium rounded-full flex items-center gap-2">
+      <img src="https://www.ozon.ru/favicon.ico" alt="OZON" className="w-4 h-4" />
+      OZON
+    </button>
+  </a>
+  
+  {/* Яндекс Маркет */}
+  <a
+    href="https://market.yandex.ru/business--smartdiag/50025236"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hidden sm:block"
+  >
+    <button className="bg-yellow-400 hover:bg-yellow-500 text-black px-3 p-1 text-base font-medium rounded-full flex items-center gap-2">
+      <img src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico" alt="Яндекс Маркет" className="w-4 h-4" />
+      Яндекс Маркет
+    </button>
+  </a>
+    {/* Wildberries */}
+  <a
+    href="https://www.wildberries.ru/seller/1343369"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hidden sm:block"
+  >
+    <button className="bg-purple-700 hover:bg-purple-800 text-white px-3 p-1 text-base font-medium rounded-full flex items-center gap-2">
       <img src="https://www.wildberries.ru/favicon.ico" alt="Wildberries" className="w-4 h-4" />
       Wildberries
     </button>
+  </a>
               </Link>
             </div>
           </Disclosure.Panel>
