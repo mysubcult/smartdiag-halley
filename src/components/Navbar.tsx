@@ -141,10 +141,6 @@ export default function Navbar() {
                   {item.name}
                 </Disclosure.Button>
               ))}
-              <Link href="https://i.getspace.us/cloud/s/dzkdXFpscgCFsjH" target="_blank">
-                <button className="mt-12 bg-red-600 text-white px-4 p-3 font-medium rounded-full w-full">
-                  Скачать
-                </button>
 <div className="flex flex-col gap-4 items-center">
   {/* OZON */}
   <a
@@ -179,8 +175,6 @@ export default function Navbar() {
     </button>
   </a>
 </div>
-
-              </Link>
             </div>
           </Disclosure.Panel>
         </>
