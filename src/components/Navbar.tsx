@@ -145,6 +145,10 @@ export default function Navbar() {
                 <button className="mt-12 bg-red-600 text-white px-4 p-3 font-medium rounded-full w-full">
                   Скачать
                 </button>
+<button className="bg-purple-700 hover:bg-purple-800 text-white px-3 p-1 text-base font-medium rounded-full flex items-center gap-2">
+      <img src="https://www.wildberries.ru/favicon.ico" alt="Wildberries" className="w-4 h-4" />
+      Wildberries
+    </button>
               </Link>
             </div>
           </Disclosure.Panel>
