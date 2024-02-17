@@ -18,7 +18,7 @@ const products = [
     cta: "Скачать",
     mostPopular: false,
     docs: true,
-    docsLink: "https://i.getspace.us/cloud/s/as7kNFEmS4MpiSr",
+    docsLink: "https://i.getspace.us/cloud/s/Nmj3JBHPDDd5zeE",
     docsLabel: "Инструкция",
   },
   {
