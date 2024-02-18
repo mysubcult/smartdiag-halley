@@ -50,19 +50,33 @@ export default function Navbar() {
   key={item.name}
   href={item.href}
   className={classNames(
-    "text-base font-medium relative",
     item.current
       ? "text-neutral-900 dark:text-neutral-400"
-      : "text-neutral-900 dark:text-neutral-400 hover:text-red-500",
+      : "text-neutral-900 dark:text-neutral-400 hover:text-red-500 relative", // Добавляем relative для позиционирования псевдоэлемента
+    "text-base font-medium",
   )}
   aria-current={item.current ? "page" : undefined}
-  style={{ textDecoration: "none" }}
+  style={{ textDecoration: "none", display: "inline-block" }}
 >
   {item.name}
-  <span
-    className="absolute left-0 w-full h-1 bg-red-500 transform scale-x-0 origin-left transition-transform duration-300 ease-in-out"
-  />
+  {/* Добавляем псевдоэлемент для анимированного подчеркивания */}
+  <style jsx>{`
+    .Link::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: transparent;
+      transition: background-color 0.3s ease;
+    }
+    .Link:hover::after {
+      background-color: red; /* Цвет подчеркивания при наведении */
+    }
+  `}</style>
 </Link>
+
 
                     ))}
                   </div>
