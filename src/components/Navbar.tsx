@@ -50,15 +50,18 @@ export default function Navbar() {
   key={item.name}
   href={item.href}
   className={classNames(
+    "text-base font-medium relative",
     item.current
       ? "text-neutral-900 dark:text-neutral-400"
       : "text-neutral-900 dark:text-neutral-400 hover:text-red-500",
-    "text-base font-medium",
   )}
   aria-current={item.current ? "page" : undefined}
-  style={{ textDecoration: "none", display: "inline-block" }}
+  style={{ textDecoration: "none" }}
 >
   {item.name}
+  <span
+    className="absolute left-0 w-full h-1 bg-red-500 transform scale-x-0 origin-left transition-transform duration-300 ease-in-out"
+  />
 </Link>
 
                     ))}
