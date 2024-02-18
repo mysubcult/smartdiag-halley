@@ -50,13 +50,13 @@ export default function Navbar() {
   key={item.name}
   href={item.href}
   className={classNames(
-    "text-base font-medium transition-colors duration-300",
     item.current
       ? "text-neutral-900 dark:text-neutral-400"
-      : "text-neutral-900 dark:text-neutral-400 hover:text-red-500",
+      : "text-neutral-900 dark:text-neutral-400",
+    "text-base font-medium inline-block transition-colors duration-300 ease-in-out transform hover:text-red-500 hover:scale-105",
   )}
   aria-current={item.current ? "page" : undefined}
-  style={{ textDecoration: "none", display: "inline-block" }}
+  style={{ textDecoration: "none" }}
 >
   {item.name}
 </Link>
