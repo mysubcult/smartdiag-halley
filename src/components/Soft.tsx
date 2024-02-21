@@ -182,7 +182,7 @@ const products = [
       "Techstream ",
       "Инструкция по установке ПО",
     ],
-    href: "https://i.getspace.us/cloud/s/TKZPwL7Cfqgjx5D",
+    href: "https://i.getspace.us/cloud/s/Q3kWQ8ajB8WdF5g",
     cta: "Скачать",
     mostPopular: false,
     docs: false,
