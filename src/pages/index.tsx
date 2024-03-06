@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Contact from "../components/Contact";
 import Soft from "../components/Soft";
 import { Hero } from "../components/Hero";
@@ -6,33 +5,18 @@ import Layout from "../components/Layout";
 import Faq from "../components/Faq";
 import { Services } from "../components/Services";
 import Customers from "../components/Customers";
+import Script from 'next/script';
 
 export default function Home() {
   return (
     <Layout>
-      <Head>
-        {/* Вставляем скрипт Yandex.RTB */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.yaContextCb = window.yaContextCb || [];
-              window.yaContextCb.push(function() {
-                Ya.Context.AdvManager.render({
-                  blockId: "R-A-6538583-1",
-                  type: "floorAd",
-                  platform: "desktop"
-                });
-              });
-            `,
-          }}
-        />
-      </Head>
       <Hero />
       <Soft />
       <Faq />
       <Services />
       <Contact />
-      <script
+      <Script
+        id="lhc-widget-script"
         dangerouslySetInnerHTML={{
           __html: `
             var LHC_API = LHC_API||{};
