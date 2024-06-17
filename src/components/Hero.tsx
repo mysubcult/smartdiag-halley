@@ -16,16 +16,15 @@ export function Hero() {
           <div className="flex flex-auto pt-10 gap-2 min-w-[350px] justify-center sm:justify-start">
             <div>
               <Link href="#soft">
-                <button className="relative bg-gradient-to-r from-black to-gray-800 text-white text-base rounded-full px-6 py-3 font-medium shadow-md hover:from-gray-800 hover:to-black transition-all duration-300">
+                <button className="bg-black dark:bg-white text-white dark:text-black text-base rounded-full px-4 p-2 font-medium hover:bg-gray-600 dark:hover:bg-gray-300 transition-colors">
                   Программы для приборов
-                  <span className="absolute inset-0 bg-black opacity-50 rounded-full"></span>
                 </button>
               </Link>
             </div>
 
             <div>
               <Link href="#contact">
-                <button className="bg-gradient-to-r from-red-600 to-red-700 text-white text-base rounded-full px-6 py-3 font-medium shadow-md hover:from-red-700 hover:to-red-800 transition-all duration-300">
+                <button className="bg-red-600 text-white text-base rounded-full px-4 p-2 font-medium hover:bg-red-700 transition-colors">
                   Обратная связь
                 </button>
               </Link>
