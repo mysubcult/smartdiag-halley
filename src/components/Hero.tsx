@@ -24,7 +24,7 @@ export function Hero() {
 
             <div>
               <Link href="#contact">
-                <button className="bg-gradient-to-r from-red-600 to-red-700 text-white text-base rounded-full px-6 py-3 font-medium shadow-md hover:from-red-700 hover:to-red-800 transition-all duration-300">
+                <button className="bg-red-600 text-white text-base rounded-full px-6 py-3 font-medium shadow-md hover:bg-red-700 transition-all duration-300">
                   Обратная связь
                 </button>
               </Link>
