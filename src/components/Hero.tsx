@@ -16,8 +16,9 @@ export function Hero() {
           <div className="flex flex-auto pt-10 gap-2 min-w-[350px] justify-center sm:justify-start">
             <div>
               <Link href="#soft">
-                <button className="bg-gradient-to-r from-black to-gray-800 text-white text-base rounded-full px-6 py-3 font-medium shadow-md hover:from-gray-800 hover:to-black transition-all duration-300">
+                <button className="relative bg-gradient-to-r from-black to-gray-800 text-white text-base rounded-full px-6 py-3 font-medium shadow-md hover:from-gray-800 hover:to-black transition-all duration-300">
                   Программы для приборов
+                  <span className="absolute inset-0 bg-black opacity-50 rounded-full"></span>
                 </button>
               </Link>
             </div>
