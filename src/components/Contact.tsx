@@ -110,7 +110,7 @@ export default function Contact() {
         </div>
 
         <div>
-          <h2 className="text-lg font-bold text-center mb-4">Обратная связь</h2>
+          <h2 className="text-lg font-bold text-center mb-5">✍️ Обратная связь</h2>
           {!isSubmitSuccessful && (
             <form onSubmit={handleSubmit(onSubmit)}>
               <input
