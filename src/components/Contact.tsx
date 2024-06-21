@@ -78,7 +78,7 @@ export default function Contact() {
             🕑 <strong>График работы технической поддержки:</strong><br />
       <span className="block mt-2">Понедельник - Пятница: 10:00 - 19:00 (МСК)</span>
       <span className="block mt-2">Суббота - Воскресенье: 10:00 - 18:00 (МСК)</span><br />
-            💬 Мы доступны в Telegram и WhatsApp:
+            💬 <strong>Мы доступны в Telegram и WhatsApp:</strong>
           </p>
 
           
