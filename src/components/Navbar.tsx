@@ -147,7 +147,7 @@ export default function Navbar() {
     target="_blank"
   >
     <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-base font-medium rounded-full flex items-center gap-2">
-      <img src="https://www.ozon.ru/favicon.ico" alt="OZON" className="w-4 h-4" />
+      <img src="/images/logos/favicon.ico" alt="OZON" className="w-4 h-4" />
       OZON
     </button>
   </a>
