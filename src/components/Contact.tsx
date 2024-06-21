@@ -71,46 +71,14 @@ export default function Contact() {
       </div>
 
 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 grid md:grid-cols-2 lg:grid-cols-2 gap-y-8 md:gap-x-8 md:gap-y-8 lg:gap-x-8 lg:gap-y-16">
-    <div>
-        <h2 className="text-lg font-bold text-center">💬 Мы в мессенджерах!</h2>
-        <p className="max-w mt-4 mb-4 dark:text-neutral-400 text-center">
+        <div>
+          <h2 className="text-lg font-bold text-center">💬 Мы в мессенджерах!</h2>
+          <p className="max-w mt-4 mb-4 dark:text-neutral-400 text-center">
             🕑 <strong>График работы технической поддержки:</strong><br />
-            <span className="block mt-2">Понедельник - Пятница: 10:00 - 19:00 (МСК)</span>
-            <span className="block mt-2">Суббота - Воскресенье: 10:00 - 18:00 (МСК)</span><br />
+      <span className="block mt-2">Понедельник - Пятница: 10:00 - 19:00 (МСК)</span>
+      <span className="block mt-2">Суббота - Воскресенье: 10:00 - 18:00 (МСК)</span><br />
             💬 <strong>Мы доступны в Telegram и WhatsApp:</strong>
-        </p>
-        <div className="text-center">
-            <a href="https://t.me/smartdiag_support" className="text-blue-500 underline mx-2">Telegram</a>
-            <a href="https://wa.me/1234567890" className="text-green-500 underline mx-2">WhatsApp</a>
-        </div>
-    </div>
-    <div>
-        <h2 className="text-lg font-bold text-center">📧 Свяжитесь с нами!</h2>
-        <p className="max-w mt-4 mb-4 dark:text-neutral-400 text-center">
-            Если у вас есть вопросы или вам нужна помощь, пожалуйста, не стесняйтесь обращаться к нам.
-        </p>
-        <div className="text-center">
-            <p className="text-center dark:text-neutral-400">📧 <strong>Email поддержки:</strong></p>
-            <a href="mailto:support@смартдиаг.рф" className="text-blue-500 underline">support@смартдиаг.рф</a>
-        </div>
-    </div>
-    <div>
-        <h2 className="text-lg font-bold text-center">📍 Наш адрес</h2>
-        <p className="max-w mt-4 mb-4 dark:text-neutral-400 text-center">
-            г. Москва, ул. Примерная, д. 10, офис 101
-        </p>
-        <div className="text-center">
-            <iframe className="w-full h-64" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2244.2122903518994!2d37.6173!3d55.755826!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0:0x0!2z0KHQvdC40LLQtdGC0YPRgNC40L3QsA!5e0!3m2!1sru!2sru!4v1611764567890!5m2!1sru!2sru" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-    </div>
-    <div>
-        <h2 className="text-lg font-bold text-center">📞 Контакты</h2>
-        <p className="max-w mt-4 mb-4 dark:text-neutral-400 text-center">
-            ☎️ <strong>Телефон поддержки:</strong><br />
-            <span className="block mt-2">+7 (495) 123-45-67</span>
-        </p>
-    </div>
-</div>
+          </p>
 
 
           
