@@ -27,6 +27,11 @@ export default function Contact() {
     mode: "onSubmit",
   });
 
+  const [selectedTopic, setSelectedTopic] = useState('');
+  const handleTopicChange = (e) => {
+    setSelectedTopic(e.target.value);
+  };
+
   const [isSuccess, setIsSuccess] = React.useState(false);
   const [Message, setMessage] = React.useState("");
 
@@ -184,49 +189,75 @@ export default function Contact() {
               </div>
 
 <div className="mb-3 relative">
-  <label htmlFor="topic" className="sr-only">
-    Тема сообщения
-  </label>
-  <div className="relative">
-    <select
-      id="topic"
-      autoComplete="off"
-      className={`w-full px-4 py-3 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4 bg-white appearance-none ${
-        errors.topic
-          ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:border-rose-500 dark:focus:border-white dark:ring-0"
-          : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
-      }`}
-      style={{ paddingLeft: '6px', textIndent: '10px', paddingRight: '2rem' }}
-      {...register("topic", { required: "Необходимо выбрать тему сообщения" })}
-    >
-      <option value="">Выберите тему сообщения</option>
-      <option value="Вопрос о товаре">Вопрос о товаре</option>
-      <option value="Активация прибора">Активация прибора</option>
-      <option value="Помощь с установкой ПО">Помощь с установкой ПО</option>
-      <option value="Заказ оборудования">Заказ оборудования</option>
-      <option value="Сообщить о проблеме">Сообщить о проблеме</option>
-      <option value="Другое">Другое</option>
-    </select>
-    <div className="absolute inset-y-0 right-2 flex items-center justify-center pointer-events-none">
-      <svg
-        className="w-6 h-6 fill-current text-gray-400"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M14.707 7.293a1 1 0 00-1.414 0L10 10.586 6.707 7.293a1 1 0 00-1.414 1.414l3.707 3.707a1 1 0 001.414 0l3.707-3.707a1 1 0 000-1.414z"
-          clipRule="evenodd"
-          fillRule="evenodd"
-        ></path>
-      </svg>
-    </div>
-  </div>
-  {errors.topic && (
-    <div className="mt-1 text-rose-500">
-      <small>{errors.topic.message}</small>
-    </div>
-  )}
-</div>
+        <label htmlFor="topic" className="sr-only">
+          Тема сообщения
+        </label>
+        <div className="relative">
+          <select
+            id="topic"
+            autoComplete="off"
+            className={`w-full px-4 py-3 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4 bg-white appearance-none ${
+              errors.topic
+                ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:border-rose-500 dark:focus:border-white dark:ring-0"
+                : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
+            }`}
+            style={{ paddingLeft: '6px', textIndent: '10px', paddingRight: '2rem' }}
+            {...register("topic", { required: "Необходимо выбрать тему сообщения" })}
+            onChange={handleTopicChange}
+          >
+            <option value="">Выберите тему сообщения</option>
+            <option value="Вопрос о товаре">Вопрос о товаре</option>
+            <option value="Активация прибора">Активация прибора</option>
+            <option value="Помощь с установкой ПО">Помощь с установкой ПО</option>
+            <option value="Заказ оборудования">Заказ оборудования</option>
+            <option value="Сообщить о проблеме">Сообщить о проблеме</option>
+            <option value="Другое">Другое</option>
+          </select>
+          <div className="absolute inset-y-0 right-2 flex items-center justify-center pointer-events-none">
+            <svg
+              className="w-6 h-6 fill-current text-gray-400"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.707 7.293a1 1 0 00-1.414 0L10 10.586 6.707 7.293a1 1 0 00-1.414 1.414l3.707 3.707a1 1 0 001.414 0l3.707-3.707a1 1 0 000-1.414z"
+                clipRule="evenodd"
+                fillRule="evenodd"
+              ></path>
+            </svg>
+          </div>
+        </div>
+        {errors.topic && (
+          <div className="mt-1 text-rose-500">
+            <small>{errors.topic.message}</small>
+          </div>
+        )}
+      </div>
+
+      {selectedTopic === "Активация прибора" && (
+        <div className="mb-3 relative">
+          <label htmlFor="orderNumber" className="sr-only">
+            Номер заказа
+          </label>
+          <input
+            id="orderNumber"
+            type="text"
+            autoComplete="off"
+            placeholder="Номер заказа"
+            className={`w-full px-4 py-3 border-2 placeholder:text-neutral-800 dark:text-white rounded-md outline-none dark:placeholder:text-neutral-200 dark:bg-neutral-900 focus:ring-4 bg-white ${
+              errors.orderNumber
+                ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:border-rose-500 dark:focus:border-white dark:ring-0"
+                : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
+            }`}
+            {...register("orderNumber", { required: selectedTopic === "Активация прибора" && "Номер заказа обязателен" })}
+          />
+          {errors.orderNumber && (
+            <div className="mt-1 text-rose-500">
+              <small>{errors.orderNumber.message}</small>
+            </div>
+          )}
+        </div>
+      )}
 
               
               <div className="mb-3">
