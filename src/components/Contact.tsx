@@ -28,7 +28,7 @@ export default function Contact() {
   });
 
   const [selectedTopic, setSelectedTopic] = useState('');
-  const handleTopicChange = (e) => {
+  const handleTopicChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedTopic(e.target.value);
   };
 
