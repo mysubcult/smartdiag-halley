@@ -235,7 +235,7 @@ export default function Contact() {
         )}
       </div>
 
-      {selectedTopic === "Активация прибора" && (
+      {(selectedTopic === "Активация прибора" || selectedTopic === "Помощь с установкой ПО") && (
         <div className="mb-3 relative">
           <label htmlFor="orderNumber" className="sr-only">
             Номер заказа
