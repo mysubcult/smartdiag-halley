@@ -14,6 +14,7 @@ type Info = {
   email: string;
   message: string;
   topic: string;
+  orderNumber: string;
 };
 
 export default function Contact() {
