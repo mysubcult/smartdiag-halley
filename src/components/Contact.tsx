@@ -27,17 +27,15 @@ export default function Contact() {
   } = useForm<Info, any>({
     mode: "onSubmit",
   });
-
-  const [selectedTopic, setSelectedTopic] = useState('');
-  const handleTopicChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedTopic(e.target.value);
-  };
-
   const [isSuccess, setIsSuccess] = React.useState(false);
-  const [Message, setMessage] = React.useState("");
+  const [Message, setMessage, selectedTopic, setSelectedTopic] = React.useState("");
 
   const htmlLinkToTerms = (`Я прочитал и согласен с <a href="#!" onclick="showPopup()" class="terms-link" style="color: inherit; text-decoration: inherit;">правилами на обработку персональных данных</a>.`);
 
+  const handleTopicChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedTopic(e.target.value);
+  };
+  
   const onSubmit = async (data: any, e: any) => {
     console.log(data);
     await fetch("https://api.web3forms.com/submit", {
