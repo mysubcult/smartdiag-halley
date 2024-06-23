@@ -29,7 +29,7 @@ export default function Contact() {
   });
   const [selectedTopic, setSelectedTopic] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
-  const [message, setMessage] = useState('');
+  const [Message, setMessage] = useState('');
 
   const htmlLinkToTerms = (`Я прочитал и согласен с <a href="#!" onclick="showPopup()" class="terms-link" style="color: inherit; text-decoration: inherit;">правилами на обработку персональных данных</a>.`);
 
