@@ -37,6 +37,10 @@ export default function Contact() {
 
   const topic = watch("topic");
 
+  useEffect(() => {
+    setSelectedTopic(topic);
+  }, [topic]);
+
   const getMessagePlaceholder = (topic: string) => {
     switch (topic) {
       case "Активация прибора":
@@ -264,7 +268,7 @@ export default function Contact() {
                 ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:border-rose-500 dark:focus:border-white dark:ring-0"
                 : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
             }`}
-            {...register("orderNumber", { required: selectedTopic === "Активация прибора" && "Номер заказа обязателен" })}
+            {...register("orderNumber", { required: (selectedTopic === "Активация прибора" || selectedTopic === "Помощь с установкой ПО") && "Номер заказа обязателен" })}
           />
           {errors.orderNumber && (
             <div className="mt-1 text-rose-500">
@@ -276,7 +280,7 @@ export default function Contact() {
 
       <div className="mb-3">
         <textarea
-          placeholder={getMessagePlaceholder(topic)}
+          placeholder={getMessagePlaceholder(selectedTopic)}
           className={`w-full px-4 py-3 border-2 placeholder:text-neutral-400 dark:text-white dark:placeholder:text-neutral-500 dark:bg-neutral-900 rounded-md outline-none h-36 focus:ring-4 ${
             errors.message
               ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
