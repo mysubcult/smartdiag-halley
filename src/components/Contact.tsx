@@ -27,6 +27,9 @@ export default function Contact() {
   } = useForm<Info, any>({
     mode: "onSubmit",
   });
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [Message, setMessage] = useState('');
+  
   const [selectedTopic, setSelectedTopic] = useState('');
   const handleTopicChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedTopic(e.target.value);
@@ -46,9 +49,6 @@ export default function Contact() {
         return "Введите ваше сообщение";
     }
   };
-
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [Message, setMessage] = useState('');
 
   const htmlLinkToTerms = (`Я прочитал и согласен с <a href="#!" onclick="showPopup()" class="terms-link" style="color: inherit; text-decoration: inherit;">правилами на обработку персональных данных</a>.`);
   
