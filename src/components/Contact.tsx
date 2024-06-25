@@ -27,15 +27,30 @@ export default function Contact() {
   } = useForm<Info, any>({
     mode: "onSubmit",
   });
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [Message, setMessage] = useState('');
-
-  const htmlLinkToTerms = (`Я прочитал и согласен с <a href="#!" onclick="showPopup()" class="terms-link" style="color: inherit; text-decoration: inherit;">правилами на обработку персональных данных</a>.`);
-
   const [selectedTopic, setSelectedTopic] = useState('');
   const handleTopicChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedTopic(e.target.value);
   };
+
+  const topic = watch("topic");
+
+  const getMessagePlaceholder = (topic: string) => {
+    switch (topic) {
+      case "Активация прибора":
+        return "Введите ваше сообщение. В зависимости от типа прибора, необходимо предоставить соответствующую информацию, такую как номер заказа, серийный номер, ACTIVATION ID и т.п.";
+      case "Помощь с установкой ПО":
+        return "Введите ваше сообщение. Уточните модель прибора и удобное для вас время, когда мы можем связаться с вами для дистанционной установки ПО.";
+      case "Заказ оборудования":
+        return "Мы рады предложить вам разнообразный ассотимент приборов, доступных как с наших складов в Москве, так и напрямую от лучших поставщиков из Китая. У нас есть всё, что вам может понадобиться, и это по лучшим ценам. Напишите нам, чтобы уточнить подробности.";
+      default:
+        return "Введите ваше сообщение";
+    }
+  };
+
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [Message, setMessage] = useState('');
+
+  const htmlLinkToTerms = (`Я прочитал и согласен с <a href="#!" onclick="showPopup()" class="terms-link" style="color: inherit; text-decoration: inherit;">правилами на обработку персональных данных</a>.`);
   
   const onSubmit = async (data: any, e: any) => {
     console.log(data);
@@ -259,32 +274,22 @@ export default function Contact() {
         </div>
       )}
 
-              
-              <div className="mb-3">
-                <textarea
-                  // name="message"
-                  placeholder={
-  watch("topic") === "Активация прибора" 
-    ? "Введите ваше сообщение. В зависимости от типа прибора, необходимо предоставить соответствующую информацию, такую как номер заказа, серийный номер, ACTIVATION ID и т.п."
-    : watch("topic") === "Помощь с установкой ПО"
-      ? "Введите ваше сообщение. Уточните модель прибора и удобное для вас время, когда мы можем связаться с вами для дистанционной установки ПО."
-    : watch("topic") === "Заказ оборудования"
-      ? "Мы рады предложить вам разнообразный ассотимент приборов, доступных как с наших складов в Москве, так и напрямую от лучших поставщиков из Китая. У нас есть всё, что вам может понадобиться, и это по лучшим ценам. Напишите нам, чтобы уточнить подробности."                
-      : "Введите ваше сообщение"
-}
-                  className={`w-full px-4 py-3 border-2 placeholder:text-neutral-400 dark:text-white dark:placeholder:text-neutral-500 dark:bg-neutral-900   rounded-md outline-none  h-36 focus:ring-4  ${
-                    errors.message
-                      ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
-                      : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
-                  }`}
-                  {...register("message", { required: "Необходимо ввести текст сообщения" })}
-                />
-                {errors.message && (
-                  <div className="mt-1 text-rose-500">
-                    <small>{errors.message.message}</small>
-                  </div>
-                )}
-              </div>
+      <div className="mb-3">
+        <textarea
+          placeholder={getMessagePlaceholder(topic)}
+          className={`w-full px-4 py-3 border-2 placeholder:text-neutral-400 dark:text-white dark:placeholder:text-neutral-500 dark:bg-neutral-900 rounded-md outline-none h-36 focus:ring-4 ${
+            errors.message
+              ? "border-rose-500 focus:border-rose-500 ring-rose-100 dark:ring-0"
+              : "border-neutral-300 focus:border-neutral-600 ring-neutral-100 dark:border-neutral-600 dark:focus:border-white dark:ring-0"
+          }`}
+          {...register("message", { required: "Необходимо ввести текст сообщения" })}
+        />
+        {errors.message && (
+          <div className="mt-1 text-rose-500">
+            <small>{errors.message.message}</small>
+          </div>
+        )}
+      </div>
                 <div className="flex items-center mb-4">
 <input
       type="checkbox"
