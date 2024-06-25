@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, useWatch  } from "react-hook-form";
 
 import { MapIcon } from "@heroicons/react/24/outline";
