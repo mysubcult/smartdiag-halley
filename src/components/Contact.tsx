@@ -3,6 +3,10 @@ import { useForm } from "react-hook-form";
 
 import { MapIcon, EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 
+// Импорт изображений QR-кодов
+import telegramQR from './assets/telegram-qr.png';
+import whatsappQR from './assets/whatsapp-qr.png';
+
 type Info = {
   access_key: string;
   subject: string;
@@ -27,7 +31,7 @@ export default function Contact() {
   });
   
   const [isSuccess, setIsSuccess] = useState(false);
-  const [message, setMessage] = useState(''); // Changed to camelCase
+  const [message, setMessage] = useState(''); // Используем camelCase для названия переменной
   const [selectedTopic, setSelectedTopic] = useState('');
 
   const handleTopicChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -47,14 +51,14 @@ export default function Contact() {
       case "Помощь с установкой ПО":
         return "Введите ваше сообщение. Уточните модель прибора и удобное для вас время, когда мы можем связаться с вами для дистанционной установки ПО.";
       case "Заказ оборудования":
-        return "Мы рады предложить вам разнообразный ассотимент приборов, доступных как с наших складов в Москве, так и напрямую от лучших поставщиков из Китая. У нас есть всё, что вам может понадобиться, и это по лучшим ценам. Напишите нам, чтобы уточнить подробности.";
+        return "Мы рады предложить вам разнообразный ассортимент приборов, доступных как с наших складов в Москве, так и напрямую от лучших поставщиков из Китая. У нас есть всё, что вам может понадобиться, и это по лучшим ценам. Напишите нам, чтобы уточнить подробности.";
       default:
         return "Введите ваше сообщение";
     }
   };
 
   const htmlLinkToTerms = `Я прочитал и согласен с <a href="#!" onclick="showPopup()" class="terms-link" style="color: inherit; text-decoration: inherit;">правилами на обработку персональных данных</a>.`;
-  
+
   const onSubmit = async (data: any, e: any) => {
     console.log(data);
     await fetch("https://api.web3forms.com/submit", {
@@ -115,6 +119,8 @@ export default function Contact() {
                     Telegram
                   </a>
                 </div>
+                {/* Вставка QR-кода для Telegram */}
+                <img src={telegramQR} alt="Telegram QR Code" className="h-20 mt-2" />
               </div>
               <div className="flex items-center space-x-2">
                 <div className="text-2xl">
@@ -125,6 +131,8 @@ export default function Contact() {
                     WhatsApp
                   </a>
                 </div>
+                {/* Вставка QR-кода для WhatsApp */}
+                <img src={whatsappQR} alt="WhatsApp QR Code" className="h-20 mt-2" />
               </div>
             </div>
           </div>
