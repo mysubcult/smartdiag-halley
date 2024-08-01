@@ -166,12 +166,13 @@ nav .dark\:text-neutral-400:hover {
 /* Flexbox container for the navbar */
 .navbar-nav {
   display: flex;
-  flex-wrap: nowrap; /* Do not wrap by default */
+  flex-wrap: nowrap; /* Prevent wrapping */
   gap: 10px;
-  justify-content: space-between;
+  justify-content: flex-start; /* Align items to start */
   align-items: center;
-  width: 100%;
+  width: auto;
   overflow: hidden; /* Hide overflow content */
+  margin-right: 20px; /* Space between navigation and buttons */
 }
 
 /* Responsive styles for tablets */
