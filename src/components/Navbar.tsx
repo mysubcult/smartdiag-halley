@@ -27,12 +27,14 @@ function useIsOverflow(
   const checkOverflow = useCallback(() => {
     const { current } = ref;
     if (current) {
+      // Calculate if the content is overflowing its container
       const isOverflowing = current.scrollWidth > current.clientWidth;
       callback(isOverflowing);
     }
   }, [ref, callback]);
 
   useEffect(() => {
+    // Add event listener for window resize to re-check overflow
     const handleResize = () => checkOverflow();
     window.addEventListener("resize", handleResize);
     checkOverflow();
@@ -47,9 +49,9 @@ export default function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
 
-  // Call the overflow check function
+  // Use the custom hook to detect overflow
   useIsOverflow(navRef, (isOverflowing) => {
-    setShowMobileMenu(isOverflowing);
+    setShowMobileMenu(isOverflowing); // Show mobile menu if overflowing
   });
 
   return (
@@ -76,11 +78,10 @@ export default function Navbar() {
                   </Link>
                 </div>
 
-                {/* Reference for overflow detection */}
+                {/* Navbar with overflow detection */}
                 <div
                   ref={navRef}
-                  className={`hidden sm:ml-6 sm:flex navbar-nav ${showMobileMenu ? "hidden" : ""
-                    }`}
+                  className={`hidden sm:flex navbar-nav ${showMobileMenu ? "hidden" : ""}`}
                 >
                   <div className="flex space-x-5 items-center">
                     {navigation.map((item) => (
