@@ -67,7 +67,7 @@ export default function Navbar() {
                 <div className="flex flex-shrink-0 items-center md:pl-0">
                   <Link href="/">
                     <Image
-                      className="block h-12 w-auto"
+                      className="block h-12 w-auto logo-animation" // Add class for animation
                       src="/images/logos/logo.png"
                       alt="SmartDiag"
                       width={256}
