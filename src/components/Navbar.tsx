@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ThemeSwitchButton from "./ThemeSwitchButton";
@@ -13,12 +14,44 @@ const navigation = [
   { name: "Обратная связь", href: "#contact", current: false },
 ];
 
-// Define the function with explicit type for rest parameter
+// Utility function to combine class names
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
+// Custom hook to detect overflow
+function useIsOverflow(
+  ref: React.RefObject<HTMLElement>,
+  callback: (isOverflowing: boolean) => void
+) {
+  const checkOverflow = useCallback(() => {
+    const { current } = ref;
+    if (current) {
+      const isOverflowing = current.scrollWidth > current.clientWidth;
+      callback(isOverflowing);
+    }
+  }, [ref, callback]);
+
+  useEffect(() => {
+    const handleResize = () => checkOverflow();
+    window.addEventListener("resize", handleResize);
+    checkOverflow();
+    return () => window.removeEventListener("resize", handleResize);
+  }, [checkOverflow]);
+
+  return checkOverflow;
+}
+
 export default function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
+
+  // Call the overflow check function
+  useIsOverflow(navRef, (isOverflowing) => {
+    setShowMobileMenu(isOverflowing);
+  });
+
   return (
     <Disclosure
       as="nav"
@@ -43,7 +76,12 @@ export default function Navbar() {
                   </Link>
                 </div>
 
-                <div className="hidden sm:ml-6 sm:block navbar-nav">
+                {/* Reference for overflow detection */}
+                <div
+                  ref={navRef}
+                  className={`hidden sm:ml-6 sm:flex navbar-nav ${showMobileMenu ? "hidden" : ""
+                    }`}
+                >
                   <div className="flex space-x-5 items-center">
                     {navigation.map((item) => (
                       <Link
@@ -119,10 +157,18 @@ export default function Navbar() {
                 <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
                   <Disclosure.Button className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white ">
                     <span className="sr-only">Open main menu</span>
-                    {open ? (
-                      <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                    {open || isMenuOpen ? (
+                      <XMarkIcon
+                        className="block h-6 w-6"
+                        aria-hidden="true"
+                        onClick={() => setIsMenuOpen(false)}
+                      />
                     ) : (
-                      <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                      <Bars3Icon
+                        className="block h-6 w-6"
+                        aria-hidden="true"
+                        onClick={() => setIsMenuOpen(true)}
+                      />
                     )}
                   </Disclosure.Button>
                 </div>
