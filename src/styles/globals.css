@@ -217,9 +217,7 @@ nav .dark\:text-neutral-400:hover {
   }
 
   .navbar-nav {
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
+    display: none; /* Hide navbar links on mobile */
   }
 
   .nav-link,
