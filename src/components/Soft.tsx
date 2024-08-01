@@ -339,7 +339,7 @@ export default function Soft() {
                     </h3>
                     {mostPopular && (
                       <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600  rounded-full text-sm font-semibold tracking-wide shadow-md">
-                        Популярное
+                        Топ продаж
                       </p>
                     )}
 
