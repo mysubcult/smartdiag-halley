@@ -83,3 +83,81 @@ nav .dark\:text-neutral-400:hover {
   opacity: 1;
 }
 
+.nav-link {
+  position: relative;
+  color: #1f2937; /* Цвет текста */
+  text-transform: uppercase;
+  padding: 10px 15px;
+  font-weight: bold;
+  overflow: hidden;
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  bottom: 0;
+  left: -100%;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-link:hover::before {
+  left: 0;
+}
+
+.nav-link:hover {
+  color: #ff416c;
+}
+
+.btn-ozon,
+.btn-yandex,
+.btn-wildberries {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  border: none;
+}
+
+.btn-ozon {
+  background: linear-gradient(to right, #1f8ef1, #0061f2); /* Градиент для Ozon */
+  color: white;
+}
+
+.btn-ozon:hover {
+  background: linear-gradient(to right, #0061f2, #1f8ef1);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-yandex {
+  background: linear-gradient(to right, #ffc107, #ff9800); /* Градиент для Яндекс Маркет */
+  color: black;
+}
+
+.btn-yandex:hover {
+  background: linear-gradient(to right, #ff9800, #ffc107);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-wildberries {
+  background: linear-gradient(to right, #9c27b0, #673ab7); /* Градиент для Wildberries */
+  color: white;
+}
+
+.btn-wildberries:hover {
+  background: linear-gradient(to right, #673ab7, #9c27b0);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
