@@ -84,13 +84,14 @@ nav .dark\:text-neutral-400:hover {
 
 .nav-link {
   position: relative;
-  color: #1f2937; /* Цвет текста */
+  color: #1f2937;
   text-transform: uppercase;
-  padding: 10px 15px;
+  padding: 8px 12px; /* Reduced padding */
   font-weight: bold;
   overflow: hidden;
   display: inline-block;
   transition: color 0.3s ease;
+  font-size: 14px; /* Smaller font size */
 }
 
 .nav-link::before {
@@ -117,46 +118,77 @@ nav .dark\:text-neutral-400:hover {
 .btn-wildberries {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border-radius: 30px;
+  gap: 4px; /* Reduced gap between icon and text */
+  padding: 6px 12px; /* Reduced padding */
+  border-radius: 20px; /* Smaller border radius */
   font-weight: bold;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Slightly reduced shadow */
   position: relative;
   overflow: hidden;
   border: none;
+  font-size: 12px; /* Reduced font size */
 }
 
 .btn-ozon {
-  background: linear-gradient(to right, #1f8ef1, #0061f2); /* Градиент для Ozon */
+  background: linear-gradient(to right, #1f8ef1, #0061f2);
   color: white;
 }
 
 .btn-ozon:hover {
   background: linear-gradient(to right, #0061f2, #1f8ef1);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25); /* Slightly reduced hover shadow */
 }
 
 .btn-yandex {
-  background: linear-gradient(to right, #ffc107, #ff9800); /* Градиент для Яндекс Маркет */
+  background: linear-gradient(to right, #ffc107, #ff9800);
   color: black;
 }
 
 .btn-yandex:hover {
   background: linear-gradient(to right, #ff9800, #ffc107);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
 
 .btn-wildberries {
-  background: linear-gradient(to right, #9c27b0, #673ab7); /* Градиент для Wildberries */
+  background: linear-gradient(to right, #9c27b0, #673ab7);
   color: white;
 }
 
 .btn-wildberries:hover {
   background: linear-gradient(to right, #673ab7, #9c27b0);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* Mobile and Tablet Styles */
+@media (max-width: 1024px) {
+  .nav-link {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .btn-ozon,
+  .btn-yandex,
+  .btn-wildberries {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}
+
+/* Smaller Screen Sizes */
+@media (max-width: 768px) {
+  .nav-link {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
+  .btn-ozon,
+  .btn-yandex,
+  .btn-wildberries {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
 }
