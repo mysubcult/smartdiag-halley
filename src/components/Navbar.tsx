@@ -78,10 +78,10 @@ export default function Navbar() {
                   </Link>
                 </div>
 
-                {/* Navbar with overflow detection */}
+                {/* Navbar links hidden on mobile */}
                 <div
                   ref={navRef}
-                  className={`hidden lg:flex navbar-nav ${showMobileMenu ? "hidden" : ""}`}
+                  className="hidden lg:flex navbar-nav" // Show only on larger screens
                 >
                   <div className="flex space-x-5 items-center">
                     {navigation.map((item) => (
