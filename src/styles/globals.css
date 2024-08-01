@@ -82,7 +82,6 @@ nav .dark\:text-neutral-400:hover {
   opacity: 1;
 }
 
-/* Main styles for navigation links and buttons */
 .nav-link {
   position: relative;
   color: #1f2937;
@@ -167,11 +166,12 @@ nav .dark\:text-neutral-400:hover {
 /* Flexbox container for the navbar */
 .navbar-nav {
   display: flex;
-  flex-wrap: wrap; /* Allow flex items to wrap */
-  gap: 10px; /* Space between flex items */
+  flex-wrap: nowrap; /* Do not wrap by default */
+  gap: 10px;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  overflow: hidden; /* Hide overflow content */
 }
 
 /* Responsive styles for tablets */
@@ -204,16 +204,16 @@ nav .dark\:text-neutral-400:hover {
   }
 
   .navbar-nav {
-    flex-direction: column; /* Stack items vertically */
-    gap: 15px; /* Increase gap between items */
-    align-items: center; /* Center items */
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
   }
 
   .nav-link,
   .btn-ozon,
   .btn-yandex,
   .btn-wildberries {
-    width: 100%; /* Full width for buttons */
+    width: 100%;
     text-align: center;
   }
 }
