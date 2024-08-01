@@ -82,16 +82,17 @@ nav .dark\:text-neutral-400:hover {
   opacity: 1;
 }
 
+/* Main styles for navigation links and buttons */
 .nav-link {
   position: relative;
   color: #1f2937;
   text-transform: uppercase;
-  padding: 8px 12px; /* Reduced padding */
+  padding: 8px 12px;
   font-weight: bold;
   overflow: hidden;
   display: inline-block;
   transition: color 0.3s ease;
-  font-size: 14px; /* Smaller font size */
+  font-size: 14px;
 }
 
 .nav-link::before {
@@ -118,16 +119,16 @@ nav .dark\:text-neutral-400:hover {
 .btn-wildberries {
   display: flex;
   align-items: center;
-  gap: 4px; /* Reduced gap between icon and text */
-  padding: 6px 12px; /* Reduced padding */
-  border-radius: 20px; /* Smaller border radius */
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 20px;
   font-weight: bold;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Slightly reduced shadow */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   position: relative;
   overflow: hidden;
   border: none;
-  font-size: 12px; /* Reduced font size */
+  font-size: 12px;
 }
 
 .btn-ozon {
@@ -138,7 +139,7 @@ nav .dark\:text-neutral-400:hover {
 .btn-ozon:hover {
   background: linear-gradient(to right, #0061f2, #1f8ef1);
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25); /* Slightly reduced hover shadow */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
 
 .btn-yandex {
@@ -163,7 +164,7 @@ nav .dark\:text-neutral-400:hover {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
 
-/* Mobile and Tablet Styles */
+/* Responsive styles for tablets */
 @media (max-width: 1024px) {
   .nav-link {
     padding: 6px 10px;
@@ -176,9 +177,16 @@ nav .dark\:text-neutral-400:hover {
     padding: 5px 10px;
     font-size: 11px;
   }
+
+  /* Adjust the navbar layout */
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
-/* Smaller Screen Sizes */
+/* Responsive styles for smaller screens */
 @media (max-width: 768px) {
   .nav-link {
     padding: 5px 8px;
@@ -190,5 +198,28 @@ nav .dark\:text-neutral-400:hover {
   .btn-wildberries {
     padding: 4px 8px;
     font-size: 10px;
+  }
+
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Make the navigation links stack vertically */
+  .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .nav-link,
+  .btn-ozon,
+  .btn-yandex,
+  .btn-wildberries {
+    width: 100%;
+    text-align: center;
   }
 }
