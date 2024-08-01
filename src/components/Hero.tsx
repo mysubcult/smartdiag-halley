@@ -8,15 +8,22 @@ export function Hero() {
         <div className="pt-6 md:pt-32 justify-center text-center sm:justify-start sm:text-start">
           <h1 className="text-5xl font-bold">
             Добро пожаловать в <br />{" "}
-            <span className="text-red-600 font-extrabold">SmartDiag <span className="wave">👋</span></span>
+            <span className="text-red-600 font-extrabold">
+              SmartDiag <span className="wave">👋</span>
+            </span>
           </h1>
           <p className="pt-6 text-base w-auto sm:w-10/12 md:w-10/12 dark:text-neutral-400">
-            Здесь вы найдёте всё необходимое программное обеспечение для диагностики и обслуживания вашего автомобиля. Мы предлагаем высококачественное и надёжное оборудование, которое поможет вам быстро и эффективно провести анализ и ремонт вашего авто. Мы уверены, что техническое обслуживание автомобиля может быть простым и доступным для каждого.
+            Здесь вы найдёте всё необходимое программное обеспечение для
+            диагностики и обслуживания вашего автомобиля. Мы предлагаем
+            высококачественное и надёжное оборудование, которое поможет вам
+            быстро и эффективно провести анализ и ремонт вашего авто. Мы уверены,
+            что техническое обслуживание автомобиля может быть простым и
+            доступным для каждого.
           </p>
-          <div className="flex flex-auto pt-10 gap-2 min-w-[350px] justify-center sm:justify-start">
+          <div className="flex flex-auto pt-10 gap-4 min-w-[350px] justify-center sm:justify-start">
             <div>
               <Link href="#soft">
-                <button className="bg-black dark:bg-white text-white dark:text-black text-base rounded-full px-4 p-2 font-medium hover:bg-gray-600 dark:hover:bg-gray-300 transition-colors">
+                <button className="btn-grad-red text-base font-medium">
                   Программы для приборов
                 </button>
               </Link>
@@ -24,7 +31,7 @@ export function Hero() {
 
             <div>
               <Link href="#contact">
-                <button className="bg-red-600 text-white text-base rounded-full px-4 p-2 font-medium hover:bg-red-700 transition-colors">
+                <button className="btn-grad-black text-base font-medium">
                   Обратная связь
                 </button>
               </Link>
