@@ -43,69 +43,80 @@ export default function Navbar() {
                   </Link>
                 </div>
 
-<div className="hidden sm:ml-6 sm:block">
+                <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-5 items-center">
                     {navigation.map((item) => (
-<Link
-  key={item.name}
-  href={item.href}
-  className={classNames(
-    item.current
-      ? "text-neutral-900 dark:text-neutral-400"
-      : "text-neutral-900 dark:text-neutral-400",
-    "text-base font-medium inline-block transition-colors duration-300 ease-in-out transform hover:text-red-500 hover:scale-105",
-  )}
-  aria-current={item.current ? "page" : undefined}
-  style={{ textDecoration: "none" }}
->
-  {item.name}
-</Link>
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className={classNames(
+                          item.current
+                            ? "text-neutral-900 dark:text-neutral-400"
+                            : "text-neutral-900 dark:text-neutral-400",
+                          "nav-link" // Класс для навигационных ссылок
+                        )}
+                        aria-current={item.current ? "page" : undefined}
+                        style={{ textDecoration: "none" }}
+                      >
+                        {item.name}
+                      </Link>
                     ))}
                   </div>
-                 </div>
+                </div>
 
-<div className="absolute inset-y-0 right-10 sm:right-0 flex items-center gap-2">
-  {/* OZON */}
-  <a
-    href="https://www.ozon.ru/seller/smartdiag-862410/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="hidden sm:block"
-  >
-    <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 p-1 text-base font-medium rounded-full flex items-center gap-2">
-      <img src="/images/logos/favicon.ico" alt="OZON" className="w-4 h-4" />
-      OZON
-    </button>
-  </a>
-  
-  {/* Яндекс Маркет */}
-  <a
-    href="https://market.yandex.ru/business--smartdiag/50025236"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="hidden sm:block"
-  >
-    <button className="bg-yellow-400 hover:bg-yellow-500 text-black px-3 p-1 text-base font-medium rounded-full flex items-center gap-2">
-      <img src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico" alt="Яндекс Маркет" className="w-4 h-4" />
-      Яндекс Маркет
-    </button>
-  </a>
-    {/* Wildberries */}
-  <a
-    href="https://www.wildberries.ru/seller/1343369"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="hidden sm:block"
-  >
-    <button className="bg-purple-700 hover:bg-purple-800 text-white px-3 p-1 text-base font-medium rounded-full flex items-center gap-2">
-      <img src="https://www.wildberries.ru/favicon.ico" alt="Wildberries" className="w-4 h-4" />
-      Wildberries
-    </button>
-  </a>
+                <div className="absolute inset-y-0 right-10 sm:right-0 flex items-center gap-2">
+                  {/* OZON */}
+                  <a
+                    href="https://www.ozon.ru/seller/smartdiag-862410/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hidden sm:block"
+                  >
+                    <button className="btn-ozon">
+                      <img
+                        src="/images/logos/favicon.ico"
+                        alt="OZON"
+                        className="w-4 h-4"
+                      />
+                      OZON
+                    </button>
+                  </a>
 
-  <ThemeSwitchButton />
-</div>
+                  {/* Яндекс Маркет */}
+                  <a
+                    href="https://market.yandex.ru/business--smartdiag/50025236"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hidden sm:block"
+                  >
+                    <button className="btn-yandex">
+                      <img
+                        src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                        alt="Яндекс Маркет"
+                        className="w-4 h-4"
+                      />
+                      Яндекс Маркет
+                    </button>
+                  </a>
+                  {/* Wildberries */}
+                  <a
+                    href="https://www.wildberries.ru/seller/1343369"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hidden sm:block"
+                  >
+                    <button className="btn-wildberries">
+                      <img
+                        src="https://www.wildberries.ru/favicon.ico"
+                        alt="Wildberries"
+                        className="w-4 h-4"
+                      />
+                      Wildberries
+                    </button>
+                  </a>
 
+                  <ThemeSwitchButton />
+                </div>
 
                 <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
                   {/* Mobile menu button*/}
@@ -140,40 +151,52 @@ export default function Navbar() {
                   {item.name}
                 </Disclosure.Button>
               ))}
-<div className="flex flex-col gap-4 items-center">
-  {/* OZON */}
-  <a
-    href="https://www.ozon.ru/seller/smartdiag-862410/"
-    target="_blank"
-  >
-    <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-base font-medium rounded-full flex items-center gap-2">
-      <img src="/images/logos/favicon.ico" alt="OZON" className="w-4 h-4" />
-      OZON
-    </button>
-  </a>
-  
-  {/* Яндекс Маркет */}
-  <a
-    href="https://market.yandex.ru/business--smartdiag/50025236"
-    target="_blank"
-  >
-    <button className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 text-base font-medium rounded-full flex items-center gap-2">
-      <img src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico" alt="Яндекс Маркет" className="w-4 h-4" />
-      Яндекс Маркет
-    </button>
-  </a>
-  
-  {/* Wildberries */}
-  <a
-    href="https://www.wildberries.ru/seller/1343369"
-    target="_blank"
-  >
-    <button className="bg-purple-700 hover:bg-purple-800 text-white px-4 py-2 text-base font-medium rounded-full flex items-center gap-2">
-      <img src="https://www.wildberries.ru/favicon.ico" alt="Wildberries" className="w-4 h-4" />
-      Wildberries
-    </button>
-  </a>
-</div>
+              <div className="flex flex-col gap-4 items-center">
+                {/* OZON */}
+                <a
+                  href="https://www.ozon.ru/seller/smartdiag-862410/"
+                  target="_blank"
+                >
+                  <button className="btn-ozon">
+                    <img
+                      src="/images/logos/favicon.ico"
+                      alt="OZON"
+                      className="w-4 h-4"
+                    />
+                    OZON
+                  </button>
+                </a>
+
+                {/* Яндекс Маркет */}
+                <a
+                  href="https://market.yandex.ru/business--smartdiag/50025236"
+                  target="_blank"
+                >
+                  <button className="btn-yandex">
+                    <img
+                      src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                      alt="Яндекс Маркет"
+                      className="w-4 h-4"
+                    />
+                    Яндекс Маркет
+                  </button>
+                </a>
+
+                {/* Wildberries */}
+                <a
+                  href="https://www.wildberries.ru/seller/1343369"
+                  target="_blank"
+                >
+                  <button className="btn-wildberries">
+                    <img
+                      src="https://www.wildberries.ru/favicon.ico"
+                      alt="Wildberries"
+                      className="w-4 h-4"
+                    />
+                    Wildberries
+                  </button>
+                </a>
+              </div>
             </div>
           </Disclosure.Panel>
         </>
