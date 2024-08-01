@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import { MapIcon } from "@heroicons/react/24/outline";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
@@ -33,13 +33,6 @@ export default function Contact() {
 
   const topic = watch("topic");
 
-  // Используем useEffect для изменения состояния selectedTopic
-  useEffect(() => {
-    if (topic) {
-      setSelectedTopic(topic);
-    }
-  }, [topic]);
-
   const getMessagePlaceholder = (topic: string) => {
     switch (topic) {
       case "Активация прибора":
@@ -47,7 +40,7 @@ export default function Contact() {
       case "Помощь с установкой ПО":
         return "Введите ваше сообщение. Уточните модель прибора и удобное для вас время, когда мы можем связаться с вами для дистанционной установки ПО.";
       case "Заказ оборудования":
-        return "Мы рады предложить вам разнообразный ассотимент приборов, доступных как с наших складов в Москве, так и напрямую от лучших поставщиков из Китая. У нас есть всё, что вам может понадобиться, и это по лучшим ценам. Напишите нам, чтобы уточнить подробности.";
+        return "Мы рады предложить вам разнообразный ассортимент приборов, доступных как с наших складов в Москве, так и напрямую от лучших поставщиков из Китая. У нас есть всё, что вам может понадобиться, и это по лучшим ценам. Напишите нам, чтобы уточнить подробности.";
       default:
         return "Введите ваше сообщение";
     }
