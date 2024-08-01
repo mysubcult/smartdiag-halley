@@ -81,7 +81,7 @@ export default function Navbar() {
                 {/* Navbar with overflow detection */}
                 <div
                   ref={navRef}
-                  className={`hidden sm:flex navbar-nav ${showMobileMenu ? "hidden" : ""}`}
+                  className={`hidden lg:flex navbar-nav ${showMobileMenu ? "hidden" : ""}`}
                 >
                   <div className="flex space-x-5 items-center">
                     {navigation.map((item) => (
@@ -103,12 +103,12 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                <div className="absolute inset-y-0 right-10 sm:right-0 flex items-center gap-2">
+                <div className="absolute inset-y-0 right-10 lg:right-0 flex items-center gap-2">
                   <a
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hidden sm:block"
+                    className="hidden lg:block"
                   >
                     <button className="btn-ozon">
                       <img
@@ -124,7 +124,7 @@ export default function Navbar() {
                     href="https://market.yandex.ru/business--smartdiag/50025236"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hidden sm:block"
+                    className="hidden lg:block"
                   >
                     <button className="btn-yandex">
                       <img
@@ -140,7 +140,7 @@ export default function Navbar() {
                     href="https://www.wildberries.ru/seller/1343369"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hidden sm:block"
+                    className="hidden lg:block"
                   >
                     <button className="btn-wildberries">
                       <img
@@ -155,7 +155,8 @@ export default function Navbar() {
                   <ThemeSwitchButton />
                 </div>
 
-                <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
+                <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
+                  {/* Always show the menu button on mobile */}
                   <Disclosure.Button className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white ">
                     <span className="sr-only">Open main menu</span>
                     {open || isMenuOpen ? (
@@ -177,7 +178,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <Disclosure.Panel className="sm:hidden">
+          <Disclosure.Panel className="lg:hidden">
             <div className="space-y-1 px-4 min-h-screen border-t border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900">
               {navigation.map((item) => (
                 <Disclosure.Button
