@@ -13,7 +13,8 @@ const navigation = [
   { name: "Обратная связь", href: "#contact", current: false },
 ];
 
-function classNames(...classes) {
+// Define the function with explicit type for rest parameter
+function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
@@ -23,7 +24,7 @@ export default function Navbar() {
       as="nav"
       className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20"
     >
-      {({ open }) => (
+      {({ open }: { open: boolean }) => (
         <>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
