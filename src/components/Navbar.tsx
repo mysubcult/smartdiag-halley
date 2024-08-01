@@ -19,40 +19,8 @@ function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
-// Custom hook to detect overflow
-function useIsOverflow(
-  ref: React.RefObject<HTMLElement>,
-  callback: (isOverflowing: boolean) => void
-) {
-  const checkOverflow = useCallback(() => {
-    const { current } = ref;
-    if (current) {
-      // Calculate if the content is overflowing its container
-      const isOverflowing = current.scrollWidth > current.clientWidth;
-      callback(isOverflowing);
-    }
-  }, [ref, callback]);
-
-  useEffect(() => {
-    // Add event listener for window resize to re-check overflow
-    const handleResize = () => checkOverflow();
-    window.addEventListener("resize", handleResize);
-    checkOverflow();
-    return () => window.removeEventListener("resize", handleResize);
-  }, [checkOverflow]);
-
-  return checkOverflow;
-}
-
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const navRef = useRef<HTMLDivElement>(null);
-
-  // Use the custom hook to detect overflow
-  useIsOverflow(navRef, (isOverflowing) => {
-    setShowMobileMenu(isOverflowing); // Show mobile menu if overflowing
-  });
 
   return (
     <Disclosure
@@ -78,10 +46,9 @@ export default function Navbar() {
                   </Link>
                 </div>
 
-                {/* Navbar links hidden on mobile */}
+                {/* Navbar links visible only on larger screens */}
                 <div
-                  ref={navRef}
-                  className="hidden lg:flex navbar-nav" // Show only on larger screens
+                  className="hidden lg:flex navbar-nav"
                 >
                   <div className="flex space-x-5 items-center">
                     {navigation.map((item) => (
