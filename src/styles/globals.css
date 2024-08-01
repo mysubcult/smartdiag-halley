@@ -5,7 +5,7 @@
 ::selection {
     @apply bg-red-600 text-white;
 }
-
+scroll-behavior: smooth;
 .wave {
   animation-name: wave-animation;  /* Refers to the name of your @keyframes element below */
   animation-duration: 2.5s;        /* Change to speed up or slow down */
