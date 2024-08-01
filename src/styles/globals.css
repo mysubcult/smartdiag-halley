@@ -185,24 +185,8 @@ nav .dark\:text-neutral-400:hover {
   transform: scale(1.05); /* Slightly scale up the logo on hover */
 }
 
-/* Responsive styles for tablets */
-@media (max-width: 1024px) {
-  .nav-link {
-    padding: 6px 10px;
-    font-size: 13px;
-    margin-left: 10px; /* Adjust spacing for smaller screens */
-  }
-
-  .btn-ozon,
-  .btn-yandex,
-  .btn-wildberries {
-    padding: 5px 10px;
-    font-size: 11px;
-  }
-}
-
 /* Responsive styles for smaller screens */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .nav-link {
     padding: 5px 8px;
     font-size: 12px;
