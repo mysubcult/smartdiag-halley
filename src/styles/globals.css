@@ -160,3 +160,7 @@ nav .dark\:text-neutral-400:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
+/* Добавляем плавный скролл */
+html {
+  scroll-behavior: smooth;
+}
