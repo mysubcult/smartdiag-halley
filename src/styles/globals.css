@@ -92,6 +92,7 @@ nav .dark\:text-neutral-400:hover {
   display: inline-block;
   transition: color 0.3s ease;
   font-size: 14px;
+  margin-left: 15px; /* Add spacing between logo and first link */
 }
 
 .nav-link::before {
@@ -175,11 +176,21 @@ nav .dark\:text-neutral-400:hover {
   margin-right: 20px; /* Space between navigation and buttons */
 }
 
+/* Animation for logo on hover */
+.logo-animation {
+  transition: transform 0.3s ease-in-out;
+}
+
+.logo-animation:hover {
+  transform: scale(1.05); /* Slightly scale up the logo on hover */
+}
+
 /* Responsive styles for tablets */
 @media (max-width: 1024px) {
   .nav-link {
     padding: 6px 10px;
     font-size: 13px;
+    margin-left: 10px; /* Adjust spacing for smaller screens */
   }
 
   .btn-ozon,
@@ -195,6 +206,7 @@ nav .dark\:text-neutral-400:hover {
   .nav-link {
     padding: 5px 8px;
     font-size: 12px;
+    margin-left: 5px; /* Adjust spacing for smaller screens */
   }
 
   .btn-ozon,
