@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ThemeSwitchButton from "./ThemeSwitchButton";
@@ -22,14 +22,16 @@ function classNames(...classes: string[]): string {
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Добавим useEffect для плавного скроллинга
+  // useEffect для плавного скроллинга
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
       if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('#')) {
         event.preventDefault();
         const anchor = document.querySelector(target.getAttribute('href')!);
-        anchor?.scrollIntoView({ behavior: 'smooth' });
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     };
 
@@ -70,7 +72,7 @@ export default function Navbar() {
                 >
                   <div className="flex space-x-5 items-center">
                     {navigation.map((item) => (
-                      <Link
+                      <a
                         key={item.name}
                         href={item.href}
                         className={classNames(
@@ -83,7 +85,7 @@ export default function Navbar() {
                         style={{ textDecoration: "none" }}
                       >
                         {item.name}
-                      </Link>
+                      </a>
                     ))}
                   </div>
                 </div>
