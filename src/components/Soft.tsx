@@ -269,7 +269,7 @@ export default function Soft() {
           <button
             onClick={() => setBillingInterval("month")}
             type="button"
-            className={`transition-colors duration-200 ease-in-out ${
+            className={`transition-transform duration-300 ease-in-out transform hover:scale-105 ${
               billingInterval === "month"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
@@ -280,7 +280,7 @@ export default function Soft() {
           <button
             onClick={() => setBillingInterval("year")}
             type="button"
-            className={`transition-colors duration-200 ease-in-out ${
+            className={`transition-transform duration-300 ease-in-out transform hover:scale-105 ${
               billingInterval === "year"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
@@ -291,7 +291,7 @@ export default function Soft() {
           <button
             onClick={() => setBillingInterval("elm")}
             type="button"
-            className={`transition-colors duration-200 ease-in-out ${
+            className={`transition-transform duration-300 ease-in-out transform hover:scale-105 ${
               billingInterval === "elm"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
@@ -323,7 +323,7 @@ export default function Soft() {
                 {billingInterval === frecuency ? (
                   <div
                     key={title}
-                    className={`rounded-lg py-8 relative flex flex-col hover:shadow-md transition-shadow duration-200 ease-in-out ${
+                    className={`rounded-lg py-8 relative flex flex-col hover:shadow-lg transition-shadow duration-200 ease-in-out transform hover:scale-102 ${
                       mostPopular
                         ? "border-red-300 border-2 border-solid dark:border-red-600"
                         : "border-neutral-300 border dark:border-neutral-600"
@@ -348,9 +348,9 @@ export default function Soft() {
                         target="_blank"
                         className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
                           mostPopular
-                            ? "bg-red-600 text-white shadow-md hover:bg-green-500"
-                            : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
-                        } transition-colors duration-200 ease-in-out w-full`}
+                            ? "bg-red-600 text-white shadow-md hover:bg-red-500"
+                            : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-neutral-200 hover:bg-neutral-800"
+                        } transition-colors duration-300 ease-in-out transform hover:scale-102 w-full`}
                       >
                         {cta}
                       </Link>
@@ -363,7 +363,7 @@ export default function Soft() {
                             mostPopular
                               ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
                               : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
-                          } border-neutral-300 border dark:border-neutral-600 transition-colors duration-200 ease-in-out w-full`}
+                          } border-neutral-300 border dark:border-neutral-600 transition-colors duration-300 ease-in-out transform hover:scale-102 w-full`}
                         >
                           {docsLabel}
                         </Link>
