@@ -48,11 +48,7 @@ const products = [
     frecuency: "month",
     description:
       "Инструмент диагностики автомобилей для чтения и удаления кодов неисправностей.",
-    features: [
-      "Wurth WoW 5.00.8",
-      "Инструкция по установке ПО",
-      "Руководство пользователя",
-    ],
+    features: ["Wurth WoW 5.00.8", "Инструкция по установке ПО", "Руководство пользователя"],
     href: "https://i.getspace.us/cloud/s/eTR2gqbEbZi66Md",
     cta: "Скачать",
     mostPopular: false,
@@ -114,13 +110,7 @@ const products = [
     currency: "$",
     frecuency: "year",
     description: "Диагностическая система для автомобилей BMW.",
-    features: [
-      "E-SYS",
-      "Rheingold",
-      "ISTA+",
-      "ISTA-P",
-      "Инструкции по установке ПО",
-    ],
+    features: ["E-SYS", "Rheingold", "ISTA+", "ISTA-P", "Инструкции по установке ПО"],
     href: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS",
     cta: "Скачать",
     mostPopular: false,
@@ -134,14 +124,7 @@ const products = [
     currency: "$",
     frecuency: "year",
     description: "Диагностическая система для автомобилей BMW.",
-    features: [
-      "Rheingold",
-      "INPA",
-      "ISTA-D",
-      "DIS",
-      "NCS",
-      "Инструкции по установке ПО",
-    ],
+    features: ["Rheingold", "INPA", "ISTA-D", "DIS", "NCS", "Инструкции по установке ПО"],
     href: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS",
     cta: "Скачать",
     mostPopular: false,
@@ -249,18 +232,10 @@ export default function Soft() {
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
-        <h2 className="text-4xl font-bold text-center">
-          Программы для оборудования 💻
-        </h2>
+        <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
 
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          В этом разделе вы можете скачать программное обеспечение для своего
-          устройства. Для начала определите тип вашего устройства —
-          &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе
-          устройства вы найдёте в упаковке. После этого найдите карточку с вашим
-          устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по
-          установке программного обеспечения находится на кнопке
-          &quot;Инструкция&quot;.
+          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
         </p>
       </div>
 
@@ -269,40 +244,40 @@ export default function Soft() {
           <button
             onClick={() => setBillingInterval("month")}
             type="button"
-            className={`transition-transform duration-300 ease-in-out transform hover:scale-105 ${
+            className={`transition-all duration-300 ease-in-out hover:scale-105 ${
               billingInterval === "month"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700`}
           >
             Мультимарочные
           </button>
           <button
             onClick={() => setBillingInterval("year")}
             type="button"
-            className={`transition-transform duration-300 ease-in-out transform hover:scale-105 ${
+            className={`transition-all duration-300 ease-in-out hover:scale-105 ${
               billingInterval === "year"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700`}
           >
             Марочные
           </button>
           <button
             onClick={() => setBillingInterval("elm")}
             type="button"
-            className={`transition-transform duration-300 ease-in-out transform hover:scale-105 ${
+            className={`transition-all duration-300 ease-in-out hover:scale-105 ${
               billingInterval === "elm"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700`}
           >
             Адаптеры ELM
           </button>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16 transition-all duration-300 ease-in-out">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {products.map(
           ({
             title,
@@ -323,7 +298,7 @@ export default function Soft() {
                 {billingInterval === frecuency ? (
                   <div
                     key={title}
-                    className={`rounded-lg py-8 relative flex flex-col hover:shadow-lg transition-shadow duration-200 ease-in-out transform hover:scale-102 ${
+                    className={`rounded-lg py-8 relative flex flex-col transition-shadow duration-300 ease-in-out hover:shadow-lg ${
                       mostPopular
                         ? "border-red-300 border-2 border-solid dark:border-red-600"
                         : "border-neutral-300 border dark:border-neutral-600"
@@ -333,7 +308,7 @@ export default function Soft() {
                       {title}
                     </h3>
                     {mostPopular && (
-                      <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600  rounded-full text-sm font-semibold tracking-wide shadow-md">
+                      <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
                         Топ продаж
                       </p>
                     )}
@@ -346,11 +321,11 @@ export default function Soft() {
                       <Link
                         href={href}
                         target="_blank"
-                        className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
+                        className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg transition-all duration-300 ease-in-out ${
                           mostPopular
-                            ? "bg-red-600 text-white shadow-md hover:bg-red-500"
-                            : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-neutral-200 hover:bg-neutral-800"
-                        } transition-colors duration-300 ease-in-out transform hover:scale-102 w-full`}
+                            ? "bg-red-600 text-white shadow-md hover:bg-green-500"
+                            : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
+                        } w-full`}
                       >
                         {cta}
                       </Link>
@@ -359,11 +334,11 @@ export default function Soft() {
                         <Link
                           href={docsLink}
                           target="_blank"
-                          className={`ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg ${
+                          className={`ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg transition-all duration-300 ease-in-out ${
                             mostPopular
                               ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
                               : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
-                          } border-neutral-300 border dark:border-neutral-600 transition-colors duration-300 ease-in-out transform hover:scale-102 w-full`}
+                          } border-neutral-300 border dark:border-neutral-600 w-full`}
                         >
                           {docsLabel}
                         </Link>
