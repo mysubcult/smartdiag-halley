@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { MapIcon, EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline';
 
 type Info = {
@@ -60,7 +60,8 @@ export default function Contact() {
     }
   };
 
-  const onSubmit = async (data: Info, e: React.FormEvent<HTMLFormElement>) => {
+  // Обработка отправки формы
+  const onSubmit: SubmitHandler<Info> = async (data) => {
     console.log(data);
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -189,11 +190,7 @@ export default function Contact() {
           <h2 className="text-lg font-bold text-center mb-5">✍️ Обратная связь</h2>
           {!isSubmitSuccessful && (
             <form onSubmit={handleSubmit(onSubmit)}>
-              <input
-                type="hidden"
-                value="c39d2187-6537-4c0b-87e1-3cff0bf0c1c3"
-                {...register('access_key')}
-              />
+              <input type="hidden" value="c39d2187-6537-4c0b-87e1-3cff0bf0c1c3" {...register('access_key')} />
               <input
                 type="hidden"
                 value="Обращение через форму обратной связи на сайте SmartDiag"
