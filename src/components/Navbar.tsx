@@ -7,7 +7,7 @@ import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 
 const navigation = [
-  { name: "Главная", href: "#home", current: false },
+  { name: "Главная", href: "#hero", current: false },
   { name: "Программы", href: "#soft", current: false },
   { name: "О нас", href: "#services", current: false },
   { name: "ЧАВО", href: "#faq", current: false },
