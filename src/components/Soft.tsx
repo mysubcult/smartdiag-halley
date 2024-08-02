@@ -269,7 +269,7 @@ export default function Soft() {
           <button
             onClick={() => setBillingInterval("month")}
             type="button"
-            className={`transition duration-300 ease-in-out transform hover:scale-105 ${
+            className={`transition-colors duration-200 ease-in-out ${
               billingInterval === "month"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
@@ -280,7 +280,7 @@ export default function Soft() {
           <button
             onClick={() => setBillingInterval("year")}
             type="button"
-            className={`transition duration-300 ease-in-out transform hover:scale-105 ${
+            className={`transition-colors duration-200 ease-in-out ${
               billingInterval === "year"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
@@ -291,7 +291,7 @@ export default function Soft() {
           <button
             onClick={() => setBillingInterval("elm")}
             type="button"
-            className={`transition duration-300 ease-in-out transform hover:scale-105 ${
+            className={`transition-colors duration-200 ease-in-out ${
               billingInterval === "elm"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
@@ -302,7 +302,7 @@ export default function Soft() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16 transition-all duration-500 ease-in-out transform">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16 transition-all duration-300 ease-in-out">
         {products.map(
           ({
             title,
@@ -323,7 +323,7 @@ export default function Soft() {
                 {billingInterval === frecuency ? (
                   <div
                     key={title}
-                    className={`rounded-lg py-8 relative flex flex-col hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105 ${
+                    className={`rounded-lg py-8 relative flex flex-col hover:shadow-md transition-shadow duration-200 ease-in-out ${
                       mostPopular
                         ? "border-red-300 border-2 border-solid dark:border-red-600"
                         : "border-neutral-300 border dark:border-neutral-600"
@@ -350,7 +350,7 @@ export default function Soft() {
                           mostPopular
                             ? "bg-red-600 text-white shadow-md hover:bg-green-500"
                             : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
-                        } transition duration-300 ease-in-out transform hover:scale-105 w-full`}
+                        } transition-colors duration-200 ease-in-out w-full`}
                       >
                         {cta}
                       </Link>
@@ -363,7 +363,7 @@ export default function Soft() {
                             mostPopular
                               ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
                               : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
-                          } border-neutral-300 border dark:border-neutral-600 transition duration-300 ease-in-out transform hover:scale-105 w-full`}
+                          } border-neutral-300 border dark:border-neutral-600 transition-colors duration-200 ease-in-out w-full`}
                         >
                           {docsLabel}
                         </Link>
