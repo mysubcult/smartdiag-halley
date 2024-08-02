@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 
+// Define the products array
 const products = [
   {
     title: "Delphi DS150e",
@@ -226,8 +227,21 @@ const products = [
 
 type BillingInterval = "year" | "month" | "elm";
 
+// Soft component
 export default function Soft() {
   const [billingInterval, setBillingInterval] = useState<BillingInterval>("month");
+
+  // Handler function to add and remove animation class
+  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const button = event.currentTarget;
+    button.classList.add("pressed");
+
+    // Remove the class after animation is complete
+    setTimeout(() => {
+      button.classList.remove("pressed");
+    }, 200); // Adjust duration to match CSS animation
+  };
+
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
@@ -245,35 +259,44 @@ export default function Soft() {
       <div className="max-w-max mx-auto px-6">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
           <button
-            onClick={() => setBillingInterval("month")}
+            onClick={(e) => {
+              setBillingInterval("month");
+              handleButtonClick(e);
+            }}
             type="button"
-            className={`transition duration-300 transform ${
+            className={`transition transform duration-300 ${
               billingInterval === "month"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700 active:scale-90`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700`}
           >
             Мультимарочные
           </button>
           <button
-            onClick={() => setBillingInterval("year")}
+            onClick={(e) => {
+              setBillingInterval("year");
+              handleButtonClick(e);
+            }}
             type="button"
-            className={`transition duration-300 transform ${
+            className={`transition transform duration-300 ${
               billingInterval === "year"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700 active:scale-90`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700`}
           >
             Марочные
           </button>
           <button
-            onClick={() => setBillingInterval("elm")}
+            onClick={(e) => {
+              setBillingInterval("elm");
+              handleButtonClick(e);
+            }}
             type="button"
-            className={`transition duration-300 transform ${
+            className={`transition transform duration-300 ${
               billingInterval === "elm"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700 active:scale-90`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700`}
           >
             Адаптеры ELM
           </button>
@@ -360,6 +383,24 @@ export default function Soft() {
           }
         )}
       </div>
+
+      <style jsx>{`
+        .pressed {
+          animation: pressAnimation 0.2s ease-in-out;
+        }
+
+        @keyframes pressAnimation {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(0.9);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+      `}</style>
     </div>
   );
 }
