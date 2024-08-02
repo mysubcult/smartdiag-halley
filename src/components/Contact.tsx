@@ -29,7 +29,7 @@ const TermsLink = () => (
   </a>
 );
 
-const MessageForm: React.FC<{ onSubmit: SubmitHandler<Info>; isSubmitting: boolean; isSubmitSuccessful: boolean; errors: any; }> = ({ onSubmit, isSubmitting, isSubmitSuccessful, errors }) => {
+const MessageForm: React.FC<{ handleSubmit: any, onSubmit: SubmitHandler<Info>; isSubmitting: boolean; errors: any; }> = ({ handleSubmit, onSubmit, isSubmitting, errors }) => {
   const { register, watch } = useForm<Info>();
   const topic = watch('topic');
   const isActivationOrInstallation = topic === 'Активация прибора' || topic === 'Помощь с установкой ПО';
@@ -324,7 +324,7 @@ const Contact = () => {
 
         <div>
           <h2 className="text-lg font-bold text-center mb-5">✍️ Обратная связь</h2>
-          {!isSubmitSuccessful && <MessageForm onSubmit={onSubmit} isSubmitting={isSubmitting} isSubmitSuccessful={isSubmitSuccessful} errors={errors} />}
+          {!isSubmitSuccessful && <MessageForm handleSubmit={handleSubmit} onSubmit={onSubmit} isSubmitting={isSubmitting} errors={errors} />}
 
           {isSubmitSuccessful && (
             <>
