@@ -63,21 +63,21 @@ export function Services() {
         {services.map(({ title, description, image, alt }) => (
           <div
             key={title}
-            className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md transition-transform duration-300 ease-in-out hover:-translate-y-2 hover:shadow-lg"
+            className="bg-white dark:bg-neutral-800 p-4 rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-gray-200 hover:dark:bg-neutral-700"
           >
-            <div className="h-32 w-32 flex justify-center mx-auto">
+            <div className="h-24 w-24 flex justify-center mx-auto">
               <Image
                 src={image}
                 alt={alt}
-                width={130}
-                height={130}
+                width={96}
+                height={96}
                 quality={75}
                 sizes="100vw"
                 priority
               />
             </div>
             <h2 className="font-bold text-lg text-center mt-4">{title}</h2>
-            <p className="pt-2 text-base text-center dark:text-neutral-400">
+            <p className="pt-2 text-sm text-center dark:text-neutral-400">
               {description}
             </p>
           </div>
