@@ -27,44 +27,44 @@ const faqitems = [
 export default function Faq() {
   return (
     <div
-      className="bg-white dark:bg-neutral-900 w-full px-4 pt-16 pb-16"
+      className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-neutral-900 dark:to-neutral-800 w-full px-4 pt-16 pb-16 transition-colors duration-500"
       id="faq"
     >
-      <h2 className="text-4xl font-bold text-center">
+      <h2 className="text-4xl font-bold text-center text-gray-800 dark:text-white mb-6 transition-colors duration-500">
         Часто задаваемые вопросы (FAQ) ❓
       </h2>
 
-      <p className="pt-6 pb-8 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+      <p className="pt-6 pb-8 text-lg max-w-2xl text-center m-auto text-gray-600 dark:text-neutral-400 transition-colors duration-500">
         В этом разделе вы найдёте информацию о наших товарах и услугах, а также о других важных вопросах. Раздел создан для вашего удобства: вы сможете быстро найти ответы на свои вопросы и сэкономить время на общение с нашей поддержкой.
       </p>
       <div className="mx-auto w-full max-w-2xl rounded-2xl bg-transparent dark:bg-transparent">
         {faqitems.map(({ question, response }) => (
-          <div key={question}>
+          <div key={question} className="shadow-md mb-4 rounded-lg overflow-hidden">
             <Disclosure>
               {({ open }) => (
                 <div className="mt-4">
                   <Disclosure.Button
                     className={`${
                       open
-                        ? "bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-100 rounded-b-none"
-                        : ""
-                    } flex w-full justify-between rounded-lg bg-neutral-100 dark:bg-neutral-800 dark:hover:bg-neutral-800 px-4 py-4 text-left text-base font-medium `}
+                        ? "bg-blue-200 dark:bg-neutral-700 hover:bg-blue-300 dark:hover:bg-neutral-600 rounded-b-none"
+                        : "hover:bg-blue-200 dark:hover:bg-neutral-700"
+                    } flex w-full justify-between rounded-lg bg-blue-100 dark:bg-neutral-800 px-4 py-4 text-left text-lg font-medium text-gray-800 dark:text-gray-200 transition-colors duration-500`}
                   >
                     <h2 className="font-semibold">{question}</h2>
                     <ChevronDownIcon
                       className={`${
-                        open ? "rotate-180 transition-transform" : ""
-                      } h-5 w-5 flex-shrink-0`}
+                        open ? "rotate-180 transition-transform duration-300" : "transition-transform duration-300"
+                      } h-5 w-5 flex-shrink-0 text-gray-500 dark:text-gray-300`}
                     />
                   </Disclosure.Button>
                   <Disclosure.Panel
                     className={`${
                       open
-                        ? "px-4 pt-4 pb-2 text-base dark:text-neutral-400"
+                        ? "px-4 pt-4 pb-2 text-lg dark:text-neutral-400 bg-blue-50 dark:bg-neutral-800 transition-colors duration-500"
                         : ""
-                    } bg-neutral-100 dark:bg-neutral-800 rounded-b-lg`}
+                    } rounded-b-lg`}
                   >
-                    <p>{response}</p>
+                    <p className="transition-colors duration-500">{response}</p>
                   </Disclosure.Panel>
                 </div>
               )}
