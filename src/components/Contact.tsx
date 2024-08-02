@@ -15,12 +15,12 @@ type Info = {
   agreement: boolean;
 };
 
-const TermsLink = () => (
+const TermsLink: React.FC<{ onClick: () => void }> = ({ onClick }) => (
   <a
     href="#!"
     onClick={(e) => {
       e.preventDefault();
-      console.log('Показать popup с условиями обработки персональных данных');
+      onClick();
     }}
     className="terms-link"
     style={{ color: 'inherit', textDecoration: 'inherit' }}
@@ -29,7 +29,13 @@ const TermsLink = () => (
   </a>
 );
 
-const MessageForm: React.FC<{ handleSubmit: any, onSubmit: SubmitHandler<Info>; isSubmitting: boolean; errors: any; }> = ({ handleSubmit, onSubmit, isSubmitting, errors }) => {
+const MessageForm: React.FC<{ 
+  handleSubmit: any, 
+  onSubmit: SubmitHandler<Info>, 
+  isSubmitting: boolean, 
+  errors: any, 
+  showPopup: () => void // Проброс функции показа попапа
+}> = ({ handleSubmit, onSubmit, isSubmitting, errors, showPopup }) => {
   const { register, watch } = useForm<Info>();
   const topic = watch('topic');
   const isActivationOrInstallation = topic === 'Активация прибора' || topic === 'Помощь с установкой ПО';
@@ -106,7 +112,7 @@ const MessageForm: React.FC<{ handleSubmit: any, onSubmit: SubmitHandler<Info>; 
           {...register('agreement', { required: 'Вы должны согласиться с условиями' })}
         />
         <label htmlFor="agree" className="text-sm">
-          Я прочитал и согласен с <TermsLink />
+          Я прочитал и согласен с <TermsLink onClick={showPopup} />
         </label>
       </div>
 
@@ -235,6 +241,7 @@ const Contact = () => {
   const { handleSubmit, formState: { errors, isSubmitSuccessful, isSubmitting }, reset } = useForm<Info>({ mode: 'onSubmit' });
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState('');
+  const [isPopupOpen, setPopupOpen] = useState(false);
 
   const onSubmit: SubmitHandler<Info> = async (data) => {
     console.log(data);
@@ -261,6 +268,16 @@ const Contact = () => {
       setMessage('Client Error. Please check the console.log for more info');
       console.error('Ошибка при отправке формы:', error);
     }
+  };
+
+  // Функция для открытия попапа
+  const showPopup = () => {
+    setPopupOpen(true);
+  };
+
+  // Функция для закрытия попапа
+  const hidePopup = () => {
+    setPopupOpen(false);
   };
 
   return (
@@ -324,7 +341,7 @@ const Contact = () => {
 
         <div>
           <h2 className="text-lg font-bold text-center mb-5">✍️ Обратная связь</h2>
-          {!isSubmitSuccessful && <MessageForm handleSubmit={handleSubmit} onSubmit={onSubmit} isSubmitting={isSubmitting} errors={errors} />}
+          {!isSubmitSuccessful && <MessageForm handleSubmit={handleSubmit} onSubmit={onSubmit} isSubmitting={isSubmitting} errors={errors} showPopup={showPopup} />}
 
           {isSubmitSuccessful && (
             <>
@@ -337,6 +354,22 @@ const Contact = () => {
           )}
         </div>
       </div>
+
+      {/* Всплывающее окно */}
+      {isPopupOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+            <button className="absolute top-2 right-2 text-gray-500 hover:text-gray-700" onClick={hidePopup}>
+              &times;
+            </button>
+            <h2 className="text-lg font-bold mb-4">Правила на обработку персональных данных</h2>
+            <p>
+              Здесь должно быть текстовое содержание правил на обработку персональных данных. 
+              Убедитесь, что текст читаем и предоставляет всю необходимую информацию пользователю.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
