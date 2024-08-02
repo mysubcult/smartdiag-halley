@@ -392,7 +392,7 @@ export default function Soft() {
 
       <style jsx>{`
         .pressed {
-          animation: pressAnimation 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          animation: pressAnimation 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         @keyframes pressAnimation {
