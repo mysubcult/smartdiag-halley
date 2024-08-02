@@ -22,6 +22,24 @@ function classNames(...classes: string[]): string {
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Добавим useEffect для плавного скроллинга
+  useEffect(() => {
+    const handleSmoothScroll = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('#')) {
+        event.preventDefault();
+        const anchor = document.querySelector(target.getAttribute('href')!);
+        anchor?.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+
+    document.addEventListener('click', handleSmoothScroll);
+
+    return () => {
+      document.removeEventListener('click', handleSmoothScroll);
+    };
+  }, []);
+
   return (
     <Disclosure
       as="nav"
