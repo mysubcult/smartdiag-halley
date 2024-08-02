@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Enable smooth scrolling for the entire document */
-html {
-  scroll-behavior: smooth;
-}
-
 ::selection {
   @apply bg-red-600 text-white;
 }
