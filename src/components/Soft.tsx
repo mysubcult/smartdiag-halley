@@ -228,22 +228,21 @@ type BillingInterval = "year" | "month" | "elm";
 
 export default function Soft() {
   const [billingInterval, setBillingInterval] = useState<BillingInterval>("month");
+  const [animationState, setAnimationState] = useState({
+    month: false,
+    year: false,
+    elm: false,
+  });
 
-  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const button = event.currentTarget;
-    button.classList.add("pressed");
+  const handleButtonClick = (type: BillingInterval) => {
+    setBillingInterval(type);
 
+    // Set animation state to true for clicked button
+    setAnimationState((prev) => ({ ...prev, [type]: true }));
+
+    // Reset animation state after animation duration
     setTimeout(() => {
-      button.classList.remove("pressed");
-    }, 200);
-  };
-
-  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    const link = event.currentTarget;
-    link.classList.add("pressed");
-
-    setTimeout(() => {
-      link.classList.remove("pressed");
+      setAnimationState((prev) => ({ ...prev, [type]: false }));
     }, 200);
   };
 
@@ -264,12 +263,11 @@ export default function Soft() {
       <div className="max-w-max mx-auto px-6">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
           <button
-            onClick={(e) => {
-              setBillingInterval("month");
-              handleButtonClick(e);
-            }}
+            onClick={() => handleButtonClick("month")}
             type="button"
-            className={`transition transform duration-300 ${
+            className={`transition duration-300 ${
+              animationState.month ? "pressed" : ""
+            } transform ${
               billingInterval === "month"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
@@ -278,12 +276,11 @@ export default function Soft() {
             Мультимарочные
           </button>
           <button
-            onClick={(e) => {
-              setBillingInterval("year");
-              handleButtonClick(e);
-            }}
+            onClick={() => handleButtonClick("year")}
             type="button"
-            className={`transition transform duration-300 ${
+            className={`transition duration-300 ${
+              animationState.year ? "pressed" : ""
+            } transform ${
               billingInterval === "year"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
@@ -292,12 +289,11 @@ export default function Soft() {
             Марочные
           </button>
           <button
-            onClick={(e) => {
-              setBillingInterval("elm");
-              handleButtonClick(e);
-            }}
+            onClick={() => handleButtonClick("elm")}
             type="button"
-            className={`transition transform duration-300 ${
+            className={`transition duration-300 ${
+              animationState.elm ? "pressed" : ""
+            } transform ${
               billingInterval === "elm"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
@@ -352,8 +348,7 @@ export default function Soft() {
                           mostPopular
                             ? "bg-red-600 text-white shadow-md hover:bg-green-500"
                             : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
-                        } transition duration-300 ease-in-out w-full transform`}
-                        onClick={handleLinkClick}
+                        } transition duration-300 ease-in-out w-full transform active:scale-95`}
                       >
                         {cta}
                       </Link>
@@ -366,8 +361,7 @@ export default function Soft() {
                             mostPopular
                               ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
                               : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
-                          } border-neutral-300 border dark:border-neutral-600 transition duration-300 ease-in-out w-full transform`}
-                          onClick={handleLinkClick}
+                          } border-neutral-300 border dark:border-neutral-600 transition duration-300 ease-in-out w-full transform active:scale-95`}
                         >
                           {docsLabel}
                         </Link>
