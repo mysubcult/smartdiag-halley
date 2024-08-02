@@ -234,16 +234,18 @@ export default function Soft() {
     elm: false,
   });
 
-  const handleButtonClick = (type: BillingInterval) => {
-    setBillingInterval(type);
-
+  const handleButtonMouseDown = (type: BillingInterval) => {
     // Set animation state to true for clicked button
     setAnimationState((prev) => ({ ...prev, [type]: true }));
+  };
+
+  const handleButtonMouseUp = (type: BillingInterval) => {
+    setBillingInterval(type);
 
     // Reset animation state after animation duration
     setTimeout(() => {
       setAnimationState((prev) => ({ ...prev, [type]: false }));
-    }, 200);
+    }, 300); // Match duration to CSS animation
   };
 
   return (
@@ -263,7 +265,8 @@ export default function Soft() {
       <div className="max-w-max mx-auto px-6">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
           <button
-            onClick={() => handleButtonClick("month")}
+            onMouseDown={() => handleButtonMouseDown("month")}
+            onMouseUp={() => handleButtonMouseUp("month")}
             type="button"
             className={`transition duration-300 ${
               animationState.month ? "pressed" : ""
@@ -276,7 +279,8 @@ export default function Soft() {
             Мультимарочные
           </button>
           <button
-            onClick={() => handleButtonClick("year")}
+            onMouseDown={() => handleButtonMouseDown("year")}
+            onMouseUp={() => handleButtonMouseUp("year")}
             type="button"
             className={`transition duration-300 ${
               animationState.year ? "pressed" : ""
@@ -289,7 +293,8 @@ export default function Soft() {
             Марочные
           </button>
           <button
-            onClick={() => handleButtonClick("elm")}
+            onMouseDown={() => handleButtonMouseDown("elm")}
+            onMouseUp={() => handleButtonMouseUp("elm")}
             type="button"
             className={`transition duration-300 ${
               animationState.elm ? "pressed" : ""
@@ -387,7 +392,7 @@ export default function Soft() {
 
       <style jsx>{`
         .pressed {
-          animation: pressAnimation 0.2s ease-in-out;
+          animation: pressAnimation 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         @keyframes pressAnimation {
@@ -395,7 +400,7 @@ export default function Soft() {
             transform: scale(1);
           }
           50% {
-            transform: scale(0.9);
+            transform: scale(0.95);
           }
           100% {
             transform: scale(1);
