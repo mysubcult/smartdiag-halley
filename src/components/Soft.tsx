@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 
-// Define the products array
 const products = [
   {
     title: "Delphi DS150e",
@@ -227,19 +226,25 @@ const products = [
 
 type BillingInterval = "year" | "month" | "elm";
 
-// Soft component
 export default function Soft() {
   const [billingInterval, setBillingInterval] = useState<BillingInterval>("month");
 
-  // Handler function to add and remove animation class
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const button = event.currentTarget;
     button.classList.add("pressed");
 
-    // Remove the class after animation is complete
     setTimeout(() => {
       button.classList.remove("pressed");
-    }, 200); // Adjust duration to match CSS animation
+    }, 200);
+  };
+
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const link = event.currentTarget;
+    link.classList.add("pressed");
+
+    setTimeout(() => {
+      link.classList.remove("pressed");
+    }, 200);
   };
 
   return (
@@ -347,7 +352,8 @@ export default function Soft() {
                           mostPopular
                             ? "bg-red-600 text-white shadow-md hover:bg-green-500"
                             : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
-                        } transition duration-300 ease-in-out w-full transform active:scale-90`}
+                        } transition duration-300 ease-in-out w-full transform`}
+                        onClick={handleLinkClick}
                       >
                         {cta}
                       </Link>
@@ -360,7 +366,8 @@ export default function Soft() {
                             mostPopular
                               ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
                               : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
-                          } border-neutral-300 border dark:border-neutral-600 transition duration-300 ease-in-out w-full transform active:scale-90`}
+                          } border-neutral-300 border dark:border-neutral-600 transition duration-300 ease-in-out w-full transform`}
+                          onClick={handleLinkClick}
                         >
                           {docsLabel}
                         </Link>
