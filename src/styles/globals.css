@@ -46,6 +46,11 @@ nav .dark\:text-neutral-400:hover {
   box-shadow: 0 6px 20px rgba(255, 65, 108, 0.6);
 }
 
+.btn-grad-red:active {
+  transform: scale(0.95);
+  box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+}
+
 .btn-grad-black {
   background: linear-gradient(to right, #434343, #000000); /* Черный градиент */
   color: white;
@@ -62,6 +67,11 @@ nav .dark\:text-neutral-400:hover {
   background: linear-gradient(to right, #000000, #434343);
   transform: scale(1.05);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+.btn-grad-black:active {
+  transform: scale(0.95);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 .btn-grad-red::before,
