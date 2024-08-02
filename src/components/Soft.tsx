@@ -251,7 +251,7 @@ export default function Soft() {
               billingInterval === "month"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700 active:scale-95 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-neutral-500`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700 active:scale-90`}
           >
             Мультимарочные
           </button>
@@ -262,7 +262,7 @@ export default function Soft() {
               billingInterval === "year"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700 active:scale-95 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-neutral-500`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700 active:scale-90`}
           >
             Марочные
           </button>
@@ -273,7 +273,7 @@ export default function Soft() {
               billingInterval === "elm"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700 active:scale-95 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-neutral-500`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700 active:scale-90`}
           >
             Адаптеры ELM
           </button>
@@ -324,7 +324,7 @@ export default function Soft() {
                           mostPopular
                             ? "bg-red-600 text-white shadow-md hover:bg-green-500"
                             : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
-                        } transition duration-300 ease-in-out w-full transform active:scale-95 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-green-500`}
+                        } transition duration-300 ease-in-out w-full transform active:scale-90`}
                       >
                         {cta}
                       </Link>
@@ -337,7 +337,7 @@ export default function Soft() {
                             mostPopular
                               ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
                               : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
-                          } border-neutral-300 border dark:border-neutral-600 transition duration-300 ease-in-out w-full transform active:scale-95 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-neutral-500`}
+                          } border-neutral-300 border dark:border-neutral-600 transition duration-300 ease-in-out w-full transform active:scale-90`}
                         >
                           {docsLabel}
                         </Link>
