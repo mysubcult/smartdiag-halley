@@ -247,33 +247,33 @@ export default function Soft() {
           <button
             onClick={() => setBillingInterval("month")}
             type="button"
-            className={`transition-colors duration-300 ease-in-out ${
+            className={`transition duration-300 transform ${
               billingInterval === "month"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700 active:scale-95`}
           >
             Мультимарочные
           </button>
           <button
             onClick={() => setBillingInterval("year")}
             type="button"
-            className={`transition-colors duration-300 ease-in-out ${
+            className={`transition duration-300 transform ${
               billingInterval === "year"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700 active:scale-95`}
           >
             Марочные
           </button>
           <button
             onClick={() => setBillingInterval("elm")}
             type="button"
-            className={`transition-colors duration-300 ease-in-out ${
+            className={`transition duration-300 transform ${
               billingInterval === "elm"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-neutral-300 dark:hover:bg-neutral-700 active:scale-95`}
           >
             Адаптеры ELM
           </button>
