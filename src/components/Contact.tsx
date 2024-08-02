@@ -37,6 +37,8 @@ const MessageForm: React.FC<{
   showPopup: () => void // Проброс функции показа попапа
 }> = ({ handleSubmit, onSubmit, isSubmitting, errors, showPopup }) => {
   const { register, watch } = useForm<Info>();
+
+  // Теперь `access_key` регистрируется через `useForm` в `register` 
   const topic = watch('topic');
   const isActivationOrInstallation = topic === 'Активация прибора' || topic === 'Помощь с установкой ПО';
 
@@ -245,6 +247,12 @@ const Contact = () => {
 
   const onSubmit: SubmitHandler<Info> = async (data) => {
     console.log(data);
+
+    // Обязательно добавляем `access_key` в отправляемые данные
+    if (!data.access_key) {
+      data.access_key = 'c39d2187-6537-4c0b-87e1-3cff0bf0c1c3'; // Убедитесь, что ключ действительно здесь
+    }
+
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -252,8 +260,9 @@ const Contact = () => {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: JSON.stringify(data, null, 2),
+        body: JSON.stringify(data),
       });
+
       const json = await response.json();
       if (json.success) {
         setIsSuccess(true);
