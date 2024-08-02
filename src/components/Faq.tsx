@@ -60,8 +60,8 @@ export default function Faq() {
                   <Disclosure.Panel
                     className={`${
                       open
-                        ? "px-4 pt-4 pb-2 text-base dark:text-neutral-400 transition-all duration-300 ease-in-out transform scale-y-100 origin-top"
-                        : "transform scale-y-0 origin-top transition-all duration-300 ease-in-out"
+                        ? "max-h-[500px] px-4 pt-4 pb-2 text-base dark:text-neutral-400 transition-max-height duration-300 ease-in-out"
+                        : "max-h-0 transition-max-height duration-300 ease-in-out"
                     } bg-neutral-100 dark:bg-neutral-800 rounded-b-lg overflow-hidden`}
                   >
                     <p>{response}</p>
