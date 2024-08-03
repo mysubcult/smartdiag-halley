@@ -269,45 +269,45 @@ export default function Soft() {
         </p>
       </div>
 
-<div className="max-w-max mx-auto px-6">
-  <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
-    <button
-      onClick={() => setBillingInterval("month")}
-      type="button"
-      className={`${
-        billingInterval === "month"
-          ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-      } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
-    >
-      Мультимарочные
-    </button>
-    <button
-      onClick={() => setBillingInterval("year")}
-      type="button"
-      className={`${
-        billingInterval === "year"
-          ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-      } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
-    >
-      Марочные
-    </button>
-    <button
-      onClick={() => setBillingInterval("elm")}
-      type="button"
-      className={`${
-        billingInterval === "elm"
-          ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-      } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
-    >
-      Адаптеры ELM
-    </button>
-  </div>
-</div>
+      <div className="max-w-max mx-auto px-6">
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
+          <button
+            onClick={() => setBillingInterval("month")}
+            type="button"
+            className={`menu-button ${
+              billingInterval === "month"
+                ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+          >
+            Мультимарочные
+          </button>
+          <button
+            onClick={() => setBillingInterval("year")}
+            type="button"
+            className={`menu-button ${
+              billingInterval === "year"
+                ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+          >
+            Марочные
+          </button>
+          <button
+            onClick={() => setBillingInterval("elm")}
+            type="button"
+            className={`menu-button ${
+              billingInterval === "elm"
+                ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+          >
+            Адаптеры ELM
+          </button>
+        </div>
+      </div>
 
-<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {products.map(
           ({
             title,
@@ -328,7 +328,7 @@ export default function Soft() {
                 {billingInterval === frecuency ? (
                   <div
                     key={title}
-                    className={`rounded-lg py-8 relative flex flex-col ${
+                    className={`card rounded-lg py-8 relative flex flex-col ${
                       mostPopular
                         ? "border-red-300 border-2 border-solid dark:border-red-600"
                         : "border-neutral-300 border dark:border-neutral-600"
@@ -346,38 +346,34 @@ export default function Soft() {
                     <p className="px-6 mt-4 leading-6 dark:text-neutral-400">
                       {description}
                     </p>
-<div className="flex mt-4 mx-6">
-{/* Call to action */}
-<Link
-  href={href}
-  target="_blank"
-  className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
-    mostPopular
-      ? "bg-red-600 text-white shadow-md hover:bg-green-500"
-      : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
-  } transition duration-300 ease-in-out w-full`}
->
-  {cta}
-</Link>
+                    <div className="flex mt-4 mx-6">
+                      {/* Call to action */}
+                      <Link
+                        href={href}
+                        target="_blank"
+                        className={`button block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
+                          mostPopular
+                            ? "bg-red-600 text-white shadow-md hover:bg-green-500"
+                            : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
+                        } transition duration-300 ease-in-out w-full`}
+                      >
+                        {cta}
+                      </Link>
 
-{
-            docs && (<Link
-  href={docsLink}
-  target="_blank"
-  className={`ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg ${
-    mostPopular
-      ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
-      : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
-  } border-neutral-300 border dark:border-neutral-600 transition duration-300 ease-in-out w-full`}
->{docsLabel}
-
-</Link>
-        )} 
-
-
-  
-  
-</div>
+                      {docs && (
+                        <Link
+                          href={docsLink}
+                          target="_blank"
+                          className={`button ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg ${
+                            mostPopular
+                              ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
+                              : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
+                          } border-neutral-300 border dark:border-neutral-600 transition duration-300 ease-in-out w-full`}
+                        >
+                          {docsLabel}
+                        </Link>
+                      )}
+                    </div>
                     {/* features */}
                     <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
                       <p className="mt-6 font-semibold dark:text-neutral-300">
@@ -399,6 +395,6 @@ export default function Soft() {
           }
         )}
       </div>
-    </div> 
+    </div>
   );
 }
