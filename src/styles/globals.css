@@ -241,8 +241,8 @@ nav .dark\:text-neutral-400:hover {
     overflow-y: auto;
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    margin-top: 8px; /* Отступ для более приятного расположения окна */
-    border-radius: 8px; /* Закругленные углы */
+    margin-top: 8px;
+    border-radius: 8px;
   }
 }
 
@@ -255,35 +255,35 @@ nav .dark\:text-neutral-400:hover {
   border-radius: 50%;
   transition: background-color 0.3s ease;
   position: relative;
+}
 
-  .menu-icon-wrapper {
-    display: flex;
-    position: relative;
-    width: 24px;
-    height: 24px;
-    align-items: center;
-    justify-content: center;
-  }
+.menu-icon-wrapper {
+  display: flex;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+}
 
-  .menu-icon {
-    position: absolute;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    opacity: 1;
-  }
+.menu-icon {
+  position: absolute;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
+}
 
-  .menu-icon-x {
-    position: absolute;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    opacity: 0;
-  }
+.menu-icon-x {
+  position: absolute;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
 
-  .menu-icon-x.block {
-    opacity: 1;
-  }
+.menu-icon-x.rotate-0 {
+  opacity: 1;
+}
 
-  .menu-icon-x.hidden {
-    opacity: 0;
-  }
+.menu-icon-x.-rotate-45 {
+  opacity: 0;
 }
 
 .btn-submenu-toggle {
@@ -295,6 +295,8 @@ nav .dark\:text-neutral-400:hover {
   cursor: pointer;
   transition: color 0.3s ease;
   font-weight: bold;
+  display: flex;
+  align-items: center;
 }
 
 .btn-submenu-toggle:hover {
