@@ -21,8 +21,9 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
-  const [isMobileView, setIsMobileView] = useState(false); // Новое состояние для мобильного вида
+  const [isMobileView, setIsMobileView] = useState(false);
 
+  // Smooth scrolling
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -54,7 +55,7 @@ export default function Navbar() {
     }
   };
 
-  // Функция для динамического изменения шрифта и высоты меню
+  // Dynamic font size and height
   useEffect(() => {
     const updateFontSizeAndHeight = () => {
       const baseFontSize = 18; // Базовый размер шрифта
@@ -82,7 +83,7 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", updateFontSizeAndHeight);
   }, [isSubMenuOpen]);
 
-  // Новая логика для переключения на мобильный вид
+  // Handle window resize
   useEffect(() => {
     const handleResize = () => {
       const navbarNav = document.querySelector(".navbar-nav");
@@ -101,7 +102,7 @@ export default function Navbar() {
       }
     };
 
-    handleResize(); // Проверка при монтировании
+    handleResize(); // Initial check
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
