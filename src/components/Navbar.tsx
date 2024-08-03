@@ -171,7 +171,7 @@ export default function Navbar() {
 
       {/* Popup Menu */}
       {isMenuOpen && (
-        <div className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg p-4 absolute right-4 top-20 w-64 max-h-[calc(100vh-100px)] overflow-y-auto z-30">
+        <div className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg p-4 absolute right-4 top-20 w-64 z-30" style={{ maxHeight: `calc(100vh - 80px)`, overflowY: 'auto' }}>
           <div className="flex flex-col items-center justify-center space-y-4">
             {navigation.map((item) => (
               <a
