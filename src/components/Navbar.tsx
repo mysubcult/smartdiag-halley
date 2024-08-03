@@ -3,7 +3,7 @@ import Image from "next/image";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 
 import { Disclosure } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { Bars3Icon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/24/solid"; // Добавили ChevronDownIcon
 
 const navigation = [
   { name: "Главная", href: "#hero", current: false },
@@ -31,6 +31,7 @@ export default function Navbar() {
         if (anchor) {
           anchor.scrollIntoView({ behavior: "smooth", block: "start" });
         }
+        setIsMenuOpen(false); // Закрываем меню после клика по ссылке
       }
     };
 
@@ -106,11 +107,11 @@ export default function Navbar() {
                     <span className="sr-only">Open main menu</span>
                     <div className="menu-icon-wrapper">
                       <Bars3Icon
-                        className={`h-6 w-6 menu-icon ${isMenuOpen ? "hidden" : "block"}`}
+                        className={`h-6 w-6 menu-icon transition-transform transform ${isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"}`}
                         aria-hidden="true"
                       />
                       <XMarkIcon
-                        className={`h-6 w-6 menu-icon-x ${isMenuOpen ? "block" : "hidden"}`}
+                        className={`h-6 w-6 menu-icon-x transition-transform transform ${isMenuOpen ? "rotate-0 opacity-100" : "-rotate-45 opacity-0"}`}
                         aria-hidden="true"
                       />
                     </div>
@@ -123,7 +124,7 @@ export default function Navbar() {
           {/* Popup Menu */}
           <Disclosure.Panel className="lg:hidden">
             {isMenuOpen && (
-              <div className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg p-4 absolute right-4 top-16 w-64 z-30">
+              <div className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
                 <div className="flex flex-col items-center justify-center space-y-4">
                   {navigation.map((item) => (
                     <a
@@ -136,30 +137,32 @@ export default function Navbar() {
                         "block py-2 text-lg font-medium hover:text-red-500"
                       )}
                       aria-current={item.current ? "page" : undefined}
-                      onClick={() => setIsMenuOpen(false)}
                     >
                       {item.name}
                     </a>
                   ))}
-                  <div className="flex flex-col items-center">
+                  <div className="flex flex-col items-center w-full">
                     <button
                       onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                      className="btn-submenu-toggle"
+                      className="btn-submenu-toggle flex items-center justify-center"
                     >
                       Магазины
+                      <ChevronDownIcon
+                        className={`h-5 w-5 ml-2 transition-transform ${isSubMenuOpen ? "rotate-180" : "rotate-0"}`}
+                      />
                     </button>
                     {isSubMenuOpen && (
-                      <div className="submenu mt-2 space-y-2">
+                      <div className="submenu mt-2 space-y-2 w-full">
                         <a
                           href="https://www.ozon.ru/seller/smartdiag-862410/"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="btn-ozon"
+                          className="btn-ozon flex items-center justify-center w-full"
                         >
                           <img
                             src="/images/logos/favicon.ico"
                             alt="OZON"
-                            className="w-4 h-4"
+                            className="w-4 h-4 mr-2"
                           />
                           OZON
                         </a>
@@ -168,12 +171,12 @@ export default function Navbar() {
                           href="https://market.yandex.ru/business--smartdiag/50025236"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="btn-yandex"
+                          className="btn-yandex flex items-center justify-center w-full"
                         >
                           <img
                             src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
                             alt="Яндекс Маркет"
-                            className="w-4 h-4"
+                            className="w-4 h-4 mr-2"
                           />
                           Яндекс Маркет
                         </a>
@@ -182,12 +185,12 @@ export default function Navbar() {
                           href="https://www.wildberries.ru/seller/1343369"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="btn-wildberries"
+                          className="btn-wildberries flex items-center justify-center w-full"
                         >
                           <img
                             src="https://www.wildberries.ru/favicon.ico"
                             alt="Wildberries"
-                            className="w-4 h-4"
+                            className="w-4 h-4 mr-2"
                           />
                           Wildberries
                         </a>
