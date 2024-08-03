@@ -64,8 +64,8 @@ export default function Navbar() {
       const minFontSize = 14;
 
       // Рассчитать коэффициент уменьшения шрифта на основе высоты экрана и количества элементов меню
-      const maxMenuHeight = screenHeight - 80; // Высота меню с учетом отступов
-      const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length;
+      const maxMenuHeight = screenHeight - 100; // Высота меню с учетом отступов
+      const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length; // +3 для подменю
       const requiredHeight = itemsCount * 48; // 48px на каждый элемент (включая padding и margin)
 
       const scaleFactor = maxMenuHeight / requiredHeight;
@@ -208,7 +208,7 @@ export default function Navbar() {
           style={{
             fontSize: fontSize,
             maxHeight: `calc(100vh - 80px)`,
-            overflowY: "hidden", // Убираем скролл
+            overflowY: "auto", // Разрешаем скролл, если необходимо
           }}
         >
           <div className="flex flex-col items-center justify-center space-y-4">
