@@ -278,14 +278,6 @@ nav .dark\:text-neutral-400:hover {
   opacity: 0;
 }
 
-.menu-icon-x.rotate-0 {
-  opacity: 1;
-}
-
-.menu-icon-x.-rotate-45 {
-  opacity: 0;
-}
-
 .btn-submenu-toggle {
   background: none;
   border: none;
