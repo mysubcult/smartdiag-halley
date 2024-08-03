@@ -189,10 +189,10 @@ export default function Navbar() {
                 {item.name}
               </a>
             ))}
-            <div className="flex flex-col items-center w-full">
+            <div className="flex flex-col items-center w-full mb-4"> {/* Отступ снизу */}
               <button
                 onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                className="btn-submenu-toggle flex items-center justify-center"
+                className="btn-submenu-toggle flex items-center justify-center py-2 text-lg font-medium" // Унификация шрифта
               >
                 Магазины
                 <ChevronDownIcon
@@ -202,7 +202,7 @@ export default function Navbar() {
                 />
               </button>
               {isSubMenuOpen && (
-                <div className="submenu mt-2 space-y-2 w-full">
+                <div className="submenu mt-2 space-y-2 w-full mb-4"> {/* Отступ снизу для подменю */}
                   <a
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
@@ -235,7 +235,7 @@ export default function Navbar() {
                     href="https://www.wildberries.ru/seller/1343369"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-start w-auto px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors mb-2"
+                    className="flex items-center justify-start w-auto px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
                   >
                     <img
                       src="https://www.wildberries.ru/favicon.ico"
