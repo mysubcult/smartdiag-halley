@@ -278,7 +278,7 @@ export default function Soft() {
               billingInterval === "month"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:shadow-md transition-all duration-300 ease-in-out`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:shadow-lg hover:bg-neutral-300 dark:hover:bg-neutral-700 transition-all duration-300 ease-in-out`}
           >
             Мультимарочные
           </button>
@@ -289,7 +289,7 @@ export default function Soft() {
               billingInterval === "year"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:shadow-md transition-all duration-300 ease-in-out`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:shadow-lg hover:bg-neutral-300 dark:hover:bg-neutral-700 transition-all duration-300 ease-in-out`}
           >
             Марочные
           </button>
@@ -300,7 +300,7 @@ export default function Soft() {
               billingInterval === "elm"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:shadow-md transition-all duration-300 ease-in-out`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:shadow-lg hover:bg-neutral-300 dark:hover:bg-neutral-700 transition-all duration-300 ease-in-out`}
           >
             Адаптеры ELM
           </button>
@@ -332,7 +332,7 @@ export default function Soft() {
                       mostPopular
                         ? "border-red-300 border-2 border-solid dark:border-red-600"
                         : "border-neutral-300 border dark:border-neutral-600"
-                    } hover:shadow-lg transition-transform duration-300 transform hover:scale-105`}
+                    } hover:shadow-lg transition-transform duration-300 transform hover:scale-102`}
                   >
                     <h3 className="px-6 text-lg font-semibold leading-5">
                       {title}
