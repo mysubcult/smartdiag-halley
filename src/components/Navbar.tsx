@@ -64,7 +64,7 @@ export default function Navbar() {
       const minFontSize = 14;
 
       // Рассчитать коэффициент уменьшения шрифта на основе высоты экрана и количества элементов меню
-      const maxMenuHeight = screenHeight - 100; // Высота меню с учетом отступов
+      const maxMenuHeight = screenHeight - 64; // Высота меню с учетом отступов
       const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length; // +3 для подменю
       const requiredHeight = itemsCount * 48; // 48px на каждый элемент (включая padding и margin)
 
@@ -207,8 +207,9 @@ export default function Navbar() {
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
           style={{
             fontSize: fontSize,
-            maxHeight: `calc(100vh - 16px)`, // Учитываем одинаковые отступы сверху и снизу
+            maxHeight: `calc(100vh - 16px)`, // Динамическая высота с одинаковыми отступами
             overflowY: "auto", // Разрешаем скролл, если необходимо
+            marginTop: "8px",
             marginBottom: "8px",
           }}
         >
@@ -249,7 +250,7 @@ export default function Navbar() {
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-ozon flex items-center justify-center w-10/12 mx-auto px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors"
+                    className="btn-ozon flex items-center justify-center w-11/12 mx-auto px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors"
                   >
                     <img
                       src="/images/logos/favicon.ico"
@@ -263,7 +264,7 @@ export default function Navbar() {
                     href="https://market.yandex.ru/business--smartdiag/50025236"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-yandex flex items-center justify-center w-10/12 mx-auto px-4 py-2 rounded-lg hover:bg-orange-500 transition-colors"
+                    className="btn-yandex flex items-center justify-center w-11/12 mx-auto px-4 py-2 rounded-lg hover:bg-orange-500 transition-colors"
                   >
                     <img
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
@@ -277,7 +278,7 @@ export default function Navbar() {
                     href="https://www.wildberries.ru/seller/1343369"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-wildberries flex items-center justify-center w-10/12 mx-auto px-4 py-2 rounded-lg hover:bg-purple-500 transition-colors"
+                    className="btn-wildberries flex items-center justify-center w-11/12 mx-auto px-4 py-2 rounded-lg hover:bg-purple-500 transition-colors"
                   >
                     <img
                       src="https://www.wildberries.ru/favicon.ico"
