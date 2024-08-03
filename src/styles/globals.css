@@ -241,6 +241,8 @@ nav .dark\:text-neutral-400:hover {
     overflow-y: auto;
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
+    margin-top: 8px; /* Отступ для более приятного расположения окна */
+    border-radius: 8px; /* Закругленные углы */
   }
 }
 
@@ -252,7 +254,7 @@ nav .dark\:text-neutral-400:hover {
   height: 40px;
   border-radius: 50%;
   transition: background-color 0.3s ease;
-  position: relative; /* Add relative position for animation */
+  position: relative;
 
   .menu-icon-wrapper {
     display: flex;
@@ -261,7 +263,6 @@ nav .dark\:text-neutral-400:hover {
     height: 24px;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease; /* Add transition for animation */
   }
 
   .menu-icon {
