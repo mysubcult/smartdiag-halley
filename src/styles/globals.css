@@ -243,7 +243,7 @@ nav .dark\:text-neutral-400:hover {
 
   .mobile-menu {
     max-height: calc(100vh - 16px); /* Учитываем одинаковые отступы сверху и снизу */
-    overflow-y: hidden; /* Убираем скролл */
+    overflow-y: auto; /* Разрешаем скролл */
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     margin-top: 8px;
@@ -310,5 +310,7 @@ nav .dark\:text-neutral-400:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 8px; /* Увеличен отступ между пунктами меню */
+  margin-top: 12px; /* Отступ сверху */
+  margin-bottom: 12px; /* Отступ снизу */
 }
