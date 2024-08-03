@@ -105,7 +105,7 @@ export default function Contact() {
               width="300" 
               height="225" 
               style={{ border: "0" }} 
-              allowFullScreen="" 
+              allowFullScreen // Изменение здесь
               loading="lazy" 
               title="Наш адрес">
             </iframe>
