@@ -2,24 +2,30 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 
-// Update the type for 'event' parameter
 export function Hero() {
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
+
       if (target.tagName === "A" && target.getAttribute("href")?.startsWith("#")) {
-        event.preventDefault();
-        const anchor = document.querySelector(target.getAttribute("href")!);
-        if (anchor) {
-          anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+        const href = target.getAttribute("href");
+        if (href) {
+          event.preventDefault();
+          const anchor = document.querySelector(href);
+          if (anchor) {
+            anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
         }
       }
     };
 
-    document.addEventListener("click", handleSmoothScroll);
+    // Convert handleSmoothScroll to EventListener type
+    const listener: EventListener = handleSmoothScroll as unknown as EventListener;
+
+    document.addEventListener("click", listener);
 
     return () => {
-      document.removeEventListener("click", handleSmoothScroll);
+      document.removeEventListener("click", listener);
     };
   }, []);
 
