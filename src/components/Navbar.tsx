@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 
@@ -7,7 +6,7 @@ import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 
 const navigation = [
-  { name: "Главная", href: "/", current: false },
+  { name: "Главная", href: "#hero", current: false }, // Use #hero instead of #top
   { name: "Программы", href: "#soft", current: false },
   { name: "ЧАВО", href: "#faq", current: false },
   { name: "О нас", href: "#services", current: false },
@@ -42,6 +41,14 @@ export default function Navbar() {
     };
   }, []);
 
+  const handleLogoClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    const heroAnchor = document.querySelector('#hero'); // Correctly select the hero section
+    if (heroAnchor) {
+      heroAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <Disclosure
       as="nav"
@@ -53,7 +60,7 @@ export default function Navbar() {
             <div className="relative flex h-16 items-center justify-between">
               <div className="flex flex-1 items-center justify-start">
                 <div className="flex flex-shrink-0 items-center md:pl-0">
-                  <Link href="/">
+                  <a href="#hero" onClick={handleLogoClick}> {/* Use #hero here */}
                     <Image
                       className="block h-12 w-auto logo-animation" // Add class for animation
                       src="/images/logos/logo.png"
@@ -63,7 +70,7 @@ export default function Navbar() {
                       quality={100}
                       sizes="100vw"
                     />
-                  </Link>
+                  </a>
                 </div>
 
                 {/* Navbar links visible only on larger screens */}
