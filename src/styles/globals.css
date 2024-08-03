@@ -146,19 +146,19 @@ nav .dark\:text-neutral-400:hover {
 .btn-wildberries {
   display: flex;
   align-items: center;
-  justify-content: center; /* Центрирование текста */
+  justify-content: center;
   gap: 4px;
-  padding: 6px 12px; /* Симметричные отступы */
-  border-radius: 20px;
+  padding: 8px 16px; /* Увеличенные отступы для кнопок */
+  border-radius: 25px; /* Закругление для кнопок */
   font-weight: bold;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   position: relative;
   overflow: hidden;
   border: none;
-  font-size: 12px;
-  width: 100%; /* Полная ширина внутри заданных границ */
-  max-width: 240px; /* Ограничение ширины для кнопок магазинов */
+  font-size: 14px; /* Немного увеличенный шрифт */
+  width: 80%; /* Уже ширина кнопок */
+  max-width: 200px; /* Ограничение ширины для кнопок магазинов */
 }
 
 .btn-ozon {
@@ -223,9 +223,9 @@ nav .dark\:text-neutral-400:hover {
   .btn-ozon,
   .btn-yandex,
   .btn-wildberries {
-    padding: 4px 8px;
-    font-size: 10px;
-    width: 90%; /* Устанавливаем ширину кнопок магазинов в мобильной версии */
+    padding: 6px 12px; /* Увеличенные отступы для кнопок в мобильной версии */
+    font-size: 12px; /* Немного увеличенный шрифт в мобильной версии */
+    width: 85%; /* Устанавливаем ширину кнопок магазинов в мобильной версии */
     margin: 0 auto; /* Центрируем кнопки */
   }
 
@@ -247,8 +247,8 @@ nav .dark\:text-neutral-400:hover {
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 16px; /* Увеличена радиус скругления */
-    padding-top: 16px; /* Отступ сверху для меню */
-    padding-bottom: 16px; /* Отступ снизу для меню */
+    padding-top: 24px; /* Отступ сверху для меню */
+    padding-bottom: 24px; /* Отступ снизу для меню */
   }
 }
 
