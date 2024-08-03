@@ -246,14 +246,6 @@ nav .dark\:text-neutral-400:hover {
 }
 
 /* Animation for menu icon */
-.menu-icon {
-  transition: transform 0.3s ease;
-}
-
-.menu-icon-open {
-  transform: rotate(90deg); /* Вращение на 90 градусов */
-}
-
 .menu-icon-container {
   display: inline-flex;
   align-items: center;
@@ -269,9 +261,22 @@ nav .dark\:text-neutral-400:hover {
 }
 
 .menu-icon {
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Плавный переход */
+  position: absolute; /* Позиционирование для анимации */
 }
 
-.menu-icon-open {
+.menu-icon.menu-icon-open {
   transform: rotate(90deg); /* Вращение на 90 градусов */
+  opacity: 0; /* Исчезает, чтобы новый крестик был виден */
+}
+
+.menu-icon-x {
+  opacity: 0; /* Сначала скрыт */
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Плавный переход */
+  transform: rotate(-90deg); /* Вращение в обратную сторону */
+}
+
+.menu-icon-x.menu-icon-open {
+  opacity: 1; /* Появляется при открытии */
+  transform: rotate(0deg); /* Нормальное положение */
 }
