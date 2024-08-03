@@ -20,8 +20,8 @@ function classNames(...classes: string[]): string {
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
 
-  // useEffect для плавного скроллинга
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -43,7 +43,7 @@ export default function Navbar() {
 
   const handleLogoClick = (event: React.MouseEvent) => {
     event.preventDefault();
-    const heroAnchor = document.querySelector("#hero"); // Correctly select the hero section
+    const heroAnchor = document.querySelector("#hero");
     if (heroAnchor) {
       heroAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -61,9 +61,8 @@ export default function Navbar() {
               <div className="flex flex-1 items-center justify-start">
                 <div className="flex flex-shrink-0 items-center md:pl-0">
                   <a href="#hero" onClick={handleLogoClick}>
-                    {/* Use #hero here */}
                     <Image
-                      className="block h-12 w-auto logo-animation" // Add class for animation
+                      className="block h-12 w-auto logo-animation"
                       src="/images/logos/logo.png"
                       alt="SmartDiag"
                       width={256}
@@ -74,7 +73,6 @@ export default function Navbar() {
                   </a>
                 </div>
 
-                {/* Navbar links visible only on larger screens */}
                 <div className="hidden lg:flex navbar-nav">
                   <div className="flex space-x-5 items-center">
                     {navigation.map((item) => (
@@ -97,146 +95,108 @@ export default function Navbar() {
                 </div>
 
                 <div className="absolute inset-y-0 right-10 lg:right-0 flex items-center gap-2">
-                  <a
-                    href="https://www.ozon.ru/seller/smartdiag-862410/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hidden lg:block"
-                  >
-                    <button className="btn-ozon">
-                      <img
-                        src="/images/logos/favicon.ico"
-                        alt="OZON"
-                        className="w-4 h-4"
-                      />
-                      OZON
-                    </button>
-                  </a>
-
-                  <a
-                    href="https://market.yandex.ru/business--smartdiag/50025236"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hidden lg:block"
-                  >
-                    <button className="btn-yandex">
-                      <img
-                        src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                        alt="Яндекс Маркет"
-                        className="w-4 h-4"
-                      />
-                      Яндекс Маркет
-                    </button>
-                  </a>
-
-                  <a
-                    href="https://www.wildberries.ru/seller/1343369"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hidden lg:block"
-                  >
-                    <button className="btn-wildberries">
-                      <img
-                        src="https://www.wildberries.ru/favicon.ico"
-                        alt="Wildberries"
-                        className="w-4 h-4"
-                      />
-                      Wildberries
-                    </button>
-                  </a>
-
                   <ThemeSwitchButton />
                 </div>
 
                 <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
-                  {/* Always show the menu button on mobile */}
                   <Disclosure.Button
                     className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                   >
                     <span className="sr-only">Open main menu</span>
-                    {isMenuOpen ? (
-                      <XMarkIcon
-                        className={`h-6 w-6 menu-icon-x ${isMenuOpen ? "menu-icon-open" : ""}`}
-                        aria-hidden="true"
-                      />
-                    ) : (
+                    <div className="menu-icon-wrapper">
                       <Bars3Icon
-                        className={`h-6 w-6 menu-icon ${isMenuOpen ? "menu-icon-open" : ""}`}
+                        className={`h-6 w-6 menu-icon ${isMenuOpen ? "hidden" : "block"}`}
                         aria-hidden="true"
                       />
-                    )}
+                      <XMarkIcon
+                        className={`h-6 w-6 menu-icon-x ${isMenuOpen ? "block" : "hidden"}`}
+                        aria-hidden="true"
+                      />
+                    </div>
                   </Disclosure.Button>
                 </div>
               </div>
             </div>
           </div>
 
-          <Disclosure.Panel className="lg:hidden mobile-menu">
-            <div className="bg-white dark:bg-neutral-900 min-h-screen flex flex-col items-center justify-center">
-              <div className="flex flex-col items-center justify-center w-full space-y-4">
-                {navigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className={classNames(
-                      item.current
-                        ? "text-neutral-900 dark:text-neutral-400"
-                        : "text-neutral-900 dark:text-neutral-400",
-                      "block py-4 text-lg font-medium hover:text-red-500"
+          {/* Popup Menu */}
+          <Disclosure.Panel className="lg:hidden">
+            {isMenuOpen && (
+              <div className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg p-4 absolute right-4 top-16 w-64 z-30">
+                <div className="flex flex-col items-center justify-center space-y-4">
+                  {navigation.map((item) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      className={classNames(
+                        item.current
+                          ? "text-neutral-900 dark:text-neutral-400"
+                          : "text-neutral-900 dark:text-neutral-400",
+                        "block py-2 text-lg font-medium hover:text-red-500"
+                      )}
+                      aria-current={item.current ? "page" : undefined}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.name}
+                    </a>
+                  ))}
+                  <div className="flex flex-col items-center">
+                    <button
+                      onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
+                      className="btn-submenu-toggle"
+                    >
+                      Магазины
+                    </button>
+                    {isSubMenuOpen && (
+                      <div className="submenu mt-2 space-y-2">
+                        <a
+                          href="https://www.ozon.ru/seller/smartdiag-862410/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-ozon"
+                        >
+                          <img
+                            src="/images/logos/favicon.ico"
+                            alt="OZON"
+                            className="w-4 h-4"
+                          />
+                          OZON
+                        </a>
+
+                        <a
+                          href="https://market.yandex.ru/business--smartdiag/50025236"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-yandex"
+                        >
+                          <img
+                            src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                            alt="Яндекс Маркет"
+                            className="w-4 h-4"
+                          />
+                          Яндекс Маркет
+                        </a>
+
+                        <a
+                          href="https://www.wildberries.ru/seller/1343369"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-wildberries"
+                        >
+                          <img
+                            src="https://www.wildberries.ru/favicon.ico"
+                            alt="Wildberries"
+                            className="w-4 h-4"
+                          />
+                          Wildberries
+                        </a>
+                      </div>
                     )}
-                    aria-current={item.current ? "page" : undefined}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Disclosure.Button>
-                ))}
-                <div className="flex flex-col gap-4 items-center">
-                  <a
-                    href="https://www.ozon.ru/seller/smartdiag-862410/"
-                    target="_blank"
-                  >
-                    <button className="btn-ozon">
-                      <img
-                        src="/images/logos/favicon.ico"
-                        alt="OZON"
-                        className="w-4 h-4"
-                      />
-                      OZON
-                    </button>
-                  </a>
-
-                  <a
-                    href="https://market.yandex.ru/business--smartdiag/50025236"
-                    target="_blank"
-                  >
-                    <button className="btn-yandex">
-                      <img
-                        src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                        alt="Яндекс Маркет"
-                        className="w-4 h-4"
-                      />
-                      Яндекс Маркет
-                    </button>
-                  </a>
-
-                  <a
-                    href="https://www.wildberries.ru/seller/1343369"
-                    target="_blank"
-                  >
-                    <button className="btn-wildberries">
-                      <img
-                        src="https://www.wildberries.ru/favicon.ico"
-                        alt="Wildberries"
-                        className="w-4 h-4"
-                      />
-                      Wildberries
-                    </button>
-                  </a>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </Disclosure.Panel>
         </>
       )}
