@@ -223,3 +223,19 @@ nav .dark\:text-neutral-400:hover {
     text-align: center;
   }
 }
+
+/* Добавим стили для выпадающего списка */
+.select-dropdown {
+  background: linear-gradient(45deg, #ff4b2b, #ff416c);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.select-dropdown:hover {
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
