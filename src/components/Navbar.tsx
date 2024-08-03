@@ -151,7 +151,7 @@ export default function Navbar() {
                 <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
                   {/* Always show the menu button on mobile */}
                   <Disclosure.Button
-                    className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white"
+                    className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                   >
                     <span className="sr-only">Open main menu</span>
