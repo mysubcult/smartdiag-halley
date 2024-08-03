@@ -274,33 +274,33 @@ export default function Soft() {
           <button
             onClick={() => setBillingInterval("month")}
             type="button"
-            className={`menu-button ${
+            className={`${
               billingInterval === "month"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:shadow-md transition-all duration-300 ease-in-out`}
           >
             Мультимарочные
           </button>
           <button
             onClick={() => setBillingInterval("year")}
             type="button"
-            className={`menu-button ${
+            className={`${
               billingInterval === "year"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:shadow-md transition-all duration-300 ease-in-out`}
           >
             Марочные
           </button>
           <button
             onClick={() => setBillingInterval("elm")}
             type="button"
-            className={`menu-button ${
+            className={`${
               billingInterval === "elm"
                 ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                 : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8`}
+            } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:shadow-md transition-all duration-300 ease-in-out`}
           >
             Адаптеры ELM
           </button>
@@ -328,11 +328,11 @@ export default function Soft() {
                 {billingInterval === frecuency ? (
                   <div
                     key={title}
-                    className={`card rounded-lg py-8 relative flex flex-col ${
+                    className={`rounded-lg py-8 relative flex flex-col ${
                       mostPopular
                         ? "border-red-300 border-2 border-solid dark:border-red-600"
                         : "border-neutral-300 border dark:border-neutral-600"
-                    }`}
+                    } hover:shadow-lg transition-transform duration-300 transform hover:scale-105`}
                   >
                     <h3 className="px-6 text-lg font-semibold leading-5">
                       {title}
@@ -351,11 +351,11 @@ export default function Soft() {
                       <Link
                         href={href}
                         target="_blank"
-                        className={`button block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
+                        className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
                           mostPopular
                             ? "bg-red-600 text-white shadow-md hover:bg-green-500"
                             : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
-                        } transition duration-300 ease-in-out w-full`}
+                        } transition-transform duration-300 ease-in-out transform active:scale-95 w-full`}
                       >
                         {cta}
                       </Link>
@@ -364,11 +364,11 @@ export default function Soft() {
                         <Link
                           href={docsLink}
                           target="_blank"
-                          className={`button ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg ${
+                          className={`ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg ${
                             mostPopular
                               ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
                               : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
-                          } border-neutral-300 border dark:border-neutral-600 transition duration-300 ease-in-out w-full`}
+                          } border-neutral-300 border dark:border-neutral-600 transition-transform duration-300 ease-in-out transform active:scale-95 w-full`}
                         >
                           {docsLabel}
                         </Link>
