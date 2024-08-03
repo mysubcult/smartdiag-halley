@@ -280,30 +280,3 @@ nav .dark\:text-neutral-400:hover {
   opacity: 1; /* Появляется при открытии */
   transform: rotate(0deg); /* Нормальное положение */
 }
-
-/* New styles for hover effects and animations */
-.menu-button {
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.menu-button:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
-}
-
-.card {
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.card:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  transform: scale(1.02);
-}
-
-.button {
-  transition: transform 0.1s ease;
-}
-
-.button:active {
-  transform: scale(0.98);
-}
