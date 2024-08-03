@@ -3,7 +3,7 @@ import Image from "next/image";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 
 import { Disclosure } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/24/solid"; // Добавили ChevronDownIcon
+import { Bars3Icon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
 const navigation = [
   { name: "Главная", href: "#hero", current: false },
@@ -13,7 +13,6 @@ const navigation = [
   { name: "Обратная связь", href: "#contact", current: false },
 ];
 
-// Utility function to combine class names
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
@@ -31,7 +30,7 @@ export default function Navbar() {
         if (anchor) {
           anchor.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-        setIsMenuOpen(false); // Закрываем меню после клика по ссылке
+        setIsMenuOpen(false); // Закрыть меню после клика по ссылке
       }
     };
 
@@ -92,6 +91,57 @@ export default function Navbar() {
                         {item.name}
                       </a>
                     ))}
+                  </div>
+
+                  {/* Список магазинов для ПК-версии */}
+                  <div className="flex items-center gap-4">
+                    <a
+                      href="https://www.ozon.ru/seller/smartdiag-862410/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hidden lg:block"
+                    >
+                      <button className="btn-ozon">
+                        <img
+                          src="/images/logos/favicon.ico"
+                          alt="OZON"
+                          className="w-4 h-4"
+                        />
+                        OZON
+                      </button>
+                    </a>
+
+                    <a
+                      href="https://market.yandex.ru/business--smartdiag/50025236"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hidden lg:block"
+                    >
+                      <button className="btn-yandex">
+                        <img
+                          src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                          alt="Яндекс Маркет"
+                          className="w-4 h-4"
+                        />
+                        Яндекс Маркет
+                      </button>
+                    </a>
+
+                    <a
+                      href="https://www.wildberries.ru/seller/1343369"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hidden lg:block"
+                    >
+                      <button className="btn-wildberries">
+                        <img
+                          src="https://www.wildberries.ru/favicon.ico"
+                          alt="Wildberries"
+                          className="w-4 h-4"
+                        />
+                        Wildberries
+                      </button>
+                    </a>
                   </div>
                 </div>
 
