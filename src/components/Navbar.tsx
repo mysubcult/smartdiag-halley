@@ -155,17 +155,14 @@ export default function Navbar() {
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                   >
                     <span className="sr-only">Open main menu</span>
-                    {open || isMenuOpen ? (
-                      <XMarkIcon
-                        className="block h-6 w-6 menu-icon menu-icon-open" // Добавляем класс
-                        aria-hidden="true"
-                      />
-                    ) : (
-                      <Bars3Icon
-                        className="block h-6 w-6 menu-icon" // Добавляем класс
-                        aria-hidden="true"
-                      />
-                    )}
+                    <Bars3Icon
+                      className={`h-6 w-6 menu-icon ${isMenuOpen ? "menu-icon-open" : ""}`}
+                      aria-hidden="true"
+                    />
+                    <XMarkIcon
+                      className={`h-6 w-6 menu-icon-x ${isMenuOpen ? "menu-icon-open" : ""}`}
+                      aria-hidden="true"
+                    />
                   </Disclosure.Button>
                 </div>
               </div>
