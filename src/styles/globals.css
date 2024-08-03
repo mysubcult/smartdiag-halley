@@ -157,6 +157,7 @@ nav .dark\:text-neutral-400:hover {
   overflow: hidden;
   border: none;
   font-size: 12px;
+  width: 100%; /* Полная ширина внутри заданных границ */
   max-width: 240px; /* Ограничение ширины для кнопок магазинов */
 }
 
@@ -224,7 +225,8 @@ nav .dark\:text-neutral-400:hover {
   .btn-wildberries {
     padding: 4px 8px;
     font-size: 10px;
-    max-width: 90%; /* Устанавливаем ширину кнопок магазинов в мобильной версии */
+    width: 90%; /* Устанавливаем ширину кнопок магазинов в мобильной версии */
+    margin: 0 auto; /* Центрируем кнопки */
   }
 
   .navbar-nav {
