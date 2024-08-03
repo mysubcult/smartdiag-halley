@@ -147,7 +147,7 @@ nav .dark\:text-neutral-400:hover {
   display: flex;
   align-items: center;
   gap: 4px;
-  padding: 6px 12px; /* Отступы для эстетики */
+  padding: 6px 12px; /* Симметричные отступы */
   border-radius: 20px;
   font-weight: bold;
   transition: all 0.3s ease-in-out;
@@ -239,11 +239,12 @@ nav .dark\:text-neutral-400:hover {
   }
 
   .mobile-menu {
-    max-height: calc(100vh - 64px);
+    max-height: calc(100vh - 120px);
     overflow-y: hidden; /* Убираем скролл */
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     margin-top: 8px;
+    margin-bottom: 8px; /* Добавляем отступ снизу */
     border-radius: 16px; /* Увеличена радиус скругления */
   }
 }
