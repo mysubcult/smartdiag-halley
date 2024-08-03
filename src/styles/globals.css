@@ -239,8 +239,8 @@ nav .dark\:text-neutral-400:hover {
   .mobile-menu {
     max-height: calc(100vh - 64px);
     overflow-y: auto;
-    background-color: rgba(255, 255, 255, 0.95); /* Light background with slight opacity */
-    backdrop-filter: blur(10px); /* Apply backdrop filter for better visibility */
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
   }
 }
 
@@ -252,29 +252,57 @@ nav .dark\:text-neutral-400:hover {
   height: 40px;
   border-radius: 50%;
   transition: background-color 0.3s ease;
+  position: relative; /* Add relative position for animation */
+
+  .menu-icon-wrapper {
+    display: flex;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease; /* Add transition for animation */
+  }
+
+  .menu-icon {
+    position: absolute;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 1;
+  }
+
+  .menu-icon-x {
+    position: absolute;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  .menu-icon-x.block {
+    opacity: 1;
+  }
+
+  .menu-icon-x.hidden {
+    opacity: 0;
+  }
 }
 
-.menu-icon-container:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+.btn-submenu-toggle {
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-weight: bold;
 }
 
-.menu-icon {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  position: absolute;
+.btn-submenu-toggle:hover {
+  color: #ff416c;
 }
 
-.menu-icon.menu-icon-open {
-  transform: rotate(90deg);
-  opacity: 0;
-}
-
-.menu-icon-x {
-  opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  transform: rotate(-90deg);
-}
-
-.menu-icon-x.menu-icon-open {
-  opacity: 1;
-  transform: rotate(0deg);
+.submenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
