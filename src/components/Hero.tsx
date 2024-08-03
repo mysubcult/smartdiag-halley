@@ -1,42 +1,13 @@
 import Image from "next/image";
-import { useEffect } from "react";
+import Link from "next/link";
 
 export function Hero() {
-  // Ensure to handle smooth scrolling
-  useEffect(() => {
-    const handleSmoothScroll = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-
-      // Check if the target is a link that starts with #
-      if (target.tagName === "A" && target.getAttribute("href")?.startsWith("#")) {
-        event.preventDefault();
-        const href = target.getAttribute("href");
-        if (href) {
-          const anchor = document.querySelector(href);
-          if (anchor) {
-            anchor.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-        }
-      }
-    };
-
-    // Add the click event listener to the document
-    const listener: EventListener = handleSmoothScroll as unknown as EventListener;
-
-    document.addEventListener("click", listener);
-
-    // Clean up the event listener on component unmount
-    return () => {
-      document.removeEventListener("click", listener);
-    };
-  }, []);
-
   return (
-    <div id="hero" className="bg-white dark:bg-neutral-900">
+    <div id="hero" className="bg-white dark:bg-neutral-900"> {/* Добавляем id="hero" */}
       <div className="max-w-7xl mx-auto pt-5 pb-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2">
         <div className="pt-6 md:pt-32 justify-center text-center sm:justify-start sm:text-start">
           <h1 className="text-5xl font-bold">
-            Добро пожаловать в <br />
+            Добро пожаловать в <br />{" "}
             <span className="text-red-600 font-extrabold">
               SmartDiag <span className="wave">👋</span>
             </span>
@@ -51,19 +22,19 @@ export function Hero() {
           </p>
           <div className="flex flex-auto pt-10 gap-4 min-w-[350px] justify-center sm:justify-start">
             <div>
-              <a href="#soft">
+              <Link href="#soft">
                 <button className="btn-grad-red text-base font-medium">
                   Программы для приборов
                 </button>
-              </a>
+              </Link>
             </div>
 
             <div>
-              <a href="#contact">
+              <Link href="#contact">
                 <button className="btn-grad-black text-base font-medium">
                   Обратная связь
                 </button>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
