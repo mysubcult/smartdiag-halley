@@ -7,10 +7,10 @@
 }
 
 .wave {
-  animation-name: wave-animation; /* Refers to the name of your @keyframes element below */
-  animation-duration: 2.5s; /* Change to speed up or slow down */
-  animation-iteration-count: infinite; /* Never stop waving :) */
-  transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
+  animation-name: wave-animation;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  transform-origin: 70% 70%;
   display: inline-block;
 }
 
@@ -24,7 +24,7 @@ nav .dark\:text-neutral-400:hover {
   }
   10% {
     transform: rotate(14.0deg);
-  } /* The following five values can be played with to make the waving more or less extreme */
+  }
   20% {
     transform: rotate(-8.0deg);
   }
@@ -39,14 +39,14 @@ nav .dark\:text-neutral-400:hover {
   }
   60% {
     transform: rotate(0.0deg);
-  } /* Reset for the last half to pause */
+  }
   100% {
     transform: rotate(0.0deg);
   }
 }
 
 .btn-grad-red {
-  background: linear-gradient(to right, #ff4b2b, #ff416c); /* Красный градиент */
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
   color: white;
   border: none;
   border-radius: 30px;
@@ -69,7 +69,7 @@ nav .dark\:text-neutral-400:hover {
 }
 
 .btn-grad-black {
-  background: linear-gradient(to right, #434343, #000000); /* Черный градиент */
+  background: linear-gradient(to right, #434343, #000000);
   color: white;
   border: none;
   border-radius: 30px;
@@ -119,7 +119,7 @@ nav .dark\:text-neutral-400:hover {
   display: inline-block;
   transition: color 0.3s ease;
   font-size: 14px;
-  margin-left: 15px; /* Add spacing between logo and first link */
+  margin-left: 15px;
 }
 
 .nav-link::before {
@@ -191,33 +191,30 @@ nav .dark\:text-neutral-400:hover {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
 
-/* Flexbox container for the navbar */
 .navbar-nav {
   display: flex;
-  flex-wrap: nowrap; /* Prevent wrapping */
+  flex-wrap: nowrap;
   gap: 10px;
-  justify-content: flex-start; /* Align items to start */
+  justify-content: flex-start;
   align-items: center;
   width: auto;
-  overflow: hidden; /* Hide overflow content */
-  margin-right: 20px; /* Space between navigation and buttons */
+  overflow: hidden;
+  margin-right: 20px;
 }
 
-/* Animation for logo on hover */
 .logo-animation {
   transition: transform 0.3s ease-in-out;
 }
 
 .logo-animation:hover {
-  transform: scale(1.05); /* Slightly scale up the logo on hover */
+  transform: scale(1.05);
 }
 
-/* Responsive styles for smaller screens */
 @media (max-width: 1024px) {
   .nav-link {
     padding: 5px 8px;
     font-size: 12px;
-    margin-left: 5px; /* Adjust spacing for smaller screens */
+    margin-left: 5px;
   }
 
   .btn-ozon,
@@ -228,7 +225,7 @@ nav .dark\:text-neutral-400:hover {
   }
 
   .navbar-nav {
-    display: none; /* Hide navbar links on mobile */
+    display: none;
   }
 
   .nav-link,
@@ -240,43 +237,42 @@ nav .dark\:text-neutral-400:hover {
   }
 
   .mobile-menu {
-    max-height: calc(100vh - 64px); /* Учитывает высоту navbar */
-    overflow-y: auto; /* Добавляем прокрутку по вертикали */
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
   }
 }
 
-/* Animation for menu icon */
 .menu-icon-container {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px; /* Устанавливаем ширину и высоту иконки */
+  width: 40px;
   height: 40px;
-  border-radius: 50%; /* Делаем кружок */
+  border-radius: 50%;
   transition: background-color 0.3s ease;
 }
 
 .menu-icon-container:hover {
-  background-color: rgba(0, 0, 0, 0.1); /* Темный кружок при наведении */
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .menu-icon {
-  transition: transform 0.3s ease, opacity 0.3s ease; /* Плавный переход */
-  position: absolute; /* Позиционирование для анимации */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  position: absolute;
 }
 
 .menu-icon.menu-icon-open {
-  transform: rotate(90deg); /* Вращение на 90 градусов */
-  opacity: 0; /* Исчезает, чтобы новый крестик был виден */
+  transform: rotate(90deg);
+  opacity: 0;
 }
 
 .menu-icon-x {
-  opacity: 0; /* Сначала скрыт */
-  transition: transform 0.3s ease, opacity 0.3s ease; /* Плавный переход */
-  transform: rotate(-90deg); /* Вращение в обратную сторону */
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: rotate(-90deg);
 }
 
 .menu-icon-x.menu-icon-open {
-  opacity: 1; /* Появляется при открытии */
-  transform: rotate(0deg); /* Нормальное положение */
+  opacity: 1;
+  transform: rotate(0deg);
 }
