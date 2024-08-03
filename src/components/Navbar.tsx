@@ -92,65 +92,62 @@ export default function Navbar() {
                       </a>
                     ))}
                   </div>
-
-                  {/* Список магазинов для ПК-версии */}
-                  <div className="flex items-center gap-4">
-                    <a
-                      href="https://www.ozon.ru/seller/smartdiag-862410/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hidden lg:block"
-                    >
-                      <button className="btn-ozon">
-                        <img
-                          src="/images/logos/favicon.ico"
-                          alt="OZON"
-                          className="w-4 h-4"
-                        />
-                        OZON
-                      </button>
-                    </a>
-
-                    <a
-                      href="https://market.yandex.ru/business--smartdiag/50025236"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hidden lg:block"
-                    >
-                      <button className="btn-yandex">
-                        <img
-                          src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                          alt="Яндекс Маркет"
-                          className="w-4 h-4"
-                        />
-                        Яндекс Маркет
-                      </button>
-                    </a>
-
-                    <a
-                      href="https://www.wildberries.ru/seller/1343369"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hidden lg:block"
-                    >
-                      <button className="btn-wildberries">
-                        <img
-                          src="https://www.wildberries.ru/favicon.ico"
-                          alt="Wildberries"
-                          className="w-4 h-4"
-                        />
-                        Wildberries
-                      </button>
-                    </a>
-                  </div>
                 </div>
 
                 <div className="absolute inset-y-0 right-10 lg:right-0 flex items-center gap-2">
+                  <a
+                    href="https://www.ozon.ru/seller/smartdiag-862410/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hidden lg:block"
+                  >
+                    <button className="btn-ozon">
+                      <img
+                        src="/images/logos/favicon.ico"
+                        alt="OZON"
+                        className="w-4 h-4"
+                      />
+                      OZON
+                    </button>
+                  </a>
+
+                  <a
+                    href="https://market.yandex.ru/business--smartdiag/50025236"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hidden lg:block"
+                  >
+                    <button className="btn-yandex">
+                      <img
+                        src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                        alt="Яндекс Маркет"
+                        className="w-4 h-4"
+                      />
+                      Яндекс Маркет
+                    </button>
+                  </a>
+
+                  <a
+                    href="https://www.wildberries.ru/seller/1343369"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hidden lg:block"
+                  >
+                    <button className="btn-wildberries">
+                      <img
+                        src="https://www.wildberries.ru/favicon.ico"
+                        alt="Wildberries"
+                        className="w-4 h-4"
+                      />
+                      Wildberries
+                    </button>
+                  </a>
+
                   <ThemeSwitchButton />
                 </div>
 
                 <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
-                  <Disclosure.Button
+                  <button
                     className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                   >
@@ -165,7 +162,7 @@ export default function Navbar() {
                         aria-hidden="true"
                       />
                     </div>
-                  </Disclosure.Button>
+                  </button>
                 </div>
               </div>
             </div>
@@ -187,6 +184,7 @@ export default function Navbar() {
                         "block py-2 text-lg font-medium hover:text-red-500"
                       )}
                       aria-current={item.current ? "page" : undefined}
+                      onClick={() => setIsMenuOpen(false)} // Исправлено, чтобы меню можно было повторно открыть
                     >
                       {item.name}
                     </a>
