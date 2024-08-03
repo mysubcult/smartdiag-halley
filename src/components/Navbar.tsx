@@ -207,8 +207,8 @@ export default function Navbar() {
             fontSize: fontSize,
             maxHeight: `calc(100vh - 128px)`, // Динамическая высота с учетом отступов сверху и снизу
             overflowY: "auto", // Разрешаем скролл, если необходимо
-            paddingTop: "16px", // Отступ сверху
-            paddingBottom: "16px", // Отступ снизу
+            paddingTop: "24px", // Отступ сверху
+            paddingBottom: "24px", // Отступ снизу
           }}
         >
           <div className="flex flex-col items-center justify-center space-y-4">
@@ -228,7 +228,7 @@ export default function Navbar() {
                 {item.name}
               </a>
             ))}
-            <div className="flex flex-col items-center w-full">
+            <div className="flex flex-col items-center w-full mt-4">
               <button
                 onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
                 className="btn-submenu-toggle flex items-center justify-center py-2 text-lg font-medium"
@@ -246,7 +246,7 @@ export default function Navbar() {
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-ozon flex items-center justify-center w-11/12 mx-auto px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors"
+                    className="btn-ozon flex items-center justify-center w-10/12 mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
                   >
                     <img
                       src="/images/logos/favicon.ico"
@@ -260,7 +260,7 @@ export default function Navbar() {
                     href="https://market.yandex.ru/business--smartdiag/50025236"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-yandex flex items-center justify-center w-11/12 mx-auto px-4 py-2 rounded-lg hover:bg-orange-500 transition-colors"
+                    className="btn-yandex flex items-center justify-center w-10/12 mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
                   >
                     <img
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
@@ -274,7 +274,7 @@ export default function Navbar() {
                     href="https://www.wildberries.ru/seller/1343369"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-wildberries flex items-center justify-center w-11/12 mx-auto px-4 py-2 rounded-lg hover:bg-purple-500 transition-colors"
+                    className="btn-wildberries flex items-center justify-center w-10/12 mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
                   >
                     <img
                       src="https://www.wildberries.ru/favicon.ico"
