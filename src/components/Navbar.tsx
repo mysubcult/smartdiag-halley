@@ -3,7 +3,6 @@ import Image from "next/image";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 
 const navigation = [
@@ -207,7 +206,7 @@ export default function Navbar() {
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
           style={{
             fontSize: fontSize,
-            maxHeight: `calc(100vh - 16px)`, // Динамическая высота с одинаковыми отступами
+            maxHeight: `calc(100vh - 32px)`, // Динамическая высота с одинаковыми отступами
             overflowY: "auto", // Разрешаем скролл, если необходимо
           }}
         >
@@ -228,7 +227,7 @@ export default function Navbar() {
                 {item.name}
               </a>
             ))}
-            <div className="flex flex-col items-center w-full mb-4">
+            <div className="flex flex-col items-center w-full">
               <button
                 onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
                 className="btn-submenu-toggle flex items-center justify-center py-2 text-lg font-medium"
@@ -241,7 +240,7 @@ export default function Navbar() {
                 />
               </button>
               {isSubMenuOpen && (
-                <div className="submenu mt-2 space-y-3 w-full mb-4">
+                <div className="submenu mt-2 space-y-3 w-full">
                   <a
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
