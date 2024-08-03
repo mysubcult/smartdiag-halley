@@ -148,17 +148,16 @@ nav .dark\:text-neutral-400:hover {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 6px 12px; /* Оригинальные отступы для кнопок */
-  border-radius: 20px; /* Оригинальные закругления */
+  padding: 4px 8px; /* Стандартные отступы для десктопной версии */
+  border-radius: 20px;
   font-weight: bold;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   position: relative;
   overflow: hidden;
   border: none;
-  font-size: 12px; /* Оригинальный шрифт */
-  width: 100%; /* Полная ширина внутри заданных границ */
-  max-width: 240px; /* Ограничение ширины для кнопок магазинов */
+  font-size: 10px; /* Стандартный шрифт для десктопной версии */
+  max-width: 140px; /* Ограничение ширины для кнопок магазинов */
 }
 
 .btn-ozon {
@@ -224,7 +223,7 @@ nav .dark\:text-neutral-400:hover {
   .btn-yandex,
   .btn-wildberries {
     padding: 8px 16px; /* Увеличенные отступы для кнопок в мобильной версии */
-    font-size: 14px; /* Немного увеличенный шрифт в мобильной версии */
+    font-size: 14px; /* Увеличенный шрифт в мобильной версии */
     width: 85%; /* Уже ширина кнопок в мобильной версии */
     max-width: 200px; /* Ограничение ширины для кнопок магазинов в мобильной версии */
     margin: 0 auto; /* Центрируем кнопки */
