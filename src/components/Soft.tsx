@@ -154,8 +154,7 @@ const products = [
     price: 120,
     currency: "$",
     frecuency: "year",
-    description:
-      "Диагностический интерфейс для автомобилей Ford и Mazda.",
+    description: "Диагностический интерфейс для автомобилей Ford и Mazda.",
     features: ["FORScan", "FoCCCus", "ELMConfig", "Инструкции по установке ПО"],
     href: "https://i.getspace.us/cloud/s/oBNcC2w85wnj2Lx",
     cta: "Скачать",
@@ -169,8 +168,7 @@ const products = [
     price: 120,
     currency: "$",
     frecuency: "year",
-    description:
-      "Диагностический инструмент для автомобилей Toyota и Lexus.",
+    description: "Диагностический инструмент для автомобилей Toyota и Lexus.",
     features: ["Techstream ", "Инструкция по установке ПО"],
     href: "https://i.getspace.us/cloud/s/Q3kWQ8ajB8WdF5g",
     cta: "Скачать",
@@ -247,8 +245,9 @@ const products = [
 type BillingInterval = "year" | "month" | "elm";
 
 export default function Soft() {
-  const [billingInterval, setBillingInterval] =
-    useState<BillingInterval>("month");
+  const [billingInterval, setBillingInterval] = useState<BillingInterval>(
+    "month"
+  );
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
@@ -259,9 +258,9 @@ export default function Soft() {
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
           В этом разделе вы можете скачать программное обеспечение для своего
           устройства. Для начала определите тип вашего устройства —
-          &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о
-          типе устройства вы найдёте в упаковке. После этого найдите карточку с
-          вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по
+          &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе
+          устройства вы найдёте в упаковке. После этого найдите карточку с вашим
+          устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по
           установке программного обеспечения находится на кнопке
           &quot;Инструкция&quot;.
         </p>
@@ -326,7 +325,7 @@ export default function Soft() {
                 {billingInterval === frecuency ? (
                   <div
                     key={title}
-                    className={`rounded-lg py-8 relative flex flex-col ${
+                    className={`opacity-0 transform transition-all duration-500 ease-in-out hover:opacity-100 rounded-lg py-8 relative flex flex-col ${
                       mostPopular
                         ? "border-red-300 border-2 border-solid dark:border-red-600"
                         : "border-neutral-300 border dark:border-neutral-600"
