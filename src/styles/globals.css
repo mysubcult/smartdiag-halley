@@ -242,12 +242,10 @@ nav .dark\:text-neutral-400:hover {
   }
 
   .mobile-menu {
-    max-height: calc(100vh - 32px); /* Динамическая высота для меню */
+    max-height: calc(100vh - 128px); /* Динамическая высота для меню с учетом отступов */
     overflow-y: auto; /* Разрешаем скролл */
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    margin-top: 8px;
-    margin-bottom: 8px; /* Устанавливаем одинаковый отступ сверху и снизу */
     border-radius: 16px; /* Увеличена радиус скругления */
     padding-top: 16px; /* Отступ сверху для меню */
     padding-bottom: 16px; /* Отступ снизу для меню */
@@ -313,6 +311,6 @@ nav .dark\:text-neutral-400:hover {
   flex-direction: column;
   align-items: center;
   gap: 8px; /* Увеличен отступ между пунктами меню */
-  margin-top: 16px; /* Отступ сверху */
-  margin-bottom: 16px; /* Отступ снизу */
+  margin-top: 8px; /* Отступ сверху */
+  margin-bottom: 8px; /* Отступ снизу */
 }
