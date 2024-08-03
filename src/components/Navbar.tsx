@@ -21,7 +21,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
-  const [isMobileView, setIsMobileView] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(false); // Новое состояние для мобильного вида
 
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
@@ -82,6 +82,7 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", updateFontSizeAndHeight);
   }, [isSubMenuOpen]);
 
+  // Новая логика для переключения на мобильный вид
   useEffect(() => {
     const handleResize = () => {
       const navbarNav = document.querySelector(".navbar-nav");
