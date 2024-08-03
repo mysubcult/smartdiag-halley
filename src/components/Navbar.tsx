@@ -6,7 +6,7 @@ import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 
 const navigation = [
-  { name: "Главная", href: "#hero", current: false }, 
+  { name: "Главная", href: "#hero", current: false },
   { name: "Программы", href: "#soft", current: false },
   { name: "ЧАВО", href: "#faq", current: false },
   { name: "О нас", href: "#services", current: false },
@@ -21,6 +21,7 @@ function classNames(...classes: string[]): string {
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // useEffect для плавного скроллинга
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -42,7 +43,7 @@ export default function Navbar() {
 
   const handleLogoClick = (event: React.MouseEvent) => {
     event.preventDefault();
-    const heroAnchor = document.querySelector("#hero");
+    const heroAnchor = document.querySelector("#hero"); // Correctly select the hero section
     if (heroAnchor) {
       heroAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -60,8 +61,9 @@ export default function Navbar() {
               <div className="flex flex-1 items-center justify-start">
                 <div className="flex flex-shrink-0 items-center md:pl-0">
                   <a href="#hero" onClick={handleLogoClick}>
+                    {/* Use #hero here */}
                     <Image
-                      className="block h-12 w-auto logo-animation"
+                      className="block h-12 w-auto logo-animation" // Add class for animation
                       src="/images/logos/logo.png"
                       alt="SmartDiag"
                       width={256}
@@ -72,6 +74,7 @@ export default function Navbar() {
                   </a>
                 </div>
 
+                {/* Navbar links visible only on larger screens */}
                 <div className="hidden lg:flex navbar-nav">
                   <div className="flex space-x-5 items-center">
                     {navigation.map((item) => (
@@ -146,19 +149,23 @@ export default function Navbar() {
                 </div>
 
                 <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
+                  {/* Always show the menu button on mobile */}
                   <Disclosure.Button
                     className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                   >
                     <span className="sr-only">Open main menu</span>
-                    <Bars3Icon
-                      className={`h-6 w-6 menu-icon ${isMenuOpen ? "menu-icon-open" : ""}`}
-                      aria-hidden="true"
-                    />
-                    <XMarkIcon
-                      className={`h-6 w-6 menu-icon-x ${isMenuOpen ? "menu-icon-open" : ""}`}
-                      aria-hidden="true"
-                    />
+                    {isMenuOpen ? (
+                      <XMarkIcon
+                        className={`h-6 w-6 menu-icon-x ${isMenuOpen ? "menu-icon-open" : ""}`}
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <Bars3Icon
+                        className={`h-6 w-6 menu-icon ${isMenuOpen ? "menu-icon-open" : ""}`}
+                        aria-hidden="true"
+                      />
+                    )}
                   </Disclosure.Button>
                 </div>
               </div>
@@ -166,16 +173,8 @@ export default function Navbar() {
           </div>
 
           <Disclosure.Panel className="lg:hidden mobile-menu">
-            <div className="fixed top-0 left-0 right-0 bottom-0 bg-white dark:bg-neutral-900 z-10">
-              <div className="flex justify-end p-4">
-                <button
-                  className="text-neutral-900 dark:text-white"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <XMarkIcon className="h-6 w-6" />
-                </button>
-              </div>
-              <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
+            <div className="bg-white dark:bg-neutral-900 min-h-screen flex flex-col items-center justify-center">
+              <div className="flex flex-col items-center justify-center w-full space-y-4">
                 {navigation.map((item) => (
                   <Disclosure.Button
                     key={item.name}
@@ -185,7 +184,7 @@ export default function Navbar() {
                       item.current
                         ? "text-neutral-900 dark:text-neutral-400"
                         : "text-neutral-900 dark:text-neutral-400",
-                      "block py-4 text-xl font-semibold hover:text-red-500"
+                      "block py-4 text-lg font-medium hover:text-red-500"
                     )}
                     aria-current={item.current ? "page" : undefined}
                     onClick={() => setIsMenuOpen(false)}
