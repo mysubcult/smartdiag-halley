@@ -253,3 +253,25 @@ nav .dark\:text-neutral-400:hover {
 .menu-icon-open {
   transform: rotate(90deg); /* Вращение на 90 градусов */
 }
+
+.menu-icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Устанавливаем ширину и высоту иконки */
+  height: 40px;
+  border-radius: 50%; /* Делаем кружок */
+  transition: background-color 0.3s ease;
+}
+
+.menu-icon-container:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Темный кружок при наведении */
+}
+
+.menu-icon {
+  transition: transform 0.3s ease;
+}
+
+.menu-icon-open {
+  transform: rotate(90deg); /* Вращение на 90 градусов */
+}
