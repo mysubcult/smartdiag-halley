@@ -21,6 +21,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
+  const [isMobileView, setIsMobileView] = useState(false);
 
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
@@ -81,6 +82,30 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", updateFontSizeAndHeight);
   }, [isSubMenuOpen]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      const navbarNav = document.querySelector(".navbar-nav");
+      const buttons = document.querySelectorAll(".btn-ozon, .btn-yandex, .btn-wildberries");
+
+      if (navbarNav && buttons.length) {
+        const navbarNavRect = navbarNav.getBoundingClientRect();
+        const buttonsRect = buttons[0].getBoundingClientRect();
+
+        // Если меню начинает "наезжать" на кнопки, переключаемся в мобильный режим
+        if (navbarNavRect.right > buttonsRect.left) {
+          setIsMobileView(true);
+        } else {
+          setIsMobileView(false);
+        }
+      }
+    };
+
+    handleResize(); // Проверка при монтировании
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -100,7 +125,7 @@ export default function Navbar() {
               </a>
             </div>
 
-            <div className="hidden lg:flex navbar-nav">
+            <div className={`hidden ${isMobileView ? "" : "lg:flex"} navbar-nav`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
                   <a
@@ -200,7 +225,7 @@ export default function Navbar() {
       </div>
 
       {/* Popup Menu */}
-      {isMenuOpen && (
+      {(isMenuOpen || isMobileView) && (
         <div
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
           style={{
