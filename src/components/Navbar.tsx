@@ -55,31 +55,33 @@ export default function Navbar() {
     }
   };
 
-  // Функция для динамического изменения шрифта
+  // Функция для динамического изменения шрифта и высоты меню
   useEffect(() => {
-    const updateFontSize = () => {
+    const updateFontSizeAndHeight = () => {
       const baseFontSize = 18; // Базовый размер шрифта
       const screenHeight = window.innerHeight;
       const maxFontSize = baseFontSize;
-      const minFontSize = 12;
+      const minFontSize = 14;
 
       // Рассчитать коэффициент уменьшения шрифта на основе высоты экрана и количества элементов меню
-      const maxMenuHeight = screenHeight - 100; // Высота меню с учетом отступов
-      const requiredHeight = navigation.length * 40 + (isSubMenuOpen ? 160 : 0); // Общая высота меню и подменю
+      const maxMenuHeight = screenHeight - 80; // Высота меню с учетом отступов
+      const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length;
+      const requiredHeight = itemsCount * 48; // 48px на каждый элемент (включая padding и margin)
 
       const scaleFactor = maxMenuHeight / requiredHeight;
       const newFontSize = Math.max(
         minFontSize,
         maxFontSize * Math.min(scaleFactor, 1)
       );
+
       setFontSize(`${newFontSize}px`);
     };
 
-    updateFontSize();
+    updateFontSizeAndHeight();
 
-    window.addEventListener("resize", updateFontSize);
-    return () => window.removeEventListener("resize", updateFontSize);
-  }, [isSubMenuOpen]); // Добавляем зависимость от открытия подменю
+    window.addEventListener("resize", updateFontSizeAndHeight);
+    return () => window.removeEventListener("resize", updateFontSizeAndHeight);
+  }, [isSubMenuOpen]);
 
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
@@ -246,7 +248,7 @@ export default function Navbar() {
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-ozon flex items-center justify-center w-11/12 mx-auto px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors"
+                    className="btn-ozon flex items-center justify-center w-10/12 mx-auto px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors"
                   >
                     <img
                       src="/images/logos/favicon.ico"
@@ -260,7 +262,7 @@ export default function Navbar() {
                     href="https://market.yandex.ru/business--smartdiag/50025236"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-yandex flex items-center justify-center w-11/12 mx-auto px-4 py-2 rounded-lg hover:bg-orange-500 transition-colors"
+                    className="btn-yandex flex items-center justify-center w-10/12 mx-auto px-4 py-2 rounded-lg hover:bg-orange-500 transition-colors"
                   >
                     <img
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
@@ -274,7 +276,7 @@ export default function Navbar() {
                     href="https://www.wildberries.ru/seller/1343369"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-wildberries flex items-center justify-center w-11/12 mx-auto px-4 py-2 rounded-lg hover:bg-purple-500 transition-colors"
+                    className="btn-wildberries flex items-center justify-center w-10/12 mx-auto px-4 py-2 rounded-lg hover:bg-purple-500 transition-colors"
                   >
                     <img
                       src="https://www.wildberries.ru/favicon.ico"
