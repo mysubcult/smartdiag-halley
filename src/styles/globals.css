@@ -239,6 +239,8 @@ nav .dark\:text-neutral-400:hover {
   .mobile-menu {
     max-height: calc(100vh - 64px);
     overflow-y: auto;
+    background-color: rgba(255, 255, 255, 0.95); /* Light background with slight opacity */
+    backdrop-filter: blur(10px); /* Apply backdrop filter for better visibility */
   }
 }
 
