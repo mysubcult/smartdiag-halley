@@ -249,16 +249,16 @@ export default function Soft() {
     "month"
   );
 
-  // State to control visibility for the animation effect
+  // Track the previous and current tabs to trigger the animation
   const [visibleProducts, setVisibleProducts] = useState<BillingInterval>(
     "month"
   );
 
   useEffect(() => {
-    // Delay the appearance to ensure a smooth transition
+    // Delay the update to allow the transition to finish
     const timeoutId = setTimeout(() => {
       setVisibleProducts(billingInterval);
-    }, 100); // 100ms delay
+    }, 300); // Match with CSS transition duration
 
     return () => clearTimeout(timeoutId);
   }, [billingInterval]);
@@ -335,13 +335,14 @@ export default function Soft() {
             docsLink,
             docsLabel,
           }) => {
+            // Check if the product belongs to the currently visible category
+            const isVisible = visibleProducts === frecuency;
+
             return (
               <div
                 key={title}
                 className={`transform transition-opacity duration-500 ease-in-out ${
-                  visibleProducts === frecuency
-                    ? "opacity-100 scale-100"
-                    : "opacity-0 scale-95 pointer-events-none"
+                  isVisible ? "opacity-100" : "opacity-0"
                 } rounded-lg py-8 relative flex flex-col ${
                   mostPopular
                     ? "border-red-300 border-2 border-solid dark:border-red-600"
