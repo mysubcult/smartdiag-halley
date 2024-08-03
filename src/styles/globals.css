@@ -146,6 +146,7 @@ nav .dark\:text-neutral-400:hover {
 .btn-wildberries {
   display: flex;
   align-items: center;
+  justify-content: center; /* Центрирование текста */
   gap: 4px;
   padding: 6px 12px; /* Симметричные отступы */
   border-radius: 20px;
@@ -239,12 +240,12 @@ nav .dark\:text-neutral-400:hover {
   }
 
   .mobile-menu {
-    max-height: calc(100vh - 120px);
+    max-height: calc(100vh - 16px); /* Учитываем одинаковые отступы сверху и снизу */
     overflow-y: hidden; /* Убираем скролл */
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     margin-top: 8px;
-    margin-bottom: 8px; /* Добавляем отступ снизу */
+    margin-bottom: 8px; /* Устанавливаем одинаковый отступ сверху и снизу */
     border-radius: 16px; /* Увеличена радиус скругления */
   }
 }
