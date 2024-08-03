@@ -2,13 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 
+// Update the type for 'event' parameter
 export function Hero() {
   useEffect(() => {
-    const handleSmoothScroll = (event) => {
-      const target = event.target;
+    const handleSmoothScroll = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
       if (target.tagName === "A" && target.getAttribute("href")?.startsWith("#")) {
         event.preventDefault();
-        const anchor = document.querySelector(target.getAttribute("href"));
+        const anchor = document.querySelector(target.getAttribute("href")!);
         if (anchor) {
           anchor.scrollIntoView({ behavior: "smooth", block: "start" });
         }
