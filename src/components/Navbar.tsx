@@ -158,7 +158,7 @@ export default function Navbar() {
                   />
                   <XMarkIcon
                     className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
-                      isMenuOpen ? "-rotate-45 opacity-100" : "rotate-0 opacity-0"
+                      isMenuOpen ? "rotate-45 opacity-100" : "rotate-0 opacity-0"
                     }`}
                     aria-hidden="true"
                   />
@@ -171,7 +171,7 @@ export default function Navbar() {
 
       {/* Popup Menu */}
       {isMenuOpen && (
-        <div className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
+        <div className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg p-4 absolute right-4 top-20 w-64 max-h-[calc(100vh-100px)] overflow-y-auto z-30">
           <div className="flex flex-col items-center justify-center space-y-4">
             {navigation.map((item) => (
               <a
@@ -207,7 +207,7 @@ export default function Navbar() {
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-ozon flex items-center justify-center w-full"
+                    className="flex items-center justify-start w-auto px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
                   >
                     <img
                       src="/images/logos/favicon.ico"
@@ -221,7 +221,7 @@ export default function Navbar() {
                     href="https://market.yandex.ru/business--smartdiag/50025236"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-yandex flex items-center justify-center w-full"
+                    className="flex items-center justify-start w-auto px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
                   >
                     <img
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
@@ -235,7 +235,7 @@ export default function Navbar() {
                     href="https://www.wildberries.ru/seller/1343369"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-wildberries flex items-center justify-center w-full"
+                    className="flex items-center justify-start w-auto px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors mb-2"
                   >
                     <img
                       src="https://www.wildberries.ru/favicon.ico"
