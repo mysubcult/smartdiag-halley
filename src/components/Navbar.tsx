@@ -26,7 +26,10 @@ export default function Navbar() {
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
-      if (target.tagName === "A" && target.getAttribute("href")?.startsWith("#")) {
+      if (
+        target.tagName === "A" &&
+        target.getAttribute("href")?.startsWith("#")
+      ) {
         event.preventDefault();
         const anchor = document.querySelector(target.getAttribute("href")!);
         if (anchor) {
@@ -49,6 +52,14 @@ export default function Navbar() {
     if (heroAnchor) {
       heroAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+  };
+
+  // Динамическое изменение шрифта в зависимости от ширины экрана
+  const calculateFontSize = (): string => {
+    const baseFontSize = 18; // Базовый размер шрифта
+    const screenHeight = window.innerHeight; // Высота экрана
+    const scaleFactor = Math.min(1, screenHeight / 500); // Коэффициент уменьшения шрифта
+    return `${baseFontSize * scaleFactor}px`;
   };
 
   return (
@@ -145,7 +156,7 @@ export default function Navbar() {
 
             <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
               <button
-                className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors"
+                className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
                 <span className="sr-only">Open main menu</span>
@@ -171,7 +182,14 @@ export default function Navbar() {
 
       {/* Popup Menu */}
       {isMenuOpen && (
-        <div className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30" style={{ maxHeight: `calc(100vh - 80px)`, overflowY: 'auto' }}>
+        <div
+          className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
+          style={{
+            fontSize: calculateFontSize(),
+            maxHeight: `calc(100vh - 80px)`,
+            overflowY: "hidden", // Убираем скролл
+          }}
+        >
           <div className="flex flex-col items-center justify-center space-y-4">
             {navigation.map((item) => (
               <a
@@ -189,7 +207,8 @@ export default function Navbar() {
                 {item.name}
               </a>
             ))}
-            <div className="flex flex-col items-center w-full mb-4"> {/* Отступ снизу */}
+            <div className="flex flex-col items-center w-full mb-4">
+              {/* Отступ снизу */}
               <button
                 onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
                 className="btn-submenu-toggle flex items-center justify-center py-2 text-lg font-medium" // Унификация шрифта
@@ -202,12 +221,12 @@ export default function Navbar() {
                 />
               </button>
               {isSubMenuOpen && (
-                <div className="submenu mt-2 space-y-2 w-full mb-4"> {/* Отступ снизу для подменю */}
+                <div className="submenu mt-2 space-y-3 w-full mb-4"> {/* Увеличен отступ между кнопками */}
                   <a
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-ozon flex items-center justify-center w-auto px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors"
+                    className="btn-ozon flex items-center justify-center w-11/12 mx-auto px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors" // Уменьшена ширина
                   >
                     <img
                       src="/images/logos/favicon.ico"
@@ -221,7 +240,7 @@ export default function Navbar() {
                     href="https://market.yandex.ru/business--smartdiag/50025236"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-yandex flex items-center justify-center w-auto px-4 py-2 rounded-lg hover:bg-orange-500 transition-colors"
+                    className="btn-yandex flex items-center justify-center w-11/12 mx-auto px-4 py-2 rounded-lg hover:bg-orange-500 transition-colors" // Уменьшена ширина
                   >
                     <img
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
@@ -235,7 +254,7 @@ export default function Navbar() {
                     href="https://www.wildberries.ru/seller/1343369"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-wildberries flex items-center justify-center w-auto px-4 py-2 rounded-lg hover:bg-purple-500 transition-colors"
+                    className="btn-wildberries flex items-center justify-center w-11/12 mx-auto px-4 py-2 rounded-lg hover:bg-purple-500 transition-colors" // Уменьшена ширина
                   >
                     <img
                       src="https://www.wildberries.ru/favicon.ico"
