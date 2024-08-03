@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect } from "react";
 
 export function Hero() {
@@ -7,10 +6,13 @@ export function Hero() {
     const handleSmoothScroll = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
 
-      if (target.tagName === "A" && target.getAttribute("href")?.startsWith("#")) {
+      if (
+        target.tagName === "A" &&
+        target.getAttribute("href")?.startsWith("#")
+      ) {
+        event.preventDefault();
         const href = target.getAttribute("href");
         if (href) {
-          event.preventDefault();
           const anchor = document.querySelector(href);
           if (anchor) {
             anchor.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -49,19 +51,19 @@ export function Hero() {
           </p>
           <div className="flex flex-auto pt-10 gap-4 min-w-[350px] justify-center sm:justify-start">
             <div>
-              <Link href="#soft">
+              <a href="#soft">
                 <button className="btn-grad-red text-base font-medium">
                   Программы для приборов
                 </button>
-              </Link>
+              </a>
             </div>
 
             <div>
-              <Link href="#contact">
+              <a href="#contact">
                 <button className="btn-grad-black text-base font-medium">
                   Обратная связь
                 </button>
-              </Link>
+              </a>
             </div>
           </div>
         </div>
