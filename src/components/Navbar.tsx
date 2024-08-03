@@ -13,6 +13,7 @@ const navigation = [
   { name: "Обратная связь", href: "#contact", current: false },
 ];
 
+// Utility function to combine class names
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
@@ -95,6 +96,7 @@ export default function Navbar() {
                 </div>
 
                 <div className="absolute inset-y-0 right-10 lg:right-0 flex items-center gap-2">
+                  {/* Вернули кнопки магазинов для ПК-версии */}
                   <a
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
@@ -152,13 +154,17 @@ export default function Navbar() {
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                   >
                     <span className="sr-only">Open main menu</span>
-                    <div className="menu-icon-wrapper">
+                    <div className="menu-icon-wrapper relative">
                       <Bars3Icon
-                        className={`h-6 w-6 menu-icon transition-transform transform ${isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"}`}
+                        className={`h-6 w-6 transition-transform transform ${
+                          isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"
+                        }`}
                         aria-hidden="true"
                       />
                       <XMarkIcon
-                        className={`h-6 w-6 menu-icon-x transition-transform transform ${isMenuOpen ? "rotate-0 opacity-100" : "-rotate-45 opacity-0"}`}
+                        className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
+                          isMenuOpen ? "rotate-0 opacity-100" : "rotate-45 opacity-0"
+                        }`}
                         aria-hidden="true"
                       />
                     </div>
@@ -184,7 +190,7 @@ export default function Navbar() {
                         "block py-2 text-lg font-medium hover:text-red-500"
                       )}
                       aria-current={item.current ? "page" : undefined}
-                      onClick={() => setIsMenuOpen(false)} // Исправлено, чтобы меню можно было повторно открыть
+                      onClick={() => setIsMenuOpen(false)} // Убедитесь, что меню можно повторно открыть
                     >
                       {item.name}
                     </a>
@@ -196,7 +202,9 @@ export default function Navbar() {
                     >
                       Магазины
                       <ChevronDownIcon
-                        className={`h-5 w-5 ml-2 transition-transform ${isSubMenuOpen ? "rotate-180" : "rotate-0"}`}
+                        className={`h-5 w-5 ml-2 transition-transform ${
+                          isSubMenuOpen ? "rotate-180" : "rotate-0"
+                        }`}
                       />
                     </button>
                     {isSubMenuOpen && (
