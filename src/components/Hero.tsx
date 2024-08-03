@@ -1,9 +1,29 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export function Hero() {
+  useEffect(() => {
+    const handleSmoothScroll = (event) => {
+      const target = event.target;
+      if (target.tagName === "A" && target.getAttribute("href")?.startsWith("#")) {
+        event.preventDefault();
+        const anchor = document.querySelector(target.getAttribute("href"));
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    };
+
+    document.addEventListener("click", handleSmoothScroll);
+
+    return () => {
+      document.removeEventListener("click", handleSmoothScroll);
+    };
+  }, []);
+
   return (
-    <div id="hero" className="bg-white dark:bg-neutral-900"> {/* Добавляем id="hero" */}
+    <div id="hero" className="bg-white dark:bg-neutral-900">
       <div className="max-w-7xl mx-auto pt-5 pb-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2">
         <div className="pt-6 md:pt-32 justify-center text-center sm:justify-start sm:text-start">
           <h1 className="text-5xl font-bold">
