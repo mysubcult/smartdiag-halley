@@ -64,7 +64,7 @@ export default function Navbar() {
       const minFontSize = 14;
 
       // Рассчитать коэффициент уменьшения шрифта на основе высоты экрана и количества элементов меню
-      const maxMenuHeight = screenHeight - 100; // Высота меню с учетом отступов
+      const maxMenuHeight = screenHeight - 120; // Высота меню с учетом отступов
       const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length; // +3 для подменю
       const requiredHeight = itemsCount * 48; // 48px на каждый элемент (включая padding и margin)
 
@@ -207,7 +207,7 @@ export default function Navbar() {
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
           style={{
             fontSize: fontSize,
-            maxHeight: `calc(100vh - 80px)`,
+            maxHeight: `calc(100vh - 120px)`, // Учитываем отступы сверху и снизу
             overflowY: "auto", // Разрешаем скролл, если необходимо
           }}
         >
