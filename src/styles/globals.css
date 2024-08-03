@@ -157,7 +157,8 @@ nav .dark\:text-neutral-400:hover {
   overflow: hidden;
   border: none;
   font-size: 10px; /* Стандартный шрифт для десктопной версии */
-  max-width: 140px; /* Ограничение ширины для кнопок магазинов */
+  max-width: 120px; /* Уменьшена максимальная ширина для десктопной версии */
+  white-space: nowrap; /* Избегаем переноса текста */
 }
 
 .btn-ozon {
