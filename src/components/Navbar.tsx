@@ -22,6 +22,7 @@ function classNames(...classes: string[]): string {
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+  const [fontSize, setFontSize] = useState("18px");
 
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
@@ -54,13 +55,23 @@ export default function Navbar() {
     }
   };
 
-  // Динамическое изменение шрифта в зависимости от ширины экрана
-  const calculateFontSize = (): string => {
-    const baseFontSize = 18; // Базовый размер шрифта
-    const screenHeight = window.innerHeight; // Высота экрана
-    const scaleFactor = Math.min(1, screenHeight / 500); // Коэффициент уменьшения шрифта
-    return `${baseFontSize * scaleFactor}px`;
-  };
+  // Функция для динамического изменения шрифта
+  useEffect(() => {
+    const updateFontSize = () => {
+      const baseFontSize = 18; // Базовый размер шрифта
+      const screenHeight = window.innerHeight;
+      const maxFontSize = baseFontSize;
+      const minFontSize = 12;
+      const scaleFactor = Math.min(1, screenHeight / 500);
+      const newFontSize = Math.max(minFontSize, maxFontSize * scaleFactor);
+      setFontSize(`${newFontSize}px`);
+    };
+
+    updateFontSize();
+
+    window.addEventListener("resize", updateFontSize);
+    return () => window.removeEventListener("resize", updateFontSize);
+  }, []);
 
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
@@ -185,7 +196,7 @@ export default function Navbar() {
         <div
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
           style={{
-            fontSize: calculateFontSize(),
+            fontSize: fontSize,
             maxHeight: `calc(100vh - 80px)`,
             overflowY: "hidden", // Убираем скролл
           }}
@@ -221,12 +232,13 @@ export default function Navbar() {
                 />
               </button>
               {isSubMenuOpen && (
-                <div className="submenu mt-2 space-y-3 w-full mb-4"> {/* Увеличен отступ между кнопками */}
+                <div className="submenu mt-2 space-y-3 w-full mb-4">
+                  {/* Увеличен отступ между кнопками */}
                   <a
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-ozon flex items-center justify-center w-11/12 mx-auto px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors" // Уменьшена ширина
+                    className="btn-ozon flex items-center justify-center w-10/12 mx-auto px-4 py-2 rounded-lg hover:bg-blue-500 transition-colors"
                   >
                     <img
                       src="/images/logos/favicon.ico"
@@ -240,7 +252,7 @@ export default function Navbar() {
                     href="https://market.yandex.ru/business--smartdiag/50025236"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-yandex flex items-center justify-center w-11/12 mx-auto px-4 py-2 rounded-lg hover:bg-orange-500 transition-colors" // Уменьшена ширина
+                    className="btn-yandex flex items-center justify-center w-10/12 mx-auto px-4 py-2 rounded-lg hover:bg-orange-500 transition-colors"
                   >
                     <img
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
@@ -254,7 +266,7 @@ export default function Navbar() {
                     href="https://www.wildberries.ru/seller/1343369"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-wildberries flex items-center justify-center w-11/12 mx-auto px-4 py-2 rounded-lg hover:bg-purple-500 transition-colors" // Уменьшена ширина
+                    className="btn-wildberries flex items-center justify-center w-10/12 mx-auto px-4 py-2 rounded-lg hover:bg-purple-500 transition-colors"
                   >
                     <img
                       src="https://www.wildberries.ru/favicon.ico"
