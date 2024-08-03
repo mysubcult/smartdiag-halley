@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 
 const products = [
@@ -248,6 +248,21 @@ export default function Soft() {
   const [billingInterval, setBillingInterval] = useState<BillingInterval>(
     "month"
   );
+
+  // State to control visibility for the animation effect
+  const [visibleProducts, setVisibleProducts] = useState<BillingInterval>(
+    "month"
+  );
+
+  useEffect(() => {
+    // Delay the appearance to ensure a smooth transition
+    const timeoutId = setTimeout(() => {
+      setVisibleProducts(billingInterval);
+    }, 100); // 100ms delay
+
+    return () => clearTimeout(timeoutId);
+  }, [billingInterval]);
+
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
@@ -321,73 +336,73 @@ export default function Soft() {
             docsLabel,
           }) => {
             return (
-              <>
-                {billingInterval === frecuency ? (
-                  <div
-                    key={title}
-                    className={`opacity-0 transform transition-all duration-500 ease-in-out hover:opacity-100 rounded-lg py-8 relative flex flex-col ${
+              <div
+                key={title}
+                className={`transform transition-opacity duration-500 ease-in-out ${
+                  visibleProducts === frecuency
+                    ? "opacity-100 scale-100"
+                    : "opacity-0 scale-95 pointer-events-none"
+                } rounded-lg py-8 relative flex flex-col ${
+                  mostPopular
+                    ? "border-red-300 border-2 border-solid dark:border-red-600"
+                    : "border-neutral-300 border dark:border-neutral-600"
+                } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg`}
+              >
+                <h3 className="px-6 text-lg font-semibold leading-5">
+                  {title}
+                </h3>
+                {mostPopular && (
+                  <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600  rounded-full text-sm font-semibold tracking-wide shadow-md">
+                    Топ продаж
+                  </p>
+                )}
+
+                <p className="px-6 mt-4 leading-6 dark:text-neutral-400">
+                  {description}
+                </p>
+                <div className="flex mt-4 mx-6">
+                  {/* Call to action */}
+                  <Link
+                    href={href}
+                    target="_blank"
+                    className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
                       mostPopular
-                        ? "border-red-300 border-2 border-solid dark:border-red-600"
-                        : "border-neutral-300 border dark:border-neutral-600"
-                    } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
+                        ? "bg-red-600 text-white shadow-md hover:bg-green-500"
+                        : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
+                    } transition-transform duration-300 ease-in-out transform active:scale-95 w-full`}
                   >
-                    <h3 className="px-6 text-lg font-semibold leading-5">
-                      {title}
-                    </h3>
-                    {mostPopular && (
-                      <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600  rounded-full text-sm font-semibold tracking-wide shadow-md">
-                        Топ продаж
-                      </p>
-                    )}
+                    {cta}
+                  </Link>
 
-                    <p className="px-6 mt-4 leading-6 dark:text-neutral-400">
-                      {description}
-                    </p>
-                    <div className="flex mt-4 mx-6">
-                      {/* Call to action */}
-                      <Link
-                        href={href}
-                        target="_blank"
-                        className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
-                          mostPopular
-                            ? "bg-red-600 text-white shadow-md hover:bg-green-500"
-                            : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
-                        } transition-transform duration-300 ease-in-out transform active:scale-95 w-full`}
-                      >
-                        {cta}
-                      </Link>
-
-                      {docs && (
-                        <Link
-                          href={docsLink}
-                          target="_blank"
-                          className={`ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg ${
-                            mostPopular
-                              ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
-                              : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
-                          } border-neutral-300 border dark:border-neutral-600 transition-transform duration-300 ease-in-out transform active:scale-95 w-full`}
-                        >
-                          {docsLabel}
-                        </Link>
-                      )}
-                    </div>
-                    {/* features */}
-                    <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
-                      <p className="mt-6 font-semibold dark:text-neutral-300">
-                        В комплекте:
-                      </p>
-                      {features.map((features) => (
-                        <li key={features} className="leading-6 flex">
-                          <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
-                          <span className="ml-3 dark:text-neutral-400">
-                            {features}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-              </>
+                  {docs && (
+                    <Link
+                      href={docsLink}
+                      target="_blank"
+                      className={`ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg ${
+                        mostPopular
+                          ? "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
+                          : "bg-transparent text-black shadow-md dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 hover:text-black"
+                      } border-neutral-300 border dark:border-neutral-600 transition-transform duration-300 ease-in-out transform active:scale-95 w-full`}
+                    >
+                      {docsLabel}
+                    </Link>
+                  )}
+                </div>
+                {/* features */}
+                <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
+                  <p className="mt-6 font-semibold dark:text-neutral-300">
+                    В комплекте:
+                  </p>
+                  {features.map((features) => (
+                    <li key={features} className="leading-6 flex">
+                      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
+                      <span className="ml-3 dark:text-neutral-400">
+                        {features}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             );
           }
         )}
