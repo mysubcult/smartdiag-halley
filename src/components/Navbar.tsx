@@ -25,27 +25,27 @@ export default function Navbar() {
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
-      if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('#')) {
+      if (target.tagName === "A" && target.getAttribute("href")?.startsWith("#")) {
         event.preventDefault();
-        const anchor = document.querySelector(target.getAttribute('href')!);
+        const anchor = document.querySelector(target.getAttribute("href")!);
         if (anchor) {
-          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          anchor.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       }
     };
 
-    document.addEventListener('click', handleSmoothScroll);
+    document.addEventListener("click", handleSmoothScroll);
 
     return () => {
-      document.removeEventListener('click', handleSmoothScroll);
+      document.removeEventListener("click", handleSmoothScroll);
     };
   }, []);
 
   const handleLogoClick = (event: React.MouseEvent) => {
     event.preventDefault();
-    const heroAnchor = document.querySelector('#hero'); // Correctly select the hero section
+    const heroAnchor = document.querySelector("#hero"); // Correctly select the hero section
     if (heroAnchor) {
-      heroAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      heroAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -60,7 +60,8 @@ export default function Navbar() {
             <div className="relative flex h-16 items-center justify-between">
               <div className="flex flex-1 items-center justify-start">
                 <div className="flex flex-shrink-0 items-center md:pl-0">
-                  <a href="#hero" onClick={handleLogoClick}> {/* Use #hero here */}
+                  <a href="#hero" onClick={handleLogoClick}>
+                    {/* Use #hero here */}
                     <Image
                       className="block h-12 w-auto logo-animation" // Add class for animation
                       src="/images/logos/logo.png"
@@ -74,9 +75,7 @@ export default function Navbar() {
                 </div>
 
                 {/* Navbar links visible only on larger screens */}
-                <div
-                  className="hidden lg:flex navbar-nav"
-                >
+                <div className="hidden lg:flex navbar-nav">
                   <div className="flex space-x-5 items-center">
                     {navigation.map((item) => (
                       <a
@@ -151,19 +150,20 @@ export default function Navbar() {
 
                 <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
                   {/* Always show the menu button on mobile */}
-                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white ">
+                  <Disclosure.Button
+                    className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white"
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  >
                     <span className="sr-only">Open main menu</span>
                     {open || isMenuOpen ? (
                       <XMarkIcon
-                        className="block h-6 w-6"
+                        className="block h-6 w-6 menu-icon menu-icon-open" // Добавляем класс
                         aria-hidden="true"
-                        onClick={() => setIsMenuOpen(false)}
                       />
                     ) : (
                       <Bars3Icon
-                        className="block h-6 w-6"
+                        className="block h-6 w-6 menu-icon" // Добавляем класс
                         aria-hidden="true"
-                        onClick={() => setIsMenuOpen(true)}
                       />
                     )}
                   </Disclosure.Button>
@@ -172,7 +172,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <Disclosure.Panel className="lg:hidden">
+          <Disclosure.Panel className="lg:hidden mobile-menu">
             <div className="space-y-1 px-4 min-h-screen border-t border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900">
               {navigation.map((item) => (
                 <Disclosure.Button
@@ -186,6 +186,7 @@ export default function Navbar() {
                     "block py-4 text-base font-medium border-b border-neutral-200 dark:border-neutral-700"
                   )}
                   aria-current={item.current ? "page" : undefined}
+                  onClick={() => setIsMenuOpen(false)} // Закрыть меню и вернуть значок меню
                 >
                   {item.name}
                 </Disclosure.Button>
