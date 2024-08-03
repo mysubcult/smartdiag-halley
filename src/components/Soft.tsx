@@ -330,7 +330,7 @@ export default function Soft() {
                       mostPopular
                         ? "border-red-300 border-2 border-solid dark:border-red-600"
                         : "border-neutral-300 border dark:border-neutral-600"
-                    } hover:bg-white dark:hover:bg-neutral-800 transition-colors duration-300`}
+                    } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
                   >
                     <h3 className="px-6 text-lg font-semibold leading-5">
                       {title}
