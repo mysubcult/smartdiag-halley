@@ -209,8 +209,6 @@ export default function Navbar() {
             fontSize: fontSize,
             maxHeight: `calc(100vh - 16px)`, // Динамическая высота с одинаковыми отступами
             overflowY: "auto", // Разрешаем скролл, если необходимо
-            marginTop: "8px",
-            marginBottom: "8px",
           }}
         >
           <div className="flex flex-col items-center justify-center space-y-4">
@@ -231,10 +229,9 @@ export default function Navbar() {
               </a>
             ))}
             <div className="flex flex-col items-center w-full mb-4">
-              {/* Отступ снизу */}
               <button
                 onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                className="btn-submenu-toggle flex items-center justify-center py-2 text-lg font-medium" // Унификация шрифта
+                className="btn-submenu-toggle flex items-center justify-center py-2 text-lg font-medium"
               >
                 Магазины
                 <ChevronDownIcon
@@ -245,7 +242,6 @@ export default function Navbar() {
               </button>
               {isSubMenuOpen && (
                 <div className="submenu mt-2 space-y-3 w-full mb-4">
-                  {/* Увеличен отступ между кнопками */}
                   <a
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
