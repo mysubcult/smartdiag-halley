@@ -176,6 +176,8 @@ nav .dark\:text-neutral-400:hover {
 .btn-yandex {
   background: linear-gradient(to right, #ffc107, #ff9800);
   color: black;
+  padding: 8px 16px; /* Исправление стиля для добавления отступов */
+  box-sizing: border-box; /* Обеспечение учета отступов в общей ширине */
 }
 
 .btn-yandex:hover {
@@ -214,7 +216,7 @@ nav .dark\:text-neutral-400:hover {
   transform: scale(1.05);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .navbar-nav {
     display: none;
   }
