@@ -97,7 +97,7 @@ export default function Navbar() {
 
         // Проверяем, помещаются ли все элементы навигации
         // Добавим порог в 1024 пикселя для переключения на мобильный вид
-        if (navbarNavRect.width + totalButtonsWidth > window.innerWidth || window.innerWidth <= 1024) {
+        if (navbarNavRect.width + totalButtonsWidth > window.innerWidth || window.innerWidth <= 1200) {
           setIsMobileView(true);
         } else {
           setIsMobileView(false);
