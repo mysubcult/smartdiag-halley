@@ -204,28 +204,30 @@ export default function Navbar() {
             </div>
 
             {/* Кнопка меню появляется, когда isMobileView == true */}
-            <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
-              <button
-                className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                <span className="sr-only">Open main menu</span>
-                <div className="menu-icon-wrapper relative">
-                  <Bars3Icon
-                    className={`h-6 w-6 transition-transform transform ${
-                      isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"
-                    }`}
-                    aria-hidden="true"
-                  />
-                  <XMarkIcon
-                    className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
-                      isMenuOpen ? "rotate-45 opacity-100" : "rotate-0 opacity-0"
-                    }`}
-                    aria-hidden="true"
-                  />
-                </div>
-              </button>
-            </div>
+            {isMobileView && (
+              <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
+                <button
+                  className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                >
+                  <span className="sr-only">Open main menu</span>
+                  <div className="menu-icon-wrapper relative">
+                    <Bars3Icon
+                      className={`h-6 w-6 transition-transform transform ${
+                        isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"
+                      }`}
+                      aria-hidden="true"
+                    />
+                    <XMarkIcon
+                      className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
+                        isMenuOpen ? "rotate-45 opacity-100" : "rotate-0 opacity-0"
+                      }`}
+                      aria-hidden="true"
+                    />
+                  </div>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
