@@ -12,7 +12,6 @@ const navigation = [
   { name: "Обратная связь", href: "#contact", current: false },
 ];
 
-// Utility function to combine class names
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
@@ -22,6 +21,19 @@ export default function Navbar() {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
   const [isMobileView, setIsMobileView] = useState(false);
+
+  // Обработчик для проверки мобильного вида
+  const checkMobileView = () => {
+    const mobileBreakpoint = 1200;
+    setIsMobileView(window.innerWidth <= mobileBreakpoint);
+  };
+
+  useEffect(() => {
+    // Проверяем мобильный вид сразу после монтирования
+    checkMobileView();
+    window.addEventListener("resize", checkMobileView);
+    return () => window.removeEventListener("resize", checkMobileView);
+  }, []);
 
   // Smooth scrolling
   useEffect(() => {
@@ -82,25 +94,6 @@ export default function Navbar() {
     window.addEventListener("resize", updateFontSizeAndHeight);
     return () => window.removeEventListener("resize", updateFontSizeAndHeight);
   }, [isSubMenuOpen]);
-
-  // Handle window resize
-  useEffect(() => {
-    const handleResize = () => {
-      // Пороговое значение ширины окна для переключения на мобильный вид
-      const mobileBreakpoint = 1200;
-
-      if (window.innerWidth <= mobileBreakpoint) {
-        setIsMobileView(true);
-      } else {
-        setIsMobileView(false);
-      }
-    };
-
-    handleResize(); // Initial check
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
@@ -289,6 +282,7 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
+                    style={{ padding: "8px 16px" }} // Применяем отступы здесь
                   >
                     <img
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
