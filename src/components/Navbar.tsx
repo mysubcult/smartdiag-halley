@@ -21,17 +21,22 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
+
+  // Устанавливаем начальное состояние мобильного вида
   const [isMobileView, setIsMobileView] = useState(
     typeof window !== "undefined" && window.innerWidth <= 1200
   );
 
   useEffect(() => {
-    // Устанавливаем начальное состояние мобильного вида
+    // Устанавливаем состояние в момент монтирования компонента
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 1200);
     };
 
     window.addEventListener("resize", handleResize);
+
+    // Убедимся, что состояние обновлено сразу
+    handleResize();
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -141,7 +146,7 @@ export default function Navbar() {
           </div>
 
           {/* Кнопки магазинов, смены темы и меню */}
-          <div className="flex items-center gap-2">
+          <div className={`flex items-center gap-2 ${isMobileView ? "hidden-on-load" : ""}`}>
             {!isMobileView && (
               <>
                 <a
