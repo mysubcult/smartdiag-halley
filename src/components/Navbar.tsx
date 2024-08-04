@@ -95,9 +95,8 @@ export default function Navbar() {
           return acc + button.getBoundingClientRect().width;
         }, 0);
 
-        // Проверяем, помещаются ли все элементы навигации
-        // Добавим порог в 1024 пикселя для переключения на мобильный вид
-        if (navbarNavRect.width + totalButtonsWidth > window.innerWidth || window.innerWidth <= 1200) {
+        // Увеличим порог для переключения на мобильный вид до 1280 пикселей
+        if (navbarNavRect.width + totalButtonsWidth > window.innerWidth || window.innerWidth <= 1280) {
           setIsMobileView(true);
         } else {
           setIsMobileView(false);
