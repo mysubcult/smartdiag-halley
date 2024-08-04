@@ -12,7 +12,6 @@ const navigation = [
   { name: "Обратная связь", href: "#contact", current: false },
 ];
 
-// Utility function to combine class names
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
@@ -22,7 +21,6 @@ export default function Navbar() {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
 
-  // Устанавливаем начальное состояние мобильного вида
   const [isMobileView, setIsMobileView] = useState(
     typeof window !== "undefined" && window.innerWidth <= 1200
   );
@@ -34,7 +32,6 @@ export default function Navbar() {
 
     window.addEventListener("resize", handleResize);
 
-    // Убедимся, что состояние обновлено сразу
     handleResize();
 
     return () => {
@@ -42,7 +39,6 @@ export default function Navbar() {
     };
   }, []);
 
-  // Smooth scrolling
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -74,18 +70,16 @@ export default function Navbar() {
     }
   };
 
-  // Dynamic font size and height
   useEffect(() => {
     const updateFontSizeAndHeight = () => {
-      const baseFontSize = 18; // Базовый размер шрифта
+      const baseFontSize = 18;
       const screenHeight = window.innerHeight;
       const maxFontSize = baseFontSize;
       const minFontSize = 14;
 
-      // Рассчитать коэффициент уменьшения шрифта на основе высоты экрана и количества элементов меню
-      const maxMenuHeight = screenHeight - 64; // Высота меню с учетом отступов
-      const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length; // +3 для подменю
-      const requiredHeight = itemsCount * 48; // 48px на каждый элемент (включая padding и margin)
+      const maxMenuHeight = screenHeight - 64;
+      const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length;
+      const requiredHeight = itemsCount * 48;
 
       const scaleFactor = maxMenuHeight / requiredHeight;
       const newFontSize = Math.max(
@@ -121,7 +115,6 @@ export default function Navbar() {
               </a>
             </div>
 
-            {/* Горизонтальное меню навигации */}
             <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
@@ -144,7 +137,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Кнопки магазинов, смены темы и меню */}
           <div className="flex items-center gap-2">
             {!isMobileView && (
               <>
@@ -198,10 +190,8 @@ export default function Navbar() {
               </>
             )}
 
-            {/* Кнопка смены темы */}
             <ThemeSwitchButton />
 
-            {/* Кнопка меню появляется, когда isMobileView == true */}
             {isMobileView && (
               <div className="flex items-center">
                 <button
@@ -230,16 +220,15 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Popup Menu */}
       {isMenuOpen && (
         <div
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
           style={{
             fontSize: fontSize,
-            maxHeight: `calc(100vh - 128px)`, // Динамическая высота с учетом отступов сверху и снизу
-            overflowY: "auto", // Разрешаем скролл, если необходимо
-            paddingTop: "24px", // Отступ сверху
-            paddingBottom: "24px", // Отступ снизу
+            maxHeight: `calc(100vh - 128px)`,
+            overflowY: "auto",
+            paddingTop: "8px",
+            paddingBottom: "8px",
           }}
         >
           <div className="flex flex-col items-center justify-center space-y-4">
@@ -254,7 +243,7 @@ export default function Navbar() {
                   "block py-2 text-lg font-medium hover:text-red-500"
                 )}
                 aria-current={item.current ? "page" : undefined}
-                onClick={() => setIsMenuOpen(false)} // Убедитесь, что меню можно повторно открыть
+                onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
               </a>
