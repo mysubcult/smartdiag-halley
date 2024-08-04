@@ -217,15 +217,20 @@ nav .dark\:text-neutral-400:hover {
   transform: scale(1.05);
 }
 
+/* Скрыть кнопки магазинов при загрузке на мобильных экранах */
 @media (max-width: 1200px) {
   .navbar-nav {
     display: none;
   }
 
-  .nav-link,
+  /* Скрываем кнопки магазинов по умолчанию для мобильных экранов */
   .btn-ozon,
   .btn-yandex,
   .btn-wildberries {
+    display: none; /* Скрываем кнопки магазинов */
+  }
+
+  .nav-link {
     width: 100%;
     text-align: center;
     padding: 10px 0;
