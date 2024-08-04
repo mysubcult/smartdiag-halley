@@ -118,7 +118,7 @@ nav .dark\:text-neutral-400:hover {
   overflow: hidden;
   display: inline-block;
   transition: color 0.3s ease;
-  font-size: 14px;
+  font-size: var(--font-size);
   margin-left: 15px;
 }
 
@@ -156,7 +156,7 @@ nav .dark\:text-neutral-400:hover {
   position: relative;
   overflow: hidden;
   border: none;
-  font-size: 14px; /* Увеличенный шрифт для десктопной версии */
+  font-size: var(--font-size); /* Увеличенный шрифт для десктопной версии */
   max-width: 150px; /* Увеличена максимальная ширина для десктопной версии */
   white-space: nowrap;
 }
@@ -223,7 +223,7 @@ nav .dark\:text-neutral-400:hover {
 @media (max-width: 1024px) {
   .nav-link {
     padding: 5px 8px;
-    font-size: 12px;
+    font-size: var(--font-size);
     margin-left: 5px;
   }
 
@@ -231,7 +231,7 @@ nav .dark\:text-neutral-400:hover {
   .btn-yandex,
   .btn-wildberries {
     padding: 8px 16px; /* Увеличенные отступы для кнопок в мобильной версии */
-    font-size: 14px; /* Увеличенный шрифт в мобильной версии */
+    font-size: var(--font-size); /* Увеличенный шрифт в мобильной версии */
     width: 85%; /* Уже ширина кнопок в мобильной версии */
     max-width: 200px; /* Ограничение ширины для кнопок магазинов в мобильной версии */
     margin: 0 auto; /* Центрируем кнопки */
