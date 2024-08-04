@@ -93,11 +93,11 @@ export default function Navbar() {
         const navbarNavRect = navbarNav.getBoundingClientRect();
         const buttonsRect = buttons[0].getBoundingClientRect();
 
-        // Добавляем буфер для переключения в мобильный режим
-        const buffer = 20; // Буфер для переключения
+        // Вычисляем доступное пространство для панели навигации
+        const availableWidth = window.innerWidth - buttonsRect.width * 3 - 40; // 40 - padding/margin buffer
 
-        // Если меню начинает "наезжать" на кнопки, переключаемся в мобильный режим
-        if (navbarNavRect.right + buffer > buttonsRect.left) {
+        // Проверяем, помещаются ли все элементы навигации
+        if (navbarNavRect.width > availableWidth) {
           setIsMobileView(true);
         } else {
           setIsMobileView(false);
@@ -130,7 +130,8 @@ export default function Navbar() {
               </a>
             </div>
 
-            <div className={`hidden ${isMobileView ? "" : "lg:flex"} navbar-nav`}>
+            {/* Приводим логику к более интуитивному виду */}
+            <div className={`${isMobileView ? "hidden" : "lg:flex"} navbar-nav`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
                   <a
@@ -156,7 +157,7 @@ export default function Navbar() {
                 href="https://www.ozon.ru/seller/smartdiag-862410/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden lg:block"
+                className={`${isMobileView ? "hidden" : "lg:block"}`} // Скрываем кнопки в мобильном
               >
                 <button className="btn-ozon">
                   <img
@@ -172,7 +173,7 @@ export default function Navbar() {
                 href="https://market.yandex.ru/business--smartdiag/50025236"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden lg:block"
+                className={`${isMobileView ? "hidden" : "lg:block"}`} // Скрываем кнопки в мобильном
               >
                 <button className="btn-yandex">
                   <img
@@ -188,7 +189,7 @@ export default function Navbar() {
                 href="https://www.wildberries.ru/seller/1343369"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden lg:block"
+                className={`${isMobileView ? "hidden" : "lg:block"}`} // Скрываем кнопки в мобильном
               >
                 <button className="btn-wildberries">
                   <img
