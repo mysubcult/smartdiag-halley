@@ -148,7 +148,7 @@ nav .dark\:text-neutral-400:hover {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 4px 8px; /* Стандартные отступы для десктопной версии */
+  padding: 8px 12px; /* Увеличенные отступы для десктопной версии */
   border-radius: 20px;
   font-weight: bold;
   transition: all 0.3s ease-in-out;
@@ -156,9 +156,9 @@ nav .dark\:text-neutral-400:hover {
   position: relative;
   overflow: hidden;
   border: none;
-  font-size: 10px; /* Стандартный шрифт для десктопной версии */
-  max-width: 120px; /* Уменьшена максимальная ширина для десктопной версии */
-  white-space: nowrap; /* Избегаем переноса текста */
+  font-size: 14px; /* Увеличенный шрифт для десктопной версии */
+  max-width: 150px; /* Увеличена максимальная ширина для десктопной версии */
+  white-space: nowrap;
 }
 
 .btn-ozon {
@@ -192,6 +192,13 @@ nav .dark\:text-neutral-400:hover {
   background: linear-gradient(to right, #673ab7, #9c27b0);
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.btn-ozon img,
+.btn-yandex img,
+.btn-wildberries img {
+  width: 20px; /* Фиксированный размер иконок */
+  height: 20px;
 }
 
 .navbar-nav {
