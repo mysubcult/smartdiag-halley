@@ -12,6 +12,7 @@ const navigation = [
   { name: "Обратная связь", href: "#contact", current: false },
 ];
 
+// Utility function to combine class names
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
@@ -20,19 +21,23 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
-  const [isMobileView, setIsMobileView] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(
+    typeof window !== "undefined" ? window.innerWidth <= 1200 : false
+  );
 
-  // Обработчик для проверки мобильного вида
-  const checkMobileView = () => {
-    const mobileBreakpoint = 1200;
-    setIsMobileView(window.innerWidth <= mobileBreakpoint);
-  };
-
+  // Установка слушателя событий только на монтирование компонента
   useEffect(() => {
-    // Проверяем мобильный вид сразу после монтирования
-    checkMobileView();
-    window.addEventListener("resize", checkMobileView);
-    return () => window.removeEventListener("resize", checkMobileView);
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 1200);
+    };
+
+    // Добавляем слушатель события resize
+    window.addEventListener("resize", handleResize);
+
+    // Удаляем слушатель при размонтировании компонента
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   // Smooth scrolling
@@ -282,7 +287,6 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
-                    style={{ padding: "8px 16px" }} // Применяем отступы здесь
                   >
                     <img
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
