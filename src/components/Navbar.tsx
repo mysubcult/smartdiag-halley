@@ -20,7 +20,6 @@ function classNames(...classes: string[]): string {
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
-  const [fontSize, setFontSize] = useState("18px");
   const [isMobileView, setIsMobileView] = useState(false);
 
   // Smooth scrolling
@@ -74,7 +73,8 @@ export default function Navbar() {
         maxFontSize * Math.min(scaleFactor, 1)
       );
 
-      setFontSize(`${newFontSize}px`);
+      // Обновляем размер шрифта
+      document.documentElement.style.setProperty('--font-size', `${newFontSize}px`);
     };
 
     updateFontSizeAndHeight();
@@ -87,7 +87,7 @@ export default function Navbar() {
   useEffect(() => {
     const handleResize = () => {
       const navbarNav = document.querySelector(".navbar-nav");
-      const buttonsContainer = document.querySelector(".navbar .flex.items-center.gap-2");
+      const buttonsContainer = document.querySelector(".navbar .buttons-container");
       const buttons = document.querySelectorAll(".btn-ozon, .btn-yandex, .btn-wildberries");
 
       if (navbarNav && buttons.length && buttonsContainer) {
@@ -149,7 +149,7 @@ export default function Navbar() {
               </div>
             </div>
 
-            <div className="absolute inset-y-0 right-10 lg:right-0 flex items-center gap-2">
+            <div className="absolute inset-y-0 right-10 lg:right-0 flex items-center gap-2 buttons-container">
               <a
                 href="https://www.ozon.ru/seller/smartdiag-862410/"
                 target="_blank"
@@ -232,7 +232,7 @@ export default function Navbar() {
         <div
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
           style={{
-            fontSize: fontSize,
+            fontSize: 'var(--font-size)',
             maxHeight: `calc(100vh - 128px)`, // Динамическая высота с учетом отступов сверху и снизу
             overflowY: "auto", // Разрешаем скролл, если необходимо
             paddingTop: "24px", // Отступ сверху
