@@ -25,7 +25,8 @@ export default function Navbar() {
 
   useEffect(() => {
     // Устанавливаем начальное состояние мобильного вида
-    const initialMobileView = typeof window !== "undefined" && window.innerWidth <= 1200;
+    const initialMobileView =
+      typeof window !== "undefined" && window.innerWidth <= 1200;
     setIsMobileView(initialMobileView);
 
     const handleResize = () => {
@@ -104,7 +105,7 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
-            <div className="flex flex-shrink-0 items-center md:pl-0">
+            <div className="flex flex-shrink-0 items-center">
               <a href="#hero" onClick={handleLogoClick}>
                 <Image
                   className="block h-12 w-auto logo-animation"
@@ -139,89 +140,90 @@ export default function Navbar() {
                 ))}
               </div>
             </div>
+          </div>
 
-            {/* Кнопки магазинов и смены темы */}
-            <div className="absolute inset-y-0 right-10 flex items-center gap-2">
-              {!isMobileView && (
-                <>
-                  <a
-                    href="https://www.ozon.ru/seller/smartdiag-862410/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <button className="btn-ozon">
-                      <img
-                        src="/images/logos/favicon.ico"
-                        alt="OZON"
-                        className="w-5 h-5"
-                      />
-                      OZON
-                    </button>
-                  </a>
-
-                  <a
-                    href="https://market.yandex.ru/business--smartdiag/50025236"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <button className="btn-yandex">
-                      <img
-                        src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                        alt="Яндекс Маркет"
-                        className="w-5 h-5"
-                      />
-                      Яндекс Маркет
-                    </button>
-                  </a>
-
-                  <a
-                    href="https://www.wildberries.ru/seller/1343369"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <button className="btn-wildberries">
-                      <img
-                        src="https://www.wildberries.ru/favicon.ico"
-                        alt="Wildberries"
-                        className="w-5 h-5"
-                      />
-                      Wildberries
-                    </button>
-                  </a>
-
-                  <ThemeSwitchButton />
-                </>
-              )}
-
-              {/* Кнопка меню появляется, когда isMobileView == true */}
-              {isMobileView && (
-                <div className="flex items-center">
-                  <button
-                    className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  >
-                    <span className="sr-only">Open main menu</span>
-                    <div className="menu-icon-wrapper relative">
-                      <Bars3Icon
-                        className={`h-6 w-6 transition-transform transform ${
-                          isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"
-                        }`}
-                        aria-hidden="true"
-                      />
-                      <XMarkIcon
-                        className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
-                          isMenuOpen ? "rotate-45 opacity-100" : "rotate-0 opacity-0"
-                        }`}
-                        aria-hidden="true"
-                      />
-                    </div>
+          {/* Кнопки магазинов, смены темы и меню */}
+          <div className="flex items-center gap-2">
+            {!isMobileView && (
+              <>
+                <a
+                  href="https://www.ozon.ru/seller/smartdiag-862410/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <button className="btn-ozon">
+                    <img
+                      src="/images/logos/favicon.ico"
+                      alt="OZON"
+                      className="w-5 h-5"
+                    />
+                    OZON
                   </button>
-                </div>
-              )}
-            </div>
+                </a>
+
+                <a
+                  href="https://market.yandex.ru/business--smartdiag/50025236"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <button className="btn-yandex">
+                    <img
+                      src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                      alt="Яндекс Маркет"
+                      className="w-5 h-5"
+                    />
+                    Яндекс Маркет
+                  </button>
+                </a>
+
+                <a
+                  href="https://www.wildberries.ru/seller/1343369"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <button className="btn-wildberries">
+                    <img
+                      src="https://www.wildberries.ru/favicon.ico"
+                      alt="Wildberries"
+                      className="w-5 h-5"
+                    />
+                    Wildberries
+                  </button>
+                </a>
+              </>
+            )}
+
+            {/* Кнопка смены темы */}
+            <ThemeSwitchButton />
+
+            {/* Кнопка меню появляется, когда isMobileView == true */}
+            {isMobileView && (
+              <div className="flex items-center">
+                <button
+                  className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                >
+                  <span className="sr-only">Open main menu</span>
+                  <div className="menu-icon-wrapper relative">
+                    <Bars3Icon
+                      className={`h-6 w-6 transition-transform transform ${
+                        isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"
+                      }`}
+                      aria-hidden="true"
+                    />
+                    <XMarkIcon
+                      className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
+                        isMenuOpen ? "rotate-45 opacity-100" : "rotate-0 opacity-0"
+                      }`}
+                      aria-hidden="true"
+                    />
+                  </div>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
