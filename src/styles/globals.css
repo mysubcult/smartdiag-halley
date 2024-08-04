@@ -118,7 +118,7 @@ nav .dark\:text-neutral-400:hover {
   overflow: hidden;
   display: inline-block;
   transition: color 0.3s ease;
-  font-size: 14px; /* Вернули фиксированный размер шрифта */
+  font-size: 14px; /* Размер шрифта для пунктов меню */
   margin-left: 15px;
 }
 
@@ -148,7 +148,7 @@ nav .dark\:text-neutral-400:hover {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 4px 8px; /* Уменьшили отступы для кнопок */
+  padding: 4px 8px;
   border-radius: 20px;
   font-weight: bold;
   transition: all 0.3s ease-in-out;
@@ -156,8 +156,8 @@ nav .dark\:text-neutral-400:hover {
   position: relative;
   overflow: hidden;
   border: none;
-  font-size: 12px; /* Уменьшили размер шрифта для кнопок */
-  max-width: 120px; /* Ограничили максимальную ширину для кнопок */
+  font-size: 12px; /* Размер шрифта для кнопок магазинов */
+  max-width: 120px; /* Максимальная ширина кнопок магазинов */
   white-space: nowrap;
 }
 
@@ -197,7 +197,7 @@ nav .dark\:text-neutral-400:hover {
 .btn-ozon img,
 .btn-yandex img,
 .btn-wildberries img {
-  width: 16px; /* Уменьшили размер иконок */
+  width: 16px; /* Размер иконок */
   height: 16px;
 }
 
