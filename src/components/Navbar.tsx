@@ -87,11 +87,12 @@ export default function Navbar() {
   useEffect(() => {
     const handleResize = () => {
       const navbarNav = document.querySelector(".navbar-nav");
+      const buttonsContainer = document.querySelector(".navbar .flex.items-center.gap-2");
       const buttons = document.querySelectorAll(".btn-ozon, .btn-yandex, .btn-wildberries");
 
-      if (navbarNav && buttons.length) {
+      if (navbarNav && buttons.length && buttonsContainer) {
         const navbarNavRect = navbarNav.getBoundingClientRect();
-        const buttonsRect = buttons[0].getBoundingClientRect();
+        const buttonsRect = buttonsContainer.getBoundingClientRect();
 
         // Если меню начинает "наезжать" на кнопки, переключаемся в мобильный режим
         if (navbarNavRect.right > buttonsRect.left) {
