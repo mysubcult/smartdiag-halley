@@ -95,8 +95,9 @@ export default function Navbar() {
           return acc + button.getBoundingClientRect().width;
         }, 0);
 
-        // Увеличим порог для переключения на мобильный вид до 1280 пикселей
-        if (navbarNavRect.width + totalButtonsWidth > window.innerWidth || window.innerWidth <= 1280) {
+        // Корректировка условия для переключения на мобильный вид
+        // Изменение условия на ширину 1100px для перехода на мобильный вид
+        if (navbarNavRect.width + totalButtonsWidth > window.innerWidth - 80 || window.innerWidth <= 1100) {
           setIsMobileView(true);
         } else {
           setIsMobileView(false);
