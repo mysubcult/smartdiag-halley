@@ -27,10 +27,10 @@ export function Hero() {
                   Программы для приборов
                   <span className="icon-container ml-2">
                     <svg
-                      className="icon w-6 h-6"
+                      className="icon"
                       xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
+                      width="14" /* Изменено значение */
+                      height="14" /* Изменено значение */
                       fill="currentColor"
                       viewBox="0 0 16 16"
                     >
@@ -87,6 +87,8 @@ export function Hero() {
         }
 
         .icon {
+          width: 14px; /* Уменьшенный размер иконки */
+          height: 14px; /* Уменьшенный размер иконки */
           transition: transform 1s ease; /* Плавная анимация */
           color: currentColor; /* Использует цвет текста кнопки */
         }
