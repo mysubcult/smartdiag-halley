@@ -246,8 +246,9 @@ nav .dark\:text-neutral-400:hover {
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 16px; /* Увеличена радиус скругления */
-    padding-top: 8px; /* Отступ сверху для меню, равный отступам между кнопками */
-    padding-bottom: 8px; /* Отступ снизу для меню, равный отступам между кнопками */
+    padding-top: 16px; /* Отступ сверху для меню */
+    padding-bottom: 16px; /* Отступ снизу для меню */
+    gap: 16px; /* Общий отступ между элементами меню */
   }
 
   .submenu a {
@@ -313,7 +314,7 @@ nav .dark\:text-neutral-400:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px; /* Увеличен отступ между пунктами меню */
-  margin-top: 8px; /* Отступ сверху */
-  margin-bottom: 8px; /* Отступ снизу */
+  gap: 16px; /* Увеличен отступ между пунктами меню */
+  margin-top: 16px; /* Отступ сверху */
+  margin-bottom: 16px; /* Отступ снизу */
 }
