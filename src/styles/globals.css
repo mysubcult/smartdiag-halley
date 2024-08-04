@@ -246,8 +246,8 @@ nav .dark\:text-neutral-400:hover {
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 16px; /* Увеличена радиус скругления */
-    padding-top: 24px; /* Отступ сверху для меню */
-    padding-bottom: 24px; /* Отступ снизу для меню */
+    padding-top: 8px; /* Отступ сверху для меню, равный отступам между кнопками */
+    padding-bottom: 8px; /* Отступ снизу для меню, равный отступам между кнопками */
   }
 
   .submenu a {
