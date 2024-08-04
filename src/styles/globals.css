@@ -148,7 +148,7 @@ nav .dark\:text-neutral-400:hover {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 4px 8px; /* Стандартные отступы для десктопной версии */
+  padding: 8px 16px; /* Увеличены внутренние отступы */
   border-radius: 20px;
   font-weight: bold;
   transition: all 0.3s ease-in-out;
@@ -156,10 +156,10 @@ nav .dark\:text-neutral-400:hover {
   position: relative;
   overflow: hidden;
   border: none;
-  font-size: 10px; /* Стандартный шрифт для десктопной версии */
-  max-width: 120px; /* Уменьшена максимальная ширина для десктопной версии */
+  font-size: 12px; /* Увеличен шрифт для десктопной версии */
+  max-width: 140px; /* Увеличена максимальная ширина для десктопной версии */
   white-space: nowrap; /* Избегаем переноса текста */
-  width: auto; /* Убираем фиксированную ширину */
+  width: auto;
 }
 
 .btn-ozon {
