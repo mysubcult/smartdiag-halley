@@ -22,6 +22,23 @@ export default function Navbar() {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
 
+  const handleResize = () => {
+    const navbarNav = document.querySelector(".navbar-nav");
+    const buttonsContainer = document.querySelector(".navbar .buttons-container");
+
+    if (navbarNav && buttonsContainer) {
+      const navbarNavRect = navbarNav.getBoundingClientRect();
+      const buttonsRect = buttonsContainer.getBoundingClientRect();
+
+      // Проверяем, помещаются ли элементы на панели
+      if (navbarNavRect.right > buttonsRect.left) {
+        setIsMobileView(true);
+      } else {
+        setIsMobileView(false);
+      }
+    }
+  };
+
   // Smooth scrolling
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
@@ -40,9 +57,14 @@ export default function Navbar() {
     };
 
     document.addEventListener("click", handleSmoothScroll);
+    window.addEventListener("resize", handleResize);
+
+    // Initial check
+    handleResize();
 
     return () => {
       document.removeEventListener("click", handleSmoothScroll);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -53,61 +75,6 @@ export default function Navbar() {
       heroAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
-
-  // Dynamic font size and height
-  useEffect(() => {
-    const updateFontSizeAndHeight = () => {
-      const baseFontSize = 18; // Базовый размер шрифта
-      const screenHeight = window.innerHeight;
-      const maxFontSize = baseFontSize;
-      const minFontSize = 14;
-
-      // Рассчитать коэффициент уменьшения шрифта на основе высоты экрана и количества элементов меню
-      const maxMenuHeight = screenHeight - 64; // Высота меню с учетом отступов
-      const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length; // +3 для подменю
-      const requiredHeight = itemsCount * 48; // 48px на каждый элемент (включая padding и margin)
-
-      const scaleFactor = maxMenuHeight / requiredHeight;
-      const newFontSize = Math.max(
-        minFontSize,
-        maxFontSize * Math.min(scaleFactor, 1)
-      );
-
-      // Обновляем размер шрифта
-      document.documentElement.style.setProperty('--font-size', `${newFontSize}px`);
-    };
-
-    updateFontSizeAndHeight();
-
-    window.addEventListener("resize", updateFontSizeAndHeight);
-    return () => window.removeEventListener("resize", updateFontSizeAndHeight);
-  }, [isSubMenuOpen]);
-
-  // Handle window resize
-  useEffect(() => {
-    const handleResize = () => {
-      const navbarNav = document.querySelector(".navbar-nav");
-      const buttonsContainer = document.querySelector(".navbar .buttons-container");
-      const buttons = document.querySelectorAll(".btn-ozon, .btn-yandex, .btn-wildberries");
-
-      if (navbarNav && buttons.length && buttonsContainer) {
-        const navbarNavRect = navbarNav.getBoundingClientRect();
-        const buttonsRect = buttonsContainer.getBoundingClientRect();
-
-        // Если меню начинает "наезжать" на кнопки, переключаемся в мобильный режим
-        if (navbarNavRect.right > buttonsRect.left) {
-          setIsMobileView(true);
-        } else {
-          setIsMobileView(false);
-        }
-      }
-    };
-
-    handleResize(); // Initial check
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
@@ -128,7 +95,8 @@ export default function Navbar() {
               </a>
             </div>
 
-            <div className={`hidden ${isMobileView ? "" : "lg:flex"} navbar-nav`}>
+            {/* Навигация: скрыта в мобильной версии */}
+            <div className={`hidden lg:flex navbar-nav ${isMobileView ? "hidden" : "flex"}`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
                   <a
@@ -149,12 +117,13 @@ export default function Navbar() {
               </div>
             </div>
 
+            {/* Кнопки магазинов */}
             <div className="absolute inset-y-0 right-10 lg:right-0 flex items-center gap-2 buttons-container">
               <a
                 href="https://www.ozon.ru/seller/smartdiag-862410/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden lg:block"
+                className={`hidden lg:block ${isMobileView ? "hidden" : ""}`}
               >
                 <button className="btn-ozon">
                   <img
@@ -170,7 +139,7 @@ export default function Navbar() {
                 href="https://market.yandex.ru/business--smartdiag/50025236"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden lg:block"
+                className={`hidden lg:block ${isMobileView ? "hidden" : ""}`}
               >
                 <button className="btn-yandex">
                   <img
@@ -186,7 +155,7 @@ export default function Navbar() {
                 href="https://www.wildberries.ru/seller/1343369"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden lg:block"
+                className={`hidden lg:block ${isMobileView ? "hidden" : ""}`}
               >
                 <button className="btn-wildberries">
                   <img
@@ -201,6 +170,7 @@ export default function Navbar() {
               <ThemeSwitchButton />
             </div>
 
+            {/* Кнопка меню: видима только в мобильной версии */}
             <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
               <button
                 className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
@@ -227,8 +197,8 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Popup Menu */}
-      {(isMenuOpen || isMobileView) && (
+      {/* Popup Menu: только для мобильной версии */}
+      {(isMenuOpen && isMobileView) && (
         <div
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
           style={{
