@@ -12,7 +12,6 @@ const navigation = [
   { name: "Обратная связь", href: "#contact", current: false },
 ];
 
-// Utility function to combine class names
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
@@ -95,9 +94,9 @@ export default function Navbar() {
           return acc + button.getBoundingClientRect().width;
         }, 0);
 
-        // Корректировка условия для переключения на мобильный вид
-        // Изменение условия на ширину 1100px для перехода на мобильный вид
-        if (navbarNavRect.width + totalButtonsWidth > window.innerWidth - 80 || window.innerWidth <= 1100) {
+        // Проверяем, помещаются ли все элементы навигации
+        // Если элементы не помещаются, переключаемся на мобильный вид
+        if (navbarNavRect.width + totalButtonsWidth > window.innerWidth - 50) {
           setIsMobileView(true);
         } else {
           setIsMobileView(false);
@@ -130,7 +129,7 @@ export default function Navbar() {
               </a>
             </div>
 
-            <div className={`${isMobileView ? "hidden" : "lg:flex"} navbar-nav`}>
+            <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
                   <a
@@ -156,7 +155,7 @@ export default function Navbar() {
                 href="https://www.ozon.ru/seller/smartdiag-862410/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`hidden ${isMobileView ? "hidden" : "lg:block"}`}
+                className={`hidden ${isMobileView ? "hidden" : "block"}`}
               >
                 <button className="btn-ozon">
                   <img
@@ -172,7 +171,7 @@ export default function Navbar() {
                 href="https://market.yandex.ru/business--smartdiag/50025236"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`hidden ${isMobileView ? "hidden" : "lg:block"}`}
+                className={`hidden ${isMobileView ? "hidden" : "block"}`}
               >
                 <button className="btn-yandex">
                   <img
@@ -188,7 +187,7 @@ export default function Navbar() {
                 href="https://www.wildberries.ru/seller/1343369"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`hidden ${isMobileView ? "hidden" : "lg:block"}`}
+                className={`hidden ${isMobileView ? "hidden" : "block"}`}
               >
                 <button className="btn-wildberries">
                   <img
