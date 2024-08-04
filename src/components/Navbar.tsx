@@ -21,14 +21,12 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
-  const [isMobileView, setIsMobileView] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(
+    typeof window !== "undefined" && window.innerWidth <= 1200
+  );
 
   useEffect(() => {
     // Устанавливаем начальное состояние мобильного вида
-    const initialMobileView =
-      typeof window !== "undefined" && window.innerWidth <= 1200;
-    setIsMobileView(initialMobileView);
-
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 1200);
     };
