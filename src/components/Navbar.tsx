@@ -28,7 +28,6 @@ export default function Navbar() {
   );
 
   useEffect(() => {
-    // Устанавливаем состояние в момент монтирования компонента
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 1200);
     };
@@ -146,7 +145,7 @@ export default function Navbar() {
           </div>
 
           {/* Кнопки магазинов, смены темы и меню */}
-          <div className={`flex items-center gap-2 ${isMobileView ? "hidden-on-load" : ""}`}>
+          <div className="flex items-center gap-2">
             {!isMobileView && (
               <>
                 <a
