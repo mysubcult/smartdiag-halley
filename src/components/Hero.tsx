@@ -29,8 +29,8 @@ export function Hero() {
                     <svg
                       className="icon"
                       xmlns="http://www.w3.org/2000/svg"
-                      width="24" /* Увеличенный размер */
-                      height="24" /* Увеличенный размер */
+                      width="20" /* Размер */
+                      height="20" /* Размер */
                       fill="currentColor"
                       viewBox="0 0 16 16"
                     >
@@ -87,8 +87,8 @@ export function Hero() {
         }
 
         .icon {
-          width: 24px; /* Увеличенный размер иконки */
-          height: 24px; /* Увеличенный размер иконки */
+          width: 20px; /* Размер иконки */
+          height: 20px; /* Размер иконки */
           transition: transform 1s ease; /* Плавная анимация */
           color: currentColor; /* Использует цвет текста кнопки */
         }
