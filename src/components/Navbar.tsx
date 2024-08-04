@@ -19,25 +19,9 @@ function classNames(...classes: string[]): string {
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+  const [fontSize, setFontSize] = useState("18px");
   const [isMobileView, setIsMobileView] = useState(false);
-
-  // Проверка переполнения панели
-  const handleResize = () => {
-    const navbarNav = document.querySelector(".navbar-nav");
-    const buttonsContainer = document.querySelector(".navbar .buttons-container");
-
-    if (navbarNav && buttonsContainer) {
-      const navbarNavRect = navbarNav.getBoundingClientRect();
-      const buttonsRect = buttonsContainer.getBoundingClientRect();
-
-      // Если кнопки не помещаются, переключаемся в мобильный режим
-      if (navbarNavRect.right + 50 > buttonsRect.left) {
-        setIsMobileView(true);
-      } else {
-        setIsMobileView(false);
-      }
-    }
-  };
 
   // Smooth scrolling
   useEffect(() => {
@@ -57,14 +41,9 @@ export default function Navbar() {
     };
 
     document.addEventListener("click", handleSmoothScroll);
-    window.addEventListener("resize", handleResize);
-
-    // Initial check
-    handleResize();
 
     return () => {
       document.removeEventListener("click", handleSmoothScroll);
-      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -75,6 +54,59 @@ export default function Navbar() {
       heroAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
+
+  // Dynamic font size and height
+  useEffect(() => {
+    const updateFontSizeAndHeight = () => {
+      const baseFontSize = 18; // Базовый размер шрифта
+      const screenHeight = window.innerHeight;
+      const maxFontSize = baseFontSize;
+      const minFontSize = 14;
+
+      // Рассчитать коэффициент уменьшения шрифта на основе высоты экрана и количества элементов меню
+      const maxMenuHeight = screenHeight - 64; // Высота меню с учетом отступов
+      const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length; // +3 для подменю
+      const requiredHeight = itemsCount * 48; // 48px на каждый элемент (включая padding и margin)
+
+      const scaleFactor = maxMenuHeight / requiredHeight;
+      const newFontSize = Math.max(
+        minFontSize,
+        maxFontSize * Math.min(scaleFactor, 1)
+      );
+
+      setFontSize(`${newFontSize}px`);
+    };
+
+    updateFontSizeAndHeight();
+
+    window.addEventListener("resize", updateFontSizeAndHeight);
+    return () => window.removeEventListener("resize", updateFontSizeAndHeight);
+  }, [isSubMenuOpen]);
+
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      const navbarNav = document.querySelector(".navbar-nav");
+      const buttons = document.querySelectorAll(".btn-ozon, .btn-yandex, .btn-wildberries");
+
+      if (navbarNav && buttons.length) {
+        const navbarNavRect = navbarNav.getBoundingClientRect();
+        const buttonsRect = buttons[0].getBoundingClientRect();
+
+        // Если меню начинает "наезжать" на кнопки, переключаемся в мобильный режим
+        if (navbarNavRect.right > buttonsRect.left) {
+          setIsMobileView(true);
+        } else {
+          setIsMobileView(false);
+        }
+      }
+    };
+
+    handleResize(); // Initial check
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
@@ -95,8 +127,7 @@ export default function Navbar() {
               </a>
             </div>
 
-            {/* Навигация: скрыта в мобильной версии */}
-            <div className={`hidden lg:flex navbar-nav ${isMobileView ? "hidden" : "flex"}`}>
+            <div className={`hidden ${isMobileView ? "" : "lg:flex"} navbar-nav`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
                   <a
@@ -117,13 +148,12 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Кнопки магазинов */}
-            <div className="absolute inset-y-0 right-10 lg:right-0 flex items-center gap-2 buttons-container">
+            <div className="absolute inset-y-0 right-10 lg:right-0 flex items-center gap-2">
               <a
                 href="https://www.ozon.ru/seller/smartdiag-862410/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`hidden lg:block ${isMobileView ? "hidden" : ""}`}
+                className="hidden lg:block"
               >
                 <button className="btn-ozon">
                   <img
@@ -139,7 +169,7 @@ export default function Navbar() {
                 href="https://market.yandex.ru/business--smartdiag/50025236"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`hidden lg:block ${isMobileView ? "hidden" : ""}`}
+                className="hidden lg:block"
               >
                 <button className="btn-yandex">
                   <img
@@ -155,7 +185,7 @@ export default function Navbar() {
                 href="https://www.wildberries.ru/seller/1343369"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`hidden lg:block ${isMobileView ? "hidden" : ""}`}
+                className="hidden lg:block"
               >
                 <button className="btn-wildberries">
                   <img
@@ -170,7 +200,6 @@ export default function Navbar() {
               <ThemeSwitchButton />
             </div>
 
-            {/* Кнопка меню: видима только в мобильной версии */}
             <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
               <button
                 className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
@@ -197,11 +226,12 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Popup Menu: отображается, если меню открыто или вид мобильный */}
+      {/* Popup Menu */}
       {(isMenuOpen || isMobileView) && (
         <div
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
           style={{
+            fontSize: fontSize,
             maxHeight: `calc(100vh - 128px)`, // Динамическая высота с учетом отступов сверху и снизу
             overflowY: "auto", // Разрешаем скролл, если необходимо
             paddingTop: "24px", // Отступ сверху
@@ -226,47 +256,62 @@ export default function Navbar() {
               </a>
             ))}
             <div className="flex flex-col items-center w-full mt-4">
-              <a
-                href="https://www.ozon.ru/seller/smartdiag-862410/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-ozon flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
+              <button
+                onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
+                className="btn-submenu-toggle flex items-center justify-center py-2 text-lg font-medium"
               >
-                <img
-                  src="/images/logos/favicon.ico"
-                  alt="OZON"
-                  className="w-4 h-4 mr-2"
+                Магазины
+                <ChevronDownIcon
+                  className={`h-5 w-5 ml-2 transition-transform ${
+                    isSubMenuOpen ? "rotate-180" : "rotate-0"
+                  }`}
                 />
-                OZON
-              </a>
+              </button>
+              {isSubMenuOpen && (
+                <div className="submenu mt-2 space-y-3 w-full">
+                  <a
+                    href="https://www.ozon.ru/seller/smartdiag-862410/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-ozon flex items-center justify-center w-10/12 mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
+                  >
+                    <img
+                      src="/images/logos/favicon.ico"
+                      alt="OZON"
+                      className="w-4 h-4 mr-2"
+                    />
+                    OZON
+                  </a>
 
-              <a
-                href="https://market.yandex.ru/business--smartdiag/50025236"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
-              >
-                <img
-                  src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                  alt="Яндекс Маркет"
-                  className="w-4 h-4 mr-2"
-                />
-                Яндекс Маркет
-              </a>
+                  <a
+                    href="https://market.yandex.ru/business--smartdiag/50025236"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-yandex flex items-center justify-center w-10/12 mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
+                  >
+                    <img
+                      src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                      alt="Яндекс Маркет"
+                      className="w-4 h-4 mr-2"
+                    />
+                    Яндекс Маркет
+                  </a>
 
-              <a
-                href="https://www.wildberries.ru/seller/1343369"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
-              >
-                <img
-                  src="https://www.wildberries.ru/favicon.ico"
-                  alt="Wildberries"
-                  className="w-4 h-4 mr-2"
-                />
-                Wildberries
-              </a>
+                  <a
+                    href="https://www.wildberries.ru/seller/1343369"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-wildberries flex items-center justify-center w-10/12 mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
+                  >
+                    <img
+                      src="https://www.wildberries.ru/favicon.ico"
+                      alt="Wildberries"
+                      className="w-4 h-4 mr-2"
+                    />
+                    Wildberries
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </div>
