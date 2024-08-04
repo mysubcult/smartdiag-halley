@@ -96,7 +96,8 @@ export default function Navbar() {
         }, 0);
 
         // Проверяем, помещаются ли все элементы навигации
-        if (navbarNavRect.width + totalButtonsWidth > window.innerWidth) {
+        // Добавим порог в 1024 пикселя для переключения на мобильный вид
+        if (navbarNavRect.width + totalButtonsWidth > window.innerWidth || window.innerWidth <= 1024) {
           setIsMobileView(true);
         } else {
           setIsMobileView(false);
@@ -275,7 +276,7 @@ export default function Navbar() {
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-ozon flex items-center justify-center w-10/12 mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
+                    className="btn-ozon flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
                   >
                     <img
                       src="/images/logos/favicon.ico"
@@ -289,7 +290,7 @@ export default function Navbar() {
                     href="https://market.yandex.ru/business--smartdiag/50025236"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-yandex flex items-center justify-center w-10/12 mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
+                    className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
                   >
                     <img
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
@@ -303,7 +304,7 @@ export default function Navbar() {
                     href="https://www.wildberries.ru/seller/1343369"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-wildberries flex items-center justify-center w-10/12 mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
+                    className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
                   >
                     <img
                       src="https://www.wildberries.ru/favicon.ico"
