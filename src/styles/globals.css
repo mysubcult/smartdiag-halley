@@ -118,7 +118,7 @@ nav .dark\:text-neutral-400:hover {
   overflow: hidden;
   display: inline-block;
   transition: color 0.3s ease;
-  font-size: var(--font-size);
+  font-size: 14px; /* Вернули фиксированный размер шрифта */
   margin-left: 15px;
 }
 
@@ -148,7 +148,7 @@ nav .dark\:text-neutral-400:hover {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 8px 12px; /* Увеличенные отступы для десктопной версии */
+  padding: 4px 8px; /* Уменьшили отступы для кнопок */
   border-radius: 20px;
   font-weight: bold;
   transition: all 0.3s ease-in-out;
@@ -156,8 +156,8 @@ nav .dark\:text-neutral-400:hover {
   position: relative;
   overflow: hidden;
   border: none;
-  font-size: var(--font-size); /* Увеличенный шрифт для десктопной версии */
-  max-width: 150px; /* Увеличена максимальная ширина для десктопной версии */
+  font-size: 12px; /* Уменьшили размер шрифта для кнопок */
+  max-width: 120px; /* Ограничили максимальную ширину для кнопок */
   white-space: nowrap;
 }
 
@@ -197,8 +197,8 @@ nav .dark\:text-neutral-400:hover {
 .btn-ozon img,
 .btn-yandex img,
 .btn-wildberries img {
-  width: 20px; /* Фиксированный размер иконок */
-  height: 20px;
+  width: 16px; /* Уменьшили размер иконок */
+  height: 16px;
 }
 
 .navbar-nav {
@@ -223,7 +223,7 @@ nav .dark\:text-neutral-400:hover {
 @media (max-width: 1024px) {
   .nav-link {
     padding: 5px 8px;
-    font-size: var(--font-size);
+    font-size: 12px; /* Уменьшенный размер шрифта для мобильной версии */
     margin-left: 5px;
   }
 
@@ -231,7 +231,7 @@ nav .dark\:text-neutral-400:hover {
   .btn-yandex,
   .btn-wildberries {
     padding: 8px 16px; /* Увеличенные отступы для кнопок в мобильной версии */
-    font-size: var(--font-size); /* Увеличенный шрифт в мобильной версии */
+    font-size: 14px; /* Увеличенный шрифт в мобильной версии */
     width: 85%; /* Уже ширина кнопок в мобильной версии */
     max-width: 200px; /* Ограничение ширины для кнопок магазинов в мобильной версии */
     margin: 0 auto; /* Центрируем кнопки */
