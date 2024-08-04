@@ -93,8 +93,11 @@ export default function Navbar() {
         const navbarNavRect = navbarNav.getBoundingClientRect();
         const buttonsRect = buttons[0].getBoundingClientRect();
 
+        // Добавляем буфер для переключения в мобильный режим
+        const buffer = 20; // Буфер для переключения
+
         // Если меню начинает "наезжать" на кнопки, переключаемся в мобильный режим
-        if (navbarNavRect.right > buttonsRect.left) {
+        if (navbarNavRect.right + buffer > buttonsRect.left) {
           setIsMobileView(true);
         } else {
           setIsMobileView(false);
