@@ -94,9 +94,8 @@ export default function Navbar() {
           return acc + button.getBoundingClientRect().width;
         }, 0);
 
-        // Проверяем, помещаются ли все элементы навигации
-        // Если элементы не помещаются, переключаемся на мобильный вид
-        if (navbarNavRect.width + totalButtonsWidth > window.innerWidth - 50) {
+        // Условие для переключения на мобильный вид
+        if (navbarNavRect.width + totalButtonsWidth + 100 > window.innerWidth) {
           setIsMobileView(true);
         } else {
           setIsMobileView(false);
@@ -150,12 +149,12 @@ export default function Navbar() {
               </div>
             </div>
 
-            <div className="absolute inset-y-0 right-10 lg:right-0 flex items-center gap-2">
+            <div className="absolute inset-y-0 right-10 flex items-center gap-2">
               <a
                 href="https://www.ozon.ru/seller/smartdiag-862410/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`hidden ${isMobileView ? "hidden" : "block"}`}
+                className={`${isMobileView ? "hidden" : "block"}`}
               >
                 <button className="btn-ozon">
                   <img
@@ -171,7 +170,7 @@ export default function Navbar() {
                 href="https://market.yandex.ru/business--smartdiag/50025236"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`hidden ${isMobileView ? "hidden" : "block"}`}
+                className={`${isMobileView ? "hidden" : "block"}`}
               >
                 <button className="btn-yandex">
                   <img
@@ -187,7 +186,7 @@ export default function Navbar() {
                 href="https://www.wildberries.ru/seller/1343369"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`hidden ${isMobileView ? "hidden" : "block"}`}
+                className={`${isMobileView ? "hidden" : "block"}`}
               >
                 <button className="btn-wildberries">
                   <img
@@ -200,33 +199,33 @@ export default function Navbar() {
               </a>
 
               <ThemeSwitchButton />
-            </div>
 
-            {/* Кнопка меню появляется, когда isMobileView == true */}
-            {isMobileView && (
-              <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
-                <button
-                  className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-                >
-                  <span className="sr-only">Open main menu</span>
-                  <div className="menu-icon-wrapper relative">
-                    <Bars3Icon
-                      className={`h-6 w-6 transition-transform transform ${
-                        isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"
-                      }`}
-                      aria-hidden="true"
-                    />
-                    <XMarkIcon
-                      className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
-                        isMenuOpen ? "rotate-45 opacity-100" : "rotate-0 opacity-0"
-                      }`}
-                      aria-hidden="true"
-                    />
-                  </div>
-                </button>
-              </div>
-            )}
+              {/* Кнопка меню появляется, когда isMobileView == true */}
+              {isMobileView && (
+                <div className="flex items-center">
+                  <button
+                    className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  >
+                    <span className="sr-only">Open main menu</span>
+                    <div className="menu-icon-wrapper relative">
+                      <Bars3Icon
+                        className={`h-6 w-6 transition-transform transform ${
+                          isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"
+                        }`}
+                        aria-hidden="true"
+                      />
+                      <XMarkIcon
+                        className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
+                          isMenuOpen ? "rotate-45 opacity-100" : "rotate-0 opacity-0"
+                        }`}
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
