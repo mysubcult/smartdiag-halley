@@ -217,18 +217,6 @@ nav .dark\:text-neutral-400:hover {
   transform: scale(1.05);
 }
 
-/* Класс для скрытия элементов до полной загрузки */
-.hidden-on-load {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.hidden-on-load.visible {
-  opacity: 1;
-  visibility: visible;
-}
-
 /* Скрыть кнопки магазинов при загрузке на мобильных экранах */
 @media (max-width: 1200px) {
   .navbar-nav {
