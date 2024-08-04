@@ -176,6 +176,7 @@ nav .dark\:text-neutral-400:hover {
 .btn-yandex {
   background: linear-gradient(to right, #ffc107, #ff9800);
   color: black;
+  padding: 8px 16px; /* Убедимся, что отступы корректны */
 }
 
 .btn-yandex:hover {
