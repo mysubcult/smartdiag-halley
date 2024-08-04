@@ -162,7 +162,7 @@ export default function Navbar() {
                   <img
                     src="/images/logos/favicon.ico"
                     alt="OZON"
-                    className="w-4 h-4"
+                    className="w-5 h-5"
                   />
                   OZON
                 </button>
@@ -178,7 +178,7 @@ export default function Navbar() {
                   <img
                     src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
                     alt="Яндекс Маркет"
-                    className="w-4 h-4"
+                    className="w-5 h-5"
                   />
                   Яндекс Маркет
                 </button>
@@ -194,7 +194,7 @@ export default function Navbar() {
                   <img
                     src="https://www.wildberries.ru/favicon.ico"
                     alt="Wildberries"
-                    className="w-4 h-4"
+                    className="w-5 h-5"
                   />
                   Wildberries
                 </button>
@@ -203,6 +203,7 @@ export default function Navbar() {
               <ThemeSwitchButton />
             </div>
 
+            {/* Кнопка меню появляется, когда isMobileView == true */}
             <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
               <button
                 className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
@@ -230,7 +231,7 @@ export default function Navbar() {
       </div>
 
       {/* Popup Menu */}
-      {(isMenuOpen || isMobileView) && (
+      {isMenuOpen && (
         <div
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
           style={{
