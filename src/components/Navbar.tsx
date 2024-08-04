@@ -12,7 +12,6 @@ const navigation = [
   { name: "Обратная связь", href: "#contact", current: false },
 ];
 
-// Utility function to combine class names
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
@@ -25,16 +24,13 @@ export default function Navbar() {
     typeof window !== "undefined" ? window.innerWidth <= 1200 : false
   );
 
-  // Установка слушателя событий только на монтирование компонента
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 1200);
     };
 
-    // Добавляем слушатель события resize
     window.addEventListener("resize", handleResize);
 
-    // Удаляем слушатель при размонтировании компонента
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -140,58 +136,54 @@ export default function Navbar() {
               </div>
             </div>
 
-            <div className="absolute inset-y-0 right-10 flex items-center gap-2">
-              {!isMobileView && (
-                <>
-                  <a
-                    href="https://www.ozon.ru/seller/smartdiag-862410/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <button className="btn-ozon">
-                      <img
-                        src="/images/logos/favicon.ico"
-                        alt="OZON"
-                        className="w-5 h-5"
-                      />
-                      OZON
-                    </button>
-                  </a>
+            <div className={`absolute inset-y-0 right-10 flex items-center gap-2 ${isMobileView ? "hidden" : ""}`}>
+              <a
+                href="https://www.ozon.ru/seller/smartdiag-862410/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <button className="btn-ozon">
+                  <img
+                    src="/images/logos/favicon.ico"
+                    alt="OZON"
+                    className="w-5 h-5"
+                  />
+                  OZON
+                </button>
+              </a>
 
-                  <a
-                    href="https://market.yandex.ru/business--smartdiag/50025236"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <button className="btn-yandex">
-                      <img
-                        src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                        alt="Яндекс Маркет"
-                        className="w-5 h-5"
-                      />
-                      Яндекс Маркет
-                    </button>
-                  </a>
+              <a
+                href="https://market.yandex.ru/business--smartdiag/50025236"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <button className="btn-yandex">
+                  <img
+                    src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                    alt="Яндекс Маркет"
+                    className="w-5 h-5"
+                  />
+                  Яндекс Маркет
+                </button>
+              </a>
 
-                  <a
-                    href="https://www.wildberries.ru/seller/1343369"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <button className="btn-wildberries">
-                      <img
-                        src="https://www.wildberries.ru/favicon.ico"
-                        alt="Wildberries"
-                        className="w-5 h-5"
-                      />
-                      Wildberries
-                    </button>
-                  </a>
-                </>
-              )}
+              <a
+                href="https://www.wildberries.ru/seller/1343369"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <button className="btn-wildberries">
+                  <img
+                    src="https://www.wildberries.ru/favicon.ico"
+                    alt="Wildberries"
+                    className="w-5 h-5"
+                  />
+                  Wildberries
+                </button>
+              </a>
 
               <ThemeSwitchButton />
 
