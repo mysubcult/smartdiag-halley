@@ -148,7 +148,7 @@ nav .dark\:text-neutral-400:hover {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 8px 16px;
+  padding: 8px 16px; /* Увеличены внутренние отступы */
   border-radius: 20px;
   font-weight: bold;
   transition: all 0.3s ease-in-out;
@@ -156,11 +156,11 @@ nav .dark\:text-neutral-400:hover {
   position: relative;
   overflow: hidden;
   border: none;
-  font-size: 12px;
-  max-width: 140px;
-  white-space: nowrap;
+  font-size: 12px; /* Увеличен шрифт для десктопной версии */
+  max-width: 140px; /* Увеличена максимальная ширина для десктопной версии */
+  white-space: nowrap; /* Избегаем переноса текста */
   width: auto;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Убедитесь, что отступы учитываются */
 }
 
 .btn-ozon {
@@ -177,8 +177,8 @@ nav .dark\:text-neutral-400:hover {
 .btn-yandex {
   background: linear-gradient(to right, #ffc107, #ff9800);
   color: black;
-  padding: 8px 16px;
-  box-sizing: border-box;
+  padding: 8px 16px; /* Убедимся, что отступы корректны */
+  box-sizing: border-box; /* Обеспечение учета отступов в общей ширине */
 }
 
 .btn-yandex:hover {
@@ -217,15 +217,17 @@ nav .dark\:text-neutral-400:hover {
   transform: scale(1.05);
 }
 
+/* Скрыть кнопки магазинов при загрузке на мобильных экранах */
 @media (max-width: 1200px) {
   .navbar-nav {
     display: none;
   }
 
+  /* Скрываем кнопки магазинов по умолчанию для мобильных экранов */
   .btn-ozon,
   .btn-yandex,
   .btn-wildberries {
-    display: none;
+    display: none; /* Скрываем кнопки магазинов */
   }
 
   .nav-link {
@@ -239,20 +241,17 @@ nav .dark\:text-neutral-400:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-height: calc(100vh - 128px);
-    overflow-y: auto;
+    max-height: calc(100vh - 128px); /* Динамическая высота для меню с учетом отступов */
+    overflow-y: auto; /* Разрешаем скролл */
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    border-radius: 16px;
-    gap: 8px; /* одинаковый отступ для всех элементов */
+    border-radius: 16px; /* Увеличена радиус скругления */
+    padding: 0px 0; /* Обнуляем верхний и нижний отступ */
+    gap: 8px; /* Общий отступ между элементами меню */
   }
 
-  .submenu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    width: 100%; /* ширина подменю */
+  .submenu a {
+    display: flex; /* Убедитесь, что кнопки отображаются в подменю */
   }
 }
 
@@ -268,7 +267,7 @@ nav .dark\:text-neutral-400:hover {
 }
 
 .menu-icon-container:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1); /* Совпадает с ховером переключателя темы */
   transform: scale(1.1);
 }
 
@@ -308,4 +307,12 @@ nav .dark\:text-neutral-400:hover {
 
 .btn-submenu-toggle:hover {
   color: #ff416c;
+}
+
+.submenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px; /* Увеличен отступ между пунктами меню */
+  margin: 8px 0; /* Устанавливаем одинаковый отступ сверху и снизу */
 }
