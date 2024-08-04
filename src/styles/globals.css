@@ -249,6 +249,10 @@ nav .dark\:text-neutral-400:hover {
     padding-top: 24px; /* Отступ сверху для меню */
     padding-bottom: 24px; /* Отступ снизу для меню */
   }
+
+  .submenu a {
+    display: flex; /* Убедитесь, что кнопки отображаются в подменю */
+  }
 }
 
 .menu-icon-container {
