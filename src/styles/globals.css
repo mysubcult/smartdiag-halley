@@ -214,22 +214,6 @@ nav .dark\:text-neutral-400:hover {
 }
 
 @media (max-width: 1024px) {
-  .nav-link {
-    padding: 5px 8px;
-    font-size: 12px;
-    margin-left: 5px;
-  }
-
-  .btn-ozon,
-  .btn-yandex,
-  .btn-wildberries {
-    padding: 8px 16px; /* Увеличенные отступы для кнопок в мобильной версии */
-    font-size: 14px; /* Увеличенный шрифт в мобильной версии */
-    width: 85%; /* Уже ширина кнопок в мобильной версии */
-    max-width: 200px; /* Ограничение ширины для кнопок магазинов в мобильной версии */
-    margin: 0 auto; /* Центрируем кнопки */
-  }
-
   .navbar-nav {
     display: none;
   }
@@ -240,9 +224,14 @@ nav .dark\:text-neutral-400:hover {
   .btn-wildberries {
     width: 100%;
     text-align: center;
+    padding: 10px 0;
+    font-size: 16px;
   }
 
   .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     max-height: calc(100vh - 128px); /* Динамическая высота для меню с учетом отступов */
     overflow-y: auto; /* Разрешаем скролл */
     background-color: rgba(255, 255, 255, 0.95);
