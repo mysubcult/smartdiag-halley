@@ -160,6 +160,7 @@ nav .dark\:text-neutral-400:hover {
   max-width: 140px; /* Увеличена максимальная ширина для десктопной версии */
   white-space: nowrap; /* Избегаем переноса текста */
   width: auto;
+  box-sizing: border-box; /* Убедитесь, что отступы учитываются */
 }
 
 .btn-ozon {
@@ -176,7 +177,7 @@ nav .dark\:text-neutral-400:hover {
 .btn-yandex {
   background: linear-gradient(to right, #ffc107, #ff9800);
   color: black;
-  padding: 8px 16px; /* Исправление стиля для добавления отступов */
+  padding: 8px 16px; /* Убедимся, что отступы корректны */
   box-sizing: border-box; /* Обеспечение учета отступов в общей ширине */
 }
 
