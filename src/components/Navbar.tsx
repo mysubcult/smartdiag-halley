@@ -19,9 +19,9 @@ function classNames(...classes: string[]): string {
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
 
+  // Проверка переполнения панели
   const handleResize = () => {
     const navbarNav = document.querySelector(".navbar-nav");
     const buttonsContainer = document.querySelector(".navbar .buttons-container");
@@ -30,8 +30,8 @@ export default function Navbar() {
       const navbarNavRect = navbarNav.getBoundingClientRect();
       const buttonsRect = buttonsContainer.getBoundingClientRect();
 
-      // Проверяем, помещаются ли элементы на панели
-      if (navbarNavRect.right > buttonsRect.left) {
+      // Если кнопки не помещаются, переключаемся в мобильный режим
+      if (navbarNavRect.right + 50 > buttonsRect.left) {
         setIsMobileView(true);
       } else {
         setIsMobileView(false);
@@ -197,12 +197,11 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Popup Menu: только для мобильной версии */}
-      {(isMenuOpen && isMobileView) && (
+      {/* Popup Menu: отображается, если меню открыто или вид мобильный */}
+      {(isMenuOpen || isMobileView) && (
         <div
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
           style={{
-            fontSize: 'var(--font-size)',
             maxHeight: `calc(100vh - 128px)`, // Динамическая высота с учетом отступов сверху и снизу
             overflowY: "auto", // Разрешаем скролл, если необходимо
             paddingTop: "24px", // Отступ сверху
@@ -227,62 +226,47 @@ export default function Navbar() {
               </a>
             ))}
             <div className="flex flex-col items-center w-full mt-4">
-              <button
-                onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                className="btn-submenu-toggle flex items-center justify-center py-2 text-lg font-medium"
+              <a
+                href="https://www.ozon.ru/seller/smartdiag-862410/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ozon flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
               >
-                Магазины
-                <ChevronDownIcon
-                  className={`h-5 w-5 ml-2 transition-transform ${
-                    isSubMenuOpen ? "rotate-180" : "rotate-0"
-                  }`}
+                <img
+                  src="/images/logos/favicon.ico"
+                  alt="OZON"
+                  className="w-4 h-4 mr-2"
                 />
-              </button>
-              {isSubMenuOpen && (
-                <div className="submenu mt-2 space-y-3 w-full">
-                  <a
-                    href="https://www.ozon.ru/seller/smartdiag-862410/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-ozon flex items-center justify-center w-10/12 mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
-                  >
-                    <img
-                      src="/images/logos/favicon.ico"
-                      alt="OZON"
-                      className="w-4 h-4 mr-2"
-                    />
-                    OZON
-                  </a>
+                OZON
+              </a>
 
-                  <a
-                    href="https://market.yandex.ru/business--smartdiag/50025236"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-yandex flex items-center justify-center w-10/12 mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
-                  >
-                    <img
-                      src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                      alt="Яндекс Маркет"
-                      className="w-4 h-4 mr-2"
-                    />
-                    Яндекс Маркет
-                  </a>
+              <a
+                href="https://market.yandex.ru/business--smartdiag/50025236"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
+              >
+                <img
+                  src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                  alt="Яндекс Маркет"
+                  className="w-4 h-4 mr-2"
+                />
+                Яндекс Маркет
+              </a>
 
-                  <a
-                    href="https://www.wildberries.ru/seller/1343369"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-wildberries flex items-center justify-center w-10/12 mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
-                  >
-                    <img
-                      src="https://www.wildberries.ru/favicon.ico"
-                      alt="Wildberries"
-                      className="w-4 h-4 mr-2"
-                    />
-                    Wildberries
-                  </a>
-                </div>
-              )}
+              <a
+                href="https://www.wildberries.ru/seller/1343369"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
+              >
+                <img
+                  src="https://www.wildberries.ru/favicon.ico"
+                  alt="Wildberries"
+                  className="w-4 h-4 mr-2"
+                />
+                Wildberries
+              </a>
             </div>
           </div>
         </div>
