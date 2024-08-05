@@ -85,51 +85,50 @@ export default function Blog() {
           ))}
         </div>
       </div>
+      <style jsx>{`
+        .btn-grad-red {
+          background: linear-gradient(to right, #ff4b2b, #ff416c);
+          color: white;
+          border: none;
+          border-radius: 30px;
+          padding: 12px 24px;
+          transition: all 0.3s ease-in-out;
+          box-shadow: 0 4px 15px rgba(255, 65, 108, 0.5);
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .btn-grad-red:hover {
+          background: linear-gradient(to right, #ff416c, #ff4b2b);
+          transform: scale(1.05);
+          box-shadow: 0 6px 20px rgba(255, 65, 108, 0.6);
+        }
+
+        .btn-grad-red:active {
+          transform: scale(0.95);
+          box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+        }
+
+        .icon-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .icon {
+          width: 20px;
+          height: 20px;
+          transition: transform 1s ease;
+          color: currentColor;
+        }
+
+        .btn-grad-red:hover .icon {
+          transform: rotate(180deg);
+        }
+      `}</style>
     </Layout>
   );
 }
-
-<style jsx>{`
-  .btn-grad-red {
-    background: linear-gradient(to right, #ff4b2b, #ff416c);
-    color: white;
-    border: none;
-    border-radius: 30px;
-    padding: 12px 24px;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 15px rgba(255, 65, 108, 0.5);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .btn-grad-red:hover {
-    background: linear-gradient(to right, #ff416c, #ff4b2b);
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(255, 65, 108, 0.6);
-  }
-
-  .btn-grad-red:active {
-    transform: scale(0.95);
-    box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
-  }
-
-  .icon-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .icon {
-    width: 20px;
-    height: 20px;
-    transition: transform 1s ease;
-    color: currentColor;
-  }
-
-  .btn-grad-red:hover .icon {
-    transform: rotate(180deg);
-  }
-`}</style>
