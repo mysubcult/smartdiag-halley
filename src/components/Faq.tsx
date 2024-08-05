@@ -1,57 +1,71 @@
-import React from 'react';
+import Image from "next/image";
+import Link from "next/link";
+import Layout from "../components/Layout";
 
-// Интерфейс для карточек блога
-interface BlogCardProps {
-  title: string;
-  description: string;
-  link: string;
-}
+const blogPosts = [
+  {
+    title: "Как справиться с ошибкой при открытии архива",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов и что может вызывать эти проблемы.",
+    link: "/blog/post1",
+  },
+  {
+    title: "Проблемы с запуском программы",
+    image: "/images/blog/post2.jpg",
+    excerpt: "Что делать, если программа не запускается или исчезают ярлыки? Решения и советы.",
+    link: "/blog/post2",
+  },
+  {
+    title: "Использование ключа активации на другом устройстве",
+    image: "/images/blog/post3.jpg",
+    excerpt: "Можно ли использовать один ключ активации на нескольких устройствах? Ответы и рекомендации.",
+    link: "/blog/post3",
+  },
+  {
+    title: "Помощь в установке программного обеспечения",
+    image: "/images/blog/post4.jpg",
+    excerpt: "Как получить помощь при установке программного обеспечения. Контакты и часы работы службы поддержки.",
+    link: "/blog/post4",
+  },
+  {
+    title: "Безопасность программ и антивирусы",
+    image: "/images/blog/post5.jpg",
+    excerpt: "Как антивирусное ПО может влиять на ваши программы и как правильно настраивать исключения.",
+    link: "/blog/post5",
+  },
+  {
+    title: "Рекомендации по использованию наших программ",
+    image: "/images/blog/post6.jpg",
+    excerpt: "Лучшие практики и советы по использованию программного обеспечения для достижения максимальной эффективности.",
+    link: "/blog/post6",
+  },
+];
 
-// Компонент карточки блога
-const BlogCard: React.FC<BlogCardProps> = ({ title, description, link }) => {
+export default function Blog() {
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow duration-300">
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-gray-600 mb-4">{description}</p>
-      <a href={link} className="text-blue-500 hover:text-blue-700">
-        Читать далее
-      </a>
-    </div>
-  );
-};
-
-// Основной компонент страницы блога
-const BlogPage: React.FC = () => {
-  // Пример данных для блога
-  const blogPosts = [
-    {
-      title: 'Первая новость блога',
-      description: 'Краткое описание первой новости блога.',
-      link: '/blog/first-post',
-    },
-    {
-      title: 'Вторая новость блога',
-      description: 'Краткое описание второй новости блога.',
-      link: '/blog/second-post',
-    },
-    // Добавьте больше записей по мере необходимости
-  ];
-
-  return (
-    <div className="max-w-4xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold text-center mb-8">Наш блог</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {blogPosts.map((post, index) => (
-          <BlogCard 
-            key={index}
-            title={post.title}
-            description={post.description}
-            link={post.link}
-          />
-        ))}
+    <Layout>
+      <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-16 pb-16" id="blog">
+        <h2 className="text-4xl font-bold text-center">Блог</h2>
+        <p className="pt-6 pb-8 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+          Добро пожаловать в наш блог! Здесь вы найдете полезные статьи и советы по использованию наших продуктов и услуг.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {blogPosts.map(({ title, image, excerpt, link }) => (
+            <div key={title} className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 duration-300 ease-in-out">
+              <Image src={image} alt={title} width={400} height={225} className="w-full h-48 object-cover" />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold">{title}</h3>
+                <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">{excerpt}</p>
+                <Link href={link}>
+                  <button className="mt-4 bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium hover:bg-rose-600">
+                    Читать далее
+                  </button>
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
-};
-
-export default BlogPage;
+}
