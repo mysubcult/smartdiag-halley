@@ -1,77 +1,57 @@
-import { Disclosure } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import React from 'react';
 
-const faqitems = [
-  {
-    question: "Я скачал архив с программой, но при попытке открыть его возникает ошибка. Что мне делать?",
-    response:
-      "В случае возникновения ошибки при открытии скачанного архива с программой, есть несколько причин, которые могут вызывать данную проблему. Одной из наиболее частых причин является наличие антивирусного программного обеспечения, которое может блокировать запуск файла архива. Проверьте настройки антивирусной программы и убедитесь, что она не блокирует открытие архива. Также следует убедиться, что у вас установлена последняя версия программы для разархивации архивов, например, WinRAR или WinZip. Устаревшая версия программы также может вызывать проблемы при открытии архивов. Если вы используете для скачивания архива Яндекс Браузер, обратите внимание, что иногда защита в браузере может помешать корректному открытию файлов. Чтобы избежать этой проблемы, рекомендуется отключить функцию проверки безопасности для скачиваемых файлов. Для этого зайдите в настройки браузера, перейдите на вкладку \"Безопасность\" и снимите галочку с опции \"Проверять безопасность посещаемых сайтов и загружаемых файлов\". Если причина не в антивирусной программе и у вас установлена актуальная версия программы для разархивации, попробуйте повторно скачать архив и убедитесь, что он был загружен полностью.",
-  },
-  {
-    question: "Я установил программу, но через какое-то время она не запускается, и/или ярлыки исчезли. Что мне делать?",
-    response:
-      "Наиболее частой причиной такой проблемы является антивирусное ПО. В этом случае вам следует удалить программу полностью с компьютера и затем установить ее заново, следуя инструкции. Не забудьте добавить папку с программой в исключения антивируса после ее установки, чтобы предотвратить повторное блокирование.",
-  },
-  {
-    question: "Я получил ключ активации, но хочу установить программу на другое устройство. Могу ли я использовать тот же самый ключ?",
-    response:
-      "Нет, для каждого устройства генерируется уникальный ключ активации. Если вы хотите установить программное обеспечение на другое устройство, вам нужно обратиться в техническую поддержку, чтобы мы могли сгенерировать для вас новый ключ активации. Обращайтесь к нам в любое время, мы всегда готовы помочь вам с любыми вопросами по нашему ПО.",
-  },
-  {
-    question: "У меня не получается установить программное обеспечение, можете ли вы помочь?",
-    response:
-      "Мы готовы помочь вам в следующие часы: Пн-Пт: 10:00-19:00 (по московскому времени), Сб-Вс: 10:00-18:00 (по московскому времени). Свяжитесь с нами через онлайн-чат на сайте, мессенджеры или заполните форму обратной связи для помощи в установке. Мы ответим быстро и решим ваши вопросы по программному обеспечению. Обращайтесь в указанные часы - мы здесь, чтобы помочь!",
-  },
-];
+// Создайте интерфейс для карточек блога
+interface BlogCardProps {
+  title: string;
+  description: string;
+  link: string;
+}
 
-export default function Faq() {
+// Создайте компонент карточки блога
+const BlogCard: React.FC<BlogCardProps> = ({ title, description, link }) => {
   return (
-    <div
-      className="bg-white dark:bg-neutral-900 w-full px-4 pt-16 pb-16"
-      id="faq"
-    >
-      <h2 className="text-4xl font-bold text-center">
-        Часто задаваемые вопросы (FAQ) ❓
-      </h2>
+    <div className="blog-card">
+      <h3>{title}</h3>
+      <p>{description}</p>
+      <a href={link} className="read-more">
+        Читать далее
+      </a>
+    </div>
+  );
+};
 
-      <p className="pt-6 pb-8 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-        В этом разделе вы найдёте информацию о наших товарах и услугах, а также о других важных вопросах. Раздел создан для вашего удобства: вы сможете быстро найти ответы на свои вопросы и сэкономить время на общение с нашей поддержкой.
-      </p>
-      <div className="mx-auto w-full max-w-2xl rounded-2xl bg-transparent dark:bg-transparent">
-        {faqitems.map(({ question, response }) => (
-          <div key={question}>
-            <Disclosure>
-              {({ open }) => (
-                <div className="mt-4">
-                  <Disclosure.Button
-                    className={`${
-                      open
-                        ? "bg-neutral-100 dark:bg-neutral-800"
-                        : ""
-                    } flex w-full justify-between rounded-lg bg-neutral-100 dark:bg-neutral-800 dark:hover:bg-neutral-800 px-4 py-4 text-left text-base font-medium hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-300 ease-in-out`}
-                  >
-                    <h2 className="font-semibold">{question}</h2>
-                    <ChevronDownIcon
-                      className={`${
-                        open ? "rotate-180 transform transition-transform duration-300 ease-in-out" : "transition-transform duration-300 ease-in-out"
-                      } h-5 w-5 flex-shrink-0`}
-                    />
-                  </Disclosure.Button>
-                  <Disclosure.Panel
-                    className={`${
-                      open
-                        ? "max-h-[500px] px-4 pt-4 pb-2 text-base dark:text-neutral-400 transition-max-height duration-300 ease-in-out"
-                        : "max-h-0 transition-max-height duration-300 ease-in-out"
-                    } bg-neutral-100 dark:bg-neutral-800 rounded-b-lg overflow-hidden`}
-                  >
-                    <p>{response}</p>
-                  </Disclosure.Panel>
-                </div>
-              )}
-            </Disclosure>
-          </div>
+// Основной компонент страницы
+const BlogPage: React.FC = () => {
+  // Пример данных для блога
+  const blogPosts = [
+    {
+      title: 'Первая новость блога',
+      description: 'Краткое описание первой новости блога.',
+      link: '/blog/first-post',
+    },
+    {
+      title: 'Вторая новость блога',
+      description: 'Краткое описание второй новости блога.',
+      link: '/blog/second-post',
+    },
+    // Добавьте больше записей по мере необходимости
+  ];
+
+  return (
+    <div className="blog-page">
+      <h1>Наш блог</h1>
+      <div className="blog-list">
+        {blogPosts.map((post, index) => (
+          <BlogCard 
+            key={index}
+            title={post.title}
+            description={post.description}
+            link={post.link}
+          />
         ))}
       </div>
     </div>
   );
-}
+};
+
+export default BlogPage;
