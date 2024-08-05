@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import Image from "next/image";
+import Image from "next/image"; // Import Image component from Next.js
+import Link from "next/link"; // Import Link component from Next.js
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
@@ -52,7 +53,7 @@ export default function Navbar() {
 
       if (link && link.tagName === "A") {
         const href = link.getAttribute("href");
-        
+
         // Check if the href is a hash link within the current path
         if (href && href.startsWith("/#")) {
           const hash = href.split("#")[1]; // Extract the hash part
@@ -116,7 +117,7 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <a href="/#hero" onClick={handleLogoClick}>
+              <Link href="/#hero">
                 <Image
                   className="block h-12 w-auto logo-animation"
                   src="/images/logos/logo.png"
@@ -126,27 +127,31 @@ export default function Navbar() {
                   quality={100}
                   sizes="100vw"
                 />
-              </a>
+              </Link>
             </div>
 
             {/* Горизонтальное меню навигации */}
             <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
                     href={item.href}
-                    className={classNames(
-                      item.current
-                        ? "text-neutral-900 dark:text-neutral-400"
-                        : "text-neutral-900 dark:text-neutral-400",
-                      "nav-link"
-                    )}
-                    aria-current={item.current ? "page" : undefined}
-                    style={{ textDecoration: "none" }}
+                    passHref
                   >
-                    {item.name}
-                  </a>
+                    <a
+                      className={classNames(
+                        item.current
+                          ? "text-neutral-900 dark:text-neutral-400"
+                          : "text-neutral-900 dark:text-neutral-400",
+                        "nav-link"
+                      )}
+                      aria-current={item.current ? "page" : undefined}
+                      style={{ textDecoration: "none" }}
+                    >
+                      {item.name}
+                    </a>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -162,14 +167,14 @@ export default function Navbar() {
                   rel="noopener noreferrer"
                   className="block"
                 >
-                  <button className="btn-ozon">
-                    <img
-                      src="/images/logos/favicon.ico"
-                      alt="OZON"
-                      className="w-5 h-5"
-                    />
-                    OZON
-                  </button>
+                  <Image
+                    src="/images/logos/favicon.ico"
+                    alt="OZON"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5"
+                  />
+                  OZON
                 </a>
 
                 <a
@@ -178,14 +183,14 @@ export default function Navbar() {
                   rel="noopener noreferrer"
                   className="block"
                 >
-                  <button className="btn-yandex">
-                    <img
-                      src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                      alt="Яндекс Маркет"
-                      className="w-5 h-5"
-                    />
-                    Яндекс Маркет
-                  </button>
+                  <Image
+                    src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                    alt="Яндекс Маркет"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5"
+                  />
+                  Яндекс Маркет
                 </a>
 
                 <a
@@ -194,14 +199,14 @@ export default function Navbar() {
                   rel="noopener noreferrer"
                   className="block"
                 >
-                  <button className="btn-wildberries">
-                    <img
-                      src="https://www.wildberries.ru/favicon.ico"
-                      alt="Wildberries"
-                      className="w-5 h-5"
-                    />
-                    Wildberries
-                  </button>
+                  <Image
+                    src="https://www.wildberries.ru/favicon.ico"
+                    alt="Wildberries"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5"
+                  />
+                  Wildberries
                 </a>
               </>
             )}
@@ -252,20 +257,24 @@ export default function Navbar() {
         >
           <div className="flex flex-col items-center justify-center space-y-4">
             {navigation.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
-                className={classNames(
-                  item.current
-                    ? "text-neutral-900 dark:text-neutral-400"
-                    : "text-neutral-900 dark:text-neutral-400",
-                  "block py-2 text-lg font-medium hover:text-red-500"
-                )}
-                aria-current={item.current ? "page" : undefined}
-                onClick={() => setIsMenuOpen(false)} // Убедитесь, что меню можно повторно открыть
+                passHref
               >
-                {item.name}
-              </a>
+                <a
+                  className={classNames(
+                    item.current
+                      ? "text-neutral-900 dark:text-neutral-400"
+                      : "text-neutral-900 dark:text-neutral-400",
+                    "block py-2 text-lg font-medium hover:text-red-500"
+                  )}
+                  aria-current={item.current ? "page" : undefined}
+                  onClick={() => setIsMenuOpen(false)} // Убедитесь, что меню можно повторно открыть
+                >
+                  {item.name}
+                </a>
+              </Link>
             ))}
             <div className="flex flex-col items-center w-full mt-4">
               <button
@@ -287,9 +296,11 @@ export default function Navbar() {
                     rel="noopener noreferrer"
                     className="btn-ozon flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
                   >
-                    <img
+                    <Image
                       src="/images/logos/favicon.ico"
                       alt="OZON"
+                      width={16}
+                      height={16}
                       className="w-4 h-4 mr-2"
                     />
                     OZON
@@ -301,9 +312,11 @@ export default function Navbar() {
                     rel="noopener noreferrer"
                     className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
                   >
-                    <img
+                    <Image
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
                       alt="Яндекс Маркет"
+                      width={16}
+                      height={16}
                       className="w-4 h-4 mr-2"
                     />
                     Яндекс Маркет
@@ -315,9 +328,11 @@ export default function Navbar() {
                     rel="noopener noreferrer"
                     className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
                   >
-                    <img
+                    <Image
                       src="https://www.wildberries.ru/favicon.ico"
                       alt="Wildberries"
+                      width={16}
+                      height={16}
                       className="w-4 h-4 mr-2"
                     />
                     Wildberries
