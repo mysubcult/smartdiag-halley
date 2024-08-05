@@ -5,11 +5,11 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 
 const navigation = [
-  { name: "Главная", href: "#hero", current: false },
-  { name: "Программы", href: "#soft", current: false },
-  { name: "Блог", href: "#blog", current: false },
-  { name: "О нас", href: "#services", current: false },
-  { name: "Обратная связь", href: "#contact", current: false },
+  { name: "Главная", href: "/#hero", current: false },
+  { name: "Программы", href: "/#soft", current: false },
+  { name: "Блог", href: "/#blog", current: false },
+  { name: "О нас", href: "/#services", current: false },
+  { name: "Обратная связь", href: "/#contact", current: false },
 ];
 
 // Utility function to combine class names
