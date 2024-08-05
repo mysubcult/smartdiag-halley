@@ -45,11 +45,12 @@ export default function Navbar() {
   // Smooth scrolling
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
+      const target = event.currentTarget as HTMLElement; // Используем currentTarget
       if (
         target.tagName === "A" &&
         target.getAttribute("href")?.startsWith("#")
       ) {
+        console.log('Smooth scroll triggered'); // Для отладки
         event.preventDefault();
         const anchor = document.querySelector(target.getAttribute("href")!);
         if (anchor) {
