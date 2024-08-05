@@ -3,6 +3,7 @@ import Image from "next/image";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { useRouter } from "next/router";
 
 const navigation = [
   { name: "Главная", href: "/#hero", current: false },
@@ -21,6 +22,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
+  const router = useRouter();
 
   // Устанавливаем начальное состояние мобильного вида
   const [isMobileView, setIsMobileView] = useState(
@@ -48,13 +50,20 @@ export default function Navbar() {
       const target = event.target as HTMLElement;
       const link = target.closest("a"); // Find the closest ancestor <a> tag
 
-      if (link && link.tagName === "A" && link.getAttribute("href")?.startsWith("#")) {
-        event.preventDefault(); // Prevent the default anchor link behavior
-        const anchor = document.querySelector(link.getAttribute("href")!);
-        if (anchor) {
-          anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (link && link.tagName === "A") {
+        const href = link.getAttribute("href");
+        
+        // Check if the href is a hash link within the current path
+        if (href && href.startsWith("/#")) {
+          const hash = href.split("#")[1]; // Extract the hash part
+          const anchor = document.getElementById(hash);
+
+          if (anchor) {
+            event.preventDefault(); // Prevent the default browser jump
+            anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+            setIsMenuOpen(false); // Закрыть меню после клика по ссылке
+          }
         }
-        setIsMenuOpen(false); // Закрыть меню после клика по ссылке
       }
     };
 
@@ -63,7 +72,7 @@ export default function Navbar() {
     return () => {
       document.removeEventListener("click", handleSmoothScroll);
     };
-  }, []);
+  }, [router.pathname]);
 
   const handleLogoClick = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -107,7 +116,7 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <a href="#hero" onClick={handleLogoClick}>
+              <a href="/#hero" onClick={handleLogoClick}>
                 <Image
                   className="block h-12 w-auto logo-animation"
                   src="/images/logos/logo.png"
