@@ -5,11 +5,11 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 
 const navigation = [
-  { name: "Главная", href: "/#hero", current: false },
-  { name: "Программы", href: "/#soft", current: false },
-  { name: "Блог", href: "/#blog", current: false },
-  { name: "О нас", href: "/#services", current: false },
-  { name: "Обратная связь", href: "/#contact", current: false },
+  { name: "Главная", href: "#hero", current: false },
+  { name: "Программы", href: "#soft", current: false },
+  { name: "Блог", href: "#blog", current: false },
+  { name: "О нас", href: "#services", current: false },
+  { name: "Обратная связь", href: "#contact", current: false },
 ];
 
 // Utility function to combine class names
@@ -45,14 +45,12 @@ export default function Navbar() {
   // Smooth scrolling
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
-      const target = event.currentTarget as HTMLElement; // Используем currentTarget
-      if (
-        target.tagName === "A" &&
-        target.getAttribute("href")?.startsWith("#")
-      ) {
-        console.log('Smooth scroll triggered'); // Для отладки
-        event.preventDefault();
-        const anchor = document.querySelector(target.getAttribute("href")!);
+      const target = event.target as HTMLElement;
+      const link = target.closest("a"); // Find the closest ancestor <a> tag
+
+      if (link && link.tagName === "A" && link.getAttribute("href")?.startsWith("#")) {
+        event.preventDefault(); // Prevent the default anchor link behavior
+        const anchor = document.querySelector(link.getAttribute("href")!);
         if (anchor) {
           anchor.scrollIntoView({ behavior: "smooth", block: "start" });
         }
