@@ -48,7 +48,6 @@ const blogPosts = [
 
 export default function Blog() {
   return (
-    <Layout>
       <div
         className="bg-white dark:bg-neutral-900 w-full px-4 pt-16 pb-16"
         id="blog"
@@ -90,6 +89,5 @@ export default function Blog() {
           ))}
         </div>
       </div>
-    </Layout>
   );
 }
