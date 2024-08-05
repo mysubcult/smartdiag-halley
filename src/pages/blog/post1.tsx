@@ -68,7 +68,7 @@ export default function BlogPost() {
         </div>
 
         <div className="mt-16 text-center">
-          <Link href="/blog">
+          <Link href="/#faq">
             <button className="bg-rose-500 text-white text-base rounded-full px-16 py-3 font-medium">
               Вернуться в блог
             </button>
