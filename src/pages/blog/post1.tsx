@@ -4,34 +4,7 @@ import Link from "next/link";
 import Layout from "../../components/Layout";
 
 export default function BlogPost() {
-  const [isSticky, setIsSticky] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const introSection = document.querySelector("#introduction");
-      const introOffsetTop = introSection ? introSection.getBoundingClientRect().top + window.scrollY : 0;
-
-      const viewportHeight = window.innerHeight;
-      const buffer = 100; // Можно настроить как угодно, добавляет пространство для срабатывания
-
-      if (scrollTop + viewportHeight - buffer >= introOffsetTop) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    // Добавим вызов функции при первом рендеринге
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
+  // Убираем isSticky и handleScroll, так как навигация теперь будет фиксированной
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -61,9 +34,9 @@ export default function BlogPost() {
           {/* Основной контент и боковая панель */}
           <div className="relative lg:flex lg:space-x-8">
             {/* Боковая панель */}
-            <aside className={`lg:w-1/4 px-4 sticky top-32 h-auto ${isSticky ? 'fixed' : 'relative'}`}>
-              <div className="border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 bg-white dark:bg-neutral-900 shadow-lg">
-                <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
+            <aside className="lg:w-1/4 px-4 fixed top-32 h-screen">
+              <div className="p-4 bg-white dark:bg-neutral-900 shadow-lg h-full flex flex-col justify-start">
+                <h3 className="text-lg font-bold mb-4">Навигация</h3>
                 <nav className="space-y-4">
                   <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
                     Проблема с антивирусом
@@ -83,6 +56,9 @@ export default function BlogPost() {
                 </nav>
               </div>
             </aside>
+
+            {/* Разделительная вертикальная линия */}
+            <div className="border-r border-neutral-300 dark:border-neutral-700 h-auto"></div>
 
             {/* Основной контент */}
             <div className="w-full lg:w-3/4 mx-auto px-4 text-center">
