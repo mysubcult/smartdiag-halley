@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "../../components/Layout";
 
 export default function BlogPost() {
-  // Убираем isSticky и handleScroll, так как навигация теперь будет фиксированной
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -32,9 +31,9 @@ export default function BlogPost() {
       <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row">
           {/* Основной контент и боковая панель */}
-          <div className="relative lg:flex lg:space-x-8">
+          <div className="flex lg:flex-row lg:space-x-8">
             {/* Боковая панель */}
-            <aside className="lg:w-1/4 px-4 fixed top-32 h-screen">
+            <aside className="lg:w-1/4 px-4 fixed lg:relative top-32 lg:top-0 h-screen lg:h-auto">
               <div className="p-4 bg-white dark:bg-neutral-900 shadow-lg h-full flex flex-col justify-start">
                 <h3 className="text-lg font-bold mb-4">Навигация</h3>
                 <nav className="space-y-4">
@@ -58,10 +57,10 @@ export default function BlogPost() {
             </aside>
 
             {/* Разделительная вертикальная линия */}
-            <div className="border-r border-neutral-300 dark:border-neutral-700 h-auto"></div>
+            <div className="hidden lg:block lg:w-px bg-neutral-300 dark:bg-neutral-700"></div>
 
             {/* Основной контент */}
-            <div className="w-full lg:w-3/4 mx-auto px-4 text-center">
+            <div className="w-full lg:w-3/4 mx-auto px-4 text-center mt-16 lg:mt-0 lg:ml-4">
               <h2 className="text-4xl font-bold">
                 Как справиться с ошибкой при открытии архива
               </h2>
