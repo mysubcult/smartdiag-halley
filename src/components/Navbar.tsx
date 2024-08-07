@@ -45,23 +45,21 @@ export default function Navbar() {
     };
   }, []);
 
-  // Smooth scrolling
-  useEffect(() => {
-    const handleSmoothScroll = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (
-        target.tagName === "A" &&
-        target.getAttribute("href")?.startsWith("#")
-      ) {
-        event.preventDefault();
-        const anchor = document.querySelector(target.getAttribute("href")!);
-        if (anchor) {
-          anchor.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-        setIsMenuOpen(false); // Закрыть меню после клика по ссылке
+  const handleSmoothScroll = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (
+      target.tagName === "A" &&
+      target.getAttribute("href")?.startsWith("#")
+    ) {
+      event.preventDefault();
+      const anchor = document.querySelector(target.getAttribute("href")!);
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: "smooth", block: "start" });
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     document.addEventListener("click", handleSmoothScroll);
 
     return () => {
@@ -71,9 +69,13 @@ export default function Navbar() {
 
   const handleLogoClick = (event: React.MouseEvent) => {
     event.preventDefault();
-    const heroAnchor = document.querySelector("#hero");
-    if (heroAnchor) {
-      heroAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (router.pathname !== '/') {
+      router.push('/#hero'); // Переход на главную страницу и якорь
+    } else {
+      const heroAnchor = document.querySelector("#hero");
+      if (heroAnchor) {
+        heroAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
   };
 
@@ -124,7 +126,7 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <a href="#hero" onClick={handleLogoClick}>
+              <a href="/#hero" onClick={handleLogoClick}>
                 <Image
                   className="block h-12 w-auto logo-animation"
                   src="/images/logos/logo.png"
