@@ -15,6 +15,12 @@ export default function BlogPost() {
         const anchor = document.querySelector(target.getAttribute("href")!);
         if (anchor) {
           anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+
+          // Прокручиваем боковую панель в область видимости
+          const sidebar = document.querySelector("aside");
+          if (sidebar) {
+            sidebar.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
         }
       }
     };
