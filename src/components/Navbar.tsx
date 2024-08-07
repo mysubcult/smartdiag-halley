@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
@@ -126,24 +127,24 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <a href="/#hero" onClick={handleLogoClick}>
+              <Link href="/#hero" onClick={handleLogoClick}>
                 <Image
                   className="block h-12 w-auto logo-animation"
                   src="/images/logos/logo.png"
-                  alt="SmartDiag"
+                  alt="SmartDiag Logo"
                   width={256}
                   height={117}
                   quality={100}
                   sizes="100vw"
                 />
-              </a>
+              </Link>
             </div>
 
             {/* Горизонтальное меню навигации */}
             <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
                     href={item.href}
                     className={classNames(
@@ -157,7 +158,7 @@ export default function Navbar() {
                     onClick={handleNavLinkClick(item.anchor)}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -167,53 +168,59 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             {!isMobileView && (
               <>
-                <a
+                <Link
                   href="https://www.ozon.ru/seller/smartdiag-862410/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block"
                 >
                   <button className="btn-ozon">
-                    <img
+                    <Image
                       src="/images/logos/favicon.ico"
                       alt="OZON"
                       className="w-5 h-5"
+                      width={20}
+                      height={20}
                     />
                     OZON
                   </button>
-                </a>
+                </Link>
 
-                <a
+                <Link
                   href="https://market.yandex.ru/business--smartdiag/50025236"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block"
                 >
                   <button className="btn-yandex">
-                    <img
+                    <Image
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
                       alt="Яндекс Маркет"
                       className="w-5 h-5"
+                      width={20}
+                      height={20}
                     />
                     Яндекс Маркет
                   </button>
-                </a>
+                </Link>
 
-                <a
+                <Link
                   href="https://www.wildberries.ru/seller/1343369"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block"
                 >
                   <button className="btn-wildberries">
-                    <img
+                    <Image
                       src="https://www.wildberries.ru/favicon.ico"
                       alt="Wildberries"
                       className="w-5 h-5"
+                      width={20}
+                      height={20}
                     />
                     Wildberries
                   </button>
-                </a>
+                </Link>
               </>
             )}
 
@@ -263,7 +270,7 @@ export default function Navbar() {
         >
           <div className="flex flex-col items-center justify-center space-y-4">
             {navigation.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className={classNames(
@@ -276,7 +283,7 @@ export default function Navbar() {
                 onClick={handleNavLinkClick(item.anchor)}
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
             <div className="flex flex-col items-center w-full mt-4">
               <button
@@ -292,47 +299,53 @@ export default function Navbar() {
               </button>
               {isSubMenuOpen && (
                 <div className="submenu mt-2 space-y-3 w-full">
-                  <a
+                  <Link
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-ozon flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
                   >
-                    <img
+                    <Image
                       src="/images/logos/favicon.ico"
                       alt="OZON"
                       className="w-4 h-4 mr-2"
+                      width={16}
+                      height={16}
                     />
                     OZON
-                  </a>
+                  </Link>
 
-                  <a
+                  <Link
                     href="https://market.yandex.ru/business--smartdiag/50025236"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
                   >
-                    <img
+                    <Image
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
                       alt="Яндекс Маркет"
                       className="w-4 h-4 mr-2"
+                      width={16}
+                      height={16}
                     />
                     Яндекс Маркет
-                  </a>
+                  </Link>
 
-                  <a
+                  <Link
                     href="https://www.wildberries.ru/seller/1343369"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
                   >
-                    <img
+                    <Image
                       src="https://www.wildberries.ru/favicon.ico"
                       alt="Wildberries"
                       className="w-4 h-4 mr-2"
+                      width={16}
+                      height={16}
                     />
                     Wildberries
-                  </a>
+                  </Link>
                 </div>
               )}
             </div>
