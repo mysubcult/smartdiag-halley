@@ -66,7 +66,7 @@ export default function BlogPost() {
           content="В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения."
         />
         {/* Подключаем стили */}
-        <link rel="stylesheet" href="/path/to/styles.css" />
+        <link rel="stylesheet" href="/styles/globals.css" />
       </Head>
       <Layout>
         <div className="container mx-auto">
