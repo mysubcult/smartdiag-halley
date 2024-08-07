@@ -38,7 +38,7 @@ export default function BlogPost() {
         <div className="container mx-auto flex flex-col lg:flex-row justify-center">
           {/* Боковая панель */}
           <aside className="hidden lg:block lg:w-1/4 px-4 sticky top-24 h-screen">
-            <div className="border border-neutral-300 dark:border-neutral-700 rounded-lg p-4">
+            <div className="border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 bg-white dark:bg-neutral-900 shadow-lg">
               <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
               <nav className="space-y-4">
                 <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
