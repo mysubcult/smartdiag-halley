@@ -363,6 +363,8 @@ nav .dark\:text-neutral-400:hover {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 8rem; /* Задает верхнюю позицию для фиксации */
+  align-self: start; /* Исправляем позицию в flexbox контейнере */
+  margin-top: 2rem; /* Увеличиваем отступ сверху */
 }
 
 @media (min-width: 1024px) {
