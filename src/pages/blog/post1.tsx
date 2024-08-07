@@ -1,31 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "../../components/Layout";
 
 export default function BlogPost() {
-  const [isSticky, setIsSticky] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const introSection = document.querySelector("#introduction");
-      const introOffsetTop = introSection ? introSection.getBoundingClientRect().top + window.scrollY : 0;
-
-      if (scrollTop >= introOffsetTop) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -53,7 +31,7 @@ export default function BlogPost() {
       <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16" id="blog-post">
         <div className="container mx-auto flex flex-col lg:flex-row justify-center">
           {/* Боковая панель */}
-          <aside className={`hidden lg:block lg:w-1/4 px-4 ${isSticky ? 'fixed top-4' : 'relative'} h-auto`}>
+          <aside className="hidden lg:block lg:w-1/4 px-4 sticky top-24 h-screen">
             <div className="border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 bg-white dark:bg-neutral-900 shadow-lg">
               <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
               <nav className="space-y-4">
@@ -82,7 +60,7 @@ export default function BlogPost() {
               Как справиться с ошибкой при открытии архива
             </h2>
 
-            <p id="introduction" className="pt-6 pb-8 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+            <p className="pt-6 pb-8 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения...
             </p>
 
