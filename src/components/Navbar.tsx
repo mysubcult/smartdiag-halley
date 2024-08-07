@@ -23,45 +23,50 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
-  const [isInitialized, setIsInitialized] = useState(false);
 
   const router = useRouter();
 
   // Устанавливаем начальное состояние мобильного вида
-  const [isMobileView, setIsMobileView] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(
+    typeof window !== "undefined" && window.innerWidth <= 1200
+  );
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 1200);
     };
 
-    if (typeof window !== "undefined") {
-      window.addEventListener("resize", handleResize);
-      handleResize(); // Убедимся, что состояние обновлено сразу
-    }
+    window.addEventListener("resize", handleResize);
+
+    // Убедимся, что состояние обновлено сразу
+    handleResize();
 
     return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("resize", handleResize);
-      }
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-  useEffect(() => {
-    // Отложенная инициализация состояния для предотвращения проблем с hydration
-    setIsInitialized(true);
-  }, []);
-
-  const handleSmoothScroll = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    const href = event.currentTarget.getAttribute("href");
-    if (href && href.startsWith("#")) {
-      const anchor = document.querySelector(href);
+  const handleSmoothScroll = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (
+      target.tagName === "A" &&
+      target.getAttribute("href")?.startsWith("#")
+    ) {
+      event.preventDefault();
+      const anchor = document.querySelector(target.getAttribute("href")!);
       if (anchor) {
         anchor.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
   };
+
+  useEffect(() => {
+    document.addEventListener("click", handleSmoothScroll);
+
+    return () => {
+      document.removeEventListener("click", handleSmoothScroll);
+    };
+  }, []);
 
   const handleLogoClick = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -110,18 +115,11 @@ export default function Navbar() {
       setFontSize(`${newFontSize}px`);
     };
 
-    if (typeof window !== "undefined") {
-      updateFontSizeAndHeight();
-      window.addEventListener("resize", updateFontSizeAndHeight);
-    }
-    return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("resize", updateFontSizeAndHeight);
-      }
-    };
-  }, [isSubMenuOpen]);
+    updateFontSizeAndHeight();
 
-  if (!isInitialized) return null; // Предотвращаем рендеринг до инициализации
+    window.addEventListener("resize", updateFontSizeAndHeight);
+    return () => window.removeEventListener("resize", updateFontSizeAndHeight);
+  }, [isSubMenuOpen]);
 
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
@@ -282,7 +280,7 @@ export default function Navbar() {
                   "block py-2 text-lg font-medium hover:text-red-500"
                 )}
                 aria-current={item.current ? "page" : undefined}
-                onClick={handleSmoothScroll}
+                onClick={handleNavLinkClick(item.anchor)}
               >
                 {item.name}
               </Link>
