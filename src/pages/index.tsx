@@ -17,6 +17,7 @@ export default function Home() {
       <Contact />
       <Script
         id="lhc-widget-script"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
             var LHC_API = LHC_API||{};
