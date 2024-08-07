@@ -3,6 +3,7 @@ import Image from "next/image";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { useRouter } from "next/router";
 
 const navigation = [
   { name: "Главная", href: "#hero", current: false },
@@ -21,6 +22,8 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
+
+  const router = useRouter();
 
   // Устанавливаем начальное состояние мобильного вида
   const [isMobileView, setIsMobileView] = useState(
@@ -72,6 +75,19 @@ export default function Navbar() {
     if (heroAnchor) {
       heroAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+  };
+
+  const handleNavLinkClick = (href: string) => (event: React.MouseEvent) => {
+    event.preventDefault();
+    if (router.pathname !== '/') {
+      router.push(`/${href}`); // Переход на главную страницу и якорь
+    } else {
+      const anchor = document.querySelector(href);
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+    setIsMenuOpen(false);
   };
 
   // Dynamic font size and height
@@ -136,6 +152,7 @@ export default function Navbar() {
                     )}
                     aria-current={item.current ? "page" : undefined}
                     style={{ textDecoration: "none" }}
+                    onClick={handleNavLinkClick(item.href)}
                   >
                     {item.name}
                   </a>
@@ -254,7 +271,7 @@ export default function Navbar() {
                   "block py-2 text-lg font-medium hover:text-red-500"
                 )}
                 aria-current={item.current ? "page" : undefined}
-                onClick={() => setIsMenuOpen(false)} // Убедитесь, что меню можно повторно открыть
+                onClick={handleNavLinkClick(item.href)}
               >
                 {item.name}
               </a>
