@@ -27,46 +27,35 @@ export default function Navbar() {
   const router = useRouter();
 
   // Устанавливаем начальное состояние мобильного вида
-  const [isMobileView, setIsMobileView] = useState(
-    typeof window !== "undefined" && window.innerWidth <= 1200
-  );
+  const [isMobileView, setIsMobileView] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 1200);
     };
 
-    window.addEventListener("resize", handleResize);
-
-    // Убедимся, что состояние обновлено сразу
-    handleResize();
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", handleResize);
+      handleResize(); // Убедимся, что состояние обновлено сразу
+    }
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      if (typeof window !== "undefined") {
+        window.removeEventListener("resize", handleResize);
+      }
     };
   }, []);
 
-  const handleSmoothScroll = (event: MouseEvent) => {
-    const target = event.target as HTMLElement;
-    if (
-      target.tagName === "A" &&
-      target.getAttribute("href")?.startsWith("#")
-    ) {
-      event.preventDefault();
-      const anchor = document.querySelector(target.getAttribute("href")!);
+  const handleSmoothScroll = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    const href = event.currentTarget.getAttribute("href");
+    if (href && href.startsWith("#")) {
+      const anchor = document.querySelector(href);
       if (anchor) {
         anchor.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
   };
-
-  useEffect(() => {
-    document.addEventListener("click", handleSmoothScroll);
-
-    return () => {
-      document.removeEventListener("click", handleSmoothScroll);
-    };
-  }, []);
 
   const handleLogoClick = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -115,10 +104,15 @@ export default function Navbar() {
       setFontSize(`${newFontSize}px`);
     };
 
-    updateFontSizeAndHeight();
-
-    window.addEventListener("resize", updateFontSizeAndHeight);
-    return () => window.removeEventListener("resize", updateFontSizeAndHeight);
+    if (typeof window !== "undefined") {
+      updateFontSizeAndHeight();
+      window.addEventListener("resize", updateFontSizeAndHeight);
+    }
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("resize", updateFontSizeAndHeight);
+      }
+    };
   }, [isSubMenuOpen]);
 
   return (
@@ -280,7 +274,7 @@ export default function Navbar() {
                   "block py-2 text-lg font-medium hover:text-red-500"
                 )}
                 aria-current={item.current ? "page" : undefined}
-                onClick={handleNavLinkClick(item.anchor)}
+                onClick={handleSmoothScroll}
               >
                 {item.name}
               </Link>
