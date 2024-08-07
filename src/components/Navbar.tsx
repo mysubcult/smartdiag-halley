@@ -6,11 +6,11 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
 const navigation = [
-  { name: "Главная", href: "#hero", current: false },
-  { name: "Программы", href: "#soft", current: false },
-  { name: "Блог", href: "#blog", current: false },
-  { name: "О нас", href: "#services", current: false },
-  { name: "Обратная связь", href: "#contact", current: false },
+  { name: "Главная", href: "/#hero", anchor: "#hero", current: false },
+  { name: "Программы", href: "/#soft", anchor: "#soft", current: false },
+  { name: "Блог", href: "/#blog", anchor: "#blog", current: false },
+  { name: "О нас", href: "/#services", anchor: "#services", current: false },
+  { name: "Обратная связь", href: "/#contact", anchor: "#contact", current: false },
 ];
 
 // Utility function to combine class names
@@ -77,14 +77,14 @@ export default function Navbar() {
     }
   };
 
-  const handleNavLinkClick = (href: string) => (event: React.MouseEvent) => {
+  const handleNavLinkClick = (anchor: string) => (event: React.MouseEvent) => {
     event.preventDefault();
     if (router.pathname !== '/') {
-      router.push(`/${href}`); // Переход на главную страницу и якорь
+      router.push(`/${anchor}`); // Переход на главную страницу и якорь
     } else {
-      const anchor = document.querySelector(href);
-      if (anchor) {
-        anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+      const anchorElement = document.querySelector(anchor);
+      if (anchorElement) {
+        anchorElement.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
     setIsMenuOpen(false);
@@ -152,7 +152,7 @@ export default function Navbar() {
                     )}
                     aria-current={item.current ? "page" : undefined}
                     style={{ textDecoration: "none" }}
-                    onClick={handleNavLinkClick(item.href)}
+                    onClick={handleNavLinkClick(item.anchor)}
                   >
                     {item.name}
                   </a>
@@ -271,7 +271,7 @@ export default function Navbar() {
                   "block py-2 text-lg font-medium hover:text-red-500"
                 )}
                 aria-current={item.current ? "page" : undefined}
-                onClick={handleNavLinkClick(item.href)}
+                onClick={handleNavLinkClick(item.anchor)}
               >
                 {item.name}
               </a>
