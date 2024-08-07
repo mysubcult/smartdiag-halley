@@ -1,78 +1,106 @@
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "../../components/Layout";
 
 export default function BlogPost() {
+  useEffect(() => {
+    const handleSmoothScroll = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (
+        target.tagName === "A" &&
+        target.getAttribute("href")?.startsWith("#")
+      ) {
+        event.preventDefault();
+        const anchor = document.querySelector(target.getAttribute("href")!);
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    };
+
+    document.addEventListener("click", handleSmoothScroll);
+
+    return () => {
+      document.removeEventListener("click", handleSmoothScroll);
+    };
+  }, []);
+
   return (
     <Layout>
-      <div
-        className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16"
-        id="blog-post"
-      >
-        <h2 className="text-4xl font-bold text-center">
-          Как справиться с ошибкой при открытии архива
-        </h2>
+      <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16" id="blog-post">
+        <div className="flex">
+          {/* Боковая панель */}
+          <aside className="hidden md:block md:w-1/4 lg:w-1/5 px-4 sticky top-24 h-screen">
+            <nav className="space-y-4">
+              <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                Проблема с антивирусом
+              </a>
+              <a href="#outdated-software" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                Устаревшее ПО
+              </a>
+              <a href="#download-errors" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                Ошибки при загрузке
+              </a>
+              <a href="#yandex-tips" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                Советы для Яндекс Браузера
+              </a>
+              <a href="#support" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                Поддержка
+              </a>
+            </nav>
+          </aside>
 
-        <p className="pt-6 pb-8 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          В этой статье мы рассмотрим наиболее частые причины ошибок при
-          открытии архивов и предложим решения для их устранения. Если у вас
-          возникли проблемы с открытием архивов, следуйте нашим советам.
-        </p>
-        
-        <Image
-          src="/images/blog/post1.jpg"
-          alt="Ошибки при открытии архива"
-          width={1920}
-          height={1080}
-          quality={75}
-          sizes="100vw"
-          className="w-full max-w-xl mx-auto mb-8"
-        />
+          {/* Основной контент */}
+          <div className="w-full md:w-3/4 lg:w-4/5">
+            <h2 className="text-4xl font-bold text-center">
+              Как справиться с ошибкой при открытии архива
+            </h2>
 
-        <div className="max-w-3xl mx-auto text-lg leading-relaxed">
-          <p className="mb-4">
-            <strong>Проблема с антивирусом:</strong> Часто проблемы с открытием
-            архивов вызваны антивирусным программным обеспечением, которое
-            блокирует файлы. Проверьте настройки вашего антивируса и убедитесь,
-            что архив не был помечен как вредоносный. Если это так, добавьте
-            архив в список исключений.
-          </p>
+            <p className="pt-6 pb-8 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+              В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения...
+            </p>
 
-          <p className="mb-4">
-            <strong>Устаревшее программное обеспечение:</strong> Если вы
-            используете старую версию программного обеспечения для работы с
-            архивами, это может быть причиной ошибки. Обновите ваш архиватор до
-            последней версии. Популярные программы включают WinRAR и WinZip.
-          </p>
+            <Image
+              src="/images/blog/post1.jpg"
+              alt="Ошибки при открытии архива"
+              width={1920}
+              height={1080}
+              quality={75}
+              sizes="100vw"
+              className="w-full max-w-xl mx-auto mb-8"
+            />
 
-          <p className="mb-4">
-            <strong>Ошибки при загрузке:</strong> Иногда архив может не
-            открываться из-за ошибок при его загрузке. Попробуйте загрузить
-            файл повторно и убедитесь, что соединение с интернетом стабильное.
-          </p>
+            <div className="max-w-3xl mx-auto text-lg leading-relaxed">
+              <p className="mb-4" id="antivirus-issue">
+                <strong>Проблема с антивирусом:</strong> Часто проблемы с открытием архивов вызваны антивирусным программным обеспечением...
+              </p>
 
-          <p className="mb-4">
-            <strong>Советы для пользователей Яндекс Браузера:</strong> В Яндекс
-            Браузере может быть включена защита, блокирующая некоторые файлы.
-            Чтобы временно отключить эту защиту, перейдите в настройки браузера,
-            выберите вкладку &quot;Безопасность&quot; и снимите галочку с опции
-            &quot;Проверять безопасность загружаемых файлов&quot;.
-          </p>
+              <p className="mb-4" id="outdated-software">
+                <strong>Устаревшее программное обеспечение:</strong> Если вы используете старую версию программного обеспечения для работы с архивами...
+              </p>
 
-          <p className="mb-4">
-            Если перечисленные выше шаги не помогают, обратитесь в службу
-            поддержки для получения дополнительной помощи. Мы всегда готовы
-            помочь вам с любыми вопросами, связанными с нашим программным
-            обеспечением.
-          </p>
-        </div>
+              <p className="mb-4" id="download-errors">
+                <strong>Ошибки при загрузке:</strong> Иногда архив может не открываться из-за ошибок при его загрузке...
+              </p>
 
-        <div className="mt-16 text-center">
-          <Link href="/#blog">
-            <button className="bg-rose-500 text-white text-base rounded-full px-16 py-3 font-medium">
-              Вернуться в блог
-            </button>
-          </Link>
+              <p className="mb-4" id="yandex-tips">
+                <strong>Советы для пользователей Яндекс Браузера:</strong> В Яндекс Браузере может быть включена защита, блокирующая некоторые файлы...
+              </p>
+
+              <p className="mb-4" id="support">
+                Если перечисленные выше шаги не помогают, обратитесь в службу поддержки для получения дополнительной помощи...
+              </p>
+            </div>
+
+            <div className="mt-16 text-center">
+              <Link href="/#blog">
+                <button className="bg-rose-500 text-white text-base rounded-full px-16 py-3 font-medium">
+                  Вернуться в блог
+                </button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </Layout>
