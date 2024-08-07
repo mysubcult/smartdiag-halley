@@ -12,7 +12,10 @@ export default function BlogPost() {
       const introSection = document.querySelector("#introduction");
       const introOffsetTop = introSection ? introSection.getBoundingClientRect().top + window.scrollY : 0;
 
-      if (scrollTop >= introOffsetTop) {
+      const viewportHeight = window.innerHeight;
+      const buffer = 100; // Можно настроить как угодно, добавляет пространство для срабатывания
+
+      if (scrollTop + viewportHeight - buffer >= introOffsetTop) {
         setIsSticky(true);
       } else {
         setIsSticky(false);
@@ -20,6 +23,9 @@ export default function BlogPost() {
     };
 
     window.addEventListener("scroll", handleScroll);
+
+    // Добавим вызов функции при первом рендеринге
+    handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -79,12 +85,12 @@ export default function BlogPost() {
             </aside>
 
             {/* Основной контент */}
-            <div className="w-full lg:w-3/4 max-w-3xl mx-auto px-4">
-              <h2 className="text-4xl font-bold text-center">
+            <div className="w-full lg:w-3/4 mx-auto px-4 text-center">
+              <h2 className="text-4xl font-bold">
                 Как справиться с ошибкой при открытии архива
               </h2>
 
-              <p id="introduction" className="pt-6 pb-8 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+              <p id="introduction" className="pt-6 pb-8 text-base max-w-2xl m-auto dark:text-neutral-400">
                 В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения...
               </p>
 
@@ -98,7 +104,7 @@ export default function BlogPost() {
                 className="w-full max-w-xl mx-auto mb-8"
               />
 
-              <div className="max-w-3xl mx-auto text-lg leading-relaxed">
+              <div className="max-w-3xl mx-auto text-lg leading-relaxed text-center">
                 <p className="mb-4" id="antivirus-issue">
                   <strong>Проблема с антивирусом:</strong> Часто проблемы с открытием архивов вызваны антивирусным программным обеспечением...
                 </p>
@@ -120,7 +126,7 @@ export default function BlogPost() {
                 </p>
               </div>
 
-              <div className="mt-16 text-center">
+              <div className="mt-16">
                 <Link href="/#blog">
                   <button className="bg-rose-500 text-white text-base rounded-full px-16 py-3 font-medium">
                     Вернуться в блог
