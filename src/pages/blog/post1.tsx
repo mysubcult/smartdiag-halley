@@ -29,30 +29,33 @@ export default function BlogPost() {
   return (
     <Layout>
       <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16" id="blog-post">
-        <div className="flex">
+        <div className="container mx-auto flex flex-col lg:flex-row justify-center">
           {/* Боковая панель */}
-          <aside className="hidden md:block md:w-1/4 lg:w-1/5 px-4 sticky top-24 h-screen">
-            <nav className="space-y-4">
-              <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                Проблема с антивирусом
-              </a>
-              <a href="#outdated-software" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                Устаревшее ПО
-              </a>
-              <a href="#download-errors" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                Ошибки при загрузке
-              </a>
-              <a href="#yandex-tips" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                Советы для Яндекс Браузера
-              </a>
-              <a href="#support" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                Поддержка
-              </a>
-            </nav>
+          <aside className="hidden lg:block lg:w-1/4 px-4 sticky top-24 h-screen">
+            <div className="border border-neutral-300 dark:border-neutral-700 rounded-lg p-4">
+              <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
+              <nav className="space-y-4">
+                <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                  Проблема с антивирусом
+                </a>
+                <a href="#outdated-software" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                  Устаревшее ПО
+                </a>
+                <a href="#download-errors" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                  Ошибки при загрузке
+                </a>
+                <a href="#yandex-tips" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                  Советы для Яндекс Браузера
+                </a>
+                <a href="#support" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                  Поддержка
+                </a>
+              </nav>
+            </div>
           </aside>
 
           {/* Основной контент */}
-          <div className="w-full md:w-3/4 lg:w-4/5">
+          <div className="w-full lg:w-3/4 max-w-3xl mx-auto lg:ml-8 px-4">
             <h2 className="text-4xl font-bold text-center">
               Как справиться с ошибкой при открытии архива
             </h2>
