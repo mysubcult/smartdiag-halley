@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "../../components/Layout";
+import ForceUpdate from "../../components/ForceUpdate"; // Импортируем новый компонент
 
 export default function BlogPost() {
   const [isSticky, setIsSticky] = useState(false);
@@ -54,20 +55,9 @@ export default function BlogPost() {
     };
   }, []);
 
-  useEffect(() => {
-    // This effect ensures the styles are applied correctly when navigating to this page
-    const applyStyles = () => {
-      const toc = document.querySelector("aside");
-      if (toc) {
-        toc.classList.add("border", "border-neutral-300", "dark:border-neutral-700", "rounded-lg", "p-4", "bg-white", "dark:bg-neutral-900", "shadow-lg");
-      }
-    };
-
-    applyStyles();
-  }, []);
-
   return (
     <Layout>
+      <ForceUpdate /> {/* Используем компонент ForceUpdate */}
       <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row">
           {/* Основной контент и боковая панель */}
