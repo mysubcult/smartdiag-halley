@@ -316,3 +316,17 @@ nav .dark\:text-neutral-400:hover {
   gap: 8px; /* Увеличен отступ между пунктами меню */
   margin: 8px 0; /* Устанавливаем одинаковый отступ сверху и снизу */
 }
+
+/* Добавьте эти стили в глобальный CSS или в отдельный файл, импортируемый в post1 */
+.toc-container {
+  border: 1px solid #d1d5db; /* border-neutral-300 */
+  background-color: #ffffff; /* bg-white */
+  padding: 16px; /* p-4 */
+  border-radius: 8px; /* rounded-lg */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+}
+
+.toc-container.dark {
+  border-color: #374151; /* dark:border-neutral-700 */
+  background-color: #1f2937; /* dark:bg-neutral-900 */
+}
