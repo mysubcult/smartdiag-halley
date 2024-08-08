@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Layout from "../../components/Layout";
 
-export default function BlogPost() {
+export default function Home() {
   const [isSticky, setIsSticky] = useState(false);
   const router = useRouter();
 
