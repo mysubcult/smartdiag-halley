@@ -76,8 +76,8 @@ export default function BlogPost() {
           {/* Основной контент и боковая панель */}
           <div className="relative lg:flex lg:space-x-8">
             {/* Боковая панель */}
-            <aside className={`fixed lg:w-1/4 px-4 sticky top-32 h-auto ${isSticky ? 'fixed' : 'relative'}`}>
-              <div className="fixed border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 bg-white dark:bg-neutral-900 shadow-lg">
+            <aside className={`lg:w-1/4 px-4 sticky top-32 h-auto ${isSticky ? 'fixed' : 'relative'}`}>
+              <div className="sticky border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 bg-white dark:bg-neutral-900 shadow-lg">
                 <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
                 <nav className="space-y-4">
                   <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
