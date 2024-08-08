@@ -100,7 +100,7 @@ export default function BlogPost() {
             </aside>
 
             {/* Основной контент */}
-            <div className="w-full lg:w-3/4 mx-auto px-4 text-center">
+            <div className="w-full lg:w-3/4 mx-auto px-4">
               <h2 className="text-4xl font-bold">
                 Как справиться с ошибкой при открытии архива
               </h2>
