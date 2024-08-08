@@ -1,8 +1,11 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import Layout from '../../components/Layout';
+import { useRouter } from 'next/router';
 
 export default function BlogPost() {
+  const [isSticky, setIsSticky] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -18,9 +21,56 @@ export default function BlogPost() {
     };
   }, [router.events]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const introSection = document.querySelector("#introduction");
+      const introOffsetTop = introSection ? introSection.getBoundingClientRect().top + window.scrollY : 0;
+
+      const viewportHeight = window.innerHeight;
+      const buffer = 100; // Можно настроить как угодно, добавляет пространство для срабатывания
+
+      if (scrollTop + viewportHeight - buffer >= introOffsetTop) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Добавим вызов функции при первом рендеринге
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleSmoothScroll = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (
+        target.tagName === "A" &&
+        target.getAttribute("href")?.startsWith("#")
+      ) {
+        event.preventDefault();
+        const anchor = document.querySelector(target.getAttribute("href")!);
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    };
+
+    document.addEventListener("click", handleSmoothScroll);
+
+    return () => {
+      document.removeEventListener("click", handleSmoothScroll);
+    };
+  }, []);
+
   return (
     <Layout>
-      {/* Ваш JSX код страницы блога */}
       <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row">
           {/* Основной контент и боковая панель */}
