@@ -54,6 +54,18 @@ export default function BlogPost() {
     };
   }, []);
 
+  useEffect(() => {
+    // This effect ensures the styles are applied correctly when navigating to this page
+    const applyStyles = () => {
+      const toc = document.querySelector("aside");
+      if (toc) {
+        toc.classList.add("border", "border-neutral-300", "dark:border-neutral-700", "rounded-lg", "p-4", "bg-white", "dark:bg-neutral-900", "shadow-lg");
+      }
+    };
+
+    applyStyles();
+  }, []);
+
   return (
     <Layout>
       <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16">
