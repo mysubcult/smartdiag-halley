@@ -23,6 +23,11 @@ const Layout = (props: any) => {
         <meta name="description" content={meta.description} />
         <meta property="og:image" content={meta.image} />
         <meta property="og:type" content={meta.type} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@smartdiag" />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter:description" content={meta.description} />
+        <meta name="twitter:image" content={meta.image} />
       </Head>
       <Navbar />
       <main>{children}</main>
