@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { MapIcon, EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline';
+import { MapIcon } from '@heroicons/react/24/outline';
+import { EnvelopeIcon } from '@heroicons/react/24/outline';
+import { PhoneIcon } from '@heroicons/react/24/outline';
 
 type Info = {
   access_key: string;
@@ -75,21 +77,19 @@ export default function Contact() {
       });
   };
 
-  const showPopup = () => {
-    document.querySelector('.smartdiag-popup')?.classList.add('open');
-  };
-
-  const hidePopup = () => {
-    document.querySelector('.smartdiag-popup')?.classList.remove('open');
-  };
-
   return (
     <div className="bg-white-50 dark:bg-neutral-900" id="contact">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 text-center">
         <h2 className="text-4xl font-bold">Обратная связь 📩</h2>
 
         <p className="pt-6 pb-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          Мы очень ценим ваше мнение и постоянно работаем над улучшением нашего сервиса. Если у вас есть предложения, вопросы или комментарии, пожалуйста, свяжитесь с нами! Вы можете написать нам через форму обратной связи, которая находится ниже, или связаться с нами через мессенджеры. Наша команда старается оперативно отвечать на все запросы, и мы гарантируем, что вы получите ответ в течение 12 рабочих часов.
+          Мы очень ценим ваше мнение и постоянно работаем над улучшением нашего
+          сервиса. Если у вас есть предложения, вопросы или комментарии,
+          пожалуйста, свяжитесь с нами! Вы можете написать нам через форму
+          обратной связи, которая находится ниже, или связаться с нами через
+          мессенджеры. Наша команда старается оперативно отвечать на все
+          запросы, и мы гарантируем, что вы получите ответ в течение 12 рабочих
+          часов.
         </p>
       </div>
 
@@ -148,7 +148,7 @@ export default function Contact() {
                     className="transition-transform duration-300 ease-in-out transform hover:scale-110"
                     width="120"
                     height="120"
-                    alt="Telegram QR Code"
+                    alt="QR Code"
                   />
                 </a>
               </div>
@@ -183,7 +183,7 @@ export default function Contact() {
                     className="transition-transform duration-300 ease-in-out transform hover:scale-110"
                     width="120"
                     height="120"
-                    alt="WhatsApp QR Code"
+                    alt="QR Code"
                   />
                 </a>
               </div>
@@ -475,245 +475,6 @@ export default function Contact() {
               </button>
             </div>
           )}
-        </div>
-      </div>
-      <style jsx>{`
-        .smartdiag-popup { display: none; }
-        .smartdiag-popup.open { display: block; }
-
-        .blocker {
-          position: fixed;
-          top: 0;
-          left: 0;
-          bottom: 0;
-          right: 0;
-          content: ' ';
-          background: rgba(0,0,0,.5);
-          z-index: 100;
-        }
-        .smartdiag-popup .sd-contents {
-          border: 0px solid #ccc;
-          border-radius: 5px;
-          width: 850px;
-          padding: 25px;
-          height: 90vh;
-          background: #FFF;
-          z-index: 1000;
-          position: fixed;
-          overflow-y: scroll;
-          top: 50vh;
-          left: 50vw;
-          transform: translate(-50%, -50%);
-        }
-
-        .close {
-          position: absolute;
-          right: 25px;
-          color: black;
-        }
-
-        a.close:hover {color: red}
-
-        .sd-contents p {
-          margin-bottom: 20px;
-          display: block;
-        }
-
-        a.terms-link {
-          color: black;
-          border-bottom: 1px solid black;
-        }
-
-        a.terms-link:hover {
-          color: rgb(220, 38, 38);
-          border-bottom: 1px solid rgb(220, 38, 38);
-        }
-
-        .sd-contents p:last-child {
-          margin-bottom: 0px;
-        }
-
-        @media only screen and (max-width: 600px) {
-          .smartdiag-popup .sd-contents {
-            width: 90vw;
-          }
-        }
-      `}</style>
-      <div className="smartdiag-popup">
-        <div className="blocker" onClick={hidePopup}></div>
-        <div className="sd-contents">
-          <a href="#!" onClick={hidePopup} className="close">
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M11.7612 9.99893L19.6305 2.14129C19.8657 1.90606 19.9979 1.58701 19.9979 1.25434C19.9979 0.921668 19.8657 0.602622 19.6305 0.367388C19.3953 0.132153 19.0763 0 18.7437 0C18.411 0 18.092 0.132153 17.8568 0.367388L10 8.23752L2.14319 0.367388C1.90799 0.132153 1.58897 2.95361e-07 1.25634 2.97839e-07C0.923701 3.00318e-07 0.604689 0.132153 0.36948 0.367388C0.134271 0.602622 0.00213201 0.921668 0.002132 1.25434C0.002132 1.58701 0.134271 1.90606 0.36948 2.14129L8.23878 9.99893L0.36948 17.8566C0.252404 17.9727 0.159479 18.1109 0.0960643 18.2631C0.0326494 18.4153 0 18.5786 0 18.7435C0 18.9084 0.0326494 19.0717 0.0960643 19.224C0.159479 19.3762 0.252404 19.5143 0.36948 19.6305C0.4856 19.7476 0.623751 19.8405 0.775965 19.9039C0.928178 19.9673 1.09144 20 1.25634 20C1.42123 20 1.5845 19.9673 1.73671 19.9039C1.88892 19.8405 2.02708 19.7476 2.14319 19.6305L10 11.7603L17.8568 19.6305C17.9729 19.7476 18.1111 19.8405 18.2633 19.9039C18.4155 19.9673 18.5788 20 18.7437 20C18.9086 20 19.0718 19.9673 19.224 19.9039C19.3762 19.8405 19.5144 19.7476 19.6305 19.6305C19.7476 19.5143 19.8405 19.3762 19.9039 19.224C19.9674 19.0717 20 18.9084 20 18.7435C20 18.5786 19.9674 18.4153 19.9039 18.2631C19.8405 18.1109 19.7476 17.9727 19.6305 17.8566L11.7612 9.99893Z"
-                fill="currentColor"
-              ></path>
-            </svg>
-          </a>
-          <p>
-            <strong>Условия ОПД</strong>
-          </p>
-          <div
-            className="row mb-4"
-            style={{
-              fontFamily: 'TildaSans, Arial, sans-serif',
-              boxSizing: 'content-box',
-              color: 'rgb(33, 37, 41)',
-              display: 'flex',
-              flexWrap: 'wrap',
-              fontSize: '16px',
-              backgroundColor: 'rgb(254, 254, 254)',
-              marginBottom: '24px',
-            }}
-          >
-            <div
-              className="col"
-              style={{
-                position: 'relative',
-                width: '1028px',
-                minHeight: '1px',
-                paddingRight: '15px',
-                paddingLeft: '15px',
-                flexBasis: '0px',
-                flexGrow: 1,
-                maxWidth: '100%',
-              }}
-            >
-              <h4
-                style={{
-                  boxSizing: 'content-box',
-                  marginBottom: '8px',
-                  color: 'rgb(33, 37, 41)',
-                  fontSize: '24px',
-                  fontFamily: 'TildaSans, Arial, sans-serif',
-                }}
-              >
-                <span
-                  style={{
-                    boxSizing: 'content-box',
-                    fontWeight: 600,
-                  }}
-                >
-                  Политика в&nbsp;отношении обработки персональных данных
-                </span>
-              </h4>
-            </div>
-          </div>
-          <div
-            className="row mb-4"
-            style={{
-              fontFamily: 'TildaSans, Arial, sans-serif',
-              boxSizing: 'content-box',
-              color: 'rgb(33, 37, 41)',
-              display: 'flex',
-              flexWrap: 'wrap',
-              fontSize: '16px',
-              backgroundColor: 'rgb(254, 254, 254)',
-              marginBottom: '24px',
-            }}
-          >
-            <div
-              className="col"
-              style={{
-                position: 'relative',
-                width: '1028px',
-                minHeight: '1px',
-                paddingRight: '15px',
-                paddingLeft: '15px',
-                flexBasis: '0px',
-                flexGrow: 1,
-                maxWidth: '100%',
-              }}
-            >
-              <h5
-                style={{
-                  boxSizing: 'content-box',
-                  color: 'rgb(33, 37, 41)',
-                  fontSize: '20px',
-                  marginBottom: '24px',
-                  fontFamily: 'TildaSans, Arial, sans-serif',
-                }}
-              >
-                1. Общие положения
-              </h5>
-              <div
-                className="descr"
-                style={{
-                  boxSizing: 'content-box',
-                  marginBottom: '24px',
-                }}
-              >
-                Настоящая политика обработки персональных данных составлена
-                в&nbsp;соответствии с&nbsp;требованиями Федерального закона
-                от&nbsp;27.07.2006. №&nbsp;152-ФЗ «О&nbsp;персональных данных»
-                (далее&nbsp;— Закон о&nbsp;персональных данных)
-                и&nbsp;определяет порядок обработки персональных данных
-                и&nbsp;меры по&nbsp;обеспечению безопасности персональных
-                данных, предпринимаемые&nbsp;<span
-                  className="link mark owner-name-field"
-                  id="owner-name-value"
-                  data-scroll-to="#owner-name-field"
-                  style={{
-                    boxSizing: 'content-box',
-                    display: 'inline',
-                    padding: '0.05em',
-                    backgroundColor: 'rgb(252, 248, 227)',
-                    overflowWrap: 'break-word',
-                    cursor: 'pointer',
-                    borderBottom: '1.5px dotted rgb(250, 134, 105)',
-                  }}
-                >
-                  SmartDiag
-                </span
-                >&nbsp;(далее&nbsp;— Оператор).
-              </div>
-              <div
-                className="ol"
-                style={{
-                  boxSizing: 'content-box',
-                  marginBottom: '16px',
-                  paddingLeft: '40px',
-                  overflowY: 'auto',
-                }}
-              >
-                <div className="li" style={{ boxSizing: 'content-box' }}>
-                  1.1. Оператор ставит своей важнейшей целью и&nbsp;условием
-                  осуществления своей деятельности соблюдение прав
-                  и&nbsp;свобод человека и&nbsp;гражданина при обработке его
-                  персональных данных, в&nbsp;том числе защиты прав
-                  на&nbsp;неприкосновенность частной жизни, личную
-                  и&nbsp;семейную тайну.
-                </div>
-                <div className="li" style={{ boxSizing: 'content-box' }}>
-                  1.2. Настоящая политика Оператора в&nbsp;отношении обработки
-                  персональных данных (далее&nbsp;— Политика) применяется
-                  ко&nbsp;всей информации, которую Оператор может получить
-                  о&nbsp;посетителях веб-сайта&nbsp;<span
-                    className="link mark owner-site-url-field"
-                    data-scroll-to="#owner-site-url-field"
-                    style={{
-                      boxSizing: 'content-box',
-                      display: 'inline',
-                      padding: '0.05em',
-                      backgroundColor: 'rgb(252, 248, 227)',
-                      overflowWrap: 'break-word',
-                      cursor: 'pointer',
-                      borderBottom: '1.5px dotted rgb(250, 134, 105)',
-                    }}
-                  >
-                    ...
-                  </span>
-                </div>
-                ...
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
