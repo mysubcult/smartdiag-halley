@@ -1,76 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Image from "next/image";
-import Link from "next/link";
-import Layout from "../../components/Layout";
+import Layout from '../../components/Layout';
 
-export default function Home() {
-  const [isSticky, setIsSticky] = useState(false);
+export default function BlogPost() {
   const router = useRouter();
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const introSection = document.querySelector("#introduction");
-      const introOffsetTop = introSection ? introSection.getBoundingClientRect().top + window.scrollY : 0;
-
-      const viewportHeight = window.innerHeight;
-      const buffer = 100; // Можно настроить как угодно, добавляет пространство для срабатывания
-
-      if (scrollTop + viewportHeight - buffer >= introOffsetTop) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    // Добавим вызов функции при первом рендеринге
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleSmoothScroll = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (
-        target.tagName === "A" &&
-        target.getAttribute("href")?.startsWith("#")
-      ) {
-        event.preventDefault();
-        const anchor = document.querySelector(target.getAttribute("href")!);
-        if (anchor) {
-          anchor.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }
-    };
-
-    document.addEventListener("click", handleSmoothScroll);
-
-    return () => {
-      document.removeEventListener("click", handleSmoothScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    // Apply styles correctly on route change
-    const applyStyles = () => {
-      const toc = document.querySelector("aside");
-      if (toc) {
-        toc.classList.add("border", "border-neutral-300", "dark:border-neutral-700", "rounded-lg", "p-4", "bg-white", "dark:bg-neutral-900", "shadow-lg");
-      }
-    };
-
-    // Apply styles when the component mounts
-    applyStyles();
-
-    // Listen for route changes to reapply styles
     const handleRouteChange = () => {
-      setTimeout(applyStyles, 0); // Use timeout to ensure styles are applied after route change
+      // Принудительное обновление стилей
+      document.documentElement.style.cssText = document.documentElement.style.cssText;
     };
 
     router.events.on('routeChangeComplete', handleRouteChange);
@@ -82,13 +20,14 @@ export default function Home() {
 
   return (
     <Layout>
+      {/* Ваш JSX код страницы блога */}
       <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row">
           {/* Основной контент и боковая панель */}
           <div className="relative lg:flex lg:space-x-8">
             {/* Боковая панель */}
             <aside className={`lg:w-1/4 px-4 sticky top-32 h-auto ${isSticky ? 'fixed' : 'relative'}`}>
-              <div className="toc-container border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 bg-white dark:bg-neutral-900 shadow-lg">
+              <div className="border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 bg-white dark:bg-neutral-900 shadow-lg">
                 <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
                 <nav className="space-y-4">
                   <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
