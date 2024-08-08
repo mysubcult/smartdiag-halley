@@ -116,10 +116,10 @@ export default function BlogPost() {
                 height={1080}
                 quality={75}
                 sizes="100vw"
-                className="w-full max-w-xl mx-auto mb-8"
+                className="w-full max-w-full mx-auto mb-8"
               />
 
-              <div className="max-w-3xl mx-auto text-lg leading-relaxed text-center">
+              <div className="max-w-3xl mx-auto text-lg leading-relaxed">
                 <p className="mb-4" id="antivirus-issue">
                   <strong>Проблема с антивирусом:</strong> Часто проблемы с открытием архивов вызваны антивирусным программным обеспечением...
                 </p>
