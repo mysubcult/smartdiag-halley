@@ -57,7 +57,7 @@ export default function BlogPost() {
   }, []);
 
   useEffect(() => {
-    // This effect ensures the styles are applied correctly when navigating to this page
+    // Apply styles correctly on route change
     const applyStyles = () => {
       const toc = document.querySelector("aside");
       if (toc) {
@@ -65,11 +65,12 @@ export default function BlogPost() {
       }
     };
 
+    // Apply styles when the component mounts
     applyStyles();
 
-    // Listen for route changes and reapply styles
+    // Listen for route changes to reapply styles
     const handleRouteChange = () => {
-      applyStyles();
+      setTimeout(applyStyles, 0); // Use timeout to ensure styles are applied after route change
     };
 
     router.events.on('routeChangeComplete', handleRouteChange);
