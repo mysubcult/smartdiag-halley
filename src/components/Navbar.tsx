@@ -27,9 +27,7 @@ export default function Navbar() {
   const router = useRouter();
 
   // Устанавливаем начальное состояние мобильного вида
-  const [isMobileView, setIsMobileView] = useState(
-    typeof window !== "undefined" && window.innerWidth <= 1200
-  );
+  const [isMobileView, setIsMobileView] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -101,7 +99,6 @@ export default function Navbar() {
       const maxFontSize = baseFontSize;
       const minFontSize = 14;
 
-      // Рассчитать коэффициент уменьшения шрифта на основе высоты экрана и количества элементов меню
       const maxMenuHeight = screenHeight - 64; // Высота меню с учетом отступов
       const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length; // +3 для подменю
       const requiredHeight = itemsCount * 48; // 48px на каждый элемент (включая padding и margin)
