@@ -54,10 +54,18 @@ export default function BlogPost() {
         target.tagName === "A" &&
         target.getAttribute("href")?.startsWith("#")
       ) {
-        event.preventDefault();
-        const anchor = document.querySelector(target.getAttribute("href")!);
-        if (anchor) {
-          anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+        const href = target.getAttribute("href");
+        try {
+          // Проверяем, является ли селектор валидным
+          if (href && href !== "#!" && document.querySelector(href)) {
+            event.preventDefault();
+            const anchor = document.querySelector(href);
+            if (anchor) {
+              anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          }
+        } catch (e) {
+          console.error("Invalid selector or element not found:", href, e);
         }
       }
     };
