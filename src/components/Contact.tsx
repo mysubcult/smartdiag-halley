@@ -46,7 +46,14 @@ export default function Contact() {
     }
   };
 
-  const htmlLinkToTerms = `Я прочитал и согласен с <a href="#!" onclick="showPopup()" class="terms-link" style="color: inherit; text-decoration: inherit;">правилами на обработку персональных данных</a>.`;
+  // Исправляем проблему с селектором '#!'
+  const showPopup = () => {
+    // Ваш код для отображения всплывающего окна
+    console.log('Showing popup with privacy policy.');
+    // Здесь должен быть код, который открывает всплывающее окно с правилами обработки персональных данных
+  };
+
+  const htmlLinkToTerms = `Я прочитал и согласен с <a href="javascript:void(0);" onclick="showPopup()" class="terms-link" style="color: inherit; text-decoration: inherit;">правилами на обработку персональных данных</a>.`;
 
   const onSubmit = async (data: any, e: any) => {
     console.log(data);
