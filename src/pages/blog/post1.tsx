@@ -27,7 +27,7 @@ export default function BlogPost() {
       const introOffsetTop = introSection ? introSection.getBoundingClientRect().top + window.scrollY : 0;
 
       const viewportHeight = window.innerHeight;
-      const buffer = 100; // Пространство для срабатывания
+      const buffer = 100;
 
       if (scrollTop + viewportHeight - buffer >= introOffsetTop) {
         setIsSticky(true);
@@ -75,10 +75,10 @@ export default function BlogPost() {
 
   return (
     <Layout>
-      <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-16 pb-16">
+      <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row">
           <div className="relative lg:flex lg:space-x-8">
-            <aside className={`lg:w-1/4 px-4 sticky top-16 h-auto ${isSticky ? 'fixed' : 'relative'} hidden lg:block`}>
+            <aside className={`lg:w-1/4 px-4 sticky top-24 h-auto ${isSticky ? 'fixed' : 'relative'} hidden lg:block`}>
               <div className="fixed w-56 border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 bg-white dark:bg-neutral-900 shadow-lg">
                 <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
                 <nav className="space-y-4">
@@ -101,7 +101,7 @@ export default function BlogPost() {
               </div>
             </aside>
 
-            <div className="w-full lg:w-3/4 mx-auto px-4">
+            <div className="w-full lg:w-3/4 mx-auto px-4 lg:ml-8">
               <h2 className="text-4xl font-bold">
                 Как справиться с ошибкой при открытии архива
               </h2>
