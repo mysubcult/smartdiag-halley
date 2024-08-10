@@ -53,7 +53,7 @@ export default function BlogPost() {
       ) {
         const href = target.getAttribute("href");
         try {
-          if (href && href !== "#!" && document.querySelector(href)) {
+          if (href && document.querySelector(href)) {
             event.preventDefault();
             const anchor = document.querySelector(href);
             if (anchor) {
