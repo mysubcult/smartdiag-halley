@@ -27,7 +27,30 @@ const blogPosts = [
     link: "/blog/post3",
     category: "Лицензии",
   },
-  // добавьте остальные посты с категориями
+  {
+    title: "Помощь в установке программного обеспечения",
+    image: "/images/blog/post4.jpg",
+    excerpt:
+      "Как получить помощь при установке программного обеспечения. Контакты и часы работы службы поддержки.",
+    link: "/blog/post4",
+    category: "Поддержка",
+  },
+  {
+    title: "Безопасность программ и антивирусы",
+    image: "/images/blog/post5.jpg",
+    excerpt:
+      "Как антивирусное ПО может влиять на ваши программы и как правильно настраивать исключения.",
+    link: "/blog/post5",
+    category: "Безопасность",
+  },
+  {
+    title: "Рекомендации по использованию наших программ",
+    image: "/images/blog/post6.jpg",
+    excerpt:
+      "Лучшие практики и советы по использованию программного обеспечения для достижения максимальной эффективности.",
+    link: "/blog/post6",
+    category: "Советы",
+  },
 ];
 
 export default function Blog() {
@@ -46,7 +69,7 @@ export default function Blog() {
       </p>
 
       <div className="flex justify-center space-x-4 mb-8">
-        {["Все", "Ошибки", "Установка", "Лицензии", "Безопасность", "Поддержка"].map((category) => (
+        {["Все", "Ошибки", "Установка", "Лицензии", "Безопасность", "Поддержка", "Советы"].map((category) => (
           <button
             key={category}
             onClick={() => setSelectedCategory(category)}
