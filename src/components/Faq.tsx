@@ -64,7 +64,7 @@ export default function Blog() {
             className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col"
           >
             <Link href={link}>
-              <div className="border-4 border-neutral-300 dark:border-neutral-700 p-1 hover:border-red-500">
+              <div className="border-4 border-neutral-300 dark:border-neutral-700 p-1 hover:border-red-500 dark:hover:border-red-500">
                 <Image
                   src={image}
                   alt={title}
