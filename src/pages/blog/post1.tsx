@@ -10,7 +10,6 @@ export default function BlogPost() {
 
   useEffect(() => {
     const handleRouteChange = () => {
-      // Принудительное обновление стилей
       document.documentElement.style.cssText = document.documentElement.style.cssText;
     };
 
@@ -28,7 +27,7 @@ export default function BlogPost() {
       const introOffsetTop = introSection ? introSection.getBoundingClientRect().top + window.scrollY : 0;
 
       const viewportHeight = window.innerHeight;
-      const buffer = 100; // Можно настроить как угодно, добавляет пространство для срабатывания
+      const buffer = 100; // Пространство для срабатывания
 
       if (scrollTop + viewportHeight - buffer >= introOffsetTop) {
         setIsSticky(true);
@@ -38,8 +37,6 @@ export default function BlogPost() {
     };
 
     window.addEventListener("scroll", handleScroll);
-
-    // Добавим вызов функции при первом рендеринге
     handleScroll();
 
     return () => {
@@ -56,7 +53,6 @@ export default function BlogPost() {
       ) {
         const href = target.getAttribute("href");
         try {
-          // Проверяем, является ли селектор валидным
           if (href && href !== "#!" && document.querySelector(href)) {
             event.preventDefault();
             const anchor = document.querySelector(href);
@@ -79,12 +75,10 @@ export default function BlogPost() {
 
   return (
     <Layout>
-      <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16">
+      <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-16 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row">
-          {/* Основной контент и боковая панель */}
           <div className="relative lg:flex lg:space-x-8">
-            {/* Боковая панель */}
-            <aside className={`lg:w-1/4 px-4 sticky top-32 h-auto ${isSticky ? 'fixed' : 'relative'}`}>
+            <aside className={`lg:w-1/4 px-4 sticky top-16 h-auto ${isSticky ? 'fixed' : 'relative'} hidden lg:block`}>
               <div className="fixed w-56 border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 bg-white dark:bg-neutral-900 shadow-lg">
                 <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
                 <nav className="space-y-4">
@@ -107,7 +101,6 @@ export default function BlogPost() {
               </div>
             </aside>
 
-            {/* Основной контент */}
             <div className="w-full lg:w-3/4 mx-auto px-4">
               <h2 className="text-4xl font-bold">
                 Как справиться с ошибкой при открытии архива
@@ -149,7 +142,7 @@ export default function BlogPost() {
                 </p>
               </div>
 
-              <div className="mt-16">
+              <div className="mt-16 flex justify-center">
                 <Link href="/#blog">
                   <button className="bg-rose-500 text-white text-base rounded-full px-16 py-3 font-medium">
                     Вернуться в блог
