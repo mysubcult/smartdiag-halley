@@ -48,46 +48,50 @@ const blogPosts = [
 
 export default function Blog() {
   return (
-      <div
-        className="bg-white dark:bg-neutral-900 w-full px-4 pt-16 pb-16"
-        id="blog"
-      >
-        <h2 className="text-4xl font-bold text-center">Блог 📰(в разработке)</h2>
-        <p className="pt-6 pb-8 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          Добро пожаловать в наш блог! Здесь вы найдете полезные статьи и советы
-          по использованию наших продуктов и услуг.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {blogPosts.map(({ title, image, excerpt, link }) => (
-            <div
-              key={title}
-              className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col"
-            >
-              <Image
-                src={image}
-                alt={title}
-                width={400}
-                height={225}
-                className="w-full h-48 object-cover"
-              />
-              <div className="flex flex-col justify-between p-6 h-full">
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">{title}</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
-                    {excerpt}
-                  </p>
-                </div>
-                <div className="flex justify-end mt-auto">
-                  <Link href={link}>
-                    <button className="bg-red-500 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-600">
-                      Читать далее
-                    </button>
-                  </Link>
-                </div>
+    <div
+      className="bg-white dark:bg-neutral-900 w-full px-4 pt-16 pb-16"
+      id="blog"
+    >
+      <h2 className="text-4xl font-bold text-center">Блог 📰(в разработке)</h2>
+      <p className="pt-6 pb-8 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+        Добро пожаловать в наш блог! Здесь вы найдете полезные статьи и советы
+        по использованию наших продуктов и услуг.
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {blogPosts.map(({ title, image, excerpt, link }) => (
+          <div
+            key={title}
+            className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col"
+          >
+            <Link href={link}>
+              <div className="border-4 border-neutral-300 dark:border-neutral-700 p-1 hover:border-red-500">
+                <Image
+                  src={image}
+                  alt={title}
+                  width={400}
+                  height={225}
+                  className="w-full h-48 object-cover"
+                />
+              </div>
+            </Link>
+            <div className="flex flex-col justify-between p-6 h-full">
+              <div>
+                <h3 className="text-lg font-semibold mb-2">{title}</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
+                  {excerpt}
+                </p>
+              </div>
+              <div className="flex justify-end mt-auto">
+                <Link href={link}>
+                  <button className="bg-red-500 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-600">
+                    Читать далее
+                  </button>
+                </Link>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
+    </div>
   );
 }
