@@ -55,7 +55,9 @@ export default function Contact() {
     setIsPopupOpen(false);
   };
 
-  const htmlLinkToTerms = `Я прочитал и согласен с <a href="#" onClick={(e) => { e.preventDefault(); showPopup(); }} class="terms-link" style="color: inherit; text-decoration: inherit;">правилами на обработку персональных данных</a>.`;
+  const htmlLinkToTerms = () => {
+    return { __html: `Я прочитал и согласен с <a href="#" onClick={(e) => { e.preventDefault(); showPopup(); }} class="terms-link" style="color: inherit; text-decoration: inherit;">правилами на обработку персональных данных</a>.` };
+  };
 
   const onSubmit = async (data: any, e: any) => {
     console.log(data);
@@ -385,7 +387,7 @@ export default function Contact() {
                   required
                 />
                 <label htmlFor="agree" className="text-sm">
-                  <div dangerouslySetInnerHTML={{ __html: htmlLinkToTerms }} />
+                  <div dangerouslySetInnerHTML={htmlLinkToTerms()} />
                 </label>
               </div>
               <button
