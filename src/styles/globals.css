@@ -330,3 +330,61 @@ nav .dark\:text-neutral-400:hover {
   border-color: #374151; /* dark:border-neutral-700 */
   background-color: #1f2937; /* dark:bg-neutral-900 */
 }
+
+/* Styles for the popup */
+.smartdiag-popup { 
+  display: none; 
+}
+
+.smartdiag-popup.open { 
+  display: block; 
+}
+
+.blocker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+.smartdiag-popup .sd-contents {
+  border: 0;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  padding: 20px;
+  height: auto;
+  max-height: 80vh;
+  background: #fff;
+  z-index: 1000;
+  position: fixed;
+  overflow-y: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #000;
+  cursor: pointer;
+}
+
+a.close:hover {
+  color: red;
+}
+
+.terms-link {
+  color: black;
+  border-bottom: 1px solid black;
+}
+
+.terms-link:hover {
+  color: rgb(220, 38, 38);
+  border-bottom: 1px solid rgb(220, 38, 38);
+}
