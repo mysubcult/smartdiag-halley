@@ -1,37 +1,13 @@
-import Head from "next/head";
-import { useRouter } from "next/router";
+import React from 'react';
+import Header from './Header';
+import Footer from './Footer';
 
-import Footer from "./Footer";
-import Navbar from "./Navbar";
-import Prefooter from "./Prefooter";
-
-const Layout = (props: any) => {
-  const { children, ...customMeta } = props;
-  const router = useRouter();
-  const meta = {
-    title: "SmartDiag - Ваш проводник в мире автодиагностики",
-    description: `Ваш проводник в мире автодиагностики`,
-    image: "/images/seo/halley-banner.png",
-    type: "website",
-    ...customMeta,
-  };
-
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <Head>
-        <title>{meta.title}</title>
-        <meta name="description" content={meta.description} />
-        <meta property="og:type" content={meta.type} />
-        <meta property="og:title" content={meta.title} />
-        <meta property="og:description" content={meta.description} />
-        <meta property="og:image" content={meta.image} />
-      </Head>
-      <Navbar />
+    <div>
+      <Header />
       <main>{children}</main>
-      <Prefooter />
       <Footer />
-    </>
+    </div>
   );
-};
-
-export default Layout;
+}
