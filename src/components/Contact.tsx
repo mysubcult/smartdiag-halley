@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-
-import { MapIcon } from '@heroicons/react/24/outline';
-import { EnvelopeIcon } from '@heroicons/react/24/outline';
-import { PhoneIcon } from '@heroicons/react/24/outline';
+import PrivacyPolicyModal from './PrivacyPolicyModal'; // Импортируем новый компонент
 
 type Info = {
   access_key: string;
@@ -18,6 +15,8 @@ type Info = {
 };
 
 export default function Contact() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const {
     register,
     watch,
@@ -27,9 +26,6 @@ export default function Contact() {
   } = useForm<Info>({
     mode: 'onSubmit',
   });
-
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [Message, setMessage] = useState('');
 
   const topic = watch('topic');
 
@@ -45,15 +41,6 @@ export default function Contact() {
         return 'Введите ваше сообщение';
     }
   };
-
-  // Исправляем проблему с селектором '#!'
-  const showPopup = () => {
-    // Ваш код для отображения всплывающего окна
-    console.log('Showing popup with privacy policy.');
-    // Здесь должен быть код, который открывает всплывающее окно с правилами обработки персональных данных
-  };
-
-  const htmlLinkToTerms = `Я прочитал и согласен с <a href="javascript:void(0);" onclick="showPopup()" class="terms-link" style="color: inherit; text-decoration: inherit;">правилами на обработку персональных данных</a>.`;
 
   const onSubmit = async (data: any, e: any) => {
     console.log(data);
@@ -383,7 +370,14 @@ export default function Contact() {
                   required
                 />
                 <label htmlFor="agree" className="text-sm">
-                  <div dangerouslySetInnerHTML={{ __html: htmlLinkToTerms }} />
+                  <a
+                    href="javascript:void(0);"
+                    onClick={() => setIsModalOpen(true)}
+                    className="terms-link"
+                    style={{ color: 'inherit', textDecoration: 'inherit' }}
+                  >
+                    Я прочитал и согласен с правилами на обработку персональных данных
+                  </a>
                 </label>
               </div>
               <button
@@ -484,6 +478,9 @@ export default function Contact() {
           )}
         </div>
       </div>
+      
+      {/* Вставляем компонент модального окна */}
+      <PrivacyPolicyModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }
