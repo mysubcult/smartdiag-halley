@@ -9,6 +9,7 @@ const blogPosts = [
     excerpt:
       "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов и что может вызывать эти проблемы.",
     link: "/blog/post1",
+    category: "Ошибки",
   },
   {
     title: "Проблемы с запуском программы",
@@ -16,6 +17,7 @@ const blogPosts = [
     excerpt:
       "Что делать, если программа не запускается или исчезают ярлыки? Решения и советы.",
     link: "/blog/post2",
+    category: "Ошибки",
   },
   {
     title: "Использование ключа активации на другом устройстве",
@@ -23,6 +25,7 @@ const blogPosts = [
     excerpt:
       "Можно ли использовать один ключ активации на нескольких устройствах? Ответы и рекомендации.",
     link: "/blog/post3",
+    category: "Рекомендации",
   },
   {
     title: "Помощь в установке программного обеспечения",
@@ -30,6 +33,7 @@ const blogPosts = [
     excerpt:
       "Как получить помощь при установке программного обеспечения. Контакты и часы работы службы поддержки.",
     link: "/blog/post4",
+    category: "Установка ПО",
   },
   {
     title: "Безопасность программ и антивирусы",
@@ -37,6 +41,7 @@ const blogPosts = [
     excerpt:
       "Как антивирусное ПО может влиять на ваши программы и как правильно настраивать исключения.",
     link: "/blog/post5",
+    category: "Безопасность",
   },
   {
     title: "Рекомендации по использованию наших программ",
@@ -44,15 +49,16 @@ const blogPosts = [
     excerpt:
       "Лучшие практики и советы по использованию программного обеспечения для достижения максимальной эффективности.",
     link: "/blog/post6",
+    category: "Рекомендации",
   },
 ];
 
 const categories = [
-  { name: "Все", href: "#", current: true },
-  { name: "Ошибки", href: "#", current: false },
-  { name: "Установка ПО", href: "#", current: false },
-  { name: "Безопасность", href: "#", current: false },
-  { name: "Рекомендации", href: "#", current: false },
+  { name: "Все", value: "Все" },
+  { name: "Ошибки", value: "Ошибки" },
+  { name: "Установка ПО", value: "Установка ПО" },
+  { name: "Безопасность", value: "Безопасность" },
+  { name: "Рекомендации", value: "Рекомендации" },
 ];
 
 function classNames(...classes: string[]) {
@@ -60,7 +66,12 @@ function classNames(...classes: string[]) {
 }
 
 export default function Blog() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("Все");
+
+  const filteredPosts =
+    selectedCategory === "Все"
+      ? blogPosts
+      : blogPosts.filter((post) => post.category === selectedCategory);
 
   return (
     <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-16 pb-16" id="blog">
@@ -75,51 +86,47 @@ export default function Blog() {
           onClick={() => setIsOpen(!isOpen)}
           className="bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 py-2 px-4 rounded-md w-full text-left"
         >
-          {isOpen ? "Закрыть разделы" : "Открыть разделы"}
+          {selectedCategory}
         </button>
-        {isOpen && (
-          <div className="mt-2 space-y-1">
-            {categories.map((category) => (
-              <a
-                key={category.name}
-                href={category.href}
-                className={classNames(
-                  category.current
-                    ? "bg-red-500 text-white"
-                    : "text-gray-700 dark:text-gray-200 hover:bg-red-500 hover:text-white",
-                  "block px-3 py-2 rounded-md text-base font-medium"
-                )}
-                aria-current={category.current ? "page" : undefined}
-              >
-                {category.name}
-              </a>
-            ))}
-          </div>
-        )}
+        <div className="mt-2 space-y-1">
+          {categories.map((category) => (
+            <button
+              key={category.value}
+              onClick={() => setSelectedCategory(category.value)}
+              className={classNames(
+                category.value === selectedCategory
+                  ? "bg-red-500 text-white"
+                  : "text-gray-700 dark:text-gray-200 hover:bg-red-500 hover:text-white",
+                "block px-3 py-2 rounded-md text-base font-medium w-full text-left"
+              )}
+            >
+              {category.name}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="hidden sm:block">
         <nav className="flex space-x-4 justify-center">
           {categories.map((category) => (
-            <a
-              key={category.name}
-              href={category.href}
+            <button
+              key={category.value}
+              onClick={() => setSelectedCategory(category.value)}
               className={classNames(
-                category.current
+                category.value === selectedCategory
                   ? "bg-red-500 text-white"
                   : "text-gray-700 dark:text-gray-200 hover:bg-red-500 hover:text-white",
                 "px-3 py-2 rounded-md text-sm font-medium"
               )}
-              aria-current={category.current ? "page" : undefined}
             >
               {category.name}
-            </a>
+            </button>
           ))}
         </nav>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto mt-8">
-        {blogPosts.map(({ title, image, excerpt, link }) => (
+        {filteredPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
             className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col"
