@@ -2,7 +2,6 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import Prefooter from "./Prefooter";
 
 const Layout = (props: any) => {
   const { children, ...customMeta } = props;
@@ -28,7 +27,6 @@ const Layout = (props: any) => {
       </Head>
       <Navbar />
       <main>{children}</main>
-      <Prefooter />
       <Footer />
     </>
   );
