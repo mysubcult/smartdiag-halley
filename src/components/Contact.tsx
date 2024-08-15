@@ -376,7 +376,7 @@ export default function Contact() {
                   Я прочитал и согласен с{' '}
                   <span
                     onClick={() => setIsModalOpen(true)}
-                    className="text-blue-600 hover:underline cursor-pointer"
+                    className="text-red-600 hover:underline cursor-pointer"
                   >
                     правилами на обработку персональных данных
                   </span>
@@ -384,7 +384,7 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="w-full py-4 font-semibold text-white transition-colors bg-neutral-900 rounded-md hover:bg-neutral-800 focus:outline-none focus:ring-offset-2 focus:ring focus:ring-neutral-200 px-7 dark:bg-white dark:text-black"
+                className="w-full py-4 font-semibold text-white transition-colors bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-offset-2 focus:ring focus:ring-blue-200 px-7 dark:bg-white dark:text-black dark:hover:bg-gray-300"
               >
                 {isSubmitting ? (
                   <svg
