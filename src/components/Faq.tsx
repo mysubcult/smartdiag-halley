@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from 'react';
 
 const blogPosts = [
   {
@@ -47,32 +47,42 @@ const blogPosts = [
   },
 ];
 
-export default function FAQ() {
+export default function Blog() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-white dark:bg-neutral-900 w-full px-4 sm:px-6 lg:px-8 pt-16 pb-16" id="faq">
+    <>
       <nav className="bg-white dark:bg-neutral-900 shadow-lg fixed w-full z-10 top-0 left-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <Link href="/">
-                <a className="text-xl font-bold text-gray-800 dark:text-white">Мой сайт</a>
+                <a className="text-xl font-bold text-gray-800 dark:text-white">
+                  Мой сайт
+                </a>
               </Link>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
                 <Link href="/">
-                  <a className="text-gray-800 dark:text-white hover:text-red-600 px-3 py-2 rounded-md text-sm font-medium">Главная</a>
+                  <a className="text-gray-800 dark:text-white hover:text-red-600 px-3 py-2 rounded-md text-sm font-medium">
+                    Главная
+                  </a>
                 </Link>
                 <Link href="/about">
-                  <a className="text-gray-800 dark:text-white hover:text-red-600 px-3 py-2 rounded-md text-sm font-medium">О нас</a>
+                  <a className="text-gray-800 dark:text-white hover:text-red-600 px-3 py-2 rounded-md text-sm font-medium">
+                    О нас
+                  </a>
                 </Link>
                 <Link href="/services">
-                  <a className="text-gray-800 dark:text-white hover:text-red-600 px-3 py-2 rounded-md text-sm font-medium">Услуги</a>
+                  <a className="text-gray-800 dark:text-white hover:text-red-600 px-3 py-2 rounded-md text-sm font-medium">
+                    Услуги
+                  </a>
                 </Link>
                 <Link href="/contact">
-                  <a className="text-gray-800 dark:text-white hover:text-red-600 px-3 py-2 rounded-md text-sm font-medium">Контакты</a>
+                  <a className="text-gray-800 dark:text-white hover:text-red-600 px-3 py-2 rounded-md text-sm font-medium">
+                    Контакты
+                  </a>
                 </Link>
               </div>
             </div>
@@ -94,7 +104,12 @@ export default function FAQ() {
                     stroke="currentColor"
                     aria-hidden="true"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 6h16M4 12h16m-7 6h7"
+                    />
                   </svg>
                 ) : (
                   <svg
@@ -105,7 +120,12 @@ export default function FAQ() {
                     stroke="currentColor"
                     aria-hidden="true"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 )}
               </button>
@@ -131,19 +151,20 @@ export default function FAQ() {
         </div>
       </nav>
 
-      <h2 className="text-4xl font-bold text-center mt-16">FAQ 📰(в разработке)</h2>
-      <p className="pt-6 pb-8 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-        Добро пожаловать в наш FAQ! Здесь вы найдете полезные статьи и советы по использованию наших продуктов и услуг.
-      </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        {blogPosts.map(({ title, image, excerpt, link }) => (
-          <div
-            key={title}
-            className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col"
-          >
-            <Link href={link}>
-              <a className="block">
-                <div className="border-b-4 border-neutral-300 dark:border-neutral-700 hover:border-red-500 dark:hover:border-red-500">
+      <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16" id="blog">
+        <h2 className="text-4xl font-bold text-center">Блог 📰(в разработке)</h2>
+        <p className="pt-6 pb-8 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+          Добро пожаловать в наш блог! Здесь вы найдете полезные статьи и советы
+          по использованию наших продуктов и услуг.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {blogPosts.map(({ title, image, excerpt, link }) => (
+            <div
+              key={title}
+              className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col"
+            >
+              <Link href={link}>
+                <div className="border-4 border-neutral-300 dark:border-neutral-700 p-1 hover:border-red-500 dark:hover:border-red-500">
                   <Image
                     src={image}
                     alt={title}
@@ -152,28 +173,26 @@ export default function FAQ() {
                     className="w-full h-48 object-cover"
                   />
                 </div>
-              </a>
-            </Link>
-            <div className="flex flex-col justify-between p-6 flex-grow">
-              <div>
-                <h3 className="text-lg font-semibold mb-2">{title}</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
-                  {excerpt}
-                </p>
-              </div>
-              <div className="flex justify-end mt-auto">
-                <Link href={link}>
-                  <a>
+              </Link>
+              <div className="flex flex-col justify-between p-6 h-full">
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">{title}</h3>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
+                    {excerpt}
+                  </p>
+                </div>
+                <div className="flex justify-end mt-auto">
+                  <Link href={link}>
                     <button className="bg-red-500 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-600">
                       Читать далее
                     </button>
-                  </a>
-                </Link>
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
