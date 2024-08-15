@@ -373,14 +373,13 @@ export default function Contact() {
                   required
                 />
                 <label htmlFor="agree" className="text-sm">
-                  <a
-                    href="javascript:void(0);"
+                  Я прочитал и согласен с{' '}
+                  <span
                     onClick={() => setIsModalOpen(true)}
-                    className="terms-link"
-                    style={{ color: 'inherit', textDecoration: 'inherit' }}
+                    className="text-blue-600 hover:underline cursor-pointer"
                   >
-                    Я прочитал и согласен с правилами на обработку персональных данных
-                  </a>
+                    правилами на обработку персональных данных
+                  </span>
                 </label>
               </div>
               <button
