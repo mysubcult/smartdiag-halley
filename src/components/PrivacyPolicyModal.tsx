@@ -22,8 +22,8 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
       <div className="bg-white p-8 rounded-lg shadow-lg z-50 max-w-5xl mx-auto relative">
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-gray-500 hover:text-red-600 text-3xl transform transition-transform duration-300 hover:rotate-180 hover:scale-125"
-          style={{ fontSize: '2rem', transition: 'transform 0.3s ease, color 0.3s ease' }}
+          className="absolute top-3 right-3 text-gray-500 hover:text-red-600 text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95"
+          style={{ fontSize: '2rem' }}
         >
           ×
         </button>
