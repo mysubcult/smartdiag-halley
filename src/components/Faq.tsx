@@ -67,6 +67,7 @@ function classNames(...classes: string[]) {
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("Все");
+  const [isOpen, setIsOpen] = useState(false); // Добавлено состояние для открытия/закрытия меню
 
   const filteredPosts =
     selectedCategory === "Все"
@@ -86,24 +87,29 @@ export default function Blog() {
           onClick={() => setIsOpen(!isOpen)}
           className="bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 py-2 px-4 rounded-md w-full text-left"
         >
-          {selectedCategory}
+          {isOpen ? "Закрыть разделы" : selectedCategory}
         </button>
-        <div className="mt-2 space-y-1">
-          {categories.map((category) => (
-            <button
-              key={category.value}
-              onClick={() => setSelectedCategory(category.value)}
-              className={classNames(
-                category.value === selectedCategory
-                  ? "bg-red-500 text-white"
-                  : "text-gray-700 dark:text-gray-200 hover:bg-red-500 hover:text-white",
-                "block px-3 py-2 rounded-md text-base font-medium w-full text-left"
-              )}
-            >
-              {category.name}
-            </button>
-          ))}
-        </div>
+        {isOpen && (
+          <div className="mt-2 space-y-1">
+            {categories.map((category) => (
+              <button
+                key={category.value}
+                onClick={() => {
+                  setSelectedCategory(category.value);
+                  setIsOpen(false); // Закрыть меню после выбора категории
+                }}
+                className={classNames(
+                  category.value === selectedCategory
+                    ? "bg-red-500 text-white"
+                    : "text-gray-700 dark:text-gray-200 hover:bg-red-500 hover:text-white",
+                  "block px-3 py-2 rounded-md text-base font-medium w-full text-left"
+                )}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="hidden sm:block">
