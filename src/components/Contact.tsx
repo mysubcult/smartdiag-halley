@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import PrivacyPolicyModal from './PrivacyPolicyModal'; // Импортируем новый компонент
+import PrivacyPolicyModal from './PrivacyPolicyModal';
+import Image from 'next/image'; // Импортируем компонент Image
 
 type Info = {
   access_key: string;
@@ -16,6 +17,8 @@ type Info = {
 
 export default function Contact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [Message, setMessage] = useState('');
 
   const {
     register,
@@ -137,12 +140,12 @@ export default function Contact() {
                   href="https://смартдиаг-поддержка.рф/telegram"
                   target="_blank"
                 >
-                  <img
+                  <Image
                     src="/images/hero/telegram-qr.svg"
+                    alt="QR Code Telegram"
                     className="transition-transform duration-300 ease-in-out transform hover:scale-110"
-                    width="120"
-                    height="120"
-                    alt="QR Code"
+                    width={120}
+                    height={120}
                   />
                 </a>
               </div>
@@ -172,12 +175,12 @@ export default function Contact() {
                   href="https://смартдиаг-поддержка.рф/whatsapp"
                   target="_blank"
                 >
-                  <img
+                  <Image
                     src="/images/hero/whatsapp-qr.svg"
+                    alt="QR Code WhatsApp"
                     className="transition-transform duration-300 ease-in-out transform hover:scale-110"
-                    width="120"
-                    height="120"
-                    alt="QR Code"
+                    width={120}
+                    height={120}
                   />
                 </a>
               </div>
@@ -478,8 +481,7 @@ export default function Contact() {
           )}
         </div>
       </div>
-      
-      {/* Вставляем компонент модального окна */}
+
       <PrivacyPolicyModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
