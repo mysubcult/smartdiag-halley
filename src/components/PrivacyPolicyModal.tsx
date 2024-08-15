@@ -9,7 +9,6 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
   if (!isOpen) return null;
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Закрытие только при нажатии на затемненную область, но не на содержимое модального окна
     if (e.target === e.currentTarget) {
       onClose();
     }
@@ -17,16 +16,15 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center" onClick={handleOverlayClick}>
-      <div className="absolute inset-0 bg-black opacity-50"></div> {/* Затемнение фона */}
-      <div className="bg-white p-8 rounded-lg shadow-lg z-50 max-w-5xl mx-auto relative"> {/* Увеличили размер окна */}
+      <div className="absolute inset-0 bg-black opacity-50"></div>
+      <div className="bg-white p-8 rounded-lg shadow-lg z-50 max-w-5xl mx-auto relative">
         <button 
           onClick={onClose} 
-          className="absolute top-3 right-3 text-gray-500 hover:text-red-600 text-3xl transform transition-transform duration-300 hover:scale-110 active:scale-95"  {/* Увеличили размер кнопки и добавили анимацию */}
-          style={{ fontSize: '2rem' }}
+          className="absolute top-3 right-3 text-gray-500 hover:text-red-600 text-3xl transform transition-transform duration-300 hover:scale-110 active:scale-95"
         >
           ×
         </button>
-        <h4 className="text-2xl font-semibold mb-4">Политика в отношении обработки персональных данных</h4> {/* Увеличили размер заголовка */}
+        <h4 className="text-2xl font-semibold mb-4">Политика в отношении обработки персональных данных</h4>
         <div className="overflow-y-auto max-h-96">
           <p><strong>Условия ОПД</strong></p>
           <div className="row mb-4" style={{ fontFamily: 'TildaSans, Arial, sans-serif', boxSizing: 'content-box', color: 'rgb(33, 37, 41)', display: 'flex', flexWrap: 'wrap', fontSize: '16px', backgroundColor: 'rgb(254, 254, 254)', marginBottom: '24px !important' }}>
@@ -65,7 +63,27 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
               </div>
             </div>
           </div>
-          {/* Остальная часть текста */}
+          <div className="row mb-4" style={{ fontFamily: 'TildaSans, Arial, sans-serif', boxSizing: 'content-box', color: 'rgb(33, 37, 41)', display: 'flex', flexWrap: 'wrap', fontSize: '16px', backgroundColor: 'rgb(254, 254, 254)', marginBottom: '24px !important' }}>
+            <div className="col" style={{ position: 'relative', width: '1028px', minHeight: '1px', paddingRight: '15px', paddingLeft: '15px', flexBasis: '0px', flexGrow: '1', maxWidth: '100%' }}>
+              <h5 style={{ boxSizing: 'content-box', color: 'rgb(33, 37, 41)', fontSize: '20px', marginBottom: '24px', fontFamily: 'TildaSans, Arial, sans-serif !important' }}>3. Основные права и&nbsp;обязанности Оператора</h5>
+              <div className="ol" style={{ boxSizing: 'content-box', marginBottom: '16px', paddingLeft: '40px', overflowY: 'auto' }}>
+                <div className="li" style={{ boxSizing: 'content-box' }}>3.1. Оператор имеет право:</div>
+                <div className="li" style={{ boxSizing: 'content-box' }}>—&nbsp;получать от&nbsp;субъекта персональных данных достоверные информацию и/или&nbsp;документы, содержащие персональные данные;</div>
+                <div className="li" style={{ boxSizing: 'content-box' }}>—&nbsp;в&nbsp;случае отзыва субъектом персональных данных согласия на&nbsp;обработку персональных данных, а&nbsp;также, направления обращения с&nbsp;требованием о&nbsp;прекращении обработки персональных данных, Оператор вправе продолжить обработку персональных данных без согласия субъекта персональных данных при наличии оснований, указанных в&nbsp;Законе о&nbsp;персональных данных;</div>
+                <div className="li" style={{ boxSizing: 'content-box' }}>—&nbsp;самостоятельно определять состав и&nbsp;перечень мер, необходимых и&nbsp;достаточных для обеспечения выполнения обязанностей, предусмотренных Законом о&nbsp;персональных данных и&nbsp;принятыми в&nbsp;соответствии с&nbsp;ним нормативными правовыми актами, если иное не&nbsp;предусмотрено Законом о&nbsp;персональных данных или другими федеральными законами.</div>
+                <div className="li" style={{ boxSizing: 'content-box' }}>3.2. Оператор обязан:</div>
+                <div className="li" style={{ boxSizing: 'content-box' }}>—&nbsp;предоставлять субъекту персональных данных по&nbsp;его просьбе информацию, касающуюся обработки его персональных данных;</div>
+                <div className="li" style={{ boxSizing: 'content-box' }}>—&nbsp;организовывать обработку персональных данных в&nbsp;порядке, установленном действующим законодательством&nbsp;РФ;</div>
+                <div className="li" style={{ boxSizing: 'content-box' }}>—&nbsp;отвечать на&nbsp;обращения и&nbsp;запросы субъектов персональных данных и&nbsp;их&nbsp;законных представителей в&nbsp;соответствии с&nbsp;требованиями Закона о&nbsp;персональных данных;</div>
+                <div className="li" style={{ boxSizing: 'content-box' }}>—&nbsp;сообщать в&nbsp;уполномоченный орган по&nbsp;защите прав субъектов персональных данных по&nbsp;запросу этого органа необходимую информацию в&nbsp;течение 10&nbsp;дней с&nbsp;даты получения такого запроса;</div>
+                <div className="li" style={{ boxSizing: 'content-box' }}>—&nbsp;публиковать или иным образом обеспечивать неограниченный доступ к&nbsp;настоящей Политике в&nbsp;отношении обработки персональных данных;</div>
+                <div className="li" style={{ boxSizing: 'content-box' }}>—&nbsp;принимать правовые, организационные и&nbsp;технические меры для защиты персональных данных от&nbsp;неправомерного или случайного доступа к&nbsp;ним, уничтожения, изменения, блокирования, копирования, предоставления, распространения персональных данных, а&nbsp;также от&nbsp;иных неправомерных действий в&nbsp;отношении персональных данных;</div>
+                <div className="li" style={{ boxSizing: 'content-box' }}>—&nbsp;прекратить передачу (распространение, предоставление, доступ) персональных данных, прекратить обработку и&nbsp;уничтожить персональные данные в&nbsp;порядке и&nbsp;случаях, предусмотренных Законом о&nbsp;персональных данных;</div>
+                <div className="li" style={{ boxSizing: 'content-box' }}>—&nbsp;исполнять иные обязанности, предусмотренные Законом о&nbsp;персональных данных.</div>
+              </div>
+            </div>
+          </div>
+          {/* Остальная часть текста правил */}
         </div>
       </div>
     </div>
