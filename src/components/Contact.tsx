@@ -409,7 +409,7 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="w-full py-4 font-semibold text-white bg-black rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300"
+                className="w-full py-4 font-semibold text-white bg-black dark:bg-red-600 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300 dark:hover:bg-red-700"
               >
                 {isSubmitting ? (
                   <svg
