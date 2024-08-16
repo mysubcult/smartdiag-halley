@@ -89,7 +89,7 @@ export default function Contact() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 grid md:grid-cols-2 lg:grid-cols-2 gap-y-8 md:gap-x-8 md:gap-y-8 lg:gap-x-8 lg:gap-y-16">
         <div>
-          <h2 className="text-lg font-bold text-center">💬 Мы в мессенджерах!</h2>
+          <h2 className="text-lg font-bold text-center">📞 Наши контакты</h2>
           <p className="max-w mt-4 mb-4 dark:text-neutral-400 text-center">
             🕑 <strong>График работы технической поддержки:</strong>
             <br />
@@ -100,7 +100,7 @@ export default function Contact() {
               Суббота - Воскресенье: 10:00 - 18:00 (МСК)
             </span>
             <br />
-            💬 <strong>Мы доступны в Telegram и WhatsApp:</strong>
+            💬 <strong>Мы доступны в:</strong>
           </p>
 
           <div className="flex justify-center mt-2 text-dark-600 dark:text-neutral-400">
@@ -182,6 +182,28 @@ export default function Contact() {
                 </a>
               </div>
             </div>
+          </div>
+          <div className="mt-4 text-center dark:text-neutral-400">
+            📧 <strong>Email для отдела продаж:</strong>
+            <a
+              href="mailto:sales@смартдиаг.рф"
+              className="block text-red-600 hover:underline mt-1"
+            >
+              sales@смартдиаг.рф
+            </a>
+          </div>
+          <div className="mt-4 text-center dark:text-neutral-400">
+            🛠 <strong>Email технической поддержки:</strong>
+            <a
+              href="mailto:support@смартдиаг.рф"
+              className="block text-red-600 hover:underline mt-1"
+            >
+              support@смартдиаг.рф
+            </a>
+          </div>
+          <div className="mt-4 text-center dark:text-neutral-400">
+            📍 <strong>Адрес компании:</strong>
+            <p className="mt-1">г. Тольятти, ул. Ленинградская 68</p>
           </div>
         </div>
 
@@ -387,8 +409,7 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="w-full py-4 font-semibold text-white bg-gradient-to-r from-black to-red-600 rounded-md transition-all duration-500 ease-in-out hover:bg-[length:200%_200%] hover:from-red-600 hover:to-black"
-                style={{ backgroundSize: '100% 100%', backgroundPosition: 'left center' }}
+                className="w-full py-4 font-semibold text-white bg-black rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300"
               >
                 {isSubmitting ? (
                   <svg
