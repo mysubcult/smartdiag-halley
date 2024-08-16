@@ -19,7 +19,7 @@ export default function Contact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [Message, setMessage] = useState('');
-  const [isChecked, setIsChecked] = useState(true); // Состояние для флажка согласия
+  const [isChecked, setIsChecked] = useState(true); // Состояние флажка согласия
 
   const {
     register,
@@ -386,7 +386,7 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="w-full py-4 font-semibold text-white transition-all duration-300 bg-gradient-to-r from-black to-red-600 rounded-md hover:shadow-lg focus:outline-none focus:ring-offset-2 focus:ring focus:ring-red-200 px-7"
+                className="w-full py-4 font-semibold text-white transition-all duration-500 bg-gradient-to-r from-black to-red-600 rounded-md hover:bg-gradient-to-l hover:from-red-600 hover:to-black"
               >
                 {isSubmitting ? (
                   <svg
@@ -480,7 +480,12 @@ export default function Contact() {
           )}
         </div>
       </div>
-      <PrivacyPolicyModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <PrivacyPolicyModal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+        }}
+      />
     </div>
   );
 }
