@@ -18,6 +18,7 @@ type Info = {
 export default function Contact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(false); // Добавляем переменную для статуса отправки
 
   const {
     register,
@@ -57,11 +58,15 @@ export default function Contact() {
       .then(async (response) => {
         let json = await response.json();
         if (json.success) {
+          setIsSuccess(true); // Устанавливаем статус успеха
           e.target.reset();
           reset();
+        } else {
+          setIsSuccess(false); // В случае ошибки устанавливаем статус неуспеха
         }
       })
       .catch((error) => {
+        setIsSuccess(false);
         console.log(error);
       });
   };
