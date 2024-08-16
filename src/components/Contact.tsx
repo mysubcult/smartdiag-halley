@@ -367,14 +367,14 @@ export default function Contact() {
                   id="agree"
                   className="mr-2 cursor-pointer"
                   checked={isChecked}
-                  onChange={() => setIsChecked(!isChecked)}
+                  onChange={(e) => setIsChecked(e.target.checked)}
                   required
                 />
-                <label htmlFor="agree" className="text-sm select-none cursor-default">
+                <label htmlFor="agree" className="text-sm">
                   Я прочитал и согласен с{' '}
                   <span
                     onClick={(e) => {
-                      e.stopPropagation(); // Останавливаем всплытие события
+                      e.preventDefault(); // Останавливаем действие по умолчанию
                       setIsModalOpen(true);
                     }}
                     className="text-red-600 hover:underline cursor-pointer"
