@@ -67,7 +67,7 @@ function classNames(...classes: string[]) {
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("Все");
-  const [isOpen, setIsOpen] = useState(false); // Добавлено состояние для открытия/закрытия меню
+  const [isOpen, setIsOpen] = useState(false);
 
   const filteredPosts =
     selectedCategory === "Все"
@@ -101,7 +101,7 @@ export default function Blog() {
                 className={classNames(
                   category.value === selectedCategory
                     ? "bg-red-500 text-white"
-                    : "text-gray-700 dark:text-gray-200 hover:bg-red-500 hover:text-white",
+                    : "text-gray-700 dark:text-gray-200 hover:bg-red-500 hover:text-white transition-colors duration-300",
                   "block px-3 py-2 rounded-md text-base font-medium w-full text-left"
                 )}
               >
@@ -113,7 +113,7 @@ export default function Blog() {
       </div>
 
       <div className="hidden sm:block">
-        <nav className="flex space-x-4 justify-center">
+        <nav className="flex space-x-4 justify-center border-2 border-neutral-300 dark:border-neutral-700 p-2 rounded-lg">
           {categories.map((category) => (
             <button
               key={category.value}
@@ -121,8 +121,8 @@ export default function Blog() {
               className={classNames(
                 category.value === selectedCategory
                   ? "bg-red-500 text-white"
-                  : "text-gray-700 dark:text-gray-200 hover:bg-red-500 hover:text-white",
-                "px-3 py-2 rounded-md text-sm font-medium"
+                  : "text-gray-700 dark:text-gray-200 hover:bg-red-500 hover:text-white transition-colors duration-300",
+                "px-4 py-2 rounded-md text-sm font-medium"
               )}
             >
               {category.name}
@@ -135,10 +135,10 @@ export default function Blog() {
         {filteredPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
-            className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col"
+            className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col h-96" // Фиксированная высота
           >
             <Link href={link}>
-              <div className="border-4 border-neutral-300 dark:border-neutral-700 p-1 hover:border-red-500 dark:hover:border-red-500">
+              <div className="border-4 border-neutral-300 dark:border-neutral-700 p-1 hover:border-red-500 dark:hover:border-red-500 transition-colors duration-300">
                 <Image
                   src={image}
                   alt={title}
