@@ -184,7 +184,7 @@ export default function Contact() {
             </div>
           </div>
           <div className="mt-4 text-center dark:text-neutral-400">
-            📧 <strong>Email для отдела продаж:</strong>
+            📧 <strong>Email отдела продаж:</strong>
             <a
               href="mailto:sales@смартдиаг.рф"
               className="block text-red-600 hover:underline mt-1"
