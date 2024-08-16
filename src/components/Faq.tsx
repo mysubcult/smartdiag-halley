@@ -122,8 +122,8 @@ export default function Blog() {
                 className={classNames(
                   category.value === selectedCategory
                     ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                    : "text-neutral-900 dark:text-neutral-400",
-                  "rounded-md m-1 py-2 px-4 whitespace-nowrap hover:bg-white dark:hover:bg-neutral-700 transition-colors duration-300 ease-in-out"
+                    : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700",
+                  "rounded-md m-1 py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
                 )}
               >
                 {category.name}
