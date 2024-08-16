@@ -78,8 +78,8 @@ export default function BlogPost() {
       <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row">
           <div className="relative lg:flex lg:space-x-8">
-            <aside className={`lg:w-1/4 px-4 sticky top-24 h-auto ${isSticky ? 'fixed' : 'relative'} hidden lg:block`}>
-              <div className="fixed w-56 border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 bg-white dark:bg-neutral-900 shadow-lg">
+            <aside className={`lg:w-1/4 px-4 sticky top-24 h-auto ${isSticky ? 'fixed' : 'relative'} hidden lg:block border-r border-neutral-300`}>
+              <div className="fixed w-56 p-4 bg-white dark:bg-neutral-900 shadow-lg">
                 <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
                 <nav className="space-y-4">
                   <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
@@ -121,23 +121,23 @@ export default function BlogPost() {
               />
 
               <div className="max-w-3xl mx-auto text-lg leading-relaxed">
-                <p className="mb-4" id="antivirus-issue">
+                <p className="mb-4 scroll-section border-b border-neutral-300 pb-2" id="antivirus-issue">
                   <strong>Проблема с антивирусом:</strong> Часто проблемы с открытием архивов вызваны антивирусным программным обеспечением. Некоторые антивирусы могут блокировать доступ к архиву, считая его потенциально опасным, особенно если в нем содержатся исполняемые файлы (.exe). Чтобы решить эту проблему, попробуйте временно отключить антивирус или добавить архив в список исключений. Обратите внимание, что это может увеличить риск заражения компьютера, поэтому действуйте с осторожностью.
                 </p>
 
-                <p className="mb-4" id="outdated-software">
+                <p className="mb-4 scroll-section border-b border-neutral-300 pb-2" id="outdated-software">
                   <strong>Устаревшее программное обеспечение:</strong> Если вы используете старую версию программы для работы с архивами, она может не поддерживать новые форматы архивов или использовать устаревшие алгоритмы распаковки. Рекомендуется обновить программное обеспечение до последней версии, чтобы избежать подобных проблем. Например, если вы используете WinRAR или 7-Zip, проверьте сайт разработчика на наличие обновлений.
                 </p>
 
-                <p className="mb-4" id="download-errors">
+                <p className="mb-4 scroll-section border-b border-neutral-300 pb-2" id="download-errors">
                   <strong>Ошибки при загрузке:</strong> Иногда архив может не открываться из-за ошибок при его загрузке. Это может быть вызвано нестабильным интернет-соединением или перерывами в загрузке. Если вы столкнулись с этой проблемой, попробуйте загрузить файл повторно. Также можно использовать менеджер загрузок, который поддерживает возобновление загрузок, чтобы избежать повреждения файла.
                 </p>
 
-                <p className="mb-4" id="yandex-tips">
+                <p className="mb-4 scroll-section border-b border-neutral-300 pb-2" id="yandex-tips">
                   <strong>Советы для пользователей Яндекс Браузера:</strong> В Яндекс Браузере может быть включена защита, блокирующая загрузку определенных файлов, включая архивы. Чтобы решить эту проблему, можно отключить эту защиту в настройках браузера или добавить сайт, с которого производится загрузка, в список доверенных. Однако будьте осторожны при отключении защиты, так как это может повысить риски загрузки потенциально вредоносных файлов.
                 </p>
 
-                <p className="mb-4" id="support">
+                <p className="mb-4 scroll-section border-b border-neutral-300 pb-2" id="support">
                   Если перечисленные выше шаги не помогают, обратитесь в службу поддержки для получения дополнительной помощи. Возможно, проблема связана с конкретным файлом или настройками вашего компьютера. Служба поддержки сможет предоставить вам более детальные инструкции или предложить альтернативные решения.
                 </p>
               </div>
