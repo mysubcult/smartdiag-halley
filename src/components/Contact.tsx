@@ -365,10 +365,13 @@ export default function Contact() {
                   onChange={() => setIsChecked(!isChecked)}
                   required
                 />
-                <label htmlFor="agree" className="text-sm">
+                <label htmlFor="agree" className="text-sm select-none">
                   Я прочитал и согласен с{' '}
                   <span
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={(e) => {
+                      e.stopPropagation(); // Останавливаем всплытие события
+                      setIsModalOpen(true);
+                    }}
                     className="text-red-600 hover:underline cursor-pointer"
                   >
                     правилами на обработку персональных данных
