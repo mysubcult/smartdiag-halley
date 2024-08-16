@@ -386,7 +386,8 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="w-full py-4 font-semibold text-white transition-all duration-500 bg-gradient-to-r from-black to-red-600 rounded-md hover:bg-gradient-to-l hover:from-red-600 hover:to-black"
+                className="w-full py-4 font-semibold text-white bg-gradient-to-r from-black to-red-600 rounded-md transition-all duration-500 ease-in-out hover:bg-[length:200%_200%] hover:from-red-600 hover:to-black"
+                style={{ backgroundSize: '100% 100%', backgroundPosition: 'left center' }}
               >
                 {isSubmitting ? (
                   <svg
@@ -482,9 +483,7 @@ export default function Contact() {
       </div>
       <PrivacyPolicyModal
         isOpen={isModalOpen}
-        onClose={() => {
-          setIsModalOpen(false);
-        }}
+        onClose={() => setIsModalOpen(false)}
       />
     </div>
   );
