@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import PrivacyPolicyModal from './PrivacyPolicyModal';
-import Image from 'next/image'; // Импортируем компонент Image
+import Image from 'next/image';
 
 type Info = {
   access_key: string;
@@ -19,7 +19,7 @@ export default function Contact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [Message, setMessage] = useState('');
-  const [isChecked, setIsChecked] = useState(true); // Добавлено для сохранения состояния флажка
+  const isCheckedRef = useRef(true); // Используем useRef для хранения состояния флажка
 
   const {
     register,
@@ -370,8 +370,10 @@ export default function Contact() {
                   type="checkbox"
                   id="agree"
                   className="mr-2"
-                  checked={isChecked}
-                  onChange={() => setIsChecked(!isChecked)}
+                  checked={isCheckedRef.current}
+                  onChange={() => {
+                    isCheckedRef.current = !isCheckedRef.current;
+                  }}
                   required
                 />
                 <label htmlFor="agree" className="text-sm">
@@ -386,7 +388,7 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="w-full py-4 font-semibold text-white transition-colors bg-gradient-to-r from-black to-red-600 rounded-md hover:from-red-700 hover:to-black focus:outline-none focus:ring-offset-2 focus:ring focus:ring-red-200 px-7"
+                className="w-full py-4 font-semibold text-white transition-colors duration-500 bg-gradient-to-r from-black to-red-600 rounded-md hover:bg-gradient-to-l focus:outline-none focus:ring-offset-2 focus:ring focus:ring-red-200 px-7"
               >
                 {isSubmitting ? (
                   <svg
