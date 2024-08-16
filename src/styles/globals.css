@@ -317,6 +317,16 @@ nav .dark\:text-neutral-400:hover {
   margin: 8px 0; /* Устанавливаем одинаковый отступ сверху и снизу */
 }
 
+/* Стиль для секций с учетом отступа для навигационной панели */
+.scroll-section {
+  scroll-margin-top: 80px; /* Укажите высоту вашего navbar */
+}
+
+/* Стиль для разделительных линий под заголовками */
+.scroll-section.border-b {
+  border-bottom: 1px solid #d1d5db; /* Цвет разделительной линии */
+}
+
 /* Добавьте эти стили в глобальный CSS или в отдельный файл, импортируемый в post1 */
 .toc-container {
   border: 1px solid #d1d5db; /* border-neutral-300 */
