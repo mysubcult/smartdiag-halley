@@ -18,7 +18,7 @@ type Info = {
 export default function Contact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(true);
-  const [isSuccess, setIsSuccess] = useState(false); // Добавляем переменную для статуса отправки
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const {
     register,
@@ -58,11 +58,11 @@ export default function Contact() {
       .then(async (response) => {
         let json = await response.json();
         if (json.success) {
-          setIsSuccess(true); // Устанавливаем статус успеха
+          setIsSuccess(true);
           e.target.reset();
           reset();
         } else {
-          setIsSuccess(false); // В случае ошибки устанавливаем статус неуспеха
+          setIsSuccess(false);
         }
       })
       .catch((error) => {
@@ -365,12 +365,12 @@ export default function Contact() {
                 <input
                   type="checkbox"
                   id="agree"
-                  className="mr-2"
+                  className="mr-2 cursor-pointer"
                   checked={isChecked}
                   onChange={() => setIsChecked(!isChecked)}
                   required
                 />
-                <label htmlFor="agree" className="text-sm select-none">
+                <label htmlFor="agree" className="text-sm select-none cursor-default">
                   Я прочитал и согласен с{' '}
                   <span
                     onClick={(e) => {
