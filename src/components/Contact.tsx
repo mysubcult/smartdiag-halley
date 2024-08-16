@@ -370,18 +370,20 @@ export default function Contact() {
                   onChange={(e) => setIsChecked(e.target.checked)}
                   required
                 />
-                <label htmlFor="agree" className="text-sm">
-                  Я прочитал и согласен с{' '}
-                  <span
-                    onClick={(e) => {
-                      e.preventDefault(); // Останавливаем действие по умолчанию
-                      setIsModalOpen(true);
-                    }}
-                    className="text-red-600 hover:underline cursor-pointer"
-                  >
-                    правилами на обработку персональных данных
+                <div>
+                  <span className="text-sm">
+                    Я прочитал и согласен с{' '}
+                    <span
+                      onClick={(e) => {
+                        e.preventDefault(); // Останавливаем действие по умолчанию
+                        setIsModalOpen(true);
+                      }}
+                      className="text-red-600 hover:underline cursor-pointer"
+                    >
+                      правилами на обработку персональных данных
+                    </span>
                   </span>
-                </label>
+                </div>
               </div>
               <button
                 type="submit"
