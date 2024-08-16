@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import PrivacyPolicyModal from './PrivacyPolicyModal';
 import Image from 'next/image';
@@ -17,9 +17,7 @@ type Info = {
 
 export default function Contact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [Message, setMessage] = useState('');
-  const [isChecked, setIsChecked] = useState(true); // Состояние флажка согласия
+  const [isChecked, setIsChecked] = useState(true);
 
   const {
     register,
@@ -59,18 +57,11 @@ export default function Contact() {
       .then(async (response) => {
         let json = await response.json();
         if (json.success) {
-          setIsSuccess(true);
-          setMessage(json.message);
           e.target.reset();
           reset();
-        } else {
-          setIsSuccess(false);
-          setMessage(json.message);
         }
       })
       .catch((error) => {
-        setIsSuccess(false);
-        setMessage('Client Error. Please check the console.log for more info');
         console.log(error);
       });
   };
