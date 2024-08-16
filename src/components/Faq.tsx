@@ -113,21 +113,23 @@ export default function Blog() {
       </div>
 
       <div className="hidden sm:block">
-        <nav className="flex space-x-4 justify-center border-2 border-neutral-300 dark:border-neutral-700 p-2 rounded-lg">
-          {categories.map((category) => (
-            <button
-              key={category.value}
-              onClick={() => setSelectedCategory(category.value)}
-              className={classNames(
-                category.value === selectedCategory
-                  ? "bg-red-500 text-white"
-                  : "text-gray-700 dark:text-gray-200 hover:bg-red-500 hover:text-white transition-colors duration-300",
-                "px-4 py-2 rounded-md text-sm font-medium"
-              )}
-            >
-              {category.name}
-            </button>
-          ))}
+        <nav className="flex justify-center">
+          <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
+            {categories.map((category) => (
+              <button
+                key={category.value}
+                onClick={() => setSelectedCategory(category.value)}
+                className={classNames(
+                  category.value === selectedCategory
+                    ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-900 dark:text-neutral-400",
+                  "rounded-md m-1 py-2 px-4 whitespace-nowrap hover:bg-white dark:hover:bg-neutral-700 transition-colors duration-300 ease-in-out"
+                )}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
         </nav>
       </div>
 
@@ -135,7 +137,7 @@ export default function Blog() {
         {filteredPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
-            className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col h-96" // Фиксированная высота
+            className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col min-h-[400px]" // Минимальная высота для карточек
           >
             <Link href={link}>
               <div className="border-4 border-neutral-300 dark:border-neutral-700 p-1 hover:border-red-500 dark:hover:border-red-500 transition-colors duration-300">
