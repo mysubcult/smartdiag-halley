@@ -1,17 +1,22 @@
 import React, { useEffect } from 'react';
 
-export default function PrivacyPolicyModal({ isOpen, onClose }) {
+interface PrivacyPolicyModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function PrivacyPolicyModal({ isOpen, onClose }: PrivacyPolicyModalProps) {
   useEffect(() => {
     // Убираем влияние на флажок при открытии и закрытии модального окна
     const body = document.querySelector('body');
     if (isOpen) {
-      body.classList.add('overflow-hidden');
+      body?.classList.add('overflow-hidden');
     } else {
-      body.classList.remove('overflow-hidden');
+      body?.classList.remove('overflow-hidden');
     }
 
     return () => {
-      body.classList.remove('overflow-hidden');
+      body?.classList.remove('overflow-hidden');
     };
   }, [isOpen]);
 
