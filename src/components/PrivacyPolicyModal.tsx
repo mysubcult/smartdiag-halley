@@ -7,7 +7,6 @@ interface PrivacyPolicyModalProps {
 
 export default function PrivacyPolicyModal({ isOpen, onClose }: PrivacyPolicyModalProps) {
   useEffect(() => {
-    // Убираем влияние на флажок при открытии и закрытии модального окна
     const body = document.querySelector('body');
     if (isOpen) {
       body?.classList.add('overflow-hidden');
@@ -27,7 +26,7 @@ export default function PrivacyPolicyModal({ isOpen, onClose }: PrivacyPolicyMod
       <div className="bg-white dark:bg-neutral-800 rounded-lg p-6 max-w-3xl w-full mx-4">
         <h2 className="text-2xl font-bold mb-4">Политика конфиденциальности</h2>
         <p className="mb-4">
-          {/* Ваш текст политики конфиденциальности */}
+          Здесь должен быть полный текст правил обработки персональных данных, который был ранее. Вы можете добавить его сюда.
         </p>
         <button
           onClick={onClose}
