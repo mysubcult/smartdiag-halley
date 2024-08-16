@@ -19,7 +19,7 @@ export default function Contact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [Message, setMessage] = useState('');
-  const isCheckedRef = useRef(true); // Используем useRef для хранения состояния флажка
+  const [isChecked, setIsChecked] = useState(true); // Состояние для флажка согласия
 
   const {
     register,
@@ -370,10 +370,8 @@ export default function Contact() {
                   type="checkbox"
                   id="agree"
                   className="mr-2"
-                  checked={isCheckedRef.current}
-                  onChange={() => {
-                    isCheckedRef.current = !isCheckedRef.current;
-                  }}
+                  checked={isChecked}
+                  onChange={() => setIsChecked(!isChecked)}
                   required
                 />
                 <label htmlFor="agree" className="text-sm">
@@ -388,7 +386,7 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="w-full py-4 font-semibold text-white transition-colors duration-500 bg-gradient-to-r from-black to-red-600 rounded-md hover:bg-gradient-to-l focus:outline-none focus:ring-offset-2 focus:ring focus:ring-red-200 px-7"
+                className="w-full py-4 font-semibold text-white transition-all duration-300 bg-gradient-to-r from-black to-red-600 rounded-md hover:shadow-lg focus:outline-none focus:ring-offset-2 focus:ring focus:ring-red-200 px-7"
               >
                 {isSubmitting ? (
                   <svg
