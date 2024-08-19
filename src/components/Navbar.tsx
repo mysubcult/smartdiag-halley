@@ -7,11 +7,11 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
 const navigation = [
-  { name: "Главная", href: "/", anchor: "#hero", current: false },
-  { name: "Программы", href: "/#soft", anchor: "#soft", current: false },
-  { name: "Блог", href: "/#blog", anchor: "#blog", current: false },
-  { name: "О нас", href: "/#services", anchor: "#services", current: false },
-  { name: "Обратная связь", href: "/#contact", anchor: "#contact", current: false },
+  { name: "Главная", href: "/", anchor: "#hero" },
+  { name: "Программы", href: "/#soft", anchor: "#soft" },
+  { name: "Блог", href: "/#blog", anchor: "#blog" },
+  { name: "О нас", href: "/#services", anchor: "#services" },
+  { name: "Обратная связь", href: "/#contact", anchor: "#contact" },
 ];
 
 // Utility function to combine class names
@@ -23,11 +23,9 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
+  const [isMobileView, setIsMobileView] = useState(false);
 
   const router = useRouter();
-
-  // Устанавливаем начальное состояние мобильного вида
-  const [isMobileView, setIsMobileView] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -35,101 +33,44 @@ export default function Navbar() {
     };
 
     window.addEventListener("resize", handleResize);
-
-    // Убедимся, что состояние обновлено сразу
-    handleResize();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    handleResize(); // Initial check
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleSmoothScroll = (event: MouseEvent) => {
-    const target = event.target as HTMLElement;
-    if (
-      target.tagName === "A" &&
-      target.getAttribute("href")?.startsWith("#")
-    ) {
-      event.preventDefault();
-      const anchor = document.querySelector(target.getAttribute("href")!);
-      if (anchor) {
-        anchor.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+  const scrollToAnchor = (anchor: string) => {
+    const element = document.querySelector(anchor);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, '', '/'); // Clear URL after scroll
     }
   };
 
-  useEffect(() => {
-    document.addEventListener("click", handleSmoothScroll);
-
-    return () => {
-      document.removeEventListener("click", handleSmoothScroll);
-    };
-  }, []);
-
-  const handleLogoClick = (event: React.MouseEvent) => {
+  const handleNavigationClick = (anchor: string) => (event: React.MouseEvent) => {
     event.preventDefault();
     if (router.pathname !== '/') {
-      router.push('/').then(() => {
-        const heroAnchor = document.querySelector("#hero");
-        if (heroAnchor) {
-          heroAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
-          history.replaceState(null, '', '/');
-        }
-      });
+      router.push('/').then(() => scrollToAnchor(anchor));
     } else {
-      const heroAnchor = document.querySelector("#hero");
-      if (heroAnchor) {
-        heroAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
-        history.replaceState(null, '', '/');
-      }
-    }
-  };
-
-  const handleNavLinkClick = (anchor: string) => (event: React.MouseEvent) => {
-    event.preventDefault();
-    if (router.pathname !== '/') {
-      router.push('/').then(() => {
-        const anchorElement = document.querySelector(anchor);
-        if (anchorElement) {
-          anchorElement.scrollIntoView({ behavior: "smooth", block: "start" });
-          history.replaceState(null, '', '/');
-        }
-      });
-    } else {
-      const anchorElement = document.querySelector(anchor);
-      if (anchorElement) {
-        anchorElement.scrollIntoView({ behavior: "smooth", block: "start" });
-        history.replaceState(null, '', '/');
-      }
+      scrollToAnchor(anchor);
     }
     setIsMenuOpen(false);
   };
 
-  // Dynamic font size and height
+  const updateFontSize = () => {
+    const baseFontSize = 18;
+    const minFontSize = 14;
+    const screenHeight = window.innerHeight;
+    const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length;
+    const maxMenuHeight = screenHeight - 64;
+    const requiredHeight = itemsCount * 48;
+
+    const scaleFactor = maxMenuHeight / requiredHeight;
+    setFontSize(`${Math.max(minFontSize, baseFontSize * Math.min(scaleFactor, 1))}px`);
+  };
+
   useEffect(() => {
-    const updateFontSizeAndHeight = () => {
-      const baseFontSize = 18; // Базовый размер шрифта
-      const screenHeight = window.innerHeight;
-      const maxFontSize = baseFontSize;
-      const minFontSize = 14;
-
-      const maxMenuHeight = screenHeight - 64; // Высота меню с учетом отступов
-      const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length; // +3 для подменю
-      const requiredHeight = itemsCount * 48; // 48px на каждый элемент (включая padding и margin)
-
-      const scaleFactor = maxMenuHeight / requiredHeight;
-      const newFontSize = Math.max(
-        minFontSize,
-        maxFontSize * Math.min(scaleFactor, 1)
-      );
-
-      setFontSize(`${newFontSize}px`);
-    };
-
-    updateFontSizeAndHeight();
-
-    window.addEventListener("resize", updateFontSizeAndHeight);
-    return () => window.removeEventListener("resize", updateFontSizeAndHeight);
+    updateFontSize();
+    window.addEventListener("resize", updateFontSize);
+    return () => window.removeEventListener("resize", updateFontSize);
   }, [isSubMenuOpen]);
 
   return (
@@ -138,7 +79,7 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <Link href="/" onClick={handleLogoClick}>
+              <Link href="/" onClick={handleNavigationClick("#hero")}>
                 <Image
                   className="block h-12 w-auto logo-animation"
                   src="/images/logos/logo.png"
@@ -158,15 +99,10 @@ export default function Navbar() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={classNames(
-                      item.current
-                        ? "text-neutral-900 dark:text-neutral-400"
-                        : "text-neutral-900 dark:text-neutral-400",
-                      "nav-link"
-                    )}
+                    className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
                     aria-current={item.current ? "page" : undefined}
                     style={{ textDecoration: "none" }}
-                    onClick={handleNavLinkClick(item.anchor)}
+                    onClick={handleNavigationClick(item.anchor)}
                   >
                     {item.name}
                   </Link>
@@ -179,12 +115,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             {!isMobileView && (
               <>
-                <Link
-                  href="https://www.ozon.ru/seller/smartdiag-862410/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
+                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="block">
                   <button className="btn-ozon">
                     <Image
                       src="/images/logos/favicon.ico"
@@ -197,12 +128,7 @@ export default function Navbar() {
                   </button>
                 </Link>
 
-                <Link
-                  href="https://market.yandex.ru/business--smartdiag/50025236"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
+                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer" className="block">
                   <button className="btn-yandex">
                     <Image
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
@@ -215,12 +141,7 @@ export default function Navbar() {
                   </button>
                 </Link>
 
-                <Link
-                  href="https://www.wildberries.ru/seller/1343369"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
+                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer" className="block">
                   <button className="btn-wildberries">
                     <Image
                       src="https://www.wildberries.ru/favicon.ico"
@@ -284,14 +205,9 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={classNames(
-                  item.current
-                    ? "text-neutral-900 dark:text-neutral-400"
-                    : "text-neutral-900 dark:text-neutral-400",
-                  "block py-2 text-lg font-medium hover:text-red-500"
-                )}
+                className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
                 aria-current={item.current ? "page" : undefined}
-                onClick={handleNavLinkClick(item.anchor)}
+                onClick={handleNavigationClick(item.anchor)}
               >
                 {item.name}
               </Link>
