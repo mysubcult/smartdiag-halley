@@ -45,7 +45,7 @@ export default function Contact() {
     }
   };
 
-  const onSubmit = async (data: Info, e: any) => {
+  const onSubmit = async (data: Info, e: React.FormEvent<HTMLFormElement>) => {
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -60,7 +60,7 @@ export default function Contact() {
 
       setIsSuccess(json.success);
       if (json.success) {
-        e.target.reset();
+        e.currentTarget.reset();
         reset();
       }
     } catch (error) {
@@ -70,7 +70,10 @@ export default function Contact() {
   };
 
   const handleModalToggle = useCallback(() => setIsModalOpen((prev) => !prev), []);
-  const handleCheckboxChange = useCallback((e) => setIsChecked(e.target.checked), []);
+
+  const handleCheckboxChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked);
+  }, []);
 
   return (
     <div className="bg-white-50 dark:bg-neutral-900" id="contact">
