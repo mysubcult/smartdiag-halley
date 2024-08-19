@@ -7,7 +7,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
 const navigation = [
-  { name: "Главная", href: "/#hero", anchor: "#hero", current: false },
+  { name: "Главная", href: "/", anchor: "#hero", current: false },
   { name: "Программы", href: "/#soft", anchor: "#soft", current: false },
   { name: "Блог", href: "/#blog", anchor: "#blog", current: false },
   { name: "О нас", href: "/#services", anchor: "#services", current: false },
@@ -69,11 +69,18 @@ export default function Navbar() {
   const handleLogoClick = (event: React.MouseEvent) => {
     event.preventDefault();
     if (router.pathname !== '/') {
-      router.push('/#hero'); // Переход на главную страницу и якорь
+      router.push('/').then(() => {
+        const heroAnchor = document.querySelector("#hero");
+        if (heroAnchor) {
+          heroAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
+          history.replaceState(null, '', '/');
+        }
+      });
     } else {
       const heroAnchor = document.querySelector("#hero");
       if (heroAnchor) {
         heroAnchor.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.replaceState(null, '', '/');
       }
     }
   };
@@ -81,11 +88,18 @@ export default function Navbar() {
   const handleNavLinkClick = (anchor: string) => (event: React.MouseEvent) => {
     event.preventDefault();
     if (router.pathname !== '/') {
-      router.push(`/${anchor}`); // Переход на главную страницу и якорь
+      router.push('/').then(() => {
+        const anchorElement = document.querySelector(anchor);
+        if (anchorElement) {
+          anchorElement.scrollIntoView({ behavior: "smooth", block: "start" });
+          history.replaceState(null, '', '/');
+        }
+      });
     } else {
       const anchorElement = document.querySelector(anchor);
       if (anchorElement) {
         anchorElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.replaceState(null, '', '/');
       }
     }
     setIsMenuOpen(false);
@@ -124,7 +138,7 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <Link href="/#hero" onClick={handleLogoClick}>
+              <Link href="/" onClick={handleLogoClick}>
                 <Image
                   className="block h-12 w-auto logo-animation"
                   src="/images/logos/logo.png"
