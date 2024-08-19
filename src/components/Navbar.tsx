@@ -100,7 +100,6 @@ export default function Navbar() {
                     key={item.name}
                     href={item.href}
                     className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
-                    aria-current={item.current ? "page" : undefined}
                     style={{ textDecoration: "none" }}
                     onClick={handleNavigationClick(item.anchor)}
                   >
@@ -206,7 +205,6 @@ export default function Navbar() {
                 key={item.name}
                 href={item.href}
                 className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
-                aria-current={item.current ? "page" : undefined}
                 onClick={handleNavigationClick(item.anchor)}
               >
                 {item.name}
