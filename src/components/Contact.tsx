@@ -15,6 +15,16 @@ type Info = {
   orderNumber: string;
 };
 
+const messagePlaceholders: { [key: string]: string } = {
+  'Активация прибора':
+    'Введите ваше сообщение. В зависимости от типа прибора, необходимо предоставить соответствующую информацию, такую как номер заказа, серийный номер, ACTIVATION ID и т.п.',
+  'Помощь с установкой ПО':
+    'Введите ваше сообщение. Уточните модель прибора и удобное для вас время, когда мы можем связаться с вами для дистанционной установки ПО.',
+  'Заказ оборудования':
+    'Мы рады предложить вам разнообразный ассортимент приборов, доступных как с наших складов в Москве, так и напрямую от лучших поставщиков из Китая. У нас есть всё, что вам может понадобиться, и это по лучшим ценам. Напишите нам, чтобы уточнить подробности.',
+  default: 'Введите ваше сообщение',
+};
+
 export default function Contact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(true);
@@ -32,14 +42,8 @@ export default function Contact() {
 
   const topic = watch('topic');
 
-  const messagePlaceholders = {
-    'Активация прибора':
-      'Введите ваше сообщение. В зависимости от типа прибора, необходимо предоставить соответствующую информацию, такую как номер заказа, серийный номер, ACTIVATION ID и т.п.',
-    'Помощь с установкой ПО':
-      'Введите ваше сообщение. Уточните модель прибора и удобное для вас время, когда мы можем связаться с вами для дистанционной установки ПО.',
-    'Заказ оборудования':
-      'Мы рады предложить вам разнообразный ассортимент приборов, доступных как с наших складов в Москве, так и напрямую от лучших поставщиков из Китая. У нас есть всё, что вам может понадобиться, и это по лучшим ценам. Напишите нам, чтобы уточнить подробности.',
-    default: 'Введите ваше сообщение',
+  const getPlaceholder = (topic: string): string => {
+    return messagePlaceholders[topic] || messagePlaceholders.default;
   };
 
   const onSubmit = async (data: Info, e: any) => {
@@ -176,7 +180,7 @@ export default function Contact() {
               )}
 
               <TextareaField 
-                placeholder={messagePlaceholders[topic] || messagePlaceholders.default}
+                placeholder={getPlaceholder(topic)}
                 errors={errors.message}
                 register={register('message', { required: 'Необходимо ввести текст сообщения' })}
               />
@@ -222,7 +226,6 @@ export default function Contact() {
   );
 }
 
-// Компонент Icon для использования внутри ContactLink
 const Icon = ({ icon }) => {
   const iconPaths = {
     telegram: (
