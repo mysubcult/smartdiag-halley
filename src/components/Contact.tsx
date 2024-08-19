@@ -250,7 +250,7 @@ const Contact = () => {
               </div>
               <button
                 type="submit"
-                className="w-full py-4 font-semibold text-white bg-black dark:bg-red-600 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300 dark:hover:bg-red-700"
+                className="w-full py-4 font-semibold text-white bg-black dark:bg-red-600 rounded-md transition-all duration-200 ease-in-out transform hover:scale-102 active:scale-98 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300 dark:hover:bg-red-700"
               >
                 {isSubmitting ? <LoadingSpinner /> : 'Отправить сообщение'}
               </button>
@@ -425,7 +425,10 @@ const SubmitResult: React.FC<SubmitResultProps> = ({ isSuccess, reset }) => (
         <SuccessIcon />
         <h3 className="py-5 text-2xl font-medium text-green-500">Успешно!</h3>
         <p className="text-neutral-900 dark:text-neutral-300 md:px-4">Ваше сообщение отправлено.</p>
-        <button className="mt-6 py-2 px-4 bg-rose-500 rounded-full focus:outline-none text-neutral-100" onClick={() => reset()}>
+        <button
+          className="mt-6 py-2 px-4 bg-rose-500 rounded-full focus:outline-none text-neutral-100 transition-all duration-200 ease-in-out transform hover:scale-102 active:scale-98"
+          onClick={() => reset()}
+        >
           Вернуться
         </button>
       </>
@@ -434,7 +437,10 @@ const SubmitResult: React.FC<SubmitResultProps> = ({ isSuccess, reset }) => (
         <ErrorIcon />
         <h3 className="py-5 text-2xl font-medium text-rose-500">Ошибка</h3>
         <p className="text-neutral-900 dark:text-neutral-300 md:px-4">Ваше сообщение не было отправлено. Пожалуйста, попробуйте снова позже.</p>
-        <button className="mt-6 py-2 px-4 bg-rose-500 rounded-full focus:outline-none text-neutral-100" onClick={() => reset()}>
+        <button
+          className="mt-6 py-2 px-4 bg-rose-500 rounded-full focus:outline-none text-neutral-100 transition-all duration-200 ease-in-out transform hover:scale-102 active:scale-98"
+          onClick={() => reset()}
+        >
           Вернуться
         </button>
       </>
