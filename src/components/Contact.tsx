@@ -15,6 +15,10 @@ type Info = {
   orderNumber: string;
 };
 
+type IconProps = {
+  icon: 'telegram' | 'whatsapp';
+};
+
 const messagePlaceholders: { [key: string]: string } = {
   'Активация прибора':
     'Введите ваше сообщение. В зависимости от типа прибора, необходимо предоставить соответствующую информацию, такую как номер заказа, серийный номер, ACTIVATION ID и т.п.',
@@ -226,7 +230,7 @@ export default function Contact() {
   );
 }
 
-const Icon = ({ icon }) => {
+const Icon: React.FC<IconProps> = ({ icon }) => {
   const iconPaths = {
     telegram: (
       <svg
