@@ -12,7 +12,7 @@ type Info = {
   email: string;
   message: string;
   topic: string;
-  orderNumber: string;
+  orderNumber?: string; // Сделал необязательным
 };
 
 type IconProps = {
@@ -26,7 +26,38 @@ type ContactLinkProps = {
   qrImage: string;
 };
 
-const messagePlaceholders: { [key: string]: string } = {
+type ContactInfoProps = {
+  label: string;
+  email: string;
+};
+
+type AddressInfoProps = {
+  label: string;
+  address: string;
+};
+
+type InputFieldProps = {
+  id: string;
+  type: string;
+  placeholder: string;
+  errors?: any;
+  register: any;
+};
+
+type SelectFieldProps = {
+  id: string;
+  options: { value: string; label: string }[];
+  errors?: any;
+  register: any;
+};
+
+type TextareaFieldProps = {
+  placeholder: string;
+  errors?: any;
+  register: any;
+};
+
+const messagePlaceholders: Record<string, string> = {
   'Активация прибора':
     'Введите ваше сообщение. В зависимости от типа прибора, необходимо предоставить соответствующую информацию, такую как номер заказа, серийный номер, ACTIVATION ID и т.п.',
   'Помощь с установкой ПО':
@@ -36,7 +67,7 @@ const messagePlaceholders: { [key: string]: string } = {
   default: 'Введите ваше сообщение',
 };
 
-export default function Contact() {
+const Contact = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(true);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -58,7 +89,6 @@ export default function Contact() {
   };
 
   const onSubmit = async (data: Info, e: any) => {
-    console.log(data);
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -185,7 +215,7 @@ export default function Contact() {
                   placeholder="Номер заказа"
                   errors={errors.orderNumber}
                   register={register('orderNumber', {
-                    required: (topic === 'Активация прибора' || topic === 'Помощь с установкой ПО') && 'Номер заказа обязателен',
+                    required: 'Номер заказа обязателен для выбранной темы',
                   })}
                 />
               )}
@@ -235,7 +265,7 @@ export default function Contact() {
       <PrivacyPolicyModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
-}
+};
 
 const Icon: React.FC<IconProps> = ({ icon }) => {
   const iconPaths = {
@@ -292,7 +322,7 @@ const ContactLink: React.FC<ContactLinkProps> = ({ href, icon, text, qrImage }) 
   </div>
 );
 
-const ContactInfo = ({ label, email }) => (
+const ContactInfo: React.FC<ContactInfoProps> = ({ label, email }) => (
   <div className="mt-4 text-center dark:text-neutral-400">
     📧 <strong>{label}</strong>
     <a href={`mailto:${email}`} className="block text-red-600 hover:underline mt-1">
@@ -301,14 +331,14 @@ const ContactInfo = ({ label, email }) => (
   </div>
 );
 
-const AddressInfo = ({ label, address }) => (
+const AddressInfo: React.FC<AddressInfoProps> = ({ label, address }) => (
   <div className="mt-4 text-center dark:text-neutral-400">
     📍 <strong>{label}</strong>
     <p className="mt-1">{address}</p>
   </div>
 );
 
-const InputField = ({ id, type, placeholder, errors, register }) => (
+const InputField: React.FC<InputFieldProps> = ({ id, type, placeholder, errors, register }) => (
   <div className="mb-4 mt-4">
     <input
       id={id}
@@ -328,7 +358,7 @@ const InputField = ({ id, type, placeholder, errors, register }) => (
   </div>
 );
 
-const SelectField = ({ id, options, errors, register }) => (
+const SelectField: React.FC<SelectFieldProps> = ({ id, options, errors, register }) => (
   <div className="mb-4 mt-4 relative">
     <div className="relative">
       <select
@@ -359,7 +389,7 @@ const SelectField = ({ id, options, errors, register }) => (
   </div>
 );
 
-const TextareaField = ({ placeholder, errors, register }) => (
+const TextareaField: React.FC<TextareaFieldProps> = ({ placeholder, errors, register }) => (
   <div className="mb-4 mt-4">
     <textarea
       placeholder={placeholder}
@@ -383,7 +413,12 @@ const LoadingSpinner = () => (
   </svg>
 );
 
-const SubmitResult = ({ isSuccess, reset }) => (
+type SubmitResultProps = {
+  isSuccess: boolean;
+  reset: () => void;
+};
+
+const SubmitResult: React.FC<SubmitResultProps> = ({ isSuccess, reset }) => (
   <div className="flex flex-col items-center justify-center text-center text-white rounded-md">
     {isSuccess ? (
       <>
@@ -426,3 +461,5 @@ const ErrorIcon = () => (
     />
   </svg>
 );
+
+export default Contact;
