@@ -19,6 +19,13 @@ type IconProps = {
   icon: 'telegram' | 'whatsapp';
 };
 
+type ContactLinkProps = {
+  href: string;
+  icon: 'telegram' | 'whatsapp';
+  text: string;
+  qrImage: string;
+};
+
 const messagePlaceholders: { [key: string]: string } = {
   'Активация прибора':
     'Введите ваше сообщение. В зависимости от типа прибора, необходимо предоставить соответствующую информацию, такую как номер заказа, серийный номер, ACTIVATION ID и т.п.',
@@ -265,7 +272,7 @@ const Icon: React.FC<IconProps> = ({ icon }) => {
   return iconPaths[icon] || null;
 };
 
-const ContactLink = ({ href, icon, text, qrImage }) => (
+const ContactLink: React.FC<ContactLinkProps> = ({ href, icon, text, qrImage }) => (
   <div className="flex flex-col items-center space-y-2 mx-4">
     <div className="flex items-center space-x-2">
       <Icon icon={icon} />
