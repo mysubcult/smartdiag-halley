@@ -120,7 +120,7 @@ const Contact = () => {
         <h2 className="text-4xl font-bold">Обратная связь 📩</h2>
 
         <p className="pt-6 pb-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          Мы очень ценим ваше мнение и постоянно работаем над улучшением нашего сервиса...
+          Мы очень ценим ваше мнение и постоянно работаем над улучшением нашего сервиса. Независимо от того, возник ли у вас вопрос о продукции, требуется техническая поддержка или вы хотите оставить отзыв, мы здесь, чтобы помочь вам. Пожалуйста, заполните форму ниже, и мы свяжемся с вами в ближайшее время.
         </p>
       </div>
 
@@ -250,7 +250,7 @@ const Contact = () => {
               </div>
               <button
                 type="submit"
-                className="w-full py-4 font-semibold text-white bg-black dark:bg-red-600 rounded-md transition-all duration-200 ease-in-out transform hover:scale-102 active:scale-98 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300 dark:hover:bg-red-700"
+                className="w-full py-4 font-semibold text-white bg-black dark:bg-red-600 rounded-md transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-100 hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300 dark:hover:bg-red-700"
               >
                 {isSubmitting ? <LoadingSpinner /> : 'Отправить сообщение'}
               </button>
@@ -306,7 +306,14 @@ const ContactLink: React.FC<ContactLinkProps> = ({ href, icon, text, qrImage }) 
   <div className="flex flex-col items-center space-y-2 mx-4">
     <div className="flex items-center space-x-2">
       <Icon icon={icon} />
-      <a href={href} target="_blank" className="hover:text-blue-500" style={{ width: '90px' }}>
+      <a
+        href={href}
+        target="_blank"
+        className={`hover:${
+          icon === 'telegram' ? 'text-blue-500' : 'text-green-500'
+        }`}
+        style={{ width: '90px' }}
+      >
         {text}
       </a>
     </div>
@@ -426,7 +433,7 @@ const SubmitResult: React.FC<SubmitResultProps> = ({ isSuccess, reset }) => (
         <h3 className="py-5 text-2xl font-medium text-green-500">Успешно!</h3>
         <p className="text-neutral-900 dark:text-neutral-300 md:px-4">Ваше сообщение отправлено.</p>
         <button
-          className="mt-6 py-2 px-4 bg-rose-500 rounded-full focus:outline-none text-neutral-100 transition-all duration-200 ease-in-out transform hover:scale-102 active:scale-98"
+          className="mt-6 py-2 px-4 bg-rose-500 rounded-full focus:outline-none text-neutral-100 transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-100"
           onClick={() => reset()}
         >
           Вернуться
@@ -438,7 +445,7 @@ const SubmitResult: React.FC<SubmitResultProps> = ({ isSuccess, reset }) => (
         <h3 className="py-5 text-2xl font-medium text-rose-500">Ошибка</h3>
         <p className="text-neutral-900 dark:text-neutral-300 md:px-4">Ваше сообщение не было отправлено. Пожалуйста, попробуйте снова позже.</p>
         <button
-          className="mt-6 py-2 px-4 bg-rose-500 rounded-full focus:outline-none text-neutral-100 transition-all duration-200 ease-in-out transform hover:scale-102 active:scale-98"
+          className="mt-6 py-2 px-4 bg-rose-500 rounded-full focus:outline-none text-neutral-100 transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-100"
           onClick={() => reset()}
         >
           Вернуться
