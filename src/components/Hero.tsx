@@ -22,15 +22,15 @@ export function Hero() {
           </p>
           <div className="flex flex-auto pt-10 gap-4 min-w-[350px] justify-center sm:justify-start">
             <div>
-              <Link href="#soft">
-                <button className="btn-grad-red text-base font-medium flex items-center">
+              <Link href="#soft" scroll={false}>
+                <button className="btn-grad-red text-base font-medium flex items-center" onClick={() => smoothScroll('#soft')}>
                   Программы для приборов
                   <span className="icon-container ml-2">
                     <svg
                       className="icon"
                       xmlns="http://www.w3.org/2000/svg"
-                      width="20" /* Размер */
-                      height="20" /* Размер */
+                      width="20"
+                      height="20"
                       fill="currentColor"
                       viewBox="0 0 16 16"
                     >
@@ -49,8 +49,8 @@ export function Hero() {
             </div>
 
             <div>
-              <Link href="#contact">
-                <button className="btn-grad-black text-base font-medium">
+              <Link href="#contact" scroll={false}>
+                <button className="btn-grad-black text-base font-medium" onClick={() => smoothScroll('#contact')}>
                   Обратная связь
                 </button>
               </Link>
@@ -87,16 +87,22 @@ export function Hero() {
         }
 
         .icon {
-          width: 20px; /* Размер иконки */
-          height: 20px; /* Размер иконки */
-          transition: transform 1s ease; /* Плавная анимация */
-          color: currentColor; /* Использует цвет текста кнопки */
+          width: 20px;
+          height: 20px;
+          transition: transform 1s ease;
+          color: currentColor;
         }
 
         .btn-grad-red:hover .icon {
-          transform: rotate(180deg); /* Вращение на 180 градусов */
+          transform: rotate(180deg);
         }
       `}</style>
     </div>
   );
+}
+
+function smoothScroll(targetId) {
+  document.querySelector(targetId).scrollIntoView({
+    behavior: 'smooth'
+  });
 }
