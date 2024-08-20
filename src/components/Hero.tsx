@@ -22,15 +22,15 @@ export function Hero() {
           </p>
           <div className="flex flex-auto pt-10 gap-4 min-w-[350px] justify-center sm:justify-start">
             <div>
-              <Link href="#soft">
-                <button className="btn-grad-red text-base font-medium flex items-center">
+              <Link href="#soft" scroll={false}>
+                <a className="btn-grad-red text-base font-medium flex items-center">
                   Программы для приборов
                   <span className="icon-container ml-2">
                     <svg
                       className="icon"
                       xmlns="http://www.w3.org/2000/svg"
-                      width="20" /* Размер */
-                      height="20" /* Размер */
+                      width="20"
+                      height="20"
                       fill="currentColor"
                       viewBox="0 0 16 16"
                     >
@@ -44,15 +44,15 @@ export function Hero() {
                       ></path>
                     </svg>
                   </span>
-                </button>
+                </a>
               </Link>
             </div>
 
             <div>
-              <Link href="#contact">
-                <button className="btn-grad-black text-base font-medium">
+              <Link href="#contact" scroll={false}>
+                <a className="btn-grad-black text-base font-medium flex items-center dark:border dark:border-white">
                   Обратная связь
-                </button>
+                </a>
               </Link>
             </div>
           </div>
@@ -78,6 +78,44 @@ export function Hero() {
           display: flex;
           align-items: center;
           justify-content: center;
+          background: linear-gradient(90deg, #ff416c, #ff4b2b);
+          color: white;
+          padding: 0.75rem 1.5rem;
+          border-radius: 9999px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          text-decoration: none;
+        }
+
+        .btn-grad-red:hover {
+          transform: scale(1.05);
+          box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-grad-red:active {
+          transform: scale(0.95);
+        }
+
+        .btn-grad-black {
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(90deg, #000000, #434343);
+          color: white;
+          padding: 0.75rem 1.5rem;
+          border-radius: 9999px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          text-decoration: none;
+        }
+
+        .btn-grad-black:hover {
+          transform: scale(1.05);
+          box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-grad-black:active {
+          transform: scale(0.95);
         }
 
         .icon-container {
@@ -87,14 +125,15 @@ export function Hero() {
         }
 
         .icon {
-          width: 20px; /* Размер иконки */
-          height: 20px; /* Размер иконки */
-          transition: transform 1s ease; /* Плавная анимация */
-          color: currentColor; /* Использует цвет текста кнопки */
+          width: 20px;
+          height: 20px;
+          transition: transform 1s ease;
+          color: currentColor;
         }
 
-        .btn-grad-red:hover .icon {
-          transform: rotate(180deg); /* Вращение на 180 градусов */
+        .btn-grad-red:hover .icon,
+        .btn-grad-black:hover .icon {
+          transform: rotate(180deg);
         }
       `}</style>
     </div>
