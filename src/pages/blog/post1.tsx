@@ -12,7 +12,7 @@ export default function BlogPost() {
 
   useEffect(() => {
     const handleResize = () => {
-      const navbar = document.querySelector('.navbar');
+      const navbar = document.querySelector('nav') as HTMLElement; // Измените селектор в зависимости от структуры Navbar
       const offsetHeight = navbar ? navbar.offsetHeight : 0;
       setNavOffset(offsetHeight);
     };
@@ -54,7 +54,7 @@ export default function BlogPost() {
         event.preventDefault();
         const anchor = document.querySelector(href);
         if (anchor) {
-          const offsetPosition = anchor.getBoundingClientRect().top + window.scrollY - navOffset - 20; // Учитываем высоту navbar и добавляем небольшой отступ
+          const offsetPosition = anchor.getBoundingClientRect().top + window.scrollY - navOffset - 20; // Учитываем высоту Navbar и добавляем небольшой отступ
           window.scrollTo({
             top: offsetPosition,
             behavior: "smooth"
