@@ -1,31 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { MouseEvent } from "react";
 
 export function Hero() {
-  useEffect(() => {
-    const handleSmoothScroll = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (target.tagName === 'BUTTON' || target.tagName === 'A') {
-        event.preventDefault();
-        const href = target.closest('a')?.getAttribute('href');
-        if (href && href.startsWith('#')) {
-          const element = document.querySelector(href);
-          if (element) {
-            element.scrollIntoView({
-              behavior: 'smooth',
-            });
-          }
-        }
+
+  const handleSmoothScroll = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    const targetId = event.currentTarget.getAttribute("href");
+    if (targetId && targetId.startsWith("#")) {
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: "smooth",
+        });
       }
-    };
-
-    document.addEventListener('click', handleSmoothScroll);
-
-    return () => {
-      document.removeEventListener('click', handleSmoothScroll);
-    };
-  }, []);
+    }
+  };
 
   return (
     <div id="hero" className="bg-white dark:bg-neutral-900">
@@ -47,7 +37,7 @@ export function Hero() {
           </p>
           <div className="flex flex-auto pt-10 gap-4 min-w-[350px] justify-center sm:justify-start">
             <div>
-              <Link href="#soft" scroll={false}>
+              <Link href="#soft" scroll={false} onClick={handleSmoothScroll}>
                 <button className="btn-grad-red text-base font-medium flex items-center">
                   Программы для приборов
                   <span className="icon-container ml-2">
@@ -74,7 +64,7 @@ export function Hero() {
             </div>
 
             <div>
-              <Link href="#contact" scroll={false}>
+              <Link href="#contact" scroll={false} onClick={handleSmoothScroll}>
                 <button className="btn-grad-black text-base font-medium">
                   Обратная связь
                 </button>
