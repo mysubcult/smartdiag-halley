@@ -249,105 +249,105 @@ type BillingInterval = "year" | "month" | "elm";
 export default function Soft() {
   const [billingInterval, setBillingInterval] = useState<BillingInterval>("month");
 
-  const renderButton = (label: string, interval: BillingInterval) => (
+  const renderSwitchButton = (label: string, interval: BillingInterval) => (
     <button
       onClick={() => setBillingInterval(interval)}
       type="button"
       className={`${
         billingInterval === interval
-          ? "relative w-full sm:w-auto bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "relative w-full sm:w-auto text-neutral-900 dark:text-neutral-400"
-      } rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-white dark:hover:bg-neutral-700 transition-colors duration-300 ease-in-out`}
+          ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "text-neutral-900 dark:text-neutral-400"
+      } w-full sm:w-auto rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-white dark:hover:bg-neutral-700 transition-colors duration-300 ease-in-out`}
     >
       {label}
     </button>
   );
 
-  const renderProduct = ({
-    title,
-    mostPopular,
-    description,
-    cta,
-    features,
-    href,
-    docs,
-    docsLink,
-    docsLabel,
-  }) => (
-    <div
-      key={title}
-      className={`rounded-lg py-8 relative flex flex-col ${
-        mostPopular
-          ? "border-red-300 border-2 border-solid dark:border-red-600"
-          : "border-neutral-300 border dark:border-neutral-600"
-      } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
-    >
-      <h3 className="px-6 text-lg font-semibold leading-5">{title}</h3>
-      {mostPopular && (
-        <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
-          Топ продаж
-        </p>
-      )}
-      <p className="px-6 mt-4 leading-6 dark:text-neutral-400">{description}</p>
-      <div className="flex mt-4 mx-6">
-        <Link
-          href={href}
-          target="_blank"
-          className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
-            mostPopular
-              ? "bg-red-600 text-white shadow-md hover:bg-green-500"
-              : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
-          } transition-transform duration-300 ease-in-out transform active:scale-95 w-full`}
-        >
-          {cta}
-        </Link>
-        {docs && (
-          <Link
-            href={docsLink}
-            target="_blank"
-            className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-transform duration-300 ease-in-out transform active:scale-95 w-full"
-          >
-            {docsLabel}
-          </Link>
-        )}
-      </div>
-      <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
-        <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
-        {features.map((feature) => (
-          <li key={feature} className="leading-6 flex">
-            <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
-            <span className="ml-3 dark:text-neutral-400">{feature}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
-        <h2 className="text-4xl font-bold text-center">
-          Программы для оборудования 💻
-        </h2>
+        <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          В этом разделе вы можете скачать программное обеспечение для своего
-          устройства. Для начала определите тип вашего устройства —
-          &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
+          В этом разделе вы можете скачать программное обеспечение для своего устройства.
+          Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;.
+          Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством
+          и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке
+          &quot;Инструкция&quot;.
         </p>
       </div>
 
       <div className="max-w-max mx-auto px-6">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
-          {renderButton("Мультимарочные", "month")}
-          {renderButton("Марочные", "year")}
-          {renderButton("Адаптеры ELM", "elm")}
+          {renderSwitchButton("Мультимарочные", "month")}
+          {renderSwitchButton("Марочные", "year")}
+          {renderSwitchButton("Адаптеры ELM", "elm")}
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {products
           .filter(({ frecuency }) => frecuency === billingInterval)
-          .map((product) => renderProduct(product))}
+          .map(
+            ({
+              title,
+              mostPopular,
+              description,
+              cta,
+              features,
+              href,
+              docs,
+              docsLink,
+              docsLabel,
+            }) => (
+              <div
+                key={title}
+                className={`rounded-lg py-8 relative flex flex-col ${
+                  mostPopular
+                    ? "border-red-300 border-2 border-solid dark:border-red-600"
+                    : "border-neutral-300 border dark:border-neutral-600"
+                } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
+              >
+                <h3 className="px-6 text-lg font-semibold leading-5">{title}</h3>
+                {mostPopular && (
+                  <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
+                    Топ продаж
+                  </p>
+                )}
+                <p className="px-6 mt-4 leading-6 dark:text-neutral-400">{description}</p>
+                <div className="flex mt-4 mx-6">
+                  <Link
+                    href={href}
+                    target="_blank"
+                    className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
+                      mostPopular
+                        ? "bg-red-600 text-white shadow-md hover:bg-green-500"
+                        : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
+                    } transition-transform duration-300 ease-in-out transform active:scale-95 w-full`}
+                  >
+                    {cta}
+                  </Link>
+                  {docs && (
+                    <Link
+                      href={docsLink}
+                      target="_blank"
+                      className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-transform duration-300 ease-in-out transform active:scale-95 w-full"
+                    >
+                      {docsLabel}
+                    </Link>
+                  )}
+                </div>
+                <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
+                  <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
+                  {features.map((feature) => (
+                    <li key={feature} className="leading-6 flex">
+                      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
+                      <span className="ml-3 dark:text-neutral-400">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          )}
       </div>
     </div>
   );
