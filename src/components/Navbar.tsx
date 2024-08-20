@@ -7,7 +7,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
 const navigation = [
-  { name: "Главная", href: "/", anchor: "#hero" },
+  { name: "Главная", href: "/#hero", anchor: "#hero" },
   { name: "Программы", href: "/#soft", anchor: "#soft" },
   { name: "Блог", href: "/#blog", anchor: "#blog" },
   { name: "О нас", href: "/#services", anchor: "#services" },
@@ -25,8 +25,6 @@ export default function Navbar() {
   const [fontSize, setFontSize] = useState("18px");
   const [isMobileView, setIsMobileView] = useState(false);
 
-  const router = useRouter();
-
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 1200);
@@ -36,24 +34,6 @@ export default function Navbar() {
     handleResize(); // Initial check
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  const scrollToAnchor = (anchor: string) => {
-    const element = document.querySelector(anchor);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.replaceState(null, '', '/'); // Clear URL after scroll
-    }
-  };
-
-  const handleNavigationClick = (anchor: string) => (event: React.MouseEvent) => {
-    event.preventDefault();
-    if (router.pathname !== '/') {
-      router.push('/').then(() => scrollToAnchor(anchor));
-    } else {
-      scrollToAnchor(anchor);
-    }
-    setIsMenuOpen(false);
-  };
 
   const updateFontSize = () => {
     const baseFontSize = 18;
@@ -79,7 +59,7 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <Link href="/" onClick={handleNavigationClick("#hero")}>
+              <Link href="/" scroll={false}>
                 <Image
                   className="block h-12 w-auto logo-animation"
                   src="/images/logos/logo.png"
@@ -99,9 +79,9 @@ export default function Navbar() {
                   <Link
                     key={item.name}
                     href={item.href}
+                    scroll={false}
                     className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
                     style={{ textDecoration: "none" }}
-                    onClick={handleNavigationClick(item.anchor)}
                   >
                     {item.name}
                   </Link>
@@ -204,8 +184,8 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
+                scroll={false}
                 className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
-                onClick={handleNavigationClick(item.anchor)}
               >
                 {item.name}
               </Link>
