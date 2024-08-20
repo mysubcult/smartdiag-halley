@@ -147,7 +147,7 @@ export default function Blog() {
         {filteredPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
-            className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col justify-between h-full min-h-[450px]"
+            className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col justify-between min-h-[450px] h-full"
           >
             <Link href={link}>
               <div className="border-4 border-neutral-300 dark:border-neutral-700 p-1 hover:border-red-500 dark:hover:border-red-500 transition-colors duration-300">
@@ -161,14 +161,14 @@ export default function Blog() {
                 />
               </div>
             </Link>
-            <div className="p-6 flex flex-col flex-grow">
-              <div>
+            <div className="p-6 flex flex-col flex-grow h-full">
+              <div className="flex-grow">
                 <h3 className="text-lg font-semibold mb-2">{title}</h3>
                 <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
                   {excerpt}
                 </p>
               </div>
-              <div className="flex justify-end mt-auto">
+              <div className="flex justify-end">
                 <Link href={link}>
                   <button className="bg-red-500 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-600">
                     Читать далее
