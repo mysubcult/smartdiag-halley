@@ -22,7 +22,7 @@ export function Hero() {
           </p>
           <div className="flex flex-auto pt-10 gap-4 min-w-[350px] justify-center sm:justify-start">
             <div>
-              <Link href="#soft">
+              <Link href="#soft" scroll={false}>
                 <button className="btn-grad-red text-base font-medium flex items-center">
                   Программы для приборов
                   <span className="icon-container ml-2">
@@ -49,7 +49,7 @@ export function Hero() {
             </div>
 
             <div>
-              <Link href="#contact">
+              <Link href="#contact" scroll={false}>
                 <button className="btn-grad-black text-base font-medium">
                   Обратная связь
                 </button>
