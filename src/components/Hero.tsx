@@ -1,21 +1,35 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MouseEvent } from "react";
+import { useEffect } from "react";
 
 export function Hero() {
 
-  const handleSmoothScroll = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    const targetId = event.currentTarget.getAttribute("href");
-    if (targetId && targetId.startsWith("#")) {
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: "smooth",
-        });
+  useEffect(() => {
+    const handleSmoothScroll = (event: Event) => {
+      event.preventDefault();
+      const targetId = (event.target as HTMLAnchorElement).getAttribute("href");
+      if (targetId && targetId.startsWith("#")) {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.getBoundingClientRect().top + window.pageYOffset,
+            behavior: "smooth",
+          });
+        }
       }
-    }
-  };
+    };
+
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach((link) => {
+      link.addEventListener("click", handleSmoothScroll);
+    });
+
+    return () => {
+      links.forEach((link) => {
+        link.removeEventListener("click", handleSmoothScroll);
+      });
+    };
+  }, []);
 
   return (
     <div id="hero" className="bg-white dark:bg-neutral-900">
@@ -37,8 +51,8 @@ export function Hero() {
           </p>
           <div className="flex flex-auto pt-10 gap-4 min-w-[350px] justify-center sm:justify-start">
             <div>
-              <Link href="#soft" scroll={false} onClick={handleSmoothScroll}>
-                <button className="btn-grad-red text-base font-medium flex items-center">
+              <Link href="#soft" scroll={false}>
+                <a className="btn-grad-red text-base font-medium flex items-center">
                   Программы для приборов
                   <span className="icon-container ml-2">
                     <svg
@@ -59,15 +73,15 @@ export function Hero() {
                       ></path>
                     </svg>
                   </span>
-                </button>
+                </a>
               </Link>
             </div>
 
             <div>
-              <Link href="#contact" scroll={false} onClick={handleSmoothScroll}>
-                <button className="btn-grad-black text-base font-medium">
+              <Link href="#contact" scroll={false}>
+                <a className="btn-grad-black text-base font-medium">
                   Обратная связь
-                </button>
+                </a>
               </Link>
             </div>
           </div>
