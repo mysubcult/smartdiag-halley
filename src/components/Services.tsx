@@ -69,6 +69,9 @@ const ServiceCard = React.memo(({ title, description, image, alt }) => (
   </div>
 ));
 
+// Устанавливаем displayName для компонента
+ServiceCard.displayName = "ServiceCard";
+
 export function Services() {
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="services">
