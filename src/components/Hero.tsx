@@ -50,7 +50,7 @@ export function Hero() {
 
             <div>
               <Link href="#contact" scroll={false}>
-                <a className="btn-grad-black text-base font-medium flex items-center">
+                <a className="btn-grad-black text-base font-medium flex items-center dark:border dark:border-white">
                   Обратная связь
                 </a>
               </Link>
@@ -116,10 +116,6 @@ export function Hero() {
 
         .btn-grad-black:active {
           transform: scale(0.95);
-        }
-
-        .dark .btn-grad-black {
-          border: 2px solid #ffffff;
         }
 
         .icon-container {
