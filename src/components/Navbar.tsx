@@ -1,56 +1,41 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
-import { useRouter } from "next/router";
 
 const navigation = [
-  { name: "Главная", href: "/#hero", anchor: "#hero" },
-  { name: "Программы", href: "/#soft", anchor: "#soft" },
-  { name: "Блог", href: "/#blog", anchor: "#blog" },
-  { name: "О нас", href: "/#services", anchor: "#services" },
-  { name: "Обратная связь", href: "/#contact", anchor: "#contact" },
+  { name: "Главная", href: "/#hero" },
+  { name: "Программы", href: "/#soft" },
+  { name: "Блог", href: "/#blog" },
+  { name: "О нас", href: "/#services" },
+  { name: "Обратная связь", href: "/#contact" },
 ];
 
-// Utility function to combine class names
-function classNames(...classes: string[]): string {
-  return classes.filter(Boolean).join(" ");
-}
+const classNames = (...classes: string[]): string => classes.filter(Boolean).join(" ");
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
-  const [fontSize, setFontSize] = useState("18px");
   const [isMobileView, setIsMobileView] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobileView(window.innerWidth <= 1200);
-    };
-
+    const handleResize = () => setIsMobileView(window.innerWidth <= 1200);
     window.addEventListener("resize", handleResize);
-    handleResize(); // Initial check
+    handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const updateFontSize = () => {
+  const fontSize = useMemo(() => {
     const baseFontSize = 18;
     const minFontSize = 14;
     const screenHeight = window.innerHeight;
     const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length;
     const maxMenuHeight = screenHeight - 64;
     const requiredHeight = itemsCount * 48;
-
     const scaleFactor = maxMenuHeight / requiredHeight;
-    setFontSize(`${Math.max(minFontSize, baseFontSize * Math.min(scaleFactor, 1))}px`);
-  };
-
-  useEffect(() => {
-    updateFontSize();
-    window.addEventListener("resize", updateFontSize);
-    return () => window.removeEventListener("resize", updateFontSize);
+    return `${Math.max(minFontSize, baseFontSize * Math.min(scaleFactor, 1))}px`;
   }, [isSubMenuOpen]);
 
   return (
@@ -73,8 +58,8 @@ export default function Navbar() {
             </div>
 
             {/* Горизонтальное меню навигации */}
-            <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
-              <div className="flex space-x-5 items-center">
+            {!isMobileView && (
+              <div className="navbar-nav flex space-x-5 items-center">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
@@ -87,7 +72,7 @@ export default function Navbar() {
                   </Link>
                 ))}
               </div>
-            </div>
+            )}
           </div>
 
           {/* Кнопки магазинов, смены темы и меню */}
