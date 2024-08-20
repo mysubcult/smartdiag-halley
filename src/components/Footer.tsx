@@ -20,7 +20,7 @@ export default function Footer() {
     <footer className="bg-white dark:bg-neutral-900 border-t border-neutral-200">
       <div className="mx-auto px-6 lg:px-8 py-24 lg:py-4 grid grid-cols-1 lg:grid-cols-3">
         <div className="text-center lg:text-left my-auto order-3 lg:order-1">
-          <Link href="/" target="_self">
+          <Link href="/" target="_self" scroll={false}>
             SmartDiag &copy; 2023-{new Date().getFullYear()}
           </Link>
         </div>
@@ -29,7 +29,7 @@ export default function Footer() {
             <div key={menu.title}>
               <ul>
                 <li className="py-2 hover:text-red-500 font-medium">
-                  <Link href={menu.url}>{menu.title}</Link>
+                  <Link href={menu.url} scroll={false}>{menu.title}</Link>
                 </li>
               </ul>
             </div>
@@ -37,7 +37,7 @@ export default function Footer() {
         </div>
         <div className="flex gap-8 max-w-full justify-center my-auto lg:justify-end order-1 lg:order-3">
           {socialLinks.map(({ name, href, iconPath }) => (
-            <Link key={name} href={href} target="_blank" title={name}>
+            <Link key={name} href={href} target="_blank" title={name} scroll={false}>
               <svg
                 width="24"
                 height="24"
