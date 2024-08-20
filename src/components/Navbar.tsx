@@ -175,7 +175,7 @@ export default function Navbar() {
                     />
                     <XMarkIcon
                       className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
-                        isMenuOpen ? "rotate-[67.5deg] opacity-100" : "rotate-0 opacity-0"
+                        isMenuOpen ? "rotate-[15deg] opacity-100" : "rotate-0 opacity-0"
                       }`}
                       aria-hidden="true"
                     />
