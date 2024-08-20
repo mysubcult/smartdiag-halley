@@ -118,6 +118,10 @@ export function Hero() {
           transform: scale(0.95);
         }
 
+        .dark .btn-grad-black {
+          border: 2px solid #ffffff;
+        }
+
         .icon-container {
           display: flex;
           align-items: center;
