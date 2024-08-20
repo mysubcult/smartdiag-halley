@@ -7,46 +7,63 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
 const navigation = [
-  { name: "Главная", href: "/#hero" },
-  { name: "Программы", href: "/#soft" },
-  { name: "Блог", href: "/#blog" },
-  { name: "О нас", href: "/#services" },
-  { name: "Обратная связь", href: "/#contact" },
+  { name: "Главная", href: "/", anchor: "#hero" },
+  { name: "Программы", href: "/#soft", anchor: "#soft" },
+  { name: "Блог", href: "/#blog", anchor: "#blog" },
+  { name: "О нас", href: "/#services", anchor: "#services" },
+  { name: "Обратная связь", href: "/#contact", anchor: "#contact" },
 ];
 
-const classNames = (...classes: string[]): string => classes.filter(Boolean).join(" ");
+// Utility function to combine class names
+function classNames(...classes: string[]): string {
+  return classes.filter(Boolean).join(" ");
+}
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+  const [fontSize, setFontSize] = useState("18px");
   const [isMobileView, setIsMobileView] = useState(false);
 
   const router = useRouter();
 
   useEffect(() => {
-    const handleResize = () => setIsMobileView(window.innerWidth <= 1200);
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 1200);
+    };
+
     window.addEventListener("resize", handleResize);
-    handleResize();
+    handleResize(); // Initial check
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleNavigationClick = (href: string) => (event: React.MouseEvent) => {
+  const handleNavigationClick = (anchor: string) => (event: React.MouseEvent) => {
     event.preventDefault();
     if (router.pathname !== '/') {
-      router.push(href).then(() => {
-        const element = document.querySelector(href.split("#")[1] ? href : '#hero');
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      });
+      router.push('/').then(() => router.push(anchor, undefined, { scroll: false }));
     } else {
-      const element = document.querySelector(href.split("#")[1] ? href : '#hero');
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+      router.push(anchor, undefined, { scroll: false });
     }
     setIsMenuOpen(false);
   };
+
+  const updateFontSize = () => {
+    const baseFontSize = 18;
+    const minFontSize = 14;
+    const screenHeight = window.innerHeight;
+    const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length;
+    const maxMenuHeight = screenHeight - 64;
+    const requiredHeight = itemsCount * 48;
+
+    const scaleFactor = maxMenuHeight / requiredHeight;
+    setFontSize(`${Math.max(minFontSize, baseFontSize * Math.min(scaleFactor, 1))}px`);
+  };
+
+  useEffect(() => {
+    updateFontSize();
+    window.addEventListener("resize", updateFontSize);
+    return () => window.removeEventListener("resize", updateFontSize);
+  }, [isSubMenuOpen]);
 
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
@@ -54,38 +71,36 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <Link href="/" scroll={false} onClick={handleNavigationClick("/#hero")}>
-                <a className="flex items-center">
-                  <Image
-                    className="block h-12 w-auto logo-animation"
-                    src="/images/logos/logo.png"
-                    alt="SmartDiag Logo"
-                    width={256}
-                    height={117}
-                    quality={100}
-                    sizes="100vw"
-                  />
-                </a>
+              <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
+                <Image
+                  className="block h-12 w-auto logo-animation"
+                  src="/images/logos/logo.png"
+                  alt="SmartDiag Logo"
+                  width={256}
+                  height={117}
+                  quality={100}
+                  sizes="100vw"
+                />
               </Link>
             </div>
 
             {/* Горизонтальное меню навигации */}
-            {!isMobileView && (
-              <div className="navbar-nav flex space-x-5 items-center">
+            <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
+              <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    scroll={false}
-                    onClick={handleNavigationClick(item.href)}
                     className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
                     style={{ textDecoration: "none" }}
+                    scroll={false}
+                    onClick={handleNavigationClick(item.anchor)}
                   >
                     {item.name}
                   </Link>
                 ))}
               </div>
-            )}
+            </div>
           </div>
 
           {/* Кнопки магазинов, смены темы и меню */}
@@ -170,7 +185,7 @@ export default function Navbar() {
         <div
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
           style={{
-            fontSize: "18px",
+            fontSize: fontSize,
             maxHeight: `calc(100vh - 128px)`, // Динамическая высота с учетом отступов сверху и снизу
             overflowY: "auto", // Разрешаем скролл, если необходимо
             paddingTop: "24px", // Отступ сверху
@@ -182,9 +197,9 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                scroll={false}
-                onClick={handleNavigationClick(item.href)}
                 className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
+                scroll={false}
+                onClick={handleNavigationClick(item.anchor)}
               >
                 {item.name}
               </Link>
