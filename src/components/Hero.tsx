@@ -23,14 +23,14 @@ export function Hero() {
           <div className="flex flex-auto pt-10 gap-4 min-w-[350px] justify-center sm:justify-start">
             <div>
               <Link href="#soft">
-                <button className="btn-grad-red text-base font-medium flex items-center">
+                <a className="btn-grad-red text-base font-medium flex items-center">
                   Программы для приборов
                   <span className="icon-container ml-2">
                     <svg
                       className="icon"
                       xmlns="http://www.w3.org/2000/svg"
-                      width="20" /* Размер */
-                      height="20" /* Размер */
+                      width="20"
+                      height="20"
                       fill="currentColor"
                       viewBox="0 0 16 16"
                     >
@@ -44,15 +44,15 @@ export function Hero() {
                       ></path>
                     </svg>
                   </span>
-                </button>
+                </a>
               </Link>
             </div>
 
             <div>
               <Link href="#contact">
-                <button className="btn-grad-black text-base font-medium">
+                <a className="btn-grad-black text-base font-medium">
                   Обратная связь
-                </button>
+                </a>
               </Link>
             </div>
           </div>
@@ -87,14 +87,14 @@ export function Hero() {
         }
 
         .icon {
-          width: 20px; /* Размер иконки */
-          height: 20px; /* Размер иконки */
-          transition: transform 1s ease; /* Плавная анимация */
-          color: currentColor; /* Использует цвет текста кнопки */
+          width: 20px;
+          height: 20px;
+          transition: transform 1s ease;
+          color: currentColor;
         }
 
         .btn-grad-red:hover .icon {
-          transform: rotate(180deg); /* Вращение на 180 градусов */
+          transform: rotate(180deg);
         }
       `}</style>
     </div>
