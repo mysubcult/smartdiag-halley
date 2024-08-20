@@ -6,34 +6,19 @@ import { useRouter } from 'next/router';
 
 export default function BlogPost() {
   const [isSticky, setIsSticky] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    const handleRouteChange = () => {
-      document.documentElement.style.cssText = document.documentElement.style.cssText;
-    };
-
-    router.events.on('routeChangeComplete', handleRouteChange);
-
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, [router.events]);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const introSection = document.querySelector("#introduction");
-      const introOffsetTop = introSection ? introSection.getBoundingClientRect().top + window.scrollY : 0;
+      const introOffsetTop = introSection ? introSection.getBoundingClientRect().top + window.scrollY : Infinity;
 
       const viewportHeight = window.innerHeight;
       const buffer = 100;
 
-      if (scrollTop + viewportHeight - buffer >= introOffsetTop) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
+      setIsSticky(scrollTop + viewportHeight - buffer >= introOffsetTop);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -47,21 +32,13 @@ export default function BlogPost() {
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
-      if (
-        target.tagName === "A" &&
-        target.getAttribute("href")?.startsWith("#")
-      ) {
-        const href = target.getAttribute("href");
-        try {
-          if (href && document.querySelector(href)) {
-            event.preventDefault();
-            const anchor = document.querySelector(href);
-            if (anchor) {
-              anchor.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
-          }
-        } catch (e) {
-          console.error("Invalid selector or element not found:", href, e);
+      const href = target.getAttribute("href");
+
+      if (target.tagName === "A" && href?.startsWith("#")) {
+        event.preventDefault();
+        const anchor = document.querySelector(href);
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       }
     };
@@ -78,7 +55,11 @@ export default function BlogPost() {
       <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row">
           <div className="relative lg:flex lg:space-x-8">
-            <aside className={`lg:w-1/4 px-4 sticky top-24 h-auto ${isSticky ? 'fixed' : 'relative'} hidden lg:block border-r border-neutral-300`}>
+            <aside
+              className={`lg:w-1/4 px-4 sticky top-24 h-auto ${
+                isSticky ? 'fixed' : 'relative'
+              } hidden lg:block border-r border-neutral-300`}
+            >
               <div className="fixed w-56 p-4 bg-white dark:bg-neutral-900 shadow-lg">
                 <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
                 <nav className="space-y-4">
@@ -100,6 +81,36 @@ export default function BlogPost() {
                 </nav>
               </div>
             </aside>
+
+            <div className="block lg:hidden w-full text-center mb-6">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium"
+              >
+                Меню навигации
+              </button>
+              {isMenuOpen && (
+                <div className="mt-4 p-4 bg-white dark:bg-neutral-900 shadow-lg border border-neutral-300">
+                  <nav className="space-y-4">
+                    <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                      Проблема с антивирусом
+                    </a>
+                    <a href="#outdated-software" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                      Устаревшее ПО
+                    </a>
+                    <a href="#download-errors" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                      Ошибки при загрузке
+                    </a>
+                    <a href="#yandex-tips" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                      Советы для Яндекс Браузера
+                    </a>
+                    <a href="#support" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                      Поддержка
+                    </a>
+                  </nav>
+                </div>
+              )}
+            </div>
 
             <div className="w-full lg:w-3/4 mx-auto px-4 lg:ml-8">
               <h2 className="text-4xl font-bold">
