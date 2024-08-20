@@ -1,4 +1,5 @@
 import Image from "next/image";
+import React from "react";
 
 const services = [
   {
@@ -45,6 +46,29 @@ const services = [
   },
 ];
 
+const ServiceCard = React.memo(({ title, description, image, alt }) => (
+  <div
+    className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-gray-200 hover:dark:bg-neutral-700"
+  >
+    <div className="h-24 w-24 flex justify-center mx-auto">
+      <Image
+        src={image}
+        alt={alt}
+        width={96}
+        height={96}
+        quality={75}
+        sizes="100vw"
+        priority
+        loading="lazy"
+      />
+    </div>
+    <h2 className="font-bold text-lg text-center mt-4">{title}</h2>
+    <p className="pt-2 text-sm text-center dark:text-neutral-400 mt-2">
+      {description}
+    </p>
+  </div>
+));
+
 export function Services() {
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="services">
@@ -60,27 +84,8 @@ export function Services() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 grid md:grid-cols-2 lg:grid-cols-3 gap-y-8 md:gap-x-8 md:gap-y-8 lg:gap-x-8 lg:gap-y-16">
-        {services.map(({ title, description, image, alt }) => (
-          <div
-            key={title}
-            className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-gray-200 hover:dark:bg-neutral-700"
-          >
-            <div className="h-24 w-24 flex justify-center mx-auto">
-              <Image
-                src={image}
-                alt={alt}
-                width={96}
-                height={96}
-                quality={75}
-                sizes="100vw"
-                priority
-              />
-            </div>
-            <h2 className="font-bold text-lg text-center mt-4">{title}</h2>
-            <p className="pt-2 text-sm text-center dark:text-neutral-400 mt-2">
-              {description}
-            </p>
-          </div>
+        {services.map((service) => (
+          <ServiceCard key={service.title} {...service} />
         ))}
       </div>
     </div>
