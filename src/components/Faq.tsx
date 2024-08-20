@@ -147,7 +147,7 @@ export default function Blog() {
         {filteredPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
-            className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col min-h-[450px]"
+            className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col justify-between h-full min-h-[450px]"
           >
             <Link href={link}>
               <div className="border-4 border-neutral-300 dark:border-neutral-700 p-1 hover:border-red-500 dark:hover:border-red-500 transition-colors duration-300">
@@ -161,7 +161,7 @@ export default function Blog() {
                 />
               </div>
             </Link>
-            <div className="flex flex-col justify-between p-6 h-full">
+            <div className="p-6 flex flex-col flex-grow">
               <div>
                 <h3 className="text-lg font-semibold mb-2">{title}</h3>
                 <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
