@@ -50,7 +50,7 @@ export function Hero() {
 
             <div>
               <Link href="#contact" scroll={false}>
-                <a className="btn-grad-black text-base font-medium">
+                <a className="btn-grad-red text-base font-medium flex items-center">
                   Обратная связь
                 </a>
               </Link>
@@ -78,6 +78,21 @@ export function Hero() {
           display: flex;
           align-items: center;
           justify-content: center;
+          background: linear-gradient(90deg, #ff416c, #ff4b2b);
+          color: white;
+          padding: 0.75rem 1.5rem;
+          border-radius: 9999px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          text-decoration: none;
+        }
+
+        .btn-grad-red:hover {
+          transform: scale(1.05);
+          box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-grad-red:active {
+          transform: scale(0.95);
         }
 
         .icon-container {
