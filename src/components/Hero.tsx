@@ -1,36 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
 
 export function Hero() {
-
-  useEffect(() => {
-    const handleSmoothScroll = (event: Event) => {
-      event.preventDefault();
-      const targetId = (event.target as HTMLAnchorElement).getAttribute("href");
-      if (targetId && targetId.startsWith("#")) {
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          window.scrollTo({
-            top: targetElement.getBoundingClientRect().top + window.pageYOffset,
-            behavior: "smooth",
-          });
-        }
-      }
-    };
-
-    const links = document.querySelectorAll('a[href^="#"]');
-    links.forEach((link) => {
-      link.addEventListener("click", handleSmoothScroll);
-    });
-
-    return () => {
-      links.forEach((link) => {
-        link.removeEventListener("click", handleSmoothScroll);
-      });
-    };
-  }, []);
-
   return (
     <div id="hero" className="bg-white dark:bg-neutral-900">
       <div className="max-w-7xl mx-auto pt-6 sm:pt-5 pb-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2">
@@ -51,15 +22,15 @@ export function Hero() {
           </p>
           <div className="flex flex-auto pt-10 gap-4 min-w-[350px] justify-center sm:justify-start">
             <div>
-              <Link href="#soft" scroll={false}>
-                <a className="btn-grad-red text-base font-medium flex items-center">
+              <Link href="#soft">
+                <button className="btn-grad-red text-base font-medium flex items-center">
                   Программы для приборов
                   <span className="icon-container ml-2">
                     <svg
                       className="icon"
                       xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
+                      width="20" /* Размер */
+                      height="20" /* Размер */
                       fill="currentColor"
                       viewBox="0 0 16 16"
                     >
@@ -73,15 +44,15 @@ export function Hero() {
                       ></path>
                     </svg>
                   </span>
-                </a>
+                </button>
               </Link>
             </div>
 
             <div>
-              <Link href="#contact" scroll={false}>
-                <a className="btn-grad-black text-base font-medium">
+              <Link href="#contact">
+                <button className="btn-grad-black text-base font-medium">
                   Обратная связь
-                </a>
+                </button>
               </Link>
             </div>
           </div>
@@ -116,14 +87,14 @@ export function Hero() {
         }
 
         .icon {
-          width: 20px;
-          height: 20px;
-          transition: transform 1s ease;
-          color: currentColor;
+          width: 20px; /* Размер иконки */
+          height: 20px; /* Размер иконки */
+          transition: transform 1s ease; /* Плавная анимация */
+          color: currentColor; /* Использует цвет текста кнопки */
         }
 
         .btn-grad-red:hover .icon {
-          transform: rotate(180deg);
+          transform: rotate(180deg); /* Вращение на 180 градусов */
         }
       `}</style>
     </div>
