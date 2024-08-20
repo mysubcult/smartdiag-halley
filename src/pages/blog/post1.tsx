@@ -7,7 +7,23 @@ import { useRouter } from 'next/router';
 export default function BlogPost() {
   const [isSticky, setIsSticky] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [navOffset, setNavOffset] = useState(0);
   const router = useRouter();
+
+  useEffect(() => {
+    const handleResize = () => {
+      const navbar = document.querySelector('.navbar');
+      const offsetHeight = navbar ? navbar.offsetHeight : 0;
+      setNavOffset(offsetHeight);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +54,11 @@ export default function BlogPost() {
         event.preventDefault();
         const anchor = document.querySelector(href);
         if (anchor) {
-          anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+          const offsetPosition = anchor.getBoundingClientRect().top + window.scrollY - navOffset - 20; // Учитываем высоту navbar и добавляем небольшой отступ
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
         }
       }
     };
@@ -48,7 +68,7 @@ export default function BlogPost() {
     return () => {
       document.removeEventListener("click", handleSmoothScroll);
     };
-  }, []);
+  }, [navOffset]);
 
   return (
     <Layout>
