@@ -1,6 +1,28 @@
 import Link from "next/link";
-import { menus } from "./NavLinks";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
+
+const menus = [
+  {
+    title: "Главная",
+    url: "/",
+  },
+  {
+    title: "Программы",
+    url: "/#soft",
+  },
+  {
+    title: "О нас",
+    url: "/#services",
+  },
+  {
+    title: "Блог",
+    url: "/#blog",
+  },
+  {
+    title: "Обратная связь",
+    url: "/#contact",
+  },
+];
 
 const socialLinks = [
   {
