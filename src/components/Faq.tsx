@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 
 const blogPosts = [
   {
@@ -69,10 +69,36 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("Все");
   const [isOpen, setIsOpen] = useState(false);
 
-  const filteredPosts =
-    selectedCategory === "Все"
-      ? blogPosts
-      : blogPosts.filter((post) => post.category === selectedCategory);
+  const filteredPosts = useMemo(
+    () =>
+      selectedCategory === "Все"
+        ? blogPosts
+        : blogPosts.filter((post) => post.category === selectedCategory),
+    [selectedCategory]
+  );
+
+  const handleCategoryClick = useCallback(
+    (category: string) => {
+      setSelectedCategory(category);
+      setIsOpen(false);
+    },
+    []
+  );
+
+  const renderCategoryButton = (category: { name: string; value: string }) => (
+    <button
+      key={category.value}
+      onClick={() => handleCategoryClick(category.value)}
+      className={classNames(
+        category.value === selectedCategory
+          ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700",
+        "rounded-md m-1 py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
+      )}
+    >
+      {category.name}
+    </button>
+  );
 
   return (
     <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-16 pb-16" id="blog">
@@ -94,10 +120,7 @@ export default function Blog() {
             {categories.map((category) => (
               <button
                 key={category.value}
-                onClick={() => {
-                  setSelectedCategory(category.value);
-                  setIsOpen(false); // Закрыть меню после выбора категории
-                }}
+                onClick={() => handleCategoryClick(category.value)}
                 className={classNames(
                   category.value === selectedCategory
                     ? "bg-red-500 text-white"
@@ -115,20 +138,7 @@ export default function Blog() {
       <div className="hidden sm:block">
         <nav className="flex justify-center">
           <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
-            {categories.map((category) => (
-              <button
-                key={category.value}
-                onClick={() => setSelectedCategory(category.value)}
-                className={classNames(
-                  category.value === selectedCategory
-                    ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                    : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700",
-                  "rounded-md m-1 py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
-                )}
-              >
-                {category.name}
-              </button>
-            ))}
+            {categories.map(renderCategoryButton)}
           </div>
         </nav>
       </div>
@@ -137,13 +147,14 @@ export default function Blog() {
         {filteredPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
-            className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col min-h-[450px]" // Увеличенная минимальная высота карточек
+            className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md transition-transform transform hover:shadow-lg duration-300 ease-in-out flex flex-col min-h-[450px]"
           >
             <Link href={link}>
               <div className="border-4 border-neutral-300 dark:border-neutral-700 p-1 hover:border-red-500 dark:hover:border-red-500 transition-colors duration-300">
                 <Image
                   src={image}
                   alt={title}
+                  layout="responsive"
                   width={400}
                   height={225}
                   className="w-full h-48 object-cover"
