@@ -12,8 +12,8 @@ export const menus = [
     url: "/#services",
   },
   {
-    title: "ЧАВО",
-    url: "/#faq",
+    title: "Блог",
+    url: "/#blog",
   },
   {
     title: "Обратная связь",
