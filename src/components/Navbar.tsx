@@ -20,7 +20,6 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
-  const [fontSize, setFontSize] = useState("18px");
 
   const router = useRouter();
 
@@ -31,44 +30,20 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const updateFontSize = () => {
-        const baseFontSize = 18;
-        const minFontSize = 14;
-        const screenHeight = window.innerHeight;
-        const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length;
-        const maxMenuHeight = screenHeight - 64;
-        const requiredHeight = itemsCount * 48;
-        const scaleFactor = maxMenuHeight / requiredHeight;
-        setFontSize(`${Math.max(minFontSize, baseFontSize * Math.min(scaleFactor, 1))}px`);
-      };
-
-      updateFontSize();
-      window.addEventListener("resize", updateFontSize);
-      return () => window.removeEventListener("resize", updateFontSize);
-    }
-  }, [isSubMenuOpen]);
-
-  const handleLogoClick = (event: React.MouseEvent) => {
+  const handleNavigationClick = (href: string) => (event: React.MouseEvent) => {
     event.preventDefault();
-    router.push("/").then(() => {
-      const element = document.querySelector("#hero");
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    });
-  };
-
-  const handleNavClick = (event: React.MouseEvent, href: string) => {
-    event.preventDefault();
-    if (router.pathname === "/") {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+    if (router.pathname !== '/') {
+      router.push(href).then(() => {
+        const element = document.querySelector(href.split("#")[1] ? href : '#hero');
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
     } else {
-      router.push(href);
+      const element = document.querySelector(href.split("#")[1] ? href : '#hero');
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
     setIsMenuOpen(false);
   };
@@ -79,7 +54,7 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <Link href="/" onClick={handleLogoClick} passHref>
+              <Link href="/" scroll={false} onClick={handleNavigationClick("/#hero")}>
                 <a className="flex items-center">
                   <Image
                     className="block h-12 w-auto logo-animation"
@@ -100,9 +75,9 @@ export default function Navbar() {
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
-                    href={item.href === "/#hero" ? "/" : item.href}
+                    href={item.href}
                     scroll={false}
-                    onClick={(e) => handleNavClick(e, item.href)}
+                    onClick={handleNavigationClick(item.href)}
                     className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
                     style={{ textDecoration: "none" }}
                   >
@@ -195,7 +170,7 @@ export default function Navbar() {
         <div
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
           style={{
-            fontSize: fontSize,
+            fontSize: "18px",
             maxHeight: `calc(100vh - 128px)`, // Динамическая высота с учетом отступов сверху и снизу
             overflowY: "auto", // Разрешаем скролл, если необходимо
             paddingTop: "24px", // Отступ сверху
@@ -208,7 +183,7 @@ export default function Navbar() {
                 key={item.name}
                 href={item.href}
                 scroll={false}
-                onClick={(e) => handleNavClick(e, item.href)}
+                onClick={handleNavigationClick(item.href)}
                 className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
               >
                 {item.name}
