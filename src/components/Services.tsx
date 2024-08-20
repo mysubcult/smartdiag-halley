@@ -1,7 +1,14 @@
 import Image from "next/image";
 import React from "react";
 
-const services = [
+interface Service {
+  title: string;
+  description: string;
+  image: string;
+  alt: string;
+}
+
+const services: Service[] = [
   {
     title: "Широкий ассортимент оборудования",
     description:
@@ -46,7 +53,7 @@ const services = [
   },
 ];
 
-const ServiceCard = React.memo(({ title, description, image, alt }) => (
+const ServiceCard: React.FC<Service> = React.memo(({ title, description, image, alt }) => (
   <div
     className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-gray-200 hover:dark:bg-neutral-700"
   >
@@ -69,7 +76,6 @@ const ServiceCard = React.memo(({ title, description, image, alt }) => (
   </div>
 ));
 
-// Устанавливаем displayName для компонента
 ServiceCard.displayName = "ServiceCard";
 
 export function Services() {
