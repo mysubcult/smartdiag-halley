@@ -8,13 +8,26 @@ export default function BlogPost() {
   const [isSticky, setIsSticky] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [navOffset, setNavOffset] = useState(0);
+  const [shouldCollapseNav, setShouldCollapseNav] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     const handleResize = () => {
-      const navbar = document.querySelector('nav') as HTMLElement; // Измените селектор в зависимости от структуры Navbar
+      const navbar = document.querySelector('nav') as HTMLElement;
       const offsetHeight = navbar ? navbar.offsetHeight : 0;
       setNavOffset(offsetHeight);
+
+      const blogContainer = document.querySelector('.container') as HTMLElement;
+      const sidebar = document.querySelector('aside') as HTMLElement;
+
+      if (blogContainer && sidebar) {
+        const containerWidth = blogContainer.clientWidth;
+        const sidebarWidth = sidebar.clientWidth;
+        const availableWidth = containerWidth - sidebarWidth;
+
+        // Сворачиваем навигацию, если места для текста становится недостаточно
+        setShouldCollapseNav(availableWidth < 700); // Порог можно подстроить под дизайн
+      }
     };
 
     handleResize();
@@ -54,7 +67,7 @@ export default function BlogPost() {
         event.preventDefault();
         const anchor = document.querySelector(href);
         if (anchor) {
-          const offsetPosition = anchor.getBoundingClientRect().top + window.scrollY - navOffset - 20; // Учитываем высоту Navbar и добавляем небольшой отступ
+          const offsetPosition = anchor.getBoundingClientRect().top + window.scrollY - navOffset - 20;
           window.scrollTo({
             top: offsetPosition,
             behavior: "smooth"
@@ -75,42 +88,14 @@ export default function BlogPost() {
       <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row">
           <div className="relative lg:flex lg:space-x-8">
-            <aside
-              className={`lg:w-1/4 px-4 sticky top-24 h-auto ${
-                isSticky ? 'fixed' : 'relative'
-              } hidden lg:block border-r border-neutral-300`}
-            >
-              <div className="fixed w-56 p-4 bg-white dark:bg-neutral-900 shadow-lg">
-                <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
-                <nav className="space-y-4">
-                  <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                    Проблема с антивирусом
-                  </a>
-                  <a href="#outdated-software" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                    Устаревшее ПО
-                  </a>
-                  <a href="#download-errors" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                    Ошибки при загрузке
-                  </a>
-                  <a href="#yandex-tips" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                    Советы для Яндекс Браузера
-                  </a>
-                  <a href="#support" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                    Поддержка
-                  </a>
-                </nav>
-              </div>
-            </aside>
-
-            <div className="block lg:hidden w-full text-center mb-6">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium"
+            {!shouldCollapseNav && (
+              <aside
+                className={`lg:w-1/4 px-4 sticky top-24 h-auto ${
+                  isSticky ? 'fixed' : 'relative'
+                } hidden lg:block border-r border-neutral-300`}
               >
-                Меню навигации
-              </button>
-              {isMenuOpen && (
-                <div className="mt-4 p-4 bg-white dark:bg-neutral-900 shadow-lg border border-neutral-300">
+                <div className="fixed w-56 p-4 bg-white dark:bg-neutral-900 shadow-lg">
+                  <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
                   <nav className="space-y-4">
                     <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
                       Проблема с антивирусом
@@ -129,8 +114,40 @@ export default function BlogPost() {
                     </a>
                   </nav>
                 </div>
-              )}
-            </div>
+              </aside>
+            )}
+
+            {shouldCollapseNav && (
+              <div className="block lg:hidden w-full text-center mb-6">
+                <button
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium"
+                >
+                  Меню навигации
+                </button>
+                {isMenuOpen && (
+                  <div className="mt-4 p-4 bg-white dark:bg-neutral-900 shadow-lg border border-neutral-300">
+                    <nav className="space-y-4">
+                      <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                        Проблема с антивирусом
+                      </a>
+                      <a href="#outdated-software" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                        Устаревшее ПО
+                      </a>
+                      <a href="#download-errors" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                        Ошибки при загрузке
+                      </a>
+                      <a href="#yandex-tips" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                        Советы для Яндекс Браузера
+                      </a>
+                      <a href="#support" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                        Поддержка
+                      </a>
+                    </nav>
+                  </div>
+                )}
+              </div>
+            )}
 
             <div className="w-full lg:w-3/4 mx-auto px-4 lg:ml-8">
               <h2 className="text-4xl font-bold">
