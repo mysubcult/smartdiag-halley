@@ -101,8 +101,8 @@ export function Hero() {
   );
 }
 
-function smoothScroll(targetId) {
-  document.querySelector(targetId).scrollIntoView({
+function smoothScroll(targetId: string) {
+  document.querySelector(targetId)?.scrollIntoView({
     behavior: 'smooth'
   });
 }
