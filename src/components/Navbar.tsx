@@ -1,9 +1,10 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { useRouter } from "next/router";
 
 const navigation = [
   { name: "Главная", href: "/#hero" },
@@ -21,13 +22,13 @@ export default function Navbar() {
   const [isMobileView, setIsMobileView] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
 
+  const router = useRouter();
+
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const handleResize = () => setIsMobileView(window.innerWidth <= 1200);
-      window.addEventListener("resize", handleResize);
-      handleResize();
-      return () => window.removeEventListener("resize", handleResize);
-    }
+    const handleResize = () => setIsMobileView(window.innerWidth <= 1200);
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -49,22 +50,47 @@ export default function Navbar() {
     }
   }, [isSubMenuOpen]);
 
+  const handleLogoClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    router.push("/").then(() => {
+      const element = document.querySelector("#hero");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  };
+
+  const handleNavClick = (event: React.MouseEvent, href: string) => {
+    event.preventDefault();
+    if (router.pathname === "/") {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else {
+      router.push(href);
+    }
+    setIsMenuOpen(false);
+  };
+
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <Link href="/" scroll={false}>
-                <Image
-                  className="block h-12 w-auto logo-animation"
-                  src="/images/logos/logo.png"
-                  alt="SmartDiag Logo"
-                  width={256}
-                  height={117}
-                  quality={100}
-                  sizes="100vw"
-                />
+              <Link href="/" onClick={handleLogoClick} passHref>
+                <a className="flex items-center">
+                  <Image
+                    className="block h-12 w-auto logo-animation"
+                    src="/images/logos/logo.png"
+                    alt="SmartDiag Logo"
+                    width={256}
+                    height={117}
+                    quality={100}
+                    sizes="100vw"
+                  />
+                </a>
               </Link>
             </div>
 
@@ -74,8 +100,9 @@ export default function Navbar() {
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
-                    href={item.href}
+                    href={item.href === "/#hero" ? "/" : item.href}
                     scroll={false}
+                    onClick={(e) => handleNavClick(e, item.href)}
                     className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
                     style={{ textDecoration: "none" }}
                   >
@@ -181,6 +208,7 @@ export default function Navbar() {
                 key={item.name}
                 href={item.href}
                 scroll={false}
+                onClick={(e) => handleNavClick(e, item.href)}
                 className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
               >
                 {item.name}
