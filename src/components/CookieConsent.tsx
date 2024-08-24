@@ -68,20 +68,22 @@ const CookieConsent = () => {
           Мы используем файлы cookie для улучшения вашего опыта на нашем сайте, анализа трафика и персонализации контента. Пожалуйста, выберите, какие куки вы хотите разрешить.
         </p>
         <div className="flex justify-center items-center w-full space-x-4">
+          <div className="flex space-x-4">
+            <button
+              className="bg-red-600 text-white px-3 py-1.5 rounded-md hover:bg-red-700 transition duration-300 text-sm"
+              onClick={acceptAllCookies}
+            >
+              Принять все
+            </button>
+            <button
+              className="text-red-600 underline hover:text-red-800 text-sm"
+              onClick={openSettingsModal}
+            >
+              Настроить
+            </button>
+          </div>
           <button
-            className="bg-red-600 text-white px-3 py-1.5 rounded-md hover:bg-red-700 transition duration-300 text-sm"
-            onClick={acceptAllCookies}
-          >
-            Принять все
-          </button>
-          <button
-            className="bg-red-600 text-white px-3 py-1.5 rounded-md hover:bg-red-700 transition duration-300 text-sm"
-            onClick={openSettingsModal}
-          >
-            Настроить
-          </button>
-          <button
-            className="text-gray-500 underline text-xs ml-2"
+            className="text-gray-500 underline text-xs ml-auto"
             onClick={openModal}
           >
             Подробнее
@@ -102,15 +104,15 @@ const CookieConsent = () => {
               <div className="flex flex-col items-start space-y-4 w-full">
                 <div className="flex justify-between items-center w-full">
                   <span className="text-gray-800 dark:text-gray-200 text-sm">Необходимые куки (всегда включены)</span>
-                  <label className="inline-flex items-center cursor-pointer">
+                  <label className="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" checked={true} disabled className="sr-only" />
                     <div className="w-10 h-4 bg-gray-200 rounded-full shadow-inner"></div>
-                    <div className="dot absolute w-6 h-6 bg-gray-400 rounded-full shadow -left-1 -top-1 transition"></div>
+                    <div className="dot absolute left-1 top-1 w-4 h-4 bg-gray-400 rounded-full shadow transition"></div>
                   </label>
                 </div>
                 <div className="flex justify-between items-center w-full">
                   <span className="text-gray-800 dark:text-gray-200 text-sm">Аналитические куки</span>
-                  <label className="inline-flex items-center cursor-pointer">
+                  <label className="relative inline-flex items-center cursor-pointer">
                     <input
                       type="checkbox"
                       checked={cookies.analytics}
@@ -118,12 +120,12 @@ const CookieConsent = () => {
                       className="sr-only"
                     />
                     <div className={`w-10 h-4 rounded-full shadow-inner ${cookies.analytics ? 'bg-green-500' : 'bg-gray-200'}`}></div>
-                    <div className={`dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition ${cookies.analytics ? 'transform translate-x-5 bg-green-500' : ''}`}></div>
+                    <div className={`dot absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition ${cookies.analytics ? 'transform translate-x-5 bg-green-500' : ''}`}></div>
                   </label>
                 </div>
                 <div className="flex justify-between items-center w-full">
                   <span className="text-gray-800 dark:text-gray-200 text-sm">Маркетинговые куки</span>
-                  <label className="inline-flex items-center cursor-pointer">
+                  <label className="relative inline-flex items-center cursor-pointer">
                     <input
                       type="checkbox"
                       checked={cookies.marketing}
@@ -131,7 +133,7 @@ const CookieConsent = () => {
                       className="sr-only"
                     />
                     <div className={`w-10 h-4 rounded-full shadow-inner ${cookies.marketing ? 'bg-green-500' : 'bg-gray-200'}`}></div>
-                    <div className={`dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition ${cookies.marketing ? 'transform translate-x-5 bg-green-500' : ''}`}></div>
+                    <div className={`dot absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition ${cookies.marketing ? 'transform translate-x-5 bg-green-500' : ''}`}></div>
                   </label>
                 </div>
               </div>
