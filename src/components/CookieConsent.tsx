@@ -29,9 +29,9 @@ const CookieConsent = () => {
   return (
     <>
       {/* Основное окно согласия с куки, расположенное слева снизу */}
-      <div className="fixed bottom-4 left-4 bg-white dark:bg-gray-800 shadow-md p-3 rounded-lg w-64 border border-gray-300 dark:border-gray-700 flex flex-col items-start space-y-2">
+      <div className="fixed bottom-4 left-4 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg w-72 border border-gray-200 dark:border-gray-700 flex flex-col items-start space-y-3">
         <p className="text-gray-800 dark:text-gray-200 text-sm">
-          Мы используем файлы cookie. 
+          Мы используем файлы cookie для улучшения вашего опыта. Оставаясь на сайте, вы соглашаетесь с их использованием.
         </p>
         <div className="flex space-x-2">
           <button
