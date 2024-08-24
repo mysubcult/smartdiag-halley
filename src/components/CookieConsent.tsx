@@ -31,11 +31,11 @@ const CookieConsent = () => {
       {/* Основное окно согласия с куки, адаптированное для мобильных устройств */}
       <div className="fixed bottom-4 left-4 right-4 md:left-4 md:right-auto bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg w-auto max-w-md border-2 border-gray-300 dark:border-gray-700 flex flex-col items-center space-y-3">
         <p className="text-gray-800 dark:text-gray-200 text-sm w-full text-center">
-          Наш сайт использует файлы cookie для того, чтобы предложить вам лучший пользовательский опыт. Продолжая навигацию по сайту, вы соглашаетесь с нашим использованием cookie. Для получения дополнительной информации нажмите &quot;Подробнее&quot;.
+          Мы используем файлы cookie для улучшения вашего опыта. Продолжая использовать сайт, вы соглашаетесь с их использованием.
         </p>
         <div className="flex space-x-2 justify-center">
           <button
-            className="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700 transition duration-300 text-sm"
+            className="bg-red-600 text-white px-4 py-2 md:px-6 md:py-3 md:text-base rounded-md hover:bg-red-700 transition duration-300 text-sm"
             onClick={acceptCookies}
           >
             Принять
