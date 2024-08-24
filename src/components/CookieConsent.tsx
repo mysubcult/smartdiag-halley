@@ -35,7 +35,7 @@ const CookieConsent = () => {
         </p>
         <div className="flex space-x-2 justify-center">
           <button
-            className="bg-red-600 text-white px-4 py-2 md:px-6 md:py-3 md:text-base rounded-md hover:bg-red-700 transition duration-300 text-sm"
+            className="bg-red-600 text-white px-4 py-2 md:px-5 md:py-2.5 md:text-sm rounded-md hover:bg-red-700 transition duration-300 text-sm"
             onClick={acceptCookies}
           >
             Принять
