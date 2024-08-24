@@ -171,7 +171,7 @@ const CookieConsent = () => {
           {/* Модальное окно с информацией о куки, поверх окна "Настроить" */}
           {isModalOpen && (
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg p-6 md:w-[80%] w-11/12 max-h-[85vh] overflow-y-auto shadow-lg absolute z-20 m-4 mt-8"
+              className="bg-white dark:bg-gray-800 rounded-lg p-6 md:w-[80%] w-11/12 max-h-[85vh] overflow-y-auto shadow-lg absolute z-20 m-4 mt-16 md:mt-8"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">Что такое куки?</h2>
