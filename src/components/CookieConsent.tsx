@@ -81,18 +81,18 @@ const CookieConsent = () => {
           >
             Настроить
           </button>
-          {/* Для ПК версии показываем три кнопки */}
-          <button
-            className={`text-red-600 underline hover:text-red-800 text-sm hidden md:inline-block ${isModalOpen ? 'hidden' : 'inline-block'}`}
-            onClick={openModal}
-          >
-            Подробнее
-          </button>
+          {/* Для ПК версии показываем три кнопки, но теперь "Настроить" слева от "Подробнее" */}
           <button
             className="text-red-600 underline hover:text-red-800 text-sm hidden md:inline-block"
             onClick={openSettingsModal}
           >
             Настроить
+          </button>
+          <button
+            className={`text-red-600 underline hover:text-red-800 text-sm hidden md:inline-block ${isModalOpen ? 'hidden' : 'inline-block'}`}
+            onClick={openModal}
+          >
+            Подробнее
           </button>
         </div>
       </div>
@@ -101,7 +101,10 @@ const CookieConsent = () => {
       {(isSettingsOpen || isModalOpen) && (
         <div
           className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center"
-          onClick={isSettingsOpen ? closeSettingsModal : closeModal}
+          onClick={() => {
+            if (isSettingsOpen) closeSettingsModal();
+            if (isModalOpen) closeModal();
+          }}
         >
           {isSettingsOpen ? (
             <div
@@ -136,7 +139,10 @@ const CookieConsent = () => {
               <div className="flex space-x-2 justify-between mt-4">
                 <button
                   className="text-gray-600 underline hover:text-gray-800 text-sm"
-                  onClick={openModal}
+                  onClick={() => {
+                    closeSettingsModal();
+                    openModal();
+                  }}
                 >
                   Что это?
                 </button>
