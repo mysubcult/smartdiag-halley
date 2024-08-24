@@ -35,7 +35,7 @@ const CookieConsent = () => {
     setIsSettingsOpen(false);
   };
 
-  const handleCheckboxChange = (type: keyof CookiePreferences) => {
+  const handleToggleChange = (type: keyof CookiePreferences) => {
     setCookies((prevState) => ({
       ...prevState,
       [type]: !prevState[type],
@@ -67,29 +67,21 @@ const CookieConsent = () => {
         <p className="text-gray-800 dark:text-gray-200 text-sm w-full text-center">
           Мы используем файлы cookie для улучшения вашего опыта на нашем сайте, анализа трафика и персонализации контента. Пожалуйста, выберите, какие куки вы хотите разрешить.
         </p>
-        <div className="flex space-x-2 justify-center">
+        <div className="flex flex-col md:flex-row md:space-x-4 justify-center items-center w-full">
           <button
             className="bg-red-600 text-white px-3 py-1.5 rounded-md hover:bg-red-700 transition duration-300 text-sm"
             onClick={acceptAllCookies}
           >
             Принять все
           </button>
-          {/* Для мобильной версии показываем две кнопки */}
           <button
-            className="text-red-600 underline hover:text-red-800 text-sm block md:hidden"
+            className="text-red-600 underline hover:text-red-800 text-sm"
             onClick={openSettingsModal}
           >
             Настроить
           </button>
-          {/* Для ПК версии показываем три кнопки, но теперь "Настроить" слева от "Подробнее" */}
           <button
             className="text-red-600 underline hover:text-red-800 text-sm hidden md:inline-block"
-            onClick={openSettingsModal}
-          >
-            Настроить
-          </button>
-          <button
-            className={`text-red-600 underline hover:text-red-800 text-sm hidden md:inline-block ${isModalOpen ? 'hidden' : 'inline-block'}`}
             onClick={openModal}
           >
             Подробнее
@@ -107,29 +99,29 @@ const CookieConsent = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">Настройки файлов cookie</h2>
-              <div className="flex flex-col items-start space-y-2 w-full">
-                <label className="text-gray-800 dark:text-gray-200 text-sm flex items-center">
-                  <input type="checkbox" checked={cookies.necessary} disabled className="mr-2" />
-                  Необходимые куки (всегда включены)
-                </label>
-                <label className="text-gray-800 dark:text-gray-200 text-sm flex items-center">
+              <div className="flex flex-col items-start space-y-4 w-full">
+                <div className="flex justify-between w-full">
+                  <span className="text-gray-800 dark:text-gray-200 text-sm">Необходимые куки (всегда включены)</span>
+                  <input type="checkbox" checked={true} disabled className="toggle-switch" />
+                </div>
+                <div className="flex justify-between w-full">
+                  <span className="text-gray-800 dark:text-gray-200 text-sm">Аналитические куки</span>
                   <input
                     type="checkbox"
                     checked={cookies.analytics}
-                    onChange={() => handleCheckboxChange('analytics')}
-                    className="mr-2"
+                    onChange={() => handleToggleChange('analytics')}
+                    className="toggle-switch"
                   />
-                  Аналитические куки
-                </label>
-                <label className="text-gray-800 dark:text-gray-200 text-sm flex items-center">
+                </div>
+                <div className="flex justify-between w-full">
+                  <span className="text-gray-800 dark:text-gray-200 text-sm">Маркетинговые куки</span>
                   <input
                     type="checkbox"
                     checked={cookies.marketing}
-                    onChange={() => handleCheckboxChange('marketing')}
-                    className="mr-2"
+                    onChange={() => handleToggleChange('marketing')}
+                    className="toggle-switch"
                   />
-                  Маркетинговые куки
-                </label>
+                </div>
               </div>
               <div className="flex space-x-2 justify-between mt-4">
                 <button
@@ -154,10 +146,10 @@ const CookieConsent = () => {
             </div>
           )}
 
-          {/* Модальное окно с информацией о куки */}
+          {/* Модальное окно с информацией о куки, расположено сбоку */}
           {isModalOpen && (
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 shadow-lg relative"
+              className="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 shadow-lg relative ml-4"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">Что такое куки?</h2>
