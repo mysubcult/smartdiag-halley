@@ -28,14 +28,14 @@ const CookieConsent = () => {
 
   return (
     <>
-      {/* Основное окно согласия с куки */}
-      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 shadow-xl p-4 rounded-lg max-w-sm w-full mx-auto border border-gray-300 dark:border-gray-700 flex flex-col items-center space-y-3">
-        <p className="text-gray-800 dark:text-gray-200 text-center text-sm">
-          Мы используем файлы cookie для улучшения вашего опыта. Продолжая использовать наш сайт, вы соглашаетесь с нашей политикой конфиденциальности.
+      {/* Основное окно согласия с куки, расположенное слева снизу */}
+      <div className="fixed bottom-4 left-4 bg-white dark:bg-gray-800 shadow-md p-3 rounded-lg w-64 border border-gray-300 dark:border-gray-700 flex flex-col items-start space-y-2">
+        <p className="text-gray-800 dark:text-gray-200 text-sm">
+          Мы используем файлы cookie. 
         </p>
-        <div className="flex space-x-3">
+        <div className="flex space-x-2">
           <button
-            className="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700 transition duration-300 text-sm border border-red-700"
+            className="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700 transition duration-300 text-sm"
             onClick={acceptCookies}
           >
             Принять
