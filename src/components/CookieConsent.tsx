@@ -58,6 +58,14 @@ const CookieConsent = () => {
     setIsModalOpen(false);
   };
 
+  const handleClose = () => {
+    if (isModalOpen) {
+      closeModal();
+    } else if (isSettingsOpen) {
+      closeSettingsModal();
+    }
+  };
+
   if (!isVisible) return null;
 
   return (
@@ -93,7 +101,7 @@ const CookieConsent = () => {
 
       {/* Универсальное затемнение фона для всех модальных окон */}
       {(isSettingsOpen || isModalOpen) && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center" onClick={(e) => { if (!isSettingsOpen) closeModal(); else closeSettingsModal(); }}>
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center" onClick={handleClose}>
           {/* Модальное окно с настройками куки */}
           {isSettingsOpen && (
             <div
@@ -107,7 +115,7 @@ const CookieConsent = () => {
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" checked={true} disabled className="sr-only" />
                     <div className="w-10 h-4 bg-gray-300 rounded-full shadow-inner"></div>
-                    <div className="dot absolute left-6 top-0.25 w-4 h-4 bg-gray-500 rounded-full shadow transition"></div>
+                    <div className="dot absolute left-6 top-[-2px] w-5 h-5 bg-gray-500 rounded-full shadow transition"></div>
                   </label>
                 </div>
                 <div className="flex justify-between items-center w-full">
@@ -120,7 +128,7 @@ const CookieConsent = () => {
                       className="sr-only"
                     />
                     <div className={`w-10 h-4 rounded-full shadow-inner ${cookies.analytics ? 'bg-green-500' : 'bg-gray-200'}`}></div>
-                    <div className={`dot absolute left-0 top-0.25 w-4 h-4 bg-white rounded-full shadow transition ${cookies.analytics ? 'transform translate-x-6 bg-green-500' : ''}`}></div>
+                    <div className={`dot absolute left-0 top-[-2px] w-5 h-5 bg-white rounded-full shadow transition ${cookies.analytics ? 'transform translate-x-6 bg-green-500' : ''}`}></div>
                   </label>
                 </div>
                 <div className="flex justify-between items-center w-full">
@@ -133,7 +141,7 @@ const CookieConsent = () => {
                       className="sr-only"
                     />
                     <div className={`w-10 h-4 rounded-full shadow-inner ${cookies.marketing ? 'bg-green-500' : 'bg-gray-200'}`}></div>
-                    <div className={`dot absolute left-0 top-0.25 w-4 h-4 bg-white rounded-full shadow transition ${cookies.marketing ? 'transform translate-x-6 bg-green-500' : ''}`}></div>
+                    <div className={`dot absolute left-0 top-[-2px] w-5 h-5 bg-white rounded-full shadow transition ${cookies.marketing ? 'transform translate-x-6 bg-green-500' : ''}`}></div>
                   </label>
                 </div>
               </div>
@@ -163,7 +171,7 @@ const CookieConsent = () => {
           {/* Модальное окно с информацией о куки, поверх окна "Настроить" */}
           {isModalOpen && (
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg p-4 w-72 max-h-80 overflow-y-auto shadow-lg absolute z-20"
+              className="bg-white dark:bg-gray-800 rounded-lg p-4 w-96 max-h-96 overflow-y-auto shadow-lg absolute z-20"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">Что такое куки?</h2>
