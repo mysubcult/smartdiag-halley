@@ -93,7 +93,7 @@ const CookieConsent = () => {
 
       {/* Универсальное затемнение фона для всех модальных окон */}
       {(isSettingsOpen || isModalOpen) && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center" onClick={() => { closeSettingsModal(); closeModal(); }}>
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center" onClick={(e) => { if (!isModalOpen) closeSettingsModal(); }}>
           {/* Модальное окно с настройками куки */}
           {isSettingsOpen && (
             <div
@@ -167,8 +167,14 @@ const CookieConsent = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">Что такое куки?</h2>
+              <p className="text-gray-700 dark:text-gray-300 mb-2">
+                <strong>Необходимые куки:</strong> Эти файлы cookie необходимы для обеспечения работы сайта и не могут быть отключены. Они обычно устанавливаются в ответ на ваши действия, такие как установка предпочтений конфиденциальности, вход в систему или заполнение форм.
+              </p>
+              <p className="text-gray-700 dark:text-gray-300 mb-2">
+                <strong>Аналитические куки:</strong> Эти файлы cookie собирают информацию о том, как посетители используют сайт, например, какие страницы посещаются чаще всего. Они помогают нам улучшать работу сайта, но все данные анонимны.
+              </p>
               <p className="text-gray-700 dark:text-gray-300 mb-4">
-                Файлы cookie — это небольшие текстовые файлы, которые сохраняются на вашем устройстве при посещении сайта. Они помогают нам улучшать наш сайт и предоставлять вам более персонализированный сервис.
+                <strong>Маркетинговые куки:</strong> Эти файлы cookie используются для отслеживания посетителей на разных сайтах. Цель состоит в том, чтобы показывать рекламу, которая является релевантной и интересной для конкретного пользователя, а также более ценной для издателей и сторонних рекламодателей.
               </p>
               <button
                 className="absolute top-2 right-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-2xl"
