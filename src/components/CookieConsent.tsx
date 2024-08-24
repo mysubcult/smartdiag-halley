@@ -71,7 +71,7 @@ const CookieConsent = () => {
   return (
     <>
       {/* Основное окно согласия с куки */}
-      <div className="fixed bottom-4 left-4 md:right-4 right-24 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg w-auto max-w-md border-2 border-gray-300 dark:border-gray-700 flex flex-col items-center space-y-3">
+      <div className="fixed bottom-4 left-4 md:right-4 right-32 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg w-auto max-w-md border-2 border-gray-300 dark:border-gray-700 flex flex-col items-center space-y-3">
         <p className="text-gray-800 dark:text-gray-200 text-sm w-full text-center">
           Мы используем файлы cookie для улучшения работы нашего сайта. Вы можете принять все куки, нажав на соответствующую кнопку, или выбрать, какие куки разрешить, настроив их вручную.
         </p>
