@@ -28,19 +28,20 @@ const CookieConsent = () => {
 
   return (
     <>
-      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-white shadow-lg p-6 rounded-lg max-w-md w-full mx-auto flex flex-col items-center space-y-4">
-        <p className="text-gray-800 text-center">
+      {/* Основное окно согласия с куки */}
+      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg max-w-md w-full mx-auto flex flex-col items-center space-y-4">
+        <p className="text-gray-800 dark:text-gray-200 text-center">
           Мы используем файлы cookie для улучшения вашего опыта. Продолжая использовать наш сайт, вы соглашаетесь с нашей политикой конфиденциальности.
         </p>
         <div className="flex space-x-4">
           <button
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
+            className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300"
             onClick={acceptCookies}
           >
             Принять
           </button>
           <button
-            className="text-blue-600 underline hover:text-blue-800"
+            className="text-red-600 underline hover:text-red-800"
             onClick={openModal}
           >
             Подробнее
@@ -48,16 +49,22 @@ const CookieConsent = () => {
         </div>
       </div>
 
-      {/* Модальное окно */}
+      {/* Модальное окно с информацией о куки */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white rounded-lg p-6 w-96 shadow-lg relative">
-            <h2 className="text-xl font-bold mb-4">Что такое куки?</h2>
-            <p className="text-gray-700 mb-4">
+        <div
+          className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center"
+          onClick={closeModal} // Закрытие при клике вне окна
+        >
+          <div
+            className="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 shadow-lg relative"
+            onClick={(e) => e.stopPropagation()} // Предотвращение закрытия при клике внутри окна
+          >
+            <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">Что такое куки?</h2>
+            <p className="text-gray-700 dark:text-gray-300 mb-4">
               Файлы cookie — это небольшие текстовые файлы, которые сохраняются на вашем устройстве при посещении сайта. Они помогают нам улучшать наш сайт и предоставлять вам более персонализированный сервис.
             </p>
             <button
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              className="absolute top-2 right-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-2xl"
               onClick={closeModal}
             >
               &times;
