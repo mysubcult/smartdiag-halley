@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
@@ -11,32 +11,32 @@ export default function BlogPost() {
   const [shouldCollapseNav, setShouldCollapseNav] = useState(false);
   const router = useRouter();
 
+  const handleResize = useCallback(() => {
+    const navbar = document.querySelector('nav') as HTMLElement;
+    const offsetHeight = navbar ? navbar.offsetHeight : 0;
+    setNavOffset(offsetHeight);
+
+    const blogContainer = document.querySelector('.container') as HTMLElement;
+    const sidebar = document.querySelector('aside') as HTMLElement;
+
+    if (blogContainer && sidebar) {
+      const containerWidth = blogContainer.clientWidth;
+      const sidebarWidth = sidebar.clientWidth;
+      const availableWidth = containerWidth - sidebarWidth;
+
+      // Сворачиваем навигацию, если места для текста становится недостаточно
+      setShouldCollapseNav(availableWidth < 700); // Порог можно подстроить под дизайн
+    }
+  }, []);
+
   useEffect(() => {
-    const handleResize = () => {
-      const navbar = document.querySelector('nav') as HTMLElement;
-      const offsetHeight = navbar ? navbar.offsetHeight : 0;
-      setNavOffset(offsetHeight);
-
-      const blogContainer = document.querySelector('.container') as HTMLElement;
-      const sidebar = document.querySelector('aside') as HTMLElement;
-
-      if (blogContainer && sidebar) {
-        const containerWidth = blogContainer.clientWidth;
-        const sidebarWidth = sidebar.clientWidth;
-        const availableWidth = containerWidth - sidebarWidth;
-
-        // Сворачиваем навигацию, если места для текста становится недостаточно
-        setShouldCollapseNav(availableWidth < 700); // Порог можно подстроить под дизайн
-      }
-    };
-
     handleResize();
     window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [handleResize]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -85,7 +85,7 @@ export default function BlogPost() {
 
   return (
     <Layout>
-      <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
+      <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row">
           <div className="relative lg:flex lg:space-x-8">
             {!shouldCollapseNav && (
@@ -93,6 +93,7 @@ export default function BlogPost() {
                 className={`lg:w-1/4 px-4 sticky top-24 h-auto ${
                   isSticky ? 'fixed' : 'relative'
                 } hidden lg:block border-r border-neutral-300`}
+                aria-label="Навигация по статье"
               >
                 <div className="fixed w-56 p-4 bg-white dark:bg-neutral-900 shadow-lg">
                   <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
@@ -122,6 +123,7 @@ export default function BlogPost() {
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium"
+                  aria-label="Открыть меню навигации"
                 >
                   Меню навигации
                 </button>
@@ -164,6 +166,7 @@ export default function BlogPost() {
                 width={1920}
                 height={1080}
                 quality={75}
+                layout="responsive"
                 sizes="100vw"
                 className="w-full max-w-full mx-auto mb-8"
               />
@@ -210,7 +213,7 @@ export default function BlogPost() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </Layout>
   );
 }
