@@ -148,7 +148,7 @@ const CookieConsent = () => {
               <div className="flex space-x-2 justify-between mt-4">
                 <button
                   className="text-gray-600 underline hover:text-gray-800 text-sm"
-                  onClick={() => { closeSettingsModal(); openModal(); }} // Закрываем настройки и открываем "Что это?"
+                  onClick={() => { openModal(); }} // Открываем "Что это?" и не закрываем настройки
                 >
                   Что это?
                 </button>
