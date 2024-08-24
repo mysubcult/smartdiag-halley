@@ -148,7 +148,7 @@ const CookieConsent = () => {
               <div className="flex space-x-2 justify-between mt-4">
                 <button
                   className="text-gray-600 underline hover:text-gray-800 text-sm"
-                  onClick={openModal} // Открываем окно "Что это?", но не закрываем текущее
+                  onClick={() => { closeSettingsModal(); openModal(); }} // Закрываем настройки и открываем "Что это?"
                 >
                   Что это?
                 </button>
@@ -171,18 +171,18 @@ const CookieConsent = () => {
           {/* Модальное окно с информацией о куки, поверх окна "Настроить" */}
           {isModalOpen && (
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg p-6 md:w-3/4 w-11/12 max-h-[90vh] overflow-y-auto shadow-lg relative z-20 m-4"
+              className="bg-white dark:bg-gray-800 rounded-lg p-6 md:w-3/4 w-11/12 max-h-[90vh] overflow-y-auto shadow-lg absolute z-20 m-4"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">Что такое куки?</h2>
               <p className="text-gray-700 dark:text-gray-300 mb-2">
-                <strong>Необходимые куки:</strong> Эти файлы cookie необходимы для обеспечения работы сайта и не могут быть отключены. Они обычно устанавливаются в ответ на ваши действия, такие как установка предпочтений конфиденциальности, вход в систему или заполнение форм. Подробнее об этом вы можете узнать на сайте <a href="https://www.cnil.fr/en/home" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">CNIL</a>.
+                <strong>Необходимые куки:</strong> Эти файлы cookie обеспечивают базовые функции сайта и не могут быть отключены. Например, они используются для сохранения настроек конфиденциальности и входа в аккаунт. Чтобы узнать больше о защите данных, посетите <a href="https://www.cnil.fr/en/home" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">сайт CNIL</a> (французский Национальный комитет по информационным технологиям и свободам).
               </p>
               <p className="text-gray-700 dark:text-gray-300 mb-2">
-                <strong>Аналитические куки:</strong> Эти файлы cookie собирают информацию о том, как посетители используют сайт, например, какие страницы посещаются чаще всего. Они помогают нам улучшать работу сайта, но все данные анонимны. Дополнительную информацию можно найти на сайте <a href="https://ico.org.uk/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">ICO</a>.
+                <strong>Аналитические куки:</strong> Эти файлы cookie помогают нам понять, как посетители взаимодействуют с сайтом, собирая и анализируя информацию о посещаемых страницах. Это позволяет улучшать работу сайта. Подробнее о таких куки можно узнать на <a href="https://ico.org.uk/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">сайте ICO</a> (Информационный комиссар Великобритании).
               </p>
               <p className="text-gray-700 dark:text-gray-300 mb-2">
-                <strong>Маркетинговые куки:</strong> Эти файлы cookie используются для отслеживания посетителей на разных сайтах. Цель состоит в том, чтобы показывать рекламу, которая является релевантной и интересной для конкретного пользователя, а также более ценной для издателей и сторонних рекламодателей. Более подробная информация доступна на сайте <a href="https://www.aboutads.info/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">About Ads</a>.
+                <strong>Маркетинговые куки:</strong> Эти файлы cookie используются для предоставления рекламы, которая более релевантна вам и вашим интересам. Они также помогают измерять эффективность рекламных кампаний. Узнайте больше о персонализированной рекламе на <a href="https://www.aboutads.info/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">сайте About Ads</a>.
               </p>
               <button
                 className="absolute top-2 right-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-2xl"
