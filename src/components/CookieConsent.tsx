@@ -67,7 +67,7 @@ const CookieConsent = () => {
         <p className="text-gray-800 dark:text-gray-200 text-sm w-full text-center">
           Мы используем файлы cookie для улучшения вашего опыта на нашем сайте, анализа трафика и персонализации контента. Пожалуйста, выберите, какие куки вы хотите разрешить.
         </p>
-        <div className="w-full flex items-center">
+        <div className="w-full flex justify-center items-center">
           <div className="flex space-x-4 justify-center mx-auto">
             <button
               className="bg-red-600 text-white px-3 py-1.5 rounded-md hover:bg-red-700 transition duration-300 text-sm"
@@ -93,11 +93,11 @@ const CookieConsent = () => {
 
       {/* Универсальное затемнение фона для всех модальных окон */}
       {(isSettingsOpen || isModalOpen) && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center" onClick={closeSettingsModal}>
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center" onClick={() => { closeSettingsModal(); closeModal(); }}>
           {/* Модальное окно с настройками куки */}
           {isSettingsOpen && (
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 shadow-lg relative"
+              className="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 shadow-lg relative z-10"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">Настройки файлов cookie</h2>
@@ -163,7 +163,7 @@ const CookieConsent = () => {
           {/* Модальное окно с информацией о куки, поверх окна "Настроить" */}
           {isModalOpen && (
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 shadow-lg relative"
+              className="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 shadow-lg absolute z-20"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">Что такое куки?</h2>
