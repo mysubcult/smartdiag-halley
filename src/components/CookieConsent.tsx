@@ -74,12 +74,37 @@ const CookieConsent = () => {
           >
             Принять все
           </button>
-          <button
-            className="text-red-600 underline hover:text-red-800 text-sm"
-            onClick={openSettingsModal}
-          >
-            Настроить
-          </button>
+          {isSettingsOpen || isModalOpen ? (
+            <button
+              className="text-red-600 underline hover:text-red-800 text-sm"
+              onClick={openModal}
+            >
+              Что это?
+            </button>
+          ) : (
+            <>
+              {/* Для мобильной версии показываем только две кнопки */}
+              <button
+                className="text-red-600 underline hover:text-red-800 text-sm block md:hidden"
+                onClick={openSettingsModal}
+              >
+                Настроить
+              </button>
+              {/* Для ПК версии показываем три кнопки */}
+              <button
+                className="text-red-600 underline hover:text-red-800 text-sm hidden md:inline-block"
+                onClick={openModal}
+              >
+                Подробнее
+              </button>
+              <button
+                className="text-red-600 underline hover:text-red-800 text-sm hidden md:inline-block"
+                onClick={openSettingsModal}
+              >
+                Настроить
+              </button>
+            </>
+          )}
         </div>
       </div>
 
