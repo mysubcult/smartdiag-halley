@@ -5,6 +5,7 @@ import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
+import CookieConsent from '../components/CookieConsent'; // Импортируем компонент
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,6 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider attribute="class">
         <Component {...pageProps} />
+        <CookieConsent /> {/* Добавляем компонент здесь */}
         <Analytics />
       </ThemeProvider>
     </main>
