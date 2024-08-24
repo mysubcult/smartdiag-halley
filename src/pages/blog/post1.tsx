@@ -25,7 +25,7 @@ export default function BlogPost() {
       const availableWidth = containerWidth - sidebarWidth;
 
       // Сворачиваем навигацию, если места для текста становится недостаточно
-      setShouldCollapseNav(availableWidth < 700); // Порог можно подстроить под дизайн
+      setShouldCollapseNav(availableWidth < 900); // Уменьшил порог для сворачивания навигации
     }
   }, []);
 
@@ -92,7 +92,7 @@ export default function BlogPost() {
               <aside
                 className={`lg:w-1/4 px-4 sticky top-24 h-auto ${
                   isSticky ? 'fixed' : 'relative'
-                } hidden lg:block border-r border-neutral-300`}
+                } hidden md:block border-r border-neutral-300`}  // Изменил на md:block для более раннего скрытия
                 aria-label="Навигация по статье"
               >
                 <div className="fixed w-56 p-4 bg-white dark:bg-neutral-900 shadow-lg">
@@ -119,7 +119,7 @@ export default function BlogPost() {
             )}
 
             {shouldCollapseNav && (
-              <div className="block lg:hidden w-full text-center mb-6">
+              <div className="block md:hidden w-full text-center mb-6"> {/* Изменил на md:hidden для более раннего отображения */}
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium"
