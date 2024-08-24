@@ -27,9 +27,9 @@ export default function BlogPost() {
       // Сворачиваем навигацию, если места для текста становится недостаточно
       const shouldCollapse = availableWidth < 900; // Порог для сворачивания навигации
       setShouldCollapseNav(shouldCollapse);
-
-      // Если нужно свернуть, закрываем меню
-      if (shouldCollapse) {
+      
+      // Сброс меню при изменении размера окна
+      if (!shouldCollapse) {
         setIsMenuOpen(false);
       }
     }
@@ -112,7 +112,7 @@ export default function BlogPost() {
               <aside
                 className={`lg:w-1/4 px-4 sticky top-24 h-auto ${
                   isSticky ? 'fixed' : 'relative'
-                } hidden md:block border-r border-neutral-300`}  // Изменил на md:block для более раннего скрытия
+                } hidden md:block border-r border-neutral-300`}
                 aria-label="Навигация по статье"
               >
                 <div className="fixed w-56 p-4 bg-white dark:bg-neutral-900 shadow-lg">
@@ -139,8 +139,8 @@ export default function BlogPost() {
             )}
 
             {/* Мобильное меню навигации */}
-            {isMenuOpen && shouldCollapseNav && (
-              <div className="lg:hidden w-full text-center mb-6"> {/* Переместил внутрь основного контейнера */}
+            {isMenuOpen && (
+              <div className="lg:hidden w-full text-center mb-6">
                 <div className="mt-4 p-4 bg-white dark:bg-neutral-900 shadow-lg border border-neutral-300">
                   <nav className="space-y-4">
                     <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
