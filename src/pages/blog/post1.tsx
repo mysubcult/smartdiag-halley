@@ -24,13 +24,12 @@ export default function BlogPost() {
       const sidebarWidth = sidebar.clientWidth;
       const availableWidth = containerWidth - sidebarWidth;
 
-      // Определяем, нужно ли сворачивать навигацию
       const shouldCollapse = availableWidth < 900; // Порог для сворачивания навигации
       setShouldCollapseNav(shouldCollapse);
 
-      // Закрываем меню при переходе на большую ширину
+      // Сброс меню и состояние при изменении размеров
       if (!shouldCollapse) {
-        setIsMenuOpen(false);
+        setIsMenuOpen(false); // Закрыть меню, если оно было открыто
       }
     }
   }, []);
