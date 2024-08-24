@@ -25,7 +25,13 @@ export default function BlogPost() {
       const availableWidth = containerWidth - sidebarWidth;
 
       // Сворачиваем навигацию, если места для текста становится недостаточно
-      setShouldCollapseNav(availableWidth < 900); // Уменьшил порог для сворачивания навигации
+      const shouldCollapse = availableWidth < 900; // Уменьшил порог для сворачивания навигации
+      setShouldCollapseNav(shouldCollapse);
+
+      // Сброс состояния меню, если меню должно раскрываться
+      if (!shouldCollapse) {
+        setIsMenuOpen(false);
+      }
     }
   }, []);
 
@@ -88,7 +94,8 @@ export default function BlogPost() {
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row">
           <div className="relative lg:flex lg:space-x-8">
-            {!shouldCollapseNav && (
+            {/* Панель навигации */}
+            {!shouldCollapseNav ? (
               <aside
                 className={`lg:w-1/4 px-4 sticky top-24 h-auto ${
                   isSticky ? 'fixed' : 'relative'
@@ -116,9 +123,7 @@ export default function BlogPost() {
                   </nav>
                 </div>
               </aside>
-            )}
-
-            {shouldCollapseNav && (
+            ) : (
               <div className="block md:hidden w-full text-center mb-6"> {/* Изменил на md:hidden для более раннего отображения */}
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
