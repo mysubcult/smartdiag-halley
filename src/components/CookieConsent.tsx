@@ -67,8 +67,8 @@ const CookieConsent = () => {
         <p className="text-gray-800 dark:text-gray-200 text-sm w-full text-center">
           Мы используем файлы cookie для улучшения вашего опыта на нашем сайте, анализа трафика и персонализации контента. Пожалуйста, выберите, какие куки вы хотите разрешить.
         </p>
-        <div className="w-full flex justify-between items-center">
-          <div className="flex space-x-4 justify-center items-center flex-1">
+        <div className="w-full flex items-center">
+          <div className="flex space-x-4 justify-center mx-auto">
             <button
               className="bg-red-600 text-white px-3 py-1.5 rounded-md hover:bg-red-700 transition duration-300 text-sm"
               onClick={acceptAllCookies}
@@ -83,7 +83,7 @@ const CookieConsent = () => {
             </button>
           </div>
           <button
-            className="text-gray-500 underline text-xs flex-shrink-0"
+            className="text-gray-500 underline text-xs ml-auto"
             onClick={openModal}
           >
             Подробнее
@@ -93,7 +93,7 @@ const CookieConsent = () => {
 
       {/* Универсальное затемнение фона для всех модальных окон */}
       {(isSettingsOpen || isModalOpen) && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center" onClick={closeSettingsModal}>
           {/* Модальное окно с настройками куки */}
           {isSettingsOpen && (
             <div
