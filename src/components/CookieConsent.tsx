@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import Cookies from 'js-cookie'; // Устанавливаем эту библиотеку для работы с cookies
 
 interface CookiePreferences {
   necessary: boolean;
@@ -18,19 +19,42 @@ const CookieConsent = () => {
 
   useEffect(() => {
     const cookiesAccepted = localStorage.getItem('cookiesAccepted');
-    if (!cookiesAccepted) {
+    if (cookiesAccepted) {
+      applyCookiePreferences(JSON.parse(cookiesAccepted));
+    } else {
       setIsVisible(true);
     }
   }, []);
 
+  const applyCookiePreferences = (preferences: CookiePreferences) => {
+    if (preferences.analytics) {
+      // Код для включения аналитических cookies
+      Cookies.set('analytics_cookie', 'true', { expires: 365 }); // Пример установки аналитических cookies
+    } else {
+      // Удаление аналитических cookies
+      Cookies.remove('analytics_cookie');
+    }
+
+    if (preferences.marketing) {
+      // Код для включения маркетинговых cookies
+      Cookies.set('marketing_cookie', 'true', { expires: 365 }); // Пример установки маркетинговых cookies
+    } else {
+      // Удаление маркетинговых cookies
+      Cookies.remove('marketing_cookie');
+    }
+  };
+
   const acceptAllCookies = () => {
-    setCookies({ necessary: true, analytics: true, marketing: true });
-    localStorage.setItem('cookiesAccepted', JSON.stringify({ necessary: true, analytics: true, marketing: true }));
+    const preferences = { necessary: true, analytics: true, marketing: true };
+    setCookies(preferences);
+    localStorage.setItem('cookiesAccepted', JSON.stringify(preferences));
+    applyCookiePreferences(preferences); // Применение настроек cookies
     setIsVisible(false);
   };
 
   const acceptSelectedCookies = () => {
     localStorage.setItem('cookiesAccepted', JSON.stringify(cookies));
+    applyCookiePreferences(cookies); // Применение настроек cookies
     setIsVisible(false);
     setIsSettingsOpen(false);
   };
