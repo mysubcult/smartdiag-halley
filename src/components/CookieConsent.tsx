@@ -71,7 +71,7 @@ const CookieConsent = () => {
   return (
     <>
       {/* Основное окно согласия с куки */}
-      <div className="fixed bottom-4 left-4 right-4 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg w-auto max-w-md border-2 border-gray-300 dark:border-gray-700 flex flex-col items-center space-y-3">
+      <div className="fixed bottom-4 left-4 md:right-4 right-16 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg w-auto max-w-md border-2 border-gray-300 dark:border-gray-700 flex flex-col items-center space-y-3">
         <p className="text-gray-800 dark:text-gray-200 text-sm w-full text-center">
           Мы используем файлы cookie для улучшения вашего опыта на нашем сайте, анализа трафика и персонализации контента. Пожалуйста, выберите, какие куки вы хотите разрешить.
         </p>
@@ -90,12 +90,6 @@ const CookieConsent = () => {
               Настроить
             </button>
           </div>
-          <button
-            className="text-gray-500 underline text-xs ml-auto"
-            onClick={openModal}
-          >
-            Подробнее
-          </button>
         </div>
       </div>
 
@@ -171,18 +165,18 @@ const CookieConsent = () => {
           {/* Модальное окно с информацией о куки, поверх окна "Настроить" */}
           {isModalOpen && (
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg p-6 md:w-[80%] w-11/12 max-h-[85vh] overflow-y-auto shadow-lg absolute z-20 m-4 mt-24 md:mt-12"
+              className="bg-white dark:bg-gray-800 rounded-lg p-6 md:w-[80%] w-11/12 max-h-[85vh] overflow-y-auto shadow-lg absolute z-20 m-4 mt-32 md:mt-12"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">Что такое куки?</h2>
               <p className="text-gray-700 dark:text-gray-300 mb-4">
-                <strong>Необходимые куки:</strong> Эти файлы cookie необходимы для функционирования сайта. Они позволяют сохранять ваши предпочтения, такие как настройки языка, и обеспечивают безопасность при навигации. Эти куки не собирают информацию для маркетинга и не отслеживают вашу активность в интернете. Подробнее о необходимых куки можно узнать на <a href="https://digital.gov.ru/ru/documents/4133/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">сайте Министерства цифрового развития России</a>.
+                <strong>Необходимые куки:</strong> Эти файлы cookie необходимы для корректной работы сайта и его основных функций. Они позволяют сохранять ваши предпочтения, такие как настройки языка, и обеспечивают безопасность при навигации. Подробнее о необходимых куки можно узнать на <a href="https://rkn.gov.ru/communication/p490/p791/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">сайте Роскомнадзора</a>.
               </p>
               <p className="text-gray-700 dark:text-gray-300 mb-4">
-                <strong>Аналитические куки:</strong> Эти куки используются для сбора информации о том, как посетители используют наш сайт. Это помогает нам улучшать структуру и содержание сайта. Аналитические куки собирают анонимные данные, такие как количество посетителей, откуда они пришли на сайт, и какие страницы посещают. Узнайте больше о таких куки на <a href="https://roskomsvoboda.org/post/rkn-kuki/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">сайте Роскомсвобода</a>.
+                <strong>Аналитические куки:</strong> Эти куки помогают нам понять, как посетители взаимодействуют с сайтом, собирая анонимные данные, такие как количество посетителей, откуда они пришли на сайт, и какие страницы посещают. Эти данные помогают улучшать работу сайта и его контент. Дополнительная информация доступна на <a href="https://duma.gov.ru/news/48953/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">сайте Государственной Думы РФ</a>.
               </p>
               <p className="text-gray-700 dark:text-gray-300 mb-4">
-                <strong>Маркетинговые куки:</strong> Эти куки используются для того, чтобы отображать более релевантную рекламу, основываясь на ваших интересах. Они также позволяют ограничить количество показов одной и той же рекламы и измерять эффективность рекламных кампаний. Подробнее о маркетинговых куки можно узнать на <a href="https://privacy.ngs.ru/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">сайте NGS</a>.
+                <strong>Маркетинговые куки:</strong> Эти файлы cookie используются для того, чтобы показывать вам рекламу, которая может быть интересна именно вам, основываясь на ваших предпочтениях. Они также помогают измерять эффективность рекламных кампаний. Узнайте больше о маркетинговых куки на <a href="https://minsvyaz.ru/ru/events/40879/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">сайте Министерства связи России</a>.
               </p>
               <button
                 className="absolute top-2 right-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-2xl"
