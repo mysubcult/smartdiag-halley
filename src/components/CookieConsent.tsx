@@ -67,21 +67,23 @@ const CookieConsent = () => {
         <p className="text-gray-800 dark:text-gray-200 text-sm w-full text-center">
           Мы используем файлы cookie для улучшения вашего опыта на нашем сайте, анализа трафика и персонализации контента. Пожалуйста, выберите, какие куки вы хотите разрешить.
         </p>
-        <div className="flex flex-col md:flex-row md:space-x-4 justify-center items-center w-full">
+        <div className="flex justify-between w-full">
+          <div className="flex space-x-4 justify-center">
+            <button
+              className="bg-red-600 text-white px-3 py-1.5 rounded-md hover:bg-red-700 transition duration-300 text-sm"
+              onClick={acceptAllCookies}
+            >
+              Принять все
+            </button>
+            <button
+              className="text-red-600 underline hover:text-red-800 text-sm"
+              onClick={openSettingsModal}
+            >
+              Настроить
+            </button>
+          </div>
           <button
-            className="bg-red-600 text-white px-3 py-1.5 rounded-md hover:bg-red-700 transition duration-300 text-sm"
-            onClick={acceptAllCookies}
-          >
-            Принять все
-          </button>
-          <button
-            className="text-red-600 underline hover:text-red-800 text-sm"
-            onClick={openSettingsModal}
-          >
-            Настроить
-          </button>
-          <button
-            className="text-red-600 underline hover:text-red-800 text-sm hidden md:inline-block"
+            className="text-red-600 underline hover:text-red-800 text-sm ml-auto hidden md:inline-block"
             onClick={openModal}
           >
             Подробнее
