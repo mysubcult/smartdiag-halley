@@ -15,7 +15,7 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={`${inter.variable} font-sans`}>
+    <main className={`${inter.variable} font-sans relative`}>
       <Head>
       </Head>
       <ThemeProvider attribute="class">
