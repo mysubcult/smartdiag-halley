@@ -3,6 +3,11 @@ import { useState, useEffect } from 'react';
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [cookies, setCookies] = useState({
+    necessary: true, // Эти куки всегда включены и не могут быть отключены
+    analytics: false,
+    marketing: false,
+  });
 
   useEffect(() => {
     const cookiesAccepted = localStorage.getItem('cookiesAccepted');
@@ -12,8 +17,15 @@ const CookieConsent = () => {
   }, []);
 
   const acceptCookies = () => {
-    localStorage.setItem('cookiesAccepted', 'true');
+    localStorage.setItem('cookiesAccepted', JSON.stringify(cookies));
     setIsVisible(false);
+  };
+
+  const handleCheckboxChange = (type) => {
+    setCookies((prevState) => ({
+      ...prevState,
+      [type]: !prevState[type],
+    }));
   };
 
   const openModal = () => {
@@ -28,17 +40,41 @@ const CookieConsent = () => {
 
   return (
     <>
-      {/* Основное окно согласия с куки, адаптированное для мобильных устройств и с учетом виджета онлайн-чата */}
+      {/* Основное окно согласия с куки */}
       <div className="fixed bottom-4 left-4 right-32 md:right-4 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg w-auto max-w-md border-2 border-gray-300 dark:border-gray-700 flex flex-col items-center space-y-3">
         <p className="text-gray-800 dark:text-gray-200 text-sm w-full text-center">
-          Мы используем файлы cookie для улучшения вашего опыта. Продолжая использовать сайт, вы соглашаетесь с их использованием.
+          Мы используем файлы cookie для улучшения вашего опыта. Выберите, какие куки вы согласны использовать:
         </p>
+        <div className="flex flex-col items-start space-y-2 w-full">
+          <label className="text-gray-800 dark:text-gray-200 text-sm flex items-center">
+            <input type="checkbox" checked={cookies.necessary} disabled className="mr-2" />
+            Необходимые куки (всегда включены)
+          </label>
+          <label className="text-gray-800 dark:text-gray-200 text-sm flex items-center">
+            <input
+              type="checkbox"
+              checked={cookies.analytics}
+              onChange={() => handleCheckboxChange('analytics')}
+              className="mr-2"
+            />
+            Аналитические куки
+          </label>
+          <label className="text-gray-800 dark:text-gray-200 text-sm flex items-center">
+            <input
+              type="checkbox"
+              checked={cookies.marketing}
+              onChange={() => handleCheckboxChange('marketing')}
+              className="mr-2"
+            />
+            Маркетинговые куки
+          </label>
+        </div>
         <div className="flex space-x-2 justify-center">
           <button
             className="bg-red-600 text-white px-3 py-1.5 rounded-md hover:bg-red-700 transition duration-300 text-sm"
             onClick={acceptCookies}
           >
-            Принять
+            Принять выбранные
           </button>
           <button
             className="text-red-600 underline hover:text-red-800 text-sm"
