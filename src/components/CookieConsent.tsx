@@ -93,7 +93,7 @@ const CookieConsent = () => {
 
       {/* Универсальное затемнение фона для всех модальных окон */}
       {(isSettingsOpen || isModalOpen) && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center" onClick={(e) => { if (!isModalOpen) closeSettingsModal(); }}>
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center" onClick={(e) => { if (!isSettingsOpen) closeModal(); else closeSettingsModal(); }}>
           {/* Модальное окно с настройками куки */}
           {isSettingsOpen && (
             <div
@@ -163,17 +163,17 @@ const CookieConsent = () => {
           {/* Модальное окно с информацией о куки, поверх окна "Настроить" */}
           {isModalOpen && (
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 shadow-lg absolute z-20"
+              className="bg-white dark:bg-gray-800 rounded-lg p-4 w-72 max-h-80 overflow-y-auto shadow-lg absolute z-20"
               onClick={(e) => e.stopPropagation()}
             >
-              <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">Что такое куки?</h2>
+              <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">Что такое куки?</h2>
               <p className="text-gray-700 dark:text-gray-300 mb-2">
                 <strong>Необходимые куки:</strong> Эти файлы cookie необходимы для обеспечения работы сайта и не могут быть отключены. Они обычно устанавливаются в ответ на ваши действия, такие как установка предпочтений конфиденциальности, вход в систему или заполнение форм.
               </p>
               <p className="text-gray-700 dark:text-gray-300 mb-2">
                 <strong>Аналитические куки:</strong> Эти файлы cookie собирают информацию о том, как посетители используют сайт, например, какие страницы посещаются чаще всего. Они помогают нам улучшать работу сайта, но все данные анонимны.
               </p>
-              <p className="text-gray-700 dark:text-gray-300 mb-4">
+              <p className="text-gray-700 dark:text-gray-300 mb-2">
                 <strong>Маркетинговые куки:</strong> Эти файлы cookie используются для отслеживания посетителей на разных сайтах. Цель состоит в том, чтобы показывать рекламу, которая является релевантной и интересной для конкретного пользователя, а также более ценной для издателей и сторонних рекламодателей.
               </p>
               <button
