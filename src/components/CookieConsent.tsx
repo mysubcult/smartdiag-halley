@@ -67,8 +67,8 @@ const CookieConsent = () => {
         <p className="text-gray-800 dark:text-gray-200 text-sm w-full text-center">
           Мы используем файлы cookie для улучшения вашего опыта на нашем сайте, анализа трафика и персонализации контента. Пожалуйста, выберите, какие куки вы хотите разрешить.
         </p>
-        <div className="flex justify-center items-center w-full space-x-4">
-          <div className="flex space-x-4 justify-center items-center">
+        <div className="flex justify-between items-center w-full">
+          <div className="flex space-x-4 justify-center items-center flex-grow">
             <button
               className="bg-red-600 text-white px-3 py-1.5 rounded-md hover:bg-red-700 transition duration-300 text-sm"
               onClick={acceptAllCookies}
@@ -83,7 +83,7 @@ const CookieConsent = () => {
             </button>
           </div>
           <button
-            className="text-gray-500 underline text-xs ml-4"
+            className="text-gray-500 underline text-xs"
             onClick={openModal}
           >
             Подробнее
@@ -120,7 +120,7 @@ const CookieConsent = () => {
                       className="sr-only"
                     />
                     <div className={`w-10 h-4 rounded-full shadow-inner ${cookies.analytics ? 'bg-green-500' : 'bg-gray-200'}`}></div>
-                    <div className={`dot absolute left-0 top-0.5 w-4 h-4 bg-white rounded-full shadow transition ${cookies.analytics ? 'transform translate-x-5 bg-green-500' : ''}`}></div>
+                    <div className={`dot absolute left-0 top-0.5 w-4 h-4 bg-white rounded-full shadow transition ${cookies.analytics ? 'transform translate-x-6 bg-green-500' : ''}`}></div>
                   </label>
                 </div>
                 <div className="flex justify-between items-center w-full">
@@ -133,7 +133,7 @@ const CookieConsent = () => {
                       className="sr-only"
                     />
                     <div className={`w-10 h-4 rounded-full shadow-inner ${cookies.marketing ? 'bg-green-500' : 'bg-gray-200'}`}></div>
-                    <div className={`dot absolute left-0 top-0.5 w-4 h-4 bg-white rounded-full shadow transition ${cookies.marketing ? 'transform translate-x-5 bg-green-500' : ''}`}></div>
+                    <div className={`dot absolute left-0 top-0.5 w-4 h-4 bg-white rounded-full shadow transition ${cookies.marketing ? 'transform translate-x-6 bg-green-500' : ''}`}></div>
                   </label>
                 </div>
               </div>
