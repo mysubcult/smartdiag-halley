@@ -24,11 +24,11 @@ export default function BlogPost() {
       const sidebarWidth = sidebar.clientWidth;
       const availableWidth = containerWidth - sidebarWidth;
 
-      // Сворачиваем навигацию, если места для текста становится недостаточно
+      // Определяем, нужно ли сворачивать навигацию
       const shouldCollapse = availableWidth < 900; // Порог для сворачивания навигации
       setShouldCollapseNav(shouldCollapse);
-      
-      // Сброс меню при изменении размера окна
+
+      // Закрываем меню при переходе на большую ширину
       if (!shouldCollapse) {
         setIsMenuOpen(false);
       }
@@ -139,7 +139,7 @@ export default function BlogPost() {
             )}
 
             {/* Мобильное меню навигации */}
-            {isMenuOpen && (
+            {isMenuOpen && shouldCollapseNav && (
               <div className="lg:hidden w-full text-center mb-6">
                 <div className="mt-4 p-4 bg-white dark:bg-neutral-900 shadow-lg border border-neutral-300">
                   <nav className="space-y-4">
