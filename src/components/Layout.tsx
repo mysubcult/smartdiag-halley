@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import CookieConsent from "./CookieConsent"; // Импортируем новый компонент
 
 const Layout = (props: any) => {
   const { children, ...customMeta } = props;
@@ -27,6 +28,7 @@ const Layout = (props: any) => {
       </Head>
       <Navbar />
       <main>{children}</main>
+      <CookieConsent /> {/* Добавляем компонент здесь */}
       <Footer />
     </>
   );
