@@ -67,7 +67,7 @@ const CookieConsent = () => {
         <p className="text-gray-800 dark:text-gray-200 text-sm w-full text-center">
           Мы используем файлы cookie для улучшения вашего опыта на нашем сайте, анализа трафика и персонализации контента. Пожалуйста, выберите, какие куки вы хотите разрешить.
         </p>
-        <div className="flex justify-center items-center w-full">
+        <div className="w-full flex justify-center">
           <div className="flex space-x-4 justify-center items-center">
             <button
               className="bg-red-600 text-white px-3 py-1.5 rounded-md hover:bg-red-700 transition duration-300 text-sm"
@@ -82,14 +82,14 @@ const CookieConsent = () => {
               Настроить
             </button>
           </div>
-          <div className="flex-grow flex justify-end">
-            <button
-              className="text-gray-500 underline text-xs"
-              onClick={openModal}
-            >
-              Подробнее
-            </button>
-          </div>
+        </div>
+        <div className="w-full flex justify-end">
+          <button
+            className="text-gray-500 underline text-xs"
+            onClick={openModal}
+          >
+            Подробнее
+          </button>
         </div>
       </div>
 
@@ -108,8 +108,8 @@ const CookieConsent = () => {
                   <span className="text-gray-800 dark:text-gray-200 text-sm">Необходимые куки (всегда включены)</span>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" checked={true} disabled className="sr-only" />
-                    <div className="w-10 h-4 bg-gray-200 rounded-full shadow-inner"></div>
-                    <div className="dot absolute left-0 top-0.25 w-4 h-4 bg-gray-400 rounded-full shadow transition"></div>
+                    <div className="w-10 h-4 bg-green-500 rounded-full shadow-inner"></div>
+                    <div className="dot absolute left-6 top-0.25 w-4 h-4 bg-white rounded-full shadow transition"></div>
                   </label>
                 </div>
                 <div className="flex justify-between items-center w-full">
