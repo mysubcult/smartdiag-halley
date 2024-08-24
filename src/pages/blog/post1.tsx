@@ -6,22 +6,27 @@ import { useRouter } from 'next/router';
 
 export default function BlogPost() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [shouldCollapseNav, setShouldCollapseNav] = useState(false);
   const router = useRouter();
 
-  // Обработчик изменения размера окна
   useEffect(() => {
+    // Проверка доступности объекта window
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setIsMenuOpen(false); // Закрыть меню на больших экранах
+      if (typeof window !== 'undefined') {
+        setShouldCollapseNav(window.innerWidth < 1024);
       }
     };
 
     handleResize(); // Проверяем при загрузке
 
-    window.addEventListener('resize', handleResize);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize);
+    }
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', handleResize);
+      }
     };
   }, []);
 
@@ -30,18 +35,20 @@ export default function BlogPost() {
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:space-x-8">
           {/* Кнопка меню навигации на мобильных устройствах */}
-          <div className="lg:hidden w-full text-center mb-6">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium"
-              aria-label="Открыть меню навигации"
-            >
-              Меню навигации
-            </button>
-          </div>
+          {shouldCollapseNav && (
+            <div className="lg:hidden w-full text-center mb-6">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium"
+                aria-label="Открыть меню навигации"
+              >
+                Меню навигации
+              </button>
+            </div>
+          )}
 
           {/* Панель навигации для настольной версии и мобильного меню */}
-          {(isMenuOpen || window.innerWidth >= 1024) && (
+          {(isMenuOpen || !shouldCollapseNav) && (
             <aside className={`lg:w-1/4 w-full px-4 mb-6 lg:mb-0 border-r border-neutral-300`}>
               <div className="w-full lg:fixed lg:w-56 p-4 bg-white dark:bg-neutral-900 shadow-lg">
                 <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
