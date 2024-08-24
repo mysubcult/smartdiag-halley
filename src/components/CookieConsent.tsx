@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react';
 
+interface CookiePreferences {
+  necessary: boolean;
+  analytics: boolean;
+  marketing: boolean;
+}
+
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [cookies, setCookies] = useState({
+  const [cookies, setCookies] = useState<CookiePreferences>({
     necessary: true, // Эти куки всегда включены и не могут быть отключены
     analytics: false,
     marketing: false,
@@ -21,7 +27,7 @@ const CookieConsent = () => {
     setIsVisible(false);
   };
 
-  const handleCheckboxChange = (type) => {
+  const handleCheckboxChange = (type: keyof CookiePreferences) => {
     setCookies((prevState) => ({
       ...prevState,
       [type]: !prevState[type],
