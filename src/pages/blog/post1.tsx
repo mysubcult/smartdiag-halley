@@ -11,6 +11,7 @@ export default function BlogPost() {
   const [shouldCollapseNav, setShouldCollapseNav] = useState(false);
   const router = useRouter();
 
+  // Обработчик изменения размера окна
   const handleResize = useCallback(() => {
     const navbar = document.querySelector('nav') as HTMLElement;
     const offsetHeight = navbar ? navbar.offsetHeight : 0;
@@ -24,24 +25,32 @@ export default function BlogPost() {
       const sidebarWidth = sidebar.clientWidth;
       const availableWidth = containerWidth - sidebarWidth;
 
+      // Определяем, нужно ли сворачивать навигацию
       const shouldCollapse = availableWidth < 900; // Порог для сворачивания навигации
       setShouldCollapseNav(shouldCollapse);
 
-      // Сброс меню и состояние при изменении размеров
+      // Если навигация не должна быть свернута, закрываем мобильное меню
       if (!shouldCollapse) {
-        setIsMenuOpen(false); // Закрыть меню, если оно было открыто
+        setIsMenuOpen(false);
       }
     }
   }, []);
 
   useEffect(() => {
-    handleResize();
+    handleResize(); // Вызов при первом рендере
     window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, [handleResize]);
+
+  // Обновляем состояние панели навигации при изменении размера окна
+  useEffect(() => {
+    if (!shouldCollapseNav) {
+      setIsMenuOpen(false); // Скрываем мобильное меню при большом экране
+    }
+  }, [shouldCollapseNav]);
 
   useEffect(() => {
     const handleScroll = () => {
