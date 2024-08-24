@@ -171,18 +171,18 @@ const CookieConsent = () => {
           {/* Модальное окно с информацией о куки, поверх окна "Настроить" */}
           {isModalOpen && (
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg p-4 w-96 max-h-96 overflow-y-auto shadow-lg absolute z-20"
+              className="bg-white dark:bg-gray-800 rounded-lg p-6 md:w-3/4 w-11/12 max-h-[90vh] overflow-y-auto shadow-lg relative z-20 m-4"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">Что такое куки?</h2>
               <p className="text-gray-700 dark:text-gray-300 mb-2">
-                <strong>Необходимые куки:</strong> Эти файлы cookie необходимы для обеспечения работы сайта и не могут быть отключены. Они обычно устанавливаются в ответ на ваши действия, такие как установка предпочтений конфиденциальности, вход в систему или заполнение форм.
+                <strong>Необходимые куки:</strong> Эти файлы cookie необходимы для обеспечения работы сайта и не могут быть отключены. Они обычно устанавливаются в ответ на ваши действия, такие как установка предпочтений конфиденциальности, вход в систему или заполнение форм. Подробнее об этом вы можете узнать на сайте <a href="https://www.cnil.fr/en/home" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">CNIL</a>.
               </p>
               <p className="text-gray-700 dark:text-gray-300 mb-2">
-                <strong>Аналитические куки:</strong> Эти файлы cookie собирают информацию о том, как посетители используют сайт, например, какие страницы посещаются чаще всего. Они помогают нам улучшать работу сайта, но все данные анонимны.
+                <strong>Аналитические куки:</strong> Эти файлы cookie собирают информацию о том, как посетители используют сайт, например, какие страницы посещаются чаще всего. Они помогают нам улучшать работу сайта, но все данные анонимны. Дополнительную информацию можно найти на сайте <a href="https://ico.org.uk/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">ICO</a>.
               </p>
               <p className="text-gray-700 dark:text-gray-300 mb-2">
-                <strong>Маркетинговые куки:</strong> Эти файлы cookie используются для отслеживания посетителей на разных сайтах. Цель состоит в том, чтобы показывать рекламу, которая является релевантной и интересной для конкретного пользователя, а также более ценной для издателей и сторонних рекламодателей.
+                <strong>Маркетинговые куки:</strong> Эти файлы cookie используются для отслеживания посетителей на разных сайтах. Цель состоит в том, чтобы показывать рекламу, которая является релевантной и интересной для конкретного пользователя, а также более ценной для издателей и сторонних рекламодателей. Более подробная информация доступна на сайте <a href="https://www.aboutads.info/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">About Ads</a>.
               </p>
               <button
                 className="absolute top-2 right-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-2xl"
