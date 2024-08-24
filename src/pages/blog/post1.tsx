@@ -25,11 +25,11 @@ export default function BlogPost() {
       const availableWidth = containerWidth - sidebarWidth;
 
       // Сворачиваем навигацию, если места для текста становится недостаточно
-      const shouldCollapse = availableWidth < 900; // Уменьшил порог для сворачивания навигации
+      const shouldCollapse = availableWidth < 900; // Порог для сворачивания навигации
       setShouldCollapseNav(shouldCollapse);
 
-      // Сброс состояния меню, если меню должно раскрываться
-      if (!shouldCollapse) {
+      // Если нужно свернуть, закрываем меню
+      if (shouldCollapse) {
         setIsMenuOpen(false);
       }
     }
@@ -95,36 +95,8 @@ export default function BlogPost() {
         <div className="container mx-auto flex flex-col lg:flex-row">
           <div className="relative lg:flex lg:space-x-8">
             {/* Панель навигации */}
-            {!shouldCollapseNav ? (
-              <aside
-                className={`lg:w-1/4 px-4 sticky top-24 h-auto ${
-                  isSticky ? 'fixed' : 'relative'
-                } hidden md:block border-r border-neutral-300`}  // Изменил на md:block для более раннего скрытия
-                aria-label="Навигация по статье"
-              >
-                <div className="fixed w-56 p-4 bg-white dark:bg-neutral-900 shadow-lg">
-                  <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
-                  <nav className="space-y-4">
-                    <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                      Проблема с антивирусом
-                    </a>
-                    <a href="#outdated-software" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                      Устаревшее ПО
-                    </a>
-                    <a href="#download-errors" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                      Ошибки при загрузке
-                    </a>
-                    <a href="#yandex-tips" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                      Советы для Яндекс Браузера
-                    </a>
-                    <a href="#support" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                      Поддержка
-                    </a>
-                  </nav>
-                </div>
-              </aside>
-            ) : (
-              <div className="block md:hidden w-full text-center mb-6"> {/* Изменил на md:hidden для более раннего отображения */}
+            {shouldCollapseNav ? (
+              <div className="w-full text-center mb-6">
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium"
@@ -154,6 +126,34 @@ export default function BlogPost() {
                   </div>
                 )}
               </div>
+            ) : (
+              <aside
+                className={`lg:w-1/4 px-4 sticky top-24 h-auto ${
+                  isSticky ? 'fixed' : 'relative'
+                } hidden md:block border-r border-neutral-300`} // Изменил на md:block для более раннего скрытия
+                aria-label="Навигация по статье"
+              >
+                <div className="fixed w-56 p-4 bg-white dark:bg-neutral-900 shadow-lg">
+                  <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
+                  <nav className="space-y-4">
+                    <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                      Проблема с антивирусом
+                    </a>
+                    <a href="#outdated-software" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                      Устаревшее ПО
+                    </a>
+                    <a href="#download-errors" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                      Ошибки при загрузке
+                    </a>
+                    <a href="#yandex-tips" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                      Советы для Яндекс Браузера
+                    </a>
+                    <a href="#support" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                      Поддержка
+                    </a>
+                  </nav>
+                </div>
+              </aside>
             )}
 
             <div className="w-full lg:w-3/4 mx-auto px-4 lg:ml-8">
