@@ -71,7 +71,7 @@ const CookieConsent = () => {
   return (
     <>
       {/* Основное окно согласия с куки */}
-      <div className="fixed bottom-4 left-4 md:right-4 right-16 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg w-auto max-w-md border-2 border-gray-300 dark:border-gray-700 flex flex-col items-center space-y-3">
+      <div className="fixed bottom-4 left-4 md:right-4 right-24 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg w-auto max-w-md border-2 border-gray-300 dark:border-gray-700 flex flex-col items-center space-y-3">
         <p className="text-gray-800 dark:text-gray-200 text-sm w-full text-center">
           Мы используем файлы cookie для улучшения вашего опыта на нашем сайте, анализа трафика и персонализации контента. Пожалуйста, выберите, какие куки вы хотите разрешить.
         </p>
@@ -90,6 +90,13 @@ const CookieConsent = () => {
               Настроить
             </button>
           </div>
+          {/* Кнопка "Подробнее" видна только в ПК версии */}
+          <button
+            className="text-gray-500 underline text-xs ml-auto hidden md:inline"
+            onClick={openModal}
+          >
+            Подробнее
+          </button>
         </div>
       </div>
 
@@ -165,7 +172,7 @@ const CookieConsent = () => {
           {/* Модальное окно с информацией о куки, поверх окна "Настроить" */}
           {isModalOpen && (
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg p-6 md:w-[80%] w-11/12 max-h-[85vh] overflow-y-auto shadow-lg absolute z-20 m-4 mt-32 md:mt-12"
+              className="bg-white dark:bg-gray-800 rounded-lg p-6 md:w-[80%] w-11/12 max-h-[85vh] overflow-y-auto shadow-lg absolute z-20 m-4 mt-32 md:mt-12 mb-8"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">Что такое куки?</h2>
