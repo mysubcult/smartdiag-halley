@@ -73,7 +73,7 @@ const CookieConsent = () => {
       {/* Основное окно согласия с куки */}
       <div className="fixed bottom-4 left-4 md:right-4 right-24 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg w-auto max-w-md border-2 border-gray-300 dark:border-gray-700 flex flex-col items-center space-y-3">
         <p className="text-gray-800 dark:text-gray-200 text-sm w-full text-center">
-          Мы используем файлы cookie для улучшения вашего опыта на нашем сайте, анализа трафика и персонализации контента. Пожалуйста, выберите, какие куки вы хотите разрешить.
+          Вы можете принять все куки, нажав на соответствующую кнопку, или выбрать, какие куки разрешить, настроив их вручную.
         </p>
         <div className="w-full flex justify-center items-center">
           <div className="flex space-x-4 justify-center mx-auto">
@@ -172,7 +172,7 @@ const CookieConsent = () => {
           {/* Модальное окно с информацией о куки, поверх окна "Настроить" */}
           {isModalOpen && (
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg p-6 md:w-[80%] w-11/12 max-h-[70vh] overflow-y-auto shadow-lg absolute z-20 m-4 mt-40 md:mt-12 mb-16"
+              className="bg-white dark:bg-gray-800 rounded-lg p-6 md:w-[80%] w-11/12 max-h-[70vh] overflow-y-auto shadow-lg absolute z-20 m-4 mt-32 md:mt-8 mb-12"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">Что такое куки?</h2>
