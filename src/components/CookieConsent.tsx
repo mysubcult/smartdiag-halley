@@ -63,27 +63,25 @@ const CookieConsent = () => {
   return (
     <>
       {/* Основное окно согласия с куки */}
-      <div className="fixed bottom-4 left-4 right-32 md:right-4 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg w-auto max-w-md border-2 border-gray-300 dark:border-gray-700 flex flex-col items-center space-y-3">
+      <div className="fixed bottom-4 left-4 right-4 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg w-auto max-w-md border-2 border-gray-300 dark:border-gray-700 flex flex-col items-center space-y-3">
         <p className="text-gray-800 dark:text-gray-200 text-sm w-full text-center">
           Мы используем файлы cookie для улучшения вашего опыта на нашем сайте, анализа трафика и персонализации контента. Пожалуйста, выберите, какие куки вы хотите разрешить.
         </p>
-        <div className="flex justify-between w-full">
-          <div className="flex space-x-4 justify-center">
-            <button
-              className="bg-red-600 text-white px-3 py-1.5 rounded-md hover:bg-red-700 transition duration-300 text-sm"
-              onClick={acceptAllCookies}
-            >
-              Принять все
-            </button>
-            <button
-              className="text-red-600 underline hover:text-red-800 text-sm"
-              onClick={openSettingsModal}
-            >
-              Настроить
-            </button>
-          </div>
+        <div className="flex justify-center items-center w-full space-x-4">
           <button
-            className="text-red-600 underline hover:text-red-800 text-sm ml-auto hidden md:inline-block"
+            className="bg-red-600 text-white px-3 py-1.5 rounded-md hover:bg-red-700 transition duration-300 text-sm"
+            onClick={acceptAllCookies}
+          >
+            Принять все
+          </button>
+          <button
+            className="bg-red-600 text-white px-3 py-1.5 rounded-md hover:bg-red-700 transition duration-300 text-sm"
+            onClick={openSettingsModal}
+          >
+            Настроить
+          </button>
+          <button
+            className="text-gray-500 underline text-xs ml-2"
             onClick={openModal}
           >
             Подробнее
@@ -102,27 +100,39 @@ const CookieConsent = () => {
             >
               <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">Настройки файлов cookie</h2>
               <div className="flex flex-col items-start space-y-4 w-full">
-                <div className="flex justify-between w-full">
+                <div className="flex justify-between items-center w-full">
                   <span className="text-gray-800 dark:text-gray-200 text-sm">Необходимые куки (всегда включены)</span>
-                  <input type="checkbox" checked={true} disabled className="toggle-switch" />
+                  <label className="inline-flex items-center cursor-pointer">
+                    <input type="checkbox" checked={true} disabled className="sr-only" />
+                    <div className="w-10 h-4 bg-gray-200 rounded-full shadow-inner"></div>
+                    <div className="dot absolute w-6 h-6 bg-gray-400 rounded-full shadow -left-1 -top-1 transition"></div>
+                  </label>
                 </div>
-                <div className="flex justify-between w-full">
+                <div className="flex justify-between items-center w-full">
                   <span className="text-gray-800 dark:text-gray-200 text-sm">Аналитические куки</span>
-                  <input
-                    type="checkbox"
-                    checked={cookies.analytics}
-                    onChange={() => handleToggleChange('analytics')}
-                    className="toggle-switch"
-                  />
+                  <label className="inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={cookies.analytics}
+                      onChange={() => handleToggleChange('analytics')}
+                      className="sr-only"
+                    />
+                    <div className={`w-10 h-4 rounded-full shadow-inner ${cookies.analytics ? 'bg-green-500' : 'bg-gray-200'}`}></div>
+                    <div className={`dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition ${cookies.analytics ? 'transform translate-x-5 bg-green-500' : ''}`}></div>
+                  </label>
                 </div>
-                <div className="flex justify-between w-full">
+                <div className="flex justify-between items-center w-full">
                   <span className="text-gray-800 dark:text-gray-200 text-sm">Маркетинговые куки</span>
-                  <input
-                    type="checkbox"
-                    checked={cookies.marketing}
-                    onChange={() => handleToggleChange('marketing')}
-                    className="toggle-switch"
-                  />
+                  <label className="inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={cookies.marketing}
+                      onChange={() => handleToggleChange('marketing')}
+                      className="sr-only"
+                    />
+                    <div className={`w-10 h-4 rounded-full shadow-inner ${cookies.marketing ? 'bg-green-500' : 'bg-gray-200'}`}></div>
+                    <div className={`dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition ${cookies.marketing ? 'transform translate-x-5 bg-green-500' : ''}`}></div>
+                  </label>
                 </div>
               </div>
               <div className="flex space-x-2 justify-between mt-4">
@@ -148,10 +158,10 @@ const CookieConsent = () => {
             </div>
           )}
 
-          {/* Модальное окно с информацией о куки, расположено сбоку */}
+          {/* Модальное окно с информацией о куки, поверх окна "Настроить" */}
           {isModalOpen && (
             <div
-              className="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 shadow-lg relative ml-4"
+              className="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 shadow-lg relative"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">Что такое куки?</h2>
