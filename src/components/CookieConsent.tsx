@@ -29,11 +29,11 @@ const CookieConsent = () => {
   return (
     <>
       {/* Основное окно согласия с куки, расположенное слева снизу */}
-      <div className="fixed bottom-4 left-4 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg w-72 border border-gray-200 dark:border-gray-700 flex flex-col items-start space-y-3">
-        <p className="text-gray-800 dark:text-gray-200 text-sm">
+      <div className="fixed bottom-4 left-4 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg w-72 border border-gray-200 dark:border-gray-700 flex flex-col items-center space-y-3 text-center">
+        <p className="text-gray-800 dark:text-gray-200 text-sm w-full">
           Мы используем файлы cookie для улучшения вашего опыта. Оставаясь на сайте, вы соглашаетесь с их использованием.
         </p>
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 justify-center">
           <button
             className="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700 transition duration-300 text-sm"
             onClick={acceptCookies}
