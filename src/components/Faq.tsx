@@ -61,7 +61,8 @@ const categories = [
   { name: "Рекомендации", value: "Рекомендации" },
 ];
 
-function classNames(...classes) {
+// Исправленная функция classNames с указанием типа параметра
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
@@ -78,14 +79,14 @@ export default function Blog() {
   );
 
   const handleCategoryClick = useCallback(
-    (category) => {
+    (category: string) => {
       setSelectedCategory(category);
       setIsOpen(false);
     },
     []
   );
 
-  const renderCategoryButton = (category) => (
+  const renderCategoryButton = (category: { name: string; value: string }) => (
     <button
       key={category.value}
       onClick={() => handleCategoryClick(category.value)}
