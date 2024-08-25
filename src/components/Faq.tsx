@@ -61,7 +61,6 @@ const categories = [
   { name: "Рекомендации", value: "Рекомендации" },
 ];
 
-// Исправленная функция classNames с указанием типа параметра
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -92,9 +91,9 @@ export default function Blog() {
       onClick={() => handleCategoryClick(category.value)}
       className={classNames(
         category.value === selectedCategory
-          ? "bg-red-500 text-white"
-          : "text-gray-700 dark:text-gray-200 hover:bg-red-500 hover:text-white",
-        "rounded-full m-2 py-2 px-6 transition-colors duration-300 ease-in-out"
+          ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700",
+        "rounded-md m-1 py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
       )}
     >
       {category.name}
@@ -109,11 +108,42 @@ export default function Blog() {
       </p>
 
       {/* Навигация по категориям */}
-      <div className="flex justify-center flex-wrap">
-        {categories.map(renderCategoryButton)}
+      <div className="hidden sm:block">
+        <nav className="flex justify-center">
+          <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
+            {categories.map(renderCategoryButton)}
+          </div>
+        </nav>
+      </div>
+      <div className="block sm:hidden">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 py-2 px-4 rounded-md w-full text-left"
+        >
+          {isOpen ? "Закрыть разделы" : selectedCategory}
+        </button>
+        {isOpen && (
+          <div className="mt-2 space-y-1">
+            {categories.map((category) => (
+              <button
+                key={category.value}
+                onClick={() => handleCategoryClick(category.value)}
+                className={classNames(
+                  category.value === selectedCategory
+                    ? "bg-red-500 text-white"
+                    : "text-gray-700 dark:text-gray-200 hover:bg-red-500 hover:text-white transition-colors duration-300",
+                  "block px-3 py-2 rounded-md text-base font-medium w-full text-left"
+                )}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+      {/* Карточки постов блога */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 max-w-4xl mx-auto">
         {filteredPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
