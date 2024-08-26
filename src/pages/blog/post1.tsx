@@ -19,12 +19,6 @@ export default function BlogPost() {
         if (mutation.attributeName === 'class') {
           const darkMode = document.documentElement.classList.contains('dark');
           setIsDarkMode(darkMode);
-
-          // Отправляем сообщение в iframe о смене темы
-          const iframe = document.querySelector('iframe');
-          if (iframe && iframe.contentWindow) {
-            iframe.contentWindow.postMessage({ darkMode }, '*');
-          }
         }
       });
     });
@@ -49,67 +43,27 @@ export default function BlogPost() {
             </button>
           </div>
 
-          {/* Фиксированная панель навигации через iframe с отступом сверху */}
+          {/* Панель навигации как часть компонента */}
           <div className={`lg:w-1/4 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0`}>
-            <div className="fixed top-16 left-0 w-1/4 h-[calc(100vh-4rem)] bg-white dark:bg-black text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4"> {/* top-16 для отступа */}
-              <h3 className="text-center py-4 text-xl font-bold">Навигация</h3> {/* Заголовок навигации */}
-              <iframe
-                srcDoc={`
-                  <!DOCTYPE html>
-                  <html lang="ru">
-                  <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-                    <style>
-                      body { 
-                        margin: 0; 
-                        padding: 0; 
-                      }
-                      .dark-mode { 
-                        background-color: #000000; /* Цвет фона для темной темы */
-                        color: #e5e7eb; /* Цвет текста для темной темы */
-                      }
-                      .light-mode {
-                        background-color: #ffffff; /* Цвет фона для светлой темы */
-                        color: #1f2937; /* Цвет текста для светлой темы */
-                      }
-                    </style>
-                    <script>
-                      // Слушаем сообщения от родительского окна для смены темы
-                      window.addEventListener('message', (event) => {
-                        if (event.data.darkMode !== undefined) {
-                          if (event.data.darkMode) {
-                            document.body.classList.add('dark-mode');
-                            document.body.classList.remove('light-mode');
-                          } else {
-                            document.body.classList.add('light-mode');
-                            document.body.classList.remove('dark-mode');
-                          }
-                        }
-                      });
-                      // Первоначальная установка темы
-                      if (${isDarkMode}) {
-                        document.body.classList.add('dark-mode');
-                      } else {
-                        document.body.classList.add('light-mode');
-                      }
-                    </script>
-                  </head>
-                  <body class="${isDarkMode ? 'dark-mode' : 'light-mode'} p-4">
-                    <nav class="space-y-2">
-                      <a href="#antivirus-issue" target="_parent" class="nav-link block text-base text-inherit hover:text-rose-500">Проблема с антивирусом</a>
-                      <a href="#outdated-software" target="_parent" class="nav-link block text-base text-inherit hover:text-rose-500">Устаревшее ПО</a>
-                      <a href="#download-errors" target="_parent" class="nav-link block text-base text-inherit hover:text-rose-500">Ошибки при загрузке</a>
-                      <a href="#yandex-tips" target="_parent" class="nav-link block text-base text-inherit hover:text-rose-500">Советы для Яндекс Браузера</a>
-                      <a href="#support" target="_parent" class="nav-link block text-base text-inherit hover:text-rose-500">Поддержка</a>
-                    </nav>
-                  </body>
-                </html>
-              `}
-                className="w-full h-full border-0"
-                title="Навигация по блогу"
-              ></iframe>
+            <div className="fixed top-16 left-0 w-1/4 h-[calc(100vh-4rem)] bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4"> {/* top-16 для отступа */}
+              <h3 className="text-center py-4 text-xl font-bold">Навигация</h3>
+              <nav className="space-y-2">
+                <Link href="#antivirus-issue">
+                  <a className="block text-base text-inherit hover:text-rose-500">Проблема с антивирусом</a>
+                </Link>
+                <Link href="#outdated-software">
+                  <a className="block text-base text-inherit hover:text-rose-500">Устаревшее ПО</a>
+                </Link>
+                <Link href="#download-errors">
+                  <a className="block text-base text-inherit hover:text-rose-500">Ошибки при загрузке</a>
+                </Link>
+                <Link href="#yandex-tips">
+                  <a className="block text-base text-inherit hover:text-rose-500">Советы для Яндекс Браузера</a>
+                </Link>
+                <Link href="#support">
+                  <a className="block text-base text-inherit hover:text-rose-500">Поддержка</a>
+                </Link>
+              </nav>
             </div>
           </div>
 
