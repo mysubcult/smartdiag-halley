@@ -31,44 +31,32 @@ export default function BlogPost() {
   return (
     <Layout>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
-        <div className="container mx-auto flex flex-col lg:flex-row lg:space-x-4"> {/* Уменьшен отступ */}
-          {/* Кнопка меню навигации на мобильных устройствах */}
-          <div className="lg:hidden w-full text-center mb-6">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium"
-              aria-label="Открыть меню навигации"
-            >
-              Меню навигации
-            </button>
-          </div>
-
+        <div className="container mx-auto flex flex-col lg:flex-row lg:justify-center"> {/* Центрируем содержимое */}
+          
           {/* Панель навигации как часть компонента */}
-          <div className={`lg:w-1/6 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0`}> {/* Изменена ширина */}
-            <div className="fixed top-16 left-4 w-1/6 h-[calc(100vh-4rem)] bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4"> {/* Уменьшены отступы и добавлены отступы слева */}
-              <h3 className="text-center py-4 text-xl font-bold">Навигация</h3>
-              <nav className="space-y-2">
-                <Link href="#antivirus-issue">
-                  <a className="block text-base text-inherit hover:text-rose-500">Проблема с антивирусом</a>
-                </Link>
-                <Link href="#outdated-software">
-                  <a className="block text-base text-inherit hover:text-rose-500">Устаревшее ПО</a>
-                </Link>
-                <Link href="#download-errors">
-                  <a className="block text-base text-inherit hover:text-rose-500">Ошибки при загрузке</a>
-                </Link>
-                <Link href="#yandex-tips">
-                  <a className="block text-base text-inherit hover:text-rose-500">Советы для Яндекс Браузера</a>
-                </Link>
-                <Link href="#support">
-                  <a className="block text-base text-inherit hover:text-rose-500">Поддержка</a>
-                </Link>
-              </nav>
-            </div>
+          <div className={`fixed left-0 top-16 h-[calc(100vh-4rem)] w-1/6 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4`}> {/* Уменьшены отступы и добавлены отступы слева */}
+            <h3 className="text-center py-4 text-xl font-bold">Навигация</h3>
+            <nav className="space-y-2">
+              <Link href="#antivirus-issue">
+                <a className="block text-base text-inherit hover:text-rose-500">Проблема с антивирусом</a>
+              </Link>
+              <Link href="#outdated-software">
+                <a className="block text-base text-inherit hover:text-rose-500">Устаревшее ПО</a>
+              </Link>
+              <Link href="#download-errors">
+                <a className="block text-base text-inherit hover:text-rose-500">Ошибки при загрузке</a>
+              </Link>
+              <Link href="#yandex-tips">
+                <a className="block text-base text-inherit hover:text-rose-500">Советы для Яндекс Браузера</a>
+              </Link>
+              <Link href="#support">
+                <a className="block text-base text-inherit hover:text-rose-500">Поддержка</a>
+              </Link>
+            </nav>
           </div>
 
           {/* Основной контент блога, центрированный */}
-          <div className="w-full lg:w-5/6 lg:mx-auto px-4 lg:max-w-4xl"> {/* Увеличен max-width и изменена ширина */}
+          <div className="w-full lg:w-3/4 px-4 lg:max-w-2xl lg:ml-6"> {/* Центрируем и добавляем минимальные отступы */}
             <h2 className="text-4xl font-bold">Как справиться с ошибкой при открытии архива</h2>
 
             <p id="introduction" className="pt-6 pb-8 text-base max-w-2xl dark:text-neutral-400">
@@ -86,7 +74,7 @@ export default function BlogPost() {
               className="w-full max-w-full mx-auto mb-8"
             />
 
-            <div className="max-w-4xl mx-auto text-lg leading-relaxed">
+            <div className="max-w-2xl mx-auto text-lg leading-relaxed">
               <h3 className="text-2xl font-semibold mt-8" id="antivirus-issue">Проблема с антивирусом</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4 scroll-section">
