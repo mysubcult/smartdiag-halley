@@ -31,20 +31,10 @@ export default function BlogPost() {
   return (
     <Layout>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
-        <div className="container mx-auto flex flex-col lg:flex-row lg:justify-center lg:space-x-4"> {/* Центрируем содержимое и уменьшаем отступ */}
-          {/* Кнопка меню навигации на мобильных устройствах */}
-          <div className="lg:hidden w-full text-center mb-6">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium"
-              aria-label="Открыть меню навигации"
-            >
-              Меню навигации
-            </button>
-          </div>
-
+        <div className="container mx-auto flex flex-col lg:flex-row lg:justify-start lg:space-x-4"> {/* Центрируем содержимое и уменьшаем отступ */}
+          
           {/* Панель навигации как часть компонента */}
-          <div className={`lg:w-1/5 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0 fixed top-16 left-4 h-[calc(100vh-4rem)] bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4`}> {/* Ширина панели навигации уменьшена, добавлена кнопка для мобильных устройств */}
+          <div className={`lg:w-1/6 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0 lg:relative fixed top-16 left-4 h-[calc(100vh-4rem)] bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4`}> {/* Адаптивная панель навигации */}
             <h3 className="text-center py-4 text-xl font-bold">Навигация</h3>
             <nav className="space-y-2">
               <Link href="#antivirus-issue">
@@ -66,7 +56,7 @@ export default function BlogPost() {
           </div>
 
           {/* Основной контент блога, центрированный и широкий */}
-          <div className="w-full lg:w-4/5 lg:mx-auto px-4 lg:max-w-5xl"> {/* Увеличен max-width и ширина */}
+          <div className="w-full lg:w-4/5 px-4 lg:max-w-5xl mx-auto"> {/* Увеличен max-width и центрировано */}
             <h2 className="text-4xl font-bold">Как справиться с ошибкой при открытии архива</h2>
 
             <p id="introduction" className="pt-6 pb-8 text-base max-w-3xl dark:text-neutral-400">
