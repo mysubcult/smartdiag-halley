@@ -33,9 +33,20 @@ export default function BlogPost() {
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-start lg:space-x-4"> {/* Центрируем содержимое и уменьшаем отступ */}
           
+          {/* Кнопка меню навигации на мобильных устройствах */}
+          <div className="lg:hidden w-full text-center mb-4"> {/* Уменьшенный отступ и видимая кнопка на мобильных устройствах */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium"
+              aria-label="Открыть меню навигации"
+            >
+              Меню навигации
+            </button>
+          </div>
+
           {/* Панель навигации как часть компонента */}
-          <div className={`lg:w-1/6 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0 lg:relative fixed top-16 left-4 h-[calc(100vh-4rem)] bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4`}> {/* Адаптивная панель навигации */}
-            <h3 className="text-center py-4 text-xl font-bold">Навигация</h3>
+          <div className={`lg:w-1/6 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0 lg:relative fixed top-4 left-4 h-[calc(100vh-4rem)] bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4`}> {/* Адаптивная панель навигации с уменьшенным отступом сверху */}
+            <h3 className="text-center py-2 text-xl font-bold">Навигация</h3> {/* Уменьшенный отступ сверху */}
             <nav className="space-y-2">
               <Link href="#antivirus-issue">
                 <a className="block text-base text-inherit hover:text-rose-500">Проблема с антивирусом</a>
