@@ -22,7 +22,7 @@ export default function BlogPost() {
           </div>
 
           {/* Фиксированная панель навигации через iframe */}
-          <div className={`lg:w-1/4 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0`}>
+          <div className={`lg:w-1/4 w-full lg:block ${isMenuOpen ? 'block' : 'hidden'} mb-6 lg:mb-0 lg:fixed lg:top-24 lg:left-0 lg:h-full lg:overflow-y-auto lg:px-4`}>
             <iframe
               srcDoc={`
                 <!DOCTYPE html>
@@ -34,7 +34,6 @@ export default function BlogPost() {
                     body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: white; }
                     .nav-link { display: block; margin-bottom: 10px; color: #333; text-decoration: none; }
                     .nav-link:hover { color: #e63946; }
-                    nav { position: sticky; top: 20px; } /* Фиксированное положение панели */
                   </style>
                 </head>
                 <body>
@@ -49,13 +48,13 @@ export default function BlogPost() {
                 </body>
                 </html>
               `}
-              className="w-full h-screen border-0"
+              className="w-full h-full border-0"
               title="Навигация по блогу"
             ></iframe>
           </div>
 
           {/* Основной контент блога */}
-          <div className="w-full lg:w-3/4 mx-auto px-4">
+          <div className="w-full lg:w-3/4 lg:ml-1/4 mx-auto px-4">
             <h2 className="text-4xl font-bold">Как справиться с ошибкой при открытии архива</h2>
 
             <p id="introduction" className="pt-6 pb-8 text-base max-w-2xl dark:text-neutral-400">
