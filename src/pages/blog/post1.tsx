@@ -23,7 +23,7 @@ export default function BlogPost() {
 
           {/* Фиксированная панель навигации через iframe */}
           <div className={`lg:w-1/4 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0`}>
-            <div className="fixed top-0 left-0 w-1/4 h-screen bg-white dark:bg-neutral-900 overflow-y-auto px-4">
+            <div className="fixed top-0 left-0 w-1/4 h-screen bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4">
               <iframe
                 srcDoc={`
                   <!DOCTYPE html>
@@ -32,10 +32,17 @@ export default function BlogPost() {
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <style>
-                      body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: white; }
-                      .nav-link { display: block; margin-bottom: 10px; color: #333; text-decoration: none; }
+                      body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #fff; color: #333; }
+                      body.dark { background-color: #1a202c; color: #a0aec0; }
+                      .nav-link { display: block; margin-bottom: 10px; text-decoration: none; }
                       .nav-link:hover { color: #e63946; }
                     </style>
+                    <script>
+                      // Скрипт для переключения темы в iframe
+                      if (window.parent.document.documentElement.classList.contains('dark')) {
+                        document.body.classList.add('dark');
+                      }
+                    </script>
                   </head>
                   <body>
                     <h3 style="text-align: center;">Навигация</h3>
@@ -47,16 +54,16 @@ export default function BlogPost() {
                       <a href="#support" target="_parent" class="nav-link">Поддержка</a>
                     </nav>
                   </body>
-                  </html>
-                `}
+                </html>
+              `}
                 className="w-full h-full border-0"
                 title="Навигация по блогу"
               ></iframe>
             </div>
           </div>
 
-          {/* Основной контент блога */}
-          <div className="w-full lg:w-3/4 lg:ml-1/4 mx-auto px-4">
+          {/* Основной контент блога, центрированный */}
+          <div className="w-full lg:w-3/4 lg:mx-auto px-4 lg:max-w-2xl">
             <h2 className="text-4xl font-bold">Как справиться с ошибкой при открытии архива</h2>
 
             <p id="introduction" className="pt-6 pb-8 text-base max-w-2xl dark:text-neutral-400">
