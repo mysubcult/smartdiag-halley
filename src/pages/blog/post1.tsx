@@ -60,26 +60,19 @@ export default function BlogPost() {
                   <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
                     <style>
                       body { 
-                        font-family: Arial, sans-serif; 
                         margin: 0; 
-                        padding: 20px; 
-                        background-color: white; 
-                        color: #333; 
+                        padding: 0; 
                       }
-                      body.dark { 
-                        background-color: black; /* Изменён цвет на чёрный для тёмной темы */
-                        color: #a0aec0; 
+                      .dark-mode { 
+                        background-color: #000000; /* Цвет фона для темной темы */
+                        color: #e5e7eb; /* Цвет текста для темной темы */
                       }
-                      .nav-link { 
-                        display: block; 
-                        margin-bottom: 10px; 
-                        color: inherit; /* Используем цвет текста, установленный в body */
-                        text-decoration: none; 
-                      }
-                      .nav-link:hover { 
-                        color: #e63946; 
+                      .light-mode {
+                        background-color: #ffffff; /* Цвет фона для светлой темы */
+                        color: #1f2937; /* Цвет текста для светлой темы */
                       }
                     </style>
                     <script>
@@ -87,25 +80,29 @@ export default function BlogPost() {
                       window.addEventListener('message', (event) => {
                         if (event.data.darkMode !== undefined) {
                           if (event.data.darkMode) {
-                            document.body.classList.add('dark');
+                            document.body.classList.add('dark-mode');
+                            document.body.classList.remove('light-mode');
                           } else {
-                            document.body.classList.remove('dark');
+                            document.body.classList.add('light-mode');
+                            document.body.classList.remove('dark-mode');
                           }
                         }
                       });
                       // Первоначальная установка темы
                       if (${isDarkMode}) {
-                        document.body.classList.add('dark');
+                        document.body.classList.add('dark-mode');
+                      } else {
+                        document.body.classList.add('light-mode');
                       }
                     </script>
                   </head>
-                  <body class="${isDarkMode ? 'dark' : ''}">
-                    <nav>
-                      <a href="#antivirus-issue" target="_parent" class="nav-link">Проблема с антивирусом</a>
-                      <a href="#outdated-software" target="_parent" class="nav-link">Устаревшее ПО</a>
-                      <a href="#download-errors" target="_parent" class="nav-link">Ошибки при загрузке</a>
-                      <a href="#yandex-tips" target="_parent" class="nav-link">Советы для Яндекс Браузера</a>
-                      <a href="#support" target="_parent" class="nav-link">Поддержка</a>
+                  <body class="${isDarkMode ? 'dark-mode' : 'light-mode'} p-4">
+                    <nav class="space-y-2">
+                      <a href="#antivirus-issue" target="_parent" class="nav-link block text-base text-inherit hover:text-rose-500">Проблема с антивирусом</a>
+                      <a href="#outdated-software" target="_parent" class="nav-link block text-base text-inherit hover:text-rose-500">Устаревшее ПО</a>
+                      <a href="#download-errors" target="_parent" class="nav-link block text-base text-inherit hover:text-rose-500">Ошибки при загрузке</a>
+                      <a href="#yandex-tips" target="_parent" class="nav-link block text-base text-inherit hover:text-rose-500">Советы для Яндекс Браузера</a>
+                      <a href="#support" target="_parent" class="nav-link block text-base text-inherit hover:text-rose-500">Поддержка</a>
                     </nav>
                   </body>
                 </html>
