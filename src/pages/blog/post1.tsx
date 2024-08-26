@@ -1,30 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
 
 export default function BlogPost() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrollingUp, setScrollingUp] = useState(false);
-  let lastScrollTop = 0;
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollTop = window.scrollY;
-      if (currentScrollTop > lastScrollTop) {
-        setScrollingUp(false); // Пользователь прокручивает вниз
-      } else {
-        setScrollingUp(true); // Пользователь прокручивает вверх
-      }
-      lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // Для Safari
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   return (
     <Layout>
@@ -41,31 +21,37 @@ export default function BlogPost() {
             </button>
           </div>
 
-          {/* Панель навигации */}
-          <aside
-            className={`fixed top-24 left-0 w-64 px-4 py-8 bg-white dark:bg-neutral-900 shadow-lg transition-transform duration-300 ${
-              scrollingUp ? 'transform-none' : '-translate-y-full'
-            } ${isMenuOpen ? 'block' : 'hidden lg:block'}`}
-          >
-            <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
-            <nav className="space-y-4">
-              <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                Проблема с антивирусом
-              </a>
-              <a href="#outdated-software" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                Устаревшее ПО
-              </a>
-              <a href="#download-errors" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                Ошибки при загрузке
-              </a>
-              <a href="#yandex-tips" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                Советы для Яндекс Браузера
-              </a>
-              <a href="#support" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                Поддержка
-              </a>
-            </nav>
-          </aside>
+          {/* Панель навигации через iframe */}
+          <div className={`lg:w-1/4 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0`}>
+            <iframe
+              srcDoc={`
+                <!DOCTYPE html>
+                <html lang="ru">
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <style>
+                    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: white; }
+                    .nav-link { display: block; margin-bottom: 10px; color: #333; text-decoration: none; }
+                    .nav-link:hover { color: #e63946; }
+                  </style>
+                </head>
+                <body>
+                  <h3 style="text-align: center;">Навигация</h3>
+                  <nav>
+                    <a href="#antivirus-issue" class="nav-link">Проблема с антивирусом</a>
+                    <a href="#outdated-software" class="nav-link">Устаревшее ПО</a>
+                    <a href="#download-errors" class="nav-link">Ошибки при загрузке</a>
+                    <a href="#yandex-tips" class="nav-link">Советы для Яндекс Браузера</a>
+                    <a href="#support" class="nav-link">Поддержка</a>
+                  </nav>
+                </body>
+                </html>
+              `}
+              className="w-full h-screen border-0"
+              title="Навигация по блогу"
+            ></iframe>
+          </div>
 
           {/* Основной контент блога */}
           <div className="w-full lg:w-3/4 mx-auto px-4">
