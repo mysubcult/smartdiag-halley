@@ -31,10 +31,10 @@ export default function BlogPost() {
   return (
     <Layout>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
-        <div className="container mx-auto flex flex-col lg:flex-row lg:justify-start lg:space-x-4"> {/* Центрируем содержимое и уменьшаем отступ */}
+        <div className="container mx-auto flex flex-col lg:flex-row lg:space-x-4"> {/* Контейнер с основным содержимым */}
           
           {/* Кнопка меню навигации на мобильных устройствах */}
-          <div className="lg:hidden w-full text-center mb-4"> {/* Уменьшенный отступ и видимая кнопка на мобильных устройствах */}
+          <div className="lg:hidden w-full text-center mb-4">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium"
@@ -45,8 +45,8 @@ export default function BlogPost() {
           </div>
 
           {/* Панель навигации как часть компонента */}
-          <div className={`lg:w-1/6 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0 lg:relative fixed top-4 left-4 h-[calc(100vh-4rem)] bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4`}> {/* Адаптивная панель навигации с уменьшенным отступом сверху */}
-            <h3 className="text-center py-2 text-xl font-bold">Навигация</h3> {/* Уменьшенный отступ сверху */}
+          <div className={`lg:w-1/6 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0 fixed top-16 left-4 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4 h-[calc(100vh-4rem)]`}> {/* Фиксированная панель навигации */}
+            <h3 className="text-center py-2 text-xl font-bold">Навигация</h3>
             <nav className="space-y-2">
               <Link href="#antivirus-issue">
                 <a className="block text-base text-inherit hover:text-rose-500">Проблема с антивирусом</a>
@@ -67,7 +67,7 @@ export default function BlogPost() {
           </div>
 
           {/* Основной контент блога, центрированный и широкий */}
-          <div className="w-full lg:w-4/5 px-4 lg:max-w-5xl mx-auto"> {/* Увеличен max-width и центрировано */}
+          <div className="w-full lg:w-4/6 lg:mx-auto px-4 lg:max-w-3xl"> {/* Основной контент центрирован */}
             <h2 className="text-4xl font-bold">Как справиться с ошибкой при открытии архива</h2>
 
             <p id="introduction" className="pt-6 pb-8 text-base max-w-3xl dark:text-neutral-400">
@@ -85,7 +85,7 @@ export default function BlogPost() {
               className="w-full max-w-full mx-auto mb-8"
             />
 
-            <div className="max-w-5xl mx-auto text-lg leading-relaxed"> {/* Основной контент стал еще шире */}
+            <div className="max-w-3xl mx-auto text-lg leading-relaxed">
               <h3 className="text-2xl font-semibold mt-8" id="antivirus-issue">Проблема с антивирусом</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4 scroll-section">
