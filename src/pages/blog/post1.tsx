@@ -12,6 +12,26 @@ export default function BlogPost() {
   useEffect(() => {
     const darkModeEnabled = document.documentElement.classList.contains('dark');
     setIsDarkMode(darkModeEnabled);
+
+    // Слушаем изменения класса на элементе <html> для динамической смены темы
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          const darkMode = document.documentElement.classList.contains('dark');
+          setIsDarkMode(darkMode);
+
+          // Отправляем сообщение в iframe о смене темы
+          const iframe = document.querySelector('iframe');
+          if (iframe) {
+            iframe.contentWindow.postMessage({ darkMode }, '*');
+          }
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, { attributes: true });
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -62,7 +82,17 @@ export default function BlogPost() {
                       }
                     </style>
                     <script>
-                      // Скрипт для переключения темы в iframe
+                      // Слушаем сообщения от родительского окна для смены темы
+                      window.addEventListener('message', (event) => {
+                        if (event.data.darkMode !== undefined) {
+                          if (event.data.darkMode) {
+                            document.body.classList.add('dark');
+                          } else {
+                            document.body.classList.remove('dark');
+                          }
+                        }
+                      });
+                      // Первоначальная установка темы
                       if (${isDarkMode}) {
                         document.body.classList.add('dark');
                       }
