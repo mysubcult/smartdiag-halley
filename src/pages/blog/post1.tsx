@@ -21,7 +21,7 @@ export default function BlogPost() {
             </button>
           </div>
 
-          {/* Iframe для панели навигации */}
+          {/* Фиксированная панель навигации через iframe */}
           <div className={`lg:w-1/4 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0`}>
             <iframe
               srcDoc={`
@@ -34,6 +34,7 @@ export default function BlogPost() {
                     body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: white; }
                     .nav-link { display: block; margin-bottom: 10px; color: #333; text-decoration: none; }
                     .nav-link:hover { color: #e63946; }
+                    nav { position: sticky; top: 20px; } /* Фиксированное положение панели */
                   </style>
                 </head>
                 <body>
