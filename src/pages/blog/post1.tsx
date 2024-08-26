@@ -21,7 +21,7 @@ export default function BlogPost() {
             </button>
           </div>
 
-          {/* Панель навигации через iframe */}
+          {/* Iframe для панели навигации */}
           <div className={`lg:w-1/4 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0`}>
             <iframe
               srcDoc={`
@@ -39,11 +39,11 @@ export default function BlogPost() {
                 <body>
                   <h3 style="text-align: center;">Навигация</h3>
                   <nav>
-                    <a href="#antivirus-issue" class="nav-link">Проблема с антивирусом</a>
-                    <a href="#outdated-software" class="nav-link">Устаревшее ПО</a>
-                    <a href="#download-errors" class="nav-link">Ошибки при загрузке</a>
-                    <a href="#yandex-tips" class="nav-link">Советы для Яндекс Браузера</a>
-                    <a href="#support" class="nav-link">Поддержка</a>
+                    <a href="#antivirus-issue" target="_parent" class="nav-link">Проблема с антивирусом</a>
+                    <a href="#outdated-software" target="_parent" class="nav-link">Устаревшее ПО</a>
+                    <a href="#download-errors" target="_parent" class="nav-link">Ошибки при загрузке</a>
+                    <a href="#yandex-tips" target="_parent" class="nav-link">Советы для Яндекс Браузера</a>
+                    <a href="#support" target="_parent" class="nav-link">Поддержка</a>
                   </nav>
                 </body>
                 </html>
