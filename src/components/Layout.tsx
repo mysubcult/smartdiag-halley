@@ -8,7 +8,8 @@ const Layout = (props: any) => {
   const router = useRouter();
   const meta = {
     title: "SmartDiag - Ваш проводник в мире автодиагностики",
-    description: `Ваш проводник в мире автодиагностики`,
+    description: `SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.`,
+    keywords: "автодиагностика, Autocom CDP+, Delphi DS150E, VCDS, диагностика автомобилей, программы для диагностики, оборудование для диагностики",
     image: "/images/seo/halley-banner.png",
     type: "website",
     ...customMeta,
@@ -19,11 +20,13 @@ const Layout = (props: any) => {
       <Head>
         <title>{meta.title}</title>
         <meta name="description" content={meta.description} />
+        <meta name="keywords" content={meta.keywords} />
         <meta property="og:type" content={meta.type} />
         <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`} />
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={meta.description} />
         <meta property="og:image" content={meta.image} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`} />
       </Head>
       <Navbar />
       <main>{children}</main>
