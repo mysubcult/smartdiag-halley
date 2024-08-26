@@ -1,10 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
 
 export default function BlogPost() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Определение текущей темы
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const darkModeEnabled = document.documentElement.classList.contains('dark');
+    setIsDarkMode(darkModeEnabled);
+  }, []);
 
   return (
     <Layout>
@@ -23,7 +31,7 @@ export default function BlogPost() {
 
           {/* Фиксированная панель навигации через iframe */}
           <div className={`lg:w-1/4 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0`}>
-            <div className="fixed top-0 left-0 w-1/4 h-screen bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4">
+            <div className="fixed top-0 left-0 w-1/4 h-screen bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4">
               <iframe
                 srcDoc={`
                   <!DOCTYPE html>
@@ -32,19 +40,35 @@ export default function BlogPost() {
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <style>
-                      body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #fff; color: #333; }
-                      body.dark { background-color: #1a202c; color: #a0aec0; }
-                      .nav-link { display: block; margin-bottom: 10px; text-decoration: none; }
-                      .nav-link:hover { color: #e63946; }
+                      body { 
+                        font-family: Arial, sans-serif; 
+                        margin: 0; 
+                        padding: 20px; 
+                        background-color: white; 
+                        color: #333; 
+                      }
+                      body.dark { 
+                        background-color: #1a202c; 
+                        color: #a0aec0; 
+                      }
+                      .nav-link { 
+                        display: block; 
+                        margin-bottom: 10px; 
+                        color: inherit; /* Используем цвет текста, установленный в body */
+                        text-decoration: none; 
+                      }
+                      .nav-link:hover { 
+                        color: #e63946; 
+                      }
                     </style>
                     <script>
                       // Скрипт для переключения темы в iframe
-                      if (window.parent.document.documentElement.classList.contains('dark')) {
+                      if (${isDarkMode}) {
                         document.body.classList.add('dark');
                       }
                     </script>
                   </head>
-                  <body>
+                  <body class="${isDarkMode ? 'dark' : ''}">
                     <h3 style="text-align: center;">Навигация</h3>
                     <nav>
                       <a href="#antivirus-issue" target="_parent" class="nav-link">Проблема с антивирусом</a>
