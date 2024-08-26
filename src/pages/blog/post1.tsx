@@ -22,7 +22,7 @@ export default function BlogPost() {
 
           // Отправляем сообщение в iframe о смене темы
           const iframe = document.querySelector('iframe');
-          if (iframe) {
+          if (iframe && iframe.contentWindow) {
             iframe.contentWindow.postMessage({ darkMode }, '*');
           }
         }
