@@ -49,9 +49,9 @@ export default function BlogPost() {
             </button>
           </div>
 
-          {/* Фиксированная панель навигации через iframe */}
+          {/* Фиксированная панель навигации через iframe с отступом сверху */}
           <div className={`lg:w-1/4 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0`}>
-            <div className="fixed top-0 left-0 w-1/4 h-screen bg-white dark:bg-black text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4">
+            <div className="fixed top-16 left-0 w-1/4 h-[calc(100vh-4rem)] bg-white dark:bg-black text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4"> {/* top-16 для отступа */}
               <h3 className="text-center py-4 text-xl font-bold">Навигация</h3> {/* Заголовок навигации */}
               <iframe
                 srcDoc={`
