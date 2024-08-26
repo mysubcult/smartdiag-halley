@@ -37,7 +37,7 @@ export default function BlogPost() {
   return (
     <Layout>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
-        <div className="container mx-auto flex flex-col lg:flex-row lg:space-x-8">
+        <div className="container mx-auto flex flex-col lg:flex-row lg:space-x-4"> {/* Уменьшен отступ */}
           {/* Кнопка меню навигации на мобильных устройствах */}
           <div className="lg:hidden w-full text-center mb-6">
             <button
@@ -51,7 +51,8 @@ export default function BlogPost() {
 
           {/* Фиксированная панель навигации через iframe */}
           <div className={`lg:w-1/4 w-full ${isMenuOpen ? 'block' : 'hidden lg:block'} mb-6 lg:mb-0`}>
-            <div className="fixed top-0 left-0 w-1/4 h-screen bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4">
+            <div className="fixed top-0 left-0 w-1/4 h-screen bg-white dark:bg-black text-neutral-900 dark:text-neutral-300 overflow-y-auto px-4">
+              <h3 className="text-center py-4 text-xl font-bold">Навигация</h3> {/* Заголовок навигации */}
               <iframe
                 srcDoc={`
                   <!DOCTYPE html>
@@ -68,7 +69,7 @@ export default function BlogPost() {
                         color: #333; 
                       }
                       body.dark { 
-                        background-color: #1a202c; 
+                        background-color: black; /* Изменён цвет на чёрный для тёмной темы */
                         color: #a0aec0; 
                       }
                       .nav-link { 
@@ -99,7 +100,6 @@ export default function BlogPost() {
                     </script>
                   </head>
                   <body class="${isDarkMode ? 'dark' : ''}">
-                    <h3 style="text-align: center;">Навигация</h3>
                     <nav>
                       <a href="#antivirus-issue" target="_parent" class="nav-link">Проблема с антивирусом</a>
                       <a href="#outdated-software" target="_parent" class="nav-link">Устаревшее ПО</a>
@@ -117,7 +117,7 @@ export default function BlogPost() {
           </div>
 
           {/* Основной контент блога, центрированный */}
-          <div className="w-full lg:w-3/4 lg:mx-auto px-4 lg:max-w-2xl">
+          <div className="w-full lg:w-3/4 lg:mx-auto px-4 lg:max-w-3xl"> {/* Увеличен max-width */}
             <h2 className="text-4xl font-bold">Как справиться с ошибкой при открытии архива</h2>
 
             <p id="introduction" className="pt-6 pb-8 text-base max-w-2xl dark:text-neutral-400">
