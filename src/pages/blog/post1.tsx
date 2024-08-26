@@ -10,7 +10,6 @@ export default function BlogPost() {
   const router = useRouter();
 
   useEffect(() => {
-    // Проверка доступности объекта window
     const handleResize = () => {
       if (typeof window !== 'undefined') {
         setShouldCollapseNav(window.innerWidth < 1024);
@@ -33,7 +32,7 @@ export default function BlogPost() {
   return (
     <Layout>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
-        <div className="container mx-auto flex flex-col lg:flex-row lg:space-x-8">
+        <div className="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Кнопка меню навигации на мобильных устройствах */}
           {shouldCollapseNav && (
             <div className="lg:hidden w-full text-center mb-6">
@@ -49,7 +48,7 @@ export default function BlogPost() {
 
           {/* Панель навигации для настольной версии и мобильного меню */}
           {(isMenuOpen || !shouldCollapseNav) && (
-            <aside className={`lg:w-1/4 w-full px-4 mb-6 lg:mb-0 border-r border-neutral-300`}>
+            <aside className={`col-span-1 lg:col-span-1 px-4 mb-6 lg:mb-0 border-r border-neutral-300`}>
               <div className="w-full lg:fixed lg:w-56 p-4 bg-white dark:bg-neutral-900 shadow-lg">
                 <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
                 <nav className="space-y-4">
@@ -74,7 +73,7 @@ export default function BlogPost() {
           )}
 
           {/* Основной контент блога */}
-          <div className="w-full lg:w-3/4 mx-auto px-4">
+          <div className="col-span-1 lg:col-span-3 mx-auto px-4">
             <h2 className="text-4xl font-bold">Как справиться с ошибкой при открытии архива</h2>
 
             <p id="introduction" className="pt-6 pb-8 text-base max-w-2xl dark:text-neutral-400">
