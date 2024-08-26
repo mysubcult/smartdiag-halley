@@ -1,79 +1,74 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
-import { useRouter } from 'next/router';
 
 export default function BlogPost() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [shouldCollapseNav, setShouldCollapseNav] = useState(false);
-  const router = useRouter();
+  const [scrollingUp, setScrollingUp] = useState(false);
+  let lastScrollTop = 0;
 
   useEffect(() => {
-    const handleResize = () => {
-      if (typeof window !== 'undefined') {
-        setShouldCollapseNav(window.innerWidth < 1024);
+    const handleScroll = () => {
+      const currentScrollTop = window.scrollY;
+      if (currentScrollTop > lastScrollTop) {
+        setScrollingUp(false); // Пользователь прокручивает вниз
+      } else {
+        setScrollingUp(true); // Пользователь прокручивает вверх
       }
+      lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // Для Safari
     };
 
-    handleResize(); // Проверяем при загрузке
-
-    if (typeof window !== 'undefined') {
-      window.addEventListener('resize', handleResize);
-    }
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('resize', handleResize);
-      }
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   return (
     <Layout>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
-        <div className="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="container mx-auto flex flex-col lg:flex-row lg:space-x-8">
           {/* Кнопка меню навигации на мобильных устройствах */}
-          {shouldCollapseNav && (
-            <div className="lg:hidden w-full text-center mb-6">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium"
-                aria-label="Открыть меню навигации"
-              >
-                Меню навигации
-              </button>
-            </div>
-          )}
+          <div className="lg:hidden w-full text-center mb-6">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium"
+              aria-label="Открыть меню навигации"
+            >
+              Меню навигации
+            </button>
+          </div>
 
-          {/* Панель навигации для настольной версии и мобильного меню */}
-          {(isMenuOpen || !shouldCollapseNav) && (
-            <aside className={`col-span-1 lg:col-span-1 px-4 mb-6 lg:mb-0 border-r border-neutral-300`}>
-              <div className="w-full lg:fixed lg:w-56 p-4 bg-white dark:bg-neutral-900 shadow-lg">
-                <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
-                <nav className="space-y-4">
-                  <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                    Проблема с антивирусом
-                  </a>
-                  <a href="#outdated-software" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                    Устаревшее ПО
-                  </a>
-                  <a href="#download-errors" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                    Ошибки при загрузке
-                  </a>
-                  <a href="#yandex-tips" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                    Советы для Яндекс Браузера
-                  </a>
-                  <a href="#support" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
-                    Поддержка
-                  </a>
-                </nav>
-              </div>
-            </aside>
-          )}
+          {/* Панель навигации */}
+          <aside
+            className={`fixed top-24 left-0 w-64 px-4 py-8 bg-white dark:bg-neutral-900 shadow-lg transition-transform duration-300 ${
+              scrollingUp ? 'transform-none' : '-translate-y-full'
+            } ${isMenuOpen ? 'block' : 'hidden lg:block'}`}
+          >
+            <h3 className="text-lg font-bold mb-4 text-center">Навигация</h3>
+            <nav className="space-y-4">
+              <a href="#antivirus-issue" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                Проблема с антивирусом
+              </a>
+              <a href="#outdated-software" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                Устаревшее ПО
+              </a>
+              <a href="#download-errors" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                Ошибки при загрузке
+              </a>
+              <a href="#yandex-tips" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                Советы для Яндекс Браузера
+              </a>
+              <a href="#support" className="block text-neutral-900 dark:text-neutral-400 hover:text-red-500">
+                Поддержка
+              </a>
+            </nav>
+          </aside>
 
           {/* Основной контент блога */}
-          <div className="col-span-1 lg:col-span-3 mx-auto px-4">
+          <div className="w-full lg:w-3/4 mx-auto px-4">
             <h2 className="text-4xl font-bold">Как справиться с ошибкой при открытии архива</h2>
 
             <p id="introduction" className="pt-6 pb-8 text-base max-w-2xl dark:text-neutral-400">
