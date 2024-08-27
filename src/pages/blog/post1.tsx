@@ -46,30 +46,30 @@ export default function BlogPost() {
 
           {/* Панель навигации как часть компонента */}
           <div className={`lg:w-1/6 ${isMenuOpen ? 'block' : 'hidden lg:block'} lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4`}>
-            <h3 className="text-center py-2 text-xl font-bold">Навигация</h3>
+            <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-4">Навигация</h3> {/* Подчеркивание заголовка */}
             <nav className="space-y-2">
               <Link href="#antivirus-issue">
-                <a className="block text-base text-inherit hover:text-rose-500 relative pl-4 before:content-['1.'] before:absolute before:left-0 before:text-rose-500 border-b border-neutral-300 pb-2 hover:border-rose-500">
+                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300"> {/* Убрали подчеркивание, добавили эффект при наведении */}
                   Проблема с антивирусом
                 </a>
               </Link>
               <Link href="#outdated-software">
-                <a className="block text-base text-inherit hover:text-rose-500 relative pl-4 before:content-['2.'] before:absolute before:left-0 before:text-rose-500 border-b border-neutral-300 pb-2 hover:border-rose-500">
+                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300">
                   Устаревшее ПО
                 </a>
               </Link>
               <Link href="#download-errors">
-                <a className="block text-base text-inherit hover:text-rose-500 relative pl-4 before:content-['3.'] before:absolute before:left-0 before:text-rose-500 border-b border-neutral-300 pb-2 hover:border-rose-500">
+                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300">
                   Ошибки при загрузке
                 </a>
               </Link>
               <Link href="#yandex-tips">
-                <a className="block text-base text-inherit hover:text-rose-500 relative pl-4 before:content-['4.'] before:absolute before:left-0 before:text-rose-500 border-b border-neutral-300 pb-2 hover:border-rose-500">
+                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300">
                   Советы для Яндекс Браузера
                 </a>
               </Link>
               <Link href="#support">
-                <a className="block text-base text-inherit hover:text-rose-500 relative pl-4 before:content-['5.'] before:absolute before:left-0 before:text-rose-500 border-b border-neutral-300 pb-2 hover:border-rose-500">
+                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300">
                   Поддержка
                 </a>
               </Link>
