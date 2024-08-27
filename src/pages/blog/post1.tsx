@@ -49,19 +49,19 @@ export default function BlogPost() {
             <h3 className="text-center py-2 text-xl font-bold">Навигация</h3>
             <nav className="space-y-2">
               <Link href="#antivirus-issue">
-                <a className="block text-base text-inherit hover:text-rose-500">Проблема с антивирусом</a>
+                <a className="block text-base text-inherit hover:text-rose-500 relative pl-4 before:content-['1.'] before:absolute before:left-0 before:text-rose-500 border-b border-neutral-300 pb-2 hover:border-rose-500">Проблема с антивирусом</a>
               </Link>
               <Link href="#outdated-software">
-                <a className="block text-base text-inherit hover:text-rose-500">Устаревшее ПО</a>
+                <a className="block text-base text-inherit hover:text-rose-500 relative pl-4 before:content-['2.'] before:absolute before:left-0 before:text-rose-500 border-b border-neutral-300 pb-2 hover:border-rose-500">Устаревшее ПО</a>
               </Link>
               <Link href="#download-errors">
-                <a className="block text-base text-inherit hover:text-rose-500">Ошибки при загрузке</a>
+                <a className="block text-base text-inherit hover:text-rose-500 relative pl-4 before:content-['3.'] before:absolute before:left-0 before:text-rose-500 border-b border-neutral-300 pb-2 hover:border-rose-500">Ошибки при загрузке</a>
               </Link>
               <Link href="#yandex-tips">
-                <a className="block text-base text-inherit hover:text-rose-500">Советы для Яндекс Браузера</a>
+                <a className="block text-base text-inherit hover:text-rose-500 relative pl-4 before:content-['4.'] before:absolute before:left-0 before:text-rose-500 border-b border-neutral-300 pb-2 hover:border-rose-500">Советы для Яндекс Браузера</a>
               </Link>
               <Link href="#support">
-                <a className="block text-base text-inherit hover:text-rose-500">Поддержка</a>
+                <a className="block text-base text-inherit hover:text-rose-500 relative pl-4 before:content-['5.'] before:absolute before:left-0 before:text-rose-500 border-b border-neutral-300 pb-2 hover:border-rose-500">Поддержка</a>
               </Link>
             </nav>
           </div>
