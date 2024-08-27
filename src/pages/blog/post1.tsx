@@ -2,18 +2,17 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
+import { FaBars } from 'react-icons/fa'; // Импорт иконки из библиотеки react-icons
 
 export default function BlogPost() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Определение текущей темы
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     const darkModeEnabled = document.documentElement.classList.contains('dark');
     setIsDarkMode(darkModeEnabled);
 
-    // Слушаем изменения класса на элементе <html> для динамической смены темы
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'class') {
@@ -33,20 +32,21 @@ export default function BlogPost() {
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           
-          {/* Кнопка меню навигации на мобильных устройствах */}
+          {/* Обновленная кнопка меню навигации на мобильных устройствах */}
           <div className="lg:hidden w-full text-center mb-4">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium"
+              className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium shadow-lg flex items-center justify-center transition duration-300 transform hover:scale-105"
               aria-label="Открыть меню навигации"
             >
+              <FaBars className="mr-2" /> {/* Иконка гамбургер перед текстом */}
               Меню навигации
             </button>
           </div>
 
           {/* Панель навигации как часть компонента */}
-          <div className={`lg:w-1/6 ${isMenuOpen ? 'block' : 'hidden lg:block'} lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4`}>
-            <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-4">Навигация</h3> {/* Подчеркивание заголовка */}
+          <div className={`lg:w-1/6 ${isMenuOpen ? 'block' : 'hidden lg:block'} lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 transition duration-300 transform ${isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+            <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-4">Навигация</h3>
             <nav className="space-y-2">
               <Link href="#antivirus-issue">
                 <a className="block text-base text-inherit hover:text-rose-500 transition duration-300">
@@ -76,7 +76,7 @@ export default function BlogPost() {
             </nav>
           </div>
 
-          {/* Основной контент блога, центрированный и широкий */}
+          {/* Основной контент блога */}
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4">
             <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
 
@@ -136,7 +136,7 @@ export default function BlogPost() {
             </div>
           </div>
 
-          {/* Пустое пространство справа, чтобы обеспечить равную ширину */}
+          {/* Пустое пространство справа */}
           <div className="lg:w-1/6 hidden lg:block"></div>
 
         </div>
