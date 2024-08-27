@@ -60,27 +60,27 @@ export default function BlogPost() {
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto`}>
             <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-4">Навигация</h3>
             <nav className="space-y-2">
-              <Link href="#antivirus-issue">
+              <Link href="#antivirus-issue" scroll={false}>
                 <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   Проблема с антивирусом
                 </a>
               </Link>
-              <Link href="#outdated-software">
+              <Link href="#outdated-software" scroll={false}>
                 <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   Устаревшее ПО
                 </a>
               </Link>
-              <Link href="#download-errors">
+              <Link href="#download-errors" scroll={false}>
                 <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   Ошибки при загрузке
                 </a>
               </Link>
-              <Link href="#yandex-tips">
+              <Link href="#yandex-tips" scroll={false}>
                 <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   Советы для Яндекс Браузера
                 </a>
               </Link>
-              <Link href="#support">
+              <Link href="#support" scroll={false}>
                 <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   Поддержка
                 </a>
@@ -108,39 +108,39 @@ export default function BlogPost() {
             />
 
             <div className="max-w-4xl mx-auto text-lg leading-relaxed">
-              <h3 className="text-2xl font-semibold mt-8 scroll-margin-top-[6rem]" id="antivirus-issue">Проблема с антивирусом</h3>
+              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="antivirus-issue">Проблема с антивирусом</h3>
               <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4 scroll-section">
+              <p className="mb-4">
                 Часто проблемы с открытием архивов вызваны антивирусным программным обеспечением. Некоторые антивирусы могут блокировать доступ к архиву, считая его потенциально опасным, особенно если в нем содержатся исполняемые файлы (.exe). Чтобы решить эту проблему, попробуйте временно отключить антивирус или добавить архив в список исключений. Обратите внимание, что это может увеличить риск заражения компьютера, поэтому действуйте с осторожностью.
               </p>
 
-              <h3 className="text-2xl font-semibold mt-8 scroll-margin-top-[6rem]" id="outdated-software">Устаревшее программное обеспечение</h3>
+              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="outdated-software">Устаревшее программное обеспечение</h3>
               <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4 scroll-section">
+              <p className="mb-4">
                 Если вы используете старую версию программы для работы с архивами, она может не поддерживать новые форматы архивов или использовать устаревшие алгоритмы распаковки. Рекомендуется обновить программное обеспечение до последней версии, чтобы избежать подобных проблем. Например, если вы используете WinRAR или 7-Zip, проверьте сайт разработчика на наличие обновлений.
               </p>
 
-              <h3 className="text-2xl font-semibold mt-8 scroll-margin-top-[6rem]" id="download-errors">Ошибки при загрузке</h3>
+              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="download-errors">Ошибки при загрузке</h3>
               <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4 scroll-section">
+              <p className="mb-4">
                 Иногда архив может не открываться из-за ошибок при его загрузке. Это может быть вызвано нестабильным интернет-соединением или перерывами в загрузке. Если вы столкнулись с этой проблемой, попробуйте загрузить файл повторно. Также можно использовать менеджер загрузок, который поддерживает возобновление загрузок, чтобы избежать повреждения файла.
               </p>
 
-              <h3 className="text-2xl font-semibold mt-8 scroll-margin-top-[6rem]" id="yandex-tips">Советы для пользователей Яндекс Браузера</h3>
+              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="yandex-tips">Советы для пользователей Яндекс Браузера</h3>
               <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4 scroll-section">
+              <p className="mb-4">
                 В Яндекс Браузере может быть включена защита, блокирующая загрузку определенных файлов, включая архивы. Чтобы решить эту проблему, можно отключить эту защиту в настройках браузера или добавить сайт, с которого производится загрузка, в список доверенных. Однако будьте осторожны при отключении защиты, так как это может повысить риски загрузки потенциально вредоносных файлов.
               </p>
 
-              <h3 className="text-2xl font-semibold mt-8 scroll-margin-top-[6rem]" id="support">Поддержка</h3>
+              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="support">Поддержка</h3>
               <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4 scroll-section">
+              <p className="mb-4">
                 Если перечисленные выше шаги не помогают, обратитесь в службу поддержки для получения дополнительной помощи. Возможно, проблема связана с конкретным файлом или настройками вашего компьютера. Служба поддержки сможет предоставить вам более детальные инструкции или предложить альтернативные решения.
               </p>
             </div>
 
             <div className="mt-16 flex justify-center">
-              <Link href="/#blog">
+              <Link href="/#blog" scroll={false}>
                 <button className="bg-rose-500 text-white text-base rounded-full px-16 py-3 font-medium">
                   Вернуться в блог
                 </button>
