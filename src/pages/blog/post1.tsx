@@ -25,6 +25,11 @@ export default function BlogPost() {
     return () => observer.disconnect();
   }, []);
 
+  // Функция для прокрутки страницы к самому верху
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <Layout>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
@@ -39,7 +44,7 @@ export default function BlogPost() {
             >
               {/* SVG иконка с анимацией */}
               <svg
-                className={`w-6 h-6 transition-transform duration-300 mr-2 ${isMenuOpen ? 'rotate-45' : ''}`}
+                className={`w-6 h-6 transition-transform duration-300 mr-2 ${isMenuOpen ? 'rotate-45' : 'rotate-0'}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -60,11 +65,9 @@ export default function BlogPost() {
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto`}>
             <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-4">Навигация</h3>
             <nav className="space-y-2">
-              <Link href="#" scroll={false}>
-                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  В начало
-                </a>
-              </Link>
+              <a onClick={scrollToTop} className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
+                В начало
+              </a>
               <Link href="#antivirus-issue" scroll={false}>
                 <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   Проблема с антивирусом
