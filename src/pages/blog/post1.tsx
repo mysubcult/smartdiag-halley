@@ -31,7 +31,7 @@ export default function BlogPost() {
   return (
     <Layout>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
-        <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6"> {/* Центрируем содержимое и уменьшаем отступ */}
+        <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           
           {/* Кнопка меню навигации на мобильных устройствах */}
           <div className="lg:hidden w-full text-center mb-4">
@@ -45,7 +45,7 @@ export default function BlogPost() {
           </div>
 
           {/* Панель навигации как часть компонента */}
-          <div className={`lg:w-1/4 ${isMenuOpen ? 'block' : 'hidden lg:block'} fixed lg:relative top-20 lg:top-0 left-4 lg:left-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 overflow-y-auto h-[calc(100vh-5rem)] px-4`}> {/* Фиксированная панель навигации */}
+          <div className={`lg:w-1/5 ${isMenuOpen ? 'block' : 'hidden lg:block'} fixed lg:relative top-20 lg:top-0 left-4 lg:left-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 overflow-y-auto h-[calc(100vh-5rem)] px-4`}>
             <h3 className="text-center py-2 text-xl font-bold">Навигация</h3>
             <nav className="space-y-2">
               <Link href="#antivirus-issue">
@@ -67,7 +67,7 @@ export default function BlogPost() {
           </div>
 
           {/* Основной контент блога, центрированный и широкий */}
-          <div className="lg:w-2/4 w-full lg:max-w-4xl mx-auto px-4"> {/* Центрируем и увеличиваем ширину */}
+          <div className="lg:w-3/5 w-full lg:max-w-4xl mx-auto px-4">
             <h2 className="text-4xl font-bold">Как справиться с ошибкой при открытии архива</h2>
 
             <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
@@ -127,7 +127,7 @@ export default function BlogPost() {
           </div>
 
           {/* Пустое пространство справа, чтобы обеспечить равную ширину */}
-          <div className="lg:w-1/4 hidden lg:block"></div>
+          <div className="lg:w-1/5 hidden lg:block"></div>
 
         </div>
       </main>
