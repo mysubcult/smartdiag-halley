@@ -62,7 +62,7 @@ export default function BlogPost() {
           </div>
 
           {/* Панель навигации как часть компонента */}
-          <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto`}>
+          <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto mb-6 lg:mb-0`}>
             <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-6">Навигация</h3>
             <nav className="space-y-4">
               <a onClick={scrollToTop} className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
