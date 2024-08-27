@@ -60,7 +60,7 @@ export default function BlogPost() {
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto`}>
             <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-4">Навигация</h3>
             <nav className="space-y-2">
-              <Link href="#introduction" scroll={false}>
+              <Link href="#" scroll={false}>
                 <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   В начало
                 </a>
@@ -97,7 +97,7 @@ export default function BlogPost() {
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4">
             <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
 
-            <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400 scroll-margin-top">
+            <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения. Архивы являются удобным способом хранения и передачи больших объемов данных, однако иногда они могут не открываться, что вызывает неудобства. Ниже приведены основные причины этих проблем и рекомендации по их решению.
             </p>
 
