@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
-import { FaBars } from 'react-icons/fa'; // Импорт иконки из библиотеки react-icons
 
 export default function BlogPost() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,14 +31,28 @@ export default function BlogPost() {
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           
-          {/* Обновленная кнопка меню навигации на мобильных устройствах */}
+          {/* Обновленная кнопка меню навигации на мобильных устройствах с использованием SVG */}
           <div className="lg:hidden w-full text-center mb-4">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium shadow-lg flex items-center justify-center transition duration-300 transform hover:scale-105"
               aria-label="Открыть меню навигации"
             >
-              <FaBars className="mr-2" /> {/* Иконка гамбургер перед текстом */}
+              {/* SVG иконка гамбургер */}
+              <svg
+                className="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
               Меню навигации
             </button>
           </div>
