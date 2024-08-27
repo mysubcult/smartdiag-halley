@@ -5,7 +5,6 @@ import Layout from '../../components/Layout';
 
 export default function BlogPost() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
@@ -30,17 +29,17 @@ export default function BlogPost() {
     <Layout>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
-          
-          {/* Обновленная кнопка меню навигации на мобильных устройствах с использованием SVG */}
-          <div className="lg:hidden w-full text-center mb-4">
+
+          {/* Кнопка меню навигации на мобильных устройствах */}
+          <div className="lg:hidden w-full flex justify-center mb-4">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium shadow-lg flex items-center justify-center transition duration-300 transform hover:scale-105"
+              className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium shadow-lg flex items-center justify-center transition duration-300"
               aria-label="Открыть меню навигации"
             >
-              {/* SVG иконка гамбургер */}
+              {/* SVG иконка с анимацией */}
               <svg
-                className="w-5 h-5 mr-2"
+                className={`w-6 h-6 transition-transform duration-300 ${isMenuOpen ? 'rotate-45' : ''}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -50,17 +49,16 @@ export default function BlogPost() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
+                  d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
                 ></path>
               </svg>
-              Меню навигации
             </button>
           </div>
 
           {/* Панель навигации как часть компонента */}
           <div className={`lg:w-1/6 ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4`}>
             <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-4">Навигация</h3>
-            <nav className="space-y-2">
+            <nav className="space-y-2 text-center">
               <Link href="#antivirus-issue">
                 <a className="block text-base text-inherit hover:text-rose-500 transition duration-300">
                   Проблема с антивирусом
