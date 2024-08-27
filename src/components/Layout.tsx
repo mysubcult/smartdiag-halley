@@ -2,17 +2,26 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import { ReactNode } from "react";
 
-const Layout = (props) => {
-  const { children, title, ...customMeta } = props;
+interface LayoutProps {
+  children: ReactNode; // Тип для дочерних элементов
+  title?: string; // Необязательное поле для title
+  description?: string; // Необязательное поле для мета описания
+  keywords?: string; // Необязательное поле для ключевых слов
+  image?: string; // Необязательное поле для изображения
+  type?: string; // Необязательное поле для типа страницы
+}
+
+const Layout = (props: LayoutProps) => {
+  const { children, title, description, keywords, image, type } = props;
   const router = useRouter();
   const meta = {
     title: title || "SmartDiag - Ваш проводник в мире автодиагностики",
-    description: `SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.`,
-    keywords: "автодиагностика, Autocom CDP+, Delphi DS150E, VCDS, Вася, mucar, thinkdiag, Thinkcar, диагностика автомобилей, программы для диагностики, оборудование для диагностики, car diagnostics, diagnostic tools, software for diagnostics, diagnostic equipment, vehicle diagnostics, diagnostic software, installation instructions, BMW, Audi, Mercedes, Toyota, Volkswagen, Ford, Nissan, Honda, Chevrolet, Kia",
-    image: "/images/seo/halley-banner.png",
-    type: "website",
-    ...customMeta,
+    description: description || `SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.`,
+    keywords: keywords || "автодиагностика, Autocom CDP+, Delphi DS150E, VCDS, Вася, mucar, thinkdiag, Thinkcar, диагностика автомобилей, программы для диагностики, оборудование для диагностики, car diagnostics, diagnostic tools, software for diagnostics, diagnostic equipment, vehicle diagnostics, diagnostic software, installation instructions, BMW, Audi, Mercedes, Toyota, Volkswagen, Ford, Nissan, Honda, Chevrolet, Kia",
+    image: image || "/images/seo/halley-banner.png",
+    type: type || "website",
   };
 
   return (
