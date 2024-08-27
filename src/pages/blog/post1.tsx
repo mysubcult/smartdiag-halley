@@ -39,7 +39,7 @@ export default function BlogPost() {
             >
               {/* SVG иконка с анимацией */}
               <svg
-                className={`w-6 h-6 transition-transform duration-300 ${isMenuOpen ? 'rotate-45' : ''}`}
+                className={`w-6 h-6 transition-transform duration-300 mr-2 ${isMenuOpen ? 'rotate-45' : ''}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -52,35 +52,36 @@ export default function BlogPost() {
                   d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
                 ></path>
               </svg>
+              Меню навигации
             </button>
           </div>
 
           {/* Панель навигации как часть компонента */}
-          <div className={`lg:w-1/6 ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4`}>
+          <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto`}>
             <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-4">Навигация</h3>
-            <nav className="space-y-2 text-center">
+            <nav className="space-y-2">
               <Link href="#antivirus-issue">
-                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300">
+                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   Проблема с антивирусом
                 </a>
               </Link>
               <Link href="#outdated-software">
-                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300">
+                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   Устаревшее ПО
                 </a>
               </Link>
               <Link href="#download-errors">
-                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300">
+                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   Ошибки при загрузке
                 </a>
               </Link>
               <Link href="#yandex-tips">
-                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300">
+                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   Советы для Яндекс Браузера
                 </a>
               </Link>
               <Link href="#support">
-                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300">
+                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   Поддержка
                 </a>
               </Link>
