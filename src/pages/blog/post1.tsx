@@ -49,7 +49,7 @@ export default function BlogPost() {
             <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-4">Навигация</h3> {/* Подчеркивание заголовка */}
             <nav className="space-y-2">
               <Link href="#antivirus-issue">
-                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300"> {/* Убрали подчеркивание, добавили эффект при наведении */}
+                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300">
                   Проблема с антивирусом
                 </a>
               </Link>
@@ -96,31 +96,31 @@ export default function BlogPost() {
             />
 
             <div className="max-w-4xl mx-auto text-lg leading-relaxed">
-              <h3 className="text-2xl font-semibold mt-8" id="antivirus-issue">Проблема с антивирусом</h3>
+              <h3 className="text-2xl font-semibold mt-8 scroll-margin-top-[6rem]" id="antivirus-issue">Проблема с антивирусом</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4 scroll-section">
                 Часто проблемы с открытием архивов вызваны антивирусным программным обеспечением. Некоторые антивирусы могут блокировать доступ к архиву, считая его потенциально опасным, особенно если в нем содержатся исполняемые файлы (.exe). Чтобы решить эту проблему, попробуйте временно отключить антивирус или добавить архив в список исключений. Обратите внимание, что это может увеличить риск заражения компьютера, поэтому действуйте с осторожностью.
               </p>
 
-              <h3 className="text-2xl font-semibold mt-8" id="outdated-software">Устаревшее программное обеспечение</h3>
+              <h3 className="text-2xl font-semibold mt-8 scroll-margin-top-[6rem]" id="outdated-software">Устаревшее программное обеспечение</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4 scroll-section">
                 Если вы используете старую версию программы для работы с архивами, она может не поддерживать новые форматы архивов или использовать устаревшие алгоритмы распаковки. Рекомендуется обновить программное обеспечение до последней версии, чтобы избежать подобных проблем. Например, если вы используете WinRAR или 7-Zip, проверьте сайт разработчика на наличие обновлений.
               </p>
 
-              <h3 className="text-2xl font-semibold mt-8" id="download-errors">Ошибки при загрузке</h3>
+              <h3 className="text-2xl font-semibold mt-8 scroll-margin-top-[6rem]" id="download-errors">Ошибки при загрузке</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4 scroll-section">
                 Иногда архив может не открываться из-за ошибок при его загрузке. Это может быть вызвано нестабильным интернет-соединением или перерывами в загрузке. Если вы столкнулись с этой проблемой, попробуйте загрузить файл повторно. Также можно использовать менеджер загрузок, который поддерживает возобновление загрузок, чтобы избежать повреждения файла.
               </p>
 
-              <h3 className="text-2xl font-semibold mt-8" id="yandex-tips">Советы для пользователей Яндекс Браузера</h3>
+              <h3 className="text-2xl font-semibold mt-8 scroll-margin-top-[6rem]" id="yandex-tips">Советы для пользователей Яндекс Браузера</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4 scroll-section">
                 В Яндекс Браузере может быть включена защита, блокирующая загрузку определенных файлов, включая архивы. Чтобы решить эту проблему, можно отключить эту защиту в настройках браузера или добавить сайт, с которого производится загрузка, в список доверенных. Однако будьте осторожны при отключении защиты, так как это может повысить риски загрузки потенциально вредоносных файлов.
               </p>
 
-              <h3 className="text-2xl font-semibold mt-8" id="support">Поддержка</h3>
+              <h3 className="text-2xl font-semibold mt-8 scroll-margin-top-[6rem]" id="support">Поддержка</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4 scroll-section">
                 Если перечисленные выше шаги не помогают, обратитесь в службу поддержки для получения дополнительной помощи. Возможно, проблема связана с конкретным файлом или настройками вашего компьютера. Служба поддержки сможет предоставить вам более детальные инструкции или предложить альтернативные решения.
