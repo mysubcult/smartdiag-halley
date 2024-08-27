@@ -31,7 +31,7 @@ export default function BlogPost() {
   return (
     <Layout>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
-        <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6 overflow-visible"> {/* Обеспечим overflow-visible для родителя */}
+        <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           
           {/* Кнопка меню навигации на мобильных устройствах */}
           <div className="lg:hidden w-full text-center mb-4">
@@ -45,7 +45,7 @@ export default function BlogPost() {
           </div>
 
           {/* Панель навигации как часть компонента */}
-          <div className={`lg:w-1/6 ${isMenuOpen ? 'block' : 'hidden lg:block'} sticky top-24 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4`}>
+          <div className={`lg:w-1/6 ${isMenuOpen ? 'block' : 'hidden lg:block'} fixed top-24 left-0 h-full bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 overflow-y-auto`}>
             <h3 className="text-center py-2 text-xl font-bold">Навигация</h3>
             <nav className="space-y-2">
               <Link href="#antivirus-issue">
