@@ -31,7 +31,7 @@ export default function BlogPost() {
   };
 
   return (
-    <Layout>
+    <Layout title="Блог - Как справиться с ошибкой при открытии архива">
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
 
@@ -64,7 +64,7 @@ export default function BlogPost() {
           {/* Панель навигации как часть компонента */}
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto mb-6 lg:mb-0`}>
             <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-6">Навигация</h3>
-            <nav className="space-y-2">
+            <nav className="space-y-4">
               <a onClick={scrollToTop} className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
                 В начало
               </a>
