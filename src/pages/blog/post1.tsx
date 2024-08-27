@@ -34,7 +34,7 @@ export default function BlogPost() {
           <div className="lg:hidden w-full flex justify-center mb-4">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="bg-gradient-to-r from-rose-500 to-pink-500 text-white text-base rounded-full px-6 py-3 font-medium shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
+              className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-6 py-3 font-medium shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
               aria-label="Открыть меню навигации"
             >
               {/* SVG иконка с анимацией */}
@@ -97,7 +97,7 @@ export default function BlogPost() {
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4">
             <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
 
-            <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
+            <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400 scroll-margin-top">
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения. Архивы являются удобным способом хранения и передачи больших объемов данных, однако иногда они могут не открываться, что вызывает неудобства. Ниже приведены основные причины этих проблем и рекомендации по их решению.
             </p>
 
@@ -146,7 +146,7 @@ export default function BlogPost() {
 
             <div className="mt-16 flex justify-center">
               <Link href="/#blog" scroll={false}>
-                <button className="bg-gradient-to-r from-rose-500 to-pink-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
+                <button className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
                   Вернуться в блог
                 </button>
               </Link>
