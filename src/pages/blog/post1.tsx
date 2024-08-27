@@ -34,7 +34,7 @@ export default function BlogPost() {
           <div className="lg:hidden w-full flex justify-center mb-4">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="bg-rose-500 text-white text-base rounded-full px-4 py-2 font-medium shadow-lg flex items-center justify-center transition duration-300"
+              className="bg-gradient-to-r from-rose-500 to-pink-500 text-white text-base rounded-full px-6 py-3 font-medium shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
               aria-label="Открыть меню навигации"
             >
               {/* SVG иконка с анимацией */}
@@ -60,6 +60,11 @@ export default function BlogPost() {
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto`}>
             <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-4">Навигация</h3>
             <nav className="space-y-2">
+              <Link href="#introduction" scroll={false}>
+                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  В начало
+                </a>
+              </Link>
               <Link href="#antivirus-issue" scroll={false}>
                 <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   Проблема с антивирусом
@@ -141,7 +146,7 @@ export default function BlogPost() {
 
             <div className="mt-16 flex justify-center">
               <Link href="/#blog" scroll={false}>
-                <button className="bg-rose-500 text-white text-base rounded-full px-16 py-3 font-medium">
+                <button className="bg-gradient-to-r from-rose-500 to-pink-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
                   Вернуться в блог
                 </button>
               </Link>
