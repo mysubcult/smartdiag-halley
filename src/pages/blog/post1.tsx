@@ -45,7 +45,7 @@ export default function BlogPost() {
           </div>
 
           {/* Панель навигации как часть компонента */}
-          <div className={`lg:w-1/6 ${isMenuOpen ? 'block' : 'hidden lg:block'} fixed top-24 left-0 h-full bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 overflow-y-auto`}>
+          <div className={`lg:w-1/6 ${isMenuOpen ? 'block' : 'hidden lg:block'} lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4`}>
             <h3 className="text-center py-2 text-xl font-bold">Навигация</h3>
             <nav className="space-y-2">
               <Link href="#antivirus-issue">
