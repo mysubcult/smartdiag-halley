@@ -27,13 +27,30 @@ export default function BlogPost() {
 
   // Прокрутка к якорю при обновлении страницы
   useEffect(() => {
-    const hash = window.location.hash;
-    if (hash) {
-      const element = document.querySelector(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const handleScrollToAnchor = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        // Найти элемент с указанным id (якорем)
+        const element = document.getElementById(hash.substring(1)); // Убираем символ '#'
+        if (element) {
+          // Прокрутка к элементу с помощью window.scrollTo()
+          const yOffset = -100; // Отступ сверху, чтобы элемент не был прямо у края экрана
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
       }
-    }
+    };
+
+    // Добавить обработчик для события загрузки страницы
+    window.addEventListener('load', handleScrollToAnchor);
+
+    // Выполнить прокрутку при монтировании компонента
+    handleScrollToAnchor();
+
+    return () => {
+      // Удалить обработчик при размонтировании компонента
+      window.removeEventListener('load', handleScrollToAnchor);
+    };
   }, []);
 
   const scrollToTop = () => {
