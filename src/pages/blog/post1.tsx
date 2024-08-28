@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { HomeIcon, ShieldExclamationIcon, ClockIcon, CloudDownloadIcon, QuestionMarkCircleIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
@@ -59,38 +60,65 @@ export default function BlogPost() {
             </button>
           </div>
 
-          {/* Панель навигации с улучшениями */}
+          {/* Панель навигации с иконками */}
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block transition-all duration-300 ease-in-out transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto mb-6 lg:mb-0 shadow-lg rounded-lg`}>
             <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-6">Навигация</h3>
             <nav className="space-y-4">
-              <a onClick={scrollToTop} className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
+              <a onClick={scrollToTop} className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
+                <HomeIcon className="w-5 h-5 mr-2" />
                 В начало
               </a>
               <Link href="#antivirus-issue" scroll={false}>
-                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  <ShieldExclamationIcon className="w-5 h-5 mr-2" />
                   Проблема с антивирусом
                 </a>
               </Link>
               <Link href="#outdated-software" scroll={false}>
-                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  <ClockIcon className="w-5 h-5 mr-2" />
                   Устаревшее ПО
                 </a>
               </Link>
               <Link href="#download-errors" scroll={false}>
-                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  <CloudDownloadIcon className="w-5 h-5 mr-2" />
                   Ошибки при загрузке
                 </a>
               </Link>
               <Link href="#yandex-tips" scroll={false}>
-                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  <QuestionMarkCircleIcon className="w-5 h-5 mr-2" />
                   Советы для Яндекс Браузера
                 </a>
               </Link>
-              <Link href="#support" scroll={false}>
-                <a className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+              {/* Пример выпадающего списка для раздела "Поддержка" */}
+              <div className="group relative">
+                <button className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left w-full">
+                  <QuestionMarkCircleIcon className="w-5 h-5 mr-2" />
                   Поддержка
-                </a>
-              </Link>
+                  <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div className="absolute left-0 mt-2 w-full bg-white dark:bg-neutral-900 rounded-md shadow-lg overflow-hidden z-20 hidden group-hover:block">
+                  <Link href="#faq">
+                    <a className="block px-4 py-2 text-sm text-neutral-900 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700">
+                      Часто задаваемые вопросы
+                    </a>
+                  </Link>
+                  <Link href="#contact">
+                    <a className="block px-4 py-2 text-sm text-neutral-900 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700">
+                      Связаться с нами
+                    </a>
+                  </Link>
+                  <Link href="#guides">
+                    <a className="block px-4 py-2 text-sm text-neutral-900 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700">
+                      Руководства
+                    </a>
+                  </Link>
+                </div>
+              </div>
             </nav>
           </div>
 
