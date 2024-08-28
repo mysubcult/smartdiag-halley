@@ -59,10 +59,10 @@ export default function BlogPost() {
             </button>
           </div>
 
-          {/* Панель навигации с эмодзи */}
-          <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block transition-all duration-300 ease-in-out lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto mb-6 lg:mb-0 shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700`}>
-            <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-4">Навигация</h3> {/* Уменьшение зазора */}
-            <nav className="space-y-3"> {/* Уменьшение расстояния между ссылками */}
+          {/* Панель навигации с исправлениями */}
+          <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 transition-none`}>
+            <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-2">Навигация</h3> {/* Уменьшение зазора до меню */}
+            <nav className="space-y-3 mb-4"> {/* Отступ снизу после последнего пункта */}
               <a onClick={scrollToTop} className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
                 🏠 В начало
               </a>
