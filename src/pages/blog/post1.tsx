@@ -25,30 +25,30 @@ export default function BlogPost() {
     return () => observer.disconnect();
   }, []);
 
+  // Прокрутка к якорю при загрузке и обновлении страницы
   useEffect(() => {
     const scrollToHash = () => {
       const hash = window.location.hash;
       if (hash) {
         const element = document.getElementById(hash.substring(1));
         if (element) {
-          // Прокрутка к элементу без анимации
-          element.scrollIntoView({ behavior: 'auto', block: 'start' });
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
     };
 
-    // Прокрутка при первой загрузке (без анимации)
+    // Прокрутка при первой загрузке страницы
     scrollToHash();
 
-    // Обработчик события popstate для обновления при нажатии назад/вперед
-    const handlePopState = () => {
+    // Слушатель изменения якоря
+    const handleHashChange = () => {
       scrollToHash();
     };
 
-    window.addEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handleHashChange);
 
     return () => {
-      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handleHashChange);
     };
   }, []);
 
