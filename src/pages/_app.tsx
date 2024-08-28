@@ -5,7 +5,6 @@ import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
-import CookieConsent from '../components/CookieConsent';
 import Script from 'next/script'; // Добавляем импорт
 
 const inter = Inter({
@@ -20,7 +19,6 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider attribute="class">
         <Component {...pageProps} />
-        <CookieConsent />
         <Analytics />
         <Script
           id="lhc-widget-script"
