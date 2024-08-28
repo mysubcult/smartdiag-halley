@@ -25,31 +25,30 @@ export default function BlogPost() {
     return () => observer.disconnect();
   }, []);
 
-  // Прокрутка к якорю при обновлении страницы
   useEffect(() => {
-    const handleScrollToAnchor = () => {
+    const scrollToHash = () => {
       const hash = window.location.hash;
       if (hash) {
-        // Найти элемент с указанным id (якорем)
-        const element = document.getElementById(hash.substring(1)); // Убираем символ '#'
+        const element = document.getElementById(hash.substring(1));
         if (element) {
-          // Прокрутка к элементу с помощью window.scrollTo()
-          const yOffset = -100; // Отступ сверху, чтобы элемент не был прямо у края экрана
-          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-          window.scrollTo({ top: y, behavior: 'smooth' });
+          // Прокрутка к элементу без анимации
+          element.scrollIntoView({ behavior: 'auto', block: 'start' });
         }
       }
     };
 
-    // Добавить обработчик для события загрузки страницы
-    window.addEventListener('load', handleScrollToAnchor);
+    // Прокрутка при первой загрузке (без анимации)
+    scrollToHash();
 
-    // Выполнить прокрутку при монтировании компонента
-    handleScrollToAnchor();
+    // Обработчик события popstate для обновления при нажатии назад/вперед
+    const handlePopState = () => {
+      scrollToHash();
+    };
+
+    window.addEventListener('popstate', handlePopState);
 
     return () => {
-      // Удалить обработчик при размонтировании компонента
-      window.removeEventListener('load', handleScrollToAnchor);
+      window.removeEventListener('popstate', handlePopState);
     };
   }, []);
 
