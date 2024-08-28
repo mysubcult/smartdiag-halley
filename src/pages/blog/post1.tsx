@@ -60,8 +60,8 @@ export default function BlogPost() {
             </button>
           </div>
 
-          {/* Панель навигации с иконками */}
-          <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block transition-all duration-300 ease-in-out transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto mb-6 lg:mb-0 shadow-lg rounded-lg`}>
+          {/* Панель навигации с рамкой и поддержкой темной темы */}
+          <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block transition-all duration-300 ease-in-out lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto mb-6 lg:mb-0 shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700`}>
             <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-6">Навигация</h3>
             <nav className="space-y-4">
               <a onClick={scrollToTop} className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
