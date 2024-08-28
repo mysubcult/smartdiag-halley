@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { HomeIcon, ShieldExclamationIcon, ClockIcon, CloudDownloadIcon, QuestionMarkCircleIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
@@ -65,37 +64,55 @@ export default function BlogPost() {
             <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-6">Навигация</h3>
             <nav className="space-y-4">
               <a onClick={scrollToTop} className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
-                <HomeIcon className="w-5 h-5 mr-2" />
+                {/* SVG для "В начало" */}
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4h16v16H4z"></path>
+                </svg>
                 В начало
               </a>
               <Link href="#antivirus-issue" scroll={false}>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  <ShieldExclamationIcon className="w-5 h-5 mr-2" />
+                  {/* SVG для "Проблема с антивирусом" */}
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3"></path>
+                  </svg>
                   Проблема с антивирусом
                 </a>
               </Link>
               <Link href="#outdated-software" scroll={false}>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  <ClockIcon className="w-5 h-5 mr-2" />
+                  {/* SVG для "Устаревшее ПО" */}
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3"></path>
+                  </svg>
                   Устаревшее ПО
                 </a>
               </Link>
               <Link href="#download-errors" scroll={false}>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  <CloudDownloadIcon className="w-5 h-5 mr-2" />
+                  {/* SVG для "Ошибки при загрузке" */}
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3"></path>
+                  </svg>
                   Ошибки при загрузке
                 </a>
               </Link>
               <Link href="#yandex-tips" scroll={false}>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  <QuestionMarkCircleIcon className="w-5 h-5 mr-2" />
+                  {/* SVG для "Советы для Яндекс Браузера" */}
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3"></path>
+                  </svg>
                   Советы для Яндекс Браузера
                 </a>
               </Link>
               {/* Пример выпадающего списка для раздела "Поддержка" */}
               <div className="group relative">
                 <button className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left w-full">
-                  <QuestionMarkCircleIcon className="w-5 h-5 mr-2" />
+                  {/* SVG для "Поддержка" */}
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3"></path>
+                  </svg>
                   Поддержка
                   <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
