@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
@@ -26,6 +26,33 @@ export default function BlogPost() {
     // Отключаем observer при размонтировании компонента
     return () => observer.disconnect();
   }, []);
+
+  // Функция для прокрутки к якорю на странице
+  const scrollToHash = useCallback(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.getElementById(hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    // Прокрутка при первой загрузке страницы
+    scrollToHash();
+
+    const handleHashChange = () => {
+      scrollToHash();
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+
+    // Отключаем слушатель при размонтировании компонента
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, [scrollToHash]);
 
   // Прокрутка к началу страницы
   const scrollToTop = () => {
@@ -66,25 +93,34 @@ export default function BlogPost() {
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 transition-none py-4`}>
             <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
             <nav className="space-y-3">
-              <a href="#" onClick={scrollToTop} className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
+              <a onClick={scrollToTop} className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
                 🏠 В начало
               </a>
-              {/* Используем стандартные ссылки для плавной прокрутки */}
-              <a href="#antivirus-issue" className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                🛡️ Проблема с антивирусом
-              </a>
-              <a href="#outdated-software" className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                ⏳ Устаревшее ПО
-              </a>
-              <a href="#download-errors" className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                📥 Ошибки при загрузке
-              </a>
-              <a href="#yandex-tips" className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                🌐 Советы для Яндекс Браузера
-              </a>
-              <a href="#support" className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                📞 Поддержка
-              </a>
+              <Link href="#antivirus-issue" passHref>
+                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  🛡️ Проблема с антивирусом
+                </a>
+              </Link>
+              <Link href="#outdated-software" passHref>
+                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  ⏳ Устаревшее ПО
+                </a>
+              </Link>
+              <Link href="#download-errors" passHref>
+                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  📥 Ошибки при загрузке
+                </a>
+              </Link>
+              <Link href="#yandex-tips" passHref>
+                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  🌐 Советы для Яндекс Браузера
+                </a>
+              </Link>
+              <Link href="#support" passHref>
+                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  📞 Поддержка
+                </a>
+              </Link>
             </nav>
           </div>
 
