@@ -25,7 +25,6 @@ export default function BlogPost() {
     return () => observer.disconnect();
   }, []);
 
-  // Функция для прокрутки страницы к самому верху
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -42,7 +41,6 @@ export default function BlogPost() {
               className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-6 py-3 font-medium shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
               aria-label="Открыть меню навигации"
             >
-              {/* SVG иконка с анимацией */}
               <svg
                 className={`w-6 h-6 transition-transform duration-300 mr-2 ${isMenuOpen ? 'rotate-45' : 'rotate-0'}`}
                 fill="none"
@@ -61,8 +59,8 @@ export default function BlogPost() {
             </button>
           </div>
 
-          {/* Панель навигации как часть компонента */}
-          <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto mb-6 lg:mb-0`}>
+          {/* Панель навигации с улучшениями */}
+          <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block transition-all duration-300 ease-in-out transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto mb-6 lg:mb-0 shadow-lg rounded-lg`}>
             <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-6">Навигация</h3>
             <nav className="space-y-4">
               <a onClick={scrollToTop} className="block text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
