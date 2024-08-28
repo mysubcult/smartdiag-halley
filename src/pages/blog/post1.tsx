@@ -69,31 +69,22 @@ export default function BlogPost() {
               <a href="#" onClick={scrollToTop} className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
                 🏠 В начало
               </a>
-              <Link href="#antivirus-issue" passHref>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  🛡️ Проблема с антивирусом
-                </a>
-              </Link>
-              <Link href="#outdated-software" passHref>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  ⏳ Устаревшее ПО
-                </a>
-              </Link>
-              <Link href="#download-errors" passHref>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  📥 Ошибки при загрузке
-                </a>
-              </Link>
-              <Link href="#yandex-tips" passHref>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  🌐 Советы для Яндекс Браузера
-                </a>
-              </Link>
-              <Link href="#support" passHref>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  📞 Поддержка
-                </a>
-              </Link>
+              {/* Используем стандартные ссылки для плавной прокрутки */}
+              <a href="#antivirus-issue" className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                🛡️ Проблема с антивирусом
+              </a>
+              <a href="#outdated-software" className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                ⏳ Устаревшее ПО
+              </a>
+              <a href="#download-errors" className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                📥 Ошибки при загрузке
+              </a>
+              <a href="#yandex-tips" className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                🌐 Советы для Яндекс Браузера
+              </a>
+              <a href="#support" className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                📞 Поддержка
+              </a>
             </nav>
           </div>
 
