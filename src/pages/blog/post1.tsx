@@ -66,7 +66,7 @@ export default function BlogPost() {
               <a onClick={scrollToTop} className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
                 {/* SVG для "В начало" */}
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4h16v16H4z"></path>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12h18M9 6l-6 6 6 6"></path>
                 </svg>
                 В начало
               </a>
@@ -74,7 +74,7 @@ export default function BlogPost() {
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   {/* SVG для "Проблема с антивирусом" */}
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3"></path>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.5v15M6 9l6-4.5 6 4.5"></path>
                   </svg>
                   Проблема с антивирусом
                 </a>
@@ -83,7 +83,7 @@ export default function BlogPost() {
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   {/* SVG для "Устаревшее ПО" */}
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3"></path>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 9v4m0 0v4m0-4h4"></path>
                   </svg>
                   Устаревшее ПО
                 </a>
@@ -92,7 +92,7 @@ export default function BlogPost() {
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   {/* SVG для "Ошибки при загрузке" */}
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3"></path>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4h16v16H4z"></path>
                   </svg>
                   Ошибки при загрузке
                 </a>
@@ -101,7 +101,7 @@ export default function BlogPost() {
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   {/* SVG для "Советы для Яндекс Браузера" */}
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3"></path>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 2l8.5 5v10l-8.5 5-8.5-5v-10z"></path>
                   </svg>
                   Советы для Яндекс Браузера
                 </a>
@@ -111,7 +111,7 @@ export default function BlogPost() {
                 <button className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left w-full">
                   {/* SVG для "Поддержка" */}
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3"></path>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h14M5 12l5-5m0 10l-5-5"></path>
                   </svg>
                   Поддержка
                   <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
