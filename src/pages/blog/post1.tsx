@@ -59,61 +59,37 @@ export default function BlogPost() {
             </button>
           </div>
 
-          {/* Панель навигации с рамкой и поддержкой темной темы */}
+          {/* Панель навигации с эмодзи */}
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block transition-all duration-300 ease-in-out lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto mb-6 lg:mb-0 shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700`}>
             <h3 className="text-center py-2 text-xl font-bold border-b-2 border-rose-500 mb-4">Навигация</h3> {/* Уменьшение зазора */}
             <nav className="space-y-3"> {/* Уменьшение расстояния между ссылками */}
               <a onClick={scrollToTop} className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
-                {/* SVG для "В начало" */}
-                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M10 3L4 9h3v7h6V9h3l-6-6z" />
-                </svg>
-                В начало
+                🏠 В начало
               </a>
               <Link href="#antivirus-issue" scroll={false}>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  {/* SVG для "Проблема с антивирусом" */}
-                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M18 8A6 6 0 006 8c0 3.23-1.18 6.27-3 8h18c-1.82-1.73-3-4.77-3-8zM8 16h4m-2 0v4"></path>
-                  </svg>
-                  Проблема с антивирусом
+                  🛡️ Проблема с антивирусом
                 </a>
               </Link>
               <Link href="#outdated-software" scroll={false}>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  {/* SVG для "Устаревшее ПО" */}
-                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 2a2 2 0 00-2 2v16a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2H6zm2 16V6h4v12H8z"></path>
-                  </svg>
-                  Устаревшее ПО
+                  ⏳ Устаревшее ПО
                 </a>
               </Link>
               <Link href="#download-errors" scroll={false}>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  {/* SVG для "Ошибки при загрузке" */}
-                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 3h14v14H3V3zm4 10h6v2H7v-2z"></path>
-                  </svg>
-                  Ошибки при загрузке
+                  📥 Ошибки при загрузке
                 </a>
               </Link>
               <Link href="#yandex-tips" scroll={false}>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  {/* SVG для "Советы для Яндекс Браузера" */}
-                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 5a2 2 0 012-2h10a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm7 3l4 4H9l4-4z"></path>
-                  </svg>
-                  Советы для Яндекс Браузера
+                  🌐 Советы для Яндекс Браузера
                 </a>
               </Link>
               {/* Простая якорная ссылка для "Поддержка" */}
               <Link href="#support" scroll={false}>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  {/* SVG для "Поддержка" */}
-                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10 1a9 9 0 00-9 9 9 9 0 0017.94 2A9 9 0 0010 1zm1 9h-2v4h2v-4zm-2-2h2V7h-2v1z"></path>
-                  </svg>
-                  Поддержка
+                  📞 Поддержка
                 </a>
               </Link>
             </nav>
