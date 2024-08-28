@@ -66,7 +66,7 @@ export default function BlogPost() {
               <a onClick={scrollToTop} className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
                 {/* SVG для "В начало" */}
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12h18M9 6l-6 6 6 6"></path>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 9l9-7 9 7v10a9 9 0 01-18 0V9z"></path>
                 </svg>
                 В начало
               </a>
@@ -74,7 +74,7 @@ export default function BlogPost() {
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   {/* SVG для "Проблема с антивирусом" */}
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.5v15M6 9l6-4.5 6 4.5"></path>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 2l8.5 5v6.09c0 4.28-4 7.91-8.5 7.91S3.5 17.37 3.5 13.09V7l8.5-5z"></path>
                   </svg>
                   Проблема с антивирусом
                 </a>
@@ -83,7 +83,7 @@ export default function BlogPost() {
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   {/* SVG для "Устаревшее ПО" */}
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 9v4m0 0v4m0-4h4"></path>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3"></path>
                   </svg>
                   Устаревшее ПО
                 </a>
@@ -106,36 +106,16 @@ export default function BlogPost() {
                   Советы для Яндекс Браузера
                 </a>
               </Link>
-              {/* Пример выпадающего списка для раздела "Поддержка" */}
-              <div className="group relative">
-                <button className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left w-full">
+              {/* Простая якорная ссылка для "Поддержка" */}
+              <Link href="#support" scroll={false}>
+                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   {/* SVG для "Поддержка" */}
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h14M5 12l5-5m0 10l-5-5"></path>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 20h18M12 14v6m0-6l-3 3m3-3l3 3"></path>
                   </svg>
                   Поддержка
-                  <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
-                </button>
-                <div className="absolute left-0 mt-2 w-full bg-white dark:bg-neutral-900 rounded-md shadow-lg overflow-hidden z-20 hidden group-hover:block">
-                  <Link href="#faq">
-                    <a className="block px-4 py-2 text-sm text-neutral-900 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700">
-                      Часто задаваемые вопросы
-                    </a>
-                  </Link>
-                  <Link href="#contact">
-                    <a className="block px-4 py-2 text-sm text-neutral-900 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700">
-                      Связаться с нами
-                    </a>
-                  </Link>
-                  <Link href="#guides">
-                    <a className="block px-4 py-2 text-sm text-neutral-900 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700">
-                      Руководства
-                    </a>
-                  </Link>
-                </div>
-              </div>
+                </a>
+              </Link>
             </nav>
           </div>
 
