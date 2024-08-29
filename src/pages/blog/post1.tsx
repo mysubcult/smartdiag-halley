@@ -15,6 +15,25 @@ export default function BlogPost() {
   // Проверка, что компонент рендерится только на клиенте
   useEffect(() => {
     setIsClient(true);
+
+    // Отключаем стандартное поведение прокрутки при навигации по якорным ссылкам
+    const handleHashChange = (event) => {
+      event.preventDefault();
+      const hash = window.location.hash;
+      if (hash) {
+        const targetElement = document.querySelector(hash);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+
+    // Возвращаем очищающий эффект для удаления обработчика
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
   }, []);
 
   return (
@@ -25,7 +44,7 @@ export default function BlogPost() {
           {/* Кнопка меню навигации на мобильных устройствах */}
           <div className="lg:hidden w-full flex justify-center mb-4">
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={() => setIsMenuOpen((prev) => !prev)}
               className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-6 py-3 font-medium shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
               aria-label="Открыть меню навигации"
             >
@@ -51,7 +70,7 @@ export default function BlogPost() {
           {isClient && (
             <div
               className={`lg:w-1/6 w-full text-center lg:text-left ${
-                isMenuOpen ? '' : 'hidden'
+                isMenuOpen ? 'block' : 'hidden'
               } lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}
             >
               <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
