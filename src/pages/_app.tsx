@@ -3,18 +3,17 @@ import React from 'react';
 import "@/styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
-import { Roboto } from "next/font/google"; // Заменяем Inter на Roboto
-import Script from 'next/script';
+import { Inter } from "next/font/google";
+import Script from 'next/script'; // Добавляем импорт
 
-const roboto = Roboto({
-  subsets: ["latin", "cyrillic"], // Поддержка латиницы и кириллицы
-  weight: ["400", "500", "700"], // Добавляем веса шрифта
-  variable: "--font-roboto",
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={`${roboto.variable} font-sans relative`}>
+    <main className={`${inter.variable} font-sans relative`}>
       <Head>
       </Head>
       <ThemeProvider attribute="class">
