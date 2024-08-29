@@ -1,10 +1,8 @@
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
 
 export default function BlogPost() {
-  // Удаляем состояние isMenuOpen и связанные с ним части
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -12,32 +10,7 @@ export default function BlogPost() {
   return (
     <Layout title="Блог - Как справиться с ошибкой при открытии архива">
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
-        <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
-
-          {/* Панель навигации, всегда видимая */}
-          <div className="lg:w-1/6 w-full text-center lg:text-left lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 rounded-lg py-4">
-            <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
-            <nav className="space-y-3">
-              <a
-                onClick={scrollToTop}
-                className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 cursor-pointer"
-              >
-                🏠 В начало
-              </a>
-              {['antivirus-issue', 'outdated-software', 'download-errors', 'yandex-tips', 'support'].map((section, index) => (
-                <Link href={`#${section}`} key={section} passHref scroll={false}>
-                  <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300">
-                    {index === 0 && '🛡️ Проблема с антивирусом'}
-                    {index === 1 && '⏳ Устаревшее ПО'}
-                    {index === 2 && '📥 Ошибки при загрузке'}
-                    {index === 3 && '🌐 Советы для Яндекс Браузера'}
-                    {index === 4 && '📞 Поддержка'}
-                  </a>
-                </Link>
-              ))}
-            </nav>
-          </div>
-
+        <div className="container mx-auto flex flex-col lg:flex-row lg:justify-center lg:space-x-6">
           {/* Основной контент блога */}
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4">
             <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
@@ -83,6 +56,7 @@ export default function BlogPost() {
             </div>
           </div>
 
+          {/* Добавляем отступ справа для больших экранов, чтобы контент не растягивался на всю ширину */}
           <div className="lg:w-1/6 hidden lg:block"></div>
         </div>
       </main>
