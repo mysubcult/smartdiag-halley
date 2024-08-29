@@ -26,8 +26,8 @@ const products = [
     mostPopular: false,
     docs: true,
     docsLinks: [
-      { link: "https://i.getspace.us/cloud/s/Nmj3JBHPDDd5zeE", label: "Инструкция 1" },
-      { link: "https://i.getspace.us/cloud/s/anotherLink", label: "Инструкция 2" }
+      { link: "https://i.getspace.us/cloud/s/7BwyBJf2YHxEkaC", label: "Инструкция по установке Delphi 2020.23" },
+      { link: "https://i.getspace.us/cloud/s/qJRfJdgjsqkPxme", label: "Инструкция по установке Delphi 2021.10b" }
     ],
   },
   {
@@ -47,7 +47,8 @@ const products = [
     mostPopular: true,
     docs: true,
     docsLinks: [
-      { link: "https://i.getspace.us/cloud/s/as7kNFEmS4MpiSr", label: "Инструкция 1" },
+      { link: "https://i.getspace.us/cloud/s/xdr4QZqwsR6k8rr", label: "Инструкция по установке Autocom 2020.23" },
+      { link: "https://i.getspace.us/cloud/s/bbRzaksyH6LkSg4", label: "Инструкция по установке Autocom 2021.11" },
     ],
   },
   {
