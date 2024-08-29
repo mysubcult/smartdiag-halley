@@ -266,8 +266,13 @@ export default function Soft() {
   );
 
   const openModal = (links: InstructionLink[]) => {
-    setModalLinks(links);
-    setShowModal(true);
+    if (links.length === 1) {
+      // Если одна ссылка, открываем ее сразу
+      window.open(links[0].link, "_blank");
+    } else {
+      setModalLinks(links);
+      setShowModal(true);
+    }
   };
 
   const closeModal = () => {
@@ -361,8 +366,20 @@ export default function Soft() {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full">
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+          onClick={closeModal}
+        >
+          <div
+            className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative"
+            onClick={(e) => e.stopPropagation()} // Остановить всплытие события клика
+          >
+            <button
+              onClick={closeModal}
+              className="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition-colors"
+            >
+              ✕
+            </button>
             <h3 className="text-lg font-semibold mb-4">Выберите инструкцию</h3>
             <ul>
               {modalLinks.map(({ link, label }, index) => (
@@ -373,12 +390,6 @@ export default function Soft() {
                 </li>
               ))}
             </ul>
-            <button
-              onClick={closeModal}
-              className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
-            >
-              Закрыть
-            </button>
           </div>
         </div>
       )}
