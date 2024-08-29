@@ -1,12 +1,8 @@
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
 
 export default function BlogPost() {
-  // Удаляем состояние isMenuOpen, так как оно временно не используется
-  // const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   // Функция для прокрутки страницы наверх
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -16,32 +12,6 @@ export default function BlogPost() {
     <Layout title="Блог - Как справиться с ошибкой при открытии архива">
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
-
-          {/* Кнопка меню навигации на мобильных устройствах */}
-          {/* Закомментировано для временного тестирования */}
-          {/* <div className="lg:hidden w-full flex justify-center mb-4">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-6 py-3 font-medium shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
-              aria-label="Открыть меню навигации"
-            >
-              <svg
-                className={`w-6 h-6 transition-transform duration-300 mr-2 ${isMenuOpen ? 'rotate-45' : 'rotate-0'}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-                ></path>
-              </svg>
-              Меню навигации
-            </button>
-          </div> */}
 
           {/* Панель навигации всегда видима */}
           <div
@@ -55,27 +25,27 @@ export default function BlogPost() {
               >
                 🏠 В начало
               </a>
-              <Link href="#antivirus-issue" passHref scroll={false}>
+              <Link href="#antivirus-issue" passHref>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   🛡️ Проблема с антивирусом
                 </a>
               </Link>
-              <Link href="#outdated-software" passHref scroll={false}>
+              <Link href="#outdated-software" passHref>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   ⏳ Устаревшее ПО
                 </a>
               </Link>
-              <Link href="#download-errors" passHref scroll={false}>
+              <Link href="#download-errors" passHref>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   📥 Ошибки при загрузке
                 </a>
               </Link>
-              <Link href="#yandex-tips" passHref scroll={false}>
+              <Link href="#yandex-tips" passHref>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   🌐 Советы для Яндекс Браузера
                 </a>
               </Link>
-              <Link href="#support" passHref scroll={false}>
+              <Link href="#support" passHref>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   📞 Поддержка
                 </a>
@@ -91,17 +61,19 @@ export default function BlogPost() {
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
             </p>
 
-            <Image
-              src="/images/blog/post1.jpg"
-              alt="Ошибки при открытии архива"
-              width={1920}
-              height={1080}
-              quality={75}
-              layout="responsive"
-              sizes="100vw"
-              className="w-full max-w-full mx-auto mb-8"
-              priority
-            />
+            {/* Упрощенный вызов компонента Image */}
+            <div className="w-full max-w-full mx-auto mb-8">
+              <Image
+                src="/images/blog/post1.jpg"
+                alt="Ошибки при открытии архива"
+                width={1920}
+                height={1080}
+                quality={75}
+                layout="responsive"
+                sizes="100vw"
+                priority
+              />
+            </div>
 
             <div className="max-w-4xl mx-auto text-lg leading-relaxed">
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="antivirus-issue">Проблема с антивирусом</h3>
