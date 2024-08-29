@@ -255,9 +255,13 @@ export default function Soft() {
     </button>
   );
 
-  const openModal = (links: InstructionLink[]) => {
-    setModalLinks(links);
-    setShowModal(true);
+  const handleDownloadClick = (links: InstructionLink[]) => {
+    if (links.length === 1) {
+      window.open(links[0].link, "_blank");
+    } else {
+      setModalLinks(links);
+      setShowModal(true);
+    }
   };
 
   const closeModal = () => {
@@ -316,7 +320,7 @@ export default function Soft() {
                 <p className="px-6 mt-4 leading-6 dark:text-neutral-400">{description}</p>
                 <div className="flex mt-4 mx-6">
                   <button
-                    onClick={() => openModal(downloadLinks)}
+                    onClick={() => handleDownloadClick(downloadLinks)}
                     className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
                       mostPopular
                         ? "bg-red-600 text-white shadow-md hover:bg-green-500"
@@ -327,7 +331,7 @@ export default function Soft() {
                   </button>
                   {docs && docsLinks.length > 0 && (
                     <button
-                      onClick={() => openModal(docsLinks)}
+                      onClick={() => handleDownloadClick(docsLinks)}
                       className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-transform duration-300 ease-in-out transform active:scale-95 w-full"
                     >
                       Инструкция
@@ -367,7 +371,7 @@ export default function Soft() {
             <div className="flex flex-col space-y-2">
               {modalLinks.map(({ link, label }, index) => (
                 <Link href={link} key={index} target="_blank">
-                  <a className="block px-4 py-2 font-medium leading-4 text-center rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-transform duration-300 ease-in-out transform active:scale-95">
+                  <a className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 transition-transform duration-300 ease-in-out transform active:scale-95">
                     {label}
                   </a>
                 </Link>
