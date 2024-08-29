@@ -1,15 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
 
 export default function BlogPost() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   // Функция для прокрутки страницы наверх
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Проверка, что компонент рендерится только на клиенте
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <Layout title="Блог - Как справиться с ошибкой при открытии архива">
@@ -42,46 +48,48 @@ export default function BlogPost() {
           </div>
 
           {/* Панель навигации */}
-          <div
-            className={`lg:w-1/6 w-full text-center lg:text-left ${
-              isMenuOpen ? 'block' : 'hidden'
-            } lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}
-          >
-            <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
-            <nav className="space-y-3">
-              <a
-                onClick={scrollToTop}
-                className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer"
-              >
-                🏠 В начало
-              </a>
-              <Link href="#antivirus-issue" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  🛡️ Проблема с антивирусом
+          {isClient && (
+            <div
+              className={`lg:w-1/6 w-full text-center lg:text-left ${
+                isMenuOpen ? '' : 'hidden'
+              } lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}
+            >
+              <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
+              <nav className="space-y-3">
+                <a
+                  onClick={scrollToTop}
+                  className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer"
+                >
+                  🏠 В начало
                 </a>
-              </Link>
-              <Link href="#outdated-software" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  ⏳ Устаревшее ПО
-                </a>
-              </Link>
-              <Link href="#download-errors" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  📥 Ошибки при загрузке
-                </a>
-              </Link>
-              <Link href="#yandex-tips" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  🌐 Советы для Яндекс Браузера
-                </a>
-              </Link>
-              <Link href="#support" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  📞 Поддержка
-                </a>
-              </Link>
-            </nav>
-          </div>
+                <Link href="#antivirus-issue" passHref scroll={false}>
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                    🛡️ Проблема с антивирусом
+                  </a>
+                </Link>
+                <Link href="#outdated-software" passHref scroll={false}>
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                    ⏳ Устаревшее ПО
+                  </a>
+                </Link>
+                <Link href="#download-errors" passHref scroll={false}>
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                    📥 Ошибки при загрузке
+                  </a>
+                </Link>
+                <Link href="#yandex-tips" passHref scroll={false}>
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                    🌐 Советы для Яндекс Браузера
+                  </a>
+                </Link>
+                <Link href="#support" passHref scroll={false}>
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                    📞 Поддержка
+                  </a>
+                </Link>
+              </nav>
+            </div>
+          )}
 
           {/* Основной контент блога */}
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4">
