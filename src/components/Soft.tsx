@@ -89,7 +89,8 @@ const products: Product[] = [
     description: "Диагностический инструмент для автомобилей Volkswagen Group.",
     features: ["Вася, VCDS", "Инструкции по установке ПО", "Сборники кодировок", "Видеокурсы"],
     downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/R7ycKecn9P6b55a", label: "Скачать с сервера 1" }
+      { link: "https://i.getspace.us/cloud/s/R7ycKecn9P6b55a", label: "Скачать с сервера 1" },
+      { link: "https://nch.pl/s/mnBd982CC52NEko", label: "Скачать с сервера 2" },
     ],
     mostPopular: true,
     docs: true,
