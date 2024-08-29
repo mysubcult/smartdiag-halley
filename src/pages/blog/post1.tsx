@@ -9,21 +9,23 @@ export default function BlogPost() {
 
   // Проверяем, включен ли темный режим
   useEffect(() => {
-    const checkDarkMode = () => {
-      const darkModeEnabled = document.documentElement.classList.contains('dark');
-      setIsDarkMode(darkModeEnabled);
-    };
+    if (typeof window !== 'undefined') {
+      const checkDarkMode = () => {
+        const darkModeEnabled = document.documentElement.classList.contains('dark');
+        setIsDarkMode(darkModeEnabled);
+      };
 
-    checkDarkMode(); // Проводим начальную проверку
+      checkDarkMode(); // Проводим начальную проверку
 
-    const observer = new MutationObserver(() => {
-      checkDarkMode();
-    });
+      const observer = new MutationObserver(() => {
+        checkDarkMode();
+      });
 
-    observer.observe(document.documentElement, { attributes: true });
+      observer.observe(document.documentElement, { attributes: true });
 
-    // Отключаем observer при размонтировании компонента
-    return () => observer.disconnect();
+      // Отключаем observer при размонтировании компонента
+      return () => observer.disconnect();
+    }
   }, []);
 
   // Функция для прокрутки к якорю на странице
@@ -40,19 +42,21 @@ export default function BlogPost() {
   }, []);
 
   useEffect(() => {
-    // Прокрутка при первой загрузке страницы
-    scrollToHash();
-
-    const handleHashChange = () => {
+    if (typeof window !== 'undefined') {
+      // Прокрутка при первой загрузке страницы
       scrollToHash();
-    };
 
-    window.addEventListener('hashchange', handleHashChange);
+      const handleHashChange = () => {
+        scrollToHash();
+      };
 
-    // Отключаем слушатель при размонтировании компонента
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-    };
+      window.addEventListener('hashchange', handleHashChange);
+
+      // Отключаем слушатель при размонтировании компонента
+      return () => {
+        window.removeEventListener('hashchange', handleHashChange);
+      };
+    }
   }, [scrollToHash]);
 
   // Прокрутка к началу страницы
