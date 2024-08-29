@@ -19,8 +19,10 @@ const products = [
     cta: "Скачать",
     mostPopular: false,
     docs: true,
-    docsLink: "https://i.getspace.us/cloud/s/Nmj3JBHPDDd5zeE",
-    docsLabel: "Инструкция",
+    docsLinks: [
+      { link: "https://i.getspace.us/cloud/s/Nmj3JBHPDDd5zeE", label: "Инструкция 1" },
+      { link: "https://i.getspace.us/cloud/s/anotherLink", label: "Инструкция 2" }
+    ],
   },
   {
     title: "Autocom CDP+",
@@ -38,8 +40,9 @@ const products = [
     cta: "Скачать",
     mostPopular: true,
     docs: true,
-    docsLink: "https://i.getspace.us/cloud/s/as7kNFEmS4MpiSr",
-    docsLabel: "Инструкция",
+    docsLinks: [
+      { link: "https://i.getspace.us/cloud/s/as7kNFEmS4MpiSr", label: "Инструкция 1" },
+    ],
   },
   {
     title: "Wurth WoW Snooper+",
@@ -57,8 +60,7 @@ const products = [
     cta: "Скачать",
     mostPopular: false,
     docs: false,
-    docsLink: "",
-    docsLabel: "",
+    docsLinks: [],
   },
   {
     title: "MUCAR BT200/Thinkcar Mini/Thinkdiag",
@@ -71,8 +73,7 @@ const products = [
     cta: "Скачать",
     mostPopular: false,
     docs: false,
-    docsLink: "",
-    docsLabel: "",
+    docsLinks: [],
   },
   {
     title: "Galletto 1260",
@@ -86,8 +87,7 @@ const products = [
     cta: "Скачать",
     mostPopular: false,
     docs: false,
-    docsLink: "",
-    docsLabel: "",
+    docsLinks: [],
   },
   {
     title: "VCDS + Вася",
@@ -105,8 +105,9 @@ const products = [
     cta: "Скачать",
     mostPopular: true,
     docs: true,
-    docsLink: "https://i.getspace.us/cloud/s/bmi7a7zdHbXHMnB",
-    docsLabel: "Инструкция",
+    docsLinks: [
+      { link: "https://i.getspace.us/cloud/s/bmi7a7zdHbXHMnB", label: "Инструкция 1" },
+    ],
   },
   {
     title: "BMW E-NET (E-Sys)",
@@ -125,8 +126,7 @@ const products = [
     cta: "Скачать",
     mostPopular: false,
     docs: false,
-    docsLink: "",
-    docsLabel: "",
+    docsLinks: [],
   },
   {
     title: "K-Dcan INPA",
@@ -146,8 +146,7 @@ const products = [
     cta: "Скачать",
     mostPopular: false,
     docs: false,
-    docsLink: "",
-    docsLabel: "",
+    docsLinks: [],
   },
   {
     title: "ELS 27",
@@ -161,8 +160,7 @@ const products = [
     cta: "Скачать",
     mostPopular: false,
     docs: false,
-    docsLink: "",
-    docsLabel: "",
+    docsLinks: [],
   },
   {
     title: "Mini-VCI",
@@ -176,8 +174,7 @@ const products = [
     cta: "Скачать",
     mostPopular: false,
     docs: false,
-    docsLink: "",
-    docsLabel: "",
+    docsLinks: [],
   },
   {
     title: "Lexia 3/PP2000",
@@ -191,8 +188,7 @@ const products = [
     cta: "Скачать",
     mostPopular: false,
     docs: false,
-    docsLink: "",
-    docsLabel: "",
+    docsLinks: [],
   },
   {
     title: "ELM 327 Mini",
@@ -215,8 +211,7 @@ const products = [
     cta: "Скачать",
     mostPopular: true,
     docs: false,
-    docsLink: "",
-    docsLabel: "",
+    docsLinks: [],
   },
   {
     title: "Kingbolen ELM",
@@ -239,8 +234,7 @@ const products = [
     cta: "Скачать",
     mostPopular: false,
     docs: false,
-    docsLink: "",
-    docsLabel: "",
+    docsLinks: [],
   },
 ];
 
@@ -248,6 +242,8 @@ type BillingInterval = "year" | "month" | "elm";
 
 export default function Soft() {
   const [billingInterval, setBillingInterval] = useState<BillingInterval>("month");
+  const [showModal, setShowModal] = useState(false);
+  const [modalLinks, setModalLinks] = useState([]);
 
   const renderSwitchButton = (label: string, interval: BillingInterval) => (
     <button
@@ -262,6 +258,16 @@ export default function Soft() {
       {label}
     </button>
   );
+
+  const openModal = (links) => {
+    setModalLinks(links);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setModalLinks([]);
+  };
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
@@ -296,8 +302,7 @@ export default function Soft() {
               features,
               href,
               docs,
-              docsLink,
-              docsLabel,
+              docsLinks,
             }) => (
               <div
                 key={title}
@@ -326,14 +331,13 @@ export default function Soft() {
                   >
                     {cta}
                   </Link>
-                  {docs && (
-                    <Link
-                      href={docsLink}
-                      target="_blank"
+                  {docs && docsLinks.length > 0 && (
+                    <button
+                      onClick={() => openModal(docsLinks)}
                       className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-transform duration-300 ease-in-out transform active:scale-95 w-full"
                     >
-                      {docsLabel}
-                    </Link>
+                      Инструкция
+                    </button>
                   )}
                 </div>
                 <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
@@ -349,6 +353,29 @@ export default function Soft() {
             )
           )}
       </div>
+
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full">
+            <h3 className="text-lg font-semibold mb-4">Выберите инструкцию</h3>
+            <ul>
+              {modalLinks.map(({ link, label }, index) => (
+                <li key={index} className="mb-2">
+                  <Link href={link} target="_blank" className="text-blue-500 hover:underline">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <button
+              onClick={closeModal}
+              className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
