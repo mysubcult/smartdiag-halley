@@ -7,6 +7,7 @@ interface InstructionLink {
   link: string;
   label: string;
   available?: boolean;
+  ping?: number; // Добавлено для отображения скорости пинга
 }
 
 const products = [
@@ -283,28 +284,27 @@ export default function Soft() {
   );
 
   const openModal = (links: InstructionLink[]) => {
-    if (links.length === 1) {
-      // Если одна ссылка, открываем ее сразу
-      window.open(links[0].link, "_blank");
-    } else {
-      setModalLinks(links);
-      setShowModal(true);
-    }
+    setModalLinks(links.map(link => ({ ...link, available: null, ping: null })));
+    setShowModal(true);
+
+    // Выполняем асинхронную проверку доступности и пинга после открытия окна
+    checkLinks(links);
   };
 
-  const openDownloadModal = async (links: InstructionLink[]) => {
-    const checkedLinks = await Promise.all(
+  const checkLinks = async (links: InstructionLink[]) => {
+    const updatedLinks = await Promise.all(
       links.map(async (link) => {
         try {
+          const startTime = Date.now();
           const response = await fetch(link.link, { method: "HEAD" });
-          return { ...link, available: response.ok };
+          const ping = Date.now() - startTime;
+          return { ...link, available: response.ok, ping };
         } catch (error) {
-          return { ...link, available: false };
+          return { ...link, available: false, ping: null };
         }
       })
     );
-    setModalLinks(checkedLinks);
-    setShowModal(true);
+    setModalLinks(updatedLinks);
   };
 
   const closeModal = () => {
@@ -363,7 +363,7 @@ export default function Soft() {
                 <p className="px-6 mt-4 leading-6 dark:text-neutral-400">{description}</p>
                 <div className="flex mt-4 mx-6">
                   <button
-                    onClick={() => openDownloadModal(downloadLinks)}
+                    onClick={() => openModal(downloadLinks)}
                     className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
                       mostPopular
                         ? "bg-red-600 text-white shadow-md hover:bg-green-500"
@@ -412,11 +412,13 @@ export default function Soft() {
             </button>
             <h3 className="text-lg font-semibold mb-4">Выберите ссылку для скачивания</h3>
             <ul>
-              {modalLinks.map(({ link, label, available }, index) => (
+              {modalLinks.map(({ link, label, available, ping }, index) => (
                 <li key={index} className="mb-2">
-                  {available ? (
+                  {available === null ? (
+                    <span className="text-blue-500">{label} (проверяется...)</span>
+                  ) : available ? (
                     <Link href={link} target="_blank" className="text-blue-500 hover:underline">
-                      {label}
+                      {label} {ping !== null ? `(${ping} мс)` : ""}
                     </Link>
                   ) : (
                     <span className="text-red-500">{label} (недоступно)</span>
