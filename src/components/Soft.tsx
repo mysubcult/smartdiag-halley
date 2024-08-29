@@ -2,7 +2,20 @@ import Link from "next/link";
 import { useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 
-const products = [
+type ProductType = "мультимарочные" | "марочные" | "elm";
+
+interface Product {
+  title: string;
+  description: string;
+  features: string[];
+  downloadLinks: { link: string; label: string }[];
+  mostPopular: boolean;
+  docs: boolean;
+  docsLinks: { link: string; label: string }[];
+  type: ProductType;
+}
+
+const products: Product[] = [
   {
     title: "Delphi DS150e",
     description: "Многофункциональный диагностический инструмент для легковых и грузовых автомобилей.",
@@ -171,13 +184,13 @@ const products = [
   }
 ];
 
-const DeviceTypes = ["мультимарочные", "марочные", "elm"];
+const DeviceTypes: ProductType[] = ["мультимарочные", "марочные", "elm"];
 
 export default function Soft() {
-  const [selectedType, setSelectedType] = useState("мультимарочные");
-  const [modalLinks, setModalLinks] = useState(null);
+  const [selectedType, setSelectedType] = useState<ProductType>("мультимарочные");
+  const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
 
-  const handleDownloadClick = (links) => {
+  const handleDownloadClick = (links: { link: string; label: string }[]) => {
     if (links.length === 1) {
       window.open(links[0].link, "_blank");
     } else {
@@ -187,7 +200,7 @@ export default function Soft() {
 
   const closeModal = () => setModalLinks(null);
 
-  const renderButton = (label, type) => (
+  const renderButton = (label: string, type: ProductType) => (
     <button
       onClick={() => setSelectedType(type)}
       className={`${
