@@ -2,6 +2,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 
+// Определяем интерфейс для ссылок инструкций
+interface InstructionLink {
+  link: string;
+  label: string;
+}
+
 const products = [
   {
     title: "Delphi DS150e",
@@ -243,7 +249,7 @@ type BillingInterval = "year" | "month" | "elm";
 export default function Soft() {
   const [billingInterval, setBillingInterval] = useState<BillingInterval>("month");
   const [showModal, setShowModal] = useState(false);
-  const [modalLinks, setModalLinks] = useState([]);
+  const [modalLinks, setModalLinks] = useState<InstructionLink[]>([]);
 
   const renderSwitchButton = (label: string, interval: BillingInterval) => (
     <button
@@ -259,7 +265,7 @@ export default function Soft() {
     </button>
   );
 
-  const openModal = (links) => {
+  const openModal = (links: InstructionLink[]) => {
     setModalLinks(links);
     setShowModal(true);
   };
