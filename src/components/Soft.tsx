@@ -2,12 +2,11 @@ import Link from "next/link";
 import { useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 
-// Определяем интерфейс для ссылок инструкций
 interface InstructionLink {
   link: string;
   label: string;
-  available?: boolean; // Можно оставить как есть, `undefined` допустимо
-  ping?: number;       // Можно оставить как есть, `undefined` допустимо
+  available?: boolean;
+  speed?: number;  // Заменено с ping на speed для отображения скорости загрузки
 }
 
 const products = [
@@ -284,11 +283,12 @@ export default function Soft() {
   );
 
   const openModal = (links: InstructionLink[]) => {
-    setModalLinks(links.map(link => ({ ...link, available: undefined, ping: undefined })));
+    setModalLinks(links.map(link => ({ ...link, available: undefined, speed: undefined })));
     setShowModal(true);
 
-    // Выполняем асинхронную проверку доступности и пинга после открытия окна
-    checkLinks(links);
+    if (links !== modalLinks) {
+      checkLinks(links); // Оставляем проверку для модального окна скачивания
+    }
   };
 
   const checkLinks = async (links: InstructionLink[]) => {
@@ -296,18 +296,17 @@ export default function Soft() {
       links.map(async (link) => {
         try {
           const startTime = Date.now();
-          // Используем GET и no-cors для проверки
-          await fetch(link.link, { method: "GET", mode: "no-cors" });
-          const ping = Date.now() - startTime;
-          // Если запрос не выбросил ошибку, считаем доступным
-          return { ...link, available: true, ping };
+          const response = await fetch(link.link, { method: "HEAD" });
+          const endTime = Date.now();
+          const contentLength = response.headers.get('content-length');
+          const speed = contentLength ? (parseInt(contentLength) / (endTime - startTime) / 1000).toFixed(2) : 0;
+          return { ...link, available: true, speed };
         } catch (error) {
-          return { ...link, available: false, ping: undefined };
+          return { ...link, available: false, speed: undefined };
         }
       })
     );
 
-    // Обновляем состояние modalLinks после завершения всех проверок
     setModalLinks(updatedLinks);
   };
 
@@ -378,7 +377,7 @@ export default function Soft() {
                   </button>
                   {docs && docsLinks.length > 0 && (
                     <button
-                      onClick={() => openModal(docsLinks)}
+                      onClick={() => setShowModal(true) && setModalLinks(docsLinks)} // Открываем модальное окно без проверки
                       className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-transform duration-300 ease-in-out transform active:scale-95 w-full"
                     >
                       Инструкция
@@ -406,7 +405,7 @@ export default function Soft() {
         >
           <div
             className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative transform transition-transform duration-300 ease-out scale-100"
-            onClick={(e) => e.stopPropagation()} // Остановить всплытие события клика
+            onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={closeModal}
@@ -415,11 +414,11 @@ export default function Soft() {
               ✕
             </button>
             <h3 className="text-lg font-semibold mb-4">Выберите ссылку для скачивания</h3>
-            <ul>
-              {modalLinks.map(({ link, label, available, ping }, index) => (
+            <ul className="text-center"> {/* Центровка ссылок */}
+              {modalLinks.map(({ link, label, available, speed }, index) => (
                 <li key={index} className="mb-2">
                   <Link href={link} target="_blank" className="text-blue-500 hover:underline">
-                    {label} {available === undefined ? "🔄 (проверяется...)" : available ? `✅ (${ping} мс)` : "❌ (недоступно)"}
+                    {label} {available === undefined ? "" : available ? `✅ (${speed} МБ/с)` : "❌ (недоступно)"}
                   </Link>
                 </li>
               ))}
