@@ -7,7 +7,7 @@ interface InstructionLink {
   link: string;
   label: string;
   available?: boolean; // Можно оставить как есть, `undefined` допустимо
-  ping?: number;       // Можно оставить как есть, `undefined` допустимо
+  speed?: number;      // Новый параметр для скорости в mb/s
 }
 
 const products = [
@@ -284,10 +284,10 @@ export default function Soft() {
   );
 
   const openModal = (links: InstructionLink[]) => {
-    setModalLinks(links.map(link => ({ ...link, available: undefined, ping: undefined })));
+    setModalLinks(links.map(link => ({ ...link, available: undefined, speed: undefined })));
     setShowModal(true);
 
-    // Выполняем асинхронную проверку доступности и пинга после открытия окна
+    // Выполняем асинхронную проверку доступности и скорости после открытия окна
     checkLinks(links);
   };
 
@@ -296,13 +296,16 @@ export default function Soft() {
       links.map(async (link) => {
         try {
           const startTime = Date.now();
-          // Используем GET и no-cors для проверки
-          await fetch(link.link, { method: "GET", mode: "no-cors" });
-          const ping = Date.now() - startTime;
-          // Если запрос не выбросил ошибку, считаем доступным
-          return { ...link, available: true, ping };
+          const response = await fetch(link.link, { method: "HEAD", mode: "no-cors" });
+          const endTime = Date.now();
+          const duration = (endTime - startTime) / 1000; // в секундах
+          
+          const contentLength = response.headers.get('content-length');
+          const speed = contentLength ? (parseInt(contentLength) / duration / 1024 / 1024).toFixed(2) : undefined; // скорость в mb/s
+
+          return { ...link, available: true, speed: parseFloat(speed) };
         } catch (error) {
-          return { ...link, available: false, ping: undefined };
+          return { ...link, available: false, speed: undefined };
         }
       })
     );
@@ -416,10 +419,10 @@ export default function Soft() {
             </button>
             <h3 className="text-lg font-semibold mb-4">Выберите ссылку для скачивания</h3>
             <ul>
-              {modalLinks.map(({ link, label, available, ping }, index) => (
+              {modalLinks.map(({ link, label, available, speed }, index) => (
                 <li key={index} className="mb-2">
                   <Link href={link} target="_blank" className="text-blue-500 hover:underline">
-                    {label} {available === undefined ? "🔄 (проверяется...)" : available ? `✅ (${ping} мс)` : "❌ (недоступно)"}
+                    {label} {available === undefined ? "🔄 (проверяется...)" : available ? `✅ (${speed} mb/s)` : "❌ (недоступно)"}
                   </Link>
                 </li>
               ))}
