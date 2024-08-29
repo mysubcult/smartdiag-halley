@@ -44,7 +44,7 @@ export default function BlogPost() {
           <div
             className={`lg:w-1/6 w-full text-center lg:text-left ${
               isMenuOpen ? 'block' : 'hidden'
-            } lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 shadow-lg rounded-lg py-4`}
+            } lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 rounded-lg py-4`}
           >
             <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
             <nav className="space-y-3">
