@@ -321,18 +321,14 @@ export default function Soft() {
                 <div className="flex mt-4 mx-6">
                   <button
                     onClick={() => handleDownloadClick(downloadLinks)}
-                    className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
-                      mostPopular
-                        ? "bg-red-600 text-white shadow-md hover:bg-green-500"
-                        : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
-                    } transition-transform duration-300 ease-in-out transform active:scale-95 w-full`}
+                    className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-neutral-300 text-black shadow-md dark:bg-neutral-600 dark:text-white hover:bg-neutral-400 dark:hover:bg-neutral-500 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
                   >
                     Скачать
                   </button>
                   {docs && docsLinks.length > 0 && (
                     <button
                       onClick={() => handleDownloadClick(docsLinks)}
-                      className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-transform duration-300 ease-in-out transform active:scale-95 w-full"
+                      className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
                     >
                       Инструкция
                     </button>
@@ -367,11 +363,11 @@ export default function Soft() {
             >
               ✕
             </button>
-            <h3 className="text-lg font-semibold mb-4">Выберите ссылку для скачивания</h3>
+            <h3 className="text-lg font-semibold mb-4 text-center">Выберите ссылку для скачивания</h3>
             <div className="flex flex-col space-y-2">
               {modalLinks.map(({ link, label }, index) => (
                 <Link href={link} key={index} target="_blank">
-                  <a className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 transition-transform duration-300 ease-in-out transform active:scale-95">
+                  <a className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-neutral-300 text-black shadow-md dark:bg-neutral-600 dark:text-white hover:bg-neutral-400 dark:hover:bg-neutral-500 transition-colors duration-200 ease-in-out transform active:scale-95">
                     {label}
                   </a>
                 </Link>
