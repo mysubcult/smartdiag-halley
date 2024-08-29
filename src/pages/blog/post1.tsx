@@ -55,30 +55,30 @@ export default function BlogPost() {
               >
                 🏠 В начало
               </a>
-              <Link href="#antivirus-issue" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+              <Link href="#antivirus-issue" passHref>
+                <span className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
                   🛡️ Проблема с антивирусом
-                </a>
+                </span>
               </Link>
-              <Link href="#outdated-software" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+              <Link href="#outdated-software" passHref>
+                <span className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
                   ⏳ Устаревшее ПО
-                </a>
+                </span>
               </Link>
-              <Link href="#download-errors" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+              <Link href="#download-errors" passHref>
+                <span className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
                   📥 Ошибки при загрузке
-                </a>
+                </span>
               </Link>
-              <Link href="#yandex-tips" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+              <Link href="#yandex-tips" passHref>
+                <span className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
                   🌐 Советы для Яндекс Браузера
-                </a>
+                </span>
               </Link>
-              <Link href="#support" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+              <Link href="#support" passHref>
+                <span className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
                   📞 Поддержка
-                </a>
+                </span>
               </Link>
             </nav>
           </div>
