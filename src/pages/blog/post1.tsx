@@ -99,20 +99,30 @@ export default function BlogPost() {
               <button onClick={scrollToTop} className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
                 🏠 В начало
               </button>
-              <Link href="#antivirus-issue" passHref>
-                🛡️ Проблема с антивирусом
+              <Link href="#antivirus-issue">
+                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  🛡️ Проблема с антивирусом
+                </a>
               </Link>
-              <Link href="#outdated-software" passHref>
-                ⏳ Устаревшее ПО
+              <Link href="#outdated-software">
+                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  ⏳ Устаревшее ПО
+                </a>
               </Link>
-              <Link href="#download-errors" passHref>
-                📥 Ошибки при загрузке
+              <Link href="#download-errors">
+                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  📥 Ошибки при загрузке
+                </a>
               </Link>
-              <Link href="#yandex-tips" passHref>
-                🌐 Советы для Яндекс Браузера
+              <Link href="#yandex-tips">
+                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  🌐 Советы для Яндекс Браузера
+                </a>
               </Link>
-              <Link href="#support" passHref>
-                📞 Поддержка
+              <Link href="#support">
+                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  📞 Поддержка
+                </a>
               </Link>
             </nav>
           </div>
@@ -171,7 +181,9 @@ export default function BlogPost() {
 
             <div className="mt-16 flex justify-center">
               <Link href="/#blog" passHref>
-                Вернуться в блог
+                <a className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
+                  Вернуться в блог
+                </a>
               </Link>
             </div>
           </div>
