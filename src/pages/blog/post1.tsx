@@ -6,7 +6,6 @@ import Layout from '../../components/Layout';
 export default function BlogPost() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Функция для прокрутки страницы наверх
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -45,41 +44,27 @@ export default function BlogPost() {
           <div
             className={`lg:w-1/6 w-full text-center lg:text-left ${
               isMenuOpen ? 'block' : 'hidden'
-            } lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}
+            } lg:block lg:sticky top-24 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4`}
           >
             <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
             <nav className="space-y-3">
               <a
                 onClick={scrollToTop}
-                className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer"
+                className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 cursor-pointer"
               >
                 🏠 В начало
               </a>
-              <Link href="#antivirus-issue" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  🛡️ Проблема с антивирусом
-                </a>
-              </Link>
-              <Link href="#outdated-software" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  ⏳ Устаревшее ПО
-                </a>
-              </Link>
-              <Link href="#download-errors" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  📥 Ошибки при загрузке
-                </a>
-              </Link>
-              <Link href="#yandex-tips" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  🌐 Советы для Яндекс Браузера
-                </a>
-              </Link>
-              <Link href="#support" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  📞 Поддержка
-                </a>
-              </Link>
+              {['antivirus-issue', 'outdated-software', 'download-errors', 'yandex-tips', 'support'].map((section) => (
+                <Link href={`#${section}`} key={section} passHref scroll={false}>
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300">
+                    {section === 'antivirus-issue' && '🛡️ Проблема с антивирусом'}
+                    {section === 'outdated-software' && '⏳ Устаревшее ПО'}
+                    {section === 'download-errors' && '📥 Ошибки при загрузке'}
+                    {section === 'yandex-tips' && '🌐 Советы для Яндекс Браузера'}
+                    {section === 'support' && '📞 Поддержка'}
+                  </a>
+                </Link>
+              ))}
             </nav>
           </div>
 
@@ -104,35 +89,19 @@ export default function BlogPost() {
             />
 
             <div className="max-w-4xl mx-auto text-lg leading-relaxed">
-              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="antivirus-issue">Проблема с антивирусом</h3>
-              <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4">
-                Часто проблемы с открытием архивов вызваны антивирусным программным обеспечением.
-              </p>
-
-              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="outdated-software">Устаревшее программное обеспечение</h3>
-              <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4">
-                Если вы используете старую версию программы для работы с архивами, она может не поддерживать новые форматы архивов.
-              </p>
-
-              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="download-errors">Ошибки при загрузке</h3>
-              <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4">
-                Иногда архив может не открываться из-за ошибок при его загрузке.
-              </p>
-
-              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="yandex-tips">Советы для пользователей Яндекс Браузера</h3>
-              <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4">
-                В Яндекс Браузере может быть включена защита, блокирующая загрузку определенных файлов, включая архивы.
-              </p>
-
-              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="support">Поддержка</h3>
-              <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4">
-                Если перечисленные выше шаги не помогают, обратитесь в службу поддержки для получения дополнительной помощи.
-              </p>
+              {[
+                { id: 'antivirus-issue', title: 'Проблема с антивирусом', text: 'Часто проблемы с открытием архивов вызваны антивирусным программным обеспечением.' },
+                { id: 'outdated-software', title: 'Устаревшее программное обеспечение', text: 'Если вы используете старую версию программы для работы с архивами, она может не поддерживать новые форматы архивов.' },
+                { id: 'download-errors', title: 'Ошибки при загрузке', text: 'Иногда архив может не открываться из-за ошибок при его загрузке.' },
+                { id: 'yandex-tips', title: 'Советы для пользователей Яндекс Браузера', text: 'В Яндекс Браузере может быть включена защита, блокирующая загрузку определенных файлов, включая архивы.' },
+                { id: 'support', title: 'Поддержка', text: 'Если перечисленные выше шаги не помогают, обратитесь в службу поддержки для получения дополнительной помощи.' }
+              ].map(({ id, title, text }) => (
+                <section key={id} id={id}>
+                  <h3 className="text-2xl font-semibold mt-8">{title}</h3>
+                  <hr className="border-neutral-300 mb-4" />
+                  <p className="mb-4">{text}</p>
+                </section>
+              ))}
             </div>
 
             <div className="mt-16 flex justify-center">
