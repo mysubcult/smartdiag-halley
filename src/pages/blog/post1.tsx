@@ -4,7 +4,8 @@ import Link from 'next/link';
 import Layout from '../../components/Layout';
 
 export default function BlogPost() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // Удаляем состояние isMenuOpen, так как оно временно не используется
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Функция для прокрутки страницы наверх
   const scrollToTop = () => {
@@ -17,7 +18,8 @@ export default function BlogPost() {
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
 
           {/* Кнопка меню навигации на мобильных устройствах */}
-          <div className="lg:hidden w-full flex justify-center mb-4">
+          {/* Закомментировано для временного тестирования */}
+          {/* <div className="lg:hidden w-full flex justify-center mb-4">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-6 py-3 font-medium shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
@@ -39,13 +41,11 @@ export default function BlogPost() {
               </svg>
               Меню навигации
             </button>
-          </div>
+          </div> */}
 
-          {/* Панель навигации */}
+          {/* Панель навигации всегда видима */}
           <div
-            className={`lg:w-1/6 w-full text-center lg:text-left ${
-              isMenuOpen ? 'block' : 'hidden'
-            } lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}
+            className="lg:w-1/6 w-full text-center lg:text-left lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4"
           >
             <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
             <nav className="space-y-3">
