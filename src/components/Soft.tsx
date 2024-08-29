@@ -371,12 +371,13 @@ export default function Soft() {
           onClick={closeModal}
         >
           <div
-            className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative"
+            className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative transform transition-transform duration-300 ease-out scale-100"
+            style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}
             onClick={(e) => e.stopPropagation()} // Остановить всплытие события клика
           >
             <button
               onClick={closeModal}
-              className="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition-colors"
+              className="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition-all duration-300 transform hover:scale-110 active:scale-90"
             >
               ✕
             </button>
