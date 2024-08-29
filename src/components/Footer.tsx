@@ -28,7 +28,7 @@ export default function Footer() {
         {/* Copyright Section */}
         <div className="text-center lg:text-left my-auto order-3 lg:order-1">
           <Link href="/" target="_self" scroll={false}>
-            SmartDiag &copy; {new Date().getFullYear()}
+            SmartDiag &copy; 2023-{new Date().getFullYear()}
           </Link>
         </div>
 
