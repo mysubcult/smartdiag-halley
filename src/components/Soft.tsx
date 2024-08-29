@@ -6,7 +6,6 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 interface InstructionLink {
   link: string;
   label: string;
-  available?: boolean; // Можно оставить как есть, `undefined` допустимо
 }
 
 const products = [
@@ -257,7 +256,7 @@ export default function Soft() {
   );
 
   const openModal = (links: InstructionLink[]) => {
-    setModalLinks(links.map(link => ({ ...link, available: undefined })));
+    setModalLinks(links);
     setShowModal(true);
   };
 
@@ -365,15 +364,15 @@ export default function Soft() {
               ✕
             </button>
             <h3 className="text-lg font-semibold mb-4">Выберите ссылку для скачивания</h3>
-            <ul>
-              {modalLinks.map(({ link, label, available }, index) => (
-                <li key={index} className="mb-2">
-                  <Link href={link} target="_blank" className="text-blue-500 hover:underline">
-                    {label} {available === undefined ? "🔄 (проверяется...)" : available ? "✅ (доступно)" : "❌ (недоступно)"}
-                  </Link>
-                </li>
+            <div className="flex flex-col space-y-2">
+              {modalLinks.map(({ link, label }, index) => (
+                <Link href={link} key={index} target="_blank">
+                  <a className="block px-4 py-2 font-medium leading-4 text-center rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-transform duration-300 ease-in-out transform active:scale-95">
+                    {label}
+                  </a>
+                </Link>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       )}
