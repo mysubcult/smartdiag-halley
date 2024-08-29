@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 
 // Определяем интерфейс для ссылок инструкций
@@ -296,9 +296,11 @@ export default function Soft() {
       links.map(async (link) => {
         try {
           const startTime = Date.now();
-          const response = await fetch(link.link, { method: "HEAD" });
+          // Используем GET и no-cors для проверки
+          const response = await fetch(link.link, { method: "GET", mode: "no-cors" });
           const ping = Date.now() - startTime;
-          return { ...link, available: response.ok, ping };
+          // Поскольку no-cors не дает возможности проверить статус, считаем доступным, если запрос не выбросил ошибку
+          return { ...link, available: true, ping };
         } catch (error) {
           return { ...link, available: false, ping: undefined };
         }
