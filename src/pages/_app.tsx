@@ -8,6 +8,7 @@ import Script from 'next/script';
 
 const roboto = Roboto({
   subsets: ["latin", "cyrillic"], // Поддержка латиницы и кириллицы
+  weight: ["400", "500", "700"], // Добавляем веса шрифта
   variable: "--font-roboto",
 });
 
