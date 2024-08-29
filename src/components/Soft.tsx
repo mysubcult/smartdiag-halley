@@ -6,8 +6,8 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 interface InstructionLink {
   link: string;
   label: string;
-  available?: boolean;
-  ping?: number; // Добавлено для отображения скорости пинга
+  available?: boolean; // Можно оставить как есть, `undefined` допустимо
+  ping?: number;       // Можно оставить как есть, `undefined` допустимо
 }
 
 const products = [
@@ -284,7 +284,7 @@ export default function Soft() {
   );
 
   const openModal = (links: InstructionLink[]) => {
-    setModalLinks(links.map(link => ({ ...link, available: null, ping: null })));
+    setModalLinks(links.map(link => ({ ...link, available: undefined, ping: undefined })));
     setShowModal(true);
 
     // Выполняем асинхронную проверку доступности и пинга после открытия окна
@@ -300,7 +300,7 @@ export default function Soft() {
           const ping = Date.now() - startTime;
           return { ...link, available: response.ok, ping };
         } catch (error) {
-          return { ...link, available: false, ping: null };
+          return { ...link, available: false, ping: undefined };
         }
       })
     );
@@ -414,11 +414,11 @@ export default function Soft() {
             <ul>
               {modalLinks.map(({ link, label, available, ping }, index) => (
                 <li key={index} className="mb-2">
-                  {available === null ? (
+                  {available === undefined ? (
                     <span className="text-blue-500">{label} (проверяется...)</span>
                   ) : available ? (
                     <Link href={link} target="_blank" className="text-blue-500 hover:underline">
-                      {label} {ping !== null ? `(${ping} мс)` : ""}
+                      {label} {ping !== undefined ? `(${ping} мс)` : ""}
                     </Link>
                   ) : (
                     <span className="text-red-500">{label} (недоступно)</span>
