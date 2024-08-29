@@ -1,11 +1,10 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
 
 export default function BlogPost() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navRef = useRef(null);
 
   // Функция для прокрутки страницы наверх
   const scrollToTop = () => {
@@ -44,7 +43,6 @@ export default function BlogPost() {
 
           {/* Панель навигации */}
           <div
-            ref={navRef}
             className={`lg:w-1/6 w-full text-center lg:text-left ${
               isMenuOpen ? 'block' : 'hidden'
             } lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}
