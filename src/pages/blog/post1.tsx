@@ -9,16 +9,15 @@ export default function BlogPost() {
 
   // Проверяем, включен ли темный режим
   useEffect(() => {
-    const darkModeEnabled = document.documentElement.classList.contains('dark');
-    setIsDarkMode(darkModeEnabled);
+    const checkDarkMode = () => {
+      const darkModeEnabled = document.documentElement.classList.contains('dark');
+      setIsDarkMode(darkModeEnabled);
+    };
 
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'class') {
-          const darkMode = document.documentElement.classList.contains('dark');
-          setIsDarkMode(darkMode);
-        }
-      });
+    checkDarkMode(); // Проводим начальную проверку
+
+    const observer = new MutationObserver(() => {
+      checkDarkMode();
     });
 
     observer.observe(document.documentElement, { attributes: true });
@@ -29,11 +28,13 @@ export default function BlogPost() {
 
   // Функция для прокрутки к якорю на странице
   const scrollToHash = useCallback(() => {
-    const hash = window.location.hash;
-    if (hash) {
-      const element = document.getElementById(hash.substring(1));
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash;
+      if (hash) {
+        const element = document.getElementById(hash.substring(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     }
   }, []);
@@ -56,7 +57,9 @@ export default function BlogPost() {
 
   // Прокрутка к началу страницы
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -93,33 +96,23 @@ export default function BlogPost() {
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 transition-none py-4`}>
             <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
             <nav className="space-y-3">
-              <a onClick={scrollToTop} className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
+              <button onClick={scrollToTop} className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
                 🏠 В начало
-              </a>
+              </button>
               <Link href="#antivirus-issue" passHref>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  🛡️ Проблема с антивирусом
-                </a>
+                🛡️ Проблема с антивирусом
               </Link>
               <Link href="#outdated-software" passHref>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  ⏳ Устаревшее ПО
-                </a>
+                ⏳ Устаревшее ПО
               </Link>
               <Link href="#download-errors" passHref>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  📥 Ошибки при загрузке
-                </a>
+                📥 Ошибки при загрузке
               </Link>
               <Link href="#yandex-tips" passHref>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  🌐 Советы для Яндекс Браузера
-                </a>
+                🌐 Советы для Яндекс Браузера
               </Link>
               <Link href="#support" passHref>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  📞 Поддержка
-                </a>
+                📞 Поддержка
               </Link>
             </nav>
           </div>
@@ -141,6 +134,7 @@ export default function BlogPost() {
               layout="responsive"
               sizes="100vw"
               className="w-full max-w-full mx-auto mb-8"
+              priority
             />
 
             <div className="max-w-4xl mx-auto text-lg leading-relaxed">
@@ -177,9 +171,7 @@ export default function BlogPost() {
 
             <div className="mt-16 flex justify-center">
               <Link href="/#blog" passHref>
-                <a className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
-                  Вернуться в блог
-                </a>
+                Вернуться в блог
               </Link>
             </div>
           </div>
