@@ -1,27 +1,11 @@
 import Link from "next/link";
-import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
 
 const menus = [
-  {
-    title: "Главная",
-    url: "/",
-  },
-  {
-    title: "Программы",
-    url: "/#soft",
-  },
-  {
-    title: "О нас",
-    url: "/#services",
-  },
-  {
-    title: "Блог",
-    url: "/#blog",
-  },
-  {
-    title: "Обратная связь",
-    url: "/#contact",
-  },
+  { title: "Главная", url: "/" },
+  { title: "Программы", url: "/#soft" },
+  { title: "О нас", url: "/#services" },
+  { title: "Блог", url: "/#blog" },
+  { title: "Обратная связь", url: "/#contact" },
 ];
 
 const socialLinks = [
@@ -41,22 +25,23 @@ export default function Footer() {
   return (
     <footer className="bg-white dark:bg-neutral-900 border-t border-neutral-200">
       <div className="mx-auto px-6 lg:px-8 py-24 lg:py-4 grid grid-cols-1 lg:grid-cols-3">
+        {/* Copyright Section */}
         <div className="text-center lg:text-left my-auto order-3 lg:order-1">
           <Link href="/" target="_self" scroll={false}>
-            SmartDiag &copy; 2023-{new Date().getFullYear()}
+            SmartDiag &copy; {new Date().getFullYear()}
           </Link>
         </div>
-        <div className="order-2 lg:order-2 py-10 lg:py-0 lg:flex gap-6 text-center mx-auto">
-          {menus.map((menu) => (
-            <div key={menu.title}>
-              <ul>
-                <li className="py-2 hover:text-red-500 font-medium">
-                  <Link href={menu.url} scroll={false}>{menu.title}</Link>
-                </li>
-              </ul>
-            </div>
+
+        {/* Menu Section */}
+        <nav className="order-2 lg:order-2 py-10 lg:py-0 lg:flex gap-6 text-center mx-auto">
+          {menus.map(({ title, url }) => (
+            <Link key={title} href={url} scroll={false}>
+              <div className="py-2 hover:text-red-500 font-medium">{title}</div>
+            </Link>
           ))}
-        </div>
+        </nav>
+
+        {/* Social Links Section */}
         <div className="flex gap-8 max-w-full justify-center my-auto lg:justify-end order-1 lg:order-3">
           {socialLinks.map(({ name, href, iconPath }) => (
             <Link key={name} href={href} target="_blank" title={name} scroll={false}>
