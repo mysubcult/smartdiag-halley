@@ -416,15 +416,9 @@ export default function Soft() {
             <ul>
               {modalLinks.map(({ link, label, available, ping }, index) => (
                 <li key={index} className="mb-2">
-                  {available === undefined ? (
-                    <span className="text-blue-500">{label} (проверяется...)</span>
-                  ) : available ? (
-                    <Link href={link} target="_blank" className="text-blue-500 hover:underline">
-                      {label} {ping !== undefined ? `(${ping} мс)` : ""}
-                    </Link>
-                  ) : (
-                    <span className="text-red-500">{label} (недоступно)</span>
-                  )}
+                  <Link href={link} target="_blank" className="text-blue-500 hover:underline">
+                    {label} {available === undefined ? "🔄 (проверяется...)" : available ? `✅ (${ping} мс)` : "❌ (недоступно)"}
+                  </Link>
                 </li>
               ))}
             </ul>
