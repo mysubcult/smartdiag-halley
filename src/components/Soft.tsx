@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 
 // Определяем интерфейс для ссылок инструкций
 interface InstructionLink {
   link: string;
   label: string;
+  available?: boolean;
 }
 
 const products = [
@@ -21,8 +22,10 @@ const products = [
       "Инструкции по установке ПО",
       "Руководство пользователя",
     ],
-    href: "https://i.getspace.us/cloud/s/BiaqYzKpxZRTc58",
-    cta: "Скачать",
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/BiaqYzKpxZRTc58", label: "Скачать с сервера 1" },
+      { link: "https://i.getspace.us/cloud/s/anotherLink", label: "Скачать с сервера 2" }
+    ],
     mostPopular: false,
     docs: true,
     docsLinks: [
@@ -42,8 +45,10 @@ const products = [
       "Инструкции по установке ПО",
       "Руководство пользователя",
     ],
-    href: "https://i.getspace.us/cloud/s/S9CKwWMNDbeB2XH",
-    cta: "Скачать",
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/S9CKwWMNDbeB2XH", label: "Скачать с сервера 1" },
+      { link: "https://i.getspace.us/cloud/s/anotherLink2", label: "Скачать с сервера 2" }
+    ],
     mostPopular: true,
     docs: true,
     docsLinks: [
@@ -63,8 +68,9 @@ const products = [
       "Инструкция по установке ПО",
       "Руководство пользователя",
     ],
-    href: "https://i.getspace.us/cloud/s/eTR2gqbEbZi66Md",
-    cta: "Скачать",
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/eTR2gqbEbZi66Md", label: "Скачать с сервера 1" }
+    ],
     mostPopular: false,
     docs: false,
     docsLinks: [],
@@ -76,8 +82,9 @@ const products = [
     frecuency: "month",
     description: "Универсальные мобильные приборы для диагностики автомобилей.",
     features: ["Diagzone", "ProDiag", "X-DIAG", "X-PRO5"],
-    href: "https://i.getspace.us/cloud/s/fAMr3QsBMekwR2n",
-    cta: "Скачать",
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/fAMr3QsBMekwR2n", label: "Скачать с сервера 1" }
+    ],
     mostPopular: false,
     docs: false,
     docsLinks: [],
@@ -90,8 +97,9 @@ const products = [
     description:
       "Универсальный программатор для чип-тюнинга, чтения и удаления кодов неисправностей.",
     features: ["Galletto 1260", "Драйвер"],
-    href: "https://i.getspace.us/cloud/s/dfYejQP9rZGK9Td",
-    cta: "Скачать",
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/dfYejQP9rZGK9Td", label: "Скачать с сервера 1" }
+    ],
     mostPopular: false,
     docs: false,
     docsLinks: [],
@@ -108,8 +116,9 @@ const products = [
       "Сборники кодировок",
       "Видеокурсы",
     ],
-    href: "https://i.getspace.us/cloud/s/R7ycKecn9P6b55a",
-    cta: "Скачать",
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/R7ycKecn9P6b55a", label: "Скачать с сервера 1" }
+    ],
     mostPopular: true,
     docs: true,
     docsLinks: [
@@ -129,8 +138,9 @@ const products = [
       "ISTA-P",
       "Инструкции по установке ПО",
     ],
-    href: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS",
-    cta: "Скачать",
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS", label: "Скачать с сервера 1" }
+    ],
     mostPopular: false,
     docs: false,
     docsLinks: [],
@@ -149,8 +159,9 @@ const products = [
       "NCS",
       "Инструкции по установке ПО",
     ],
-    href: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS",
-    cta: "Скачать",
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS", label: "Скачать с сервера 1" }
+    ],
     mostPopular: false,
     docs: false,
     docsLinks: [],
@@ -163,8 +174,9 @@ const products = [
     description:
       "Диагностический интерфейс для автомобилей Ford и Mazda.",
     features: ["FORScan", "FoCCCus", "ELMConfig", "Инструкции по установке ПО"],
-    href: "https://i.getspace.us/cloud/s/oBNcC2w85wnj2Lx",
-    cta: "Скачать",
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/oBNcC2w85wnj2Lx", label: "Скачать с сервера 1" }
+    ],
     mostPopular: false,
     docs: false,
     docsLinks: [],
@@ -177,8 +189,9 @@ const products = [
     description:
       "Диагностический инструмент для автомобилей Toyota и Lexus.",
     features: ["Techstream ", "Инструкция по установке ПО"],
-    href: "https://i.getspace.us/cloud/s/Q3kWQ8ajB8WdF5g",
-    cta: "Скачать",
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/Q3kWQ8ajB8WdF5g", label: "Скачать с сервера 1" }
+    ],
     mostPopular: false,
     docs: false,
     docsLinks: [],
@@ -191,8 +204,9 @@ const products = [
     description:
       "Диагностический инструмент для автомобилей Peugeot и Citroen.",
     features: ["Diagbox", "Инструкция по установке ПО"],
-    href: "https://i.getspace.us/cloud/s/eBmZpZWza2kt2Dc",
-    cta: "Скачать",
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/eBmZpZWza2kt2Dc", label: "Скачать с сервера 1" }
+    ],
     mostPopular: false,
     docs: false,
     docsLinks: [],
@@ -214,8 +228,9 @@ const products = [
       "LeafSpy",
       "и т.д.",
     ],
-    href: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe",
-    cta: "Скачать",
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" }
+    ],
     mostPopular: true,
     docs: false,
     docsLinks: [],
@@ -237,8 +252,9 @@ const products = [
       "LeafSpy",
       "и т.д.",
     ],
-    href: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe",
-    cta: "Скачать",
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" }
+    ],
     mostPopular: false,
     docs: false,
     docsLinks: [],
@@ -274,6 +290,21 @@ export default function Soft() {
       setModalLinks(links);
       setShowModal(true);
     }
+  };
+
+  const openDownloadModal = async (links: InstructionLink[]) => {
+    const checkedLinks = await Promise.all(
+      links.map(async (link) => {
+        try {
+          const response = await fetch(link.link, { method: "HEAD" });
+          return { ...link, available: response.ok };
+        } catch (error) {
+          return { ...link, available: false };
+        }
+      })
+    );
+    setModalLinks(checkedLinks);
+    setShowModal(true);
   };
 
   const closeModal = () => {
@@ -312,7 +343,7 @@ export default function Soft() {
               description,
               cta,
               features,
-              href,
+              downloadLinks,
               docs,
               docsLinks,
             }) => (
@@ -332,17 +363,16 @@ export default function Soft() {
                 )}
                 <p className="px-6 mt-4 leading-6 dark:text-neutral-400">{description}</p>
                 <div className="flex mt-4 mx-6">
-                  <Link
-                    href={href}
-                    target="_blank"
+                  <button
+                    onClick={() => openDownloadModal(downloadLinks)}
                     className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
                       mostPopular
                         ? "bg-red-600 text-white shadow-md hover:bg-green-500"
                         : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
                     } transition-transform duration-300 ease-in-out transform active:scale-95 w-full`}
                   >
-                    {cta}
-                  </Link>
+                    Скачать
+                  </button>
                   {docs && docsLinks.length > 0 && (
                     <button
                       onClick={() => openModal(docsLinks)}
@@ -373,7 +403,6 @@ export default function Soft() {
         >
           <div
             className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative transform transition-transform duration-300 ease-out scale-100"
-            style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}
             onClick={(e) => e.stopPropagation()} // Остановить всплытие события клика
           >
             <button
@@ -382,13 +411,17 @@ export default function Soft() {
             >
               ✕
             </button>
-            <h3 className="text-lg font-semibold mb-4">Выберите инструкцию</h3>
+            <h3 className="text-lg font-semibold mb-4">Выберите ссылку для скачивания</h3>
             <ul>
-              {modalLinks.map(({ link, label }, index) => (
+              {modalLinks.map(({ link, label, available }, index) => (
                 <li key={index} className="mb-2">
-                  <Link href={link} target="_blank" className="text-blue-500 hover:underline">
-                    {label}
-                  </Link>
+                  {available ? (
+                    <Link href={link} target="_blank" className="text-blue-500 hover:underline">
+                      {label}
+                    </Link>
+                  ) : (
+                    <span className="text-red-500">{label} (недоступно)</span>
+                  )}
                 </li>
               ))}
             </ul>
