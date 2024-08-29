@@ -297,15 +297,17 @@ export default function Soft() {
         try {
           const startTime = Date.now();
           // Используем GET и no-cors для проверки
-          const response = await fetch(link.link, { method: "GET", mode: "no-cors" });
+          await fetch(link.link, { method: "GET", mode: "no-cors" });
           const ping = Date.now() - startTime;
-          // Поскольку no-cors не дает возможности проверить статус, считаем доступным, если запрос не выбросил ошибку
+          // Если запрос не выбросил ошибку, считаем доступным
           return { ...link, available: true, ping };
         } catch (error) {
           return { ...link, available: false, ping: undefined };
         }
       })
     );
+
+    // Обновляем состояние modalLinks после завершения всех проверок
     setModalLinks(updatedLinks);
   };
 
