@@ -142,7 +142,7 @@ export default function Navbar() {
                 <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer" className="block">
                   <button className="btn-wildberries">
                     <Image
-                      src="https://www.wildberries.ru/favicon.ico"
+                      src="/images/logos/favicon.ico"
                       alt="Wildberries"
                       className="w-5 h-5"
                       width={20}
@@ -266,7 +266,7 @@ export default function Navbar() {
                     className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
                   >
                     <Image
-                      src="https://www.wildberries.ru/favicon.ico"
+                      src="/images/logos/favicon.ico"
                       alt="Wildberries"
                       className="w-4 h-4 mr-2"
                       width={16}
