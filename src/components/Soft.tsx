@@ -2,12 +2,11 @@ import Link from "next/link";
 import { useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 
-// Определяем интерфейс для ссылок инструкций
 interface InstructionLink {
   link: string;
   label: string;
-  available?: boolean; // Можно оставить как есть, `undefined` допустимо
-  ping?: number;       // Можно оставить как есть, `undefined` допустимо
+  available?: boolean;
+  speed?: number; // Заменено с ping на speed для отображения скорости загрузки
 }
 
 const products = [
@@ -223,210 +222,118 @@ const products = [
       "EOBD Facile",
       "Car Scanner",
       "Torque",
-      "ELMScan",
-      "Carista",
-      "BimmerCode",
-      "LeafSpy",
-      "и т.д.",
+      "Инструкция по установке ПО",
     ],
     downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" }
+      { link: "https://i.getspace.us/cloud/s/xyz123", label: "Скачать с сервера 1" }
     ],
     mostPopular: true,
     docs: false,
     docsLinks: [],
   },
-  {
-    title: "Kingbolen ELM",
-    price: 120,
-    currency: "$",
-    frecuency: "elm",
-    description:
-      "Диагностический инструмент для автомобилей, оснащенный функцией Bluetooth/Wi-Fi и поддерживающий различные протоколы OBD-II, что позволяет работать с разными автомобильными брендами.",
-    features: [
-      "EOBD Facile",
-      "Car Scanner",
-      "Torque",
-      "ELMScan",
-      "Carista",
-      "BimmerCode",
-      "LeafSpy",
-      "и т.д.",
-    ],
-    downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" }
-    ],
-    mostPopular: false,
-    docs: false,
-    docsLinks: [],
-  },
 ];
 
-type BillingInterval = "year" | "month" | "elm";
-
-export default function Soft() {
-  const [billingInterval, setBillingInterval] = useState<BillingInterval>("month");
-  const [showModal, setShowModal] = useState(false);
+const ProductList = () => {
   const [modalLinks, setModalLinks] = useState<InstructionLink[]>([]);
+  const [activeProduct, setActiveProduct] = useState<string | null>(null);
 
-  const renderSwitchButton = (label: string, interval: BillingInterval) => (
-    <button
-      onClick={() => setBillingInterval(interval)}
-      type="button"
-      className={`${
-        billingInterval === interval
-          ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "text-neutral-900 dark:text-neutral-400"
-      } w-full sm:w-auto rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-white dark:hover:bg-neutral-700 transition-colors duration-300 ease-in-out`}
-    >
-      {label}
-    </button>
-  );
-
-  const openModal = (links: InstructionLink[]) => {
-    setModalLinks(links.map(link => ({ ...link, available: undefined, ping: undefined })));
-    setShowModal(true);
-
-    // Выполняем асинхронную проверку доступности и пинга после открытия окна
-    checkLinks(links);
-  };
-
-  const checkLinks = async (links: InstructionLink[]) => {
+  const checkLinks = async (links: InstructionLink[], productTitle: string) => {
     const updatedLinks = await Promise.all(
       links.map(async (link) => {
         try {
           const startTime = Date.now();
-          // Используем GET и no-cors для проверки
-          await fetch(link.link, { method: "GET", mode: "no-cors" });
-          const ping = Date.now() - startTime;
-          // Если запрос не выбросил ошибку, считаем доступным
-          return { ...link, available: true, ping };
+          const response = await fetch(link.link, { method: "HEAD" });
+          const endTime = Date.now();
+          const contentLength = response.headers.get('content-length');
+          const speed = contentLength 
+            ? parseFloat((parseInt(contentLength) / (endTime - startTime) / 1000).toFixed(2)) 
+            : undefined;
+          return { ...link, available: true, speed };
         } catch (error) {
-          return { ...link, available: false, ping: undefined };
+          return { ...link, available: false, speed: undefined };
         }
       })
     );
 
-    // Обновляем состояние modalLinks после завершения всех проверок
     setModalLinks(updatedLinks);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-    setModalLinks([]);
+    setActiveProduct(productTitle);
   };
 
   return (
-    <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
-        <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
-        <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          В этом разделе вы можете скачать программное обеспечение для своего устройства.
-          Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;.
-          Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством
-          и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке
-          &quot;Инструкция&quot;.
-        </p>
-      </div>
-
-      <div className="max-w-max mx-auto px-6">
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
-          {renderSwitchButton("Мультимарочные", "month")}
-          {renderSwitchButton("Марочные", "year")}
-          {renderSwitchButton("Адаптеры ELM", "elm")}
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
-        {products
-          .filter(({ frecuency }) => frecuency === billingInterval)
-          .map(
-            ({
-              title,
-              mostPopular,
-              description,
-              features,
-              downloadLinks,
-              docs,
-              docsLinks,
-            }) => (
-              <div
-                key={title}
-                className={`rounded-lg py-8 relative flex flex-col ${
-                  mostPopular
-                    ? "border-red-300 border-2 border-solid dark:border-red-600"
-                    : "border-neutral-300 border dark:border-neutral-600"
-                } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
-              >
-                <h3 className="px-6 text-lg font-semibold leading-5">{title}</h3>
-                {mostPopular && (
-                  <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
-                    Топ продаж
-                  </p>
-                )}
-                <p className="px-6 mt-4 leading-6 dark:text-neutral-400">{description}</p>
-                <div className="flex mt-4 mx-6">
-                  <button
-                    onClick={() => openModal(downloadLinks)}
-                    className={`block px-6 py-3 font-medium leading-4 text-center rounded-lg ${
-                      mostPopular
-                        ? "bg-red-600 text-white shadow-md hover:bg-green-500"
-                        : "bg-black text-white shadow-md dark:bg-white dark:text-black dark:hover:bg-green-500 dark:hover:text-white hover:bg-green-500"
-                    } transition-transform duration-300 ease-in-out transform active:scale-95 w-full`}
-                  >
-                    Скачать
-                  </button>
-                  {docs && docsLinks.length > 0 && (
+    <div>
+      {products.map((product) => (
+        <div key={product.title} className="product mb-6 p-4 border rounded shadow">
+          <h2 className="text-xl font-bold">{product.title}</h2>
+          <p className="text-gray-700">{product.description}</p>
+          <p className="text-lg font-semibold">
+            Price: {product.price}{product.currency} ({product.frecuency})
+          </p>
+          {product.downloadLinks && product.downloadLinks.length > 0 && (
+            <div className="mt-4">
+              <h3 className="text-lg font-semibold">Download Links:</h3>
+              <ul className="list-disc pl-5">
+                {product.downloadLinks.map((link) => (
+                  <li key={link.link} className="mb-2">
+                    <a href={link.link} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                      {link.label}
+                    </a>
                     <button
-                      onClick={() => openModal(docsLinks)}
-                      className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-transform duration-300 ease-in-out transform active:scale-95 w-full"
+                      onClick={() => checkLinks(product.downloadLinks, product.title)}
+                      className="ml-4 p-1 bg-gray-200 rounded hover:bg-gray-300"
                     >
-                      Инструкция
+                      Check Link
                     </button>
-                  )}
-                </div>
-                <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
-                  <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
-                  {features.map((feature) => (
-                    <li key={feature} className="leading-6 flex">
-                      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
-                      <span className="ml-3 dark:text-neutral-400">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
-      </div>
+          {product.docsLinks && product.docsLinks.length > 0 && (
+            <div className="mt-4">
+              <h3 className="text-lg font-semibold">Documentation Links:</h3>
+              <ul className="list-disc pl-5">
+                {product.docsLinks.map((docLink) => (
+                  <li key={docLink.link} className="mb-2">
+                    <a href={docLink.link} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                      {docLink.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      ))}
 
-      {showModal && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
-          onClick={closeModal}
-        >
-          <div
-            className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative transform transition-transform duration-300 ease-out scale-100"
-            onClick={(e) => e.stopPropagation()} // Остановить всплытие события клика
-          >
-            <button
-              onClick={closeModal}
-              className="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition-all duration-300 transform hover:scale-110 active:scale-90"
-            >
-              ✕
-            </button>
-            <h3 className="text-lg font-semibold mb-4">Выберите ссылку для скачивания</h3>
-            <ul>
-              {modalLinks.map(({ link, label, available, ping }, index) => (
-                <li key={index} className="mb-2">
-                  <Link href={link} target="_blank" className="text-blue-500 hover:underline">
-                    {label} {available === undefined ? "🔄 (проверяется...)" : available ? `✅ (${ping} мс)` : "❌ (недоступно)"}
-                  </Link>
+      {modalLinks.length > 0 && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded shadow-lg max-w-lg mx-4">
+            <h3 className="text-xl font-bold mb-4">Link Status for {activeProduct}</h3>
+            <ul className="list-disc pl-5">
+              {modalLinks.map((link) => (
+                <li key={link.link} className="mb-2">
+                  <a href={link.link} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                    {link.label}
+                  </a>
+                  <p>Status: {link.available ? 'Available' : 'Not Available'}</p>
+                  {link.speed !== undefined && link.available && (
+                    <p>Speed: {link.speed} KB/s</p>
+                  )}
+                  {!link.available && <CheckIcon className="w-6 h-6 text-red-500 inline-block ml-2" />}
                 </li>
               ))}
             </ul>
+            <button
+              onClick={() => setModalLinks([])}
+              className="mt-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Close
+            </button>
           </div>
         </div>
       )}
     </div>
   );
-}
+};
+
+export default ProductList;
