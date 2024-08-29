@@ -22,7 +22,7 @@ const products: Product[] = [
     features: ["Delphi 2021.10b, Delphi + Delphi 2020.23", "Инструкции по установке ПО", "Руководство пользователя"],
     downloadLinks: [
       { link: "https://i.getspace.us/cloud/s/BiaqYzKpxZRTc58", label: "Скачать с сервера 1" },
-      { link: "https://i.getspace.us/cloud/s/anotherLink", label: "Скачать с сервера 2" }
+      { link: "https://nch.pl/s/8MZQfLRjSy9z4Bk", label: "Скачать с сервера 2" }
     ],
     mostPopular: false,
     docs: true,
@@ -38,7 +38,7 @@ const products: Product[] = [
     features: ["Autocom 2021.11, Delphi + Autocom 2020.23", "Инструкции по установке ПО", "Руководство пользователя"],
     downloadLinks: [
       { link: "https://i.getspace.us/cloud/s/S9CKwWMNDbeB2XH", label: "Скачать с сервера 1" },
-      { link: "https://i.getspace.us/cloud/s/anotherLink2", label: "Скачать с сервера 2" }
+      { link: "https://nch.pl/s/XbJnfSYNiw3dzFm", label: "Скачать с сервера 2" }
     ],
     mostPopular: true,
     docs: true,
