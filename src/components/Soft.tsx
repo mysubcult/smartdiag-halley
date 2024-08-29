@@ -53,7 +53,8 @@ const products: Product[] = [
     description: "Инструмент диагностики автомобилей для чтения и удаления кодов неисправностей.",
     features: ["Wurth WoW 5.00.8", "Инструкция по установке ПО", "Руководство пользователя"],
     downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/eTR2gqbEbZi66Md", label: "Скачать с сервера 1" }
+      { link: "https://i.getspace.us/cloud/s/eTR2gqbEbZi66Md", label: "Скачать с сервера 1" },
+      { link: "https://nch.pl/s/KCCEPPDbpb7j7oJ", label: "Скачать с сервера 2" },
     ],
     mostPopular: false,
     docs: false,
@@ -65,7 +66,8 @@ const products: Product[] = [
     description: "Универсальные мобильные приборы для диагностики автомобилей.",
     features: ["Diagzone", "ProDiag", "X-DIAG", "X-PRO5"],
     downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/fAMr3QsBMekwR2n", label: "Скачать с сервера 1" }
+      { link: "https://i.getspace.us/cloud/s/fAMr3QsBMekwR2n", label: "Скачать с сервера 1" },
+      { link: "https://nch.pl/s/T6c4C7Gj5Me3mGF", label: "Скачать с сервера 2" },
     ],
     mostPopular: false,
     docs: false,
@@ -164,7 +166,8 @@ const products: Product[] = [
     description: "Универсальный диагностический сканер для автомобилей, который подключается к порту OBD-II и работает через приложение на смартфоне или компьютере.",
     features: ["EOBD Facile", "Car Scanner", "Torque", "ELMScan", "Carista", "BimmerCode", "LeafSpy", "и т.д."],
     downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" }
+      { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" },
+      { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 1" },
     ],
     mostPopular: true,
     docs: false,
@@ -176,7 +179,8 @@ const products: Product[] = [
     description: "Диагностический инструмент для автомобилей, оснащенный функцией Bluetooth/Wi-Fi и поддерживающий различные протоколы OBD-II, что позволяет работать с разными автомобильными брендами.",
     features: ["EOBD Facile", "Car Scanner", "Torque", "ELMScan", "Carista", "BimmerCode", "LeafSpy", "и т.д."],
     downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" }
+      { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" },
+      { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 1" },
     ],
     mostPopular: false,
     docs: false,
