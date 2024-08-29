@@ -303,7 +303,7 @@ export default function Soft() {
           const contentLength = response.headers.get('content-length');
           const speed = contentLength ? (parseInt(contentLength) / duration / 1024 / 1024).toFixed(2) : undefined; // скорость в mb/s
 
-          return { ...link, available: true, speed: parseFloat(speed) };
+          return { ...link, available: true, speed: speed ? parseFloat(speed) : undefined };
         } catch (error) {
           return { ...link, available: false, speed: undefined };
         }
