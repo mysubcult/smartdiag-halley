@@ -7,15 +7,11 @@ interface InstructionLink {
   link: string;
   label: string;
   available?: boolean; // Можно оставить как есть, `undefined` допустимо
-  speed?: number;      // Новый параметр для скорости в mb/s
 }
 
 const products = [
   {
     title: "Delphi DS150e",
-    price: 12,
-    currency: "$",
-    frecuency: "month",
     description:
       "Многофункциональный диагностический инструмент для легковых и грузовых автомобилей.",
     features: [
@@ -33,12 +29,10 @@ const products = [
       { link: "https://i.getspace.us/cloud/s/7BwyBJf2YHxEkaC", label: "Инструкция по установке Delphi 2020.23" },
       { link: "https://i.getspace.us/cloud/s/qJRfJdgjsqkPxme", label: "Инструкция по установке Delphi 2021.10b" }
     ],
+    type: "мультимарочные"
   },
   {
     title: "Autocom CDP+",
-    price: 12,
-    currency: "$",
-    frecuency: "month",
     description:
       "Универсальный диагностический сканер для чтения и удаления кодов неисправностей.",
     features: [
@@ -56,12 +50,10 @@ const products = [
       { link: "https://i.getspace.us/cloud/s/xdr4QZqwsR6k8rr", label: "Инструкция по установке Autocom 2020.23" },
       { link: "https://i.getspace.us/cloud/s/bbRzaksyH6LkSg4", label: "Инструкция по установке Autocom 2021.11" },
     ],
+    type: "мультимарочные"
   },
   {
     title: "Wurth WoW Snooper+",
-    price: 12,
-    currency: "$",
-    frecuency: "month",
     description:
       "Инструмент диагностики автомобилей для чтения и удаления кодов неисправностей.",
     features: [
@@ -75,12 +67,10 @@ const products = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
+    type: "мультимарочные"
   },
   {
     title: "MUCAR BT200/Thinkcar Mini/Thinkdiag",
-    price: 12,
-    currency: "$",
-    frecuency: "month",
     description: "Универсальные мобильные приборы для диагностики автомобилей.",
     features: ["Diagzone", "ProDiag", "X-DIAG", "X-PRO5"],
     downloadLinks: [
@@ -89,12 +79,10 @@ const products = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
+    type: "мультимарочные"
   },
   {
     title: "Galletto 1260",
-    price: 12,
-    currency: "$",
-    frecuency: "month",
     description:
       "Универсальный программатор для чип-тюнинга, чтения и удаления кодов неисправностей.",
     features: ["Galletto 1260", "Драйвер"],
@@ -104,12 +92,10 @@ const products = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
+    type: "мультимарочные"
   },
   {
     title: "VCDS + Вася",
-    price: 120,
-    currency: "$",
-    frecuency: "year",
     description: "Диагностический инструмент для автомобилей Volkswagen Group.",
     features: [
       "Вася, VCDS",
@@ -125,12 +111,10 @@ const products = [
     docsLinks: [
       { link: "https://i.getspace.us/cloud/s/bmi7a7zdHbXHMnB", label: "Инструкция 1" },
     ],
+    type: "марочные"
   },
   {
     title: "BMW E-NET (E-Sys)",
-    price: 120,
-    currency: "$",
-    frecuency: "year",
     description: "Диагностическая система для автомобилей BMW.",
     features: [
       "E-SYS",
@@ -145,12 +129,10 @@ const products = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
+    type: "марочные"
   },
   {
     title: "K-Dcan INPA",
-    price: 120,
-    currency: "$",
-    frecuency: "year",
     description: "Диагностическая система для автомобилей BMW.",
     features: [
       "Rheingold",
@@ -166,12 +148,10 @@ const products = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
+    type: "марочные"
   },
   {
     title: "ELS 27",
-    price: 120,
-    currency: "$",
-    frecuency: "year",
     description:
       "Диагностический интерфейс для автомобилей Ford и Mazda.",
     features: ["FORScan", "FoCCCus", "ELMConfig", "Инструкции по установке ПО"],
@@ -181,12 +161,10 @@ const products = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
+    type: "марочные"
   },
   {
     title: "Mini-VCI",
-    price: 120,
-    currency: "$",
-    frecuency: "year",
     description:
       "Диагностический инструмент для автомобилей Toyota и Lexus.",
     features: ["Techstream ", "Инструкция по установке ПО"],
@@ -196,12 +174,10 @@ const products = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
+    type: "марочные"
   },
   {
     title: "Lexia 3/PP2000",
-    price: 120,
-    currency: "$",
-    frecuency: "year",
     description:
       "Диагностический инструмент для автомобилей Peugeot и Citroen.",
     features: ["Diagbox", "Инструкция по установке ПО"],
@@ -211,12 +187,10 @@ const products = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
+    type: "марочные"
   },
   {
     title: "ELM 327 Mini",
-    price: 120,
-    currency: "$",
-    frecuency: "elm",
     description:
       "Универсальный диагностический сканер для автомобилей, который подключается к порту OBD-II и работает через приложение на смартфоне или компьютере.",
     features: [
@@ -235,12 +209,10 @@ const products = [
     mostPopular: true,
     docs: false,
     docsLinks: [],
+    type: "elm"
   },
   {
     title: "Kingbolen ELM",
-    price: 120,
-    currency: "$",
-    frecuency: "elm",
     description:
       "Диагностический инструмент для автомобилей, оснащенный функцией Bluetooth/Wi-Fi и поддерживающий различные протоколы OBD-II, что позволяет работать с разными автомобильными брендами.",
     features: [
@@ -259,22 +231,23 @@ const products = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
+    type: "elm"
   },
 ];
 
-type BillingInterval = "year" | "month" | "elm";
+type DeviceType = "мультимарочные" | "марочные" | "elm";
 
 export default function Soft() {
-  const [billingInterval, setBillingInterval] = useState<BillingInterval>("month");
+  const [selectedType, setSelectedType] = useState<DeviceType>("мультимарочные");
   const [showModal, setShowModal] = useState(false);
   const [modalLinks, setModalLinks] = useState<InstructionLink[]>([]);
 
-  const renderSwitchButton = (label: string, interval: BillingInterval) => (
+  const renderSwitchButton = (label: string, type: DeviceType) => (
     <button
-      onClick={() => setBillingInterval(interval)}
+      onClick={() => setSelectedType(type)}
       type="button"
       className={`${
-        billingInterval === interval
+        selectedType === type
           ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
           : "text-neutral-900 dark:text-neutral-400"
       } w-full sm:w-auto rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-white dark:hover:bg-neutral-700 transition-colors duration-300 ease-in-out`}
@@ -284,34 +257,8 @@ export default function Soft() {
   );
 
   const openModal = (links: InstructionLink[]) => {
-    setModalLinks(links.map(link => ({ ...link, available: undefined, speed: undefined })));
+    setModalLinks(links.map(link => ({ ...link, available: undefined })));
     setShowModal(true);
-
-    // Выполняем асинхронную проверку доступности и скорости после открытия окна
-    checkLinks(links);
-  };
-
-  const checkLinks = async (links: InstructionLink[]) => {
-    const updatedLinks = await Promise.all(
-      links.map(async (link) => {
-        try {
-          const startTime = Date.now();
-          const response = await fetch(link.link, { method: "HEAD", mode: "no-cors" });
-          const endTime = Date.now();
-          const duration = (endTime - startTime) / 1000; // в секундах
-          
-          const contentLength = response.headers.get('content-length');
-          const speed = contentLength ? (parseInt(contentLength) / duration / 1024 / 1024).toFixed(2) : undefined; // скорость в mb/s
-
-          return { ...link, available: true, speed: speed ? parseFloat(speed) : undefined };
-        } catch (error) {
-          return { ...link, available: false, speed: undefined };
-        }
-      })
-    );
-
-    // Обновляем состояние modalLinks после завершения всех проверок
-    setModalLinks(updatedLinks);
   };
 
   const closeModal = () => {
@@ -334,15 +281,15 @@ export default function Soft() {
 
       <div className="max-w-max mx-auto px-6">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
-          {renderSwitchButton("Мультимарочные", "month")}
-          {renderSwitchButton("Марочные", "year")}
+          {renderSwitchButton("Мультимарочные", "мультимарочные")}
+          {renderSwitchButton("Марочные", "марочные")}
           {renderSwitchButton("Адаптеры ELM", "elm")}
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {products
-          .filter(({ frecuency }) => frecuency === billingInterval)
+          .filter(({ type }) => type === selectedType)
           .map(
             ({
               title,
@@ -419,10 +366,10 @@ export default function Soft() {
             </button>
             <h3 className="text-lg font-semibold mb-4">Выберите ссылку для скачивания</h3>
             <ul>
-              {modalLinks.map(({ link, label, available, speed }, index) => (
+              {modalLinks.map(({ link, label, available }, index) => (
                 <li key={index} className="mb-2">
                   <Link href={link} target="_blank" className="text-blue-500 hover:underline">
-                    {label} {available === undefined ? "🔄 (проверяется...)" : available ? `✅ (${speed} mb/s)` : "❌ (недоступно)"}
+                    {label} {available === undefined ? "🔄 (проверяется...)" : available ? "✅ (доступно)" : "❌ (недоступно)"}
                   </Link>
                 </li>
               ))}
