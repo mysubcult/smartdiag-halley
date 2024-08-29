@@ -17,7 +17,7 @@ export default function BlogPost() {
     setIsClient(true);
 
     // Отключаем стандартное поведение прокрутки при навигации по якорным ссылкам
-    const handleHashChange = (event) => {
+    const handleHashChange = (event: HashChangeEvent) => {
       event.preventDefault();
       const hash = window.location.hash;
       if (hash) {
