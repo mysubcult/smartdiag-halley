@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Layout from '../../components/Layout'; // Убедитесь, что этот путь верный
+import Layout from '../../components/Layout';
 
 export default function BlogPost() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   // Функция для прокрутки страницы наверх
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -13,8 +16,37 @@ export default function BlogPost() {
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
 
-          {/* Панель навигации теперь статична */}
-          <div className="lg:w-1/6 w-full text-center lg:text-left bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4">
+          {/* Кнопка меню навигации на мобильных устройствах */}
+          <div className="lg:hidden w-full flex justify-center mb-4">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-6 py-3 font-medium shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
+              aria-label="Открыть меню навигации"
+            >
+              <svg
+                className={`w-6 h-6 transition-transform duration-300 mr-2 ${isMenuOpen ? 'rotate-45' : 'rotate-0'}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+                ></path>
+              </svg>
+              Меню навигации
+            </button>
+          </div>
+
+          {/* Панель навигации */}
+          <div
+            className={`lg:w-1/6 w-full text-center lg:text-left ${
+              isMenuOpen ? 'block' : 'hidden'
+            } lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}
+          >
             <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
             <nav className="space-y-3">
               <a
@@ -23,27 +55,27 @@ export default function BlogPost() {
               >
                 🏠 В начало
               </a>
-              <Link href="#antivirus-issue" passHref>
+              <Link href="#antivirus-issue" passHref scroll={false}>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   🛡️ Проблема с антивирусом
                 </a>
               </Link>
-              <Link href="#outdated-software" passHref>
+              <Link href="#outdated-software" passHref scroll={false}>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   ⏳ Устаревшее ПО
                 </a>
               </Link>
-              <Link href="#download-errors" passHref>
+              <Link href="#download-errors" passHref scroll={false}>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   📥 Ошибки при загрузке
                 </a>
               </Link>
-              <Link href="#yandex-tips" passHref>
+              <Link href="#yandex-tips" passHref scroll={false}>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   🌐 Советы для Яндекс Браузера
                 </a>
               </Link>
-              <Link href="#support" passHref>
+              <Link href="#support" passHref scroll={false}>
                 <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
                   📞 Поддержка
                 </a>
@@ -59,19 +91,17 @@ export default function BlogPost() {
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
             </p>
 
-            {/* Используем компонент Image */}
-            <div className="w-full max-w-full mx-auto mb-8">
-              <Image
-                src="/images/blog/post1.jpg"
-                alt="Ошибки при открытии архива"
-                width={1920}
-                height={1080}
-                quality={75}
-                layout="responsive"
-                sizes="100vw"
-                priority
-              />
-            </div>
+            <Image
+              src="/images/blog/post1.jpg"
+              alt="Ошибки при открытии архива"
+              width={1920}
+              height={1080}
+              quality={75}
+              layout="responsive"
+              sizes="100vw"
+              className="w-full max-w-full mx-auto mb-8"
+              priority
+            />
 
             <div className="max-w-4xl mx-auto text-lg leading-relaxed">
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="antivirus-issue">Проблема с антивирусом</h3>
