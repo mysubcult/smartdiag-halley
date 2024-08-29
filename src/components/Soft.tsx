@@ -341,7 +341,6 @@ export default function Soft() {
               title,
               mostPopular,
               description,
-              cta,
               features,
               downloadLinks,
               docs,
