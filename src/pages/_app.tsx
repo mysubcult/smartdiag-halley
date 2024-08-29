@@ -3,7 +3,6 @@ import React from 'react';
 import "@/styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
-import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
 import Script from 'next/script'; // Добавляем импорт
 
@@ -19,7 +18,6 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider attribute="class">
         <Component {...pageProps} />
-        <Analytics />
         <Script
           id="lhc-widget-script"
           strategy="afterInteractive"
