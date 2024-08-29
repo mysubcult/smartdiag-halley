@@ -3,8 +3,17 @@ import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 
-const Layout = (props) => {
-  const { children, ...customMeta } = props;
+// Определяем интерфейс для пропсов
+interface LayoutProps {
+  children: React.ReactNode; // Дети - это элементы React
+  title?: string;
+  description?: string;
+  keywords?: string;
+  image?: string;
+  type?: string;
+}
+
+const Layout = ({ children, ...customMeta }: LayoutProps) => {
   const router = useRouter();
   const meta = {
     title: "SmartDiag - Ваш проводник в мире автодиагностики",
