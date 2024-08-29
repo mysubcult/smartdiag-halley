@@ -1,22 +1,17 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import Layout from '../../components/Layout';
 
 export default function BlogPost() {
-  // Функция для прокрутки страницы наверх
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <Layout title="Блог - Как справиться с ошибкой при открытии архива">
+    <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
 
           {/* Панель навигации всегда видима */}
-          <div
-            className="lg:w-1/6 w-full text-center lg:text-left lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4"
-          >
+          <div className="lg:w-1/6 w-full text-center lg:text-left lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4">
             <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
             <nav className="space-y-3">
               <a
@@ -61,17 +56,14 @@ export default function BlogPost() {
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
             </p>
 
-            {/* Упрощенный вызов компонента Image */}
+            {/* Замена next/image на обычный img тег */}
             <div className="w-full max-w-full mx-auto mb-8">
-              <Image
+              <img
                 src="/images/blog/post1.jpg"
                 alt="Ошибки при открытии архива"
                 width={1920}
                 height={1080}
-                quality={75}
-                layout="responsive"
-                sizes="100vw"
-                priority
+                className="w-full max-w-full mx-auto mb-8"
               />
             </div>
 
@@ -119,6 +111,6 @@ export default function BlogPost() {
           <div className="lg:w-1/6 hidden lg:block"></div>
         </div>
       </main>
-    </Layout>
+    </div>
   );
 }
