@@ -34,15 +34,18 @@ export default function BlogPost() {
     const updateTitle = () => {
       const hash = window.location.hash.slice(1);
       setCurrentHash(hash);
+      document.title = getCurrentTitle(); // Обновление заголовка при каждом вызове
     };
 
     updateTitle(); // Устанавливаем начальный заголовок
     window.addEventListener('hashchange', updateTitle);
     window.addEventListener('popstate', updateTitle); // Для обработки кнопок "назад" и "вперед"
+    window.addEventListener('focus', updateTitle); // Обновление заголовка при возвращении в окно браузера
 
     return () => {
       window.removeEventListener('hashchange', updateTitle);
       window.removeEventListener('popstate', updateTitle);
+      window.removeEventListener('focus', updateTitle);
     };
   }, [isClient]);
 
