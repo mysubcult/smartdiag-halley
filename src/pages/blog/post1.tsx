@@ -85,7 +85,7 @@ export default function BlogPost() {
 
             {/* Основной контент блога */}
             <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0"> {/* Добавлено lg:pt-0 */}
-              <h2 className="text-4xl font-bold text-center lg:text-left">Как справиться с ошибкой при открытии архива</h2>
+              <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2> {/* Удален lg:text-left */}
 
               <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400"> {/* Оставляем pt-6 */}
                 В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
