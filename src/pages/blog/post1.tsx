@@ -5,16 +5,9 @@ import Layout from '../../components/Layout';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
-// Определяем интерфейс для пропсов
-interface BlogPostProps {
-  title: string;
-}
-
 export default function BlogPost() {
   const router = useRouter();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentHash, setCurrentHash] = useState('');
-  const [isClient, setIsClient] = useState(false);
 
   // Основной заголовок страницы
   const baseTitle = "Как справиться с ошибкой при открытии архива";
@@ -26,50 +19,37 @@ export default function BlogPost() {
     'download-errors': '📥 Ошибки при загрузке',
     'yandex-tips': '🌐 Советы для пользователей Яндекс Браузера',
     'support': '📞 Поддержка'
-  } as const;
+  };
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isClient) return;
-
-    const hash = router.asPath.split('#')[1] || '';
-    setCurrentHash(hash);
-
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1);
       setCurrentHash(hash);
     };
 
+    handleHashChange(); // Устанавливаем начальный заголовок
     window.addEventListener('hashchange', handleHashChange);
 
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
     };
-  }, [router.asPath, isClient]);
+  }, []);
 
   // Получение текущего заголовка
   const getCurrentTitle = () => {
-    if (currentHash === '') {
+    if (!currentHash || currentHash === 'top') {
       return baseTitle;
     }
-    const hashKey = currentHash as keyof typeof titles;
-    return hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
+    return titles[currentHash] ? `${baseTitle} | ${titles[currentHash]}` : baseTitle;
   };
 
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
   const scrollToTop = () => {
-    if (!isClient) return;
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setCurrentHash('');
     window.history.replaceState({}, baseTitle, window.location.pathname);
+    setCurrentHash(''); // Сбрасываем текущий якорь
   };
-
-  if (!isClient) return null;
 
   return (
     <Layout>
