@@ -9,7 +9,6 @@ export default function BlogPost() {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // Устанавливаем состояние, когда компонент монтируется на клиенте
     setIsClient(true);
   }, []);
 
@@ -54,31 +53,34 @@ export default function BlogPost() {
             <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
               <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
               <nav className="space-y-3">
-                <a onClick={scrollToTop} className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
+                <a
+                  onClick={scrollToTop}
+                  className="flex items-center text-base text-inherit hover:text-rose-500 transition-colors duration-300 text-left cursor-pointer"
+                >
                   🏠 В начало
                 </a>
                 <Link href="#antivirus-issue" passHref scroll={false}>
-                  <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 text-left cursor-pointer">
                     🛡️ Проблема с антивирусом
                   </a>
                 </Link>
                 <Link href="#outdated-software" passHref scroll={false}>
-                  <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 text-left cursor-pointer">
                     ⏳ Устаревшее ПО
                   </a>
                 </Link>
                 <Link href="#download-errors" passHref scroll={false}>
-                  <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 text-left cursor-pointer">
                     📥 Ошибки при загрузке
                   </a>
                 </Link>
                 <Link href="#yandex-tips" passHref scroll={false}>
-                  <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 text-left cursor-pointer">
                     🌐 Советы для Яндекс Браузера
                   </a>
                 </Link>
                 <Link href="#support" passHref scroll={false}>
-                  <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 text-left cursor-pointer">
                     📞 Поддержка
                   </a>
                 </Link>
