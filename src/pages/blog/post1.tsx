@@ -1,4 +1,6 @@
+// post1.txt
 import { useState, useEffect } from 'react';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
@@ -8,22 +10,22 @@ export default function BlogPost() {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // Устанавливаем isClient в true, когда компонент монтируется на клиенте
     setIsClient(true);
   }, []);
 
-  // Функция для прокрутки страницы наверх
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Рендерим контент только если isClient true
   return (
     isClient && (
-      <Layout title="Блог - Как справиться с ошибкой при открытии архива">
+      <Layout>
+        <Head>
+          <title>Блог - Как справиться с ошибкой при открытии архива</title>
+          <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
+        </Head>
         <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
           <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
-            {/* Кнопка меню навигации на мобильных устройствах */}
             <div className="lg:hidden w-full flex justify-center mb-4">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -48,16 +50,10 @@ export default function BlogPost() {
               </button>
             </div>
 
-            {/* Панель навигации */}
-            <div
-              className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}
-            >
+            <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
               <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
               <nav className="space-y-3">
-                <a
-                  onClick={scrollToTop}
-                  className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer"
-                >
+                <a onClick={scrollToTop} className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer">
                   🏠 В начало
                 </a>
                 <Link href="#antivirus-issue" passHref scroll={false}>
@@ -88,7 +84,6 @@ export default function BlogPost() {
               </nav>
             </div>
 
-            {/* Основной контент блога */}
             <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4">
               <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
 
@@ -103,9 +98,7 @@ export default function BlogPost() {
                 height={1080}
                 quality={75}
                 layout="responsive"
-                sizes="100vw"
-                className="w-full max-w-full mx-auto mb-8"
-                priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
 
               <div className="max-w-4xl mx-auto text-lg leading-relaxed">
