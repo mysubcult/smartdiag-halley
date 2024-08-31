@@ -26,12 +26,12 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
   return (
     <>
       <Head>
-        <title>{meta.title}</title>
+        <title>{title || meta.title}</title> {/* Используем title, переданный через пропсы, если он есть */}
         <meta name="description" content={meta.description} />
         <meta name="keywords" content={meta.keywords} />
         <meta property="og:type" content={meta.type} />
         <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`} />
-        <meta property="og:title" content={meta.title} />
+        <meta property="og:title" content={title || meta.title} />
         <meta property="og:description" content={meta.description} />
         <meta property="og:image" content={meta.image} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`} />
