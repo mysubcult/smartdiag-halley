@@ -9,7 +9,7 @@ export default function BlogPost() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentHash, setCurrentHash] = useState('');
-  const [isClient, setIsClient] = useState(false); // Добавляем состояние для проверки, клиент это или сервер
+  const [isClient, setIsClient] = useState(false);
 
   // Основной заголовок страницы
   const baseTitle = "Как справиться с ошибкой при открытии архива";
@@ -24,11 +24,11 @@ export default function BlogPost() {
   } as const;
 
   useEffect(() => {
-    setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
+    setIsClient(true);
   }, []);
 
   useEffect(() => {
-    if (!isClient) return; // Если не клиент, выходим из useEffect
+    if (!isClient) return;
 
     const hash = router.asPath.split('#')[1] || '';
     setCurrentHash(hash);
@@ -48,7 +48,7 @@ export default function BlogPost() {
   // Получение текущего заголовка
   const getCurrentTitle = () => {
     if (currentHash === '') {
-      return baseTitle; // Если якорь пустой, возвращаем только основной заголовок
+      return baseTitle;
     }
     const hashKey = currentHash as keyof typeof titles;
     return hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
@@ -57,22 +57,17 @@ export default function BlogPost() {
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
   const scrollToTop = () => {
-    if (!isClient) return; // Проверяем, что мы на клиенте, перед доступом к window
+    if (!isClient) return;
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setCurrentHash(''); // Сбрасываем текущий якорь
-    window.history.replaceState({}, baseTitle, window.location.pathname); // Удаляем якорь из URL и устанавливаем основной заголовок
+    setCurrentHash('');
+    window.history.replaceState({}, baseTitle, window.location.pathname);
   };
 
-  if (!isClient) return null; // Возвращаем null при рендеринге на сервере, чтобы избежать ошибок
+  if (!isClient) return null;
 
   return (
-    <Layout>
-      <Head>
-        <title>{getCurrentTitle()}</title>
-        <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
-        <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" />
-      </Head>
+    <Layout title={getCurrentTitle()} description="Руководство по устранению ошибок при открытии архивов" keywords="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО">
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           
