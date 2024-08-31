@@ -41,14 +41,26 @@ export default function BlogPost() {
     };
   }, []);
 
+  // Обновление заголовка в зависимости от хэша и при каждом рендере
   useEffect(() => {
     if (!isClient) return;
 
-    // Обновляем заголовок страницы на основе текущего хэша
-    const hashKey = currentHash as keyof typeof MENU_ITEMS;
-    const newTitle = MENU_ITEMS[hashKey] ? `${PAGE_TITLE} | ${MENU_ITEMS[hashKey]}` : PAGE_TITLE;
-    document.title = newTitle;
-  }, [currentHash, isClient]); // Обновляем заголовок при изменении currentHash
+    const updateTitle = () => {
+      const hash = window.location.hash.slice(1);
+      const hashKey = hash as keyof typeof MENU_ITEMS;
+      const newTitle = MENU_ITEMS[hashKey] ? `${PAGE_TITLE} | ${MENU_ITEMS[hashKey]}` : PAGE_TITLE;
+      document.title = newTitle;
+    };
+
+    updateTitle(); // Обновляем заголовок при загрузке и изменении состояния
+
+    // Добавляем событие для переключения вкладок
+    window.addEventListener('focus', updateTitle);
+
+    return () => {
+      window.removeEventListener('focus', updateTitle);
+    };
+  }, [isClient, currentHash]); // Зависит от currentHash и состояния клиента
 
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
@@ -72,7 +84,7 @@ export default function BlogPost() {
   return (
     <Layout>
       <Head>
-        <title>{document.title}</title> {/* Устанавливаем текущий заголовок */}
+        <title>{PAGE_TITLE}</title> {/* Используем базовый заголовок */}
         <meta name="description" content={PAGE_DESCRIPTION} />
         <meta name="keywords" content={PAGE_KEYWORDS} />
       </Head>
