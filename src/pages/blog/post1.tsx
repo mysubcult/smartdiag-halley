@@ -40,7 +40,9 @@ export default function BlogPost() {
     if (!currentHash || currentHash === 'top') {
       return baseTitle;
     }
-    return titles[currentHash] ? `${baseTitle} | ${titles[currentHash]}` : baseTitle;
+    // Приведение типа currentHash к ключу объекта titles
+    const hashKey = currentHash as keyof typeof titles;
+    return titles[hashKey] ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
   };
 
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
