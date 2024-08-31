@@ -9,6 +9,7 @@ export default function BlogPost() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentHash, setCurrentHash] = useState('');
+  const [isClient, setIsClient] = useState(false); // Добавляем состояние для проверки, клиент это или сервер
 
   // Основной заголовок страницы
   const baseTitle = "Как справиться с ошибкой при открытии архива";
@@ -23,6 +24,12 @@ export default function BlogPost() {
   } as const;
 
   useEffect(() => {
+    setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return; // Если не клиент, выходим из useEffect
+
     const hash = router.asPath.split('#')[1] || '';
     setCurrentHash(hash);
 
@@ -36,7 +43,7 @@ export default function BlogPost() {
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
     };
-  }, [router.asPath]);
+  }, [router.asPath, isClient]);
 
   // Получение текущего заголовка
   const getCurrentTitle = () => {
@@ -50,10 +57,14 @@ export default function BlogPost() {
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
   const scrollToTop = () => {
+    if (!isClient) return; // Проверяем, что мы на клиенте, перед доступом к window
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setCurrentHash(''); // Сбрасываем текущий якорь
     window.history.replaceState({}, baseTitle, window.location.pathname); // Удаляем якорь из URL и устанавливаем основной заголовок
   };
+
+  if (!isClient) return null; // Возвращаем null при рендеринге на сервере, чтобы избежать ошибок
 
   return (
     <Layout>
