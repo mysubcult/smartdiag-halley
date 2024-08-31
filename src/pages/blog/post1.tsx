@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 
 export default function BlogPost() {
   const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Состояние для открытия меню
+  const [isClient, setIsClient] = useState(false); // Состояние для проверки, что код выполняется на клиенте
   const [currentTitle, setCurrentTitle] = useState("Как справиться с ошибкой при открытии архива"); // Состояние для заголовка
 
   // Основной заголовок страницы
@@ -22,7 +24,14 @@ export default function BlogPost() {
     'support': '📞 Поддержка'
   } as const;
 
+  // Проверка, что мы находимся на клиенте
   useEffect(() => {
+    setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return; // Если код выполняется на сервере, пропускаем установку заголовка
+
     // Функция для обновления заголовка
     const updateTitle = () => {
       const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
@@ -46,7 +55,7 @@ export default function BlogPost() {
       router.events.off('hashChangeStart', handleRouteChange);
       router.events.off('routeChangeComplete', handleRouteChange);
     };
-  }, [router.asPath]); // Следим за изменением маршрута и якоря
+  }, [router.asPath, isClient]); // Следим за изменением маршрута и якоря, а также за состоянием клиента
 
   // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
@@ -58,6 +67,8 @@ export default function BlogPost() {
     document.title = baseTitle; // Устанавливаем заголовок страницы
     window.history.replaceState({}, document.title, window.location.pathname); // Удаляем якорь из URL
   };
+
+  if (!isClient) return null; // Возвращаем null, если код выполняется на сервере
 
   return (
     <Layout title={currentTitle}>
