@@ -4,7 +4,12 @@ import Link from 'next/link';
 import Layout from '../../components/Layout';
 import { useRouter } from 'next/router';
 
-export default function BlogPost({ initialTitle }) {
+// Определяем интерфейс для пропсов
+interface BlogPostProps {
+  initialTitle: string;
+}
+
+export default function BlogPost({ initialTitle }: BlogPostProps) {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentHash, setCurrentHash] = useState('');
