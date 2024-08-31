@@ -24,6 +24,11 @@ export default function BlogPost() {
 
   useEffect(() => {
     setIsClient(true); // Устанавливаем флаг клиента
+
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.slice(1);
+      setCurrentHash(hash); // Устанавливаем текущий хэш при монтировании
+    }
   }, []);
 
   useEffect(() => {
@@ -33,11 +38,6 @@ export default function BlogPost() {
       const hash = window.location.hash.slice(1);
       setCurrentHash(hash);
     };
-
-    // Проверяем, если при загрузке страницы уже есть хэш, устанавливаем его
-    if (window.location.hash) {
-      setCurrentHash(window.location.hash.slice(1));
-    }
 
     window.addEventListener('hashchange', updateTitle);
     window.addEventListener('popstate', updateTitle); // Для обработки кнопок "назад" и "вперед"
@@ -50,9 +50,6 @@ export default function BlogPost() {
 
   // Получение текущего заголовка
   const getCurrentTitle = () => {
-    if (!currentHash || currentHash === 'top') {
-      return PAGE_TITLE;
-    }
     const hashKey = currentHash as keyof typeof MENU_ITEMS;
     return MENU_ITEMS[hashKey] ? `${PAGE_TITLE} | ${MENU_ITEMS[hashKey]}` : PAGE_TITLE;
   };
