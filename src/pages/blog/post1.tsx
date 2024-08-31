@@ -28,7 +28,6 @@ export default function BlogPost() {
     setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
   }, []);
 
-  // Обновление заголовка страницы при изменении якоря
   useEffect(() => {
     if (!isClient) return;
 
@@ -42,22 +41,13 @@ export default function BlogPost() {
     updateTitle(); // Обновляем заголовок при первой загрузке
     setCurrentHash(router.asPath.split('#')[1] || ''); // Устанавливаем текущий якорь
 
-    // Обновляем заголовок при смене видимости вкладки или при возвращении на вкладку
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        updateTitle(); // Обновляем заголовок, если вкладка становится видимой
-      }
-    };
-
     const handleFocus = () => {
       updateTitle(); // Обновляем заголовок при фокусе на окно
     };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('focus', handleFocus);
 
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', handleFocus);
     };
   }, [router.asPath, isClient]);
