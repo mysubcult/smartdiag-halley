@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
 import { useRouter } from 'next/router';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 
 // Определяем интерфейс для пропсов
 interface BlogPostProps {
@@ -181,10 +182,10 @@ export default function BlogPost({ initialTitle }: BlogPostProps) {
 }
 
 // Используем getServerSideProps для передачи заголовка при серверном рендеринге
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
   // Здесь можно получить данные о посте из API или базы данных, если необходимо
   const initialTitle = "Как справиться с ошибкой при открытии архива";
   return {
     props: { initialTitle }, // Передаем заголовок через пропсы
   };
-}
+};
