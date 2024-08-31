@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
@@ -9,7 +9,7 @@ export default function BlogPost() {
   const PAGE_TITLE = "Как справиться с ошибкой при открытии архива";
   const PAGE_DESCRIPTION = "Руководство по устранению ошибок при открытии архивов";
   const PAGE_KEYWORDS = "ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО";
-  
+
   const MENU_ITEMS = {
     'antivirus-issue': '🛡️ Проблема с антивирусом',
     'outdated-software': '⏳ Устаревшее программное обеспечение',
@@ -19,72 +19,24 @@ export default function BlogPost() {
   };
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentHash, setCurrentHash] = useState('');
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true); // Устанавливаем флаг клиента
-
-    const handleHashChange = () => {
-      const hash = window.location.hash.slice(1);
-      setCurrentHash(hash);
-    };
-
-    handleHashChange(); // Устанавливаем текущий заголовок при монтировании
-
-    window.addEventListener('hashchange', handleHashChange);
-    window.addEventListener('popstate', handleHashChange);
-
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-      window.removeEventListener('popstate', handleHashChange);
-    };
-  }, []);
-
-  // Обновление заголовка в зависимости от хэша и при каждом рендере
-  useEffect(() => {
-    if (!isClient) return;
-
-    const updateTitle = () => {
-      const hash = window.location.hash.slice(1);
-      const hashKey = hash as keyof typeof MENU_ITEMS;
-      const newTitle = MENU_ITEMS[hashKey] ? `${PAGE_TITLE} | ${MENU_ITEMS[hashKey]}` : PAGE_TITLE;
-      document.title = newTitle;
-    };
-
-    updateTitle(); // Обновляем заголовок при загрузке и изменении состояния
-
-    // Добавляем событие для переключения вкладок
-    window.addEventListener('focus', updateTitle);
-
-    return () => {
-      window.removeEventListener('focus', updateTitle);
-    };
-  }, [isClient, currentHash]); // Зависит от currentHash и состояния клиента
 
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
   const scrollToTop = () => {
-    if (!isClient) return;
-
+    if (typeof window === 'undefined') return;
     window.scrollTo({ top: 0, behavior: 'smooth' });
     window.history.replaceState({}, PAGE_TITLE, window.location.pathname);
-    setCurrentHash('');
   };
 
   const handleLinkClick = (hash: string) => {
-    if (!isClient) return;
-
-    setCurrentHash(hash);
+    if (typeof window === 'undefined') return;
     window.history.pushState({}, '', `#${hash}`);
   };
-
-  if (!isClient) return null;
 
   return (
     <Layout>
       <Head>
-        <title>{PAGE_TITLE}</title> {/* Используем базовый заголовок */}
+        <title>{PAGE_TITLE}</title> {/* Постоянный заголовок страницы */}
         <meta name="description" content={PAGE_DESCRIPTION} />
         <meta name="keywords" content={PAGE_KEYWORDS} />
       </Head>
