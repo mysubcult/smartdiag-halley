@@ -39,16 +39,21 @@ export default function BlogPost() {
     };
 
     updateTitle(); // Обновляем заголовок при первой загрузке
-    setCurrentHash(router.asPath.split('#')[1] || ''); // Устанавливаем текущий якорь
 
     const handleFocus = () => {
       updateTitle(); // Обновляем заголовок при фокусе на окно
     };
 
+    const handleHashChange = () => {
+      updateTitle(); // Обновляем заголовок при изменении якоря
+    };
+
     window.addEventListener('focus', handleFocus);
+    window.addEventListener('hashchange', handleHashChange);
 
     return () => {
       window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('hashchange', handleHashChange);
     };
   }, [router.asPath, isClient]);
 
