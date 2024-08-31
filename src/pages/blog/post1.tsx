@@ -32,7 +32,7 @@ export default function BlogPost() {
     if (!isClient) return;
 
     const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
-
+    
     // Избегаем повторного изменения заголовка, если якорь не изменился
     if (hash === currentHash) return;
     setCurrentHash(hash); // Обновляем текущий якорь
@@ -58,7 +58,7 @@ export default function BlogPost() {
   return (
     <Layout>
       <Head>
-        <title>{baseTitle}</title> {/* Используем переменную baseTitle для заголовка */}
+        <title>{currentHash ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle}</title> {/* Динамически обновляем заголовок */}
         <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
         <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" />
       </Head>
