@@ -20,7 +20,6 @@ export default function BlogPost() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentHash, setCurrentHash] = useState('');
-  const [currentTitle, setCurrentTitle] = useState(PAGE_TITLE);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -29,7 +28,6 @@ export default function BlogPost() {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash.slice(1);
       setCurrentHash(hash);
-      setCurrentTitle(getTitle(hash)); // Устанавливаем текущий заголовок при монтировании
     }
   }, []);
 
@@ -39,7 +37,6 @@ export default function BlogPost() {
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1);
       setCurrentHash(hash);
-      setCurrentTitle(getTitle(hash)); // Обновляем заголовок при изменении хэша
     };
 
     window.addEventListener('hashchange', handleHashChange);
@@ -51,11 +48,14 @@ export default function BlogPost() {
     };
   }, [isClient]);
 
-  // Функция для получения текущего заголовка на основе хэша
-  const getTitle = (hash: string) => {
-    const hashKey = hash as keyof typeof MENU_ITEMS;
-    return MENU_ITEMS[hashKey] ? `${PAGE_TITLE} | ${MENU_ITEMS[hashKey]}` : PAGE_TITLE;
-  };
+  useEffect(() => {
+    if (!isClient) return;
+
+    // Обновляем заголовок страницы на основе текущего хэша
+    const hashKey = currentHash as keyof typeof MENU_ITEMS;
+    const newTitle = MENU_ITEMS[hashKey] ? `${PAGE_TITLE} | ${MENU_ITEMS[hashKey]}` : PAGE_TITLE;
+    document.title = newTitle;
+  }, [currentHash, isClient]); // Обновляем заголовок при изменении currentHash
 
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
@@ -65,14 +65,13 @@ export default function BlogPost() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     window.history.replaceState({}, PAGE_TITLE, window.location.pathname);
     setCurrentHash('');
-    setCurrentTitle(PAGE_TITLE); // Сбрасываем заголовок на начальный
   };
 
   const handleLinkClick = (hash: string) => {
     if (!isClient) return;
 
     setCurrentHash(hash);
-    setCurrentTitle(getTitle(hash)); // Обновляем заголовок при клике на ссылку
+    window.history.pushState({}, '', `#${hash}`);
   };
 
   if (!isClient) return null;
@@ -80,7 +79,7 @@ export default function BlogPost() {
   return (
     <Layout>
       <Head>
-        <title>{currentTitle}</title>
+        <title>{PAGE_TITLE}</title> {/* Устанавливаем базовый заголовок */}
         <meta name="description" content={PAGE_DESCRIPTION} />
         <meta name="keywords" content={PAGE_KEYWORDS} />
       </Head>
