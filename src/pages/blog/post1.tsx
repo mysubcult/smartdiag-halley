@@ -43,7 +43,7 @@ export default function BlogPost() {
   }, [router.asPath, isClient, currentHash]);
 
   // Общие классы для кнопок и ссылок
-  const commonLinkClass = "flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
+  const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
   // Обработчик для прокрутки наверх
   const scrollToTop = () => {
