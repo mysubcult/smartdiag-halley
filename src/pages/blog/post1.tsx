@@ -20,6 +20,7 @@ export default function BlogPost() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentHash, setCurrentHash] = useState('');
+  const [currentTitle, setCurrentTitle] = useState(PAGE_TITLE);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -27,62 +28,59 @@ export default function BlogPost() {
 
     if (typeof window !== 'undefined') {
       const hash = window.location.hash.slice(1);
-      setCurrentHash(hash); // Устанавливаем текущий хэш при монтировании
+      setCurrentHash(hash);
+      setCurrentTitle(getTitle(hash)); // Устанавливаем текущий заголовок при монтировании
     }
   }, []);
 
   useEffect(() => {
-    if (!isClient) return; // Убедимся, что выполняется только на клиенте
+    if (!isClient) return;
 
-    const updateTitle = () => {
+    const handleHashChange = () => {
       const hash = window.location.hash.slice(1);
       setCurrentHash(hash);
+      setCurrentTitle(getTitle(hash)); // Обновляем заголовок при изменении хэша
     };
 
-    window.addEventListener('hashchange', updateTitle);
-    window.addEventListener('popstate', updateTitle); // Для обработки кнопок "назад" и "вперед"
+    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handleHashChange);
 
     return () => {
-      window.removeEventListener('hashchange', updateTitle);
-      window.removeEventListener('popstate', updateTitle);
+      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('popstate', handleHashChange);
     };
   }, [isClient]);
 
-  // Используем useEffect для обновления заголовка на основе текущего хэша
-  useEffect(() => {
-    const newTitle = getCurrentTitle();
-    document.title = newTitle;
-  }, [currentHash]); // Следим за изменением currentHash
-
-  // Получение текущего заголовка
-  const getCurrentTitle = () => {
-    const hashKey = currentHash as keyof typeof MENU_ITEMS;
+  // Функция для получения текущего заголовка на основе хэша
+  const getTitle = (hash: string) => {
+    const hashKey = hash as keyof typeof MENU_ITEMS;
     return MENU_ITEMS[hashKey] ? `${PAGE_TITLE} | ${MENU_ITEMS[hashKey]}` : PAGE_TITLE;
   };
 
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
   const scrollToTop = () => {
-    if (!isClient) return; // Проверка на клиенте перед выполнением прокрутки
+    if (!isClient) return;
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
     window.history.replaceState({}, PAGE_TITLE, window.location.pathname);
-    setCurrentHash(''); // Сбрасываем текущий якорь
+    setCurrentHash('');
+    setCurrentTitle(PAGE_TITLE); // Сбрасываем заголовок на начальный
   };
 
   const handleLinkClick = (hash: string) => {
-    if (!isClient) return; // Проверка на клиенте перед обновлением состояния
+    if (!isClient) return;
 
-    setCurrentHash(hash); // Обновляем заголовок при клике на ссылку
-    window.history.pushState({}, '', `#${hash}`); // Обновляем URL с новым хэшем
+    setCurrentHash(hash);
+    setCurrentTitle(getTitle(hash)); // Обновляем заголовок при клике на ссылку
   };
 
-  if (!isClient) return null; // Возвращаем null при серверном рендеринге
+  if (!isClient) return null;
 
   return (
     <Layout>
       <Head>
-        <title>{getCurrentTitle()}</title>
+        <title>{currentTitle}</title>
         <meta name="description" content={PAGE_DESCRIPTION} />
         <meta name="keywords" content={PAGE_KEYWORDS} />
       </Head>
