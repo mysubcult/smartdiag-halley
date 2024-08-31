@@ -18,7 +18,7 @@ export default function BlogPost() {
     'download-errors': 'Ошибки при загрузке',
     'yandex-tips': 'Советы для пользователей Яндекс Браузера',
     'support': 'Поддержка'
-  };
+  } as const;
 
   useEffect(() => {
     setIsClient(true);
@@ -29,7 +29,9 @@ export default function BlogPost() {
 
     const baseTitle = "Блог - Как справиться с ошибкой при открытии архива";
     const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
-    const title = titles[hash] ? `${baseTitle} | ${titles[hash]}` : baseTitle;
+    
+    // Проверка наличия ключа в объекте titles
+    const title = titles.hasOwnProperty(hash) ? `${baseTitle} | ${titles[hash]}` : baseTitle;
     document.title = title;
   }, [router.asPath, isClient]);
 
