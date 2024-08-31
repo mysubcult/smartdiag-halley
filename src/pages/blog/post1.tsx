@@ -25,19 +25,12 @@ export default function BlogPost() {
   useEffect(() => {
     setIsClient(true); // Устанавливаем флаг клиента
 
-    if (typeof window !== 'undefined') {
-      const hash = window.location.hash.slice(1);
-      setCurrentHash(hash);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!isClient) return;
-
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1);
       setCurrentHash(hash);
     };
+
+    handleHashChange(); // Устанавливаем текущий заголовок при монтировании
 
     window.addEventListener('hashchange', handleHashChange);
     window.addEventListener('popstate', handleHashChange);
@@ -46,7 +39,7 @@ export default function BlogPost() {
       window.removeEventListener('hashchange', handleHashChange);
       window.removeEventListener('popstate', handleHashChange);
     };
-  }, [isClient]);
+  }, []);
 
   useEffect(() => {
     if (!isClient) return;
@@ -79,7 +72,7 @@ export default function BlogPost() {
   return (
     <Layout>
       <Head>
-        <title>{PAGE_TITLE}</title> {/* Устанавливаем базовый заголовок */}
+        <title>{document.title}</title> {/* Устанавливаем текущий заголовок */}
         <meta name="description" content={PAGE_DESCRIPTION} />
         <meta name="keywords" content={PAGE_KEYWORDS} />
       </Head>
