@@ -9,6 +9,7 @@ export default function BlogPost() {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    // Устанавливаем состояние, когда компонент монтируется на клиенте
     setIsClient(true);
   }, []);
 
@@ -22,6 +23,7 @@ export default function BlogPost() {
         <Head>
           <title>Блог - Как справиться с ошибкой при открытии архива</title>
           <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
+          <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" />
         </Head>
         <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
           <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
@@ -84,10 +86,10 @@ export default function BlogPost() {
             </div>
 
             {/* Основной контент блога */}
-            <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0"> {/* Добавлено lg:pt-0 */}
-              <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2> {/* Удален lg:text-left */}
+            <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0">
+              <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
 
-              <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400"> {/* Оставляем pt-6 */}
+              <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
                 В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
               </p>
 
