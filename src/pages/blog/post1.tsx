@@ -8,10 +8,9 @@ import { useRouter } from 'next/router';
 export default function BlogPost() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isClient, setIsClient] = useState(false);
-  const [currentHash, setCurrentHash] = useState(''); // Храним текущий якорь
+  const [currentTitle, setCurrentTitle] = useState("Как справиться с ошибкой при открытии архива"); // Состояние для заголовка
 
-  // Основной заголовок страницы - измените его для каждого нового поста
+  // Основной заголовок страницы
   const baseTitle = "Как справиться с ошибкой при открытии архива";
 
   // Объект для хранения заголовков и текстов пунктов меню с эмодзи
@@ -25,40 +24,44 @@ export default function BlogPost() {
   } as const;
 
   useEffect(() => {
-    setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
-  }, []);
-
-  useEffect(() => {
-    if (!isClient) return;
-
+    // Функция для обновления заголовка
     const updateTitle = () => {
-      const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
+      const hash = window.location.hash.substring(1); // Получаем текущий якорь или пустую строку
       const hashKey = hash as keyof typeof titles;
-      const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-      document.title = title; // Устанавливаем заголовок страницы
-      setCurrentHash(hash); // Обновляем текущее состояние якоря
+      const newTitle = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
+      setCurrentTitle(newTitle); // Устанавливаем заголовок в состояние
+      document.title = newTitle; // Устанавливаем заголовок страницы
     };
 
-    updateTitle(); // Обновляем заголовок при первой загрузке
+    // Первоначальное обновление заголовка
+    updateTitle();
 
+    // Обновляем заголовок при изменении видимости страницы и фокусе
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        updateTitle(); // Обновляем заголовок, если вкладка становится видимой
+        updateTitle();
       }
     };
 
+    const handleFocus = () => {
+      updateTitle();
+    };
+
+    // Обновляем заголовок при изменении якоря
     const handleHashChange = () => {
-      updateTitle(); // Обновляем заголовок при изменении якоря
+      updateTitle();
     };
 
     window.addEventListener('hashchange', handleHashChange);
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('focus', handleFocus);
 
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('focus', handleFocus);
     };
-  }, [router.asPath, isClient]);
+  }, []);
 
   // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
@@ -66,19 +69,17 @@ export default function BlogPost() {
   // Функция прокрутки наверх и сброса заголовка
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setCurrentHash(''); // Сбрасываем текущий якорь
-    document.title = baseTitle; // Сбрасываем заголовок страницы на основной
+    setCurrentTitle(baseTitle); // Сбрасываем заголовок страницы на основной
+    document.title = baseTitle; // Устанавливаем заголовок страницы
 
     // Используем replaceState для удаления якоря из URL
     window.history.replaceState({}, document.title, window.location.pathname);
   };
 
-  if (!isClient) return null; // Возвращаем null, если код выполняется на сервере
-
   return (
     <Layout>
       <Head>
-        <title>{currentHash in titles ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle}</title> {/* Динамически обновляем заголовок */}
+        <title>{currentTitle}</title> {/* Используем состояние для динамического заголовка */}
         <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
         <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" />
       </Head>
