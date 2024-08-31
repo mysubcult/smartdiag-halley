@@ -42,7 +42,7 @@ export default function BlogPost() {
     updateTitle(); // Обновляем заголовок при первой загрузке
     setCurrentHash(router.asPath.split('#')[1] || ''); // Устанавливаем текущий якорь
 
-    // Обновляем заголовок при смене видимости вкладки
+    // Обновляем заголовок при смене видимости вкладки или при возвращении на вкладку
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
         updateTitle(); // Обновляем заголовок, если вкладка становится видимой
@@ -64,6 +64,9 @@ export default function BlogPost() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setCurrentHash(''); // Сбрасываем текущий якорь
     document.title = baseTitle; // Сбрасываем заголовок страницы на основной
+
+    // Используем replaceState для удаления якоря из URL
+    window.history.replaceState({}, document.title, window.location.pathname);
   };
 
   if (!isClient) return null; // Возвращаем null, если код выполняется на сервере
