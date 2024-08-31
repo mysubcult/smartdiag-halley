@@ -11,10 +11,11 @@ export default function BlogPost() {
   const [isClient, setIsClient] = useState(false);
   const [currentHash, setCurrentHash] = useState(''); // Храним текущий якорь
 
-  // Основной заголовок страницы
+  // Основной заголовок страницы - измените его для каждого нового поста
   const baseTitle = "Блог - Как справиться с ошибкой при открытии архива";
 
   // Объект для хранения заголовков и текстов пунктов меню с эмодзи
+  // Добавьте сюда заголовки и текст новых секций при создании новых постов
   const titles = {
     '': '🏠 В начало',
     'antivirus-issue': '🛡️ Проблема с антивирусом',
@@ -25,43 +26,43 @@ export default function BlogPost() {
   } as const;
 
   useEffect(() => {
-    setIsClient(true);
+    setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
   }, []);
 
   useEffect(() => {
     if (!isClient) return;
 
     const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
-
-    // Избегаем повторного изменения заголовка, если якорь не изменился
-    if (hash === currentHash) return;
+    if (hash === currentHash) return; // Избегаем повторного изменения заголовка, если якорь не изменился
     setCurrentHash(hash); // Обновляем текущий якорь
 
     const hashKey = hash as keyof typeof titles;
     const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-    document.title = title;
+    document.title = title; // Устанавливаем заголовок страницы
   }, [router.asPath, isClient, currentHash]);
 
   // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
-  // Обработчик для прокрутки наверх
+  // Функция прокрутки наверх
+  // Используйте эту функцию, чтобы прокручивать страницу до самого верха
   const scrollToTop = () => {
-    // Прокручиваем к самому верху страницы
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  if (!isClient) return null;
+  if (!isClient) return null; // Возвращаем null, если код выполняется на сервере
 
   return (
     <Layout>
       <Head>
         <title>{currentHash ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle}</title> {/* Динамически обновляем заголовок */}
-        <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
-        <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" />
+        <meta name="description" content="Руководство по устранению ошибок при открытии архивов" /> {/* Измените описание для SEO */}
+        <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" /> {/* Измените ключевые слова для SEO */}
       </Head>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
+          
+          {/* Кнопка для открытия/закрытия мобильного меню */}
           <div className="lg:hidden w-full flex justify-center mb-4">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -86,10 +87,11 @@ export default function BlogPost() {
             </button>
           </div>
 
+          {/* Боковая панель навигации */}
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
             <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
             <nav className="space-y-3">
-              {/* Кнопка "В начало" использует обработчик прокрутки */}
+              {/* Используйте ссылки из объекта titles для создания пунктов навигации */}
               <a onClick={scrollToTop} className={commonLinkClass}>{titles['']}</a>
               {Object.entries(titles).map(([key, value]) => {
                 if (key === '') return null; // Пропускаем ключ для "В начало", т.к. он уже добавлен
@@ -102,14 +104,17 @@ export default function BlogPost() {
             </nav>
           </div>
 
-          {/* Основной контент блога */}
+          {/* Основной контент страницы */}
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0" id="top">
+            {/* Главный заголовок страницы - измените его для каждого нового поста */}
             <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
 
+            {/* Введение - измените или удалите при необходимости */}
             <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
             </p>
 
+            {/* Изображение поста - измените путь и alt-текст при необходимости */}
             <Image
               src="/images/blog/post1.jpg"
               alt="Ошибки при открытии архива"
@@ -120,6 +125,7 @@ export default function BlogPost() {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
 
+            {/* Секции контента - добавляйте или изменяйте секции при создании новых постов */}
             <div className="max-w-4xl mx-auto text-lg leading-relaxed">
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="antivirus-issue">Проблема с антивирусом</h3>
               <hr className="border-neutral-300 mb-4" />
@@ -152,6 +158,7 @@ export default function BlogPost() {
               </p>
             </div>
 
+            {/* Кнопка для возврата в блог - измените ссылку при необходимости */}
             <div className="mt-16 flex justify-center">
               <Link href="/#blog" passHref>
                 <a className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
@@ -161,6 +168,7 @@ export default function BlogPost() {
             </div>
           </div>
 
+          {/* Пустое место для выравнивания контента - используйте при необходимости */}
           <div className="lg:w-1/6 hidden lg:block"></div>
         </div>
       </main>
