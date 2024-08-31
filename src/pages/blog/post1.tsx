@@ -22,14 +22,16 @@ export default function BlogPost() {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // Устанавливаем флаг клиента, чтобы избежать ошибок с объектом window на сервере
-    setIsClient(true);
+    if (typeof window !== 'undefined') {
+      // Устанавливаем флаг клиента, чтобы избежать ошибок с объектом window на сервере
+      setIsClient(true);
+    }
   }, []);
 
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
   const scrollToTop = () => {
-    if (!isClient || typeof window === 'undefined') return;
+    if (!isClient) return; // Проверяем, что мы на клиенте, перед использованием window
     window.scrollTo({ top: 0, behavior: 'smooth' });
     window.history.replaceState({}, PAGE_TITLE, window.location.pathname);
   };
