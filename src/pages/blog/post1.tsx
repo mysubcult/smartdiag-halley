@@ -10,7 +10,6 @@ export default function BlogPost() {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Состояние для открытия меню
   const [isClient, setIsClient] = useState(false); // Состояние для проверки, что код выполняется на клиенте
   const [currentTitle, setCurrentTitle] = useState("Как справиться с ошибкой при открытии архива"); // Состояние для заголовка
-  const [lastKnownHash, setLastKnownHash] = useState(''); // Состояние для хранения последнего известного якоря
 
   // Основной заголовок страницы
   const baseTitle = "Как справиться с ошибкой при открытии архива";
@@ -35,12 +34,11 @@ export default function BlogPost() {
 
     // Функция для обновления заголовка
     const updateTitle = () => {
-      const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
+      const hash = window.location.hash.substring(1); // Получаем текущий якорь или пустую строку
       const hashKey = hash as keyof typeof titles;
       const newTitle = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
       setCurrentTitle(newTitle); // Устанавливаем заголовок в состояние
       document.title = newTitle; // Устанавливаем заголовок страницы
-      setLastKnownHash(hash); // Обновляем последний известный якорь
     };
 
     updateTitle(); // Первоначальное обновление заголовка
@@ -53,15 +51,15 @@ export default function BlogPost() {
     router.events.on('hashChangeStart', handleRouteChange);
     router.events.on('routeChangeComplete', handleRouteChange);
 
-    // Проверка изменения видимости вкладки
+    // Обновление заголовка при возвращении на вкладку
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        const currentHash = window.location.hash.substring(1);
-        if (currentHash === lastKnownHash) {
-          // Если текущий якорь совпадает с последним известным, оставляем заголовок
-          return;
-        }
-        updateTitle(); // Иначе обновляем заголовок
+        // Обновляем заголовок только при возвращении на вкладку
+        const hash = window.location.hash.substring(1); // Получаем текущий якорь
+        const hashKey = hash as keyof typeof titles;
+        const newTitle = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
+        setCurrentTitle(newTitle); // Обновляем состояние заголовка
+        document.title = newTitle; // Устанавливаем заголовок страницы
       }
     };
 
@@ -72,7 +70,7 @@ export default function BlogPost() {
       router.events.off('routeChangeComplete', handleRouteChange);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [router.asPath, isClient, lastKnownHash]); // Следим за изменением маршрута, клиента и последнего известного якоря
+  }, [router.asPath, isClient]); // Следим за изменением маршрута и клиента
 
   // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
@@ -82,7 +80,6 @@ export default function BlogPost() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setCurrentTitle(baseTitle); // Сбрасываем заголовок страницы на основной
     document.title = baseTitle; // Устанавливаем заголовок страницы
-    setLastKnownHash(''); // Сбрасываем последний известный якорь
     window.history.replaceState({}, document.title, window.location.pathname); // Удаляем якорь из URL
   };
 
