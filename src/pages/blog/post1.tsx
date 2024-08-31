@@ -54,7 +54,7 @@ export default function BlogPost() {
     isClient && (
       <Layout>
         <Head>
-          <title>Блог - Как справиться с ошибкой при открытии архива</title>
+          <title>{router.asPath.includes('#') ? document.title : "Блог - Как справиться с ошибкой при открытии архива"}</title>
           <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
           <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" />
         </Head>
