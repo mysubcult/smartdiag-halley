@@ -4,7 +4,6 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import { ReactNode } from "react";
 
-// Определяем интерфейс для пропсов компонента Layout
 interface LayoutProps {
   children: ReactNode;
   title?: string;
