@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 export default function BlogPost() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isClient, setIsClient] = useState(false);
   const [currentHash, setCurrentHash] = useState('');
 
-  // Основной заголовок страницы - измените его для каждого нового поста
+  // Основной заголовок страницы
   const baseTitle = "Как справиться с ошибкой при открытии архива";
 
   // Объект для хранения заголовков и текстов пунктов меню с эмодзи
@@ -25,50 +24,38 @@ export default function BlogPost() {
   } as const;
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    const hash = router.asPath.split('#')[1] || '';
+    setCurrentHash(hash);
 
-  useEffect(() => {
-    if (!isClient) return;
-
-    const updateTitle = () => {
-      const hash = router.asPath.split('#')[1] || '';
-      const hashKey = hash as keyof typeof titles;
-      const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-      document.title = title;
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1);
+      setCurrentHash(hash);
     };
 
-    updateTitle();
-    setCurrentHash(router.asPath.split('#')[1] || '');
-
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        updateTitle();
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('hashchange', handleHashChange);
 
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('hashchange', handleHashChange);
     };
-  }, [router.asPath, isClient]);
+  }, [router.asPath]);
+
+  // Получение текущего заголовка
+  const getCurrentTitle = () => {
+    const hashKey = currentHash as keyof typeof titles;
+    return hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
+  };
 
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setCurrentHash('');
-    document.title = baseTitle;
     window.history.replaceState({}, document.title, window.location.pathname);
   };
-
-  if (!isClient) return null;
 
   return (
     <Layout>
       <Head>
-        <title>{currentHash in titles ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle}</title>
+        <title>{getCurrentTitle()}</title>
         <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
         <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" />
       </Head>
