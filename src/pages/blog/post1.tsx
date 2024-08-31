@@ -4,14 +4,14 @@ import Link from 'next/link';
 import Layout from '../../components/Layout';
 import { useRouter } from 'next/router';
 
-export default function BlogPost() {
+export default function BlogPost({ initialTitle }) {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentHash, setCurrentHash] = useState('');
   const [isClient, setIsClient] = useState(false);
 
-  // Основной заголовок страницы
-  const baseTitle = "Как справиться с ошибкой при открытии архива";
+  // Основной заголовок страницы, полученный из `getServerSideProps`
+  const baseTitle = initialTitle;
 
   // Объект для хранения заголовков и текстов пунктов меню с эмодзи
   const titles = {
@@ -173,4 +173,13 @@ export default function BlogPost() {
       </main>
     </Layout>
   );
+}
+
+// Используем getServerSideProps для передачи заголовка при серверном рендеринге
+export async function getServerSideProps(context) {
+  // Здесь можно получить данные о посте из API или базы данных, если необходимо
+  const initialTitle = "Как справиться с ошибкой при открытии архива";
+  return {
+    props: { initialTitle }, // Передаем заголовок через пропсы
+  };
 }
