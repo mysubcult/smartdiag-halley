@@ -2,9 +2,19 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import { ReactNode } from "react";
 
-const Layout = (props) => {
-  const { children, title, description, keywords, image, type } = props;
+// Определяем интерфейс для пропсов компонента Layout
+interface LayoutProps {
+  children: ReactNode;
+  title?: string;
+  description?: string;
+  keywords?: string;
+  image?: string;
+  type?: string;
+}
+
+const Layout = ({ children, title, description, keywords, image, type }: LayoutProps) => {
   const router = useRouter();
   const meta = {
     title: title || "SmartDiag - Ваш проводник в мире автодиагностики",
