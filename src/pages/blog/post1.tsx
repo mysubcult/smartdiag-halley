@@ -30,8 +30,11 @@ export default function BlogPost() {
     const baseTitle = "Блог - Как справиться с ошибкой при открытии архива";
     const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
     
+    // Приведение типа hash к ключу объекта titles
+    const hashKey = hash as keyof typeof titles;
+
     // Проверка наличия ключа в объекте titles
-    const title = titles.hasOwnProperty(hash) ? `${baseTitle} | ${titles[hash]}` : baseTitle;
+    const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
     document.title = title;
   }, [router.asPath, isClient]);
 
