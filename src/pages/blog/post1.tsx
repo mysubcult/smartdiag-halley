@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 
 export default function BlogPost() {
@@ -19,7 +18,6 @@ export default function BlogPost() {
     'support': '📞 Поддержка'
   };
 
-  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentHash, setCurrentHash] = useState('');
   const [isClient, setIsClient] = useState(false);
@@ -36,7 +34,11 @@ export default function BlogPost() {
       setCurrentHash(hash);
     };
 
-    updateTitle(); // Устанавливаем начальный заголовок
+    // Проверяем, если при загрузке страницы уже есть хэш, устанавливаем его
+    if (window.location.hash) {
+      setCurrentHash(window.location.hash.slice(1));
+    }
+
     window.addEventListener('hashchange', updateTitle);
     window.addEventListener('popstate', updateTitle); // Для обработки кнопок "назад" и "вперед"
 
