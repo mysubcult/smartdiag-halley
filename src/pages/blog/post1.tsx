@@ -48,6 +48,12 @@ export default function BlogPost() {
     };
   }, [isClient]);
 
+  // Используем useEffect для обновления заголовка на основе текущего хэша
+  useEffect(() => {
+    const newTitle = getCurrentTitle();
+    document.title = newTitle;
+  }, [currentHash]); // Следим за изменением currentHash
+
   // Получение текущего заголовка
   const getCurrentTitle = () => {
     const hashKey = currentHash as keyof typeof MENU_ITEMS;
@@ -68,6 +74,7 @@ export default function BlogPost() {
     if (!isClient) return; // Проверка на клиенте перед обновлением состояния
 
     setCurrentHash(hash); // Обновляем заголовок при клике на ссылку
+    window.history.pushState({}, '', `#${hash}`); // Обновляем URL с новым хэшем
   };
 
   if (!isClient) return null; // Возвращаем null при серверном рендеринге
