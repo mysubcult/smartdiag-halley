@@ -6,22 +6,23 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 
 export default function BlogPost() {
-  const router = useRouter();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentHash, setCurrentHash] = useState('');
-  const [isClient, setIsClient] = useState(false);
-
-  // Основной заголовок страницы
-  const baseTitle = "Как справиться с ошибкой при открытии архива";
-
-  // Объект для хранения заголовков и текстов пунктов меню с эмодзи
-  const titles = {
+  // Константы для заголовка страницы и пунктов меню
+  const PAGE_TITLE = "Как справиться с ошибкой при открытии архива";
+  const PAGE_DESCRIPTION = "Руководство по устранению ошибок при открытии архивов";
+  const PAGE_KEYWORDS = "ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО";
+  
+  const MENU_ITEMS = {
     'antivirus-issue': '🛡️ Проблема с антивирусом',
     'outdated-software': '⏳ Устаревшее программное обеспечение',
     'download-errors': '📥 Ошибки при загрузке',
     'yandex-tips': '🌐 Советы для пользователей Яндекс Браузера',
     'support': '📞 Поддержка'
   };
+
+  const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentHash, setCurrentHash] = useState('');
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -48,10 +49,10 @@ export default function BlogPost() {
   // Получение текущего заголовка
   const getCurrentTitle = () => {
     if (!currentHash || currentHash === 'top') {
-      return baseTitle;
+      return PAGE_TITLE;
     }
-    const hashKey = currentHash as keyof typeof titles;
-    return titles[hashKey] ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
+    const hashKey = currentHash as keyof typeof MENU_ITEMS;
+    return MENU_ITEMS[hashKey] ? `${PAGE_TITLE} | ${MENU_ITEMS[hashKey]}` : PAGE_TITLE;
   };
 
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
@@ -60,7 +61,7 @@ export default function BlogPost() {
     if (!isClient) return;
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    window.history.replaceState({}, baseTitle, window.location.pathname);
+    window.history.replaceState({}, PAGE_TITLE, window.location.pathname);
     setCurrentHash(''); // Сбрасываем текущий якорь
   };
 
@@ -76,8 +77,8 @@ export default function BlogPost() {
     <Layout>
       <Head>
         <title>{getCurrentTitle()}</title>
-        <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
-        <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" />
+        <meta name="description" content={PAGE_DESCRIPTION} />
+        <meta name="keywords" content={PAGE_KEYWORDS} />
       </Head>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
@@ -110,7 +111,7 @@ export default function BlogPost() {
             <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
             <nav className="space-y-3">
               <a onClick={scrollToTop} className={commonLinkClass}>🏠 В начало</a>
-              {Object.entries(titles).map(([key, value]) => (
+              {Object.entries(MENU_ITEMS).map(([key, value]) => (
                 <Link key={key} href={`#${key}`} passHref scroll={false}>
                   <a onClick={() => handleLinkClick(key)} className={commonLinkClass}>
                     {value}
