@@ -92,7 +92,7 @@ export default function BlogPost() {
   };
 
   return (
-    <Layout>
+    <Layout title={currentTitle}>
       <Head>
         <title>{currentTitle}</title> {/* Используем состояние для динамического заголовка */}
         <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
