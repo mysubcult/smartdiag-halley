@@ -9,6 +9,10 @@ export default function BlogPost() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [currentHash, setCurrentHash] = useState(''); // Храним текущий якорь
+
+  // Основной заголовок страницы
+  const baseTitle = "Блог - Как справиться с ошибкой при открытии архива";
 
   // Объект для хранения заголовков и текстов пунктов меню
   const titles = {
@@ -27,26 +31,34 @@ export default function BlogPost() {
   useEffect(() => {
     if (!isClient) return;
 
-    const baseTitle = "Блог - Как справиться с ошибкой при открытии архива";
     const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
-    
-    // Приведение типа hash к ключу объекта titles
-    const hashKey = hash as keyof typeof titles;
 
-    // Проверка наличия ключа в объекте titles
+    // Избегаем повторного изменения заголовка, если якорь не изменился
+    if (hash === currentHash) return;
+    setCurrentHash(hash); // Обновляем текущий якорь
+
+    const hashKey = hash as keyof typeof titles;
     const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
     document.title = title;
-  }, [router.asPath, isClient]);
+  }, [router.asPath, isClient, currentHash]);
 
   // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
+
+  // Обработчик для прокрутки наверх
+  const scrollToTop = () => {
+    const topElement = document.getElementById('top');
+    if (topElement) {
+      topElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   if (!isClient) return null;
 
   return (
     <Layout>
       <Head>
-        <title>Блог - Как справиться с ошибкой при открытии архива</title>
+        <title>{baseTitle}</title> {/* Используем переменную baseTitle для заголовка */}
         <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
         <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" />
       </Head>
@@ -79,10 +91,8 @@ export default function BlogPost() {
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
             <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
             <nav className="space-y-3">
-              {/* Упрощаем кнопку "В начало" до обычной ссылки */}
-              <Link href="#top" scroll={false}>
-                <a className={commonLinkClass}>🏠 {titles['']}</a>
-              </Link>
+              {/* Кнопка "В начало" использует обработчик прокрутки */}
+              <a onClick={scrollToTop} className={commonLinkClass}>🏠 {titles['']}</a>
               {Object.entries(titles).map(([key, value]) => {
                 if (key === '') return null; // Пропускаем ключ для "В начало", т.к. он уже добавлен
                 return (
