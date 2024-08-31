@@ -55,33 +55,32 @@ export default function BlogPost() {
               <nav className="space-y-3">
                 <a
                   onClick={scrollToTop}
-                  className="flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer hover:transition-colors hover:duration-300"
-                  style={{ transition: 'color 0s' }}
+                  className="flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer transition hover:transition-colors duration-300"
                 >
                   🏠 В начало
                 </a>
                 <Link href="#antivirus-issue" passHref scroll={false}>
-                  <a className="flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer hover:transition-colors hover:duration-300" style={{ transition: 'color 0s' }}>
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer transition hover:transition-colors duration-300">
                     🛡️ Проблема с антивирусом
                   </a>
                 </Link>
                 <Link href="#outdated-software" passHref scroll={false}>
-                  <a className="flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer hover:transition-colors hover:duration-300" style={{ transition: 'color 0s' }}>
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer transition hover:transition-colors duration-300">
                     ⏳ Устаревшее ПО
                   </a>
                 </Link>
                 <Link href="#download-errors" passHref scroll={false}>
-                  <a className="flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer hover:transition-colors hover:duration-300" style={{ transition: 'color 0s' }}>
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer transition hover:transition-colors duration-300">
                     📥 Ошибки при загрузке
                   </a>
                 </Link>
                 <Link href="#yandex-tips" passHref scroll={false}>
-                  <a className="flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer hover:transition-colors hover:duration-300" style={{ transition: 'color 0s' }}>
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer transition hover:transition-colors duration-300">
                     🌐 Советы для Яндекс Браузера
                   </a>
                 </Link>
                 <Link href="#support" passHref scroll={false}>
-                  <a className="flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer hover:transition-colors hover:duration-300" style={{ transition: 'color 0s' }}>
+                  <a className="flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer transition hover:transition-colors duration-300">
                     📞 Поддержка
                   </a>
                 </Link>
