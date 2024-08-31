@@ -7,42 +7,36 @@ import { useRouter } from 'next/router';
 
 export default function BlogPost() {
   const router = useRouter();
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Состояние для меню
-  const [isClient, setIsClient] = useState(false); // Состояние для проверки рендера на клиенте
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  // Объект для хранения заголовков и текстов пунктов меню
+  const titles = {
+    '': 'В начало',
+    'antivirus-issue': 'Проблема с антивирусом',
+    'outdated-software': 'Устаревшее программное обеспечение',
+    'download-errors': 'Ошибки при загрузке',
+    'yandex-tips': 'Советы для пользователей Яндекс Браузера',
+    'support': 'Поддержка'
+  };
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   useEffect(() => {
-    if (!isClient) return; // Если не клиент, пропускаем выполнение эффекта
+    if (!isClient) return;
 
     const baseTitle = "Блог - Как справиться с ошибкой при открытии архива";
-    const titles: { [key: string]: string } = {
-      'antivirus-issue': 'Проблема с антивирусом',
-      'outdated-software': 'Устаревшее программное обеспечение',
-      'download-errors': 'Ошибки при загрузке',
-      'yandex-tips': 'Советы для пользователей Яндекс Браузера',
-      'support': 'Поддержка'
-    };
-
-    const hash = router.asPath.split('#')[1];
-    if (hash && titles.hasOwnProperty(hash)) {
-      document.title = `${baseTitle} | ${titles[hash]}`;
-    } else {
-      document.title = baseTitle;
-    }
-  }, [router.asPath, isClient]); // Добавляем isClient как зависимость
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.title = "Блог - Как справиться с ошибкой при открытии архива"; // Сбрасываем заголовок
-  };
+    const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
+    const title = titles[hash] ? `${baseTitle} | ${titles[hash]}` : baseTitle;
+    document.title = title;
+  }, [router.asPath, isClient]);
 
   // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
-  if (!isClient) return null; // Предотвращаем рендеринг на сервере
+  if (!isClient) return null;
 
   return (
     <Layout>
@@ -80,39 +74,30 @@ export default function BlogPost() {
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
             <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
             <nav className="space-y-3">
-              <a onClick={scrollToTop} className={commonLinkClass}>
-                🏠 В начало
-              </a>
-              <Link href="#antivirus-issue" passHref scroll={false}>
-                <a className={commonLinkClass}>
-                  🛡️ Проблема с антивирусом
-                </a>
+              {/* Упрощаем кнопку "В начало" до обычной ссылки */}
+              <Link href="#top" scroll={false}>
+                <a className={commonLinkClass}>🏠 {titles['']}</a>
               </Link>
-              <Link href="#outdated-software" passHref scroll={false}>
-                <a className={commonLinkClass}>
-                  ⏳ Устаревшее ПО
-                </a>
-              </Link>
-              <Link href="#download-errors" passHref scroll={false}>
-                <a className={commonLinkClass}>
-                  📥 Ошибки при загрузке
-                </a>
-              </Link>
-              <Link href="#yandex-tips" passHref scroll={false}>
-                <a className={commonLinkClass}>
-                  🌐 Советы для пользователей Яндекс Браузера
-                </a>
-              </Link>
-              <Link href="#support" passHref scroll={false}>
-                <a className={commonLinkClass}>
-                  📞 Поддержка
-                </a>
-              </Link>
+              {Object.entries(titles).map(([key, value]) => {
+                if (key === '') return null; // Пропускаем ключ для "В начало", т.к. он уже добавлен
+                return (
+                  <Link key={key} href={`#${key}`} passHref scroll={false}>
+                    <a className={commonLinkClass}>
+                      {key === 'antivirus-issue' && '🛡️'}
+                      {key === 'outdated-software' && '⏳'}
+                      {key === 'download-errors' && '📥'}
+                      {key === 'yandex-tips' && '🌐'}
+                      {key === 'support' && '📞'}
+                      {value}
+                    </a>
+                  </Link>
+                );
+              })}
             </nav>
           </div>
 
           {/* Основной контент блога */}
-          <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0">
+          <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0" id="top">
             <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
 
             <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
