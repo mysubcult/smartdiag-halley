@@ -63,6 +63,15 @@ export default function BlogPost() {
     };
   }, []);
 
+  // Используем дополнительный useEffect для отслеживания изменений маршрута
+  useEffect(() => {
+    const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
+    const hashKey = hash as keyof typeof titles;
+    const newTitle = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
+    setCurrentTitle(newTitle); // Устанавливаем заголовок в состояние
+    document.title = newTitle; // Устанавливаем заголовок страницы
+  }, [router.asPath]); // Следим за изменением маршрута
+
   // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
