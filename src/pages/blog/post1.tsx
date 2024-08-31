@@ -22,8 +22,15 @@ export default function BlogPost() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentHash, setCurrentHash] = useState('');
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true); // Устанавливаем флаг клиента
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return; // Убедимся, что выполняется только на клиенте
+
     const updateTitle = () => {
       const hash = window.location.hash.slice(1);
       setCurrentHash(hash);
@@ -37,7 +44,7 @@ export default function BlogPost() {
       window.removeEventListener('hashchange', updateTitle);
       window.removeEventListener('popstate', updateTitle);
     };
-  }, []);
+  }, [isClient]);
 
   // Получение текущего заголовка
   const getCurrentTitle = () => {
@@ -51,14 +58,20 @@ export default function BlogPost() {
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
   const scrollToTop = () => {
+    if (!isClient) return; // Проверка на клиенте перед выполнением прокрутки
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
     window.history.replaceState({}, PAGE_TITLE, window.location.pathname);
     setCurrentHash(''); // Сбрасываем текущий якорь
   };
 
   const handleLinkClick = (hash: string) => {
+    if (!isClient) return; // Проверка на клиенте перед обновлением состояния
+
     setCurrentHash(hash); // Обновляем заголовок при клике на ссылку
   };
+
+  if (!isClient) return null; // Возвращаем null при серверном рендеринге
 
   return (
     <Layout>
