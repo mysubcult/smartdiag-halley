@@ -14,14 +14,14 @@ export default function BlogPost() {
   // Основной заголовок страницы
   const baseTitle = "Блог - Как справиться с ошибкой при открытии архива";
 
-  // Объект для хранения заголовков и текстов пунктов меню
+  // Объект для хранения заголовков и текстов пунктов меню с эмодзи
   const titles = {
-    '': 'В начало',
-    'antivirus-issue': 'Проблема с антивирусом',
-    'outdated-software': 'Устаревшее программное обеспечение',
-    'download-errors': 'Ошибки при загрузке',
-    'yandex-tips': 'Советы для пользователей Яндекс Браузера',
-    'support': 'Поддержка'
+    '': '🏠 В начало',
+    'antivirus-issue': '🛡️ Проблема с антивирусом',
+    'outdated-software': '⏳ Устаревшее программное обеспечение',
+    'download-errors': '📥 Ошибки при загрузке',
+    'yandex-tips': '🌐 Советы для пользователей Яндекс Браузера',
+    'support': '📞 Поддержка'
   } as const;
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function BlogPost() {
     if (!isClient) return;
 
     const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
-    
+
     // Избегаем повторного изменения заголовка, если якорь не изменился
     if (hash === currentHash) return;
     setCurrentHash(hash); // Обновляем текущий якорь
@@ -47,10 +47,8 @@ export default function BlogPost() {
 
   // Обработчик для прокрутки наверх
   const scrollToTop = () => {
-    const topElement = document.getElementById('top');
-    if (topElement) {
-      topElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    // Прокручиваем к самому верху страницы
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (!isClient) return null;
@@ -92,19 +90,12 @@ export default function BlogPost() {
             <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
             <nav className="space-y-3">
               {/* Кнопка "В начало" использует обработчик прокрутки */}
-              <a onClick={scrollToTop} className={commonLinkClass}>🏠 {titles['']}</a>
+              <a onClick={scrollToTop} className={commonLinkClass}>{titles['']}</a>
               {Object.entries(titles).map(([key, value]) => {
                 if (key === '') return null; // Пропускаем ключ для "В начало", т.к. он уже добавлен
                 return (
                   <Link key={key} href={`#${key}`} passHref scroll={false}>
-                    <a className={commonLinkClass}>
-                      {key === 'antivirus-issue' && '🛡️'}
-                      {key === 'outdated-software' && '⏳'}
-                      {key === 'download-errors' && '📥'}
-                      {key === 'yandex-tips' && '🌐'}
-                      {key === 'support' && '📞'}
-                      {value}
-                    </a>
+                    <a className={commonLinkClass}>{value}</a>
                   </Link>
                 );
               })}
