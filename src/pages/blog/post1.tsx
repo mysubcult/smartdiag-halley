@@ -9,7 +9,7 @@ export default function BlogPost() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentHash, setCurrentHash] = useState('');
-  const [isClient, setIsClient] = useState(false); // Добавлено состояние для проверки клиента
+  const [isClient, setIsClient] = useState(false);
 
   // Основной заголовок страницы
   const baseTitle = "Как справиться с ошибкой при открытии архива";
@@ -24,22 +24,24 @@ export default function BlogPost() {
   };
 
   useEffect(() => {
-    setIsClient(true); // Устанавливаем, что код выполняется на клиенте
+    setIsClient(true);
   }, []);
 
   useEffect(() => {
-    if (!isClient) return; // Если не клиент, выходим из useEffect
+    if (!isClient) return;
 
-    const handleHashChange = () => {
+    const updateTitle = () => {
       const hash = window.location.hash.slice(1);
       setCurrentHash(hash);
     };
 
-    handleHashChange(); // Устанавливаем начальный заголовок
-    window.addEventListener('hashchange', handleHashChange);
+    updateTitle(); // Устанавливаем начальный заголовок
+    window.addEventListener('hashchange', updateTitle);
+    window.addEventListener('popstate', updateTitle); // Для обработки кнопок "назад" и "вперед"
 
     return () => {
-      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('hashchange', updateTitle);
+      window.removeEventListener('popstate', updateTitle);
     };
   }, [isClient]);
 
@@ -48,7 +50,6 @@ export default function BlogPost() {
     if (!currentHash || currentHash === 'top') {
       return baseTitle;
     }
-    // Приведение типа currentHash к ключу объекта titles
     const hashKey = currentHash as keyof typeof titles;
     return titles[hashKey] ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
   };
@@ -56,14 +57,21 @@ export default function BlogPost() {
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
   const scrollToTop = () => {
-    if (!isClient) return; // Проверяем, что мы на клиенте, перед доступом к window
+    if (!isClient) return;
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
     window.history.replaceState({}, baseTitle, window.location.pathname);
     setCurrentHash(''); // Сбрасываем текущий якорь
   };
 
-  if (!isClient) return null; // Возвращаем null при рендеринге на сервере, чтобы избежать ошибок
+  const handleLinkClick = (hash: string) => {
+    if (!isClient) return;
+
+    setCurrentHash(hash); // Обновляем заголовок при клике на ссылку
+    window.history.pushState({}, '', `#${hash}`);
+  };
+
+  if (!isClient) return null;
 
   return (
     <Layout>
@@ -104,9 +112,9 @@ export default function BlogPost() {
             <nav className="space-y-3">
               <a onClick={scrollToTop} className={commonLinkClass}>🏠 В начало</a>
               {Object.entries(titles).map(([key, value]) => (
-                <Link key={key} href={`#${key}`} passHref scroll={false}>
-                  <a className={commonLinkClass}>{value}</a>
-                </Link>
+                <a key={key} onClick={() => handleLinkClick(key)} className={commonLinkClass} href={`#${key}`}>
+                  {value}
+                </a>
               ))}
             </nav>
           </div>
