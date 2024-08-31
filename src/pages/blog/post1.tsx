@@ -9,7 +9,6 @@ export default function BlogPost() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentTitle, setCurrentTitle] = useState("Как справиться с ошибкой при открытии архива"); // Состояние для заголовка
-  const [lastKnownHash, setLastKnownHash] = useState(''); // Состояние для хранения последнего известного якоря
 
   // Основной заголовок страницы
   const baseTitle = "Как справиться с ошибкой при открытии архива";
@@ -24,36 +23,31 @@ export default function BlogPost() {
     'support': '📞 Поддержка'
   } as const;
 
-  useEffect(() => {
-    const updateTitle = () => {
-      const hash = window.location.hash.substring(1); // Получаем текущий якорь или пустую строку
-      const hashKey = hash as keyof typeof titles;
-      const newTitle = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-      setCurrentTitle(newTitle); // Устанавливаем заголовок в состояние
-      setLastKnownHash(hash); // Обновляем последний известный якорь
-      document.title = newTitle; // Устанавливаем заголовок страницы
-    };
+  // Функция для обновления заголовка
+  const updateTitle = () => {
+    const hash = window.location.hash.substring(1); // Получаем текущий якорь или пустую строку
+    const hashKey = hash as keyof typeof titles;
+    const newTitle = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
+    setCurrentTitle(newTitle); // Устанавливаем заголовок в состояние
+    document.title = newTitle; // Устанавливаем заголовок страницы
+  };
 
-    // Первоначальное обновление заголовка
-    updateTitle();
+  useEffect(() => {
+    updateTitle(); // Первоначальное обновление заголовка при загрузке
 
     // Обновляем заголовок при изменении видимости страницы и фокусе
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        const currentHash = window.location.hash.substring(1);
-        // Проверяем, изменился ли якорь, и обновляем заголовок только при необходимости
-        if (currentHash !== lastKnownHash) {
-          updateTitle();
-        }
+        updateTitle(); // Обновляем заголовок при возвращении на вкладку
       }
     };
 
     const handleFocus = () => {
-      handleVisibilityChange();
+      updateTitle(); // Обновляем заголовок при фокусе на окно
     };
 
     const handleHashChange = () => {
-      updateTitle();
+      updateTitle(); // Обновляем заголовок при изменении якоря
     };
 
     window.addEventListener('hashchange', handleHashChange);
@@ -65,17 +59,7 @@ export default function BlogPost() {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', handleFocus);
     };
-  }, [lastKnownHash]); // Добавляем lastKnownHash в зависимости
-
-  // Используем дополнительный useEffect для отслеживания изменений маршрута
-  useEffect(() => {
-    const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
-    const hashKey = hash as keyof typeof titles;
-    const newTitle = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-    setCurrentTitle(newTitle); // Устанавливаем заголовок в состояние
-    setLastKnownHash(hash); // Обновляем последний известный якорь
-    document.title = newTitle; // Устанавливаем заголовок страницы
-  }, [router.asPath]); // Следим за изменением маршрута
+  }, []); // Пустой массив зависимостей, чтобы эффекты запускались только при монтировании
 
   // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
@@ -85,14 +69,11 @@ export default function BlogPost() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setCurrentTitle(baseTitle); // Сбрасываем заголовок страницы на основной
     document.title = baseTitle; // Устанавливаем заголовок страницы
-    setLastKnownHash(''); // Сбрасываем последний известный якорь
-
-    // Используем replaceState для удаления якоря из URL
-    window.history.replaceState({}, document.title, window.location.pathname);
+    window.history.replaceState({}, document.title, window.location.pathname); // Удаляем якорь из URL
   };
 
   return (
-    <Layout title={currentTitle}>
+    <Layout>
       <Head>
         <title>{currentTitle}</title> {/* Используем состояние для динамического заголовка */}
         <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
