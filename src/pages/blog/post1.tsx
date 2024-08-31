@@ -15,7 +15,6 @@ export default function BlogPost() {
   const baseTitle = "Блог - Как справиться с ошибкой при открытии архива";
 
   // Объект для хранения заголовков и текстов пунктов меню с эмодзи
-  // Добавьте сюда заголовки и текст новых секций при создании новых постов
   const titles = {
     '': '🏠 В начало',
     'antivirus-issue': '🛡️ Проблема с антивирусом',
@@ -29,23 +28,38 @@ export default function BlogPost() {
     setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
   }, []);
 
+  // Обновление заголовка страницы при изменении якоря
   useEffect(() => {
     if (!isClient) return;
 
-    const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
-    if (hash === currentHash) return; // Избегаем повторного изменения заголовка, если якорь не изменился
-    setCurrentHash(hash); // Обновляем текущий якорь
+    const updateTitle = () => {
+      const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
+      const hashKey = hash as keyof typeof titles;
+      const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
+      document.title = title; // Устанавливаем заголовок страницы
+    };
 
-    const hashKey = hash as keyof typeof titles;
-    const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-    document.title = title; // Устанавливаем заголовок страницы
-  }, [router.asPath, isClient, currentHash]);
+    updateTitle(); // Обновляем заголовок при первой загрузке
+    setCurrentHash(router.asPath.split('#')[1] || ''); // Устанавливаем текущий якорь
+
+    // Обновляем заголовок при смене видимости вкладки
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        updateTitle(); // Обновляем заголовок, если вкладка становится видимой
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [router.asPath, isClient]);
 
   // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
   // Функция прокрутки наверх
-  // Используйте эту функцию, чтобы прокручивать страницу до самого верха
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
