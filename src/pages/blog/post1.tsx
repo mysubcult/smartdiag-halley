@@ -15,7 +15,6 @@ export default function BlogPost() {
 
   // Объект для хранения заголовков и текстов пунктов меню с эмодзи
   const titles = {
-    '': '🏠 В начало',
     'antivirus-issue': '🛡️ Проблема с антивирусом',
     'outdated-software': '⏳ Устаревшее программное обеспечение',
     'download-errors': '📥 Ошибки при загрузке',
@@ -41,6 +40,9 @@ export default function BlogPost() {
 
   // Получение текущего заголовка
   const getCurrentTitle = () => {
+    if (currentHash === '') {
+      return baseTitle; // Если якорь пустой, возвращаем только основной заголовок
+    }
     const hashKey = currentHash as keyof typeof titles;
     return hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
   };
@@ -50,7 +52,7 @@ export default function BlogPost() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setCurrentHash(''); // Сбрасываем текущий якорь
-    window.history.replaceState({}, document.title, window.location.pathname); // Удаляем якорь из URL
+    window.history.replaceState({}, baseTitle, window.location.pathname); // Удаляем якорь из URL и устанавливаем основной заголовок
   };
 
   return (
@@ -90,15 +92,12 @@ export default function BlogPost() {
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
             <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
             <nav className="space-y-3">
-              <a onClick={scrollToTop} className={commonLinkClass}>{titles['']}</a>
-              {Object.entries(titles).map(([key, value]) => {
-                if (key === '') return null;
-                return (
-                  <Link key={key} href={`#${key}`} passHref scroll={false}>
-                    <a className={commonLinkClass}>{value}</a>
-                  </Link>
-                );
-              })}
+              <a onClick={scrollToTop} className={commonLinkClass}>🏠 В начало</a>
+              {Object.entries(titles).map(([key, value]) => (
+                <Link key={key} href={`#${key}`} passHref scroll={false}>
+                  <a className={commonLinkClass}>{value}</a>
+                </Link>
+              ))}
             </nav>
           </div>
 
