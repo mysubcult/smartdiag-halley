@@ -24,7 +24,6 @@ export default function BlogPost() {
   } as const;
 
   useEffect(() => {
-    // Функция для обновления заголовка
     const updateTitle = () => {
       const hash = window.location.hash.substring(1); // Получаем текущий якорь или пустую строку
       const hashKey = hash as keyof typeof titles;
@@ -39,15 +38,19 @@ export default function BlogPost() {
     // Обновляем заголовок при изменении видимости страницы и фокусе
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        updateTitle();
+        // При возвращении на вкладку проверяем, не изменился ли текущий якорь
+        const currentHash = window.location.hash.substring(1);
+        const currentTitleBasedOnHash = currentHash in titles ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle;
+        if (currentTitleBasedOnHash !== currentTitle) {
+          updateTitle();
+        }
       }
     };
 
     const handleFocus = () => {
-      updateTitle();
+      handleVisibilityChange();
     };
 
-    // Обновляем заголовок при изменении якоря
     const handleHashChange = () => {
       updateTitle();
     };
@@ -61,7 +64,7 @@ export default function BlogPost() {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', handleFocus);
     };
-  }, []);
+  }, [currentTitle]); // Теперь currentTitle тоже в зависимостях
 
   // Используем дополнительный useEffect для отслеживания изменений маршрута
   useEffect(() => {
