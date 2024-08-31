@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 
 export default function BlogPost() {
   const router = useRouter();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentTitle, setCurrentTitle] = useState("Как справиться с ошибкой при открытии архива"); // Состояние для заголовка
 
   // Основной заголовок страницы
@@ -23,43 +22,31 @@ export default function BlogPost() {
     'support': '📞 Поддержка'
   } as const;
 
-  // Функция для обновления заголовка
-  const updateTitle = () => {
-    const hash = window.location.hash.substring(1); // Получаем текущий якорь или пустую строку
-    const hashKey = hash as keyof typeof titles;
-    const newTitle = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-    setCurrentTitle(newTitle); // Устанавливаем заголовок в состояние
-    document.title = newTitle; // Устанавливаем заголовок страницы
-  };
-
   useEffect(() => {
-    updateTitle(); // Первоначальное обновление заголовка при загрузке
-
-    // Обновляем заголовок при изменении видимости страницы и фокусе
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        updateTitle(); // Обновляем заголовок при возвращении на вкладку
-      }
+    // Функция для обновления заголовка
+    const updateTitle = () => {
+      const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
+      const hashKey = hash as keyof typeof titles;
+      const newTitle = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
+      setCurrentTitle(newTitle); // Устанавливаем заголовок в состояние
+      document.title = newTitle; // Устанавливаем заголовок страницы
     };
 
-    const handleFocus = () => {
-      updateTitle(); // Обновляем заголовок при фокусе на окно
+    updateTitle(); // Первоначальное обновление заголовка
+
+    // Подписываемся на изменение маршрута и якоря
+    const handleRouteChange = () => {
+      updateTitle();
     };
 
-    const handleHashChange = () => {
-      updateTitle(); // Обновляем заголовок при изменении якоря
-    };
-
-    window.addEventListener('hashchange', handleHashChange);
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('focus', handleFocus);
+    router.events.on('hashChangeStart', handleRouteChange);
+    router.events.on('routeChangeComplete', handleRouteChange);
 
     return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('focus', handleFocus);
+      router.events.off('hashChangeStart', handleRouteChange);
+      router.events.off('routeChangeComplete', handleRouteChange);
     };
-  }, []); // Пустой массив зависимостей, чтобы эффекты запускались только при монтировании
+  }, [router.asPath]); // Следим за изменением маршрута и якоря
 
   // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
@@ -73,7 +60,7 @@ export default function BlogPost() {
   };
 
   return (
-    <Layout>
+    <Layout title={currentTitle}>
       <Head>
         <title>{currentTitle}</title> {/* Используем состояние для динамического заголовка */}
         <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
