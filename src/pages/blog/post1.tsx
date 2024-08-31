@@ -7,14 +7,11 @@ import { useRouter } from 'next/router';
 
 export default function BlogPost() {
   const router = useRouter();
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Состояние для открытия меню
-  const [isClient, setIsClient] = useState(false); // Состояние для проверки, что код выполняется на клиенте
-  const [currentTitle, setCurrentTitle] = useState("Как справиться с ошибкой при открытии архива"); // Состояние для заголовка
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [currentTitle, setCurrentTitle] = useState("Как справиться с ошибкой при открытии архива");
 
-  // Основной заголовок страницы
   const baseTitle = "Как справиться с ошибкой при открытии архива";
-
-  // Объект для хранения заголовков и текстов пунктов меню с эмодзи
   const titles = {
     '': '🏠 В начало',
     'antivirus-issue': '🛡️ Проблема с антивирусом',
@@ -24,42 +21,34 @@ export default function BlogPost() {
     'support': '📞 Поддержка'
   } as const;
 
-  // Проверка, что мы находимся на клиенте
   useEffect(() => {
-    setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
+    setIsClient(true);
   }, []);
 
   useEffect(() => {
-    if (!isClient) return; // Если код выполняется на сервере, пропускаем установку заголовка
+    if (!isClient) return;
 
-    // Функция для обновления заголовка
     const updateTitle = () => {
-      const hash = window.location.hash.substring(1); // Получаем текущий якорь или пустую строку
+      const hash = window.location.hash.substring(1);
       const hashKey = hash as keyof typeof titles;
       const newTitle = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-      setCurrentTitle(newTitle); // Устанавливаем заголовок в состояние
-      document.title = newTitle; // Устанавливаем заголовок страницы
+      setCurrentTitle(newTitle);
+      document.title = newTitle;
     };
 
-    updateTitle(); // Первоначальное обновление заголовка
-
-    // Подписываемся на изменение маршрута и якоря
     const handleRouteChange = () => {
       updateTitle();
     };
 
+    // Обновляем заголовок при изменении маршрута или якоря
     router.events.on('hashChangeStart', handleRouteChange);
     router.events.on('routeChangeComplete', handleRouteChange);
 
-    // Обновление заголовка при возвращении на вкладку
+    // Обновляем заголовок при возвращении на вкладку, только если видимость страницы меняется на "видимую"
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        // Обновляем заголовок только при возвращении на вкладку
-        const hash = window.location.hash.substring(1); // Получаем текущий якорь
-        const hashKey = hash as keyof typeof titles;
-        const newTitle = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-        setCurrentTitle(newTitle); // Обновляем состояние заголовка
-        document.title = newTitle; // Устанавливаем заголовок страницы
+        // Перепроверяем и восстанавливаем заголовок
+        updateTitle();
       }
     };
 
@@ -70,25 +59,23 @@ export default function BlogPost() {
       router.events.off('routeChangeComplete', handleRouteChange);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [router.asPath, isClient]); // Следим за изменением маршрута и клиента
+  }, [router.asPath, isClient]);
 
-  // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
-  // Функция прокрутки наверх и сброса заголовка
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setCurrentTitle(baseTitle); // Сбрасываем заголовок страницы на основной
-    document.title = baseTitle; // Устанавливаем заголовок страницы
-    window.history.replaceState({}, document.title, window.location.pathname); // Удаляем якорь из URL
+    setCurrentTitle(baseTitle);
+    document.title = baseTitle;
+    window.history.replaceState({}, document.title, window.location.pathname);
   };
 
-  if (!isClient) return null; // Возвращаем null, если код выполняется на сервере
+  if (!isClient) return null;
 
   return (
     <Layout title={currentTitle}>
       <Head>
-        <title>{currentTitle}</title> {/* Используем состояние для динамического заголовка */}
+        <title>{currentTitle}</title>
         <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
         <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" />
       </Head>
