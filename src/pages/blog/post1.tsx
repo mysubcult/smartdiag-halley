@@ -28,39 +28,12 @@ export default function BlogPost() {
     setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
   }, []);
 
-  // Обновление заголовка страницы при изменении якоря
-  useEffect(() => {
-    if (!isClient) return;
-
-    const updateTitle = () => {
-      const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
-      const hashKey = hash as keyof typeof titles;
-      const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle; // Условие обновлено
-      document.title = title; // Устанавливаем заголовок страницы
-    };
-
-    updateTitle(); // Обновляем заголовок при первой загрузке
-    setCurrentHash(router.asPath.split('#')[1] || ''); // Устанавливаем текущий якорь
-
-    // Обновляем заголовок при смене видимости вкладки или при возвращении на вкладку
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        updateTitle(); // Обновляем заголовок, если вкладка становится видимой
-      }
-    };
-
-    const handleFocus = () => {
-      updateTitle(); // Обновляем заголовок при фокусе на окно
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('focus', handleFocus);
-
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('focus', handleFocus);
-    };
-  }, [router.asPath, isClient]);
+  // Функция для получения текущего заголовка
+  const getCurrentTitle = () => {
+    const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
+    const hashKey = hash as keyof typeof titles;
+    return hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
+  };
 
   // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
@@ -78,12 +51,11 @@ export default function BlogPost() {
   if (!isClient) return null; // Возвращаем null, если код выполняется на сервере
 
   return (
-    <Layout>
-      <Head>
-        <title>{currentHash in titles ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle}</title> {/* Динамически обновляем заголовок */}
-        <meta name="description" content="Руководство по устранению ошибок при открытии архивов" /> {/* Измените описание для SEO */}
-        <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" /> {/* Измените ключевые слова для SEO */}
-      </Head>
+    <Layout
+      title={getCurrentTitle()} // Динамически устанавливаем заголовок страницы
+      description="Руководство по устранению ошибок при открытии архивов" // Устанавливаем описание для SEO
+      keywords="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" // Устанавливаем ключевые слова для SEO
+    >
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           
