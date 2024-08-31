@@ -22,32 +22,22 @@ export default function BlogPost() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentHash, setCurrentHash] = useState('');
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isClient) return;
-
     const updateTitle = () => {
       const hash = window.location.hash.slice(1);
       setCurrentHash(hash);
-      document.title = getCurrentTitle(); // Обновление заголовка при каждом вызове
     };
 
     updateTitle(); // Устанавливаем начальный заголовок
     window.addEventListener('hashchange', updateTitle);
     window.addEventListener('popstate', updateTitle); // Для обработки кнопок "назад" и "вперед"
-    window.addEventListener('focus', updateTitle); // Обновление заголовка при возвращении в окно браузера
 
     return () => {
       window.removeEventListener('hashchange', updateTitle);
       window.removeEventListener('popstate', updateTitle);
-      window.removeEventListener('focus', updateTitle);
     };
-  }, [isClient]);
+  }, []);
 
   // Получение текущего заголовка
   const getCurrentTitle = () => {
@@ -61,20 +51,14 @@ export default function BlogPost() {
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
   const scrollToTop = () => {
-    if (!isClient) return;
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
     window.history.replaceState({}, PAGE_TITLE, window.location.pathname);
     setCurrentHash(''); // Сбрасываем текущий якорь
   };
 
   const handleLinkClick = (hash: string) => {
-    if (!isClient) return;
-
     setCurrentHash(hash); // Обновляем заголовок при клике на ссылку
   };
-
-  if (!isClient) return null;
 
   return (
     <Layout>
