@@ -36,24 +36,27 @@ export default function BlogPost() {
       const hashKey = hash as keyof typeof titles;
       const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
       document.title = title; // Устанавливаем заголовок страницы
+      setCurrentHash(hash); // Обновляем текущее состояние якоря
     };
 
     updateTitle(); // Обновляем заголовок при первой загрузке
 
-    const handleFocus = () => {
-      updateTitle(); // Обновляем заголовок при фокусе на окно
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        updateTitle(); // Обновляем заголовок, если вкладка становится видимой
+      }
     };
 
     const handleHashChange = () => {
       updateTitle(); // Обновляем заголовок при изменении якоря
     };
 
-    window.addEventListener('focus', handleFocus);
     window.addEventListener('hashchange', handleHashChange);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
-      window.removeEventListener('focus', handleFocus);
       window.removeEventListener('hashchange', handleHashChange);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [router.asPath, isClient]);
 
