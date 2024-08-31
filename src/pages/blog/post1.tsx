@@ -10,7 +10,7 @@ export default function BlogPost() {
 
   useEffect(() => {
     const baseTitle = "Блог - Как справиться с ошибкой при открытии архива";
-    const titles = {
+    const titles: { [key: string]: string } = {
       'antivirus-issue': 'Проблема с антивирусом',
       'outdated-software': 'Устаревшее программное обеспечение',
       'download-errors': 'Ошибки при загрузке',
@@ -19,7 +19,11 @@ export default function BlogPost() {
     };
 
     const hash = router.asPath.split('#')[1];
-    document.title = hash && titles[hash] ? `${baseTitle} | ${titles[hash]}` : baseTitle;
+    if (hash && hash in titles) {
+      document.title = `${baseTitle} | ${titles[hash]}`;
+    } else {
+      document.title = baseTitle;
+    }
   }, [router.asPath]);
 
   const scrollToTop = () => {
