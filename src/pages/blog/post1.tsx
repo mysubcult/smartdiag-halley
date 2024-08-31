@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
@@ -19,18 +19,19 @@ export default function BlogPost() {
   };
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // Устанавливаем флаг клиента, чтобы избежать ошибок с объектом window на сервере
+    setIsClient(true);
+  }, []);
 
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
   const scrollToTop = () => {
-    if (typeof window === 'undefined') return;
+    if (!isClient || typeof window === 'undefined') return;
     window.scrollTo({ top: 0, behavior: 'smooth' });
     window.history.replaceState({}, PAGE_TITLE, window.location.pathname);
-  };
-
-  const handleLinkClick = (hash: string) => {
-    if (typeof window === 'undefined') return;
-    window.history.pushState({}, '', `#${hash}`);
   };
 
   return (
@@ -73,7 +74,7 @@ export default function BlogPost() {
               <a onClick={scrollToTop} className={commonLinkClass}>🏠 В начало</a>
               {Object.entries(MENU_ITEMS).map(([key, value]) => (
                 <Link key={key} href={`#${key}`} passHref scroll={false}>
-                  <a onClick={() => handleLinkClick(key)} className={commonLinkClass}>
+                  <a className={commonLinkClass}>
                     {value}
                   </a>
                 </Link>
