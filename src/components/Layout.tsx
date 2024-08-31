@@ -3,16 +3,15 @@ import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 
-const Layout = (props: any) => {
-  const { children, ...customMeta } = props;
+const Layout = (props) => {
+  const { children, title, description, keywords, image, type } = props;
   const router = useRouter();
   const meta = {
-    title: "SmartDiag - Ваш проводник в мире автодиагностики",
-    description: `SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.`,
-    keywords: "автодиагностика, Autocom CDP+, Delphi DS150E, VCDS, Вася, mucar, thinkdiag, Thinkcar, диагностика автомобилей, программы для диагностики, оборудование для диагностики, car diagnostics, diagnostic tools, software for diagnostics, diagnostic equipment, vehicle diagnostics, diagnostic software, installation instructions, BMW, Audi, Mercedes, Toyota, Volkswagen, Ford, Nissan, Honda, Chevrolet, Kia",
-    image: "/images/seo/halley-banner.png",
-    type: "website",
-    ...customMeta,
+    title: title || "SmartDiag - Ваш проводник в мире автодиагностики",
+    description: description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.",
+    keywords: keywords || "автодиагностика, Autocom CDP+, Delphi DS150E, VCDS, Вася, mucar, thinkdiag, Thinkcar, диагностика автомобилей, программы для диагностики, оборудование для диагностики, car diagnostics, diagnostic tools, software for diagnostics, diagnostic equipment, vehicle diagnostics, diagnostic software, installation instructions, BMW, Audi, Mercedes, Toyota, Volkswagen, Ford, Nissan, Honda, Chevrolet, Kia",
+    image: image || "/images/seo/halley-banner.png",
+    type: type || "website",
   };
 
   return (
