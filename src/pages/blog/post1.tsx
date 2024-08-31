@@ -7,6 +7,7 @@ import Head from 'next/head';
 
 export default function BlogPost() {
   const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Добавлено состояние для меню
   const [currentHash, setCurrentHash] = useState('');
 
   // Основной заголовок страницы
