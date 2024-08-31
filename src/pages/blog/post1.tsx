@@ -49,7 +49,8 @@ export default function BlogPost() {
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    window.history.replaceState({}, document.title, window.location.pathname);
+    setCurrentHash(''); // Сбрасываем текущий якорь
+    window.history.replaceState({}, document.title, window.location.pathname); // Удаляем якорь из URL
   };
 
   return (
