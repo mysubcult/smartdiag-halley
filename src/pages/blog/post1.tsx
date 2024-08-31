@@ -43,11 +43,26 @@ export default function BlogPost() {
       }
     }
 
+    // Устанавливаем заголовок страницы
     document.title = pageTitle;
+
+    // Сбрасываем заголовок при прокрутке в начало страницы
+    const handleScrollToTop = () => {
+      if (!window.location.hash) {
+        document.title = baseTitle;
+      }
+    };
+
+    window.addEventListener('scroll', handleScrollToTop);
+
+    return () => {
+      window.removeEventListener('scroll', handleScrollToTop);
+    };
   }, [router.asPath]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.title = "Блог - Как справиться с ошибкой при открытии архива"; // Сбрасываем заголовок
   };
 
   return (
