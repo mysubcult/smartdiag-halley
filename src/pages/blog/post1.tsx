@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 
 export default function BlogPost() {
   const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Добавляем состояние для меню
 
   useEffect(() => {
     const baseTitle = "Блог - Как справиться с ошибкой при открытии архива";
