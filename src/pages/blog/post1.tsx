@@ -15,9 +15,35 @@ export default function BlogPost() {
   }, []);
 
   useEffect(() => {
-    // Устанавливаем заголовок страницы при изменении якоря или пути
-    const title = "Блог - Как справиться с ошибкой при открытии архива";
-    document.title = title;
+    const baseTitle = "Блог - Как справиться с ошибкой при открытии архива";
+    let pageTitle = baseTitle;
+
+    // Получаем текущий якорь из URL
+    const hash = router.asPath.split('#')[1];
+
+    if (hash) {
+      switch (hash) {
+        case 'antivirus-issue':
+          pageTitle = `${baseTitle} | Проблема с антивирусом`;
+          break;
+        case 'outdated-software':
+          pageTitle = `${baseTitle} | Устаревшее программное обеспечение`;
+          break;
+        case 'download-errors':
+          pageTitle = `${baseTitle} | Ошибки при загрузке`;
+          break;
+        case 'yandex-tips':
+          pageTitle = `${baseTitle} | Советы для пользователей Яндекс Браузера`;
+          break;
+        case 'support':
+          pageTitle = `${baseTitle} | Поддержка`;
+          break;
+        default:
+          pageTitle = baseTitle;
+      }
+    }
+
+    document.title = pageTitle;
   }, [router.asPath]);
 
   const scrollToTop = () => {
@@ -84,7 +110,7 @@ export default function BlogPost() {
                 </Link>
                 <Link href="#yandex-tips" passHref scroll={false}>
                   <a className="flex items-center text-base text-inherit hover:text-rose-500 cursor-pointer transition hover:transition-colors duration-300">
-                    🌐 Советы для Яндекс Браузера
+                    🌐 Советы для пользователей Яндекс Браузера
                   </a>
                 </Link>
                 <Link href="#support" passHref scroll={false}>
