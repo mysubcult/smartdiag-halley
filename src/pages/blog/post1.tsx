@@ -3,14 +3,22 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
+import { useRouter } from 'next/router';
 
 export default function BlogPost() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    // Устанавливаем заголовок страницы при изменении якоря или пути
+    const title = "Блог - Как справиться с ошибкой при открытии архива";
+    document.title = title;
+  }, [router.asPath]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
