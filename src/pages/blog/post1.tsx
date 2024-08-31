@@ -68,7 +68,6 @@ export default function BlogPost() {
     if (!isClient) return;
 
     setCurrentHash(hash); // Обновляем заголовок при клике на ссылку
-    window.history.pushState({}, '', `#${hash}`);
   };
 
   if (!isClient) return null;
@@ -112,9 +111,11 @@ export default function BlogPost() {
             <nav className="space-y-3">
               <a onClick={scrollToTop} className={commonLinkClass}>🏠 В начало</a>
               {Object.entries(titles).map(([key, value]) => (
-                <a key={key} onClick={() => handleLinkClick(key)} className={commonLinkClass} href={`#${key}`}>
-                  {value}
-                </a>
+                <Link key={key} href={`#${key}`} passHref scroll={false}>
+                  <a onClick={() => handleLinkClick(key)} className={commonLinkClass}>
+                    {value}
+                  </a>
+                </Link>
               ))}
             </nav>
           </div>
