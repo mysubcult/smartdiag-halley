@@ -59,9 +59,11 @@ export default function BlogPost() {
   // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
-  // Функция прокрутки наверх
+  // Функция прокрутки наверх и сброса заголовка
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    setCurrentHash(''); // Сбрасываем текущий якорь
+    document.title = baseTitle; // Сбрасываем заголовок страницы на основной
   };
 
   if (!isClient) return null; // Возвращаем null, если код выполняется на сервере
