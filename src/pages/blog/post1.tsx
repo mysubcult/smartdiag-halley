@@ -9,6 +9,7 @@ export default function BlogPost() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentTitle, setCurrentTitle] = useState("Как справиться с ошибкой при открытии архива"); // Состояние для заголовка
+  const [lastKnownHash, setLastKnownHash] = useState(''); // Состояние для хранения последнего известного якоря
 
   // Основной заголовок страницы
   const baseTitle = "Как справиться с ошибкой при открытии архива";
@@ -29,6 +30,7 @@ export default function BlogPost() {
       const hashKey = hash as keyof typeof titles;
       const newTitle = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
       setCurrentTitle(newTitle); // Устанавливаем заголовок в состояние
+      setLastKnownHash(hash); // Обновляем последний известный якорь
       document.title = newTitle; // Устанавливаем заголовок страницы
     };
 
@@ -38,10 +40,9 @@ export default function BlogPost() {
     // Обновляем заголовок при изменении видимости страницы и фокусе
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        // При возвращении на вкладку проверяем, не изменился ли текущий якорь
         const currentHash = window.location.hash.substring(1);
-        const currentTitleBasedOnHash = currentHash in titles ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle;
-        if (currentTitleBasedOnHash !== currentTitle) {
+        // Проверяем, изменился ли якорь, и обновляем заголовок только при необходимости
+        if (currentHash !== lastKnownHash) {
           updateTitle();
         }
       }
@@ -64,7 +65,7 @@ export default function BlogPost() {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', handleFocus);
     };
-  }, [currentTitle]); // Теперь currentTitle тоже в зависимостях
+  }, [lastKnownHash]); // Добавляем lastKnownHash в зависимости
 
   // Используем дополнительный useEffect для отслеживания изменений маршрута
   useEffect(() => {
@@ -72,6 +73,7 @@ export default function BlogPost() {
     const hashKey = hash as keyof typeof titles;
     const newTitle = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
     setCurrentTitle(newTitle); // Устанавливаем заголовок в состояние
+    setLastKnownHash(hash); // Обновляем последний известный якорь
     document.title = newTitle; // Устанавливаем заголовок страницы
   }, [router.asPath]); // Следим за изменением маршрута
 
@@ -83,6 +85,7 @@ export default function BlogPost() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setCurrentTitle(baseTitle); // Сбрасываем заголовок страницы на основной
     document.title = baseTitle; // Устанавливаем заголовок страницы
+    setLastKnownHash(''); // Сбрасываем последний известный якорь
 
     // Используем replaceState для удаления якоря из URL
     window.history.replaceState({}, document.title, window.location.pathname);
