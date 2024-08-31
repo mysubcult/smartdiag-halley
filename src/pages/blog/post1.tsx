@@ -35,7 +35,7 @@ export default function BlogPost() {
     const updateTitle = () => {
       const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
       const hashKey = hash as keyof typeof titles;
-      const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
+      const title = hashKey && hashKey !== '' && hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
       document.title = title; // Устанавливаем заголовок страницы
     };
 
@@ -49,10 +49,16 @@ export default function BlogPost() {
       }
     };
 
+    const handleFocus = () => {
+      updateTitle(); // Обновляем заголовок при фокусе на окно
+    };
+
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('focus', handleFocus);
 
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('focus', handleFocus);
     };
   }, [router.asPath, isClient]);
 
@@ -74,7 +80,7 @@ export default function BlogPost() {
   return (
     <Layout>
       <Head>
-        <title>{currentHash ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle}</title> {/* Динамически обновляем заголовок */}
+        <title>{currentHash && currentHash !== '' && currentHash in titles ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle}</title> {/* Динамически обновляем заголовок */}
         <meta name="description" content="Руководство по устранению ошибок при открытии архивов" /> {/* Измените описание для SEO */}
         <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" /> {/* Измените ключевые слова для SEO */}
       </Head>
