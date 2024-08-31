@@ -1,4 +1,3 @@
-// post1.txt
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -84,10 +83,11 @@ export default function BlogPost() {
               </nav>
             </div>
 
-            <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4">
+            {/* Основной контент блога */}
+            <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6"> {/* Добавлено pt-6 */}
               <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
 
-              <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
+              <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400"> {/* Оставляем pt-6 */}
                 В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
               </p>
 
