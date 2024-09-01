@@ -1,8 +1,10 @@
+// pages/post2.js
+
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import Layout from '../../components/Layout';
+import Layout from '../../components/Layout';  // Путь должен быть корректным в зависимости от вашей структуры проекта
 import { useRouter } from 'next/router';
 
 export default function BlogPost() {
@@ -38,7 +40,7 @@ export default function BlogPost() {
   if (!isClient) return null;
 
   return (
-    <Layout>
+    <Layout title={baseTitle}>
       <Head>
         <title>{baseTitle} - Полное руководство по установке Autocom 2021.11</title>
         <meta name="description" content="Полное руководство по установке программы Autocom 2021.11 с подробными инструкциями по отключению антивирусов, настройке брандмауэра, установке и настройке программы, смене языка и первому подключению." />
@@ -91,7 +93,7 @@ export default function BlogPost() {
             </nav>
           </aside>
           <article className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0" id="top">
-            <h1 className="text-4xl font-bold text-center">Инструкция по установке Autocom 2021.11</h1>
+            <h1 className="text-4xl font-bold text-center">{baseTitle}</h1>
             <p className="pt-6 pb-8 text-base dark:text-neutral-400">
               Мы разработали данную инструкцию, чтобы обеспечить максимальный комфорт и успешность в установке приложения. Чтобы избежать возможных проблем, пожалуйста, внимательно следуйте всем пунктам инструкции.
             </p>
