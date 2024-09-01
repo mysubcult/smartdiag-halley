@@ -96,9 +96,9 @@ export default function BlogPost() {
               Отключите все антивирусы, в том числе и стандартный Защитник Windows. Мы неоднократно проверяли все файлы - они не содержат никаких вирусов. Вы можете убедиться в этом, например, скачав, на наш взгляд, достойный антивирус Dr.Web и проверить все файлы программы на вирусы, и вы убедитесь в их отсутствии.
             </p>
             <p className="mb-4">
-              <strong>Шаги для отключения Защитника Windows:</strong>
+              <strong className="text-rose-500">Шаги для отключения Защитника Windows:</strong>
               <ol className="list-decimal ml-5">
-                <li>Зайдите в Параметры, затем перейдите в Безопасность Windows.</li>
+                <li>Зайдите в <strong className="text-rose-500">Параметры</strong>, затем перейдите в <strong className="text-rose-500">Безопасность Windows</strong>.</li>
                 <li>Отключите все функции защиты в реальном времени, как показано на изображении ниже.</li>
               </ol>
             </p>
@@ -122,11 +122,11 @@ export default function BlogPost() {
             <h3 className="text-2xl font-semibold mt-8 scroll-section" id="firewall">Отключение брандмауэра</h3>
             <hr className="border-neutral-300 mb-4" />
             <p className="mb-4">
-              На время установки следует отключить брандмауэр Защитника Windows.
+              На время установки следует отключить <strong className="text-rose-500">брандмауэр Защитника Windows</strong>.
             </p>
             <ol className="list-decimal ml-5 mb-4">
-              <li>Откройте Панель управления.</li>
-              <li>Перейдите в Брандмауэр Защитника Windows и отключите его, как показано на изображениях ниже.</li>
+              <li>Откройте <strong className="text-rose-500">Панель управления</strong>.</li>
+              <li>Перейдите в <strong className="text-rose-500">Брандмауэр Защитника Windows</strong> и отключите его, как показано на изображениях ниже.</li>
             </ol>
             <Image
               src="/images/blog/disable-firewall-step1.jpg"
@@ -148,10 +148,10 @@ export default function BlogPost() {
             <h3 className="text-2xl font-semibold mt-8 scroll-section" id="install-program">Установка программы</h3>
             <hr className="border-neutral-300 mb-4" />
             <ol className="list-decimal ml-5">
-              <li>Загрузите архив с названием Autocom 2021.11.rar и после завершения загрузки распакуйте его.</li>
+              <li>Загрузите архив с названием <strong className="text-rose-500">Autocom 2021.11.rar</strong> и после завершения загрузки распакуйте его.</li>
               <li>Если при открытии архива или попытке распаковки возникает ошибка, убедитесь, что архив был полностью загружен.</li>
               <li>Запустите файл установки.</li>
-              <li>Нажмите Next.</li>
+              <li>Нажмите <strong className="text-rose-500">Next</strong>.</li>
               <Image
                 src="/images/blog/install-step1.jpg"
                 alt="Начало установки программы"
@@ -160,7 +160,7 @@ export default function BlogPost() {
                 quality={75}
                 layout="responsive"
               />
-              <li>Введите пароль: <code>NewSoftware2021</code> и нажмите Next.</li>
+              <li>Введите пароль: <code className="text-rose-500">NewSoftware2021</code> и нажмите <strong className="text-rose-500">Next</strong>.</li>
               <Image
                 src="/images/blog/install-step2.jpg"
                 alt="Введите пароль для установки"
@@ -169,8 +169,8 @@ export default function BlogPost() {
                 quality={75}
                 layout="responsive"
               />
-              <li>Выберите путь установки и нажмите Next.</li>
-              <li>Выберите тип вашего прибора. Если у вас версия прибора с двумя платами или если вы не знаете вариацию вашего прибора, выберите Type 1. Если у вас ОДНОПЛАТНЫЙ прибор, выберите Type 2 и нажмите Next.</li>
+              <li>Выберите путь установки и нажмите <strong className="text-rose-500">Next</strong>.</li>
+              <li>Выберите тип вашего прибора. Если у вас версия прибора с двумя платами или если вы не знаете вариацию вашего прибора, выберите <strong className="text-rose-500">Type 1</strong>. Если у вас ОДНОПЛАТНЫЙ прибор, выберите <strong className="text-rose-500">Type 2</strong> и нажмите <strong className="text-rose-500">Next</strong>.</li>
               <Image
                 src="/images/blog/install-step3.jpg"
                 alt="Выбор типа прибора"
@@ -179,7 +179,7 @@ export default function BlogPost() {
                 quality={75}
                 layout="responsive"
               />
-              <li>Оставьте отмеченным пункт &apos;Создать ярлыки на рабочем столе&apos;, затем нажмите Next и далее Install.</li>
+              <li>Оставьте отмеченным пункт <strong className="text-rose-500">&apos;Создать ярлыки на рабочем столе&apos;</strong>, затем нажмите <strong className="text-rose-500">Next</strong> и далее <strong className="text-rose-500">Install</strong>.</li>
               <Image
                 src="/images/blog/install-step4.jpg"
                 alt="Создание ярлыков на рабочем столе"
@@ -191,7 +191,7 @@ export default function BlogPost() {
               <li>По завершении установки, установите драйверы для устройства и дополнительные файлы.</li>
               <li>Добавьте папку с установленным приложением в список исключений вашего антивируса и Защитника Windows.</li>
               <li>Запустите программу, щелкнув на ярлыке на рабочем столе.</li>
-              <li>Появится окно с запросом Activation ID. Скопируйте это сообщение и отправьте его нам для получения ключа активации.</li>
+              <li>Появится окно с запросом <strong className="text-rose-500">Activation ID</strong>. Скопируйте это сообщение и отправьте его нам для получения ключа активации.</li>
               <Image
                 src="/images/blog/activation-id.jpg"
                 alt="Окно запроса Activation ID"
@@ -208,7 +208,7 @@ export default function BlogPost() {
               Для смены языка интерфейса программы:
             </p>
             <ol className="list-decimal ml-5 mb-4">
-              <li>После запуска программы нажмите Settings.</li>
+              <li>После запуска программы нажмите <strong className="text-rose-500">Settings</strong>.</li>
               <Image
                 src="/images/blog/change-language-step1.jpg"
                 alt="Меню настроек программы"
@@ -217,7 +217,7 @@ export default function BlogPost() {
                 quality={75}
                 layout="responsive"
               />
-              <li>Выберите пункт Language.</li>
+              <li>Выберите пункт <strong className="text-rose-500">Language</strong>.</li>
               <Image
                 src="/images/blog/change-language-step2.jpg"
                 alt="Выбор языка"
@@ -226,7 +226,7 @@ export default function BlogPost() {
                 quality={75}
                 layout="responsive"
               />
-              <li>Выберите нужный язык и нажмите OK.</li>
+              <li>Выберите нужный язык и нажмите <strong className="text-rose-500">OK</strong>.</li>
               <Image
                 src="/images/blog/change-language-step3.jpg"
                 alt="Подтверждение выбора языка"
@@ -240,7 +240,7 @@ export default function BlogPost() {
             <h3 className="text-2xl font-semibold mt-8 scroll-section" id="first-connection">Первое подключение</h3>
             <hr className="border-neutral-300 mb-4" />
             <ol className="list-decimal ml-5 mb-4">
-              <li>В программе нажмите Настройки, затем Установки оборудования.</li>
+              <li>В программе нажмите <strong className="text-rose-500">Настройки</strong>, затем <strong className="text-rose-500">Установки оборудования</strong>.</li>
               <Image
                 src="/images/blog/first-connection-step1.jpg"
                 alt="Меню настроек подключения"
@@ -249,7 +249,7 @@ export default function BlogPost() {
                 quality={75}
                 layout="responsive"
               />
-              <li>Для обновления прибора подключите его к разъему OBD, затем нажмите кнопку Тест и Обновить.</li>
+              <li>Для обновления прибора подключите его к разъему <strong className="text-rose-500">OBD</strong>, затем нажмите кнопку <strong className="text-rose-500">Тест</strong> и <strong className="text-rose-500">Обновить</strong>.</li>
               <Image
                 src="/images/blog/first-connection-step2.jpg"
                 alt="Процесс обновления устройства"
@@ -258,7 +258,7 @@ export default function BlogPost() {
                 quality={75}
                 layout="responsive"
               />
-              <li>Если прибор не подключен, будет выведено сообщение об ошибке: Тест: Ошибка.</li>
+              <li>Если прибор не подключен, будет выведено сообщение об ошибке: <strong className="text-rose-500">Тест: Ошибка</strong>.</li>
               <Image
                 src="/images/blog/first-connection-error.jpg"
                 alt="Сообщение об ошибке при тесте"
@@ -272,18 +272,18 @@ export default function BlogPost() {
             <h3 className="text-2xl font-semibold mt-8 scroll-section" id="faq">Часто задаваемые вопросы (FAQ)</h3>
             <hr className="border-neutral-300 mb-4" />
             <ul className="list-disc ml-5">
-              <li><strong>Откуда скачать программу?</strong> - Программу можно скачать с нашего официального сайта.</li>
-              <li><strong>Ошибка при открытии архива?</strong> - Проверьте настройки антивируса и убедитесь, что у вас последняя версия программы для разархивации.</li>
-              <li><strong>Проблемы с запуском на Windows 10, 11?</strong> - Удалите обновление .NET Framework 4.8.1.</li>
-              <li><strong>Файл Main.exe не найден?</strong> - Возможно, антивирус удалил файл. Установите программу заново и добавьте в исключения антивируса.</li>
-              <li><strong>Что такое Activation ID?</strong> - Это уникальный идентификатор, необходимый для активации программы. Состоит из 43 символов.</li>
-              <li><strong>У меня не получается установить ПО?</strong> - Обратитесь в службу поддержки, предоставив описание проблемы.</li>
+              <li><strong className="text-rose-500">Откуда скачать программу?</strong> - Программу можно скачать с нашего официального сайта.</li>
+              <li><strong className="text-rose-500">Ошибка при открытии архива?</strong> - Проверьте настройки антивируса и убедитесь, что у вас последняя версия программы для разархивации.</li>
+              <li><strong className="text-rose-500">Проблемы с запуском на Windows 10, 11?</strong> - Удалите обновление .NET Framework 4.8.1.</li>
+              <li><strong className="text-rose-500">Файл Main.exe не найден?</strong> - Возможно, антивирус удалил файл. Установите программу заново и добавьте в исключения антивируса.</li>
+              <li><strong className="text-rose-500">Что такое Activation ID?</strong> - Это уникальный идентификатор, необходимый для активации программы. Состоит из 43 символов.</li>
+              <li><strong className="text-rose-500">У меня не получается установить ПО?</strong> - Обратитесь в службу поддержки, предоставив описание проблемы.</li>
             </ul>
 
             <h3 className="text-2xl font-semibold mt-8 scroll-section" id="attention">ВНИМАНИЕ!</h3>
             <hr className="border-neutral-300 mb-4" />
             <p className="mb-4">
-              Запрещено подключать автосканер в USB-порт ноутбука, зарядка которого осуществляется от бортовой сети диагностируемого автомобиля (т.е. через адаптер от прикуривателя)!
+              <strong className="text-rose-500">Запрещено</strong> подключать автосканер в USB-порт ноутбука, зарядка которого осуществляется от бортовой сети диагностируемого автомобиля (т.е. через адаптер от прикуривателя)!
             </p>
             
             {/* Кнопка "Вернуться в блог" перемещена сюда, чтобы быть внизу страницы */}
