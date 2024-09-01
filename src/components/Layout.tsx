@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import { ReactNode } from "react";
@@ -15,21 +15,30 @@ interface LayoutProps {
 
 const Layout = ({ children, title, description, keywords, image, type }: LayoutProps) => {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
+  
+  const [pageTitle, setPageTitle] = useState(title || "SmartDiag - Ваш проводник в мире автодиагностики");
+
+  useEffect(() => {
+    // Устанавливаем заголовок страницы в зависимости от переданного props.title
+    if (title) {
+      setPageTitle(title);
+    }
+  }, [title]);
+
+  useEffect(() => {
+    // Обновляем заголовок документа только если он отличается
+    if (document.title !== pageTitle) {
+      document.title = pageTitle;
+    }
+  }, [pageTitle]);
 
   const meta = {
-    title: title || "SmartDiag - Ваш проводник в мире автодиагностики",
+    title: pageTitle,
     description: description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.",
     keywords: keywords || "автодиагностика, Autocom CDP+, Delphi DS150E, VCDS, Вася, mucar, thinkdiag, Thinkcar, диагностика автомобилей, программы для диагностики, оборудование для диагностики, car diagnostics, diagnostic tools, software for diagnostics, diagnostic equipment, vehicle diagnostics, diagnostic software, installation instructions, BMW, Audi, Mercedes, Toyota, Volkswagen, Ford, Nissan, Honda, Chevrolet, Kia",
     image: image || "/images/seo/halley-banner.png",
     type: type || "website",
   };
-
-  // Устанавливаем заголовок страницы в зависимости от переданного props.title
-  useEffect(() => {
-    if (title) {
-      document.title = title;
-    }
-  }, [title]);
 
   return (
     <>
@@ -43,7 +52,6 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
         <meta property="og:description" content={meta.description} />
         <meta property="og:image" content={meta.image} />
         <link rel="canonical" href={`${siteUrl}`} />
-        {/* Можно добавить дополнительные мета-теги для улучшения SEO */}
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SmartDiag Team" />
       </Head>
