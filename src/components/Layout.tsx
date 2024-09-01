@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
@@ -15,9 +14,6 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, title, description, keywords, image, type }: LayoutProps) => {
-  const [isClient, setIsClient] = useState(false);
-  const [currentHash, setCurrentHash] = useState(''); // Храним текущий якорь
-  
   const router = useRouter();
   const meta = {
     title: title || "SmartDiag - Ваш проводник в мире автодиагностики",
@@ -27,49 +23,10 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
     type: type || "website",
   };
 
-  // Основной заголовок страницы - измените его для каждого нового поста
-  const baseTitle = "Как справиться с ошибкой при открытии архива";
-
-  // Объект для хранения заголовков и текстов пунктов меню с эмодзи
-  const titles = {
-    '': '🏠 В начало',
-    'antivirus-issue': '🛡️ Проблема с антивирусом',
-    'outdated-software': '⏳ Устаревшее программное обеспечение',
-    'download-errors': '📥 Ошибки при загрузке',
-    'yandex-tips': '🌐 Советы для пользователей Яндекс Браузера',
-    'support': '📞 Поддержка'
-  } as const;
-
-  // Обновление заголовка страницы при изменении якоря
-  useEffect(() => {
-    const updateTitle = () => {
-      const url = router.asPath;
-      const isBlog = url.includes('/blog');
-      let title = isBlog ? "Как справиться с ошибкой при открытии архива" : "SmartDiag - Ваш проводник в мире автодиагностики";
-
-      const hash = router.asPath.split('#')[1] || ''; // Extract the anchor part of the URL
-      if (hash && (hash in titles)) {
-        title += ` | ${titles[hash as keyof typeof titles]}`;
-      }
-
-      document.title = title;
-      const pageTitle = title;
-    };
-
-    updateTitle(); // Run on component mount
-
-    // Optional: Re-run if the route changes
-    router.events.on('routeChangeComplete', updateTitle);
-
-    // Cleanup the event listener on unmount
-    return () => {
-      router.events.off('routeChangeComplete', updateTitle);
-    };
-  }, [router]);
-
   return (
     <>
       <Head>
+        <title>{meta.title}</title>
         <meta name="description" content={meta.description} />
         <meta name="keywords" content={meta.keywords} />
         <meta property="og:type" content={meta.type} />
