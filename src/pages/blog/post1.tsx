@@ -29,16 +29,18 @@ export default function BlogPost() {
 
     updateTitle(); // Устанавливаем заголовок при первой загрузке
 
-    const handleHashChange = () => {
-      updateTitle(); // Обновляем заголовок при изменении якоря
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        updateTitle(); // Обновляем заголовок, если вкладка становится видимой
+      }
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    document.addEventListener('visibilitychange', handleHashChange); // Обновляем заголовок при переключении вкладок
+    window.addEventListener('hashchange', updateTitle);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-      document.removeEventListener('visibilitychange', handleHashChange);
+      window.removeEventListener('hashchange', updateTitle);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [router.asPath]);
 
