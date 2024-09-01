@@ -69,21 +69,16 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("Все");
   const [isOpen, setIsOpen] = useState(false);
 
-  const filteredPosts = useMemo(
-    () =>
-      selectedCategory === "Все"
-        ? blogPosts
-        : blogPosts.filter((post) => post.category === selectedCategory),
-    [selectedCategory]
-  );
+  const filteredPosts = useMemo(() => {
+    return selectedCategory === "Все"
+      ? blogPosts
+      : blogPosts.filter((post) => post.category === selectedCategory);
+  }, [selectedCategory]);
 
-  const handleCategoryClick = useCallback(
-    (category: string) => {
-      setSelectedCategory(category);
-      setIsOpen(false);
-    },
-    []
-  );
+  const handleCategoryClick = useCallback((category: string) => {
+    setSelectedCategory(category);
+    setIsOpen(false);
+  }, []);
 
   const renderCategoryButton = (category: { name: string; value: string }) => (
     <button
