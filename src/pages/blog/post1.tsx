@@ -6,12 +6,10 @@ import { useRouter } from 'next/router';
 
 export default function BlogPost() {
   const router = useRouter();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [pageTitle, setPageTitle] = useState('Как справиться с ошибкой при открытии архива');
 
   const baseTitle = "Как справиться с ошибкой при открытии архива";
-
   const titles = {
     '': '🏠 В начало',
     'antivirus-issue': '🛡️ Проблема с антивирусом',
@@ -19,45 +17,23 @@ export default function BlogPost() {
     'download-errors': '📥 Ошибки при загрузке',
     'yandex-tips': '🌐 Советы для пользователей Яндекс Браузера',
     'support': '📞 Поддержка'
-  } as const;
+  };
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isClient) return;
-
+    setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
     const hash = router.asPath.split('#')[1] || '';
     const hashKey = hash as keyof typeof titles;
     const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
     setPageTitle(title);
-
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        setPageTitle(title);
-      }
-    };
-
-    const handleFocus = () => {
-      setPageTitle(title);
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('focus', handleFocus);
-
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('focus', handleFocus);
-    };
-  }, [router.asPath, isClient]);
+  }, [router.asPath]);
 
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setPageTitle(baseTitle);
-    window.history.replaceState({}, document.title, window.location.pathname);
+    const title = baseTitle;
+    setPageTitle(title);
+    window.history.replaceState({}, title, window.location.pathname);
   };
 
   if (!isClient) return null;
