@@ -10,10 +10,8 @@ export default function BlogPost() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
-  // Основной заголовок страницы - измените его для каждого нового поста
   const baseTitle = "Как справиться с ошибкой при открытии архива";
 
-  // Объект для хранения заголовков и текстов пунктов меню с эмодзи
   const titles = {
     '': '🏠 В начало',
     'antivirus-issue': '🛡️ Проблема с антивирусом',
@@ -25,24 +23,18 @@ export default function BlogPost() {
 
   useEffect(() => {
     setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
-    document.title = baseTitle; // Устанавливаем заголовок страницы один раз при монтировании компонента
   }, []);
 
-  // Функция прокрутки наверх и сброса якоря в URL
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     window.history.replaceState({}, document.title, window.location.pathname);
   };
 
-  if (!isClient) return null; // Возвращаем null, если код выполняется на сервере
+  if (!isClient) return null;
 
   return (
-    <Layout>
-      <Head>
-        <title>{baseTitle}</title> {/* Устанавливаем статический заголовок */}
-        <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
-        <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" />
-      </Head>
+    <Layout title={baseTitle} description="Руководство по устранению ошибок при открытии архивов">
+      {/* Компонент Head используется внутри Layout, поэтому дополнительные мета-теги здесь не нужны */}
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
