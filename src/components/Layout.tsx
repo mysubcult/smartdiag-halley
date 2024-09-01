@@ -40,44 +40,37 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
     'support': '📞 Поддержка'
   } as const;
 
-  useEffect(() => {
-    setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
-  }, []);
-
   // Обновление заголовка страницы при изменении якоря
   useEffect(() => {
-    if (!isClient) return;
-
     const updateTitle = () => {
-      const hash = router.asPath.split('#')[1] || '';
-      const hashKey = hash as keyof typeof titles;
-      const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-      document.title = title; 
-      setCurrentHash(hash); 
-    };
+      const url = router.asPath;
+      const isBlog = url.includes('/blog');
+      let title = isBlog ? "Как справиться с ошибкой при открытии архива" : "SmartDiag - Ваш проводник в мире автодиагностики";
 
-    updateTitle(); 
-
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        updateTitle(); 
-        document.title = router.asPath.split('#')[1] || '';
+      const hash = router.asPath.split('#')[1] || ''; // Extract the anchor part of the URL
+      if (hash && titles[hash]) {
+        title += ` | ${titles[hash]}`; // Append the corresponding title if anchor exists
       }
+
+      document.title = title;
+      const pageTitle = title;
     };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
+    updateTitle(); // Run on component mount
 
+    // Optional: Re-run if the route changes
+    router.events.on('routeChangeComplete', updateTitle);
+
+    // Cleanup the event listener on unmount
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      router.events.off('routeChangeComplete', updateTitle);
     };
-  }, [isClient, router.asPath]); 
-
-  if (!isClient) return null; // Возвращаем null, если код выполняется на сервере
+  }, [router]);
 
   return (
     <>
       <Head>
-        <title>{currentHash in titles ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle}</title>
+        <title>{pageTitle}</title>
         <meta name="description" content={meta.description} />
         <meta name="keywords" content={meta.keywords} />
         <meta property="og:type" content={meta.type} />
