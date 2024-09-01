@@ -1,22 +1,50 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
+import { useRouter } from 'next/router';
 
-export default function InstallationGuide() {
+export default function BlogPost() {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
-  // Функция для прокрутки страницы наверх
+  // Основной заголовок страницы
+  const baseTitle = "Инструкция по установке Autocom 2021.11";
+
+  // Объект для хранения заголовков и текстов пунктов меню с эмодзи
+  const titles = {
+    '': '🏠 В начало',
+    'disable-antivirus': '🛡️ Отключение антивирусов',
+    'install-program': '📥 Установка программы',
+    'change-language': '🌐 Смена языка в программе',
+    'first-connection': '🔌 Первое подключение',
+    'faq': '❓ Часто задаваемые вопросы',
+    'attention': '⚠️ ВНИМАНИЕ!'
+  } as const;
+
+  useEffect(() => {
+    setIsClient(true);
+    document.title = baseTitle;
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.history.replaceState({}, document.title, window.location.pathname);
   };
 
+  if (!isClient) return null;
+
   return (
-    <Layout title="Инструкция по установке Autocom 2021.11">
+    <Layout>
+      <Head>
+        <title>{baseTitle}</title>
+        <meta name="description" content="Руководство по установке программы Autocom 2021.11" />
+        <meta name="keywords" content="установка, Autocom, инструкции, антивирус, подключение" />
+      </Head>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
-
-          {/* Кнопка меню навигации на мобильных устройствах */}
           <div className="lg:hidden w-full flex justify-center mb-4">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -40,146 +68,116 @@ export default function InstallationGuide() {
               Меню навигации
             </button>
           </div>
-
-          {/* Панель навигации */}
-          <div
-            className={`lg:w-1/6 w-full text-center lg:text-left ${
-              isMenuOpen ? 'block' : 'hidden'
-            } lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}
-          >
-            <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
+          <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
+            <h3 className="text-center text-xl font-bold mb-3">Навигация</h3>
+            <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]"/>
             <nav className="space-y-3">
-              <a
-                onClick={scrollToTop}
-                className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left cursor-pointer"
-              >
-                🏠 В начало
-              </a>
-              <Link href="#disable-antivirus" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  🛡️ Отключение антивирусов
-                </a>
-              </Link>
-              <Link href="#disable-firewall" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  🔒 Отключение брандмауэра
-                </a>
-              </Link>
-              <Link href="#installation-steps" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  💾 Установка программы
-                </a>
-              </Link>
-              <Link href="#activation" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  🔑 Активация программы
-                </a>
-              </Link>
-              <Link href="#language-change" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  🌐 Смена языка
-                </a>
-              </Link>
-              <Link href="#first-connection" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  🔌 Первое подключение
-                </a>
-              </Link>
-              <Link href="#faq" passHref scroll={false}>
-                <a className="flex items-center text-base text-inherit hover:text-rose-500 transition duration-300 text-left">
-                  ❓ Часто задаваемые вопросы
-                </a>
-              </Link>
+              <a onClick={scrollToTop} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">{titles['']}</a>
+              {Object.entries(titles).map(([key, value]) => {
+                if (key === '') return null;
+                return (
+                  <Link key={key} href={`#${key}`} passHref scroll={false}>
+                    <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">{value}</a>
+                  </Link>
+                );
+              })}
             </nav>
           </div>
-
-          {/* Основной контент инструкции */}
-          <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4">
+          <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0" id="top">
             <h2 className="text-4xl font-bold text-center">Инструкция по установке Autocom 2021.11</h2>
-
             <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
-              Мы разработали данную инструкцию, чтобы обеспечить максимальный комфорт и успешность в установке приложения. Чтобы избежать возможных проблем, пожалуйста, внимательно следуйте всем пунктам инструкции.
+              Данная инструкция поможет вам установить программу Autocom 2021.11 на ваш компьютер, избегая возможных проблем.
             </p>
-
             <Image
-              src="/images/blog/installation.jpg"
+              src="/images/blog/autocom-install.jpg"
               alt="Установка Autocom"
               width={1920}
               height={1080}
               quality={75}
               layout="responsive"
-              sizes="100vw"
-              className="w-full max-w-full mx-auto mb-8"
-              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
-
             <div className="max-w-4xl mx-auto text-lg leading-relaxed">
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="disable-antivirus">Отключение антивирусов</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Отключите все антивирусы, включая стандартный Защитник Windows. Мы неоднократно проверяли все файлы &mdash; они не содержат вирусов.
+                Перед началом установки программы, отключите все антивирусы, включая стандартный Защитник Windows. Это необходимо для предотвращения ложного срабатывания на установочные файлы.
               </p>
               <p className="mb-4">
-                Для отключения стандартного Защитника Windows: зайдите в Параметры, далее в Безопасность Windows и отключите ползунки.
+                <strong>Шаги для отключения Защитника Windows:</strong>
+                <ol className="list-decimal ml-5">
+                  <li>Откройте Параметры и перейдите в раздел Безопасность Windows.</li>
+                  <li>Отключите все функции защиты в реальном времени, как показано на изображении ниже.</li>
+                </ol>
               </p>
-
-              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="disable-firewall">Отключение брандмауэра</h3>
+              <Image
+                src="/images/blog/disable-windows-defender.jpg"
+                alt="Отключение Защитника Windows"
+                width={800}
+                height={600}
+                quality={75}
+                layout="responsive"
+              />
+              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="install-program">Установка программы</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                На время установки следует отключить брандмауэр Защитника Windows. Откройте Панель управления, найдите Брандмауэр Защитника Windows и отключите его.
+                Следуйте следующим шагам для установки программы:
               </p>
-
-              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="installation-steps">Установка программы</h3>
-              <hr className="border-neutral-300 mb-4" />
-              <ol className="list-decimal list-inside mb-4">
+              <ol className="list-decimal ml-5 mb-4">
                 <li>Загрузите архив Autocom 2021.11.rar и распакуйте его.</li>
-                <li>Запустите файл установки. Следуйте инструкциям на экране, нажимая Next.</li>
-                <li>Введите пароль: <code>NewSoftware2021</code> и нажмите Next.</li>
-                <li>Выберите путь установки.</li>
-                <li>Выберите тип вашего прибора: Type 1 или Type 2. Этот шаг важен для правильной работы устройства.</li>
-                <li>Отметьте пункт &apos;Создать ярлыки на рабочем столе&apos; и нажмите Install.</li>
-                <li>Добавьте папку с программой в список исключений антивируса и Защитника Windows.</li>
+                <li>Запустите файл установки и следуйте инструкциям мастера установки.</li>
+                <li>Введите пароль <code>NewSoftware2021</code> и продолжите установку.</li>
+                <li>Выберите тип устройства: <strong>Type 1</strong> для двухплатных, <strong>Type 2</strong> для одноплатных приборов.</li>
+                <li>Завершите установку, следуя дальнейшим инструкциям.</li>
               </ol>
-
-              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="activation">Активация программы</h3>
+              <Image
+                src="/images/blog/install-autocom.jpg"
+                alt="Процесс установки Autocom"
+                width={800}
+                height={600}
+                quality={75}
+                layout="responsive"
+              />
+              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="change-language">Смена языка в программе</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Запустите программу и скопируйте Activation ID. Отправьте его нам через онлайн-чат, Telegram-бота или WhatsApp для получения ключа активации.
+                Для смены языка интерфейса программы, зайдите в <strong>Settings</strong>, выберите <strong>Language</strong> и выберите нужный язык.
               </p>
-              <p className="mb-4">
-                После получения ключа активации вставьте его в программу и нажмите Activate.
-              </p>
-
-              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="language-change">Смена языка</h3>
-              <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4">
-                После запуска программы нажмите Settings, выберите Language и выберите нужный язык.
-              </p>
-
+              <Image
+                src="/images/blog/change-language.jpg"
+                alt="Смена языка в программе Autocom"
+                width={800}
+                height={600}
+                quality={75}
+                layout="responsive"
+              />
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="first-connection">Первое подключение</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Подключите устройство к разъему OBD, затем нажмите кнопку Тест, а после этого кнопку Обновить. Дождитесь окончания процесса.
+                Подключите прибор к разъему OBD, откройте программу и выполните тестирование и обновление устройства.
               </p>
-
+              <Image
+                src="/images/blog/first-connection.jpg"
+                alt="Первое подключение устройства"
+                width={800}
+                height={600}
+                quality={75}
+                layout="responsive"
+              />
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="faq">Часто задаваемые вопросы (FAQ)</h3>
               <hr className="border-neutral-300 mb-4" />
-              <ul className="list-disc list-inside mb-4">
-                <li>Откуда скачать программу? Вы можете скачать ПО на нашем официальном сайте.</li>
-                <li>Ошибка при открытии архива? Проверьте антивирусные настройки и используйте актуальную версию программы для разархивации.</li>
-                <li>Проблема с запуском на Windows 10, 11? Удалите обновление &quot;Microsoft .NET Framework 4.8.1&quot; и следуйте инструкциям в папке &quot;Если не запускается программа&quot;.</li>
-                <li>Программа не запускается, файл Main.exe не найден? Возможно, антивирус удалил файл. Переустановите программу и добавьте её в исключения антивируса.</li>
-                <li>Что такое Activation ID? Это уникальный идентификатор для активации вашего устройства.</li>
-                <li>Хочу установить ПО на другое устройство? Обратитесь в техническую поддержку для получения нового ключа активации.</li>
+              <ul className="list-disc ml-5">
+                <li><strong>Откуда скачать программу?</strong> - Программу можно скачать с официального сайта.</li>
+                <li><strong>Ошибка при открытии архива</strong> - Отключите антивирус и убедитесь в наличии последней версии архиватора.</li>
+                <li><strong>Проблемы с запуском на Windows 10, 11</strong> - Удалите обновление .NET Framework 4.8.1.</li>
+                <li><strong>Что такое Activation ID?</strong> - Это уникальный идентификатор, необходимый для активации программы.</li>
               </ul>
-
-              <h3 className="text-2xl font-semibold mt-8 scroll-section">ВНИМАНИЕ!</h3>
+              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="attention">ВНИМАНИЕ!</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Запрещено подключать автосканер в USB-порт ноутбука, зарядка которого осуществляется от бортовой сети автомобиля!
+                Запрещено подключать устройство в USB-порт ноутбука, питаемого от бортовой сети автомобиля!
               </p>
             </div>
-
             <div className="mt-16 flex justify-center">
               <Link href="/#blog" passHref>
                 <a className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
@@ -188,7 +186,6 @@ export default function InstallationGuide() {
               </Link>
             </div>
           </div>
-
           <div className="lg:w-1/6 hidden lg:block"></div>
         </div>
       </main>
