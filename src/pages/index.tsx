@@ -1,13 +1,18 @@
-// /pages/index.tsx
+import Contact from "../components/Contact";
+import Soft from "../components/Soft";
+import { Hero } from "../components/Hero";
+import Layout from "../components/Layout";
+import Faq from "../components/Faq";
+import { Services } from "../components/Services";
 
-import Layout from '../components/Layout';
-
-const HomePage = () => {
+export default function Home() {
   return (
     <Layout title="SmartDiag - Ваш проводник в мире автодиагностики">
-      {/* Ваш контент для главной страницы */}
+      <Hero />
+      <Soft />
+      <Faq />
+      <Services />
+      <Contact />
     </Layout>
   );
-};
-
-export default HomePage;
+}
