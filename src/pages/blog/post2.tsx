@@ -2,13 +2,12 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
-import { useRouter } from 'next/router';
 
 export default function BlogPost() {
-  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const baseTitle = "Инструкция по установке Autocom 2021.11";
+  // Специфические метаданные для страницы блога
+  const title = "Инструкция по установке Autocom 2021.11";
   const description = "Полное руководство по установке программы Autocom 2021.11 с подробными инструкциями по отключению антивирусов, настройке брандмауэра, установке и настройке программы, смене языка и первому подключению.";
   const keywords = "установка Autocom 2021.11, отключение антивирусов, настройка брандмауэра, смена языка, автосканер, диагностическое ПО, руководство по установке";
 
@@ -29,7 +28,7 @@ export default function BlogPost() {
   };
 
   return (
-    <Layout title={baseTitle} description={description} keywords={keywords}>
+    <Layout title={title} description={description} keywords={keywords}>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
