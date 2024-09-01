@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 interface LayoutProps {
   children: ReactNode;
@@ -25,10 +25,14 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
     type: type || "website",
   };
 
+  useEffect(() => {
+    // Устанавливаем заголовок только при монтировании или изменении заголовка
+    document.title = meta.title;
+  }, [meta.title]);
+
   return (
     <>
       <Head>
-        <title>{meta.title}</title>
         <meta name="description" content={meta.description} />
         <meta name="keywords" content={meta.keywords} />
         <meta property="og:type" content={meta.type} />
