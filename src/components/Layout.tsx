@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 
 interface LayoutProps {
   children: ReactNode;
-  title: string;
+  title?: string;  // Сделали title опциональным
   description?: string;
   keywords?: string;
   image?: string;
@@ -15,8 +15,9 @@ interface LayoutProps {
 
 const Layout = ({ children, title, description, keywords, image, type }: LayoutProps) => {
   const router = useRouter();
+  const defaultTitle = "SmartDiag - Ваш проводник в мире автодиагностики"; // Дефолтный заголовок
   const meta = {
-    title: title || "SmartDiag - Ваш проводник в мире автодиагностики",
+    title: title || defaultTitle,  // Используем переданный title или дефолтный
     description: description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.",
     keywords: keywords || "автодиагностика, Autocom CDP+, Delphi DS150E, VCDS, Вася, mucar, thinkdiag, Thinkcar, диагностика автомобилей, программы для диагностики, оборудование для диагностики, car diagnostics, diagnostic tools, software for diagnostics, diagnostic equipment, vehicle diagnostics, diagnostic software, installation instructions, BMW, Audi, Mercedes, Toyota, Volkswagen, Ford, Nissan, Honda, Chevrolet, Kia",
     image: image || "/images/seo/halley-banner.png",
