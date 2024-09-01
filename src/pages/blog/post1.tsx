@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 export default function BlogPost() {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Добавлено состояние для меню
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Состояние для меню
 
   // Основной заголовок страницы
   const baseTitle = "Как справиться с ошибкой при открытии архива";
@@ -21,6 +21,11 @@ export default function BlogPost() {
     document.title = baseTitle;
     setIsClient(true);
   }, []);
+
+  // Функция для прокрутки наверх
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   if (!isClient) return null;
 
