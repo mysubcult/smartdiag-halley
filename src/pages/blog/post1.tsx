@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
-import Head from 'next/head'; // Импортируем Head
+import Head from 'next/head'; // Используем Head для заголовков
 
 export default function BlogPost() {
   const baseTitle = "Как справиться с ошибкой при открытии архива";
