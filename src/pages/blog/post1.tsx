@@ -28,12 +28,9 @@ export default function BlogPost() {
   } as const;
 
   useEffect(() => {
-    setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
-    // Обновляем заголовок на клиенте, чтобы убедиться, что он корректен после переключения вкладок
-    if (isClient) {
-      document.title = baseTitle;
-    }
-  }, [isClient, router.pathname]); // Добавляем зависимость от router.pathname
+    // Устанавливаем флаг, что код выполняется на клиенте
+    setIsClient(true);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -43,7 +40,14 @@ export default function BlogPost() {
   if (!isClient) return null;
 
   return (
-    <Layout title={baseTitle} description={pageDescription} keywords={pageKeywords}>
+    <Layout>
+      {/* Установка заголовка через компонент Head для правильного SEO и SSR */}
+      <Head>
+        <title>{baseTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta name="keywords" content={pageKeywords} />
+      </Head>
+
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
