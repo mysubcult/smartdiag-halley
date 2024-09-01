@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
@@ -17,16 +16,6 @@ export default function BlogPost() {
   const pageDescription = "Руководство по устранению ошибок при открытии архивов, связанных с антивирусами, устаревшим ПО и другими проблемами.";
   const pageKeywords = "ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО";
 
-  // Определение titles для навигации
-  const titles = {
-    '': '🏠 В начало',
-    'antivirus-issue': '🛡️ Проблема с антивирусом',
-    'outdated-software': '⏳ Устаревшее программное обеспечение',
-    'download-errors': '📥 Ошибки при загрузке',
-    'yandex-tips': '🌐 Советы для пользователей Яндекс Браузера',
-    'support': '📞 Поддержка'
-  } as const;
-
   useEffect(() => {
     // Устанавливаем флаг, что код выполняется на клиенте
     setIsClient(true);
@@ -40,14 +29,7 @@ export default function BlogPost() {
   if (!isClient) return null;
 
   return (
-    <Layout>
-      {/* Установка заголовка через компонент Head для правильного SEO и SSR */}
-      <Head>
-        <title>{baseTitle}</title>
-        <meta name="description" content={pageDescription} />
-        <meta name="keywords" content={pageKeywords} />
-      </Head>
-
+    <Layout title={baseTitle} description={pageDescription} keywords={pageKeywords}>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
