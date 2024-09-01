@@ -9,9 +9,7 @@ export default function BlogPost() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
-
-  // Основной заголовок страницы - измените его для каждого нового поста
-  const baseTitle = "Как справиться с ошибкой при открытии архива";
+  const [title, setTitle] = useState("Как справиться с ошибкой при открытии архива");
 
   // Описание и ключевые слова уникальны для этой страницы
   const pageDescription = "Руководство по устранению ошибок при открытии архивов, связанных с антивирусами, устаревшим ПО и другими проблемами.";
@@ -28,6 +26,8 @@ export default function BlogPost() {
 
   useEffect(() => {
     setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
+    // Устанавливаем заголовок страницы при монтировании компонента
+    setTitle("Как справиться с ошибкой при открытии архива");
   }, []);
 
   const scrollToTop = () => {
@@ -38,7 +38,7 @@ export default function BlogPost() {
   if (!isClient) return null;
 
   return (
-    <Layout title={baseTitle} description={pageDescription} keywords={pageKeywords}>
+    <Layout title={title} description={pageDescription} keywords={pageKeywords}>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
