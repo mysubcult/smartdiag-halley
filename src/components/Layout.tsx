@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
@@ -15,7 +14,6 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, title, description, keywords, image, type }: LayoutProps) => {
-  const router = useRouter();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
 
   const meta = {
@@ -26,10 +24,12 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
     type: type || "website",
   };
 
-  // Отслеживаем изменение маршрута и обновляем заголовок
+  // Устанавливаем заголовок страницы в зависимости от переданного props.title
   useEffect(() => {
-    document.title = meta.title;
-  }, [meta.title]);
+    if (title) {
+      document.title = title;
+    }
+  }, [title]);
 
   return (
     <>
@@ -38,11 +38,11 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
         <meta name="description" content={meta.description} />
         <meta name="keywords" content={meta.keywords} />
         <meta property="og:type" content={meta.type} />
-        <meta property="og:url" content={`${siteUrl}${router.asPath}`} />
+        <meta property="og:url" content={`${siteUrl}`} />
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={meta.description} />
         <meta property="og:image" content={meta.image} />
-        <link rel="canonical" href={`${siteUrl}${router.asPath}`} />
+        <link rel="canonical" href={`${siteUrl}`} />
         {/* Можно добавить дополнительные мета-теги для улучшения SEO */}
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SmartDiag Team" />
