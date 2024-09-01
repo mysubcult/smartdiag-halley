@@ -5,14 +5,18 @@ import Layout from "../components/Layout";
 export default function Home() {
   return (
     <Layout>
-      <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16" id="faq">
+      <div
+        className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16"
+        id="faq"
+      >
         <h2 className="text-4xl font-bold text-center">Упс! Что-то пошло не так.</h2>
+
         <p className="pt-6 pb-16 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
           Страница не найдена.
         </p>
         <Image
           src="/images/404/404.svg"
-          alt="404 Error - Page not found illustration" {/* Updated alt text */}
+          alt="Image 404"
           width={1920}
           height={1080}
           quality={75}
