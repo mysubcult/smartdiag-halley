@@ -48,8 +48,8 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
       let title = isBlog ? "Как справиться с ошибкой при открытии архива" : "SmartDiag - Ваш проводник в мире автодиагностики";
 
       const hash = router.asPath.split('#')[1] || ''; // Extract the anchor part of the URL
-      if (hash && titles[hash]) {
-        title += ` | ${titles[hash]}`; // Append the corresponding title if anchor exists
+      if (hash && (hash in titles)) {
+        title += ` | ${titles[hash as keyof typeof titles]}`;
       }
 
       document.title = title;
