@@ -211,13 +211,15 @@ export default function BlogPost() {
             <p className="mb-4">
               Запрещено подключать автосканер в USB-порт ноутбука, зарядка которого осуществляется от бортовой сети диагностируемого автомобиля (т.е. через адаптер от прикуривателя)!
             </p>
-          </div>
-          <div className="mt-16 flex justify-center">
-            <Link href="/#blog" passHref>
-              <a className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
-                Вернуться в блог
-              </a>
-            </Link>
+            
+            {/* Кнопка "Вернуться в блог" перемещена сюда, чтобы быть внизу страницы */}
+            <div className="mt-16 flex justify-center">
+              <Link href="/#blog" passHref>
+                <a className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
+                  Вернуться в блог
+                </a>
+              </Link>
+            </div>
           </div>
           <div className="lg:w-1/6 hidden lg:block"></div>
         </div>
