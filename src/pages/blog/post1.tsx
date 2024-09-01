@@ -8,6 +8,8 @@ import { useRouter } from 'next/router';
 export default function BlogPost() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [currentHash, setCurrentHash] = useState(''); // Храним текущий якорь
 
   useEffect(() => {
     setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
