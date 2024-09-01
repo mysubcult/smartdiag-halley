@@ -1,10 +1,7 @@
-// pages/post2.js
-
 import { useState, useEffect } from 'react';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import Layout from '../../components/Layout';  // Путь должен быть корректным в зависимости от вашей структуры проекта
+import Layout from '../../components/Layout';
 import { useRouter } from 'next/router';
 
 export default function BlogPost() {
@@ -15,7 +12,6 @@ export default function BlogPost() {
   // Основной заголовок страницы
   const baseTitle = "Инструкция по установке Autocom 2021.11";
 
-  // Объект для хранения заголовков и текстов пунктов меню с эмодзи
   const titles = {
     '': '🏠 В начало',
     'disable-antivirus': '🛡️ Отключение антивирусов',
@@ -29,7 +25,6 @@ export default function BlogPost() {
 
   useEffect(() => {
     setIsClient(true);
-    document.title = baseTitle;
   }, []);
 
   const scrollToTop = () => {
@@ -41,17 +36,6 @@ export default function BlogPost() {
 
   return (
     <Layout title={baseTitle}>
-      <Head>
-        <title>{baseTitle} - Полное руководство по установке Autocom 2021.11</title>
-        <meta name="description" content="Полное руководство по установке программы Autocom 2021.11 с подробными инструкциями по отключению антивирусов, настройке брандмауэра, установке и настройке программы, смене языка и первому подключению." />
-        <meta name="keywords" content="установка Autocom 2021.11, отключение антивирусов, настройка брандмауэра, смена языка, автосканер, диагностическое ПО, руководство по установке" />
-        <meta property="og:title" content="Инструкция по установке Autocom 2021.11" />
-        <meta property="og:description" content="Следуйте нашей пошаговой инструкции по установке программы Autocom 2021.11. Отключите антивирусы, настройте брандмауэр, установите программу и смените язык интерфейса. Получите поддержку для первого подключения и ответы на частые вопросы." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://смартдиаг.рф${router.asPath}`} />
-        <meta property="og:image" content="/images/install/og-image.png" />
-        <link rel="canonical" href={`https://смартдиаг.рф${router.asPath}`} />
-      </Head>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
@@ -93,7 +77,7 @@ export default function BlogPost() {
             </nav>
           </aside>
           <article className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0" id="top">
-            <h1 className="text-4xl font-bold text-center">{baseTitle}</h1>
+            <h1 className="text-4xl font-bold text-center">Инструкция по установке Autocom 2021.11</h1>
             <p className="pt-6 pb-8 text-base dark:text-neutral-400">
               Мы разработали данную инструкцию, чтобы обеспечить максимальный комфорт и успешность в установке приложения. Чтобы избежать возможных проблем, пожалуйста, внимательно следуйте всем пунктам инструкции.
             </p>
