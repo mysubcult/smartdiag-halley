@@ -1,6 +1,6 @@
 // /pages/hello.tsx
 
-import Layout from '../src/components/Layout';
+import Layout from '../components/Layout';
 
 const HelloPage = () => {
   return (
