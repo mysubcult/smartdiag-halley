@@ -10,7 +10,12 @@ export default function BlogPost() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
+  // Основной заголовок страницы - измените его для каждого нового поста
   const baseTitle = "Как справиться с ошибкой при открытии архива";
+
+  // Описание и ключевые слова уникальны для этой страницы
+  const pageDescription = "Руководство по устранению ошибок при открытии архивов, связанных с антивирусами, устаревшим ПО и другими проблемами.";
+  const pageKeywords = "ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО";
 
   const titles = {
     '': '🏠 В начало',
@@ -33,8 +38,7 @@ export default function BlogPost() {
   if (!isClient) return null;
 
   return (
-    <Layout title={baseTitle} description="Руководство по устранению ошибок при открытии архивов">
-      {/* Компонент Head используется внутри Layout, поэтому дополнительные мета-теги здесь не нужны */}
+    <Layout title={baseTitle} description={pageDescription} keywords={pageKeywords}>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
