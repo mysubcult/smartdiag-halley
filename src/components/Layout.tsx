@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 interface LayoutProps {
   children: ReactNode;
@@ -17,30 +17,17 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
   const router = useRouter();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
 
-  const meta = {
-    title: title || "SmartDiag - Ваш проводник в мире автодиагностики",
-    description: description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.",
-    keywords: keywords || "автодиагностика, Autocom CDP+, Delphi DS150E, VCDS, Вася, mucar, thinkdiag, Thinkcar, диагностика автомобилей, программы для диагностики, оборудование для диагностики, car diagnostics, diagnostic tools, software for diagnostics, diagnostic equipment, vehicle diagnostics, diagnostic software, installation instructions, BMW, Audi, Mercedes, Toyota, Volkswagen, Ford, Nissan, Honda, Chevrolet, Kia",
-    image: image || "/images/seo/halley-banner.png",
-    type: type || "website",
-  };
-
-  // Устанавливаем заголовок страницы при изменении title
-  useEffect(() => {
-    document.title = meta.title;
-  }, [meta.title]);
-
   return (
     <>
       <Head>
-        <title>{meta.title}</title>
-        <meta name="description" content={meta.description} />
-        <meta name="keywords" content={meta.keywords} />
-        <meta property="og:type" content={meta.type} />
+        <title>{title || "SmartDiag - Ваш проводник в мире автодиагностики"}</title>
+        <meta name="description" content={description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS."} />
+        <meta name="keywords" content={keywords || "автодиагностика, Autocom CDP+, Delphi DS150E, VCDS, диагностика автомобилей"} />
+        <meta property="og:type" content={type || "website"} />
         <meta property="og:url" content={`${siteUrl}${router.asPath}`} />
-        <meta property="og:title" content={meta.title} />
-        <meta property="og:description" content={meta.description} />
-        <meta property="og:image" content={meta.image} />
+        <meta property="og:title" content={title || "SmartDiag - Ваш проводник в мире автодиагностики"} />
+        <meta property="og:description" content={description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей."} />
+        <meta property="og:image" content={image || "/images/seo/halley-banner.png"} />
         <link rel="canonical" href={`${siteUrl}${router.asPath}`} />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SmartDiag Team" />
