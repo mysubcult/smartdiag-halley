@@ -4,7 +4,7 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
-import Script from 'next/script'; // Добавляем импорт
+import Script from 'next/script'; // Using Script tag correctly
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,6 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
       </Head>
       <ThemeProvider attribute="class">
+        {/* React.StrictMode could be added in development */}
         <Component {...pageProps} />
         <Script
           id="lhc-widget-script"
