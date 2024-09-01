@@ -70,7 +70,7 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
   return (
     <>
       <Head>
-        <title>{pageTitle}</title>
+        <title>{meta.title}</title>
         <meta name="description" content={meta.description} />
         <meta name="keywords" content={meta.keywords} />
         <meta property="og:type" content={meta.type} />
