@@ -10,6 +10,7 @@ export default function BlogPost() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [currentHash, setCurrentHash] = useState(''); // Храним текущий якорь
+  const [pageTitle, setPageTitle] = useState(''); // Храним заголовок страницы
 
   // Основной заголовок страницы - измените его для каждого нового поста
   const baseTitle = "Как справиться с ошибкой при открытии архива";
@@ -37,7 +38,7 @@ export default function BlogPost() {
       const hashKey = hash as keyof typeof titles;
       const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
       setCurrentHash(hash); // Устанавливаем текущий якорь
-      document.title = title; // Устанавливаем заголовок страницы
+      setPageTitle(title); // Устанавливаем заголовок страницы в состояние
     };
 
     updateTitle(); // Обновляем заголовок при первой загрузке
@@ -69,7 +70,7 @@ export default function BlogPost() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setCurrentHash(''); // Сбрасываем текущий якорь
-    document.title = baseTitle; // Сбрасываем заголовок страницы на основной
+    setPageTitle(baseTitle); // Сбрасываем заголовок страницы на основной
 
     // Используем replaceState для удаления якоря из URL
     window.history.replaceState({}, document.title, window.location.pathname);
@@ -78,7 +79,7 @@ export default function BlogPost() {
   if (!isClient) return null; // Возвращаем null, если код выполняется на сервере
 
   return (
-    <Layout title={currentHash in titles ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle}>
+    <Layout title={pageTitle}>
       <Head>
         <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
         <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" />
