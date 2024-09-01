@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 export default function BlogPost() {
   const router = useRouter();
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Добавляем состояние для меню навигации
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [pageTitle, setPageTitle] = useState('Как справиться с ошибкой при открытии архива');
 
   const baseTitle = "Как справиться с ошибкой при открытии архива";
@@ -40,7 +40,7 @@ export default function BlogPost() {
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [router.asPath]);
+  }, [router.asPath]); // Следим за изменениями в URL
 
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
