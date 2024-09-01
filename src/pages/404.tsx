@@ -1,10 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "../components/Layout";
+import Head from "next/head";
 
 export default function Home() {
   return (
     <Layout>
+      {/* Установка актуального заголовка и мета-описания */}
+      <Head>
+        <title>Страница не найдена - Ошибка 404</title>
+        <meta name="description" content="Страница, которую вы ищете, не найдена. Возможно, она была удалена или вы ввели неправильный адрес." />
+      </Head>
+      
       <div
         className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16"
         id="faq"
