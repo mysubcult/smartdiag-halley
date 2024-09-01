@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 
 export default function BlogPost() {
   const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Добавляем состояние для меню навигации
   const [pageTitle, setPageTitle] = useState('Как справиться с ошибкой при открытии архива');
 
   const baseTitle = "Как справиться с ошибкой при открытии архива";
