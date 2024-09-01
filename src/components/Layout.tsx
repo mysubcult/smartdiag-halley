@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 interface LayoutProps {
   children: ReactNode;
@@ -24,15 +24,6 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
     image: image || "/images/seo/halley-banner.png",
     type: type || "website",
   };
-
-  useEffect(() => {
-    // Если заголовок передан, установим его в document.title
-    if (title) {
-      document.title = title;
-    } else {
-      document.title = "SmartDiag - Ваш проводник в мире автодиагностики";
-    }
-  }, [title]);
 
   return (
     <>
