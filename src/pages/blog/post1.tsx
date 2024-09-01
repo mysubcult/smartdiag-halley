@@ -1,24 +1,12 @@
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
-import { useRouter } from 'next/router';
-import Head from 'next/head'; // Импортируем Head
+import Head from 'next/head';
 
 export default function BlogPost() {
-  const router = useRouter();
-  const [isClient, setIsClient] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const baseTitle = "Как справиться с ошибкой при открытии архива";
   const pageDescription = "Руководство по устранению ошибок при открытии архивов, связанных с антивирусами, устаревшим ПО и другими проблемами.";
   const pageKeywords = "ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО";
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) return null;
 
   return (
     <Layout>
