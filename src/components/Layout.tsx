@@ -1,7 +1,7 @@
 // /src/components/Layout.tsx
 
 import Head from "next/head";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
