@@ -17,13 +17,12 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
   const router = useRouter();
   const defaultTitle = "SmartDiag - Ваш проводник в мире автодиагностики"; // Дефолтный заголовок
 
+  // Если title передан, используем его, иначе дефолтный
+  const metaTitle = title || defaultTitle;
+
   useEffect(() => {
-    if (title) {
-      document.title = title; // Устанавливаем заголовок, если он передан как пропс
-    } else {
-      document.title = defaultTitle; // Используем дефолтный заголовок
-    }
-  }, [title]); // Обновляем заголовок только если изменился пропс title
+    document.title = metaTitle; // Устанавливаем заголовок страницы
+  }, [metaTitle]);
 
   const meta = {
     description: description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.",
@@ -39,7 +38,7 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
         <meta name="keywords" content={meta.keywords} />
         <meta property="og:type" content={meta.type} />
         <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`} />
-        <meta property="og:title" content={title || defaultTitle} />
+        <meta property="og:title" content={metaTitle} />
         <meta property="og:description" content={meta.description} />
         <meta property="og:image" content={meta.image} />
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`} />
