@@ -23,10 +23,60 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
     type: type || "website",
   };
 
+  const [isClient, setIsClient] = useState(false);
+  const [currentHash, setCurrentHash] = useState(''); // Храним текущий якорь
+
+  // Основной заголовок страницы - измените его для каждого нового поста
+  const baseTitle = "Как справиться с ошибкой при открытии архива";
+
+  // Объект для хранения заголовков и текстов пунктов меню с эмодзи
+  const titles = {
+    '': '🏠 В начало',
+    'antivirus-issue': '🛡️ Проблема с антивирусом',
+    'outdated-software': '⏳ Устаревшее программное обеспечение',
+    'download-errors': '📥 Ошибки при загрузке',
+    'yandex-tips': '🌐 Советы для пользователей Яндекс Браузера',
+    'support': '📞 Поддержка'
+  } as const;
+
+  useEffect(() => {
+    setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
+  }, []);
+
+  // Обновление заголовка страницы при изменении якоря
+  useEffect(() => {
+    if (!isClient) return;
+
+    const updateTitle = () => {
+      const hash = router.asPath.split('#')[1] || '';
+      const hashKey = hash as keyof typeof titles;
+      const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
+      document.title = title; 
+      setCurrentHash(hash); 
+    };
+
+    updateTitle(); 
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        updateTitle(); 
+        document.title = router.asPath.split('#')[1] || '';
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [isClient, router.asPath]); 
+
+  if (!isClient) return null; // Возвращаем null, если код выполняется на сервере
+
   return (
     <>
       <Head>
-        <title>{meta.title}</title>
+        <title>{currentHash in titles ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle}</title>
         <meta name="description" content={meta.description} />
         <meta name="keywords" content={meta.keywords} />
         <meta property="og:type" content={meta.type} />
