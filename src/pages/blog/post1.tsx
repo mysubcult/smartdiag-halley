@@ -31,31 +31,29 @@ export default function BlogPost() {
   // Обновление заголовка страницы при изменении якоря
   useEffect(() => {
     if (!isClient) return;
-  
+
     const updateTitle = () => {
-      const hash = router.asPath.split('#')[1] || ''; // Get current anchor or empty string
+      const hash = router.asPath.split('#')[1] || '';
       const hashKey = hash as keyof typeof titles;
       const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-      document.title = title; // Set page title
-      setCurrentHash(hash); // Update currentHash state
+      document.title = title; 
+      setCurrentHash(hash); 
     };
-  
-    updateTitle(); // Update title on initial load
-  
+
+    updateTitle(); 
+
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        updateTitle(); // Update title when the tab becomes visible
+        updateTitle(); 
       }
     };
-  
-    // Add event listener for visibility change
+
     document.addEventListener('visibilitychange', handleVisibilityChange);
-  
-    // Cleanup event listener on component unmount
+
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [isClient, router.asPath]); // Adding router.asPath to the dependency array
+  }, [isClient, router.asPath]); 
 
 
   // Общие классы для кнопок и ссылок
