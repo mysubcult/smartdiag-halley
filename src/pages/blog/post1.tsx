@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
@@ -9,13 +8,10 @@ export default function BlogPost() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const [currentHash, setCurrentHash] = useState(''); // Храним текущий якорь
-  const [pageTitle, setPageTitle] = useState(''); // Храним заголовок страницы
+  const [pageTitle, setPageTitle] = useState('Как справиться с ошибкой при открытии архива');
 
-  // Основной заголовок страницы - измените его для каждого нового поста
   const baseTitle = "Как справиться с ошибкой при открытии архива";
 
-  // Объект для хранения заголовков и текстов пунктов меню с эмодзи
   const titles = {
     '': '🏠 В начало',
     'antivirus-issue': '🛡️ Проблема с антивирусом',
@@ -26,32 +22,25 @@ export default function BlogPost() {
   } as const;
 
   useEffect(() => {
-    setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
+    setIsClient(true);
   }, []);
 
-  // Обновление заголовка страницы при изменении якоря
   useEffect(() => {
     if (!isClient) return;
 
-    const updateTitle = () => {
-      const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
-      const hashKey = hash as keyof typeof titles;
-      const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-      setCurrentHash(hash); // Устанавливаем текущий якорь
-      setPageTitle(title); // Устанавливаем заголовок страницы в состояние
-    };
+    const hash = router.asPath.split('#')[1] || '';
+    const hashKey = hash as keyof typeof titles;
+    const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
+    setPageTitle(title);
 
-    updateTitle(); // Обновляем заголовок при первой загрузке
-
-    // Обновляем заголовок при смене видимости вкладки или при возвращении на вкладку
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        updateTitle(); // Обновляем заголовок, если вкладка становится видимой
+        setPageTitle(title);
       }
     };
 
     const handleFocus = () => {
-      updateTitle(); // Обновляем заголовок при фокусе на окно
+      setPageTitle(title);
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -63,27 +52,18 @@ export default function BlogPost() {
     };
   }, [router.asPath, isClient]);
 
-  // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
 
-  // Функция прокрутки наверх и сброса заголовка
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setCurrentHash(''); // Сбрасываем текущий якорь
-    setPageTitle(baseTitle); // Сбрасываем заголовок страницы на основной
-
-    // Используем replaceState для удаления якоря из URL
+    setPageTitle(baseTitle);
     window.history.replaceState({}, document.title, window.location.pathname);
   };
 
-  if (!isClient) return null; // Возвращаем null, если код выполняется на сервере
+  if (!isClient) return null;
 
   return (
     <Layout title={pageTitle}>
-      <Head>
-        <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
-        <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" />
-      </Head>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
