@@ -61,7 +61,7 @@ export function Hero() {
         <div className="flex items-center mt-12">
           <Image
             src="/images/hero/hero.svg"
-            alt="Image hero description"
+            alt="Illustration representing car diagnostics"
             width={512.5}
             height={331}
             quality={75}
