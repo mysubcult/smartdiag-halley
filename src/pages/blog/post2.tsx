@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
@@ -27,8 +28,18 @@ export default function BlogPost() {
     window.history.replaceState({}, document.title, window.location.pathname);
   };
 
+  // Устанавливаем заголовок страницы при монтировании компонента
+  useEffect(() => {
+    document.title = title;
+  }, []);
+
   return (
-    <Layout title={title} description={description} keywords={keywords}>
+    <Layout>
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="keywords" content={keywords} />
+      </Head>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
