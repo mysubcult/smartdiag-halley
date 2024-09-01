@@ -146,20 +146,12 @@ export default function BlogPost() {
                 <li>Нажмите <strong className="text-red-500">Next</strong>.</li>
                 {/* Убираем картинку после этого пункта */}
                 <li>Введите пароль: <code className="text-red-500">NewSoftware2021</code> и нажмите <strong className="text-red-500">Next</strong>.</li>
-                <Image
-                  src="/images/install/install-step1.png"
-                  alt="Начало установки программы"
-                  width={800}
-                  height={600}
-                  quality={75}
-                  layout="responsive"
-                />
                 <li>Выберите путь установки.</li>
                 <li>Выберите тип вашего прибора. Если у вас версия прибора с двумя платами или если вы не знаете вариацию вашего прибора, выберите <strong className="text-red-500">Type 1</strong>. Если у вас ОДНОПЛАТНЫЙ прибор, выберите <strong className="text-red-500">Type 2</strong> и нажмите <strong className="text-red-500">Next</strong>. Этот шаг крайне важен при выборе. Помните, что неправильный выбор типа при установке и последующей перепрошивке может привести к неработоспособности прибора.</li>
                 {/* Перемещаем картинку сюда */}
                 <Image
-                  src="/images/install/install-step2.png"
-                  alt="Введите пароль для установки"
+                  src="/images/install/install-step1.png"
+                  alt="Начало установки программы"
                   width={800}
                   height={600}
                   quality={75}
