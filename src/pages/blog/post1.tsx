@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 export default function BlogPost() {
   const router = useRouter();
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Добавляем состояние для меню навигации
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [pageTitle, setPageTitle] = useState('Как справиться с ошибкой при открытии архива');
 
   const baseTitle = "Как справиться с ошибкой при открытии архива";
@@ -29,16 +29,16 @@ export default function BlogPost() {
 
     updateTitle(); // Устанавливаем заголовок при первой загрузке
 
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        updateTitle(); // Обновляем заголовок, если вкладка становится видимой
-      }
+    const handleHashChange = () => {
+      updateTitle(); // Обновляем заголовок при изменении якоря
     };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('hashchange', handleHashChange);
+    document.addEventListener('visibilitychange', handleHashChange); // Обновляем заголовок при переключении вкладок
 
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('hashchange', handleHashChange);
+      document.removeEventListener('visibilitychange', handleHashChange);
     };
   }, [router.asPath]);
 
@@ -57,7 +57,7 @@ export default function BlogPost() {
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)} // Управление состоянием меню
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-6 py-3 font-medium shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
               aria-label="Открыть меню навигации"
             >
