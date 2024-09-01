@@ -1,20 +1,17 @@
-// 404.txt
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "../components/Layout";
-import Head from "next/head"; // Импортируем Head для заголовков
 
 export default function NotFound() {
   const pageTitle = "404 - Упс! Что-то пошло не так";
   const pageDescription = "Страница, которую вы ищете, не найдена. Возможно, она была удалена или вы ввели неправильный адрес.";
 
   return (
-    <Layout>
-      <Head>
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDescription} />
-      </Head>
-      <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16" id="faq">
+    <Layout title={pageTitle} description={pageDescription}>
+      <div
+        className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16"
+        id="faq"
+      >
         <h2 className="text-4xl font-bold text-center">Упс! Что-то пошло не так.</h2>
         <p className="pt-6 pb-16 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
           Страница не найдена.
