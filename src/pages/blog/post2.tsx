@@ -47,7 +47,7 @@ export default function BlogPost() {
         <meta property="og:description" content="Следуйте нашей пошаговой инструкции по установке программы Autocom 2021.11. Отключите антивирусы, настройте брандмауэр, установите программу и смените язык интерфейса. Получите поддержку для первого подключения и ответы на частые вопросы." />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`https://смартдиаг.рф${router.asPath}`} />
-        <meta property="og:image" content="/images/blog/og-image.jpg" />
+        <meta property="og:image" content="/images/install/og-image.png" />
         <link rel="canonical" href={`https://смартдиаг.рф${router.asPath}`} />
       </Head>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
@@ -109,7 +109,7 @@ export default function BlogPost() {
                 </ol>
               </p>
               <Image
-                src="/images/blog/disable-windows-defender-step1.jpg"
+                src="/images/install/disable-windows-defender-step1.png"
                 alt="Параметры безопасности Windows"
                 width={800}
                 height={600}
@@ -128,7 +128,7 @@ export default function BlogPost() {
                 <li>Откройте <strong className="text-red-500">Панель управления</strong>, далее откройте <strong className="text-red-500">Брандмауэр Защитника Windows</strong> и сделайте все, как ниже на скриншоте, и нажмите Ok.</li>
               </ol>
               <Image
-                src="/images/blog/disable-firewall-step1.jpg"
+                src="/images/install/disable-firewall-step1.png"
                 alt="Открытие Брандмауэра Защитника Windows"
                 width={800}
                 height={600}
@@ -145,7 +145,7 @@ export default function BlogPost() {
                 <li>Запустите файл установки.</li>
                 <li>Нажмите <strong className="text-red-500">Next</strong>.</li>
                 <Image
-                  src="/images/blog/install-step1.jpg"
+                  src="/images/install/install-step1.png"
                   alt="Начало установки программы"
                   width={800}
                   height={600}
@@ -154,7 +154,7 @@ export default function BlogPost() {
                 />
                 <li>Введите пароль: <code className="text-red-500">NewSoftware2021</code> и нажмите <strong className="text-red-500">Next</strong>.</li>
                 <Image
-                  src="/images/blog/install-step2.jpg"
+                  src="/images/install/install-step2.png"
                   alt="Введите пароль для установки"
                   width={800}
                   height={600}
@@ -164,7 +164,7 @@ export default function BlogPost() {
                 <li>Выберите путь установки.</li>
                 <li>Выберите тип вашего прибора. Если у вас версия прибора с двумя платами или если вы не знаете вариацию вашего прибора, выберите <strong className="text-red-500">Type 1</strong>. Если у вас ОДНОПЛАТНЫЙ прибор, выберите <strong className="text-red-500">Type 2</strong> и нажмите <strong className="text-red-500">Next</strong>. Этот шаг крайне важен при выборе. Помните, что неправильный выбор типа при установке и последующей перепрошивке может привести к неработоспособности прибора.</li>
                 <Image
-                  src="/images/blog/install-step3.jpg"
+                  src="/images/install/install-step3.png"
                   alt="Выбор типа прибора"
                   width={800}
                   height={600}
@@ -173,7 +173,7 @@ export default function BlogPost() {
                 />
                 <li>Оставьте отмеченным пункт <strong className="text-red-500">&apos;Создать ярлыки на рабочем столе&apos;</strong>, затем нажмите <strong className="text-red-500">Next</strong> и далее <strong className="text-red-500">Install</strong>. По завершении установки, вам будет предложено установить драйверы для устройства и дополнительные файлы – необходимо выполнить установку. Если установочные файлы дополнительных программ сообщат, что данные программы уже установлены на вашем компьютере и предложат их модифицировать/обновить, пожалуйста, согласитесь.</li>
                 <Image
-                  src="/images/blog/install-step4.jpg"
+                  src="/images/install/install-step4.png"
                   alt="Создание ярлыков на рабочем столе"
                   width={800}
                   height={600}
@@ -183,7 +183,7 @@ export default function BlogPost() {
                 <li>Для обеспечения работы программы, пожалуйста, добавьте папку с установленным приложением в список исключений вашего антивируса (если у вас установлен антивирус) и в список исключений Защитника Windows. Этот шаг крайне важен, иначе после первого запуска программа может быть автоматически удалена антивирусом. Заметьте, стандартный антивирус Защитника Windows имеет свойство самостоятельного включения и может активироваться в любой момент. Если папка с программой не будет включена в список исключений, программа рискует быть удалена.</li>
                 <li>Запустите программу, щелкнув на ярлыке на рабочем столе. Появится окно с запросом <strong className="text-red-500">Activation ID</strong>. Пожалуйста, скопируйте это сообщение и отправьте его нам для получения ключа активации. Чтобы связаться с нами, воспользуйтесь удобным для вас способом: через онлайн-чат на нашем сайте, Telegram-бота (@smartdiag_robot), WhatsApp (https://wa.me/message/XVMV4LKBTXB4E1) или заполните форму обратной связи по ссылке (https://смартдиаг.рф/#contact), выбрав тему &quot;активация прибора&quot;. Не забудьте указать номер вашего заказа и ваш Activation ID.</li>
                 <Image
-                  src="/images/blog/activation-id.jpg"
+                  src="/images/install/activation-id.png"
                   alt="Окно запроса Activation ID"
                   width={800}
                   height={600}
@@ -202,7 +202,7 @@ export default function BlogPost() {
               <ol className="list-decimal ml-5 mb-4">
                 <li>После запуска программы нажмите <strong className="text-red-500">Settings</strong>.</li>
                 <Image
-                  src="/images/blog/change-language-step1.jpg"
+                  src="/images/install/change-language-step1.png"
                   alt="Меню настроек программы"
                   width={800}
                   height={600}
@@ -211,7 +211,7 @@ export default function BlogPost() {
                 />
                 <li>Выберите и нажмите на пункт <strong className="text-red-500">Language</strong>.</li>
                 <Image
-                  src="/images/blog/change-language-step2.jpg"
+                  src="/images/install/change-language-step2.png"
                   alt="Выбор языка"
                   width={800}
                   height={600}
@@ -220,7 +220,7 @@ export default function BlogPost() {
                 />
                 <li>Выберите нужный язык и нажмите <strong className="text-red-500">OK</strong>.</li>
                 <Image
-                  src="/images/blog/change-language-step3.jpg"
+                  src="/images/install/change-language-step3.png"
                   alt="Подтверждение выбора языка"
                   width={800}
                   height={600}
@@ -236,7 +236,7 @@ export default function BlogPost() {
               <ol className="list-decimal ml-5 mb-4">
                 <li>В программе нажмите <strong className="text-red-500">Настройки</strong> и далее <strong className="text-red-500">Установки оборудования</strong>.</li>
                 <Image
-                  src="/images/blog/first-connection-step1.jpg"
+                  src="/images/install/first-connection-step1.png"
                   alt="Меню настроек подключения"
                   width={800}
                   height={600}
@@ -245,7 +245,7 @@ export default function BlogPost() {
                 />
                 <li>Для обновления прибора необходимо сначала подключить его к разъему <strong className="text-red-500">OBD</strong>, затем нажать кнопку <strong className="text-red-500">Тест</strong>, а после этого нажать кнопку <strong className="text-red-500">Обновить</strong> и дождаться окончания процесса обновления. Если прибор не будет подключен к разъему OBD, то после нажатия кнопки Тест будет выведено сообщение об ошибке: <strong className="text-red-500">Тест: Ошибка</strong>.</li>
                 <Image
-                  src="/images/blog/first-connection-step2.jpg"
+                  src="/images/install/first-connection-step2.png"
                   alt="Процесс обновления устройства"
                   width={800}
                   height={600}
