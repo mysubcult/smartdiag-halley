@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 export default function BlogPost() {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Добавлено состояние для меню
 
   // Основной заголовок страницы
   const baseTitle = "Как справиться с ошибкой при открытии архива";
@@ -29,7 +30,7 @@ export default function BlogPost() {
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={() => setIsMenuOpen(!isMenuOpen)} // Используем setIsMenuOpen для изменения состояния меню
               className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-6 py-3 font-medium shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
               aria-label="Открыть меню навигации"
             >
@@ -54,15 +55,22 @@ export default function BlogPost() {
             <h3 className="text-center text-xl font-bold mb-3">Навигация</h3>
             <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]"/>
             <nav className="space-y-3">
-              <a onClick={scrollToTop} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">{titles['']}</a>
-              {Object.entries(titles).map(([key, value]) => {
-                if (key === '') return null;
-                return (
-                  <Link key={key} href={`#${key}`} passHref scroll={false}>
-                    <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">{value}</a>
-                  </Link>
-                );
-              })}
+              <a onClick={scrollToTop} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">🏠 В начало</a>
+              <Link href="#antivirus-issue" passHref scroll={false}>
+                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">🛡️ Проблема с антивирусом</a>
+              </Link>
+              <Link href="#outdated-software" passHref scroll={false}>
+                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">⏳ Устаревшее программное обеспечение</a>
+              </Link>
+              <Link href="#download-errors" passHref scroll={false}>
+                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">📥 Ошибки при загрузке</a>
+              </Link>
+              <Link href="#yandex-tips" passHref scroll={false}>
+                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">🌐 Советы для пользователей Яндекс Браузера</a>
+              </Link>
+              <Link href="#support" passHref scroll={false}>
+                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">📞 Поддержка</a>
+              </Link>
             </nav>
           </div>
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0" id="top">
