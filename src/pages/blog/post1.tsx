@@ -6,8 +6,6 @@ import { useRouter } from 'next/router';
 
 export default function BlogPost() {
   const router = useRouter();
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Управление открытием меню
-  const [isClient, setIsClient] = useState(false);
   const [pageTitle, setPageTitle] = useState('Как справиться с ошибкой при открытии архива');
 
   const baseTitle = "Как справиться с ошибкой при открытии архива";
@@ -21,11 +19,26 @@ export default function BlogPost() {
   };
 
   useEffect(() => {
-    setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
-    const hash = router.asPath.split('#')[1] || '';
-    const hashKey = hash as keyof typeof titles;
-    const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-    setPageTitle(title);
+    const updateTitle = () => {
+      const hash = router.asPath.split('#')[1] || '';
+      const hashKey = hash as keyof typeof titles;
+      const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
+      setPageTitle(title);
+    };
+
+    updateTitle(); // Устанавливаем заголовок при первой загрузке
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        updateTitle(); // Обновляем заголовок, если вкладка становится видимой
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, [router.asPath]);
 
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
@@ -37,15 +50,13 @@ export default function BlogPost() {
     window.history.replaceState({}, title, window.location.pathname);
   };
 
-  if (!isClient) return null;
-
   return (
     <Layout title={pageTitle}>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)} // Добавили управление открытием меню
+              onClick={() => setIsMenuOpen(!isMenuOpen)} // Убедитесь, что isMenuOpen объявлен
               className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-6 py-3 font-medium shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
               aria-label="Открыть меню навигации"
             >
