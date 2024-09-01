@@ -8,54 +8,10 @@ import { useRouter } from 'next/router';
 export default function BlogPost() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isClient, setIsClient] = useState(false);
-  const [currentHash, setCurrentHash] = useState(''); // Храним текущий якорь
-
-  // Основной заголовок страницы - измените его для каждого нового поста
-  const baseTitle = "Как справиться с ошибкой при открытии архива";
-
-  // Объект для хранения заголовков и текстов пунктов меню с эмодзи
-  const titles = {
-    '': '🏠 В начало',
-    'antivirus-issue': '🛡️ Проблема с антивирусом',
-    'outdated-software': '⏳ Устаревшее программное обеспечение',
-    'download-errors': '📥 Ошибки при загрузке',
-    'yandex-tips': '🌐 Советы для пользователей Яндекс Браузера',
-    'support': '📞 Поддержка'
-  } as const;
 
   useEffect(() => {
     setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
   }, []);
-
-  // Обновление заголовка страницы при изменении якоря
-  useEffect(() => {
-    if (!isClient) return;
-
-    const updateTitle = () => {
-      const hash = router.asPath.split('#')[1] || '';
-      const hashKey = hash as keyof typeof titles;
-      const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-      document.title = title; 
-      setCurrentHash(hash); 
-    };
-
-    updateTitle(); 
-
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        updateTitle(); 
-        document.title = router.asPath.split('#')[1] || '';
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    };
-  }, [isClient, router.asPath]); 
-
 
   // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
@@ -75,7 +31,6 @@ export default function BlogPost() {
   return (
     <Layout>
       <Head>
-        <title>{currentHash in titles ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle}</title> {/* Динамически обновляем заголовок */}
         <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
         <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" />
       </Head>
