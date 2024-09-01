@@ -7,7 +7,7 @@ import { Services } from "../components/Services";
 
 export default function Home() {
   return (
-    <Layout title="SmartDiag - Ваш проводник в мире автодиагностики">
+    <Layout title="SmartDiag - Ваш проводник в мире автодиагностики" description="Основная информация о SmartDiag, новейшие технологии и поддержка в мире автодиагностики">
       <Hero />
       <Soft />
       <Faq />
