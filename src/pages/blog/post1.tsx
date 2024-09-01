@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 
 export default function BlogPost() {
   const router = useRouter();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
   // Основной заголовок страницы
@@ -16,25 +15,11 @@ export default function BlogPost() {
   const pageDescription = "Руководство по устранению ошибок при открытии архивов, связанных с антивирусами, устаревшим ПО и другими проблемами.";
   const pageKeywords = "ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО";
 
-  // Определение titles для навигации
-  const titles = {
-    '': '🏠 В начало',
-    'antivirus-issue': '🛡️ Проблема с антивирусом',
-    'outdated-software': '⏳ Устаревшее программное обеспечение',
-    'download-errors': '📥 Ошибки при загрузке',
-    'yandex-tips': '🌐 Советы для пользователей Яндекс Браузера',
-    'support': '📞 Поддержка'
-  };
-
   useEffect(() => {
-    // Устанавливаем флаг, что код выполняется на клиенте
+    // Обновление заголовка вручную для уверенности
+    document.title = baseTitle;
     setIsClient(true);
   }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    window.history.replaceState({}, document.title, window.location.pathname);
-  };
 
   if (!isClient) return null;
 
