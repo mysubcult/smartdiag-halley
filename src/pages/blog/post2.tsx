@@ -35,7 +35,7 @@ export default function BlogPost() {
   if (!isClient) return null;
 
   return (
-    <Layout title={baseTitle}>
+    <Layout title="Инструкция по установке Autocom 2021.11">
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
