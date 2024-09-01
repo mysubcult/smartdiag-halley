@@ -11,6 +11,8 @@ export default function BlogPost() {
   const [isClient, setIsClient] = useState(false);
   const [currentHash, setCurrentHash] = useState(''); // Храним текущий якорь
 
+  const baseTitle = "Как справиться с ошибкой при открытии архива";
+
   useEffect(() => {
     setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
   }, []);
