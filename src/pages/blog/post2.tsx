@@ -49,7 +49,7 @@ export default function BlogPost() {
           <div className="lg:hidden w-full flex justify-center mb-4">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-6 py-3 font-medium shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
+              className="bg-gradient-to-r from-black to-red-500 text-white text-base rounded-full px-6 py-3 font-medium shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
               aria-label="Открыть меню навигации"
             >
               <svg
@@ -71,14 +71,14 @@ export default function BlogPost() {
           </div>
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
             <h3 className="text-center text-xl font-bold mb-3">Навигация</h3>
-            <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]"/>
+            <hr className="border-b-2 border-red-500 mr-[-16px] ml-[-16px]"/>
             <nav className="space-y-3">
-              <a onClick={scrollToTop} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">{titles['']}</a>
+              <a onClick={scrollToTop} className="flex items-center text-base text-left justify-start text-inherit hover:text-red-500 cursor-pointer transition-colors duration-300">{titles['']}</a>
               {Object.entries(titles).map(([key, value]) => {
                 if (key === '') return null;
                 return (
                   <Link key={key} href={`#${key}`} passHref scroll={false}>
-                    <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">{value}</a>
+                    <a className="flex items-center text-base text-left justify-start text-inherit hover:text-red-500 cursor-pointer transition-colors duration-300">{value}</a>
                   </Link>
                 );
               })}
@@ -96,9 +96,9 @@ export default function BlogPost() {
               Отключите все антивирусы, в том числе и стандартный Защитник Windows. Мы неоднократно проверяли все файлы - они не содержат никаких вирусов. Вы можете убедиться в этом, например, скачав, на наш взгляд, достойный антивирус Dr.Web и проверить все файлы программы на вирусы, и вы убедитесь в их отсутствии.
             </p>
             <p className="mb-4">
-              <strong className="text-rose-500">Шаги для отключения Защитника Windows:</strong>
+              <strong className="text-red-500">Шаги для отключения Защитника Windows:</strong>
               <ol className="list-decimal ml-5">
-                <li>Зайдите в <strong className="text-rose-500">Параметры</strong>, затем перейдите в <strong className="text-rose-500">Безопасность Windows</strong>.</li>
+                <li>Зайдите в <strong className="text-red-500">Параметры</strong>, затем перейдите в <strong className="text-red-500">Безопасность Windows</strong>.</li>
                 <li>Отключите все функции защиты в реальном времени, как показано на изображении ниже.</li>
               </ol>
             </p>
@@ -122,11 +122,11 @@ export default function BlogPost() {
             <h3 className="text-2xl font-semibold mt-8 scroll-section" id="firewall">Отключение брандмауэра</h3>
             <hr className="border-neutral-300 mb-4" />
             <p className="mb-4">
-              На время установки следует отключить <strong className="text-rose-500">брандмауэр Защитника Windows</strong>.
+              На время установки следует отключить <strong className="text-red-500">брандмауэр Защитника Windows</strong>.
             </p>
             <ol className="list-decimal ml-5 mb-4">
-              <li>Откройте <strong className="text-rose-500">Панель управления</strong>.</li>
-              <li>Перейдите в <strong className="text-rose-500">Брандмауэр Защитника Windows</strong> и отключите его, как показано на изображениях ниже.</li>
+              <li>Откройте <strong className="text-red-500">Панель управления</strong>.</li>
+              <li>Перейдите в <strong className="text-red-500">Брандмауэр Защитника Windows</strong> и отключите его, как показано на изображениях ниже.</li>
             </ol>
             <Image
               src="/images/blog/disable-firewall-step1.jpg"
@@ -148,10 +148,10 @@ export default function BlogPost() {
             <h3 className="text-2xl font-semibold mt-8 scroll-section" id="install-program">Установка программы</h3>
             <hr className="border-neutral-300 mb-4" />
             <ol className="list-decimal ml-5">
-              <li>Загрузите архив с названием <strong className="text-rose-500">Autocom 2021.11.rar</strong> и после завершения загрузки распакуйте его.</li>
+              <li>Загрузите архив с названием <strong className="text-red-500">Autocom 2021.11.rar</strong> и после завершения загрузки распакуйте его.</li>
               <li>Если при открытии архива или попытке распаковки возникает ошибка, убедитесь, что архив был полностью загружен.</li>
               <li>Запустите файл установки.</li>
-              <li>Нажмите <strong className="text-rose-500">Next</strong>.</li>
+              <li>Нажмите <strong className="text-red-500">Next</strong>.</li>
               <Image
                 src="/images/blog/install-step1.jpg"
                 alt="Начало установки программы"
@@ -160,7 +160,7 @@ export default function BlogPost() {
                 quality={75}
                 layout="responsive"
               />
-              <li>Введите пароль: <code className="text-rose-500">NewSoftware2021</code> и нажмите <strong className="text-rose-500">Next</strong>.</li>
+              <li>Введите пароль: <code className="text-red-500">NewSoftware2021</code> и нажмите <strong className="text-red-500">Next</strong>.</li>
               <Image
                 src="/images/blog/install-step2.jpg"
                 alt="Введите пароль для установки"
@@ -169,8 +169,8 @@ export default function BlogPost() {
                 quality={75}
                 layout="responsive"
               />
-              <li>Выберите путь установки и нажмите <strong className="text-rose-500">Next</strong>.</li>
-              <li>Выберите тип вашего прибора. Если у вас версия прибора с двумя платами или если вы не знаете вариацию вашего прибора, выберите <strong className="text-rose-500">Type 1</strong>. Если у вас ОДНОПЛАТНЫЙ прибор, выберите <strong className="text-rose-500">Type 2</strong> и нажмите <strong className="text-rose-500">Next</strong>.</li>
+              <li>Выберите путь установки и нажмите <strong className="text-red-500">Next</strong>.</li>
+              <li>Выберите тип вашего прибора. Если у вас версия прибора с двумя платами или если вы не знаете вариацию вашего прибора, выберите <strong className="text-red-500">Type 1</strong>. Если у вас ОДНОПЛАТНЫЙ прибор, выберите <strong className="text-red-500">Type 2</strong> и нажмите <strong className="text-red-500">Next</strong>.</li>
               <Image
                 src="/images/blog/install-step3.jpg"
                 alt="Выбор типа прибора"
@@ -179,7 +179,7 @@ export default function BlogPost() {
                 quality={75}
                 layout="responsive"
               />
-              <li>Оставьте отмеченным пункт <strong className="text-rose-500">&apos;Создать ярлыки на рабочем столе&apos;</strong>, затем нажмите <strong className="text-rose-500">Next</strong> и далее <strong className="text-rose-500">Install</strong>.</li>
+              <li>Оставьте отмеченным пункт <strong className="text-red-500">&apos;Создать ярлыки на рабочем столе&apos;</strong>, затем нажмите <strong className="text-red-500">Next</strong> и далее <strong className="text-red-500">Install</strong>.</li>
               <Image
                 src="/images/blog/install-step4.jpg"
                 alt="Создание ярлыков на рабочем столе"
@@ -191,7 +191,7 @@ export default function BlogPost() {
               <li>По завершении установки, установите драйверы для устройства и дополнительные файлы.</li>
               <li>Добавьте папку с установленным приложением в список исключений вашего антивируса и Защитника Windows.</li>
               <li>Запустите программу, щелкнув на ярлыке на рабочем столе.</li>
-              <li>Появится окно с запросом <strong className="text-rose-500">Activation ID</strong>. Скопируйте это сообщение и отправьте его нам для получения ключа активации.</li>
+              <li>Появится окно с запросом <strong className="text-red-500">Activation ID</strong>. Скопируйте это сообщение и отправьте его нам для получения ключа активации.</li>
               <Image
                 src="/images/blog/activation-id.jpg"
                 alt="Окно запроса Activation ID"
@@ -208,7 +208,7 @@ export default function BlogPost() {
               Для смены языка интерфейса программы:
             </p>
             <ol className="list-decimal ml-5 mb-4">
-              <li>После запуска программы нажмите <strong className="text-rose-500">Settings</strong>.</li>
+              <li>После запуска программы нажмите <strong className="text-red-500">Settings</strong>.</li>
               <Image
                 src="/images/blog/change-language-step1.jpg"
                 alt="Меню настроек программы"
@@ -217,7 +217,7 @@ export default function BlogPost() {
                 quality={75}
                 layout="responsive"
               />
-              <li>Выберите пункт <strong className="text-rose-500">Language</strong>.</li>
+              <li>Выберите пункт <strong className="text-red-500">Language</strong>.</li>
               <Image
                 src="/images/blog/change-language-step2.jpg"
                 alt="Выбор языка"
@@ -226,7 +226,7 @@ export default function BlogPost() {
                 quality={75}
                 layout="responsive"
               />
-              <li>Выберите нужный язык и нажмите <strong className="text-rose-500">OK</strong>.</li>
+              <li>Выберите нужный язык и нажмите <strong className="text-red-500">OK</strong>.</li>
               <Image
                 src="/images/blog/change-language-step3.jpg"
                 alt="Подтверждение выбора языка"
@@ -240,7 +240,7 @@ export default function BlogPost() {
             <h3 className="text-2xl font-semibold mt-8 scroll-section" id="first-connection">Первое подключение</h3>
             <hr className="border-neutral-300 mb-4" />
             <ol className="list-decimal ml-5 mb-4">
-              <li>В программе нажмите <strong className="text-rose-500">Настройки</strong>, затем <strong className="text-rose-500">Установки оборудования</strong>.</li>
+              <li>В программе нажмите <strong className="text-red-500">Настройки</strong>, затем <strong className="text-red-500">Установки оборудования</strong>.</li>
               <Image
                 src="/images/blog/first-connection-step1.jpg"
                 alt="Меню настроек подключения"
@@ -249,7 +249,7 @@ export default function BlogPost() {
                 quality={75}
                 layout="responsive"
               />
-              <li>Для обновления прибора подключите его к разъему <strong className="text-rose-500">OBD</strong>, затем нажмите кнопку <strong className="text-rose-500">Тест</strong> и <strong className="text-rose-500">Обновить</strong>.</li>
+              <li>Для обновления прибора подключите его к разъему <strong className="text-red-500">OBD</strong>, затем нажмите кнопку <strong className="text-red-500">Тест</strong> и <strong className="text-red-500">Обновить</strong>.</li>
               <Image
                 src="/images/blog/first-connection-step2.jpg"
                 alt="Процесс обновления устройства"
@@ -258,7 +258,7 @@ export default function BlogPost() {
                 quality={75}
                 layout="responsive"
               />
-              <li>Если прибор не подключен, будет выведено сообщение об ошибке: <strong className="text-rose-500">Тест: Ошибка</strong>.</li>
+              <li>Если прибор не подключен, будет выведено сообщение об ошибке: <strong className="text-red-500">Тест: Ошибка</strong>.</li>
               <Image
                 src="/images/blog/first-connection-error.jpg"
                 alt="Сообщение об ошибке при тесте"
@@ -272,24 +272,24 @@ export default function BlogPost() {
             <h3 className="text-2xl font-semibold mt-8 scroll-section" id="faq">Часто задаваемые вопросы (FAQ)</h3>
             <hr className="border-neutral-300 mb-4" />
             <ul className="list-disc ml-5">
-              <li><strong className="text-rose-500">Откуда скачать программу?</strong> - Вы можете скачать необходимое программное обеспечение вместе с подробной инструкцией по установке на нашем официальном веб-сайте по следующей ссылке. Для этого перейдите в раздел Программы -> Мультимарочные -> Delphi DS150e и нажмите кнопку Скачать.</li>
-              <li><strong className="text-rose-500">Ошибка при открытии архива</strong> - В случае возникновения ошибки при открытии скачанного архива с программой, есть несколько причин, которые могут вызывать данную проблему. Одной из наиболее частых причин является наличие антивирусного программного обеспечения, которое может блокировать запуск файла архива. Проверьте настройки антивирусной программы и убедитесь, что она не блокирует открытие архива. Также следует убедиться, что у вас установлена последняя версия программы для разархивации архивов, например, WinRAR или WinZip. Устаревшая версия программы также может вызывать проблемы при открытии архивов. Если вы используете для скачивания архива Яндекс Браузер, обратите внимание, что иногда защита в браузере может помешать корректному открытию файлов. Чтобы избежать этой проблемы, рекомендуется отключить функцию проверки безопасности для скачиваемых файлов. Для этого зайдите в настройки браузера, перейдите на вкладку "Безопасность" и снимите галочку с опции "Проверять безопасность посещаемых сайтов и загружаемых файлов". Если причина не в антивирусной программе и у вас установлена актуальная версия программы для разархивации, попробуйте повторно скачать архив и убедитесь, что он был загружен полностью.</li>
-              <li><strong className="text-rose-500">Проблемы с запуском на Windows 10, 11</strong> - Была обнаружена проблема с запуском программы на некоторых версиях Windows 10 и Windows 11. Для решения данной проблемы необходимо удалить следующее обновление через панель управления: "Microsoft .NET Framework 4.8.1 в Windows 11 для 64-разрядных систем (KB5011048)". Кроме того, вам следует выполнить все необходимые действия в соответствии с инструкцией, представленной в папке "Если не запускается программа".</li>
-              <li><strong className="text-rose-500">Файл Main.exe не найден</strong> - Наиболее частой причиной такой проблемы является антивирусное ПО. В этом случае вам следует удалить программу полностью с компьютера и затем установить ее заново, следуя инструкции. Не забудьте добавить папку с программой в исключения антивируса после ее установки, чтобы предотвратить повторное блокирование. Если программа не запускается или возникают ошибки, и вы скачали ее из нашего облачного хранилища. В таком случае, там есть папка «Если не запускается программа». Следуйте инструкциям в этой папке, и там же вы найдете подробное руководство по устранению возникших проблем.</li>
-              <li><strong className="text-rose-500">Что такое Activation ID?</strong> - Activation ID — это уникальный идентификатор, необходимый для активации программы. Он автоматически генерируется при первом запуске программы. Activation ID состоит из 43 символов, которые включают в себя буквы латинского алфавита и цифры. Пример Activation ID: 9FGT8-WX12E-YZ345-ABCDE-67890-12345-FGH67. Это сообщение необходимо скопировать и отправить нам для получения ключа активации. Activation ID уникален для каждого устройства, на котором устанавливается программа, поэтому его нельзя использовать на другом устройстве.</li>
-              <li><strong className="text-rose-500">У меня не получается установить ПО</strong> - Если у вас возникают трудности с установкой программного обеспечения, пожалуйста, обратитесь в нашу службу поддержки. Наши специалисты помогут вам разобраться с проблемой и предложат решение. Пожалуйста, укажите подробное описание проблемы и действия, которые вы предприняли до возникновения ошибки. Это поможет нам быстрее найти причину и предложить вам наиболее эффективное решение.</li>
+              <li><strong className="text-red-500">Откуда скачать программу?</strong> - Вы можете скачать необходимое программное обеспечение вместе с подробной инструкцией по установке на нашем официальном веб-сайте по следующей ссылке. Для этого перейдите в раздел Программы -> Мультимарочные -> Delphi DS150e и нажмите кнопку Скачать.</li>
+              <li><strong className="text-red-500">Ошибка при открытии архива</strong> - В случае возникновения ошибки при открытии скачанного архива с программой, есть несколько причин, которые могут вызывать данную проблему. Одной из наиболее частых причин является наличие антивирусного программного обеспечения, которое может блокировать запуск файла архива. Проверьте настройки антивирусной программы и убедитесь, что она не блокирует открытие архива. Также следует убедиться, что у вас установлена последняя версия программы для разархивации архивов, например, WinRAR или WinZip. Устаревшая версия программы также может вызывать проблемы при открытии архивов. Если вы используете для скачивания архива Яндекс Браузер, обратите внимание, что иногда защита в браузере может помешать корректному открытию файлов. Чтобы избежать этой проблемы, рекомендуется отключить функцию проверки безопасности для скачиваемых файлов. Для этого зайдите в настройки браузера, перейдите на вкладку "Безопасность" и снимите галочку с опции "Проверять безопасность посещаемых сайтов и загружаемых файлов". Если причина не в антивирусной программе и у вас установлена актуальная версия программы для разархивации, попробуйте повторно скачать архив и убедитесь, что он был загружен полностью.</li>
+              <li><strong className="text-red-500">Проблемы с запуском на Windows 10, 11</strong> - Была обнаружена проблема с запуском программы на некоторых версиях Windows 10 и Windows 11. Для решения данной проблемы необходимо удалить следующее обновление через панель управления: "Microsoft .NET Framework 4.8.1 в Windows 11 для 64-разрядных систем (KB5011048)". Кроме того, вам следует выполнить все необходимые действия в соответствии с инструкцией, представленной в папке "Если не запускается программа".</li>
+              <li><strong className="text-red-500">Файл Main.exe не найден</strong> - Наиболее частой причиной такой проблемы является антивирусное ПО. В этом случае вам следует удалить программу полностью с компьютера и затем установить ее заново, следуя инструкции. Не забудьте добавить папку с программой в исключения антивируса после ее установки, чтобы предотвратить повторное блокирование. Если программа не запускается или возникают ошибки, и вы скачали ее из нашего облачного хранилища. В таком случае, там есть папка «Если не запускается программа». Следуйте инструкциям в этой папке, и там же вы найдете подробное руководство по устранению возникших проблем.</li>
+              <li><strong className="text-red-500">Что такое Activation ID?</strong> - Activation ID — это уникальный идентификатор, необходимый для активации программы. Он автоматически генерируется при первом запуске программы. Activation ID состоит из 43 символов, которые включают в себя буквы латинского алфавита и цифры. Пример Activation ID: 9FGT8-WX12E-YZ345-ABCDE-67890-12345-FGH67. Это сообщение необходимо скопировать и отправить нам для получения ключа активации. Activation ID уникален для каждого устройства, на котором устанавливается программа, поэтому его нельзя использовать на другом устройстве.</li>
+              <li><strong className="text-red-500">У меня не получается установить ПО</strong> - Если у вас возникают трудности с установкой программного обеспечения, пожалуйста, обратитесь в нашу службу поддержки. Наши специалисты помогут вам разобраться с проблемой и предложат решение. Пожалуйста, укажите подробное описание проблемы и действия, которые вы предприняли до возникновения ошибки. Это поможет нам быстрее найти причину и предложить вам наиболее эффективное решение.</li>
             </ul>
 
             <h3 className="text-2xl font-semibold mt-8 scroll-section" id="attention">ВНИМАНИЕ!</h3>
             <hr className="border-neutral-300 mb-4" />
             <p className="mb-4">
-              <strong className="text-rose-500">Запрещено</strong> подключать автосканер в USB-порт ноутбука, зарядка которого осуществляется от бортовой сети диагностируемого автомобиля (т.е. через адаптер от прикуривателя)!
+              <strong className="text-red-500">Запрещено</strong> подключать автосканер в USB-порт ноутбука, зарядка которого осуществляется от бортовой сети диагностируемого автомобиля (т.е. через адаптер от прикуривателя)!
             </p>
             
             {/* Кнопка "Вернуться в блог" перемещена сюда, чтобы быть внизу страницы */}
             <div className="mt-16 flex justify-center">
               <Link href="/#blog" passHref>
-                <a className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
+                <a className="bg-gradient-to-r from-black to-red-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
                   Вернуться в блог
                 </a>
               </Link>
