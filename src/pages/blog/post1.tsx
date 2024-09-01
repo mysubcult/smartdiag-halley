@@ -45,6 +45,7 @@ export default function BlogPost() {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
         updateTitle(); 
+        document.title = router.asPath.split('#')[1] || '';
       }
     };
 
