@@ -1,7 +1,9 @@
+// post1.txt
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
-import Head from 'next/head';
+import Head from 'next/head'; // Импортируем Head
 
 export default function BlogPost() {
   const baseTitle = "Как справиться с ошибкой при открытии архива";
