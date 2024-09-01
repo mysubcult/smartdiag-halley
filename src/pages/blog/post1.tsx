@@ -36,11 +36,11 @@ export default function BlogPost() {
       const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
       const hashKey = hash as keyof typeof titles;
       const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
+      setCurrentHash(hash); // Устанавливаем текущий якорь
       document.title = title; // Устанавливаем заголовок страницы
     };
 
     updateTitle(); // Обновляем заголовок при первой загрузке
-    setCurrentHash(router.asPath.split('#')[1] || ''); // Устанавливаем текущий якорь
 
     // Обновляем заголовок при смене видимости вкладки или при возвращении на вкладку
     const handleVisibilityChange = () => {
@@ -78,10 +78,8 @@ export default function BlogPost() {
   if (!isClient) return null; // Возвращаем null, если код выполняется на сервере
 
   return (
-    <Layout>
-      {/* Перенесите тег Head сюда, чтобы полностью управлять заголовком с уровня компонента страницы */}
+    <Layout title={currentHash in titles ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle}>
       <Head>
-        <title>{currentHash in titles ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle}</title> {/* Динамически обновляем заголовок */}
         <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
         <meta name="keywords" content="ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО" />
       </Head>
