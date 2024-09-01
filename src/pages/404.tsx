@@ -6,12 +6,11 @@ import Head from "next/head";
 export default function Home() {
   return (
     <Layout>
-      {/* Установка актуального заголовка и мета-описания */}
       <Head>
-        <title>Страница не найдена - Ошибка 404</title>
-        <meta name="description" content="Страница, которую вы ищете, не найдена. Возможно, она была удалена или вы ввели неправильный адрес." />
+        <title>404 - Упс! Что-то пошло не так</title>
+        <meta name="description" content="Страница не найдена. Вы можете вернуться на главную страницу." />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
-      
       <div
         className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16"
         id="faq"
