@@ -17,8 +17,6 @@ export default function BlogPost() {
   const pageKeywords = "ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО";
 
   useEffect(() => {
-    // Обновление заголовка вручную для уверенности
-    document.title = baseTitle;
     setIsClient(true);
   }, []);
 
