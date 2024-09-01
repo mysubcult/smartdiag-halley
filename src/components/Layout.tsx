@@ -6,7 +6,7 @@ import { ReactNode, useEffect } from "react";
 
 interface LayoutProps {
   children: ReactNode;
-  title?: string; // Заголовок опциональный
+  title?: string;
   description?: string;
   keywords?: string;
   image?: string;
@@ -15,15 +15,12 @@ interface LayoutProps {
 
 const Layout = ({ children, title, description, keywords, image, type }: LayoutProps) => {
   const router = useRouter();
-  const defaultTitle = "SmartDiag - Ваш проводник в мире автодиагностики"; // Дефолтный заголовок
+  const defaultTitle = "SmartDiag - Ваш проводник в мире автодиагностики";
 
-  // Устанавливаем metaTitle либо на основе переданного title, либо на основе defaultTitle
   const metaTitle = title || defaultTitle;
 
-  useEffect(() => {
-    // Устанавливаем заголовок страницы
-    document.title = metaTitle;
-  }, [metaTitle]); // Только если metaTitle изменился
+  // Не устанавливаем document.title в Layout
+  // Заголовок будет устанавливаться только компонентом BlogPost или другим компонентом
 
   const meta = {
     description: description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.",
@@ -35,6 +32,7 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
   return (
     <>
       <Head>
+        <title>{metaTitle}</title> {/* Оставляем установку title через Head */}
         <meta name="description" content={meta.description} />
         <meta name="keywords" content={meta.keywords} />
         <meta property="og:type" content={meta.type} />
