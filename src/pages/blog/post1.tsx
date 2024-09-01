@@ -31,36 +31,32 @@ export default function BlogPost() {
   // Обновление заголовка страницы при изменении якоря
   useEffect(() => {
     if (!isClient) return;
-
+  
     const updateTitle = () => {
-      const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
+      const hash = router.asPath.split('#')[1] || ''; // Get current anchor or empty string
       const hashKey = hash as keyof typeof titles;
       const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-      document.title = title; // Устанавливаем заголовок страницы
+      document.title = title; // Set page title
+      setCurrentHash(hash); // Update currentHash state
     };
-
-    updateTitle(); // Обновляем заголовок при первой загрузке
-    setCurrentHash(router.asPath.split('#')[1] || ''); // Устанавливаем текущий якорь
-
-    // Обновляем заголовок при смене видимости вкладки или при возвращении на вкладку
+  
+    updateTitle(); // Update title on initial load
+  
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        updateTitle(); // Обновляем заголовок, если вкладка становится видимой
+        updateTitle(); // Update title when the tab becomes visible
       }
     };
-
-    const handleFocus = () => {
-      updateTitle(); // Обновляем заголовок при фокусе на окно
-    };
-
+  
+    // Add event listener for visibility change
     document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('focus', handleFocus);
-
+  
+    // Cleanup event listener on component unmount
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('focus', handleFocus);
     };
-  }, [router.asPath, isClient]);
+  }, [isClient, router.asPath]); // Adding router.asPath to the dependency array
+
 
   // Общие классы для кнопок и ссылок
   const commonLinkClass = "flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300";
