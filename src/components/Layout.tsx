@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 interface LayoutProps {
   children: ReactNode;
@@ -25,6 +25,15 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
     type: type || "website",
   };
 
+  useEffect(() => {
+    // Если заголовок передан, установим его в document.title
+    if (title) {
+      document.title = title;
+    } else {
+      document.title = "SmartDiag - Ваш проводник в мире автодиагностики";
+    }
+  }, [title]);
+
   return (
     <>
       <Head>
@@ -37,7 +46,6 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
         <meta property="og:description" content={meta.description} />
         <meta property="og:image" content={meta.image} />
         <link rel="canonical" href={`${siteUrl}${router.asPath}`} />
-        {/* Можно добавить дополнительные мета-теги для улучшения SEO */}
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SmartDiag Team" />
       </Head>
