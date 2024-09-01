@@ -1,7 +1,8 @@
 import Head from "next/head";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
+import { useRouter } from "next/router";
 
 interface LayoutProps {
   children: ReactNode;
@@ -13,6 +14,8 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, title, description, keywords, image, type }: LayoutProps) => {
+  const router = useRouter();
+
   // Базовые метаданные
   const baseTitle = "SmartDiag - Ваш проводник в мире автодиагностики";
   const baseDescription = "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.";
@@ -28,6 +31,11 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
     type: type || "website",
   };
 
+  // Обновляем заголовок и метаданные при изменении маршрута
+  useEffect(() => {
+    document.title = meta.title;
+  }, [router.pathname, meta.title]);
+
   return (
     <>
       <Head>
@@ -38,7 +46,7 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={meta.description} />
         <meta property="og:image" content={meta.image} />
-        <link rel="canonical" href="/" />
+        <link rel="canonical" href={router.pathname} />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SmartDiag Team" />
       </Head>
