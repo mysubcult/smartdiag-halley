@@ -13,11 +13,21 @@ export default function BlogPost() {
   // Основной заголовок страницы - измените его для каждого нового поста
   const baseTitle = "Как справиться с ошибкой при открытии архива";
 
+  // Объект для хранения заголовков и текстов пунктов меню с эмодзи
+  const titles = {
+    '': '🏠 В начало',
+    'antivirus-issue': '🛡️ Проблема с антивирусом',
+    'outdated-software': '⏳ Устаревшее программное обеспечение',
+    'download-errors': '📥 Ошибки при загрузке',
+    'yandex-tips': '🌐 Советы для пользователей Яндекс Браузера',
+    'support': '📞 Поддержка'
+  } as const;
+
   useEffect(() => {
     setIsClient(true); // Устанавливаем флаг, что код выполняется на клиенте
   }, []);
 
-  // Функция прокрутки наверх и сброса заголовка
+  // Функция прокрутки наверх и сброса якоря в URL
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     window.history.replaceState({}, document.title, window.location.pathname);
@@ -60,8 +70,15 @@ export default function BlogPost() {
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
             <h3 className="text-center text-xl font-bold border-b-2 border-rose-500 mb-3">Навигация</h3>
             <nav className="space-y-3">
-              <a onClick={scrollToTop} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">🏠 В начало</a>
-              {/* Ссылки на другие якорные элементы */}
+              <a onClick={scrollToTop} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">{titles['']}</a>
+              {Object.entries(titles).map(([key, value]) => {
+                if (key === '') return null;
+                return (
+                  <Link key={key} href={`#${key}`} passHref scroll={false}>
+                    <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">{value}</a>
+                  </Link>
+                );
+              })}
             </nav>
           </div>
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0" id="top">
