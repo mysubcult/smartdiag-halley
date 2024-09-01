@@ -1,12 +1,12 @@
 // /src/components/Layout.tsx
 
 import Head from "next/head";
-import { ReactNode } from "react";
+import { useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 interface LayoutProps {
-  children: ReactNode;
+  children: React.ReactNode;
   title?: string;
   description?: string;
   keywords?: string;
@@ -15,6 +15,10 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, title, description, keywords, image, type }: LayoutProps) => {
+  useEffect(() => {
+    document.title = title || "SmartDiag - Ваш проводник в мире автодиагностики";
+  }, [title]);
+
   return (
     <>
       <Head>
