@@ -36,9 +36,7 @@ export default function BlogPost() {
       const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
       const hashKey = hash as keyof typeof titles;
       const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-      if (document.title !== title) { // Проверяем, нужно ли обновлять заголовок
-        document.title = title; // Устанавливаем заголовок страницы
-      }
+      document.title = title; // Устанавливаем заголовок страницы
     };
 
     updateTitle(); // Обновляем заголовок при первой загрузке
@@ -81,6 +79,7 @@ export default function BlogPost() {
 
   return (
     <Layout>
+      {/* Перенесите тег Head сюда, чтобы полностью управлять заголовком с уровня компонента страницы */}
       <Head>
         <title>{currentHash in titles ? `${baseTitle} | ${titles[currentHash as keyof typeof titles]}` : baseTitle}</title> {/* Динамически обновляем заголовок */}
         <meta name="description" content="Руководство по устранению ошибок при открытии архивов" />
