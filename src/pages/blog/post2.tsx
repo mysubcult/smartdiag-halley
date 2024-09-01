@@ -27,7 +27,6 @@ export default function BlogPost() {
 
   useEffect(() => {
     setIsClient(true);
-    document.title = baseTitle;
   }, []);
 
   const scrollToTop = () => {
@@ -38,18 +37,7 @@ export default function BlogPost() {
   if (!isClient) return null;
 
   return (
-    <Layout>
-      <Head>
-        <title>{baseTitle} - Полное руководство по установке Autocom 2021.11</title>
-        <meta name="description" content="Полное руководство по установке программы Autocom 2021.11 с подробными инструкциями по отключению антивирусов, настройке брандмауэра, установке и настройке программы, смене языка и первому подключению." />
-        <meta name="keywords" content="установка Autocom 2021.11, отключение антивирусов, настройка брандмауэра, смена языка, автосканер, диагностическое ПО, руководство по установке" />
-        <meta property="og:title" content="Инструкция по установке Autocom 2021.11" />
-        <meta property="og:description" content="Следуйте нашей пошаговой инструкции по установке программы Autocom 2021.11. Отключите антивирусы, настройте брандмауэр, установите программу и смените язык интерфейса. Получите поддержку для первого подключения и ответы на частые вопросы." />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://смартдиаг.рф${router.asPath}`} />
-        <meta property="og:image" content="/images/install/og-image.png" />
-        <link rel="canonical" href={`https://смартдиаг.рф${router.asPath}`} />
-      </Head>
+    <Layout title={baseTitle}>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
@@ -144,11 +132,9 @@ export default function BlogPost() {
                 <li>Загрузите архив с названием <strong className="text-red-500">Autocom 2021.11.rar</strong> и после завершения загрузки распакуйте его. Если при открытии архива или попытке распаковки возникает ошибка, рекомендуем убедиться, что архив был полностью загружен. (Иногда такие ошибки могут возникать из-за встроенного антивируса в Яндекс.Браузере, поэтому стоит также временно отключить его. Это можно сделать, перейдя в &quot;настройки браузера&quot;, затем в раздел &quot;безопасность&quot; и убрав галочку с опции &quot;Проверять безопасность посещаемых сайтов и загружаемых файлов&quot;. После этого попробуйте снова открыть архив и распаковать его.)</li>
                 <li>Запустите файл установки.</li>
                 <li>Нажмите <strong className="text-red-500">Next</strong>.</li>
-                {/* Убираем картинку после этого пункта */}
                 <li>Введите пароль: <code className="text-red-500">NewSoftware2021</code> и нажмите <strong className="text-red-500">Next</strong>.</li>
                 <li>Выберите путь установки.</li>
                 <li>Выберите тип вашего прибора. Если у вас версия прибора с двумя платами или если вы не знаете вариацию вашего прибора, выберите <strong className="text-red-500">Type 1</strong>. Если у вас ОДНОПЛАТНЫЙ прибор, выберите <strong className="text-red-500">Type 2</strong> и нажмите <strong className="text-red-500">Next</strong>. Этот шаг крайне важен при выборе. Помните, что неправильный выбор типа при установке и последующей перепрошивке может привести к неработоспособности прибора.</li>
-                {/* Перемещаем картинку сюда */}
                 <Image
                   src="/images/install/install-step1.png"
                   alt="Начало установки программы"
@@ -263,7 +249,6 @@ export default function BlogPost() {
               </p>
             </section>
             
-            {/* Кнопка "Вернуться в блог" перемещена сюда, чтобы быть внизу страницы */}
             <div className="mt-16 flex justify-center">
               <Link href="/#blog" passHref>
                 <a className="bg-gradient-to-r from-black to-red-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
