@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 interface LayoutProps {
   children: ReactNode;
@@ -24,10 +24,6 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
     image: image || "/images/seo/halley-banner.png",
     type: type || "website",
   };
-
-  useEffect(() => {
-    document.title = meta.title; // Устанавливаем заголовок только при изменении title
-  }, [meta.title]); // Следим за изменениями заголовка
 
   return (
     <>
