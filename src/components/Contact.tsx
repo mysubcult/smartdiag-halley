@@ -1,6 +1,4 @@
-// /src/components/Contact.tsx
-
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import PrivacyPolicyModal from './PrivacyPolicyModal';
 import Image from 'next/image';
@@ -17,7 +15,7 @@ type Info = {
   orderNumber: string;
 };
 
-const Contact = () => {
+export default function Contact() {
   const [modalState, setModalState] = useState({ isModalOpen: false, isChecked: true, isSuccess: false });
 
   const {
@@ -32,19 +30,17 @@ const Contact = () => {
 
   const topic = watch('topic');
 
-  const getMessagePlaceholder = useMemo(() => {
-    return (topic: string) => {
-      const placeholders: { [key: string]: string } = {
-        'Активация прибора':
-          'Введите ваше сообщение. В зависимости от типа прибора, необходимо предоставить соответствующую информацию, такую как номер заказа, серийный номер, ACTIVATION ID и т.п.',
-        'Помощь с установкой ПО':
-          'Введите ваше сообщение. Уточните модель прибора и удобное для вас время, когда мы можем связаться с вами для дистанционной установки ПО.',
-        'Заказ оборудования':
-          'Мы рады предложить вам разнообразный ассортимент приборов, доступных как с наших складов в Москве, так и напрямую от лучших поставщиков из Китая. У нас есть всё, что вам может понадобиться, и это по лучшим ценам. Напишите нам, чтобы уточнить подробности.',
-      };
-      return placeholders[topic] || 'Введите ваше сообщение';
+  const getMessagePlaceholder = (topic: string) => {
+    const placeholders: { [key: string]: string } = {
+      'Активация прибора':
+        'Введите ваше сообщение. В зависимости от типа прибора, необходимо предоставить соответствующую информацию, такую как номер заказа, серийный номер, ACTIVATION ID и т.п.',
+      'Помощь с установкой ПО':
+        'Введите ваше сообщение. Уточните модель прибора и удобное для вас время, когда мы можем связаться с вами для дистанционной установки ПО.',
+      'Заказ оборудования':
+        'Мы рады предложить вам разнообразный ассортимент приборов, доступных как с наших складов в Москве, так и напрямую от лучших поставщиков из Китая. У нас есть всё, что вам может понадобиться, и это по лучшим ценам. Напишите нам, чтобы уточнить подробности.',
     };
-  }, [topic]);
+    return placeholders[topic] || 'Введите ваше сообщение';
+  };
 
   const onSubmit = async (data: Info, e: any) => {
     try {
@@ -440,5 +436,3 @@ const ErrorMessage = ({ onReset }: any) => (
     </button>
   </div>
 );
-
-export default React.memo(Contact);
