@@ -36,7 +36,9 @@ export default function BlogPost() {
       const hash = router.asPath.split('#')[1] || ''; // Получаем текущий якорь или пустую строку
       const hashKey = hash as keyof typeof titles;
       const title = hashKey in titles ? `${baseTitle} | ${titles[hashKey]}` : baseTitle;
-      document.title = title; // Устанавливаем заголовок страницы
+      if (document.title !== title) { // Проверяем, нужно ли обновлять заголовок
+        document.title = title; // Устанавливаем заголовок страницы
+      }
     };
 
     updateTitle(); // Обновляем заголовок при первой загрузке
