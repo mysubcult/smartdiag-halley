@@ -16,7 +16,6 @@ export default function BlogPost() {
   // Объект для хранения заголовков и текстов пунктов меню с эмодзи
   const titles = {
     '': '🏠 В начало',
-    'introduction': '🔍 Введение',
     'disable-antivirus': '🛡️ Отключение антивирусов',
     'firewall': '🔥 Отключение брандмауэра',
     'install-program': '📥 Установка программы',
@@ -87,9 +86,6 @@ export default function BlogPost() {
           </div>
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0" id="top">
             <h2 className="text-4xl font-bold text-center">Инструкция по установке Autocom 2021.11</h2>
-            
-            <h3 className="text-2xl font-semibold mt-8 scroll-section" id="introduction">Введение</h3>
-            <hr className="border-neutral-300 mb-4" />
             <p className="pt-6 pb-8 text-base dark:text-neutral-400">
               Мы разработали данную инструкцию, чтобы обеспечить максимальный комфорт и успешность в установке приложения. Чтобы избежать возможных проблем, пожалуйста, внимательно следуйте всем пунктам инструкции.
             </p>
@@ -107,7 +103,15 @@ export default function BlogPost() {
               </ol>
             </p>
             <Image
-              src="/images/blog/disable-windows-defender.jpg"
+              src="/images/blog/disable-windows-defender-step1.jpg"
+              alt="Параметры безопасности Windows"
+              width={800}
+              height={600}
+              quality={75}
+              layout="responsive"
+            />
+            <Image
+              src="/images/blog/disable-windows-defender-step2.jpg"
               alt="Отключение Защитника Windows"
               width={800}
               height={600}
@@ -122,10 +126,18 @@ export default function BlogPost() {
             </p>
             <ol className="list-decimal ml-5 mb-4">
               <li>Откройте Панель управления.</li>
-              <li>Перейдите в Брандмауэр Защитника Windows и отключите его.</li>
+              <li>Перейдите в Брандмауэр Защитника Windows и отключите его, как показано на изображениях ниже.</li>
             </ol>
             <Image
-              src="/images/blog/disable-firewall.jpg"
+              src="/images/blog/disable-firewall-step1.jpg"
+              alt="Открытие Брандмауэра Защитника Windows"
+              width={800}
+              height={600}
+              quality={75}
+              layout="responsive"
+            />
+            <Image
+              src="/images/blog/disable-firewall-step2.jpg"
               alt="Отключение брандмауэра Windows"
               width={800}
               height={600}
@@ -140,25 +152,55 @@ export default function BlogPost() {
               <li>Если при открытии архива или попытке распаковки возникает ошибка, убедитесь, что архив был полностью загружен.</li>
               <li>Запустите файл установки.</li>
               <li>Нажмите Next.</li>
+              <Image
+                src="/images/blog/install-step1.jpg"
+                alt="Начало установки программы"
+                width={800}
+                height={600}
+                quality={75}
+                layout="responsive"
+              />
               <li>Введите пароль: <code>NewSoftware2021</code> и нажмите Next.</li>
-              <li>Нажмите Next.</li>
-              <li>Выберите путь установки.</li>
+              <Image
+                src="/images/blog/install-step2.jpg"
+                alt="Введите пароль для установки"
+                width={800}
+                height={600}
+                quality={75}
+                layout="responsive"
+              />
+              <li>Выберите путь установки и нажмите Next.</li>
               <li>Выберите тип вашего прибора. Если у вас версия прибора с двумя платами или если вы не знаете вариацию вашего прибора, выберите Type 1. Если у вас ОДНОПЛАТНЫЙ прибор, выберите Type 2 и нажмите Next.</li>
-              <li>Нажмите Next.</li>
+              <Image
+                src="/images/blog/install-step3.jpg"
+                alt="Выбор типа прибора"
+                width={800}
+                height={600}
+                quality={75}
+                layout="responsive"
+              />
               <li>Оставьте отмеченным пункт &apos;Создать ярлыки на рабочем столе&apos;, затем нажмите Next и далее Install.</li>
+              <Image
+                src="/images/blog/install-step4.jpg"
+                alt="Создание ярлыков на рабочем столе"
+                width={800}
+                height={600}
+                quality={75}
+                layout="responsive"
+              />
               <li>По завершении установки, установите драйверы для устройства и дополнительные файлы.</li>
               <li>Добавьте папку с установленным приложением в список исключений вашего антивируса и Защитника Windows.</li>
               <li>Запустите программу, щелкнув на ярлыке на рабочем столе.</li>
               <li>Появится окно с запросом Activation ID. Скопируйте это сообщение и отправьте его нам для получения ключа активации.</li>
+              <Image
+                src="/images/blog/activation-id.jpg"
+                alt="Окно запроса Activation ID"
+                width={800}
+                height={600}
+                quality={75}
+                layout="responsive"
+              />
             </ol>
-            <Image
-              src="/images/blog/install-autocom.jpg"
-              alt="Процесс установки Autocom"
-              width={800}
-              height={600}
-              quality={75}
-              layout="responsive"
-            />
 
             <h3 className="text-2xl font-semibold mt-8 scroll-section" id="change-language">Смена языка в программе</h3>
             <hr className="border-neutral-300 mb-4" />
@@ -167,33 +209,65 @@ export default function BlogPost() {
             </p>
             <ol className="list-decimal ml-5 mb-4">
               <li>После запуска программы нажмите Settings.</li>
+              <Image
+                src="/images/blog/change-language-step1.jpg"
+                alt="Меню настроек программы"
+                width={800}
+                height={600}
+                quality={75}
+                layout="responsive"
+              />
               <li>Выберите пункт Language.</li>
+              <Image
+                src="/images/blog/change-language-step2.jpg"
+                alt="Выбор языка"
+                width={800}
+                height={600}
+                quality={75}
+                layout="responsive"
+              />
               <li>Выберите нужный язык и нажмите OK.</li>
+              <Image
+                src="/images/blog/change-language-step3.jpg"
+                alt="Подтверждение выбора языка"
+                width={800}
+                height={600}
+                quality={75}
+                layout="responsive"
+              />
             </ol>
-            <Image
-              src="/images/blog/change-language.jpg"
-              alt="Смена языка в программе Autocom"
-              width={800}
-              height={600}
-              quality={75}
-              layout="responsive"
-            />
 
             <h3 className="text-2xl font-semibold mt-8 scroll-section" id="first-connection">Первое подключение</h3>
             <hr className="border-neutral-300 mb-4" />
             <ol className="list-decimal ml-5 mb-4">
               <li>В программе нажмите Настройки, затем Установки оборудования.</li>
+              <Image
+                src="/images/blog/first-connection-step1.jpg"
+                alt="Меню настроек подключения"
+                width={800}
+                height={600}
+                quality={75}
+                layout="responsive"
+              />
               <li>Для обновления прибора подключите его к разъему OBD, затем нажмите кнопку Тест и Обновить.</li>
+              <Image
+                src="/images/blog/first-connection-step2.jpg"
+                alt="Процесс обновления устройства"
+                width={800}
+                height={600}
+                quality={75}
+                layout="responsive"
+              />
               <li>Если прибор не подключен, будет выведено сообщение об ошибке: Тест: Ошибка.</li>
+              <Image
+                src="/images/blog/first-connection-error.jpg"
+                alt="Сообщение об ошибке при тесте"
+                width={800}
+                height={600}
+                quality={75}
+                layout="responsive"
+              />
             </ol>
-            <Image
-              src="/images/blog/first-connection.jpg"
-              alt="Первое подключение устройства"
-              width={800}
-              height={600}
-              quality={75}
-              layout="responsive"
-            />
 
             <h3 className="text-2xl font-semibold mt-8 scroll-section" id="faq">Часто задаваемые вопросы (FAQ)</h3>
             <hr className="border-neutral-300 mb-4" />
