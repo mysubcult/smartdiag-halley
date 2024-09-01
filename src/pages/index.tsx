@@ -1,9 +1,9 @@
 // index.tsx
-import { Hero } from '../components/Hero'; // Именованный импорт
-import Soft from '../components/Soft';
-import Faq from '../components/Faq';
+import { Hero } from '../components/Hero';
+import { Soft } from '../components/Soft';
+import { Faq } from '../components/Faq';
 import Layout from '../components/Layout';
-import Head from 'next/head'; // Используем Head для заголовков и мета-данных
+import Head from 'next/head';
 
 export default function Home() {
   return (
