@@ -17,12 +17,13 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
   const router = useRouter();
   const defaultTitle = "SmartDiag - Ваш проводник в мире автодиагностики"; // Дефолтный заголовок
 
-  // Если title передан, используем его, иначе дефолтный
+  // Устанавливаем metaTitle либо на основе переданного title, либо на основе defaultTitle
   const metaTitle = title || defaultTitle;
 
   useEffect(() => {
-    document.title = metaTitle; // Устанавливаем заголовок страницы
-  }, [metaTitle]);
+    // Устанавливаем заголовок страницы
+    document.title = metaTitle;
+  }, [metaTitle]); // Только если metaTitle изменился
 
   const meta = {
     description: description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.",
