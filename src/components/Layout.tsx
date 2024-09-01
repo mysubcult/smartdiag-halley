@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 interface LayoutProps {
   children: ReactNode;
@@ -17,30 +17,18 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
   const router = useRouter();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
 
-  // Стандартные метаданные
-  const defaultTitle = "SmartDiag - Ваш проводник в мире автодиагностики";
-  const defaultDescription = "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей.";
-  const defaultKeywords = "автодиагностика, диагностика автомобилей, car diagnostics";
-  const defaultImage = "/images/seo/halley-banner.png";
-  const defaultType = "website";
-
-  // Метаданные текущей страницы
   const meta = {
-    title: title || defaultTitle,
-    description: description || defaultDescription,
-    keywords: keywords || defaultKeywords,
-    image: image || defaultImage,
-    type: type || defaultType,
+    title: title || "SmartDiag - Ваш проводник в мире автодиагностики",
+    description: description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.",
+    keywords: keywords || "автодиагностика, Autocom CDP+, Delphi DS150E, VCDS, Вася, mucar, thinkdiag, Thinkcar, диагностика автомобилей, программы для диагностики, оборудование для диагностики, car diagnostics, diagnostic tools, software for diagnostics, diagnostic equipment, vehicle diagnostics, diagnostic software, installation instructions, BMW, Audi, Mercedes, Toyota, Volkswagen, Ford, Nissan, Honda, Chevrolet, Kia",
+    image: image || "/images/seo/halley-banner.png",
+    type: type || "website",
   };
-
-  useEffect(() => {
-    // Устанавливаем заголовок страницы
-    document.title = meta.title;
-  }, [meta.title]);
 
   return (
     <>
       <Head>
+        <title>{meta.title}</title>
         <meta name="description" content={meta.description} />
         <meta name="keywords" content={meta.keywords} />
         <meta property="og:type" content={meta.type} />
