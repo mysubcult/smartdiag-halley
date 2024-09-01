@@ -3,12 +3,12 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 interface LayoutProps {
   children: ReactNode;
-  title?: string; // Опциональное свойство title
-  description?: string; // Опциональное свойство description
+  title?: string;
+  description?: string;
   keywords?: string;
   image?: string;
   type?: string;
@@ -17,6 +17,13 @@ interface LayoutProps {
 const Layout = ({ children, title, description, keywords, image, type }: LayoutProps) => {
   const router = useRouter();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
+
+  useEffect(() => {
+    // Обновляем заголовок документа, если title передан
+    if (title) {
+      document.title = title;
+    }
+  }, [title]); // Следим за изменениями title
 
   return (
     <>
