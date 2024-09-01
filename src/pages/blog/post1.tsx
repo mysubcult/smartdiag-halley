@@ -70,7 +70,7 @@ export default function BlogPost() {
           </div>
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
             <h3 className="text-center text-xl font-bold mb-3">Навигация</h3>
-            <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]">
+            <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]"/>
             <nav className="space-y-3">
               <a onClick={scrollToTop} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">{titles['']}</a>
               {Object.entries(titles).map(([key, value]) => {
