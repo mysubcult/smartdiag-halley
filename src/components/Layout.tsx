@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 interface LayoutProps {
   children: ReactNode;
@@ -18,16 +18,10 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
   const router = useRouter();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
 
-  useEffect(() => {
-    // Обновляем заголовок документа, если title передан
-    if (title) {
-      document.title = title;
-    }
-  }, [title]); // Следим за изменениями title
-
   return (
     <>
       <Head>
+        {/* Устанавливаем базовый заголовок, если title не передан */}
         <title>{title || "SmartDiag - Ваш проводник в мире автодиагностики"}</title>
         <meta name="description" content={description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS."} />
         <meta name="keywords" content={keywords || "автодиагностика, Autocom CDP+, Delphi DS150E, VCDS, диагностика автомобилей"} />
