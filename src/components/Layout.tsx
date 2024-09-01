@@ -15,7 +15,6 @@ interface LayoutProps {
 
 const Layout = ({ children, title, description, keywords, image, type }: LayoutProps) => {
   const router = useRouter();
-
   const meta = {
     title: title || "SmartDiag - Ваш проводник в мире автодиагностики",
     description: description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.",
@@ -26,7 +25,6 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
 
   return (
     <>
-      {/* Устанавливаем мета-теги только если они не указаны на уровне страницы */}
       <Head>
         <title>{meta.title}</title>
         <meta name="description" content={meta.description} />
