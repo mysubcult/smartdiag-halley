@@ -15,6 +15,8 @@ interface LayoutProps {
 
 const Layout = ({ children, title, description, keywords, image, type }: LayoutProps) => {
   const router = useRouter();
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
+
   const meta = {
     title: title || "SmartDiag - Ваш проводник в мире автодиагностики",
     description: description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.",
@@ -30,11 +32,14 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
         <meta name="description" content={meta.description} />
         <meta name="keywords" content={meta.keywords} />
         <meta property="og:type" content={meta.type} />
-        <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`} />
+        <meta property="og:url" content={`${siteUrl}${router.asPath}`} />
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={meta.description} />
         <meta property="og:image" content={meta.image} />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`} />
+        <link rel="canonical" href={`${siteUrl}${router.asPath}`} />
+        {/* Можно добавить дополнительные мета-теги для улучшения SEO */}
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="SmartDiag Team" />
       </Head>
       <Navbar />
       <main>{children}</main>
