@@ -143,7 +143,7 @@ export default function BlogPost() {
               <ol className="list-decimal ml-5">
                 <li>Загрузите архив с названием <strong className="text-red-500">Autocom 2021.11.rar</strong> и после завершения загрузки распакуйте его. Если при открытии архива или попытке распаковки возникает ошибка, рекомендуем убедиться, что архив был полностью загружен. (Иногда такие ошибки могут возникать из-за встроенного антивируса в Яндекс.Браузере, поэтому стоит также временно отключить его. Это можно сделать, перейдя в &quot;настройки браузера&quot;, затем в раздел &quot;безопасность&quot; и убрав галочку с опции &quot;Проверять безопасность посещаемых сайтов и загружаемых файлов&quot;. После этого попробуйте снова открыть архив и распаковать его.)</li>
                 <li>Запустите файл установки.</li>
-                <li>Нажмите <strong className="text-red-500">Next</strong>.</li>
+                <li>Введите пароль: <code className="text-red-500">NewSoftware2021</code> и нажмите <strong className="text-red-500">Next</strong>.</li>
                 <Image
                   src="/images/install/install-step1.png"
                   alt="Начало установки программы"
@@ -152,19 +152,10 @@ export default function BlogPost() {
                   quality={75}
                   layout="responsive"
                 />
-                <li>Введите пароль: <code className="text-red-500">NewSoftware2021</code> и нажмите <strong className="text-red-500">Next</strong>.</li>
-                <Image
-                  src="/images/install/install-step2.png"
-                  alt="Введите пароль для установки"
-                  width={800}
-                  height={600}
-                  quality={75}
-                  layout="responsive"
-                />
                 <li>Выберите путь установки.</li>
                 <li>Выберите тип вашего прибора. Если у вас версия прибора с двумя платами или если вы не знаете вариацию вашего прибора, выберите <strong className="text-red-500">Type 1</strong>. Если у вас ОДНОПЛАТНЫЙ прибор, выберите <strong className="text-red-500">Type 2</strong> и нажмите <strong className="text-red-500">Next</strong>. Этот шаг крайне важен при выборе. Помните, что неправильный выбор типа при установке и последующей перепрошивке может привести к неработоспособности прибора.</li>
                 <Image
-                  src="/images/install/install-step3.png"
+                  src="/images/install/install-step2.png"
                   alt="Выбор типа прибора"
                   width={800}
                   height={600}
@@ -173,7 +164,7 @@ export default function BlogPost() {
                 />
                 <li>Оставьте отмеченным пункт <strong className="text-red-500">&apos;Создать ярлыки на рабочем столе&apos;</strong>, затем нажмите <strong className="text-red-500">Next</strong> и далее <strong className="text-red-500">Install</strong>. По завершении установки, вам будет предложено установить драйверы для устройства и дополнительные файлы – необходимо выполнить установку. Если установочные файлы дополнительных программ сообщат, что данные программы уже установлены на вашем компьютере и предложат их модифицировать/обновить, пожалуйста, согласитесь.</li>
                 <Image
-                  src="/images/install/install-step4.png"
+                  src="/images/install/install-step3.png"
                   alt="Создание ярлыков на рабочем столе"
                   width={800}
                   height={600}
