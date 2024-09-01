@@ -15,6 +15,9 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, title, description, keywords, image, type }: LayoutProps) => {
+  const [isClient, setIsClient] = useState(false);
+  const [currentHash, setCurrentHash] = useState(''); // Храним текущий якорь
+  
   const router = useRouter();
   const meta = {
     title: title || "SmartDiag - Ваш проводник в мире автодиагностики",
@@ -23,9 +26,6 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
     image: image || "/images/seo/halley-banner.png",
     type: type || "website",
   };
-
-  const [isClient, setIsClient] = useState(false);
-  const [currentHash, setCurrentHash] = useState(''); // Храним текущий якорь
 
   // Основной заголовок страницы - измените его для каждого нового поста
   const baseTitle = "Как справиться с ошибкой при открытии архива";
