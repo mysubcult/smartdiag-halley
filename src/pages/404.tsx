@@ -1,25 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "../components/Layout";
-import Head from "next/head";
 
 export default function NotFound() {
   const pageTitle = "404 - Упс! Что-то пошло не так";
+  const pageDescription = "Страница, которую вы ищете, не найдена. Возможно, она была удалена или вы ввели неправильный адрес.";
 
   return (
-    <Layout title={pageTitle}>
-      {/* Дополнительный компонент Head можно убрать, если все уже передается через Layout */}
-      <Head>
-        <title>{pageTitle}</title>
-        <meta name="description" content="Страница, которую вы ищете, не найдена. Возможно, она была удалена или вы ввели неправильный адрес." />
-      </Head>
-      
+    <Layout title={pageTitle} description={pageDescription}>
       <div
         className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16"
         id="faq"
       >
         <h2 className="text-4xl font-bold text-center">Упс! Что-то пошло не так.</h2>
-
         <p className="pt-6 pb-16 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
           Страница не найдена.
         </p>
