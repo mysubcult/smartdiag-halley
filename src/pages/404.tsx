@@ -1,38 +1,19 @@
-import Image from "next/image";
-import Link from "next/link";
-import Layout from "../components/Layout";
+// /src/pages/404.tsx
 
-export default function NotFound() {
-  const pageTitle = "404 - Упс! Что-то пошло не так";
-  const pageDescription = "Страница, которую вы ищете, не найдена. Возможно, она была удалена или вы ввели неправильный адрес.";
+import Layout from '../components/Layout';
+
+const Custom404 = () => {
+  const pageTitle = "Страница не найдена - SmartDiag";
+  const pageDescription = "Извините, страница, которую вы ищете, не найдена.";
 
   return (
     <Layout title={pageTitle} description={pageDescription}>
-      <div
-        className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16"
-        id="faq"
-      >
-        <h2 className="text-4xl font-bold text-center">Упс! Что-то пошло не так.</h2>
-        <p className="pt-6 pb-16 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          Страница не найдена.
-        </p>
-        <Image
-          src="/images/404/404.svg"
-          alt="Image 404"
-          width={1920}
-          height={1080}
-          quality={75}
-          sizes="100vw"
-          className="w-[350px] md:w-4/12 justify-center text-center mx-auto"
-        />
-        <div className="mt-16 text-center">
-          <Link href="/">
-            <button className="bg-rose-500 text-white text-base rounded-full px-16 p-3 font-medium">
-              Вернуться на главную
-            </button>
-          </Link>
-        </div>
+      <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16" id="faq">
+        <h1 className="text-center text-4xl">404 - Страница не найдена</h1>
+        <p className="text-center">Похоже, вы потерялись. Попробуйте вернуться на главную.</p>
       </div>
     </Layout>
   );
-}
+};
+
+export default Custom404;
