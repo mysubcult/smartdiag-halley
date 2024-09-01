@@ -53,7 +53,7 @@ export default function Customers() {
             <div className="mx-auto w-full max-w-4xl bg-white dark:bg-transparent">
                 <div className="text-center justify-center items-center grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6">
                     {customers.map((item) => (
-                        <Link key={item.name} href={item.href} target="_blank">
+                        <Link key={item.name} href={item.href} target="_blank" rel="noopener noreferrer">
                             <Image
                                 className="h-10 w-auto mt-6 justify-center text-center mx-auto hover:scale-110 transition"
                                 src={item.src}
@@ -68,7 +68,5 @@ export default function Customers() {
                 </div>
             </div>
         </div>
-
     );
 }
-
