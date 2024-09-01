@@ -2,6 +2,7 @@
 
 import Head from "next/head";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
@@ -15,9 +16,12 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, title, description, keywords, image, type }: LayoutProps) => {
+  const router = useRouter();
+
   useEffect(() => {
+    // Обновляем заголовок при изменении маршрута
     document.title = title || "SmartDiag - Ваш проводник в мире автодиагностики";
-  }, [title]);
+  }, [title, router.pathname]);
 
   return (
     <>
