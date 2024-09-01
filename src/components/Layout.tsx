@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 interface LayoutProps {
   children: ReactNode;
@@ -18,7 +18,6 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
 
   const metaTitle = title || "SmartDiag - Ваш проводник в мире автодиагностики";
-
   const meta = {
     title: metaTitle,
     description: description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.",
@@ -26,6 +25,11 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
     image: image || "/images/seo/halley-banner.png",
     type: type || "website",
   };
+
+  // Используем useEffect для обновления заголовка при изменении маршрута
+  useEffect(() => {
+    document.title = meta.title;
+  }, [meta.title, router.asPath]);
 
   return (
     <>
