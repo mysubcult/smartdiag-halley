@@ -1,18 +1,20 @@
-import Contact from "../components/Contact";
-import Soft from "../components/Soft";
-import { Hero } from "../components/Hero";
 import Layout from "../components/Layout";
+import { Hero } from "../components/Hero";
+import Soft from "../components/Soft";
 import Faq from "../components/Faq";
-import { Services } from "../components/Services";
+import Services from "../components/Services";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <Layout title="SmartDiag - Ваш проводник в мире автодиагностики">
-      <Hero />
-      <Soft />
-      <Faq />
-      <Services />
-      <Contact />
+      {({ setCurrentSection }) => (
+        <>
+          <Hero setCurrentSection={setCurrentSection} />
+          <Soft />
+          <Faq />
+          <Services />
+        </>
+      )}
     </Layout>
   );
 }
