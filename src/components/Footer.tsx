@@ -1,4 +1,10 @@
 import { useRouter } from "next/router";
+import { Dispatch, SetStateAction } from "react";
+
+// Определение интерфейса пропсов
+interface FooterProps {
+  setCurrentSection: Dispatch<SetStateAction<string>>;
+}
 
 const menus = [
   { title: "Главная", id: "hero" },
@@ -21,14 +27,12 @@ const socialLinks = [
   },
 ];
 
-export default function Footer() {
+export default function Footer({ setCurrentSection }: FooterProps) {
   const router = useRouter();
 
-  // Изменение типа обработчика события
-  const handleNavigationClick = (id: string) => (event: React.MouseEvent<HTMLElement>) => {
+  const handleNavigationClick = (id: string, sectionName: string) => (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
-
-    // Проверяем, находимся ли мы не на главной странице
+    setCurrentSection(sectionName); // Обновляем текущую секцию
     if (router.pathname !== '/') {
       router.push('/').then(() => {
         const element = document.getElementById(id);
@@ -49,7 +53,7 @@ export default function Footer() {
       <div className="mx-auto px-6 lg:px-8 py-24 lg:py-4 grid grid-cols-1 lg:grid-cols-3">
         {/* Copyright Section */}
         <div className="text-center lg:text-left my-auto order-3 lg:order-1">
-          <a onClick={handleNavigationClick("hero")} style={{ cursor: 'pointer' }}>
+          <a onClick={handleNavigationClick("hero", "Главная")} style={{ cursor: 'pointer' }}>
             SmartDiag &copy; 2023-{new Date().getFullYear()}
           </a>
         </div>
@@ -57,7 +61,7 @@ export default function Footer() {
         {/* Menu Section */}
         <nav className="order-2 lg:order-2 py-10 lg:py-0 lg:flex gap-6 text-center mx-auto">
           {menus.map(({ title, id }) => (
-            <a key={title} onClick={handleNavigationClick(id)} className="py-2 hover:text-red-500 font-medium" style={{ cursor: 'pointer' }}>
+            <a key={title} onClick={handleNavigationClick(id, title)} className="py-2 hover:text-red-500 font-medium" style={{ cursor: 'pointer' }}>
               {title}
             </a>
           ))}
