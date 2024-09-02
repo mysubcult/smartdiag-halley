@@ -84,7 +84,9 @@ export default function Contact() {
             💬 <strong>Мы доступны в:</strong>
           </p>
           <div className="flex justify-center mt-2 text-dark-600 dark:text-neutral-400">
-            {/* Контактная информация */}
+            <div className="m-2"><a href="https://wa.me/79991234567" target="_blank" className="text-green-500 hover:text-green-600">WhatsApp</a></div>
+            <div className="m-2"><a href="viber://chat?number=+79991234567" target="_blank" className="text-purple-500 hover:text-purple-600">Viber</a></div>
+            <div className="m-2"><a href="tg://resolve?domain=smartdiag" target="_blank" className="text-blue-500 hover:text-blue-600">Telegram</a></div>
           </div>
           <div className="mt-4 text-center dark:text-neutral-400">
             📧 <strong>Email отдела продаж:</strong>
