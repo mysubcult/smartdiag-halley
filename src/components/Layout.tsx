@@ -25,10 +25,9 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
     type: type || "website",
   };
 
-  // useEffect для обновления заголовка при изменении title
   useEffect(() => {
-    document.title = meta.title; 
-  }, [meta.title]);
+    document.title = meta.title; // Устанавливаем заголовок только при изменении title
+  }, [meta.title]); // Следим за изменениями заголовка
 
   return (
     <>
