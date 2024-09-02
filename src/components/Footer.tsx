@@ -24,7 +24,8 @@ const socialLinks = [
 export default function Footer() {
   const router = useRouter();
 
-  const handleNavigationClick = (id) => (event) => {
+  // Изменение типа обработчика события
+  const handleNavigationClick = (id: string) => (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     const element = document.getElementById(id);
     if (element) {
