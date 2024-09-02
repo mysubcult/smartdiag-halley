@@ -21,6 +21,7 @@ export default function Navbar() {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
   const [isMobileView, setIsMobileView] = useState(false);
+  const [currentSection, setCurrentSection] = useState("Главная"); // Новое состояние для текущей секции
   const router = useRouter();
 
   useEffect(() => {
@@ -32,9 +33,15 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Изменение заголовка при изменении текущей секции
+  useEffect(() => {
+    document.title = `Основной заголовок | ${currentSection}`;
+  }, [currentSection]);
+
   const handleNavigationClick = useCallback(
-    (id: string) => (event: React.MouseEvent) => {
-      event.preventDefault(); // предотвращаем стандартное поведение
+    (id: string, sectionName: string) => (event: React.MouseEvent<HTMLElement>) => {
+      event.preventDefault();
+      setCurrentSection(sectionName); // Обновляем текущую секцию
       if (router.pathname !== '/') {
         router.push('/').then(() => {
           const element = document.getElementById(id);
@@ -78,7 +85,7 @@ export default function Navbar() {
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
               {/* Логотип с onClick для прокрутки */}
-              <a onClick={handleNavigationClick("hero")} style={{ cursor: 'pointer' }}>
+              <a onClick={handleNavigationClick("hero", "Главная")} style={{ cursor: 'pointer' }}>
                 <Image
                   className="block h-12 w-auto logo-animation"
                   src="/images/logos/logo.png"
@@ -98,7 +105,7 @@ export default function Navbar() {
                   <a
                     key={item.name}
                     className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
-                    onClick={handleNavigationClick(item.id)} // Используем только onClick для навигации
+                    onClick={handleNavigationClick(item.id, item.name)} // Передаем имя секции
                     style={{ cursor: 'pointer' }} // Стилизуем курсор, чтобы он выглядел как ссылка
                   >
                     {item.name}
@@ -180,7 +187,7 @@ export default function Navbar() {
               <a
                 key={item.name}
                 className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
-                onClick={handleNavigationClick(item.id)}
+                onClick={handleNavigationClick(item.id, item.name)}
                 style={{ cursor: 'pointer' }} // Стилизуем курсор, чтобы он выглядел как ссылка
               >
                 {item.name}
