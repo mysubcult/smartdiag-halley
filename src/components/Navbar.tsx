@@ -1,8 +1,13 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
+
+// Определение интерфейса пропсов
+interface NavbarProps {
+  setCurrentSection: Dispatch<SetStateAction<string>>;
+}
 
 const navigation = [
   { name: "Главная", id: "hero" },
@@ -16,12 +21,11 @@ function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar() {
+export default function Navbar({ setCurrentSection }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
   const [isMobileView, setIsMobileView] = useState(false);
-  const [currentSection, setCurrentSection] = useState("Главная"); // Новое состояние для текущей секции
   const router = useRouter();
 
   useEffect(() => {
@@ -32,11 +36,6 @@ export default function Navbar() {
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  // Изменение заголовка при изменении текущей секции
-  useEffect(() => {
-    document.title = `Основной заголовок | ${currentSection}`;
-  }, [currentSection]);
 
   const handleNavigationClick = useCallback(
     (id: string, sectionName: string) => (event: React.MouseEvent<HTMLElement>) => {
@@ -57,7 +56,7 @@ export default function Navbar() {
       }
       setIsMenuOpen(false);
     },
-    [router]
+    [router, setCurrentSection]
   );
 
   const updateFontSize = useCallback(() => {
@@ -84,7 +83,6 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              {/* Логотип с onClick для прокрутки */}
               <a onClick={handleNavigationClick("hero", "Главная")} style={{ cursor: 'pointer' }}>
                 <Image
                   className="block h-12 w-auto logo-animation"
@@ -105,8 +103,8 @@ export default function Navbar() {
                   <a
                     key={item.name}
                     className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
-                    onClick={handleNavigationClick(item.id, item.name)} // Передаем имя секции
-                    style={{ cursor: 'pointer' }} // Стилизуем курсор, чтобы он выглядел как ссылка
+                    onClick={handleNavigationClick(item.id, item.name)}
+                    style={{ cursor: 'pointer' }}
                   >
                     {item.name}
                   </a>
@@ -188,7 +186,7 @@ export default function Navbar() {
                 key={item.name}
                 className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
                 onClick={handleNavigationClick(item.id, item.name)}
-                style={{ cursor: 'pointer' }} // Стилизуем курсор, чтобы он выглядел как ссылка
+                style={{ cursor: 'pointer' }}
               >
                 {item.name}
               </a>
