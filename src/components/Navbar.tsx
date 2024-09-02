@@ -1,62 +1,53 @@
-import { useState, useEffect, useCallback, Dispatch, SetStateAction } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
-// Определение интерфейса пропсов
-interface NavbarProps {
-  setCurrentSection: Dispatch<SetStateAction<string>>;
-}
-
+// Навигационные ссылки
 const navigation = [
-  { name: "Главная", id: "hero" },
-  { name: "Программы", id: "soft" },
-  { name: "Блог", id: "blog" },
-  { name: "О нас", id: "services" },
-  { name: "Обратная связь", id: "contact" },
+  { name: "Главная", href: "/", anchor: "#hero" },
+  { name: "Программы", href: "/#soft", anchor: "#soft" },
+  { name: "Блог", href: "/#blog", anchor: "#blog" },
+  { name: "О нас", href: "/#services", anchor: "#services" },
+  { name: "Обратная связь", href: "/#contact", anchor: "#contact" },
 ];
 
+// Комбинирование классов
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar({ setCurrentSection }: NavbarProps) {
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
   const [isMobileView, setIsMobileView] = useState(false);
+
   const router = useRouter();
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 1200);
     };
+
     window.addEventListener("resize", handleResize);
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleNavigationClick = useCallback(
-    (id: string, sectionName: string) => (event: React.MouseEvent<HTMLElement>) => {
+    (anchor: string) => (event: React.MouseEvent) => {
       event.preventDefault();
-      setCurrentSection(sectionName); // Обновляем текущую секцию
       if (router.pathname !== '/') {
-        router.push('/').then(() => {
-          const element = document.getElementById(id);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        });
+        router.push('/').then(() => router.push(anchor, undefined, { scroll: false }));
       } else {
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
+        router.push(anchor, undefined, { scroll: false });
       }
       setIsMenuOpen(false);
     },
-    [router, setCurrentSection]
+    [router]
   );
 
   const updateFontSize = useCallback(() => {
@@ -83,7 +74,7 @@ export default function Navbar({ setCurrentSection }: NavbarProps) {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <a onClick={handleNavigationClick("hero", "Главная")} style={{ cursor: 'pointer' }}>
+              <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
                 <Image
                   className="block h-12 w-auto logo-animation"
                   src="/images/logos/logo.png"
@@ -94,29 +85,33 @@ export default function Navbar({ setCurrentSection }: NavbarProps) {
                   sizes="100vw"
                   loading="eager"
                 />
-              </a>
+              </Link>
             </div>
 
+            {/* Горизонтальное меню навигации */}
             <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
+                    href={item.href}
                     className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
-                    onClick={handleNavigationClick(item.id, item.name)}
-                    style={{ cursor: 'pointer' }}
+                    style={{ textDecoration: "none" }}
+                    scroll={false}
+                    onClick={handleNavigationClick(item.anchor)}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
           </div>
 
+          {/* Кнопки магазинов, смены темы и меню */}
           <div className="flex items-center gap-2">
             {!isMobileView && (
               <>
-                <a href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
+                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="block">
                   <button className="btn-ozon">
                     <Image
                       src="/images/logos/favicon.ico"
@@ -128,9 +123,9 @@ export default function Navbar({ setCurrentSection }: NavbarProps) {
                     />
                     OZON
                   </button>
-                </a>
+                </Link>
 
-                <a href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
+                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer" className="block">
                   <button className="btn-yandex">
                     <Image
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
@@ -142,9 +137,9 @@ export default function Navbar({ setCurrentSection }: NavbarProps) {
                     />
                     Яндекс Маркет
                   </button>
-                </a>
+                </Link>
 
-                <a href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
+                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer" className="block">
                   <button className="btn-wildberries">
                     <Image
                       src="/images/logos/favicon.ico"
@@ -156,40 +151,65 @@ export default function Navbar({ setCurrentSection }: NavbarProps) {
                     />
                     Wildberries
                   </button>
-                </a>
+                </Link>
               </>
             )}
 
+            {/* Кнопка смены темы */}
             <ThemeSwitchButton />
 
+            {/* Кнопка меню появляется, когда isMobileView == true */}
             {isMobileView && (
-              <button
-                className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                <span className="sr-only">Open main menu</span>
-                <div className="menu-icon-wrapper relative">
-                  <Bars3Icon className={`h-6 w-6 transition-transform ${isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"}`} />
-                  <XMarkIcon className={`h-6 w-6 transition-transform absolute top-0 left-0 ${isMenuOpen ? "rotate-[0deg] opacity-100" : "rotate-0 opacity-0"}`} />
-                </div>
-              </button>
+              <div className="flex items-center">
+                <button
+                  className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                >
+                  <span className="sr-only">Open main menu</span>
+                  <div className="menu-icon-wrapper relative">
+                    <Bars3Icon
+                      className={`h-6 w-6 transition-transform transform ${
+                        isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"
+                      }`}
+                      aria-hidden="true"
+                    />
+                    <XMarkIcon
+                      className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
+                        isMenuOpen ? "rotate-[0deg] opacity-100" : "rotate-0 opacity-0"
+                      }`}
+                      aria-hidden="true"
+                    />
+                  </div>
+                </button>
+              </div>
             )}
           </div>
         </div>
       </div>
 
+      {/* Popup Menu */}
       {isMenuOpen && (
-        <div className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
+        <div
+          className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
+          style={{
+            fontSize: fontSize,
+            maxHeight: `calc(100vh - 128px)`,
+            overflowY: "auto",
+            paddingTop: "24px",
+            paddingBottom: "24px",
+          }}
+        >
           <div className="flex flex-col items-center justify-center space-y-4">
             {navigation.map((item) => (
-              <a
+              <Link
                 key={item.name}
+                href={item.href}
                 className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
-                onClick={handleNavigationClick(item.id, item.name)}
-                style={{ cursor: 'pointer' }}
+                scroll={false}
+                onClick={handleNavigationClick(item.anchor)}
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
             <div className="flex flex-col items-center w-full mt-4">
               <button
@@ -197,51 +217,64 @@ export default function Navbar({ setCurrentSection }: NavbarProps) {
                 className="btn-submenu-toggle flex items-center justify-center py-2 text-lg font-medium"
               >
                 Магазины
-                <ChevronDownIcon className={`h-5 w-5 ml-2 transition-transform ${isSubMenuOpen ? "rotate-180" : "rotate-0"}`} />
+                <ChevronDownIcon
+                  className={`h-5 w-5 ml-2 transition-transform ${
+                    isSubMenuOpen ? "rotate-180" : "rotate-0"
+                  }`}
+                />
               </button>
               {isSubMenuOpen && (
                 <div className="submenu mt-2 space-y-3 w-full">
-                  <a href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
-                    <button className="btn-ozon flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors">
-                      <Image
-                        src="/images/logos/favicon.ico"
-                        alt="OZON"
-                        className="w-4 h-4 mr-2"
-                        width={16}
-                        height={16}
-                        loading="lazy"
-                      />
-                      OZON
-                    </button>
-                  </a>
+                  <Link
+                    href="https://www.ozon.ru/seller/smartdiag-862410/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-ozon flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
+                  >
+                    <Image
+                      src="/images/logos/favicon.ico"
+                      alt="OZON"
+                      className="w-4 h-4 mr-2"
+                      width={16}
+                      height={16}
+                      loading="lazy"
+                    />
+                    OZON
+                  </Link>
 
-                  <a href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
-                    <button className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors">
-                      <Image
-                        src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                        alt="Яндекс Маркет"
-                        className="w-4 h-4 mr-2"
-                        width={16}
-                        height={16}
-                        loading="lazy"
-                      />
-                      Яндекс Маркет
-                    </button>
-                  </a>
+                  <Link
+                    href="https://market.yandex.ru/business--smartdiag/50025236"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
+                  >
+                    <Image
+                      src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                      alt="Яндекс Маркет"
+                      className="w-4 h-4 mr-2"
+                      width={16}
+                      height={16}
+                      loading="lazy"
+                    />
+                    Яндекс Маркет
+                  </Link>
 
-                  <a href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
-                    <button className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors">
-                      <Image
-                        src="/images/logos/favicon.ico"
-                        alt="Wildberries"
-                        className="w-4 h-4 mr-2"
-                        width={16}
-                        height={16}
-                        loading="lazy"
-                      />
-                      Wildberries
-                    </button>
-                  </a>
+                  <Link
+                    href="https://www.wildberries.ru/seller/1343369"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
+                  >
+                    <Image
+                      src="/images/logos/favicon.ico"
+                      alt="Wildberries"
+                      className="w-4 h-4 mr-2"
+                      width={16}
+                      height={16}
+                      loading="lazy"
+                    />
+                    Wildberries
+                  </Link>
                 </div>
               )}
             </div>
