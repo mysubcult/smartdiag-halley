@@ -111,10 +111,9 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Существующие кнопки для магазинов и смены темы */}
             {!isMobileView && (
               <>
-                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="block">
+                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
                   <button className="btn-ozon">
                     <Image
                       src="/images/logos/favicon.ico"
@@ -127,10 +126,39 @@ export default function Navbar() {
                     OZON
                   </button>
                 </Link>
-                {/* Другие кнопки магазинов */}
+
+                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
+                  <button className="btn-yandex">
+                    <Image
+                      src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                      alt="Яндекс Маркет"
+                      className="w-5 h-5"
+                      width={20}
+                      height={20}
+                      loading="lazy"
+                    />
+                    Яндекс Маркет
+                  </button>
+                </Link>
+
+                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
+                  <button className="btn-wildberries">
+                    <Image
+                      src="/images/logos/favicon.ico"
+                      alt="Wildberries"
+                      className="w-5 h-5"
+                      width={20}
+                      height={20}
+                      loading="lazy"
+                    />
+                    Wildberries
+                  </button>
+                </Link>
               </>
             )}
+
             <ThemeSwitchButton />
+
             {isMobileView && (
               <button
                 className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
@@ -160,6 +188,60 @@ export default function Navbar() {
                 {item.name}
               </a>
             ))}
+            <div className="flex flex-col items-center w-full mt-4">
+              <button
+                onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
+                className="btn-submenu-toggle flex items-center justify-center py-2 text-lg font-medium"
+              >
+                Магазины
+                <ChevronDownIcon className={`h-5 w-5 ml-2 transition-transform ${isSubMenuOpen ? "rotate-180" : "rotate-0"}`} />
+              </button>
+              {isSubMenuOpen && (
+                <div className="submenu mt-2 space-y-3 w-full">
+                  <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
+                    <button className="btn-ozon flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors">
+                      <Image
+                        src="/images/logos/favicon.ico"
+                        alt="OZON"
+                        className="w-4 h-4 mr-2"
+                        width={16}
+                        height={16}
+                        loading="lazy"
+                      />
+                      OZON
+                    </button>
+                  </Link>
+
+                  <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
+                    <button className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors">
+                      <Image
+                        src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                        alt="Яндекс Маркет"
+                        className="w-4 h-4 mr-2"
+                        width={16}
+                        height={16}
+                        loading="lazy"
+                      />
+                      Яндекс Маркет
+                    </button>
+                  </Link>
+
+                  <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
+                    <button className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors">
+                      <Image
+                        src="/images/logos/favicon.ico"
+                        alt="Wildberries"
+                        className="w-4 h-4 mr-2"
+                        width={16}
+                        height={16}
+                        loading="lazy"
+                      />
+                      Wildberries
+                    </button>
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
