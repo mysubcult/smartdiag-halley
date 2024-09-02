@@ -1,3 +1,5 @@
+// src/pages/index.tsx
+
 import { useRef } from "react";
 import Contact from "../components/Contact";
 import Soft from "../components/Soft";
@@ -5,50 +7,57 @@ import { Hero } from "../components/Hero";
 import Layout from "../components/Layout";
 import Faq from "../components/Faq";
 import { Services } from "../components/Services";
-import Navbar from "../components/Navbar";  // Импортируем Navbar
+import Navbar from "../components/Navbar";
 
 export default function Home() {
-  // Создаем ссылки для секций
   const heroRef = useRef<HTMLDivElement>(null);
   const softRef = useRef<HTMLDivElement>(null);
   const faqRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
 
-  // Функция для прокрутки к секции
-  const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement>) => {
-    if (sectionRef.current) {
-      window.scrollTo({
-        top: sectionRef.current.offsetTop,
-        behavior: 'smooth',
-      });
+  const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleNavigateTo = (section: string) => {
+    switch (section) {
+      case 'hero':
+        scrollToSection(heroRef);
+        break;
+      case 'soft':
+        scrollToSection(softRef);
+        break;
+      case 'faq':
+        scrollToSection(faqRef);
+        break;
+      case 'services':
+        scrollToSection(servicesRef);
+        break;
+      case 'contact':
+        scrollToSection(contactRef);
+        break;
     }
   };
 
   return (
     <Layout title="SmartDiag - Ваш проводник в мире автодиагностики">
-      <Navbar
-        onNavigateTo={(section) => {
-          if (section === 'hero') scrollToSection(heroRef);
-          if (section === 'soft') scrollToSection(softRef);
-          if (section === 'faq') scrollToSection(faqRef);
-          if (section === 'services') scrollToSection(servicesRef);
-          if (section === 'contact') scrollToSection(contactRef);
-        }}
-      />
-      <div ref={heroRef} id="hero">
+      <Navbar onNavigateTo={handleNavigateTo} />
+      <div ref={heroRef}>
         <Hero />
       </div>
-      <div ref={softRef} id="soft">
+      <div ref={softRef}>
         <Soft />
       </div>
-      <div ref={faqRef} id="faq">
+      <div ref={faqRef}>
         <Faq />
       </div>
-      <div ref={servicesRef} id="services">
+      <div ref={servicesRef}>
         <Services />
       </div>
-      <div ref={contactRef} id="contact">
+      <div ref={contactRef}>
         <Contact />
       </div>
     </Layout>
