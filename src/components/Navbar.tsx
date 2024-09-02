@@ -5,6 +5,7 @@ import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
+// Навигационные ссылки
 const navigation = [
   { name: "Главная", href: "/", anchor: "#hero" },
   { name: "Программы", href: "/#soft", anchor: "#soft" },
@@ -13,11 +14,12 @@ const navigation = [
   { name: "Обратная связь", href: "/#contact", anchor: "#contact" },
 ];
 
+// Комбинирование классов
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar() {
+const Navbar = React.memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
@@ -275,4 +277,6 @@ export default function Navbar() {
       )}
     </nav>
   );
-}
+});
+
+export default Navbar;
