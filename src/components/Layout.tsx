@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import Hero from "./Hero";
+import { Hero } from "./Hero"; // Исправленный импорт
 import { ReactNode, useState, useEffect } from "react";
 
 interface LayoutProps {
@@ -49,7 +49,7 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
       </Head>
       <Navbar setCurrentSection={setCurrentSection} />
       <main>
-        <Hero setCurrentSection={setCurrentSection} /> {/* Добавляем Hero здесь с пропсом */}
+        <Hero setCurrentSection={setCurrentSection} /> {/* Используем Hero как компонент */}
         {children}
       </main>
       <Footer setCurrentSection={setCurrentSection} />
