@@ -6,11 +6,11 @@ import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid
 import { useRouter } from "next/router";
 
 const navigation = [
-  { name: "Главная", href: "/", id: "hero" },
-  { name: "Программы", href: "/", id: "soft" },
-  { name: "Блог", href: "/", id: "blog" },
-  { name: "О нас", href: "/", id: "services" },
-  { name: "Обратная связь", href: "/", id: "contact" },
+  { name: "Главная", id: "hero" },
+  { name: "Программы", id: "soft" },
+  { name: "Блог", id: "blog" },
+  { name: "О нас", id: "services" },
+  { name: "Обратная связь", id: "contact" },
 ];
 
 function classNames(...classes: string[]): string {
@@ -35,7 +35,7 @@ export default function Navbar() {
 
   const handleNavigationClick = useCallback(
     (id: string) => (event: React.MouseEvent) => {
-      event.preventDefault();
+      event.preventDefault(); // предотвращаем стандартное поведение ссылки
       if (router.pathname !== '/') {
         router.push('/').then(() => {
           const element = document.getElementById(id);
@@ -99,9 +99,9 @@ export default function Navbar() {
                 {navigation.map((item) => (
                   <a
                     key={item.name}
-                    href={item.href}
+                    href="#" // href заменен на #
                     className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
-                    onClick={handleNavigationClick(item.id)}
+                    onClick={handleNavigationClick(item.id)} // Используем только onClick для навигации
                   >
                     {item.name}
                   </a>
@@ -181,7 +181,7 @@ export default function Navbar() {
             {navigation.map((item) => (
               <a
                 key={item.name}
-                href={item.href}
+                href="#" // href заменен на #
                 className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
                 onClick={handleNavigationClick(item.id)}
               >
