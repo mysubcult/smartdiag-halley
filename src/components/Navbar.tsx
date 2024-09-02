@@ -5,7 +5,6 @@ import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
-// Навигационные ссылки
 const navigation = [
   { name: "Главная", href: "/", anchor: "#hero" },
   { name: "Программы", href: "/#soft", anchor: "#soft" },
@@ -14,7 +13,6 @@ const navigation = [
   { name: "Обратная связь", href: "/#contact", anchor: "#contact" },
 ];
 
-// Комбинирование классов
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
@@ -34,15 +32,14 @@ export default function Navbar() {
 
     window.addEventListener("resize", handleResize);
     handleResize();
+
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleNavigationClick = useCallback(
     (anchor: string) => (event: React.MouseEvent) => {
       event.preventDefault();
-      if (router.pathname !== '/') {
-        router.push('/').then(() => router.push(anchor, undefined, { scroll: false }));
-      } else {
+      if (router.asPath !== anchor) {
         router.push(anchor, undefined, { scroll: false });
       }
       setIsMenuOpen(false);
@@ -74,7 +71,7 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
+              <Link href="/" scroll={false}>
                 <Image
                   className="block h-12 w-auto logo-animation"
                   src="/images/logos/logo.png"
@@ -88,7 +85,6 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Горизонтальное меню навигации */}
             <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
@@ -107,7 +103,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Кнопки магазинов, смены темы и меню */}
           <div className="flex items-center gap-2">
             {!isMobileView && (
               <>
@@ -155,10 +150,8 @@ export default function Navbar() {
               </>
             )}
 
-            {/* Кнопка смены темы */}
             <ThemeSwitchButton />
 
-            {/* Кнопка меню появляется, когда isMobileView == true */}
             {isMobileView && (
               <div className="flex items-center">
                 <button
@@ -187,7 +180,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Popup Menu */}
       {isMenuOpen && (
         <div
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
