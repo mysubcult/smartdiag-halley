@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 export function Hero() {
   const router = useRouter();
 
-  // Добавляем типы для параметров id и event
-  const handleNavigationClick = (id: string) => (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  // Изменение типа обработчика события, чтобы работало и с кнопками, и с ссылками
+  const handleNavigationClick = (id: string) => (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     const element = document.getElementById(id);
     if (element) {
