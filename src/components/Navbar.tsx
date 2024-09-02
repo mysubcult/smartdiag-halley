@@ -19,7 +19,7 @@ function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
-const Navbar = React.memo(() => {
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
@@ -34,14 +34,15 @@ const Navbar = React.memo(() => {
 
     window.addEventListener("resize", handleResize);
     handleResize();
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleNavigationClick = useCallback(
     (anchor: string) => (event: React.MouseEvent) => {
       event.preventDefault();
-      if (router.asPath !== anchor) {
+      if (router.pathname !== '/') {
+        router.push('/').then(() => router.push(anchor, undefined, { scroll: false }));
+      } else {
         router.push(anchor, undefined, { scroll: false });
       }
       setIsMenuOpen(false);
@@ -73,7 +74,7 @@ const Navbar = React.memo(() => {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <Link href="/" scroll={false}>
+              <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
                 <Image
                   className="block h-12 w-auto logo-animation"
                   src="/images/logos/logo.png"
@@ -87,6 +88,7 @@ const Navbar = React.memo(() => {
               </Link>
             </div>
 
+            {/* Горизонтальное меню навигации */}
             <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
@@ -105,6 +107,7 @@ const Navbar = React.memo(() => {
             </div>
           </div>
 
+          {/* Кнопки магазинов, смены темы и меню */}
           <div className="flex items-center gap-2">
             {!isMobileView && (
               <>
@@ -152,8 +155,10 @@ const Navbar = React.memo(() => {
               </>
             )}
 
+            {/* Кнопка смены темы */}
             <ThemeSwitchButton />
 
+            {/* Кнопка меню появляется, когда isMobileView == true */}
             {isMobileView && (
               <div className="flex items-center">
                 <button
@@ -182,6 +187,7 @@ const Navbar = React.memo(() => {
         </div>
       </div>
 
+      {/* Popup Menu */}
       {isMenuOpen && (
         <div
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
@@ -277,6 +283,4 @@ const Navbar = React.memo(() => {
       )}
     </nav>
   );
-});
-
-export default Navbar;
+}
