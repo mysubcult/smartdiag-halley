@@ -1,21 +1,12 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
-// Навигационные ссылки
-const navigation = [
-  { name: "Главная", href: "/", anchor: "#hero" },
-  { name: "Программы", href: "/#soft", anchor: "#soft" },
-  { name: "Блог", href: "/#blog", anchor: "#blog" },
-  { name: "О нас", href: "/#services", anchor: "#services" },
-  { name: "Обратная связь", href: "/#contact", anchor: "#contact" },
-];
-
 // Комбинирование классов
-function classNames(...classes: string[]): string {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
@@ -24,37 +15,47 @@ export default function Navbar() {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
   const [isMobileView, setIsMobileView] = useState(false);
-
   const router = useRouter();
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobileView(window.innerWidth <= 1200);
-    };
+  // Ссылки на секции для плавной прокрутки
+  const sectionRefs = {
+    hero: useRef<HTMLElement | null>(null),
+    soft: useRef<HTMLElement | null>(null),
+    services: useRef<HTMLElement | null>(null),
+    blog: useRef<HTMLElement | null>(null),
+    contact: useRef<HTMLElement | null>(null),
+  };
 
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
+  // Обработчик изменения размера окна
+  const handleResize = useCallback(() => {
+    setIsMobileView(window.innerWidth <= 1200);
   }, []);
 
-  const handleNavigationClick = useCallback(
-    (anchor: string) => (event: React.MouseEvent) => {
-      event.preventDefault();
-      if (router.pathname !== '/') {
-        router.push('/').then(() => router.push(anchor, undefined, { scroll: false }));
-      } else {
-        router.push(anchor, undefined, { scroll: false });
-      }
-      setIsMenuOpen(false);
-    },
-    [router]
-  );
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleResize]);
+
+  // Обработчик для плавной прокрутки
+  const handleScroll = (section: keyof typeof sectionRefs) => {
+    const sectionRef = sectionRefs[section];
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+      setIsMenuOpen(false); // Закрываем меню после выбора элемента
+    }
+  };
 
   const updateFontSize = useCallback(() => {
     const baseFontSize = 18;
     const minFontSize = 14;
     const screenHeight = window.innerHeight;
-    const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length;
+    const itemsCount = isSubMenuOpen ? 8 : 5; // Количество пунктов в меню
     const maxMenuHeight = screenHeight - 64;
     const requiredHeight = itemsCount * 48;
 
@@ -74,7 +75,7 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
+              <Link href="/" scroll={false}>
                 <Image
                   className="block h-12 w-auto logo-animation"
                   src="/images/logos/logo.png"
@@ -84,6 +85,7 @@ export default function Navbar() {
                   quality={100}
                   sizes="100vw"
                   loading="eager"
+                  onClick={() => handleScroll("hero")}
                 />
               </Link>
             </div>
@@ -91,74 +93,50 @@ export default function Navbar() {
             {/* Горизонтальное меню навигации */}
             <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
               <div className="flex space-x-5 items-center">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
-                    style={{ textDecoration: "none" }}
-                    scroll={false}
-                    onClick={handleNavigationClick(item.anchor)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+                <button
+                  className="text-neutral-900 dark:text-neutral-400 nav-link"
+                  style={{ textDecoration: "none" }}
+                  onClick={() => handleScroll("hero")}
+                >
+                  Главная
+                </button>
+                <button
+                  className="text-neutral-900 dark:text-neutral-400 nav-link"
+                  style={{ textDecoration: "none" }}
+                  onClick={() => handleScroll("soft")}
+                >
+                  Программы
+                </button>
+                <button
+                  className="text-neutral-900 dark:text-neutral-400 nav-link"
+                  style={{ textDecoration: "none" }}
+                  onClick={() => handleScroll("services")}
+                >
+                  О нас
+                </button>
+                <button
+                  className="text-neutral-900 dark:text-neutral-400 nav-link"
+                  style={{ textDecoration: "none" }}
+                  onClick={() => handleScroll("blog")}
+                >
+                  Блог
+                </button>
+                <button
+                  className="text-neutral-900 dark:text-neutral-400 nav-link"
+                  style={{ textDecoration: "none" }}
+                  onClick={() => handleScroll("contact")}
+                >
+                  Обратная связь
+                </button>
               </div>
             </div>
           </div>
 
-          {/* Кнопки магазинов, смены темы и меню */}
+          {/* Кнопки магазинов и смены темы */}
           <div className="flex items-center gap-2">
-            {!isMobileView && (
-              <>
-                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="block">
-                  <button className="btn-ozon">
-                    <Image
-                      src="/images/logos/favicon.ico"
-                      alt="OZON"
-                      className="w-5 h-5"
-                      width={20}
-                      height={20}
-                      loading="lazy"
-                    />
-                    OZON
-                  </button>
-                </Link>
-
-                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer" className="block">
-                  <button className="btn-yandex">
-                    <Image
-                      src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                      alt="Яндекс Маркет"
-                      className="w-5 h-5"
-                      width={20}
-                      height={20}
-                      loading="lazy"
-                    />
-                    Яндекс Маркет
-                  </button>
-                </Link>
-
-                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer" className="block">
-                  <button className="btn-wildberries">
-                    <Image
-                      src="/images/logos/favicon.ico"
-                      alt="Wildberries"
-                      className="w-5 h-5"
-                      width={20}
-                      height={20}
-                      loading="lazy"
-                    />
-                    Wildberries
-                  </button>
-                </Link>
-              </>
-            )}
-
-            {/* Кнопка смены темы */}
             <ThemeSwitchButton />
 
-            {/* Кнопка меню появляется, когда isMobileView == true */}
+            {/* Кнопка меню для мобильных устройств */}
             {isMobileView && (
               <div className="flex items-center">
                 <button
@@ -187,7 +165,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Popup Menu */}
+      {/* Popup Menu для мобильных устройств */}
       {isMenuOpen && (
         <div
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
@@ -200,17 +178,36 @@ export default function Navbar() {
           }}
         >
           <div className="flex flex-col items-center justify-center space-y-4">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
-                scroll={false}
-                onClick={handleNavigationClick(item.anchor)}
-              >
-                {item.name}
-              </Link>
-            ))}
+            <button
+              className="text-neutral-900 dark:text-neutral-400 block py-2 text-lg font-medium hover:text-red-500"
+              onClick={() => handleScroll("hero")}
+            >
+              Главная
+            </button>
+            <button
+              className="text-neutral-900 dark:text-neutral-400 block py-2 text-lg font-medium hover:text-red-500"
+              onClick={() => handleScroll("soft")}
+            >
+              Программы
+            </button>
+            <button
+              className="text-neutral-900 dark:text-neutral-400 block py-2 text-lg font-medium hover:text-red-500"
+              onClick={() => handleScroll("services")}
+            >
+              О нас
+            </button>
+            <button
+              className="text-neutral-900 dark:text-neutral-400 block py-2 text-lg font-medium hover:text-red-500"
+              onClick={() => handleScroll("blog")}
+            >
+              Блог
+            </button>
+            <button
+              className="text-neutral-900 dark:text-neutral-400 block py-2 text-lg font-medium hover:text-red-500"
+              onClick={() => handleScroll("contact")}
+            >
+              Обратная связь
+            </button>
             <div className="flex flex-col items-center w-full mt-4">
               <button
                 onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
@@ -225,54 +222,29 @@ export default function Navbar() {
               </button>
               {isSubMenuOpen && (
                 <div className="submenu mt-2 space-y-3 w-full">
+                  {/* Пример добавления элементов подменю */}
                   <Link
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-ozon flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
                   >
-                    <Image
-                      src="/images/logos/favicon.ico"
-                      alt="OZON"
-                      className="w-4 h-4 mr-2"
-                      width={16}
-                      height={16}
-                      loading="lazy"
-                    />
                     OZON
                   </Link>
-
                   <Link
                     href="https://market.yandex.ru/business--smartdiag/50025236"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
                   >
-                    <Image
-                      src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                      alt="Яндекс Маркет"
-                      className="w-4 h-4 mr-2"
-                      width={16}
-                      height={16}
-                      loading="lazy"
-                    />
                     Яндекс Маркет
                   </Link>
-
                   <Link
                     href="https://www.wildberries.ru/seller/1343369"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
                   >
-                    <Image
-                      src="/images/logos/favicon.ico"
-                      alt="Wildberries"
-                      className="w-4 h-4 mr-2"
-                      width={16}
-                      height={16}
-                      loading="lazy"
-                    />
                     Wildberries
                   </Link>
                 </div>
