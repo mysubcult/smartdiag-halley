@@ -1,12 +1,17 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { Dispatch, SetStateAction } from "react";
 
-export function Hero() {
+interface HeroProps {
+  setCurrentSection: Dispatch<SetStateAction<string>>;
+}
+
+export function Hero({ setCurrentSection }: HeroProps) {
   const router = useRouter();
 
-  // Изменение типа обработчика события, чтобы работало и с кнопками, и с ссылками
-  const handleNavigationClick = (id: string) => (event: React.MouseEvent<HTMLElement>) => {
+  const handleNavigationClick = (id: string, sectionName: string) => (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
+    setCurrentSection(sectionName); // Обновляем текущую секцию
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -35,7 +40,7 @@ export function Hero() {
             <div>
               <button
                 className="btn-grad-red text-base font-medium flex items-center"
-                onClick={handleNavigationClick("soft")}
+                onClick={handleNavigationClick("soft", "Программы")}
                 style={{ cursor: 'pointer' }}
               >
                 Программы для приборов
@@ -64,7 +69,7 @@ export function Hero() {
             <div>
               <button
                 className="btn-grad-black text-base font-medium"
-                onClick={handleNavigationClick("contact")}
+                onClick={handleNavigationClick("contact", "Обратная связь")}
                 style={{ cursor: 'pointer' }}
               >
                 Обратная связь
