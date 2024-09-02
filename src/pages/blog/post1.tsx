@@ -2,29 +2,45 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
-import Head from 'next/head'; // Добавим next/head для установки заголовка
+import { useRouter } from 'next/router';
 
 export default function BlogPost() {
+  const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Состояние для меню
+
+  // Основной заголовок страницы
   const baseTitle = "Как справиться с ошибкой при открытии архива";
+
+  // Описание и ключевые слова уникальны для этой страницы
   const pageDescription = "Руководство по устранению ошибок при открытии архивов, связанных с антивирусами, устаревшим ПО и другими проблемами.";
   const pageKeywords = "ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО";
 
+  useEffect(() => {
+    // Обновление заголовка вручную для уверенности
+    document.title = baseTitle;
+    setIsClient(true);
+  }, []);
+
+  // Функция для прокрутки наверх
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  if (!isClient) return null;
+
   return (
     <Layout title={baseTitle} description={pageDescription} keywords={pageKeywords}>
-      <Head>
-        <title>{baseTitle} - SmartDiag Blog</title>
-        <meta name="description" content={pageDescription} />
-        <meta name="keywords" content={pageKeywords} />
-      </Head>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
             <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)} // Используем setIsMenuOpen для изменения состояния меню
               className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-6 py-3 font-medium shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
               aria-label="Открыть меню навигации"
             >
               <svg
-                className={`w-6 h-6 transition-transform duration-300 mr-2`}
+                className={`w-6 h-6 transition-transform duration-300 mr-2 ${isMenuOpen ? 'rotate-45' : 'rotate-0'}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -34,17 +50,17 @@ export default function BlogPost() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
+                  d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
                 ></path>
               </svg>
               Меню навигации
             </button>
           </div>
-          <div className="lg:w-1/6 w-full text-center lg:text-left bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out">
+          <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
             <h3 className="text-center text-xl font-bold mb-3">Навигация</h3>
             <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]"/>
             <nav className="space-y-3">
-              <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">🏠 В начало</a>
+              <a onClick={scrollToTop} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">🏠 В начало</a>
               <Link href="#antivirus-issue" passHref scroll={false}>
                 <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">🛡️ Проблема с антивирусом</a>
               </Link>
