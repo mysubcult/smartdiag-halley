@@ -1,76 +1,34 @@
-// /src/components/navbar.tsx
+// /src/components/Navbar.tsx
 
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
-import { useRouter } from "next/router";
-import { useRef } from "react";
 
-// Навигационные ссылки
+interface NavbarProps {
+  onNavigateTo: (section: string) => void;
+}
+
 const navigation = [
   { name: "Главная", anchor: "hero" },
   { name: "Программы", anchor: "soft" },
-  { name: "Блог", anchor: "blog" },
+  { name: "Блог", anchor: "faq" },
   { name: "О нас", anchor: "services" },
   { name: "Обратная связь", anchor: "contact" },
 ];
 
-// Комбинирование классов
-function classNames(...classes: string[]): string {
-  return classes.filter(Boolean).join(" ");
-}
-
-export default function Navbar() {
+export default function Navbar({ onNavigateTo }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
   const [isMobileView, setIsMobileView] = useState(false);
-  const router = useRouter();
-  const sectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobileView(window.innerWidth <= 1200);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const handleNavigationClick = useCallback(
-    (anchor: string) => (event: React.MouseEvent) => {
-      event.preventDefault();
-      if (sectionRefs.current[anchor]) {
-        window.scrollTo({
-          top: sectionRefs.current[anchor]?.offsetTop,
-          behavior: "smooth",
-        });
-      }
-      setIsMenuOpen(false);
-    },
-    []
-  );
-
-  const updateFontSize = useCallback(() => {
-    const baseFontSize = 18;
-    const minFontSize = 14;
-    const screenHeight = window.innerHeight;
-    const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length;
-    const maxMenuHeight = screenHeight - 64;
-    const requiredHeight = itemsCount * 48;
-
-    const scaleFactor = maxMenuHeight / requiredHeight;
-    setFontSize(`${Math.max(minFontSize, baseFontSize * Math.min(scaleFactor, 1))}px`);
-  }, [isSubMenuOpen]);
-
-  useEffect(() => {
-    updateFontSize();
-    window.addEventListener("resize", updateFontSize);
-    return () => window.removeEventListener("resize", updateFontSize);
-  }, [updateFontSize]);
+  const handleNavigationClick = (anchor: string) => (event: React.MouseEvent) => {
+    event.preventDefault();
+    onNavigateTo(anchor);
+    setIsMenuOpen(false);
+  };
 
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
@@ -92,14 +50,13 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Горизонтальное меню навигации */}
             <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
                   <a
                     key={item.name}
                     onClick={handleNavigationClick(item.anchor)}
-                    className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
+                    className="text-neutral-900 dark:text-neutral-400 hover:text-red-500"
                     style={{ textDecoration: "none" }}
                   >
                     {item.name}
@@ -109,7 +66,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Кнопки магазинов, смены темы и меню */}
           <div className="flex items-center gap-2">
             {!isMobileView && (
               <>
@@ -156,10 +112,8 @@ export default function Navbar() {
               </>
             )}
 
-            {/* Кнопка смены темы */}
             <ThemeSwitchButton />
 
-            {/* Кнопка меню появляется, когда isMobileView == true */}
             {isMobileView && (
               <div className="flex items-center">
                 <button
@@ -188,7 +142,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Popup Menu */}
       {isMenuOpen && (
         <div
           className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
@@ -205,7 +158,7 @@ export default function Navbar() {
               <a
                 key={item.name}
                 onClick={handleNavigationClick(item.anchor)}
-                className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
+                className="text-neutral-900 dark:text-neutral-400 block py-2 text-lg font-medium hover:text-red-500"
               >
                 {item.name}
               </a>
@@ -217,7 +170,7 @@ export default function Navbar() {
               >
                 Магазины
                 <ChevronDownIcon
-                  className={`h-5 w-5 ml-2 transition-transform ${
+                  className={`h-5 w-5 transition-transform transform ${
                     isSubMenuOpen ? "rotate-180" : "rotate-0"
                   }`}
                 />
