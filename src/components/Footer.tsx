@@ -9,7 +9,8 @@ const menus = [
 ];
 
 export default function Footer() {
-  const handleScroll = (section) => {
+  // Указываем тип 'string' для параметра section
+  const handleScroll = (section: string) => {
     const sectionRef = document.getElementById(section);
     if (sectionRef) {
       sectionRef.scrollIntoView({
