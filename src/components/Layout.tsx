@@ -25,7 +25,10 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
     type: type || "website",
   };
 
-  // Убираем useEffect, чтобы использовать <Head> только для установки заголовков
+  useEffect(() => {
+    document.title = meta.title; // Устанавливаем заголовок только при изменении title
+  }, [meta.title]); // Следим за изменениями заголовка
+
   return (
     <>
       <Head>
