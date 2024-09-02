@@ -77,7 +77,8 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <a onClick={handleNavigationClick("hero")}>
+              {/* Логотип с onClick для прокрутки */}
+              <a onClick={handleNavigationClick("hero")} style={{ cursor: 'pointer' }}>
                 <Image
                   className="block h-12 w-auto logo-animation"
                   src="/images/logos/logo.png"
