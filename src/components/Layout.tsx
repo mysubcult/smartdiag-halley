@@ -2,10 +2,10 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { ReactNode, useState, useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 
 interface LayoutProps {
-  children: (props: { setCurrentSection: (section: string) => void }) => ReactNode;
+  children: ReactNode;
   title?: string;
   description?: string;
   keywords?: string;
@@ -16,7 +16,6 @@ interface LayoutProps {
 const Layout = ({ children, title, description, keywords, image, type }: LayoutProps) => {
   const router = useRouter();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
-  const [currentSection, setCurrentSection] = useState("");
 
   const meta = {
     title: title || "SmartDiag - Ваш проводник в мире автодиагностики",
@@ -27,9 +26,8 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
   };
 
   useEffect(() => {
-    const fullTitle = currentSection ? `${meta.title} | ${currentSection}` : meta.title;
-    document.title = fullTitle; // Устанавливаем полный заголовок
-  }, [meta.title, currentSection]); // Следим за изменениями заголовка и текущей секции
+    document.title = meta.title; // Устанавливаем заголовок только при изменении title
+  }, [meta.title]); // Следим за изменениями заголовка
 
   return (
     <>
@@ -46,11 +44,9 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SmartDiag Team" />
       </Head>
-      <Navbar setCurrentSection={setCurrentSection} />
-      <main>
-        {children({ setCurrentSection })} {/* Передаем setCurrentSection в children */}
-      </main>
-      <Footer setCurrentSection={setCurrentSection} />
+      <Navbar />
+      <main>{children}</main>
+      <Footer />
     </>
   );
 };
