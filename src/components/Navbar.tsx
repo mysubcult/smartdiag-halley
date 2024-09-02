@@ -1,6 +1,6 @@
-// /src/components/Navbar.tsx
+// src/components/Navbar.tsx
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
@@ -18,7 +18,7 @@ const navigation = [
   { name: "Обратная связь", anchor: "contact" },
 ];
 
-export default function Navbar({ onNavigateTo }: NavbarProps) {
+const Navbar: React.FC<NavbarProps> = ({ onNavigateTo }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [fontSize, setFontSize] = useState("18px");
@@ -194,4 +194,6 @@ export default function Navbar({ onNavigateTo }: NavbarProps) {
       )}
     </nav>
   );
-}
+};
+
+export default Navbar;
