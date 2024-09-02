@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
@@ -35,7 +34,7 @@ export default function Navbar() {
 
   const handleNavigationClick = useCallback(
     (id: string) => (event: React.MouseEvent) => {
-      event.preventDefault(); // предотвращаем стандартное поведение ссылки
+      event.preventDefault(); // предотвращаем стандартное поведение
       if (router.pathname !== '/') {
         router.push('/').then(() => {
           const element = document.getElementById(id);
@@ -78,20 +77,18 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <Link href="/" scroll={false}>
-                <a onClick={handleNavigationClick("hero")}>
-                  <Image
-                    className="block h-12 w-auto logo-animation"
-                    src="/images/logos/logo.png"
-                    alt="SmartDiag Logo"
-                    width={256}
-                    height={117}
-                    quality={100}
-                    sizes="100vw"
-                    loading="eager"
-                  />
-                </a>
-              </Link>
+              <a onClick={handleNavigationClick("hero")}>
+                <Image
+                  className="block h-12 w-auto logo-animation"
+                  src="/images/logos/logo.png"
+                  alt="SmartDiag Logo"
+                  width={256}
+                  height={117}
+                  quality={100}
+                  sizes="100vw"
+                  loading="eager"
+                />
+              </a>
             </div>
 
             <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
@@ -99,9 +96,9 @@ export default function Navbar() {
                 {navigation.map((item) => (
                   <a
                     key={item.name}
-                    href="#" // href заменен на #
                     className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
                     onClick={handleNavigationClick(item.id)} // Используем только onClick для навигации
+                    style={{ cursor: 'pointer' }} // Стилизуем курсор, чтобы он выглядел как ссылка
                   >
                     {item.name}
                   </a>
@@ -113,7 +110,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             {!isMobileView && (
               <>
-                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
                   <button className="btn-ozon">
                     <Image
                       src="/images/logos/favicon.ico"
@@ -125,9 +122,9 @@ export default function Navbar() {
                     />
                     OZON
                   </button>
-                </Link>
+                </a>
 
-                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
+                <a href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
                   <button className="btn-yandex">
                     <Image
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
@@ -139,9 +136,9 @@ export default function Navbar() {
                     />
                     Яндекс Маркет
                   </button>
-                </Link>
+                </a>
 
-                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
                   <button className="btn-wildberries">
                     <Image
                       src="/images/logos/favicon.ico"
@@ -153,7 +150,7 @@ export default function Navbar() {
                     />
                     Wildberries
                   </button>
-                </Link>
+                </a>
               </>
             )}
 
@@ -181,9 +178,9 @@ export default function Navbar() {
             {navigation.map((item) => (
               <a
                 key={item.name}
-                href="#" // href заменен на #
                 className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
                 onClick={handleNavigationClick(item.id)}
+                style={{ cursor: 'pointer' }} // Стилизуем курсор, чтобы он выглядел как ссылка
               >
                 {item.name}
               </a>
@@ -198,7 +195,7 @@ export default function Navbar() {
               </button>
               {isSubMenuOpen && (
                 <div className="submenu mt-2 space-y-3 w-full">
-                  <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
                     <button className="btn-ozon flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors">
                       <Image
                         src="/images/logos/favicon.ico"
@@ -210,9 +207,9 @@ export default function Navbar() {
                       />
                       OZON
                     </button>
-                  </Link>
+                  </a>
 
-                  <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
+                  <a href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
                     <button className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors">
                       <Image
                         src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
@@ -224,9 +221,9 @@ export default function Navbar() {
                       />
                       Яндекс Маркет
                     </button>
-                  </Link>
+                  </a>
 
-                  <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
                     <button className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors">
                       <Image
                         src="/images/logos/favicon.ico"
@@ -238,7 +235,7 @@ export default function Navbar() {
                       />
                       Wildberries
                     </button>
-                  </Link>
+                  </a>
                 </div>
               )}
             </div>
