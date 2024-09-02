@@ -29,8 +29,8 @@ export function Hero() {
                     <svg
                       className="icon"
                       xmlns="http://www.w3.org/2000/svg"
-                      width="20" /* Размер */
-                      height="20" /* Размер */
+                      width="20"
+                      height="20"
                       fill="currentColor"
                       viewBox="0 0 16 16"
                     >
@@ -87,14 +87,14 @@ export function Hero() {
         }
 
         .icon {
-          width: 20px; /* Размер иконки */
-          height: 20px; /* Размер иконки */
-          transition: transform 1s ease; /* Плавная анимация */
-          color: currentColor; /* Использует цвет текста кнопки */
+          width: 20px;
+          height: 20px;
+          transition: transform 1s ease;
+          color: currentColor;
         }
 
         .btn-grad-red:hover .icon {
-          transform: rotate(180deg); /* Вращение на 180 градусов */
+          transform: rotate(180deg);
         }
       `}</style>
     </div>
