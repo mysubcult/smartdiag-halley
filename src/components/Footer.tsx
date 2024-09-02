@@ -1,11 +1,11 @@
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 const menus = [
-  { title: "Главная", url: "/" },
-  { title: "Программы", url: "/#soft" },
-  { title: "О нас", url: "/#services" },
-  { title: "Блог", url: "/#blog" },
-  { title: "Обратная связь", url: "/#contact" },
+  { title: "Главная", id: "hero" },
+  { title: "Программы", id: "soft" },
+  { title: "О нас", id: "services" },
+  { title: "Блог", id: "blog" },
+  { title: "Обратная связь", id: "contact" },
 ];
 
 const socialLinks = [
@@ -22,29 +22,39 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const router = useRouter();
+
+  const handleNavigationClick = (id) => (event) => {
+    event.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer className="bg-white dark:bg-neutral-900 border-t border-neutral-200">
       <div className="mx-auto px-6 lg:px-8 py-24 lg:py-4 grid grid-cols-1 lg:grid-cols-3">
         {/* Copyright Section */}
         <div className="text-center lg:text-left my-auto order-3 lg:order-1">
-          <Link href="/" target="_self" scroll={false}>
+          <a onClick={handleNavigationClick("hero")} style={{ cursor: 'pointer' }}>
             SmartDiag &copy; 2023-{new Date().getFullYear()}
-          </Link>
+          </a>
         </div>
 
         {/* Menu Section */}
         <nav className="order-2 lg:order-2 py-10 lg:py-0 lg:flex gap-6 text-center mx-auto">
-          {menus.map(({ title, url }) => (
-            <Link key={title} href={url} scroll={false}>
-              <div className="py-2 hover:text-red-500 font-medium">{title}</div>
-            </Link>
+          {menus.map(({ title, id }) => (
+            <a key={title} onClick={handleNavigationClick(id)} className="py-2 hover:text-red-500 font-medium" style={{ cursor: 'pointer' }}>
+              {title}
+            </a>
           ))}
         </nav>
 
         {/* Social Links Section */}
         <div className="flex gap-8 max-w-full justify-center my-auto lg:justify-end order-1 lg:order-3">
           {socialLinks.map(({ name, href, iconPath }) => (
-            <Link key={name} href={href} target="_blank" title={name} scroll={false}>
+            <a key={name} href={href} target="_blank" title={name} style={{ cursor: 'pointer' }}>
               <svg
                 width="24"
                 height="24"
@@ -54,7 +64,7 @@ export default function Footer() {
               >
                 <path d={iconPath} />
               </svg>
-            </Link>
+            </a>
           ))}
         </div>
       </div>
