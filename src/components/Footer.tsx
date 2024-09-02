@@ -27,9 +27,20 @@ export default function Footer() {
   // Изменение типа обработчика события
   const handleNavigationClick = (id: string) => (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+
+    // Проверяем, находимся ли мы не на главной странице
+    if (router.pathname !== '/') {
+      router.push('/').then(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
