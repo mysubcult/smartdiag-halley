@@ -25,12 +25,14 @@ export default function Footer() {
   return (
     <footer className="bg-white dark:bg-neutral-900 border-t border-neutral-200">
       <div className="mx-auto px-6 lg:px-8 py-24 lg:py-4 grid grid-cols-1 lg:grid-cols-3">
+        {/* Copyright Section */}
         <div className="text-center lg:text-left my-auto order-3 lg:order-1">
           <Link href="/" target="_self" scroll={false}>
             SmartDiag &copy; 2023-{new Date().getFullYear()}
           </Link>
         </div>
 
+        {/* Menu Section */}
         <nav className="order-2 lg:order-2 py-10 lg:py-0 lg:flex gap-6 text-center mx-auto">
           {menus.map(({ title, url }) => (
             <Link key={title} href={url} scroll={false}>
@@ -39,6 +41,7 @@ export default function Footer() {
           ))}
         </nav>
 
+        {/* Social Links Section */}
         <div className="flex gap-8 max-w-full justify-center my-auto lg:justify-end order-1 lg:order-3">
           {socialLinks.map(({ name, href, iconPath }) => (
             <Link key={name} href={href} target="_blank" title={name} scroll={false}>
