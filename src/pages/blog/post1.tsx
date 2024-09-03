@@ -23,7 +23,11 @@ export default function BlogPost() {
   if (!isClient) return null;
 
   return (
-    <Layout title={metadata.title} description={metadata.description} keywords={metadata.keywords}>
+    <Layout
+      title={metadata.title || ''}
+      description={metadata.description || ''}
+      keywords={metadata.keywords || ''}
+    >
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
