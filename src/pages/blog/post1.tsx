@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata } from 'next';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -24,9 +24,9 @@ export default function BlogPost() {
 
   return (
     <Layout
-      title={metadata.title || ''}
-      description={metadata.description || ''}
-      keywords={metadata.keywords || ''}
+      title={String(metadata.title)}
+      description={String(metadata.description)}
+      keywords={String(metadata.keywords)}
     >
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
