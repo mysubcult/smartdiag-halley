@@ -72,7 +72,7 @@ export default function BlogPost() {
             </nav>
           </div>
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0" id="top">
-            <h2 className="text-4xl font-bold text-center">{metadata.title}</h2>
+            <h2 className="text-4xl font-bold text-center">вввв</h2>
             <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
             </p>
