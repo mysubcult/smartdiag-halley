@@ -1,10 +1,9 @@
-import type { Metadata } from 'next';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'Как справиться с ошибкой при открытии архива',
   description: 'Руководство по устранению ошибок при открытии архивов, связанных с антивирусами, устаревшим ПО и другими проблемами.',
   keywords: 'ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО',
@@ -21,7 +20,11 @@ export default function BlogPost() {
   if (!isClient) return null;
 
   return (
-    <Layout>
+    <Layout
+      title={metadata.title} // Передаём заголовок в Layout
+      description={metadata.description}
+      keywords={metadata.keywords}
+    >
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
