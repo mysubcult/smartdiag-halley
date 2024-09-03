@@ -17,6 +17,11 @@ export default function BlogPost() {
     setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    // Устанавливаем заголовок вкладки на стороне клиента
+    document.title = metadata.title;
+  }, []);
+
   if (!isClient) return null;
 
   return (
