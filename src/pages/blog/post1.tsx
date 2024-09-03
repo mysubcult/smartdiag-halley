@@ -24,9 +24,9 @@ export default function BlogPost() {
 
   return (
     <Layout
-      title={String(metadata.title)}
-      description={String(metadata.description)}
-      keywords={String(metadata.keywords)}
+      title={metadata.title || ''}
+      description={metadata.description || ''}
+      keywords={metadata.keywords || ''}
     >
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
@@ -76,7 +76,7 @@ export default function BlogPost() {
             </nav>
           </div>
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0" id="top">
-            <h2 className="text-4xl font-bold text-center">{metadata.title}</h2>
+            <h2 className="text-4xl font-bold text-center">{String(metadata.title)}</h2>
             <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
             </p>
