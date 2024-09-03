@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import PrivacyPolicyModal from './PrivacyPolicyModal';
-import Image from 'next/image';
 
 type Info = {
   access_key: string;
@@ -15,7 +13,7 @@ type Info = {
   orderNumber: string;
 };
 
-export default function Contact() {
+export default function Contact(): JSX.Element {
   const [modalState, setModalState] = useState({ isModalOpen: false, isChecked: true, isSuccess: false });
 
   const {
