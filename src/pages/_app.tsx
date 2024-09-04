@@ -15,17 +15,19 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const originalTitle = document.title;
 
-    // Следим за изменением заголовка
-    const observer = new MutationObserver(() => {
-      // Проверяем, изменился ли заголовок, и возвращаем его обратно
-      if (document.title !== originalTitle) {
-        document.title = originalTitle;
-      }
-    });
+    const titleElement = document.querySelector('title');
+    if (titleElement) {
+      const observer = new MutationObserver(() => {
+        // Проверяем, изменился ли заголовок, и возвращаем его обратно
+        if (document.title !== originalTitle) {
+          document.title = originalTitle;
+        }
+      });
 
-    observer.observe(document.querySelector('title'), { childList: true });
+      observer.observe(titleElement, { childList: true });
 
-    return () => observer.disconnect();
+      return () => observer.disconnect();
+    }
   }, []);
 
   const pageTitle = pageProps.title || 'Дефолтный заголовок'; // Установка заголовка из pageProps или дефолтного
