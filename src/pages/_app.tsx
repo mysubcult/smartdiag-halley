@@ -1,10 +1,10 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect } from 'react';
 import "@/styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
-import Script from 'next/script'; // Using Script tag correctly
+import Script from 'next/script';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,10 +12,30 @@ const inter = Inter({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    const originalTitle = document.title;
+
+    // Следим за изменением заголовка
+    const observer = new MutationObserver(() => {
+      // Проверяем, изменился ли заголовок, и возвращаем его обратно
+      if (document.title !== originalTitle) {
+        document.title = originalTitle;
+      }
+    });
+
+    observer.observe(document.querySelector('title'), { childList: true });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const pageTitle = pageProps.title || 'Дефолтный заголовок'; // Установка заголовка из pageProps или дефолтного
+
   return (
     <main className={`${inter.variable} font-sans relative`}>
+      <Head>
+        <title>{pageTitle}</title>
+      </Head>
       <ThemeProvider attribute="class">
-        {/* React.StrictMode could be added in development */}
         <Component {...pageProps} />
         <Script
           id="lhc-widget-script"
