@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Head from "next/head";  // Importing Head to handle meta tags
 import Layout from "../components/Layout";
 
 export default function NotFound() {
@@ -7,11 +8,14 @@ export default function NotFound() {
   const pageDescription = "Страница, которую вы ищете, не найдена. Возможно, она была удалена или вы ввели неправильный адрес.";
 
   return (
-    <Layout title={pageTitle} description={pageDescription}>
-      <div
-        className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16"
-        id="faq"
-      >
+    <Layout>
+      <Head>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+      </Head>
+      <div className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16" id="faq">
         <h2 className="text-4xl font-bold text-center">Упс! Что-то пошло не так.</h2>
         <p className="pt-6 pb-16 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
           Страница не найдена.
