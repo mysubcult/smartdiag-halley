@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
 import Head from 'next/head';
 import Layout from '../../components/Layout';
 
@@ -11,12 +9,26 @@ export const metadata = {
 };
 
 export default function BlogPost() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [pageTitle, setPageTitle] = useState(metadata.title);
+
+  useEffect(() => {
+    const handleFocus = () => {
+      setPageTitle(metadata.title);
+    };
+
+    // Устанавливаем слушатель на событие фокусировки вкладки
+    window.addEventListener('focus', handleFocus);
+    
+    // Убираем слушатель при размонтировании компонента
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, []);
 
   return (
     <>
       <Head>
-        <title>{metadata.title}</title>
+        <title>{pageTitle}</title>
         <meta name="description" content={metadata.description} />
         <meta name="keywords" content={metadata.keywords} />
       </Head>
