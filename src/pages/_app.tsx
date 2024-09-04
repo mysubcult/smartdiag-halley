@@ -46,10 +46,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 po.src = 'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js?' + ("" + date.getFullYear() + date.getMonth() + date.getDate());
                 var s = document.getElementsByTagName('script')[0];
                 s.parentNode.insertBefore(po, s);
-              })(); 
-             Object.defineProperty(document, 'title', {
-			set: function(){}
-			});          
+              })();
             `,
           }}
         />
