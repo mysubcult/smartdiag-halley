@@ -1,12 +1,9 @@
-import dynamic from 'next/dynamic';
-import Layout from "../components/Layout";
-import { Hero } from "../components/Hero";
+import Contact from "../components/Contact";
 import Soft from "../components/Soft";
-
-// Dynamically import non-critical components
-const Faq = dynamic(() => import("../components/Faq"));
-const Services = dynamic(() => import("../components/Services"));
-const Contact = dynamic(() => import("../components/Contact"));
+import { Hero } from "../components/Hero";
+import Layout from "../components/Layout";
+import Faq from "../components/Faq";
+import { Services } from "../components/Services";
 
 export default function Home() {
   return (
