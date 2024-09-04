@@ -20,8 +20,9 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
   const meta = {
     title: title || "SmartDiag - Ваш проводник в мире автодиагностики",
     description: description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.",
-    keywords: keywords || "автодиагностика, Autocom CDP+, Delphi DS150E, VCDS, Вася, mucar, thinkdiag, Thinkcar, диагностика автомобилей, программы для диагностики, оборудование для диагностики, car diagnostics, diagnostic tools, software for diagnostics, diagnostic equipment, vehicle diagnostics, diagnostic software, installation instructions, BMW, Audi, Mercedes, Toyota, Volkswagen, Ford, Nissan, Honda, Chevrolet, Kia",
-    image: image || "/images/seo/halley-banner.png",
+    keywords: keywords || "автодиагностика, Autocom CDP+, Delphi DS150E, VCDS, Вася, mucar, thinkdiag, Thinkcar, диагностика автомобилей, программы для диагностики, оборудование для диагностики, car diagnostics, diagnostics software",
+    image: image || `${siteUrl}/default-image.png`,
+    url: `${siteUrl}${router.asPath}`,
     type: type || "website",
   };
 
@@ -32,13 +33,16 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
         <meta name="description" content={meta.description} />
         <meta name="keywords" content={meta.keywords} />
         <meta property="og:type" content={meta.type} />
-        <meta property="og:url" content={`${siteUrl}${router.asPath}`} />
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={meta.description} />
         <meta property="og:image" content={meta.image} />
-        <link rel="canonical" href={`${siteUrl}${router.asPath}`} />
+        <meta property="og:url" content={meta.url} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter:description" content={meta.description} />
+        <meta name="twitter:image" content={meta.image} />
+        <link rel="canonical" href={meta.url} />
         <meta name="robots" content="index, follow" />
-        <meta name="author" content="SmartDiag Team" />
       </Head>
       <Navbar />
       <main>{children}</main>
