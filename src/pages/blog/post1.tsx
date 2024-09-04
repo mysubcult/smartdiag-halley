@@ -13,17 +13,6 @@ export default function BlogPost() {
   const [isClient, setIsClient] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    // Устанавливаем заголовок вкладки на стороне клиента
-    document.title = metadata.title;
-  }, []);
-
-  if (!isClient) return null;
-
   return (
     <Layout
       title={metadata.title} // Передаём заголовок в Layout
