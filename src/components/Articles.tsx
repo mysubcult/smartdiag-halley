@@ -55,7 +55,6 @@ const blogPosts = [
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("Все");
-  const [isOpen, setIsOpen] = useState(false);
 
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
@@ -73,7 +72,6 @@ export default function Blog() {
 
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setIsOpen(false);
   }, []);
 
   const renderCategoryButton = useCallback(
@@ -104,8 +102,8 @@ export default function Blog() {
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        {/* Сделаем блок с категориями адаптивным */}
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex justify-center sm:mt-8 flex-wrap sm:inline-flex">
+        {/* Меню категорий с адаптивной рамкой */}
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex justify-center sm:mt-8 flex-wrap" style={{ width: "auto" }}>
           {categories.map(renderCategoryButton)}
         </div>
       </div>
