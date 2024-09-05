@@ -129,11 +129,11 @@ export default function Blog() {
               </div>
             </Link>
             <div className="p-4 flex flex-col flex-grow">
-              {/* Ограничим высоту заголовка и добавим выравнивание */}
-              <h3 className="text-lg font-semibold mb-2 flex-grow-0 h-12 overflow-hidden">
+              {/* Гибкая высота заголовка, но с overflow и max-height */}
+              <h3 className="text-lg font-semibold mb-2 flex-grow-0 max-h-12 overflow-hidden">
                 {title}
               </h3>
-              {/* Ограничим высоту описания и добавим выравнивание */}
+              {/* Описание с flex-grow */}
               <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex-grow">
                 {excerpt}
               </p>
