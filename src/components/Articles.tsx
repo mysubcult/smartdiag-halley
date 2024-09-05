@@ -110,7 +110,7 @@ export default function Blog() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16" style={{ minHeight: '70vh' }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {filteredPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
@@ -129,11 +129,15 @@ export default function Blog() {
               </div>
             </Link>
             <div className="p-4 flex flex-col flex-grow">
-              <h3 className="text-lg font-semibold mb-2">{title}</h3>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex-grow">
+              {/* Фиксированная высота заголовка */}
+              <h3 className="text-lg font-semibold mb-2" style={{ minHeight: '48px' }}>
+                {title}
+              </h3>
+              {/* Фиксированная высота описания */}
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4" style={{ minHeight: '72px' }}>
                 {excerpt}
               </p>
-              <div className="flex justify-end mt-4">
+              <div className="flex justify-end mt-auto">
                 <Link href={link}>
                   <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
                     Читать далее
