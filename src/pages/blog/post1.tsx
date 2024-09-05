@@ -13,7 +13,7 @@ export default function BlogPost() {
   const [isClient, setIsClient] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentTitle, setCurrentTitle] = useState(metadata.title);
+  const [currentTitle, setCurrentTitle] = useState<string>(metadata.title);
 
   useEffect(() => {
     setIsClient(true);
@@ -25,7 +25,7 @@ export default function BlogPost() {
 
   const closeModal = () => setIsModalOpen(false);
 
-  const handleMenuClick = (titleSuffix) => {
+  const handleMenuClick = (titleSuffix: string | null) => {
     if (titleSuffix) {
       setCurrentTitle(`${metadata.title} | ${titleSuffix}`);
     } else {
