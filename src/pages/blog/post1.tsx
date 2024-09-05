@@ -19,11 +19,12 @@ export default function BlogPost() {
   }, []);
 
   useEffect(() => {
-    // Устанавливаем заголовок вкладки на стороне клиента
     document.title = metadata.title;
   }, []);
 
   if (!isClient) return null;
+
+  const closeModal = () => setIsModalOpen(false);
 
   return (
     <Layout title={metadata.title} description={metadata.description} keywords={metadata.keywords}>
@@ -59,27 +60,27 @@ export default function BlogPost() {
               <a onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                 🏠 В начало
               </a>
-              <Link href="#antivirus-issue">
+              <Link href="#antivirus-issue" scroll={false}>
                 <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                   🛡️ Проблема с антивирусом
                 </a>
               </Link>
-              <Link href="#outdated-software">
+              <Link href="#outdated-software" scroll={false}>
                 <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                   ⏳ Устаревшее программное обеспечение
                 </a>
               </Link>
-              <Link href="#download-errors">
+              <Link href="#download-errors" scroll={false}>
                 <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                   📥 Ошибки при загрузке
                 </a>
               </Link>
-              <Link href="#yandex-tips">
+              <Link href="#yandex-tips" scroll={false}>
                 <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                   🌐 Советы для пользователей Яндекс Браузера
                 </a>
               </Link>
-              <Link href="#support">
+              <Link href="#support" scroll={false}>
                 <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                   📞 Поддержка
                 </a>
@@ -107,19 +108,19 @@ export default function BlogPost() {
 
             {/* Modal Window */}
             {isModalOpen && (
-              <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
-                <div className="relative">
+              <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50" onClick={closeModal}>
+                <div className="relative max-w-3xl w-full" onClick={(e) => e.stopPropagation()}>
                   <Image
                     src="/images/blog/post1.jpg"
                     alt="Ошибки при открытии архива"
                     width={1920}
                     height={1080}
                     quality={100}
-                    layout="intrinsic"
+                    layout="responsive"
                     className="rounded-lg"
                   />
                   <button
-                    onClick={() => setIsModalOpen(false)} // Close modal on click
+                    onClick={closeModal}
                     className="absolute top-4 right-4 bg-red-500 text-white p-2 rounded-full focus:outline-none"
                   >
                     &#x2715;
