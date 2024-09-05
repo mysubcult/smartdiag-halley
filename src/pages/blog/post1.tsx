@@ -12,6 +12,7 @@ export const metadata = {
 export default function BlogPost() {
   const [isClient, setIsClient] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -26,7 +27,7 @@ export default function BlogPost() {
 
   return (
     <Layout
-      title={metadata.title} // Передаём заголовок в Layout
+      title={metadata.title}
       description={metadata.description}
       keywords={metadata.keywords}
     >
@@ -82,6 +83,8 @@ export default function BlogPost() {
             <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
             </p>
+            
+            {/* Thumbnail Image */}
             <Image
               src="/images/blog/post1.jpg"
               alt="Ошибки при открытии архива"
@@ -90,7 +93,34 @@ export default function BlogPost() {
               quality={75}
               layout="responsive"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="cursor-pointer"
+              onClick={() => setIsModalOpen(true)} // Open modal on click
             />
+
+            {/* Modal Window */}
+            {isModalOpen && (
+              <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+                <div className="relative">
+                  <Image
+                    src="/images/blog/post1.jpg"
+                    alt="Ошибки при открытии архива"
+                    width={1920}
+                    height={1080}
+                    quality={100}
+                    layout="intrinsic"
+                    className="rounded-lg"
+                  />
+                  <button
+                    onClick={() => setIsModalOpen(false)} // Close modal on click
+                    className="absolute top-4 right-4 bg-red-500 text-white p-2 rounded-full focus:outline-none"
+                  >
+                    &#x2715;
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Other content */}
             <div className="max-w-4xl mx-auto text-lg leading-relaxed">
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="antivirus-issue">Проблема с антивирусом</h3>
               <hr className="border-neutral-300 mb-4" />
@@ -118,6 +148,7 @@ export default function BlogPost() {
                 Если перечисленные выше шаги не помогают, обратитесь в службу поддержки для получения дополнительной помощи.
               </p>
             </div>
+
             <div className="mt-16 flex justify-center">
               <Link href="/#blog" passHref>
                 <a className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
