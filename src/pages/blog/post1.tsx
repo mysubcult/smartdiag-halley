@@ -25,11 +25,20 @@ export default function BlogPost() {
 
   const closeModal = () => setIsModalOpen(false);
 
-  const handleMenuClick = (titleSuffix: string | null) => {
+  const handleMenuClick = (titleSuffix: string | null, scrollTarget: string | null = null) => {
     if (titleSuffix) {
       setCurrentTitle(`${metadata.title} | ${titleSuffix}`);
     } else {
       setCurrentTitle(metadata.title);
+    }
+
+    if (scrollTarget === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (scrollTarget) {
+      const section = document.querySelector(scrollTarget);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -66,34 +75,24 @@ export default function BlogPost() {
             <h3 className="text-center text-xl font-bold mb-3">Навигация</h3>
             <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]" />
             <nav className="space-y-3">
-              <a onClick={() => handleMenuClick(null)} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+              <a onClick={() => handleMenuClick(null, 'top')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                 🏠 В начало
               </a>
-              <Link href="#antivirus-issue" scroll={false}>
-                <a onClick={() => handleMenuClick('🛡️ Проблема с антивирусом')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
-                  🛡️ Проблема с антивирусом
-                </a>
-              </Link>
-              <Link href="#outdated-software" scroll={false}>
-                <a onClick={() => handleMenuClick('⏳ Устаревшее программное обеспечение')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
-                  ⏳ Устаревшее программное обеспечение
-                </a>
-              </Link>
-              <Link href="#download-errors" scroll={false}>
-                <a onClick={() => handleMenuClick('📥 Ошибки при загрузке')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
-                  📥 Ошибки при загрузке
-                </a>
-              </Link>
-              <Link href="#yandex-tips" scroll={false}>
-                <a onClick={() => handleMenuClick('🌐 Советы для пользователей Яндекс Браузера')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
-                  🌐 Советы для пользователей Яндекс Браузера
-                </a>
-              </Link>
-              <Link href="#support" scroll={false}>
-                <a onClick={() => handleMenuClick('📞 Поддержка')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
-                  📞 Поддержка
-                </a>
-              </Link>
+              <a onClick={() => handleMenuClick('🛡️ Проблема с антивирусом', '#antivirus-issue')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                🛡️ Проблема с антивирусом
+              </a>
+              <a onClick={() => handleMenuClick('⏳ Устаревшее программное обеспечение', '#outdated-software')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                ⏳ Устаревшее программное обеспечение
+              </a>
+              <a onClick={() => handleMenuClick('📥 Ошибки при загрузке', '#download-errors')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                📥 Ошибки при загрузке
+              </a>
+              <a onClick={() => handleMenuClick('🌐 Советы для пользователей Яндекс Браузера', '#yandex-tips')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                🌐 Советы для пользователей Яндекс Браузера
+              </a>
+              <a onClick={() => handleMenuClick('📞 Поддержка', '#support')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                📞 Поддержка
+              </a>
             </nav>
           </div>
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0" id="top">
