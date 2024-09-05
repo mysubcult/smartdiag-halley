@@ -85,7 +85,7 @@ export default function Blog() {
           category.value === selectedCategory
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
             : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700",
-          "w-full sm:w-auto rounded-md m-1 py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
+          "rounded-md m-1 py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
         )}
       >
         {category.name}
@@ -104,7 +104,8 @@ export default function Blog() {
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
+        {/* Сделаем блок с категориями адаптивным */}
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex justify-center sm:mt-8 flex-wrap sm:inline-flex">
           {categories.map(renderCategoryButton)}
         </div>
       </div>
