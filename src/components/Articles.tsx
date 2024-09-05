@@ -102,8 +102,8 @@ export default function Blog() {
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        {/* Меню категорий с равными отступами и одинаковыми промежутками между кнопками */}
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-2 gap-2">
+        {/* Меню категорий с уменьшенными отступами */}
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
           {categories.map(renderCategoryButton)}
         </div>
       </div>
