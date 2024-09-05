@@ -53,13 +53,16 @@ const blogPosts = [
   },
 ];
 
-const categories = [
-  { name: "Все", value: "Все" },
-  { name: "Ошибки", value: "Ошибки" },
-  { name: "Установка ПО", value: "Установка ПО" },
-  { name: "Безопасность", value: "Безопасность" },
-  { name: "Рекомендации", value: "Рекомендации" },
-];
+const categories = useMemo(
+  () => [
+    { name: "Все", value: "Все" },
+    { name: "Ошибки", value: "Ошибки" },
+    { name: "Установка ПО", value: "Установка ПО" },
+    { name: "Безопасность", value: "Безопасность" },
+    { name: "Рекомендации", value: "Рекомендации" },
+  ],
+  []
+);
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -80,19 +83,22 @@ export default function Blog() {
     setIsOpen(false);
   }, []);
 
-  const renderCategoryButton = (category: { name: string; value: string }) => (
-    <button
-      key={category.value}
-      onClick={() => handleCategoryClick(category.value)}
-      className={classNames(
-        category.value === selectedCategory
-          ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700",
-        "rounded-md m-1 py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
-      )}
-    >
-      {category.name}
-    </button>
+  const renderCategoryButton = useCallback(
+    (category: { name: string; value: string }) => (
+      <button
+        key={category.value}
+        onClick={() => handleCategoryClick(category.value)}
+        className={classNames(
+          category.value === selectedCategory
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700",
+          "rounded-md m-1 py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
+        )}
+      >
+        {category.name}
+      </button>
+    ),
+    [handleCategoryClick, selectedCategory]
   );
 
   return (
@@ -125,19 +131,19 @@ export default function Blog() {
                   width={400}
                   height={225}
                   className="w-full object-cover"
+                  priority={title === filteredPosts[0].title} // Priority for the first image
+                  placeholder="blur" // Preload with blur effect
+                  blurDataURL="/images/placeholder.png" // Placeholder image path
                 />
               </div>
             </Link>
             <div className="p-4 flex flex-col flex-grow">
-              {/* Заголовок с отступом снизу для всех карточек */}
               <h3 className="text-lg font-semibold mb-6 line-clamp-3 h-16">
                 {title}
               </h3>
-              {/* Описание с flex-grow */}
               <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex-grow">
                 {excerpt}
               </p>
-              {/* Кнопка всегда внизу */}
               <div className="flex justify-end mt-auto">
                 <Link href={link}>
                   <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
