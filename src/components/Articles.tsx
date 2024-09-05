@@ -129,8 +129,8 @@ export default function Blog() {
               </div>
             </Link>
             <div className="p-4 flex flex-col flex-grow">
-              {/* Гибкая высота заголовка, но с overflow и max-height */}
-              <h3 className="text-lg font-semibold mb-2 flex-grow-0 max-h-12 overflow-hidden">
+              {/* Заголовок с максимальным количеством строк (3 строки) */}
+              <h3 className="text-lg font-semibold mb-2 line-clamp-3 h-16">
                 {title}
               </h3>
               {/* Описание с flex-grow */}
