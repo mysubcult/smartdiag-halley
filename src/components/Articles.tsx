@@ -87,7 +87,7 @@ export default function Blog() {
       className={classNames(
         category.value === selectedCategory
           ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700",
+          : "text-neutral-900 dark:text-neutral-400",
         "rounded-md m-1 py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
       )}
     >
@@ -97,8 +97,8 @@ export default function Blog() {
 
   return (
     <div className="bg-white dark:bg-neutral-900 w-full px-6 py-16" id="blog">
-      <h2 className="text-4xl font-bold text-center mb-8">Статьи 📰 (в разработке)</h2>
-      <p className="text-base max-w-2xl text-center m-auto dark:text-neutral-400 mb-12">
+      <h2 className="text-4xl font-bold text-center mb-4">Статьи 📰 (в разработке)</h2>
+      <p className="text-base max-w-2xl text-center m-auto dark:text-neutral-400 mb-4">
         Добро пожаловать в наш блог! Здесь вы найдете полезные статьи и советы по использованию наших продуктов и услуг.
       </p>
 
@@ -138,7 +138,7 @@ export default function Blog() {
       </div>
 
       {/* Карточки постов блога */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 max-w-5xl mx-auto min-h-[800px]">
         {filteredPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
