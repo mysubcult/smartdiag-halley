@@ -4,7 +4,7 @@ const menus = [
   { title: "Главная", url: "/" },
   { title: "Программы", url: "/#soft" },
   { title: "О нас", url: "/#services" },
-  { title: "Блог", url: "/#blog" },
+  { title: "Статьи", url: "/#blog" },
   { title: "Обратная связь", url: "/#contact" },
 ];
 
