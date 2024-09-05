@@ -80,7 +80,6 @@ export default function Blog() {
     setIsOpen(false);
   }, []);
 
-  // Убираем изменение цвета на красный при наведении
   const renderCategoryButton = (category: { name: string; value: string }) => (
     <button
       key={category.value}
@@ -88,7 +87,7 @@ export default function Blog() {
       className={classNames(
         category.value === selectedCategory
           ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "text-neutral-900 dark:text-neutral-400", // Убрано изменение цвета на hover
+          : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700",
         "rounded-md m-1 py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
       )}
     >
@@ -97,54 +96,25 @@ export default function Blog() {
   );
 
   return (
-    <div className="bg-white dark:bg-neutral-900 w-full px-6 py-16" id="blog">
-      {/* Равномерное расстояние между заголовками */}
-      <h2 className="text-4xl font-bold text-center mb-4">Статьи 📰 (в разработке)</h2>
-      <p className="text-base max-w-2xl text-center m-auto dark:text-neutral-400 mb-4">
-        Добро пожаловать в наш блог! Здесь вы найдете полезные статьи и советы по использованию наших продуктов и услуг.
-      </p>
-
-      {/* Навигация по категориям */}
-      <div className="hidden sm:block">
-        <nav className="flex justify-center">
-          <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
-            {categories.map(renderCategoryButton)}
-          </div>
-        </nav>
-      </div>
-      <div className="block sm:hidden">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 py-2 px-4 rounded-md w-full text-left"
-        >
-          {isOpen ? "Закрыть разделы" : selectedCategory}
-        </button>
-        {isOpen && (
-          <div className="mt-2 space-y-1">
-            {categories.map((category) => (
-              <button
-                key={category.value}
-                onClick={() => handleCategoryClick(category.value)}
-                className={classNames(
-                  category.value === selectedCategory
-                    ? "bg-red-500 text-white"
-                    : "text-gray-700 dark:text-gray-200", // Убрано hover на красный
-                  "block px-3 py-2 rounded-md text-base font-medium w-full text-left"
-                )}
-              >
-                {category.name}
-              </button>
-            ))}
-          </div>
-        )}
+    <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+        <h2 className="text-4xl font-bold text-center">Статьи 📰</h2>
+        <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+          В нашем блоге вы найдете полезные статьи и советы по использованию наших продуктов и услуг.
+        </p>
       </div>
 
-      {/* Карточки постов блога с фиксированной высотой для предотвращения сжатия */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 max-w-5xl mx-auto min-h-[800px]">
+      <div className="max-w-max mx-auto px-6">
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
+          {categories.map(renderCategoryButton)}
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {filteredPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
-            className="bg-neutral-100 dark:bg-neutral-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out flex flex-col justify-between"
+            className="rounded-lg py-8 relative flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300"
           >
             <Link href={link}>
               <div className="relative">
@@ -158,14 +128,14 @@ export default function Blog() {
                 />
               </div>
             </Link>
-            <div className="p-4 flex flex-col flex-grow">
+            <div className="p-6 flex flex-col flex-grow">
               <h3 className="text-lg font-semibold mb-2">{title}</h3>
               <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex-grow">
                 {excerpt}
               </p>
               <div className="flex justify-end mt-auto">
                 <Link href={link}>
-                  <button className="bg-red-500 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-600">
+                  <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
                     Читать далее
                   </button>
                 </Link>
