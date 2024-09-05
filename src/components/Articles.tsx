@@ -130,7 +130,7 @@ export default function Blog() {
             </Link>
             <div className="p-4 flex flex-col flex-grow">
               {/* Заголовок с отступом снизу для всех карточек */}
-              <h3 className="text-lg font-semibold mb-4 line-clamp-3 h-16">
+              <h3 className="text-lg font-semibold mb-6 line-clamp-3 h-16">
                 {title}
               </h3>
               {/* Описание с flex-grow */}
