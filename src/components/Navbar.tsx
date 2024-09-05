@@ -25,8 +25,10 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleResize = () => {
-      const navBarWidth = document.querySelector('.navbar-nav')?.offsetWidth || 0;
-      const availableWidth = window.innerWidth - 300; // Approximate width for logo and padding
+      const navBar = document.querySelector('.navbar-nav');
+      const navBarWidth = navBar instanceof HTMLElement ? navBar.offsetWidth : 0;
+      const availableWidth = window.innerWidth - 300; // Примерная ширина для логотипа и отступов
+
       setIsMobileView(window.innerWidth <= 1200);
 
       if (navBarWidth > availableWidth) {
