@@ -14,6 +14,9 @@ const inter = Inter({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <main className={`${inter.variable} font-sans relative`}>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <ThemeProvider attribute="class">
         {/* React.StrictMode could be added in development */}
         <Component {...pageProps} />
