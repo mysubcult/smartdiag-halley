@@ -80,6 +80,7 @@ export default function Blog() {
     setIsOpen(false);
   }, []);
 
+  // Убираем изменение цвета на красный при наведении
   const renderCategoryButton = (category: { name: string; value: string }) => (
     <button
       key={category.value}
@@ -87,7 +88,7 @@ export default function Blog() {
       className={classNames(
         category.value === selectedCategory
           ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "text-neutral-900 dark:text-neutral-400",
+          : "text-neutral-900 dark:text-neutral-400", // Убрано изменение цвета на hover
         "rounded-md m-1 py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
       )}
     >
@@ -97,6 +98,7 @@ export default function Blog() {
 
   return (
     <div className="bg-white dark:bg-neutral-900 w-full px-6 py-16" id="blog">
+      {/* Равномерное расстояние между заголовками */}
       <h2 className="text-4xl font-bold text-center mb-4">Статьи 📰 (в разработке)</h2>
       <p className="text-base max-w-2xl text-center m-auto dark:text-neutral-400 mb-4">
         Добро пожаловать в наш блог! Здесь вы найдете полезные статьи и советы по использованию наших продуктов и услуг.
@@ -126,7 +128,7 @@ export default function Blog() {
                 className={classNames(
                   category.value === selectedCategory
                     ? "bg-red-500 text-white"
-                    : "text-gray-700 dark:text-gray-200 hover:bg-red-500 hover:text-white transition-colors duration-300",
+                    : "text-gray-700 dark:text-gray-200", // Убрано hover на красный
                   "block px-3 py-2 rounded-md text-base font-medium w-full text-left"
                 )}
               >
@@ -137,7 +139,7 @@ export default function Blog() {
         )}
       </div>
 
-      {/* Карточки постов блога */}
+      {/* Карточки постов блога с фиксированной высотой для предотвращения сжатия */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 max-w-5xl mx-auto min-h-[800px]">
         {filteredPosts.map(({ title, image, excerpt, link }) => (
           <div
