@@ -85,7 +85,7 @@ export default function Blog() {
           category.value === selectedCategory
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
             : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700",
-          "rounded-md m-1 py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
+          "w-full sm:w-auto rounded-md m-1 py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
         )}
       >
         {category.name}
@@ -109,6 +109,7 @@ export default function Blog() {
         </div>
       </div>
 
+      {/* Сетка статей */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {filteredPosts.map(({ title, image, excerpt, link }) => (
           <div
@@ -124,9 +125,9 @@ export default function Blog() {
                   width={400}
                   height={225}
                   className="w-full object-cover"
-                  priority={title === filteredPosts[0].title} // Priority for the first image
-                  placeholder="blur" // Preload with blur effect
-                  blurDataURL="/images/placeholder.png" // Placeholder image path
+                  priority={title === filteredPosts[0].title} // Priority для первого изображения
+                  placeholder="blur" // Эффект размытия
+                  blurDataURL="/images/placeholder.png" // Заглушка
                 />
               </div>
             </Link>
