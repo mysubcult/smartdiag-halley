@@ -33,6 +33,13 @@ export default function BlogPost() {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   if (!isClient) return null;
 
   return (
@@ -66,11 +73,9 @@ export default function BlogPost() {
             <h3 className="text-center text-xl font-bold mb-3">Навигация</h3>
             <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]" />
             <nav className="space-y-3">
-              <Link href="#top" scroll={false}>
-                <a onClick={() => handleMenuClick(null)} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
-                  🏠 В начало
-                </a>
-              </Link>
+              <a onClick={scrollToTop} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                🏠 В начало
+              </a>
               <Link href="#antivirus-issue" scroll={false}>
                 <a onClick={() => handleMenuClick('🛡️ Проблема с антивирусом')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                   🛡️ Проблема с антивирусом
@@ -99,8 +104,8 @@ export default function BlogPost() {
             </nav>
           </div>
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0">
-            {/* Заголовок статьи с id="top" */}
-            <h2 id="top" className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
+            {/* Заголовок статьи */}
+            <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
             <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
             </p>
