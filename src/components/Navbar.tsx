@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 const navigation = [
   { name: "Главная", href: "/", anchor: "#hero" },
   { name: "Программы", href: "/#soft", anchor: "#soft" },
-  { name: "Блог", href: "/#blog", anchor: "#blog" },
+  { name: "Статьи", href: "/#blog", anchor: "#blog" },
   { name: "О нас", href: "/#services", anchor: "#services" },
   { name: "Обратная связь", href: "/#contact", anchor: "#contact" },
 ];
