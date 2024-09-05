@@ -45,8 +45,8 @@ export default function BlogPost() {
   return (
     <Layout title={metadata.title} description={metadata.description} keywords={metadata.keywords}>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
-        <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
-          <div className="lg:hidden w-full flex justify-center mb-4">
+        <div className="container mx-auto flex flex-col md:flex-row md:justify-between md:space-x-6">
+          <div className="md:hidden w-full flex justify-center mb-4">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-6 py-3 font-medium shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-105"
@@ -69,7 +69,7 @@ export default function BlogPost() {
               Меню навигации
             </button>
           </div>
-          <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
+          <div className={`md:w-1/6 w-full text-center md:text-left ${isMenuOpen ? 'block' : 'hidden'} md:block md:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
             <h3 className="text-center text-xl font-bold mb-3">Навигация</h3>
             <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]" />
             <nav className="space-y-3">
@@ -103,7 +103,7 @@ export default function BlogPost() {
               </Link>
             </nav>
           </div>
-          <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0">
+          <div className="md:w-4/6 w-full md:max-w-4xl mx-auto px-4 pt-6 md:pt-0">
             {/* Заголовок статьи */}
             <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
             <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
@@ -184,7 +184,7 @@ export default function BlogPost() {
               </Link>
             </div>
           </div>
-          <div className="lg:w-1/6 hidden lg:block"></div>
+          <div className="md:w-1/6 hidden md:block"></div>
         </div>
       </main>
     </Layout>
