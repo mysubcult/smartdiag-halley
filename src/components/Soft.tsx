@@ -54,7 +54,7 @@ const products: Product[] = [
     features: ["Wurth WoW 5.00.8", "Инструкция по установке ПО", "Руководство пользователя"],
     downloadLinks: [
       { link: "https://i.getspace.us/cloud/s/eTR2gqbEbZi66Md", label: "Скачать с сервера 1" },
-      { link: "https://nch.pl/s/KCCEPPDbpb7j7oJ", label: "Скачать с сервера 2" },
+      { link: "https://nch.pl/s/KCCEPPDbpb7j7oJ", label: "Скачать с сервера 2" }
     ],
     mostPopular: false,
     docs: false,
@@ -62,129 +62,47 @@ const products: Product[] = [
     type: "мультимарочные"
   },
   {
-    title: "MUCAR BT200/Thinkcar Mini/Thinkdiag",
-    description: "Универсальные мобильные приборы для диагностики автомобилей.",
-    features: ["Diagzone", "ProDiag", "X-DIAG", "X-PRO5"],
+    title: "Launch X431 Pro",
+    description: "Продвинутый сканер диагностики для профессионалов.",
+    features: ["Launch X431 2020", "Полная инструкция пользователя", "Технические документы"],
     downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/fAMr3QsBMekwR2n", label: "Скачать с сервера 1" },
-      { link: "https://nch.pl/s/T6c4C7Gj5Me3mGF", label: "Скачать с сервера 2" },
-    ],
-    mostPopular: false,
-    docs: false,
-    docsLinks: [],
-    type: "мультимарочные"
-  },
-  {
-    title: "Galletto 1260",
-    description: "Универсальный программатор для чип-тюнинга, чтения и удаления кодов неисправностей.",
-    features: ["Galletto 1260", "Драйвер"],
-    downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/dfYejQP9rZGK9Td", label: "Скачать с сервера 1" }
-    ],
-    mostPopular: false,
-    docs: false,
-    docsLinks: [],
-    type: "мультимарочные"
-  },
-  {
-    title: "VCDS + Вася",
-    description: "Диагностический инструмент для автомобилей Volkswagen Group.",
-    features: ["Вася, VCDS", "Инструкции по установке ПО", "Сборники кодировок", "Видеокурсы"],
-    downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/R7ycKecn9P6b55a", label: "Скачать с сервера 1" },
-      { link: "https://nch.pl/s/mnBd982CC52NEko", label: "Скачать с сервера 2" },
+      { link: "https://example.com/launch1", label: "Скачать с сервера 1" },
+      { link: "https://example.com/launch2", label: "Скачать с сервера 2" }
     ],
     mostPopular: true,
     docs: true,
     docsLinks: [
-      { link: "https://i.getspace.us/cloud/s/bmi7a7zdHbXHMnB", label: "Инструкция 1" },
+      { link: "https://example.com/doc1", label: "Документация по Launch X431 2020" }
     ],
     type: "марочные"
   },
   {
-    title: "BMW E-NET (E-Sys)",
-    description: "Диагностическая система для автомобилей BMW.",
-    features: ["E-SYS", "Rheingold", "ISTA+", "ISTA-P", "Инструкции по установке ПО"],
+    title: "Bosch KTS 570",
+    description: "Диагностическая система для грузовых и легковых автомобилей от Bosch.",
+    features: ["Bosch KTS 570 2021", "Инструкции и документация", "Поддержка различных протоколов"],
     downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS", label: "Скачать с сервера 1" }
-    ],
-    mostPopular: false,
-    docs: false,
-    docsLinks: [],
-    type: "марочные"
-  },
-  {
-    title: "K-Dcan INPA",
-    description: "Диагностическая система для автомобилей BMW.",
-    features: ["Rheingold", "INPA", "ISTA-D", "DIS", "NCS", "Инструкции по установке ПО"],
-    downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS", label: "Скачать с сервера 1" }
+      { link: "https://example.com/bosch1", label: "Скачать с сервера 1" }
     ],
     mostPopular: false,
-    docs: false,
-    docsLinks: [],
-    type: "марочные"
-  },
-  {
-    title: "ELS 27",
-    description: "Диагностический интерфейс для автомобилей Ford и Mazda.",
-    features: ["FORScan", "FoCCCus", "ELMConfig", "Инструкции по установке ПО"],
-    downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/oBNcC2w85wnj2Lx", label: "Скачать с сервера 1" }
+    docs: true,
+    docsLinks: [
+      { link: "https://example.com/docbosch", label: "Документация Bosch KTS 570" }
     ],
-    mostPopular: false,
-    docs: false,
-    docsLinks: [],
     type: "марочные"
   },
   {
-    title: "Mini-VCI",
-    description: "Диагностический инструмент для автомобилей Toyota и Lexus.",
-    features: ["Techstream ", "Инструкция по установке ПО"],
+    title: "ELM327 Bluetooth",
+    description: "Сканер для чтения и удаления ошибок с автомобилей с использованием ELM327.",
+    features: ["Поддержка всех основных протоколов", "Простота использования", "Инструкция"],
     downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/Q3kWQ8ajB8WdF5g", label: "Скачать с сервера 1" }
-    ],
-    mostPopular: false,
-    docs: false,
-    docsLinks: [],
-    type: "марочные"
-  },
-  {
-    title: "Lexia 3/PP2000",
-    description: "Диагностический инструмент для автомобилей Peugeot и Citroen.",
-    features: ["Diagbox", "Инструкция по установке ПО"],
-    downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/eBmZpZWza2kt2Dc", label: "Скачать с сервера 1" }
-    ],
-    mostPopular: false,
-    docs: false,
-    docsLinks: [],
-    type: "марочные"
-  },
-  {
-    title: "ELM 327 Mini",
-    description: "Универсальный диагностический сканер для автомобилей, который подключается к порту OBD-II и работает через приложение на смартфоне или компьютере.",
-    features: ["EOBD Facile", "Car Scanner", "Torque", "ELMScan", "Carista", "BimmerCode", "LeafSpy", "и т.д."],
-    downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" },
-      { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 1" },
+      { link: "https://example.com/elm1", label: "Скачать с сервера 1" },
+      { link: "https://example.com/elm2", label: "Скачать с сервера 2" }
     ],
     mostPopular: true,
-    docs: false,
-    docsLinks: [],
-    type: "elm"
-  },
-  {
-    title: "Kingbolen ELM",
-    description: "Диагностический инструмент для автомобилей, оснащенный функцией Bluetooth/Wi-Fi и поддерживающий различные протоколы OBD-II, что позволяет работать с разными автомобильными брендами.",
-    features: ["EOBD Facile", "Car Scanner", "Torque", "ELMScan", "Carista", "BimmerCode", "LeafSpy", "и т.д."],
-    downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" },
-      { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 1" },
+    docs: true,
+    docsLinks: [
+      { link: "https://example.com/elmdoc", label: "Руководство пользователя ELM327" }
     ],
-    mostPopular: false,
-    docs: false,
-    docsLinks: [],
     type: "elm"
   }
 ];
@@ -211,8 +129,8 @@ export default function Soft() {
       className={`${
         selectedType === type
           ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "text-neutral-900 dark:text-neutral-400"
-      } w-full sm:w-auto rounded-md m-1 py-2 whitespace-nowrap sm:px-8 hover:bg-white dark:hover:bg-neutral-700 transition-colors duration-300 ease-in-out`}
+          : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+      } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
     >
       {label}
     </button>
@@ -224,19 +142,17 @@ export default function Soft() {
         <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
           В этом разделе вы можете скачать программное обеспечение для своего устройства.
-          Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;.
-          Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством
-          и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке
-          &quot;Инструкция&quot;.
         </p>
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8">
+        {/* Применяем стили, как в предыдущем примере */}
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
           {DeviceTypes.map((type) => renderButton(type.charAt(0).toUpperCase() + type.slice(1), type))}
         </div>
       </div>
 
+      {/* Сетка статей */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {products
           .filter(({ type }) => type === selectedType)
