@@ -79,12 +79,12 @@ export default function Blog() {
       <button
         key={category.value}
         onClick={() => handleCategoryClick(category.value)}
-        className={classNames(
-          category.value === selectedCategory
+        className={`
+          ${category.value === selectedCategory
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700",
-          "w-full sm:w-auto rounded-md m-1 py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
-        )}
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"}
+          w-full sm:w-auto  rounded-md m-1 py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out
+        `}
       >
         {category.name}
       </button>
@@ -102,8 +102,8 @@ export default function Blog() {
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        {/* Меню категорий с адаптивной рамкой, ширина ограничена шириной самой широкой кнопки */}
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:inline-flex sm:flex-wrap items-center justify-center sm:justify-start px-4 py-2">
+        {/* Меню категорий с адаптивной рамкой, которая не занимает всю ширину */}
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap items-center justify-center px-4 py-2">
           {categories.map(renderCategoryButton)}
         </div>
       </div>
@@ -150,8 +150,4 @@ export default function Blog() {
       </div>
     </div>
   );
-}
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
 }
