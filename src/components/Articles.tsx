@@ -110,11 +110,12 @@ export default function Blog() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {filteredPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
-            className="rounded-lg py-8 relative flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300"
+            className="rounded-lg flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300"
+            style={{ minHeight: '100%' }} // Ensure full height is used
           >
             <Link href={link}>
               <div className="relative">
@@ -123,17 +124,17 @@ export default function Blog() {
                   alt={title}
                   layout="responsive"
                   width={400}
-                  height={225}
-                  className="w-full h-48 object-cover transform transition-transform hover:scale-105"
+                  height={200} // Adjust height for a balanced look
+                  className="w-full object-cover transform transition-transform hover:scale-105"
                 />
               </div>
             </Link>
-            <div className="p-6 flex flex-col flex-grow">
-              <h3 className="text-lg font-semibold mb-2">{title}</h3>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex-grow">
+            <div className="p-4 flex flex-col flex-grow">
+              <h3 className="text-lg font-semibold mb-1">{title}</h3>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3 flex-grow">
                 {excerpt}
               </p>
-              <div className="flex justify-end mt-auto">
+              <div className="flex justify-end">
                 <Link href={link}>
                   <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
                     Читать далее
