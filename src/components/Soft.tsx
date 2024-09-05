@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 
-type ProductType = "мультимарочные" | "марочные" | "elm";
+type ProductType = "мультимарочные" | "марочные" | "адаптеры elm";
 
 interface Product {
   title: string;
