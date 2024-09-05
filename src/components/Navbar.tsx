@@ -23,20 +23,17 @@ export default function Navbar() {
 
   const router = useRouter();
 
-  // Проверяем размер экрана и устанавливаем состояние
   useEffect(() => {
     const handleResize = () => {
       const navBar = document.querySelector('.navbar-nav');
       const navBarWidth = navBar instanceof HTMLElement ? navBar.offsetWidth : 0;
-      const availableWidth = window.innerWidth - 300; // Ширина для логотипа и кнопок магазинов
+      const availableWidth = window.innerWidth - 500; // Учитываем логотип и кнопки
 
       setIsMobileView(window.innerWidth <= 1200);
 
       if (navBarWidth > availableWidth) {
-        setIsNavOverflowing(true);
         setIsStoreDropdownVisible(true);
       } else {
-        setIsNavOverflowing(false);
         setIsStoreDropdownVisible(false);
       }
     };
@@ -173,7 +170,22 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Popup Menu */}
+      {/* Выпадающий список магазинов */}
+      {isSubMenuOpen && !isMobileView && (
+        <div className="absolute bg-white dark:bg-neutral-900 border rounded-xl shadow-lg p-4 right-4 top-20 z-30">
+          <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="block mb-2">
+            OZON
+          </Link>
+          <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer" className="block mb-2">
+            Яндекс Маркет
+          </Link>
+          <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer" className="block">
+            Wildberries
+          </Link>
+        </div>
+      )}
+
+      {/* Popup Mobile Menu */}
       {isMenuOpen && (
         <div className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
           <div className="flex flex-col items-center justify-center space-y-4">
@@ -182,20 +194,6 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
-            {isSubMenuOpen && (
-              <div className="submenu mt-2 space-y-3">
-                {/* Store buttons as dropdown options */}
-                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="block">
-                  OZON
-                </Link>
-                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer" className="block">
-                  Яндекс Маркет
-                </Link>
-                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer" className="block">
-                  Wildberries
-                </Link>
-              </div>
-            )}
           </div>
         </div>
       )}
