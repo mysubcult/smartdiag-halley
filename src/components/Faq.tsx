@@ -97,7 +97,7 @@ export default function Blog() {
 
   return (
     <div className="bg-white dark:bg-neutral-900 w-full px-6 py-16" id="blog">
-      <h2 className="text-4xl font-bold text-center mb-8">Блог 📰 (в разработке)</h2>
+      <h2 className="text-4xl font-bold text-center mb-8">Статьи 📰 (в разработке)</h2>
       <p className="text-base max-w-2xl text-center m-auto dark:text-neutral-400 mb-12">
         Добро пожаловать в наш блог! Здесь вы найдете полезные статьи и советы по использованию наших продуктов и услуг.
       </p>
