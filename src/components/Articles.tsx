@@ -53,24 +53,17 @@ const blogPosts = [
   },
 ];
 
-const categories = useMemo(
-  () => [
+export default function Blog() {
+  const [selectedCategory, setSelectedCategory] = useState("Все");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const categories = useMemo(() => [
     { name: "Все", value: "Все" },
     { name: "Ошибки", value: "Ошибки" },
     { name: "Установка ПО", value: "Установка ПО" },
     { name: "Безопасность", value: "Безопасность" },
     { name: "Рекомендации", value: "Рекомендации" },
-  ],
-  []
-);
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
-export default function Blog() {
-  const [selectedCategory, setSelectedCategory] = useState("Все");
-  const [isOpen, setIsOpen] = useState(false);
+  ], []);
 
   const filteredPosts = useMemo(() => {
     return selectedCategory === "Все"
@@ -157,4 +150,8 @@ export default function Blog() {
       </div>
     </div>
   );
+}
+
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
 }
