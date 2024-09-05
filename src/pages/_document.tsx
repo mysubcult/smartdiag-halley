@@ -5,7 +5,6 @@ export default function Document() {
     <Html lang="ru"> {/* Changed from 'en' to 'ru' for Russian content */}
       <Head>
         <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Additional meta tags can be added here */}
       </Head>
       <body>
