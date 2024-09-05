@@ -121,7 +121,8 @@ export default function BlogPost() {
                   />
                   <button
                     onClick={closeModal}
-                    className="absolute top-4 right-4 bg-red-500 text-white p-2 rounded-full focus:outline-none"
+                    className="absolute top-4 right-4 bg-gray-200 text-gray-800 p-2 rounded-full focus:outline-none hover:bg-gray-300 active:bg-gray-400 transition-all"
+                    style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                   >
                     &#x2715;
                   </button>
