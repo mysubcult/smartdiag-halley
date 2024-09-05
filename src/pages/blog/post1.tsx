@@ -13,18 +13,27 @@ export default function BlogPost() {
   const [isClient, setIsClient] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentTitle, setCurrentTitle] = useState(metadata.title);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   useEffect(() => {
-    document.title = metadata.title;
-  }, []);
-
-  if (!isClient) return null;
+    document.title = currentTitle;
+  }, [currentTitle]);
 
   const closeModal = () => setIsModalOpen(false);
+
+  const handleMenuClick = (titleSuffix) => {
+    if (titleSuffix) {
+      setCurrentTitle(`${metadata.title} | ${titleSuffix}`);
+    } else {
+      setCurrentTitle(metadata.title);
+    }
+  };
+
+  if (!isClient) return null;
 
   return (
     <Layout title={metadata.title} description={metadata.description} keywords={metadata.keywords}>
@@ -57,38 +66,38 @@ export default function BlogPost() {
             <h3 className="text-center text-xl font-bold mb-3">Навигация</h3>
             <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]" />
             <nav className="space-y-3">
-              <a onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+              <a onClick={() => handleMenuClick(null)} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                 🏠 В начало
               </a>
               <Link href="#antivirus-issue" scroll={false}>
-                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                <a onClick={() => handleMenuClick('🛡️ Проблема с антивирусом')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                   🛡️ Проблема с антивирусом
                 </a>
               </Link>
               <Link href="#outdated-software" scroll={false}>
-                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                <a onClick={() => handleMenuClick('⏳ Устаревшее программное обеспечение')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                   ⏳ Устаревшее программное обеспечение
                 </a>
               </Link>
               <Link href="#download-errors" scroll={false}>
-                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                <a onClick={() => handleMenuClick('📥 Ошибки при загрузке')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                   📥 Ошибки при загрузке
                 </a>
               </Link>
               <Link href="#yandex-tips" scroll={false}>
-                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                <a onClick={() => handleMenuClick('🌐 Советы для пользователей Яндекс Браузера')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                   🌐 Советы для пользователей Яндекс Браузера
                 </a>
               </Link>
               <Link href="#support" scroll={false}>
-                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                <a onClick={() => handleMenuClick('📞 Поддержка')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                   📞 Поддержка
                 </a>
               </Link>
             </nav>
           </div>
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0" id="top">
-            <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
+            <h2 className="text-4xl font-bold text-center">{currentTitle}</h2>
             <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
             </p>
@@ -121,8 +130,8 @@ export default function BlogPost() {
                   />
                   <button
                     onClick={closeModal}
-                    className="absolute top-4 right-4 bg-gray-200 text-gray-800 p-2 rounded-full focus:outline-none hover:bg-gray-300 active:bg-gray-400 transition-all"
-                    style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    className="absolute top-4 right-4 bg-gray-200 text-gray-800 p-2 rounded-full focus:outline-none hover:bg-gray-300 active:scale-90 transition-all"
+                    style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}
                   >
                     &#x2715;
                   </button>
