@@ -2,7 +2,7 @@ import Contact from "../components/Contact";
 import Soft from "../components/Soft";
 import { Hero } from "../components/Hero";
 import Layout from "../components/Layout";
-import Faq from "../components/Faq";
+import Articles from "../components/Articles";
 import { Services } from "../components/Services";
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
     <Layout title="SmartDiag - Ваш проводник в мире автодиагностики">
       <Hero />
       <Soft />
-      <Faq />
+      <Articles />
       <Services />
       <Contact />
     </Layout>
