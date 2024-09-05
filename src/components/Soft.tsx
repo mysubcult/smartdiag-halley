@@ -189,7 +189,7 @@ const products: Product[] = [
   }
 ];
 
-const DeviceTypes: ProductType[] = ["мультимарочные", "марочные", "elm"];
+const DeviceTypes: ProductType[] = ["мультимарочные", "марочные", "адаптеры elm"];
 
 export default function Soft() {
   const [selectedType, setSelectedType] = useState<ProductType>("мультимарочные");
