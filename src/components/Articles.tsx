@@ -129,14 +129,15 @@ export default function Blog() {
               </div>
             </Link>
             <div className="p-4 flex flex-col flex-grow">
-              {/* Фиксированная высота заголовка */}
-              <h3 className="text-lg font-semibold mb-2" style={{ minHeight: '48px' }}>
+              {/* Ограничим высоту заголовка и добавим выравнивание */}
+              <h3 className="text-lg font-semibold mb-2 flex-grow-0 h-12 overflow-hidden">
                 {title}
               </h3>
-              {/* Фиксированная высота описания */}
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4" style={{ minHeight: '72px' }}>
+              {/* Ограничим высоту описания и добавим выравнивание */}
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex-grow">
                 {excerpt}
               </p>
+              {/* Кнопка всегда внизу */}
               <div className="flex justify-end mt-auto">
                 <Link href={link}>
                   <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
