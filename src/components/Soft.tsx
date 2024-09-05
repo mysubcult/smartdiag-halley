@@ -172,7 +172,7 @@ const products: Product[] = [
     mostPopular: true,
     docs: false,
     docsLinks: [],
-    type: "elm"
+    type: "адаптеры elm"
   },
   {
     title: "Kingbolen ELM",
@@ -185,7 +185,7 @@ const products: Product[] = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "elm"
+    type: "адаптеры elm"
   }
 ];
 
