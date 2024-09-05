@@ -26,11 +26,7 @@ export default function BlogPost() {
   if (!isClient) return null;
 
   return (
-    <Layout
-      title={metadata.title}
-      description={metadata.description}
-      keywords={metadata.keywords}
-    >
+    <Layout title={metadata.title} description={metadata.description} keywords={metadata.keywords}>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
@@ -58,23 +54,35 @@ export default function BlogPost() {
           </div>
           <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
             <h3 className="text-center text-xl font-bold mb-3">Навигация</h3>
-            <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]"/>
+            <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]" />
             <nav className="space-y-3">
-              <a onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">🏠 В начало</a>
-              <Link href="#antivirus-issue" passHref scroll={false}>
-                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">🛡️ Проблема с антивирусом</a>
+              <a onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                🏠 В начало
+              </a>
+              <Link href="#antivirus-issue">
+                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                  🛡️ Проблема с антивирусом
+                </a>
               </Link>
-              <Link href="#outdated-software" passHref scroll={false}>
-                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">⏳ Устаревшее программное обеспечение</a>
+              <Link href="#outdated-software">
+                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                  ⏳ Устаревшее программное обеспечение
+                </a>
               </Link>
-              <Link href="#download-errors" passHref scroll={false}>
-                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">📥 Ошибки при загрузке</a>
+              <Link href="#download-errors">
+                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                  📥 Ошибки при загрузке
+                </a>
               </Link>
-              <Link href="#yandex-tips" passHref scroll={false}>
-                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">🌐 Советы для пользователей Яндекс Браузера</a>
+              <Link href="#yandex-tips">
+                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                  🌐 Советы для пользователей Яндекс Браузера
+                </a>
               </Link>
-              <Link href="#support" passHref scroll={false}>
-                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">📞 Поддержка</a>
+              <Link href="#support">
+                <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                  📞 Поддержка
+                </a>
               </Link>
             </nav>
           </div>
@@ -83,7 +91,7 @@ export default function BlogPost() {
             <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
             </p>
-            
+
             {/* Thumbnail Image */}
             <Image
               src="/images/blog/post1.jpg"
@@ -150,7 +158,7 @@ export default function BlogPost() {
             </div>
 
             <div className="mt-16 flex justify-center">
-              <Link href="/#blog" passHref>
+              <Link href="/#blog">
                 <a className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
                   Вернуться в блог
                 </a>
