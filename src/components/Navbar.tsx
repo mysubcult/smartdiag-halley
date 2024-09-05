@@ -17,23 +17,26 @@ const navigation = [
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
-  const [fontSize, setFontSize] = useState("18px");
   const [isMobileView, setIsMobileView] = useState(false);
   const [isStoreDropdownVisible, setIsStoreDropdownVisible] = useState(false);
+  const [isNavOverflowing, setIsNavOverflowing] = useState(false);
 
   const router = useRouter();
 
+  // Проверяем размер экрана и устанавливаем состояние
   useEffect(() => {
     const handleResize = () => {
       const navBar = document.querySelector('.navbar-nav');
       const navBarWidth = navBar instanceof HTMLElement ? navBar.offsetWidth : 0;
-      const availableWidth = window.innerWidth - 300; // Примерная ширина для логотипа и отступов
+      const availableWidth = window.innerWidth - 300; // Ширина для логотипа и кнопок магазинов
 
       setIsMobileView(window.innerWidth <= 1200);
 
       if (navBarWidth > availableWidth) {
+        setIsNavOverflowing(true);
         setIsStoreDropdownVisible(true);
       } else {
+        setIsNavOverflowing(false);
         setIsStoreDropdownVisible(false);
       }
     };
@@ -99,7 +102,12 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             {!isMobileView && (
               <>
-                {!isStoreDropdownVisible ? (
+                {isStoreDropdownVisible ? (
+                  <button onClick={() => setIsSubMenuOpen(!isSubMenuOpen)} className="btn-submenu-toggle">
+                    Магазины
+                    <ChevronDownIcon className={`h-5 w-5 ml-2 ${isSubMenuOpen ? "rotate-180" : "rotate-0"}`} />
+                  </button>
+                ) : (
                   <>
                     <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="block">
                       <button className="btn-ozon">
@@ -143,11 +151,6 @@ export default function Navbar() {
                       </button>
                     </Link>
                   </>
-                ) : (
-                  <button onClick={() => setIsSubMenuOpen(!isSubMenuOpen)} className="btn-submenu-toggle">
-                    Магазины
-                    <ChevronDownIcon className={`h-5 w-5 ml-2 ${isSubMenuOpen ? "rotate-180" : "rotate-0"}`} />
-                  </button>
                 )}
               </>
             )}
@@ -182,6 +185,15 @@ export default function Navbar() {
             {isSubMenuOpen && (
               <div className="submenu mt-2 space-y-3">
                 {/* Store buttons as dropdown options */}
+                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="block">
+                  OZON
+                </Link>
+                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer" className="block">
+                  Яндекс Маркет
+                </Link>
+                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer" className="block">
+                  Wildberries
+                </Link>
               </div>
             )}
           </div>
