@@ -18,7 +18,7 @@ const blogPosts = [
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("Все");
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 8; // Changed this value to 8 to display more posts
+  const postsPerPage = 8; // 8 posts per page
 
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
@@ -101,7 +101,7 @@ export default function Blog() {
       </div>
 
       {/* Сетка статей */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16 min-h-[1000px]">
         {paginatedPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
