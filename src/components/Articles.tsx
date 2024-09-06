@@ -18,7 +18,7 @@ const blogPosts = [
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("Все");
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 4;
+  const postsPerPage = 8; // Changed this value to 8 to display more posts
 
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
