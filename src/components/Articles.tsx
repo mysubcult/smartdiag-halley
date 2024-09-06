@@ -1,21 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 
-type Post = {
-  title: string;
-  image: string;
-  excerpt: string;
-  link: string;
-  category: string;
-};
-
-type Category = {
-  name: string;
-  value: string;
-};
-
-const blogPosts: Post[] = [
+const blogPosts = [
   {
     title: "Как справиться с ошибкой при открытии архива",
     image: "/images/blog/post1.jpg",
@@ -96,81 +83,44 @@ const blogPosts: Post[] = [
     link: "/blog/post10",
     category: "Рекомендации",
   },
-  // Добавьте больше постов для тестирования пагинации
 ];
 
 export default function Blog() {
-  const [selectedCategory, setSelectedCategory] = useState<string>("Все");
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const articlesPerPage = 8; // Ограничиваем до 8 статей на одной странице
+  const [selectedCategory, setSelectedCategory] = useState("Все");
 
-  // Категории для фильтрации
-  const categories: Category[] = useMemo(
-    () => [
-      { name: "Все", value: "Все" },
-      { name: "Ошибки", value: "Ошибки" },
-      { name: "Установка ПО", value: "Установка ПО" },
-      { name: "Безопасность", value: "Безопасность" },
-      { name: "Рекомендации", value: "Рекомендации" },
-    ],
-    []
-  );
+  const categories = useMemo(() => [
+    { name: "Все", value: "Все" },
+    { name: "Ошибки", value: "Ошибки" },
+    { name: "Установка ПО", value: "Установка ПО" },
+    { name: "Безопасность", value: "Безопасность" },
+    { name: "Рекомендации", value: "Рекомендации" },
+  ], []);
 
-  // Фильтруем посты по выбранной категории
-  const filteredPosts: Post[] = useMemo(() => {
+  const filteredPosts = useMemo(() => {
     return selectedCategory === "Все"
       ? blogPosts
       : blogPosts.filter((post) => post.category === selectedCategory);
   }, [selectedCategory]);
 
-  // Вычисляем количество страниц
-  const totalPages = Math.ceil(filteredPosts.length / articlesPerPage);
-
-  // Получаем посты для текущей страницы
-  const currentPosts = filteredPosts.slice(
-    (currentPage - 1) * articlesPerPage,
-    currentPage * articlesPerPage
-  );
-
-  // Смена категории и сброс страницы на первую
-  const handleCategoryClick = (category: string) => {
+  const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1); // При смене категории всегда возвращаемся на первую страницу
-  };
+  }, []);
 
-  // Смена страницы
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page); // При смене страницы просто переключаем текущую страницу
-  };
-
-  // Рендерим кнопки категорий
-  const renderCategoryButton = (category: Category) => (
-    <button
-      key={category.value}
-      onClick={() => handleCategoryClick(category.value)}
-      className={`${
-        category.value === selectedCategory
-          ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-      } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-    >
-      {category.name}
-    </button>
-  );
-
-  // Рендерим кнопки страниц
-  const renderPaginationButton = (pageNumber: number) => (
-    <button
-      key={pageNumber}
-      onClick={() => handlePageChange(pageNumber)}
-      className={`${
-        pageNumber === currentPage
-          ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-      } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out mx-1`}
-    >
-      {pageNumber}
-    </button>
+  const renderCategoryButton = useCallback(
+    (category: { name: string; value: string }) => (
+      <button
+        key={category.value}
+        onClick={() => handleCategoryClick(category.value)}
+        className={`${
+          category.value === selectedCategory
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+      >
+        {category.name}
+      </button>
+    ),
+    [handleCategoryClick, selectedCategory]
   );
 
   return (
@@ -191,7 +141,7 @@ export default function Blog() {
 
       {/* Сетка статей */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
-        {currentPosts.map(({ title, image, excerpt, link }) => (
+        {filteredPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
             className="rounded-lg overflow-hidden flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300"
@@ -205,7 +155,7 @@ export default function Blog() {
                   width={400}
                   height={225}
                   className="w-full object-cover"
-                  priority={title === currentPosts[0].title}
+                  priority={title === filteredPosts[0].title}
                   placeholder="blur"
                   blurDataURL="/images/placeholder.png"
                 />
@@ -228,13 +178,6 @@ export default function Blog() {
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Пагинация */}
-      <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex justify-center sm:mt-8 p-1 gap-1">
-        {Array.from({ length: totalPages }).map((_, index) =>
-          renderPaginationButton(index + 1)
-        )}
       </div>
     </div>
   );
