@@ -116,16 +116,14 @@ export default function Blog() {
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1);
-    // Убираем скроллирование при смене категорий
   }, []);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    // Аналогично категории: отменяем скроллирование
-    // Блокируем перемещение страницы при смене страниц
+    // Блокируем скроллирование при смене страницы
     const scrollPosition = window.scrollY;
     setTimeout(() => {
-      window.scrollTo(0, scrollPosition);
+      window.scrollTo({ top: scrollPosition });
     }, 0);
   };
 
