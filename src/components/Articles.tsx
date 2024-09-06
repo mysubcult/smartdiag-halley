@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback } from "react";
 
 const blogPosts = [
   { title: "Как справиться с ошибкой при открытии архива", image: "/images/blog/post1.jpg", excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов и что может вызывать эти проблемы.", link: "/blog/post1", category: "Ошибки" },
@@ -19,11 +19,9 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("Все");
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 8;
-  const postContainerRef = useCallback((node) => {
-    if (node !== null) {
-      node.scrollIntoView({ behavior: "smooth" });
-    }
-  }, []);
+
+  // Рассчитываем максимальное количество постов для всех категорий
+  const maxPostsInCategory = blogPosts.length;
 
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
@@ -54,13 +52,6 @@ export default function Blog() {
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
   }, []);
-
-  useEffect(() => {
-    const container = document.getElementById("post-container");
-    if (container) {
-      container.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [currentPage]);
 
   const renderCategoryButton = useCallback(
     (category: { name: string; value: string }) => (
@@ -113,7 +104,7 @@ export default function Blog() {
       </div>
 
       {/* Сетка статей */}
-      <div id="post-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
+      <div id="post-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16" style={{ minHeight: `${(maxPostsInCategory / 4) * 250}px` }}>
         {paginatedPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
