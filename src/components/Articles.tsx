@@ -115,7 +115,7 @@ export default function Blog() {
 
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1);
+    setCurrentPage(1);  // При переключении категорий возвращаемся на первую страницу
   }, []);
 
   const handlePageChange = (page: number) => {
@@ -215,7 +215,7 @@ export default function Blog() {
       </div>
 
       {/* Пагинация */}
-      <div className="flex justify-center mt-8">
+      <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
         {Array.from({ length: totalPages || 1 }).map((_, index) =>
           renderPaginationButton(index + 1)
         )}
