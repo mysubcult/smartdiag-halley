@@ -41,17 +41,17 @@ export default function Blog() {
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  const handleCategoryClick = useCallback((category) => {
+  const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1); // Reset page when category changes
   }, []);
 
-  const handlePageChange = useCallback((page) => {
+  const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
   }, []);
 
   const renderCategoryButton = useCallback(
-    (category) => (
+    (category: { name: string; value: string }) => (
       <button
         key={category.value}
         onClick={() => handleCategoryClick(category.value)}
@@ -68,7 +68,7 @@ export default function Blog() {
   );
 
   const renderPageButton = useCallback(
-    (page) => (
+    (page: number) => (
       <button
         key={page}
         onClick={() => handlePageChange(page)}
