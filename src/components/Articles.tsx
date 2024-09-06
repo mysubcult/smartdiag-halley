@@ -15,12 +15,17 @@ const blogPosts = [
   { title: "Обзор программ для работы с архивами", image: "/images/blog/post10.jpg", excerpt: "Сравнение различных программ для работы с архивами и их основные функции.", link: "/blog/post10", category: "Рекомендации" },
 ];
 
+interface Category {
+  name: string;
+  value: string;
+}
+
 export default function Blog() {
-  const [selectedCategory, setSelectedCategory] = useState("Все");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState<string>("Все");
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const postsPerPage = 8;
 
-  const categories = useMemo(() => [
+  const categories: Category[] = useMemo(() => [
     { name: "Все", value: "Все" },
     { name: "Ошибки", value: "Ошибки" },
     { name: "Установка ПО", value: "Установка ПО" },
@@ -41,17 +46,17 @@ export default function Blog() {
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  const handleCategoryClick = useCallback((category) => {
+  const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1);
   }, []);
 
-  const handlePageChange = useCallback((page) => {
+  const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
   }, []);
 
   const renderCategoryButton = useCallback(
-    (category) => (
+    (category: Category) => (
       <button
         key={category.value}
         onClick={() => handleCategoryClick(category.value)}
@@ -68,7 +73,7 @@ export default function Blog() {
   );
 
   const renderPageButton = useCallback(
-    (page) => (
+    (page: number) => (
       <button
         key={page}
         onClick={() => handlePageChange(page)}
