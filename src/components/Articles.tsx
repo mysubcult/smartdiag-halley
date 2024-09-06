@@ -120,7 +120,7 @@ export default function Blog() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    // Отключаем логику скроллинга
+    // Отключаем скроллинг при смене страницы
   };
 
   const renderCategoryButton = useCallback(
@@ -130,8 +130,8 @@ export default function Blog() {
         onClick={() => handleCategoryClick(category.value)}
         className={`${
           category.value === selectedCategory
-            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100 border border-gray-300 dark:border-neutral-700"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700 border border-gray-300 dark:border-neutral-700"
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
         } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
       >
         {category.name}
@@ -147,8 +147,8 @@ export default function Blog() {
         onClick={() => handlePageChange(pageNumber)}
         className={`${
           pageNumber === currentPage
-            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100 border border-gray-300 dark:border-neutral-700"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700 border border-gray-300 dark:border-neutral-700"
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
         } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out mx-1`}
       >
         {pageNumber}
@@ -215,13 +215,11 @@ export default function Blog() {
       </div>
 
       {/* Пагинация */}
-      {totalPages > 1 && filteredPosts.length > articlesPerPage && (
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center items-center sm:mt-8 p-1 gap-1">
-          {Array.from({ length: totalPages }).map((_, index) =>
-            renderPaginationButton(index + 1)
-          )}
-        </div>
-      )}
+      <div className="flex justify-center mt-8">
+        {Array.from({ length: totalPages || 1 }).map((_, index) =>
+          renderPaginationButton(index + 1)
+        )}
+      </div>
     </div>
   );
 }
