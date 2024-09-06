@@ -90,13 +90,16 @@ export default function Blog() {
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 8; // Ограничиваем до 8 статей на одной странице (2 строки по 4 статьи)
 
-  const categories = useMemo(() => [
-    { name: "Все", value: "Все" },
-    { name: "Ошибки", value: "Ошибки" },
-    { name: "Установка ПО", value: "Установка ПО" },
-    { name: "Безопасность", value: "Безопасность" },
-    { name: "Рекомендации", value: "Рекомендации" },
-  ], []);
+  const categories = useMemo(
+    () => [
+      { name: "Все", value: "Все" },
+      { name: "Ошибки", value: "Ошибки" },
+      { name: "Установка ПО", value: "Установка ПО" },
+      { name: "Безопасность", value: "Безопасность" },
+      { name: "Рекомендации", value: "Рекомендации" },
+    ],
+    []
+  );
 
   const filteredPosts = useMemo(() => {
     return selectedCategory === "Все"
@@ -117,7 +120,7 @@ export default function Blog() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    window.scrollTo({ top: window.scrollY, behavior: "smooth" }); // Сохраняем текущую позицию на странице
+    // Положение на странице не изменяется
   };
 
   const renderCategoryButton = useCallback(
