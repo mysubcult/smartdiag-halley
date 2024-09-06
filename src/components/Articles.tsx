@@ -122,6 +122,11 @@ export default function Blog() {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     // Аналогично категории: отменяем скроллирование
+    // Блокируем перемещение страницы при смене страниц
+    const scrollPosition = window.scrollY;
+    setTimeout(() => {
+      window.scrollTo(0, scrollPosition);
+    }, 0);
   };
 
   const renderCategoryButton = useCallback(
@@ -217,7 +222,7 @@ export default function Blog() {
 
       {/* Пагинация */}
       {totalPages > 1 && (
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center items-center sm:mt-8 p-1 gap-1">
           {Array.from({ length: totalPages }).map((_, index) =>
             renderPaginationButton(index + 1)
           )}
