@@ -2,7 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useMemo } from "react";
 
-const blogPosts = [
+type Post = {
+  title: string;
+  image: string;
+  excerpt: string;
+  link: string;
+  category: string;
+};
+
+type Category = {
+  name: string;
+  value: string;
+};
+
+const blogPosts: Post[] = [
   {
     title: "Как справиться с ошибкой при открытии архива",
     image: "/images/blog/post1.jpg",
@@ -87,12 +100,12 @@ const blogPosts = [
 ];
 
 export default function Blog() {
-  const [selectedCategory, setSelectedCategory] = useState("Все");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState<string>("Все");
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const articlesPerPage = 8; // Ограничиваем до 8 статей на одной странице
 
   // Категории для фильтрации
-  const categories = useMemo(
+  const categories: Category[] = useMemo(
     () => [
       { name: "Все", value: "Все" },
       { name: "Ошибки", value: "Ошибки" },
@@ -104,7 +117,7 @@ export default function Blog() {
   );
 
   // Фильтруем посты по выбранной категории
-  const filteredPosts = useMemo(() => {
+  const filteredPosts: Post[] = useMemo(() => {
     return selectedCategory === "Все"
       ? blogPosts
       : blogPosts.filter((post) => post.category === selectedCategory);
@@ -120,18 +133,18 @@ export default function Blog() {
   );
 
   // Смена категории и сброс страницы на первую
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1); // При смене категории всегда возвращаемся на первую страницу
   };
 
   // Смена страницы
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page); // При смене страницы просто переключаем текущую страницу
   };
 
   // Рендерим кнопки категорий
-  const renderCategoryButton = (category) => (
+  const renderCategoryButton = (category: Category) => (
     <button
       key={category.value}
       onClick={() => handleCategoryClick(category.value)}
@@ -146,7 +159,7 @@ export default function Blog() {
   );
 
   // Рендерим кнопки страниц
-  const renderPaginationButton = (pageNumber) => (
+  const renderPaginationButton = (pageNumber: number) => (
     <button
       key={pageNumber}
       onClick={() => handlePageChange(pageNumber)}
