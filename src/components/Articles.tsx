@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo } from "react";
 
 const blogPosts = [
   {
@@ -83,13 +83,15 @@ const blogPosts = [
     link: "/blog/post10",
     category: "Рекомендации",
   },
+  // Добавьте больше постов для тестирования пагинации
 ];
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("Все");
   const [currentPage, setCurrentPage] = useState(1);
-  const articlesPerPage = 8; // Ограничиваем до 8 статей на одной странице (2 строки по 4 статьи)
+  const articlesPerPage = 8; // Ограничиваем до 8 статей на одной странице
 
+  // Категории для фильтрации
   const categories = useMemo(
     () => [
       { name: "Все", value: "Все" },
@@ -101,59 +103,61 @@ export default function Blog() {
     []
   );
 
+  // Фильтруем посты по выбранной категории
   const filteredPosts = useMemo(() => {
     return selectedCategory === "Все"
       ? blogPosts
       : blogPosts.filter((post) => post.category === selectedCategory);
   }, [selectedCategory]);
 
+  // Вычисляем количество страниц
   const totalPages = Math.ceil(filteredPosts.length / articlesPerPage);
+
+  // Получаем посты для текущей страницы
   const currentPosts = filteredPosts.slice(
     (currentPage - 1) * articlesPerPage,
     currentPage * articlesPerPage
   );
 
-  const handleCategoryClick = useCallback((category: string) => {
+  // Смена категории и сброс страницы на первую
+  const handleCategoryClick = (category) => {
     setSelectedCategory(category);
-    setCurrentPage(1);  // При переключении категорий возвращаемся на первую страницу
-  }, []);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);  // Просто переключаем страницы без скроллинга
+    setCurrentPage(1); // При смене категории всегда возвращаемся на первую страницу
   };
 
-  const renderCategoryButton = useCallback(
-    (category: { name: string; value: string }) => (
-      <button
-        key={category.value}
-        onClick={() => handleCategoryClick(category.value)}
-        className={`${
-          category.value === selectedCategory
-            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-      >
-        {category.name}
-      </button>
-    ),
-    [handleCategoryClick, selectedCategory]
+  // Смена страницы
+  const handlePageChange = (page) => {
+    setCurrentPage(page); // При смене страницы просто переключаем текущую страницу
+  };
+
+  // Рендерим кнопки категорий
+  const renderCategoryButton = (category) => (
+    <button
+      key={category.value}
+      onClick={() => handleCategoryClick(category.value)}
+      className={`${
+        category.value === selectedCategory
+          ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+      } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+    >
+      {category.name}
+    </button>
   );
 
-  const renderPaginationButton = useCallback(
-    (pageNumber: number) => (
-      <button
-        key={pageNumber}
-        onClick={() => handlePageChange(pageNumber)}
-        className={`${
-          pageNumber === currentPage
-            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out mx-1`}
-      >
-        {pageNumber}
-      </button>
-    ),
-    [currentPage]
+  // Рендерим кнопки страниц
+  const renderPaginationButton = (pageNumber) => (
+    <button
+      key={pageNumber}
+      onClick={() => handlePageChange(pageNumber)}
+      className={`${
+        pageNumber === currentPage
+          ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+          : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+      } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out mx-1`}
+    >
+      {pageNumber}
+    </button>
   );
 
   return (
@@ -215,7 +219,7 @@ export default function Blog() {
 
       {/* Пагинация */}
       <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex justify-center sm:mt-8 p-1 gap-1">
-        {Array.from({ length: totalPages || 1 }).map((_, index) =>
+        {Array.from({ length: totalPages }).map((_, index) =>
           renderPaginationButton(index + 1)
         )}
       </div>
