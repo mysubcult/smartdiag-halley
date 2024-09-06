@@ -51,10 +51,44 @@ const blogPosts = [
     link: "/blog/post6",
     category: "Рекомендации",
   },
+  {
+    title: "Как выбрать лучшее антивирусное ПО для вашего компьютера",
+    image: "/images/blog/post7.jpg",
+    excerpt:
+      "Узнайте, какое антивирусное ПО подходит именно для вас и как его настроить.",
+    link: "/blog/post7",
+    category: "Безопасность",
+  },
+  {
+    title: "Как справиться с зависанием программы во время установки",
+    image: "/images/blog/post8.jpg",
+    excerpt:
+      "Пошаговое руководство для устранения проблем, связанных с зависанием программ во время установки.",
+    link: "/blog/post8",
+    category: "Ошибки",
+  },
+  {
+    title: "Настройка облачных хранилищ для резервного копирования",
+    image: "/images/blog/post9.jpg",
+    excerpt:
+      "Руководство по настройке облачных сервисов для резервного копирования ваших файлов и данных.",
+    link: "/blog/post9",
+    category: "Рекомендации",
+  },
+  {
+    title: "Обзор программ для работы с архивами",
+    image: "/images/blog/post10.jpg",
+    excerpt:
+      "Сравнение различных программ для работы с архивами и их основные функции.",
+    link: "/blog/post10",
+    category: "Рекомендации",
+  },
 ];
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("Все");
+  const [currentPage, setCurrentPage] = useState(1);
+  const articlesPerPage = 8; // Ограничиваем до 8 статей на одной странице (2 строки по 4 статьи)
 
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
@@ -70,27 +104,18 @@ export default function Blog() {
       : blogPosts.filter((post) => post.category === selectedCategory);
   }, [selectedCategory]);
 
-  const handleCategoryClick = useCallback((category: string) => {
+  const totalPages = Math.ceil(filteredPosts.length / articlesPerPage);
+  const currentPosts = filteredPosts.slice(
+    (currentPage - 1) * articlesPerPage,
+    currentPage * articlesPerPage
+  );
+
+  const handleCategoryClick = useCallback((category) => {
     setSelectedCategory(category);
+    setCurrentPage(1); // Сбрасываем на первую страницу при изменении категории
   }, []);
 
-  const renderCategoryButton = useCallback(
-    (category: { name: string; value: string }) => (
-      <button
-        key={category.value}
-        onClick={() => handleCategoryClick(category.value)}
-        className={`
-          ${category.value === selectedCategory
-            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"}
-          rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out
-        `}
-      >
-        {category.name}
-      </button>
-    ),
-    [handleCategoryClick, selectedCategory]
-  );
+  const handlePageChange = (page) => setCurrentPage(page);
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
@@ -104,13 +129,25 @@ export default function Blog() {
       <div className="max-w-max mx-auto px-6">
         {/* Меню категорий с уменьшенными отступами */}
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
-          {categories.map(renderCategoryButton)}
+          {categories.map((category) => (
+            <button
+              key={category.value}
+              onClick={() => handleCategoryClick(category.value)}
+              className={`${
+                category.value === selectedCategory
+                  ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                  : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+              } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+            >
+              {category.name}
+            </button>
+          ))}
         </div>
       </div>
 
       {/* Сетка статей */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
-        {filteredPosts.map(({ title, image, excerpt, link }) => (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
+        {currentPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
             className="rounded-lg overflow-hidden flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300"
@@ -124,9 +161,9 @@ export default function Blog() {
                   width={400}
                   height={225}
                   className="w-full object-cover"
-                  priority={title === filteredPosts[0].title} // Priority для первого изображения
-                  placeholder="blur" // Эффект размытия
-                  blurDataURL="/images/placeholder.png" // Заглушка
+                  priority={title === currentPosts[0].title}
+                  placeholder="blur"
+                  blurDataURL="/images/placeholder.png"
                 />
               </div>
             </Link>
@@ -148,6 +185,23 @@ export default function Blog() {
           </div>
         ))}
       </div>
+
+      {/* Пагинация */}
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-8">
+          {Array.from({ length: totalPages }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={`mx-1 px-3 py-2 rounded ${
+                currentPage === index + 1 ? "bg-red-600 text-white" : "bg-gray-200"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
