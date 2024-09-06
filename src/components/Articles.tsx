@@ -112,10 +112,47 @@ export default function Blog() {
 
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1); // Сбрасываем на первую страницу при изменении категории
+    setCurrentPage(1);
   }, []);
 
-  const handlePageChange = (page: number) => setCurrentPage(page);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: window.scrollY, behavior: "smooth" }); // Сохраняем текущую позицию на странице
+  };
+
+  const renderCategoryButton = useCallback(
+    (category: { name: string; value: string }) => (
+      <button
+        key={category.value}
+        onClick={() => handleCategoryClick(category.value)}
+        className={`${
+          category.value === selectedCategory
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+      >
+        {category.name}
+      </button>
+    ),
+    [handleCategoryClick, selectedCategory]
+  );
+
+  const renderPaginationButton = useCallback(
+    (pageNumber: number) => (
+      <button
+        key={pageNumber}
+        onClick={() => handlePageChange(pageNumber)}
+        className={`${
+          pageNumber === currentPage
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out mx-1`}
+      >
+        {pageNumber}
+      </button>
+    ),
+    [currentPage]
+  );
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
@@ -127,21 +164,9 @@ export default function Blog() {
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        {/* Меню категорий с уменьшенными отступами */}
+        {/* Меню категорий */}
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
-          {categories.map((category) => (
-            <button
-              key={category.value}
-              onClick={() => handleCategoryClick(category.value)}
-              className={`${
-                category.value === selectedCategory
-                  ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                  : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-              } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-            >
-              {category.name}
-            </button>
-          ))}
+          {categories.map(renderCategoryButton)}
         </div>
       </div>
 
@@ -189,17 +214,9 @@ export default function Blog() {
       {/* Пагинация */}
       {totalPages > 1 && (
         <div className="flex justify-center mt-8">
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handlePageChange(index + 1)}
-              className={`mx-1 px-3 py-2 rounded ${
-                currentPage === index + 1 ? "bg-red-600 text-white" : "bg-gray-200"
-              }`}
-            >
-              {index + 1}
-            </button>
-          ))}
+          {Array.from({ length: totalPages }).map((_, index) =>
+            renderPaginationButton(index + 1)
+          )}
         </div>
       )}
     </div>
