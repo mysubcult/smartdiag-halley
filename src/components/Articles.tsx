@@ -4,21 +4,21 @@ import { useState, useMemo, useCallback } from "react";
 
 const blogPosts = [
   { title: "Как справиться с ошибкой при открытии архива", image: "/images/blog/post1.jpg", excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов и что может вызывать эти проблемы.", link: "/blog/post1", category: "Ошибки" },
-  { title: "Проблемы с запуском программы", image: "/images/blog/post1.jpg", excerpt: "Что делать, если программа не запускается или исчезают ярлыки? Решения и советы.", link: "/blog/post2", category: "Ошибки" },
-  { title: "Использование ключа активации на другом устройстве", image: "/images/blog/post1.jpg", excerpt: "Можно ли использовать один ключ активации на нескольких устройствах? Ответы и рекомендации.", link: "/blog/post3", category: "Рекомендации" },
-  { title: "Помощь в установке программного обеспечения", image: "/images/blog/post1.jpg", excerpt: "Как получить помощь при установке программного обеспечения. Контакты и часы работы службы поддержки.", link: "/blog/post4", category: "Установка ПО" },
-  { title: "Безопасность программ и антивирусы", image: "/images/blog/post1.jpg", excerpt: "Как антивирусное ПО может влиять на ваши программы и как правильно настраивать исключения.", link: "/blog/post5", category: "Безопасность" },
-  { title: "Рекомендации по использованию наших программ", image: "/images/blog/post1.jpg", excerpt: "Лучшие практики и советы по использованию программного обеспечения для достижения максимальной эффективности.", link: "/blog/post6", category: "Рекомендации" },
-  { title: "Как выбрать лучшее антивирусное ПО для вашего компьютера", image: "/images/blog/post1.jpg", excerpt: "Узнайте, какое антивирусное ПО подходит именно для вас и как его настроить.", link: "/blog/post7", category: "Безопасность" },
-  { title: "Как справиться с зависанием программы во время установки", image: "/images/blog/post1.jpg", excerpt: "Пошаговое руководство для устранения проблем, связанных с зависанием программ во время установки.", link: "/blog/post8", category: "Ошибки" },
-  { title: "Настройка облачных хранилищ для резервного копирования", image: "/images/blog/post1.jpg", excerpt: "Руководство по настройке облачных сервисов для резервного копирования ваших файлов и данных.", link: "/blog/post9", category: "Рекомендации" },
-  { title: "Обзор программ для работы с архивами", image: "/images/blog/post1.jpg", excerpt: "Сравнение различных программ для работы с архивами и их основные функции.", link: "/blog/post10", category: "Рекомендации" },
+  { title: "Проблемы с запуском программы", image: "/images/blog/post2.jpg", excerpt: "Что делать, если программа не запускается или исчезают ярлыки? Решения и советы.", link: "/blog/post2", category: "Ошибки" },
+  { title: "Использование ключа активации на другом устройстве", image: "/images/blog/post3.jpg", excerpt: "Можно ли использовать один ключ активации на нескольких устройствах? Ответы и рекомендации.", link: "/blog/post3", category: "Рекомендации" },
+  { title: "Помощь в установке программного обеспечения", image: "/images/blog/post4.jpg", excerpt: "Как получить помощь при установке программного обеспечения. Контакты и часы работы службы поддержки.", link: "/blog/post4", category: "Установка ПО" },
+  { title: "Безопасность программ и антивирусы", image: "/images/blog/post5.jpg", excerpt: "Как антивирусное ПО может влиять на ваши программы и как правильно настраивать исключения.", link: "/blog/post5", category: "Безопасность" },
+  { title: "Рекомендации по использованию наших программ", image: "/images/blog/post6.jpg", excerpt: "Лучшие практики и советы по использованию программного обеспечения для достижения максимальной эффективности.", link: "/blog/post6", category: "Рекомендации" },
+  { title: "Как выбрать лучшее антивирусное ПО для вашего компьютера", image: "/images/blog/post7.jpg", excerpt: "Узнайте, какое антивирусное ПО подходит именно для вас и как его настроить.", link: "/blog/post7", category: "Безопасность" },
+  { title: "Как справиться с зависанием программы во время установки", image: "/images/blog/post8.jpg", excerpt: "Пошаговое руководство для устранения проблем, связанных с зависанием программ во время установки.", link: "/blog/post8", category: "Ошибки" },
+  { title: "Настройка облачных хранилищ для резервного копирования", image: "/images/blog/post9.jpg", excerpt: "Руководство по настройке облачных сервисов для резервного копирования ваших файлов и данных.", link: "/blog/post9", category: "Рекомендации" },
+  { title: "Обзор программ для работы с архивами", image: "/images/blog/post10.jpg", excerpt: "Сравнение различных программ для работы с архивами и их основные функции.", link: "/blog/post10", category: "Рекомендации" },
 ];
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("Все");
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 8; // Changed this value to 8 to display more posts
+  const postsPerPage = 8;
 
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
@@ -41,17 +41,17 @@ export default function Blog() {
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  const handleCategoryClick = useCallback((category: string) => {
+  const handleCategoryClick = useCallback((category) => {
     setSelectedCategory(category);
-    setCurrentPage(1); // Reset page when category changes
+    setCurrentPage(1);
   }, []);
 
-  const handlePageChange = useCallback((page: number) => {
+  const handlePageChange = useCallback((page) => {
     setCurrentPage(page);
   }, []);
 
   const renderCategoryButton = useCallback(
-    (category: { name: string; value: string }) => (
+    (category) => (
       <button
         key={category.value}
         onClick={() => handleCategoryClick(category.value)}
@@ -68,7 +68,7 @@ export default function Blog() {
   );
 
   const renderPageButton = useCallback(
-    (page: number) => (
+    (page) => (
       <button
         key={page}
         onClick={() => handlePageChange(page)}
@@ -97,6 +97,13 @@ export default function Blog() {
         {/* Меню категорий */}
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
           {categories.map(renderCategoryButton)}
+        </div>
+      </div>
+
+      {/* Пагинация сверху */}
+      <div className="max-w-max mx-auto px-6 pt-6 pb-6">
+        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center p-1 gap-1">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map(renderPageButton)}
         </div>
       </div>
 
@@ -139,13 +146,6 @@ export default function Blog() {
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Пагинация */}
-      <div className="max-w-max mx-auto px-6 pb-16">
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map(renderPageButton)}
-        </div>
       </div>
     </div>
   );
