@@ -110,12 +110,12 @@ export default function Blog() {
     currentPage * articlesPerPage
   );
 
-  const handleCategoryClick = useCallback((category) => {
+  const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1); // Сбрасываем на первую страницу при изменении категории
   }, []);
 
-  const handlePageChange = (page) => setCurrentPage(page);
+  const handlePageChange = (page: number) => setCurrentPage(page);
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
