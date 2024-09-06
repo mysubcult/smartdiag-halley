@@ -120,7 +120,7 @@ export default function Blog() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    // Положение на странице не изменяется
+    // Убираем скроллинг при смене страниц
   };
 
   const renderCategoryButton = useCallback(
@@ -130,8 +130,8 @@ export default function Blog() {
         onClick={() => handleCategoryClick(category.value)}
         className={`${
           category.value === selectedCategory
-            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100 border border-gray-300 dark:border-neutral-700"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700 border border-gray-300 dark:border-neutral-700"
         } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
       >
         {category.name}
@@ -147,8 +147,8 @@ export default function Blog() {
         onClick={() => handlePageChange(pageNumber)}
         className={`${
           pageNumber === currentPage
-            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100 border border-gray-300 dark:border-neutral-700"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700 border border-gray-300 dark:border-neutral-700"
         } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out mx-1`}
       >
         {pageNumber}
