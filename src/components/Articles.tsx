@@ -116,11 +116,12 @@ export default function Blog() {
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1);
+    // Убираем скроллирование при смене категорий
   }, []);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    // Убираем скроллинг при смене страниц
+    // Аналогично категории: отменяем скроллирование
   };
 
   const renderCategoryButton = useCallback(
@@ -130,8 +131,8 @@ export default function Blog() {
         onClick={() => handleCategoryClick(category.value)}
         className={`${
           category.value === selectedCategory
-            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100 border border-gray-300 dark:border-neutral-700"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700 border border-gray-300 dark:border-neutral-700"
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
         } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
       >
         {category.name}
@@ -147,8 +148,8 @@ export default function Blog() {
         onClick={() => handlePageChange(pageNumber)}
         className={`${
           pageNumber === currentPage
-            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100 border border-gray-300 dark:border-neutral-700"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700 border border-gray-300 dark:border-neutral-700"
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
         } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out mx-1`}
       >
         {pageNumber}
@@ -216,7 +217,7 @@ export default function Blog() {
 
       {/* Пагинация */}
       {totalPages > 1 && (
-        <div className="flex justify-center mt-8">
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
           {Array.from({ length: totalPages }).map((_, index) =>
             renderPaginationButton(index + 1)
           )}
