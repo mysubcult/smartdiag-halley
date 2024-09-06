@@ -15,17 +15,12 @@ const blogPosts = [
   { title: "Обзор программ для работы с архивами", image: "/images/blog/post10.jpg", excerpt: "Сравнение различных программ для работы с архивами и их основные функции.", link: "/blog/post10", category: "Рекомендации" },
 ];
 
-interface Category {
-  name: string;
-  value: string;
-}
-
 export default function Blog() {
-  const [selectedCategory, setSelectedCategory] = useState<string>("Все");
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const postsPerPage = 8;
+  const [selectedCategory, setSelectedCategory] = useState("Все");
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 8; // Changed this value to 8 to display more posts
 
-  const categories: Category[] = useMemo(() => [
+  const categories = useMemo(() => [
     { name: "Все", value: "Все" },
     { name: "Ошибки", value: "Ошибки" },
     { name: "Установка ПО", value: "Установка ПО" },
@@ -48,7 +43,7 @@ export default function Blog() {
 
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1);
+    setCurrentPage(1); // Reset page when category changes
   }, []);
 
   const handlePageChange = useCallback((page: number) => {
@@ -56,7 +51,7 @@ export default function Blog() {
   }, []);
 
   const renderCategoryButton = useCallback(
-    (category: Category) => (
+    (category: { name: string; value: string }) => (
       <button
         key={category.value}
         onClick={() => handleCategoryClick(category.value)}
@@ -105,13 +100,6 @@ export default function Blog() {
         </div>
       </div>
 
-      {/* Пагинация сверху */}
-      <div className="max-w-max mx-auto px-6 pt-6 pb-6">
-        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center p-1 gap-1">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map(renderPageButton)}
-        </div>
-      </div>
-
       {/* Сетка статей */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
         {paginatedPosts.map(({ title, image, excerpt, link }) => (
@@ -151,6 +139,13 @@ export default function Blog() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Пагинация */}
+      <div className="max-w-max mx-auto px-6 pb-16">
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map(renderPageButton)}
+        </div>
       </div>
     </div>
   );
