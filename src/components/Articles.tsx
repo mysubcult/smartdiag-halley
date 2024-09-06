@@ -119,8 +119,7 @@ export default function Blog() {
   }, []);
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    // Отключаем скроллинг при смене страницы
+    setCurrentPage(page);  // Просто переключаем страницы без скроллинга
   };
 
   const renderCategoryButton = useCallback(
