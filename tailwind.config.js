@@ -17,6 +17,5 @@ module.exports = {
   },
   plugins: [
     require("@tailwindcss/typography"),
-    require("@tailwindcss/line-clamp"), // Плагин для обрезки текста
   ],
 };
