@@ -148,21 +148,17 @@ export default function Blog() {
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
 
-    // Всегда показываем первую страницу
-    pagesToShow.push(1);
+    // Всегда показываем первые 3 страницы
+    for (let i = 1; i <= 3; i++) {
+      pagesToShow.push(i);
+    }
 
-    const startPage = Math.max(2, currentPage - 1);
-    const endPage = Math.min(totalPages - 1, currentPage + 1);
-
-    if (currentPage < totalPages - 2) {
-      for (let i = startPage; i <= endPage; i++) {
-        pagesToShow.push(i);
-      }
+    // Если страниц больше 4, добавляем многоточие и последнюю страницу
+    if (totalPages > 4) {
       pagesToShow.push('...');
       pagesToShow.push(totalPages);
-    } else if (currentPage >= totalPages - 2) {
-      pagesToShow.push('...');
-      for (let i = totalPages - 2; i <= totalPages; i++) {
+    } else {
+      for (let i = 4; i <= totalPages; i++) {
         pagesToShow.push(i);
       }
     }
