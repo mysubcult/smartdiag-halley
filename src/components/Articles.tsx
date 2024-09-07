@@ -2,7 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useMemo, useCallback } from "react";
 
-const blogPosts = [
+type BlogPost = {
+  title: string;
+  image: string;
+  excerpt: string;
+  link: string;
+  category: string;
+};
+
+const blogPosts: BlogPost[] = [
   // Раздел "Ошибки" - 16 статей
   { title: "Как справиться с ошибкой при открытии архива", image: "/images/blog/post1.jpg", excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов и что может вызывать эти проблемы.", link: "/blog/post1", category: "Ошибки" },
   { title: "Проблемы с запуском программы", image: "/images/blog/post1.jpg", excerpt: "Что делать, если программа не запускается или исчезают ярлыки? Решения и советы.", link: "/blog/post2", category: "Ошибки" },
@@ -77,10 +85,11 @@ const blogPosts = [
 ];
 
 export default function Blog() {
-  const [selectedCategory, setSelectedCategory] = useState("Все");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState<string>("Все");
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const postsPerPage = 8;
 
+  // Мемоизация категорий
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
     { name: "Ошибки", value: "Ошибки" },
@@ -89,6 +98,7 @@ export default function Blog() {
     { name: "Рекомендации", value: "Рекомендации" },
   ], []);
 
+  // Фильтрация статей
   const filteredPosts = useMemo(() => {
     return selectedCategory === "Все"
       ? blogPosts
@@ -97,17 +107,20 @@ export default function Blog() {
 
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
+  // Пагинация статей
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  const handleCategoryClick = useCallback((category) => {
+  // Обработчик клика по категории с типизацией
+  const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1);
   }, []);
 
-  const handlePageChange = useCallback((page) => {
+  // Обработчик смены страницы с типизацией
+  const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
   }, []);
 
@@ -121,7 +134,7 @@ export default function Blog() {
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8 p-1 gap-1">
           {categories.map((category) => (
             <button
               key={category.value}
@@ -138,6 +151,7 @@ export default function Blog() {
         </div>
       </div>
 
+      {/* Карточки с статьями */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
         {paginatedPosts.map(({ title, image, excerpt, link }) => (
           <div
@@ -159,32 +173,11 @@ export default function Blog() {
             </Link>
             <div className="p-4 flex flex-col flex-grow">
               <h3
-                style={{
-                  minHeight: '3em',
-                  lineHeight: '1.5em',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  display: '-webkit-box',
-                  WebkitLineClamp: 2,
-                  WebkitBoxOrient: 'vertical',
-                }}
-                className="text-lg font-semibold mb-2"
+                className="text-lg font-semibold mb-2 truncate-2-lines"
               >
                 {title}
               </h3>
-              <p
-                style={{
-                  minHeight: '4.5em',
-                  lineHeight: '1.5em',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  display: '-webkit-box',
-                  WebkitLineClamp: 3,
-                  WebkitBoxOrient: 'vertical',
-                  flexGrow: 1,
-                }}
-                className="text-sm text-neutral-600 dark:text-neutral-400 mb-4"
-              >
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 truncate-3-lines">
                 {excerpt}
               </p>
               <div className="mt-auto text-right">
@@ -199,8 +192,9 @@ export default function Blog() {
         ))}
       </div>
 
+      {/* Пагинация */}
       <div className="max-w-max mx-auto px-6 pb-16">
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:flex-row p-1 gap-1">
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button
               key={page}
