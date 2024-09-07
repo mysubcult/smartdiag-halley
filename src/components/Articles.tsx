@@ -182,8 +182,8 @@ export default function Blog() {
               </div>
             </Link>
             <div className="p-4 flex flex-col flex-grow">
-              {/* Ограничиваем количество строк для заголовка */}
-              <h3 className="text-lg font-semibold mb-4 line-clamp-2 h-12">
+              {/* Ограничиваем количество символов для заголовка */}
+              <h3 className="text-lg font-semibold mb-4 line-clamp-2 h-12 overflow-hidden text-ellipsis whitespace-nowrap">
                 {title}
               </h3>
               {/* Ограничиваем количество строк для описания */}
