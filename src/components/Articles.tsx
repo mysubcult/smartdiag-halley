@@ -111,85 +111,6 @@ export default function Blog() {
     setCurrentPage(page);
   }, []);
 
-  // Логика пагинации
-  const renderPagination = () => {
-    const pages = [];
-
-    if (totalPages <= 5) {
-      // Если страниц <= 5, просто показываем все
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(
-          <button
-            key={i}
-            onClick={() => handlePageChange(i)}
-            className={`${
-              i === currentPage
-                ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-            } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-          >
-            {i}
-          </button>
-        );
-      }
-    } else {
-      // Показ первых, текущей и последних страниц
-      pages.push(
-        <button
-          key={1}
-          onClick={() => handlePageChange(1)}
-          className={`${
-            1 === currentPage
-              ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-              : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-          } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-        >
-          1
-        </button>
-      );
-
-      if (currentPage > 3) {
-        pages.push(<span key="start-ellipsis" className="px-2">...</span>);
-      }
-
-      for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
-        pages.push(
-          <button
-            key={i}
-            onClick={() => handlePageChange(i)}
-            className={`${
-              i === currentPage
-                ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-            } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-          >
-            {i}
-          </button>
-        );
-      }
-
-      if (currentPage < totalPages - 2) {
-        pages.push(<span key="end-ellipsis" className="px-2">...</span>);
-      }
-
-      pages.push(
-        <button
-          key={totalPages}
-          onClick={() => handlePageChange(totalPages)}
-          className={`${
-            totalPages === currentPage
-              ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-              : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-          } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-        >
-          {totalPages}
-        </button>
-      );
-    }
-
-    return pages;
-  };
-
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
@@ -270,8 +191,8 @@ export default function Blog() {
               >
                 {excerpt}
               </p>
-              {/* Кнопка "Читать далее" всегда справа */}
-              <div className="flex justify-end mt-auto">
+              {/* Кнопка "Читать далее" всегда внизу */}
+              <div className="mt-auto">
                 <Link href={link}>
                   <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
                     Читать далее
@@ -285,20 +206,19 @@ export default function Blog() {
 
       <div className="max-w-max mx-auto px-6 pb-16">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:flex-row p-1 gap-1">
-          {/* Пагинация */}
-          <button
-            onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-            className="rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
-          >
-            Предыдущая
-          </button>
-          {renderPagination()}
-          <button
-            onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
-            className="rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out"
-          >
-            Следующая
-          </button>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => handlePageChange(page)}
+              className={`${
+                page === currentPage
+                  ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                  : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+              } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+            >
+              {page}
+            </button>
+          ))}
         </div>
       </div>
     </div>
