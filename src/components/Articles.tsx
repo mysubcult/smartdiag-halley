@@ -170,7 +170,7 @@ export default function Blog() {
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={() => typeof page === 'number' ? handlePageChange(page) : handleEllipsisClick(event)}
+        onClick={(event) => typeof page === 'number' ? handlePageChange(page) : handleEllipsisClick(event)}
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
