@@ -22,7 +22,6 @@ module.exports = {
     typography: ["dark"],
   },
   plugins: [
-    require("@tailwindcss/typography"),
-    require("@tailwindcss/line-clamp"), // Добавлен плагин для обрезки текста
+    require("@tailwindcss/typography")
   ],
 };
