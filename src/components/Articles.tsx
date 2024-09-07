@@ -163,8 +163,8 @@ export default function Blog() {
               {/* Заголовок с минимальной высотой для двух строк */}
               <h3
                 style={{
-                  minHeight: '3em', // Высота для двух строк (1.5em * 2 = 3em)
-                  lineHeight: '1.5em', // Высота строки 1.5em
+                  minHeight: '3em',
+                  lineHeight: '1.5em',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   display: '-webkit-box',
@@ -178,14 +178,14 @@ export default function Blog() {
               {/* Описание с минимальной высотой для трёх строк */}
               <p
                 style={{
-                  minHeight: '4.5em', // Высота для трех строк (1.5em * 3 = 4.5em)
-                  lineHeight: '1.5em', // Высота строки 1.5em
+                  minHeight: '4.5em',
+                  lineHeight: '1.5em',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   display: '-webkit-box',
                   WebkitLineClamp: 3,
                   WebkitBoxOrient: 'vertical',
-                  flexGrow: 1, // Описание растягивается, заполняя пространство
+                  flexGrow: 1,
                 }}
                 className="text-sm text-neutral-600 dark:text-neutral-400 mb-4"
               >
