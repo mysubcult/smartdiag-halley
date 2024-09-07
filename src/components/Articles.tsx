@@ -77,8 +77,8 @@ const blogPosts = [
 ];
 
 export default function Blog() {
-  const [selectedCategory, setSelectedCategory] = useState<string>("Все");
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedCategory, setSelectedCategory] = useState("Все");
+  const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 8;
 
   const categories = useMemo(() => [
@@ -102,12 +102,12 @@ export default function Blog() {
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  const handleCategoryClick = useCallback((category: string) => {
+  const handleCategoryClick = useCallback((category) => {
     setSelectedCategory(category);
     setCurrentPage(1);
   }, []);
 
-  const handlePageChange = useCallback((page: number) => {
+  const handlePageChange = useCallback((page) => {
     setCurrentPage(page);
   }, []);
 
@@ -138,7 +138,6 @@ export default function Blog() {
         </div>
       </div>
 
-      {/* Секция карточек */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
         {paginatedPosts.map(({ title, image, excerpt, link }) => (
           <div
@@ -146,7 +145,6 @@ export default function Blog() {
             className="rounded-lg overflow-hidden flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300 h-full"
           >
             <Link href={link}>
-              {/* Фиксированная высота изображения */}
               <div className="relative h-[200px]">
                 <Image
                   src={image}
@@ -160,11 +158,10 @@ export default function Blog() {
               </div>
             </Link>
             <div className="p-4 flex flex-col flex-grow">
-              {/* Заголовок с минимальной высотой для двух строк */}
               <h3
                 style={{
-                  minHeight: '3em', // Высота для двух строк (1.5em * 2 = 3em)
-                  lineHeight: '1.5em', // Высота строки 1.5em
+                  minHeight: '3em',
+                  lineHeight: '1.5em',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   display: '-webkit-box',
@@ -175,24 +172,22 @@ export default function Blog() {
               >
                 {title}
               </h3>
-              {/* Описание с минимальной высотой для трёх строк */}
               <p
                 style={{
-                  minHeight: '4.5em', // Высота для трех строк (1.5em * 3 = 4.5em)
-                  lineHeight: '1.5em', // Высота строки 1.5em
+                  minHeight: '4.5em',
+                  lineHeight: '1.5em',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   display: '-webkit-box',
                   WebkitLineClamp: 3,
                   WebkitBoxOrient: 'vertical',
-                  flexGrow: 1, // Описание растягивается, заполняя пространство
+                  flexGrow: 1,
                 }}
                 className="text-sm text-neutral-600 dark:text-neutral-400 mb-4"
               >
                 {excerpt}
               </p>
-              {/* Кнопка "Читать далее" всегда внизу */}
-              <div className="mt-auto">
+              <div className="mt-auto text-right">
                 <Link href={link}>
                   <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
                     Читать далее
