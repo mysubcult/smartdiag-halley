@@ -160,7 +160,7 @@ export default function Blog() {
               </div>
             </Link>
             <div className="p-4 flex flex-col flex-grow">
-              {/* Ограничиваем заголовок двумя строками с инлайн-стилями */}
+              {/* Ограничиваем заголовок двумя строками с фиксированной высотой */}
               <h3
                 style={{
                   display: '-webkit-box',
@@ -168,6 +168,7 @@ export default function Blog() {
                   WebkitBoxOrient: 'vertical',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
+                  height: '48px', // Фиксированная высота для заголовка (2 строки)
                 }}
                 className="text-lg font-semibold mb-2"
               >
