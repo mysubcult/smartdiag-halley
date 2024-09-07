@@ -2,7 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useMemo, useCallback } from "react";
 
-const blogPosts = [
+// Типизация для статей
+interface BlogPost {
+  title: string;
+  image: string;
+  excerpt: string;
+  link: string;
+  category: string;
+}
+
+const blogPosts: BlogPost[] = [
   // Раздел "Ошибки" - 16 статей
   { title: "Как справиться с ошибкой при открытии архива", image: "/images/blog/post1.jpg", excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов и что может вызывать эти проблемы.", link: "/blog/post1", category: "Ошибки" },
   { title: "Проблемы с запуском программы", image: "/images/blog/post1.jpg", excerpt: "Что делать, если программа не запускается или исчезают ярлыки? Решения и советы.", link: "/blog/post2", category: "Ошибки" },
@@ -77,10 +86,11 @@ const blogPosts = [
 ];
 
 export default function Blog() {
-  const [selectedCategory, setSelectedCategory] = useState("Все");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState<string>("Все");
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const postsPerPage = 8;
 
+  // Категории статей
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
     { name: "Ошибки", value: "Ошибки" },
@@ -89,6 +99,7 @@ export default function Blog() {
     { name: "Рекомендации", value: "Рекомендации" },
   ], []);
 
+  // Фильтрация статей по категории
   const filteredPosts = useMemo(() => {
     return selectedCategory === "Все"
       ? blogPosts
@@ -102,17 +113,20 @@ export default function Blog() {
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  const handleCategoryClick = useCallback((category) => {
+  // Обработчик выбора категории
+  const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1);
   }, []);
 
-  const handlePageChange = useCallback((page) => {
+  // Обработчик смены страницы
+  const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
   }, []);
 
+  // Рендер кнопок категорий
   const renderCategoryButton = useCallback(
-    (category) => (
+    (category: { name: string; value: string }) => (
       <button
         key={category.value}
         onClick={() => handleCategoryClick(category.value)}
@@ -128,8 +142,9 @@ export default function Blog() {
     [handleCategoryClick, selectedCategory]
   );
 
+  // Рендер кнопок страниц
   const renderPageButton = useCallback(
-    (page) => (
+    (page: number) => (
       <button
         key={page}
         onClick={() => handlePageChange(page)}
@@ -160,20 +175,19 @@ export default function Blog() {
         </div>
       </div>
 
+      {/* Секция карточек */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
         {paginatedPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
-            className="rounded-lg overflow-hidden flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300 h-full"
+            className="rounded-lg overflow-hidden flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300 h-[400px]" // Фиксируем высоту
           >
             <Link href={link}>
-              <div className="relative">
+              <div className="relative h-[200px]">
                 <Image
                   src={image}
                   alt={title}
-                  layout="responsive"
-                  width={400}
-                  height={225}
+                  layout="fill"
                   className="w-full object-cover"
                   priority={title === paginatedPosts[0].title}
                   placeholder="blur"
