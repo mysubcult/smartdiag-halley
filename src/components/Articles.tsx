@@ -118,7 +118,7 @@ export default function Blog() {
 
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
-    setShowModal(false); // закрываем модальное окно при выборе страницы
+    setShowModal(false);
   }, []);
 
   const handleEllipsisClick = () => {
@@ -126,26 +126,10 @@ export default function Blog() {
   };
 
   const renderPagination = () => {
-    const maxVisiblePages = 5; // Максимальное количество видимых страниц
+    const maxVisiblePages = 5;
 
-    if (totalPages <= maxVisiblePages) {
-      return Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-        <button
-          key={page}
-          onClick={() => handlePageChange(page)}
-          className={`${
-            page === currentPage
-              ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-              : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-          } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-        >
-          {page}
-        </button>
-      ));
-    }
-
-    const pagesToShow = [];
-    pagesToShow.push(1); // Первая страница всегда показывается
+    const pagesToShow: (string | number)[] = [];
+    pagesToShow.push(1);
 
     const startPage = Math.max(2, currentPage - 1);
     const endPage = Math.min(totalPages - 1, currentPage + 1);
@@ -155,7 +139,7 @@ export default function Blog() {
       pagesToShow.push(i);
     }
     if (endPage < totalPages - 1) pagesToShow.push('...');
-    pagesToShow.push(totalPages); // Последняя страница
+    pagesToShow.push(totalPages);
 
     return pagesToShow.map((page, index) => (
       <button
@@ -168,6 +152,7 @@ export default function Blog() {
         } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
           typeof page !== 'number' ? 'cursor-pointer' : ''
         }`}
+        disabled={typeof page !== 'number'}
       >
         {page === '...' ? '...' : page}
       </button>
