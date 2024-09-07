@@ -175,15 +175,17 @@ export default function Blog() {
               >
                 {title}
               </h3>
-              {/* Описание карточки */}
+              {/* Описание с минимальной высотой для трёх строк */}
               <p
                 style={{
+                  minHeight: '4.5em', // Высота для трех строк (1.5em * 3 = 4.5em)
+                  lineHeight: '1.5em', // Высота строки 1.5em
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                   display: '-webkit-box',
                   WebkitLineClamp: 3,
                   WebkitBoxOrient: 'vertical',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  flexGrow: 1, // Позволяет описанию заполнять пространство
+                  flexGrow: 1, // Описание растягивается, заполняя пространство
                 }}
                 className="text-sm text-neutral-600 dark:text-neutral-400 mb-4"
               >
