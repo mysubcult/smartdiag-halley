@@ -79,7 +79,7 @@ const blogPosts = [
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("Все");
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 8; // Количество статей на странице
+  const postsPerPage = 8;
 
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
@@ -102,17 +102,17 @@ export default function Blog() {
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  const handleCategoryClick = useCallback((category: string) => {
+  const handleCategoryClick = useCallback((category) => {
     setSelectedCategory(category);
     setCurrentPage(1);
   }, []);
 
-  const handlePageChange = useCallback((page: number) => {
+  const handlePageChange = useCallback((page) => {
     setCurrentPage(page);
   }, []);
 
   const renderCategoryButton = useCallback(
-    (category: { name: string; value: string }) => (
+    (category) => (
       <button
         key={category.value}
         onClick={() => handleCategoryClick(category.value)}
@@ -129,7 +129,7 @@ export default function Blog() {
   );
 
   const renderPageButton = useCallback(
-    (page: number) => (
+    (page) => (
       <button
         key={page}
         onClick={() => handlePageChange(page)}
