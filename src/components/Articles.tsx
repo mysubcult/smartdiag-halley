@@ -4,28 +4,33 @@ import { useState, useMemo, useCallback } from "react";
 
 const blogPosts = [
   { title: "Как справиться с ошибкой при открытии архива", image: "/images/blog/post1.jpg", excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов и что может вызывать эти проблемы.", link: "/blog/post1", category: "Ошибки" },
-  { title: "Проблемы с запуском программы", image: "/images/blog/post2.jpg", excerpt: "Что делать, если программа не запускается или исчезают ярлыки? Решения и советы.", link: "/blog/post2", category: "Ошибки" },
-  { title: "Использование ключа активации на другом устройстве", image: "/images/blog/post3.jpg", excerpt: "Можно ли использовать один ключ активации на нескольких устройствах? Ответы и рекомендации.", link: "/blog/post3", category: "Рекомендации" },
-  { title: "Помощь в установке программного обеспечения", image: "/images/blog/post4.jpg", excerpt: "Как получить помощь при установке программного обеспечения. Контакты и часы работы службы поддержки.", link: "/blog/post4", category: "Установка ПО" },
-  { title: "Безопасность программ и антивирусы", image: "/images/blog/post5.jpg", excerpt: "Как антивирусное ПО может влиять на ваши программы и как правильно настраивать исключения.", link: "/blog/post5", category: "Безопасность" },
-  { title: "Рекомендации по использованию наших программ", image: "/images/blog/post6.jpg", excerpt: "Лучшие практики и советы по использованию программного обеспечения для достижения максимальной эффективности.", link: "/blog/post6", category: "Рекомендации" },
-  { title: "Как выбрать лучшее антивирусное ПО для вашего компьютера", image: "/images/blog/post7.jpg", excerpt: "Узнайте, какое антивирусное ПО подходит именно для вас и как его настроить.", link: "/blog/post7", category: "Безопасность" },
-  { title: "Как справиться с зависанием программы во время установки", image: "/images/blog/post8.jpg", excerpt: "Пошаговое руководство для устранения проблем, связанных с зависанием программ во время установки.", link: "/blog/post8", category: "Ошибки" },
-  { title: "Настройка облачных хранилищ для резервного копирования", image: "/images/blog/post9.jpg", excerpt: "Руководство по настройке облачных сервисов для резервного копирования ваших файлов и данных.", link: "/blog/post9", category: "Рекомендации" },
-  { title: "Обзор программ для работы с архивами", image: "/images/blog/post10.jpg", excerpt: "Сравнение различных программ для работы с архивами и их основные функции.", link: "/blog/post10", category: "Рекомендации" },
+  { title: "Проблемы с запуском программы", image: "/images/blog/post1.jpg", excerpt: "Что делать, если программа не запускается или исчезают ярлыки? Решения и советы.", link: "/blog/post2", category: "Ошибки" },
+  { title: "Как справиться с зависанием программы во время установки", image: "/images/blog/post1.jpg", excerpt: "Пошаговое руководство для устранения проблем, связанных с зависанием программ во время установки.", link: "/blog/post8", category: "Ошибки" },
+  { title: "Ошибки в программном обеспечении", image: "/images/blog/post1.jpg", excerpt: "Типичные ошибки при работе с программным обеспечением и способы их устранения.", link: "/blog/post11", category: "Ошибки" },
+  // Добавленная статья
+  { title: "Непредвиденные сбои программ при работе", image: "/images/blog/post1.jpg", excerpt: "Решения для устранения непредвиденных сбоев программного обеспечения.", link: "/blog/post12", category: "Ошибки" },
 
-  // Placeholder articles to ensure each category has at least 5 articles
-  { title: "Ошибки в программном обеспечении", image: "/images/blog/post11.jpg", excerpt: "Типичные ошибки при работе с программным обеспечением и способы их устранения.", link: "/blog/post11", category: "Ошибки" },
-  { title: "Частые проблемы с установкой", image: "/images/blog/post12.jpg", excerpt: "Советы по устранению проблем с установкой программ.", link: "/blog/post12", category: "Установка ПО" },
-  { title: "Важные аспекты безопасности ПО", image: "/images/blog/post13.jpg", excerpt: "Как избежать вирусов и защитить свои данные.", link: "/blog/post13", category: "Безопасность" },
-  { title: "Лучшие практики настройки антивирусов", image: "/images/blog/post14.jpg", excerpt: "Как настроить антивирусные программы для оптимальной защиты.", link: "/blog/post14", category: "Безопасность" },
-  { title: "Рекомендации по управлению лицензиями", image: "/images/blog/post15.jpg", excerpt: "Советы по управлению лицензиями и активацией ПО.", link: "/blog/post15", category: "Рекомендации" }
+  { title: "Использование ключа активации на другом устройстве", image: "/images/blog/post1.jpg", excerpt: "Можно ли использовать один ключ активации на нескольких устройствах? Ответы и рекомендации.", link: "/blog/post3", category: "Рекомендации" },
+  { title: "Рекомендации по использованию наших программ", image: "/images/blog/post1.jpg", excerpt: "Лучшие практики и советы по использованию программного обеспечения для достижения максимальной эффективности.", link: "/blog/post6", category: "Рекомендации" },
+  { title: "Настройка облачных хранилищ для резервного копирования", image: "/images/blog/post1.jpg", excerpt: "Руководство по настройке облачных сервисов для резервного копирования ваших файлов и данных.", link: "/blog/post9", category: "Рекомендации" },
+  { title: "Обзор программ для работы с архивами", image: "/images/blog/post1.jpg", excerpt: "Сравнение различных программ для работы с архивами и их основные функции.", link: "/blog/post10", category: "Рекомендации" },
+  { title: "Рекомендации по управлению лицензиями", image: "/images/blog/post1.jpg", excerpt: "Советы по управлению лицензиями и активацией ПО.", link: "/blog/post15", category: "Рекомендации" },
+
+  { title: "Помощь в установке программного обеспечения", image: "/images/blog/post1.jpg", excerpt: "Как получить помощь при установке программного обеспечения. Контакты и часы работы службы поддержки.", link: "/blog/post4", category: "Установка ПО" },
+  { title: "Частые проблемы с установкой", image: "/images/blog/post1.jpg", excerpt: "Советы по устранению проблем с установкой программ.", link: "/blog/post12", category: "Установка ПО" },
+
+  { title: "Безопасность программ и антивирусы", image: "/images/blog/post1.jpg", excerpt: "Как антивирусное ПО может влиять на ваши программы и как правильно настраивать исключения.", link: "/blog/post5", category: "Безопасность" },
+  { title: "Как выбрать лучшее антивирусное ПО для вашего компьютера", image: "/images/blog/post1.jpg", excerpt: "Узнайте, какое антивирусное ПО подходит именно для вас и как его настроить.", link: "/blog/post7", category: "Безопасность" },
+  { title: "Важные аспекты безопасности ПО", image: "/images/blog/post1.jpg", excerpt: "Как избежать вирусов и защитить свои данные.", link: "/blog/post13", category: "Безопасность" },
+  { title: "Лучшие практики настройки антивирусов", image: "/images/blog/post1.jpg", excerpt: "Как настроить антивирусные программы для оптимальной защиты.", link: "/blog/post14", category: "Безопасность" },
+  // Добавленная статья
+  { title: "Современные угрозы безопасности ПО", image: "/images/blog/post1.jpg", excerpt: "Рассмотрим, какие угрозы могут повлиять на вашу безопасность.", link: "/blog/post16", category: "Безопасность" }
 ];
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("Все");
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 8; // Changed this value to 8 to display more posts
+  const postsPerPage = 8; 
 
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
@@ -50,7 +55,7 @@ export default function Blog() {
 
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1); // Reset page when category changes
+    setCurrentPage(1);
   }, []);
 
   const handlePageChange = useCallback((page: number) => {
@@ -101,13 +106,11 @@ export default function Blog() {
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        {/* Меню категорий */}
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
           {categories.map(renderCategoryButton)}
         </div>
       </div>
 
-      {/* Сетка статей */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
         {paginatedPosts.map(({ title, image, excerpt, link }) => (
           <div
@@ -148,7 +151,6 @@ export default function Blog() {
         ))}
       </div>
 
-      {/* Пагинация */}
       <div className="max-w-max mx-auto px-6 pb-16">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:flex-row p-1 gap-1">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map(renderPageButton)}
