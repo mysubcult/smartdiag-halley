@@ -129,17 +129,25 @@ export default function Blog() {
     const maxVisiblePages = 5;
 
     const pagesToShow: (string | number)[] = [];
-    pagesToShow.push(1);
+    pagesToShow.push(1); // Первая страница всегда показывается
 
     const startPage = Math.max(2, currentPage - 1);
     const endPage = Math.min(totalPages - 1, currentPage + 1);
 
     if (startPage > 2) pagesToShow.push('...');
+    
     for (let i = startPage; i <= endPage; i++) {
       pagesToShow.push(i);
     }
+
     if (endPage < totalPages - 1) pagesToShow.push('...');
-    pagesToShow.push(totalPages);
+    
+    // Убираем дублирование многоточий
+    if (pagesToShow[1] === '...' && pagesToShow[pagesToShow.length - 2] === '...') {
+      pagesToShow.splice(1, pagesToShow.length - 3);
+    }
+
+    pagesToShow.push(totalPages); // Последняя страница всегда показывается
 
     return pagesToShow.map((page, index) => (
       <button
@@ -152,7 +160,6 @@ export default function Blog() {
         } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
           typeof page !== 'number' ? 'cursor-pointer' : ''
         }`}
-        disabled={typeof page !== 'number'}
       >
         {page === '...' ? '...' : page}
       </button>
