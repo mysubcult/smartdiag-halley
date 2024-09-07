@@ -164,7 +164,7 @@ export default function Blog() {
         {paginatedPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
-            className="rounded-lg overflow-hidden flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300"
+            className="rounded-lg overflow-hidden flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300 h-full"
           >
             <Link href={link}>
               <div className="relative">
@@ -182,10 +182,12 @@ export default function Blog() {
               </div>
             </Link>
             <div className="p-4 flex flex-col flex-grow">
-              <h3 className="text-lg font-semibold mb-6 line-clamp-3 h-16">
+              {/* Ограничиваем количество строк для заголовка */}
+              <h3 className="text-lg font-semibold mb-4 line-clamp-2 h-12">
                 {title}
               </h3>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex-grow">
+              {/* Ограничиваем количество строк для описания */}
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex-grow line-clamp-3 h-16">
                 {excerpt}
               </p>
               <div className="flex justify-end mt-auto">
