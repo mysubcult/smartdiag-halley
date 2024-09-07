@@ -129,23 +129,25 @@ export default function Blog() {
     const maxVisiblePages = 5;
     const pagesToShow: (string | number)[] = [];
 
-    // Всегда отображаем первую страницу
+    // Всегда показываем первую страницу
     pagesToShow.push(1);
 
     const startPage = Math.max(2, currentPage - 1);
     const endPage = Math.min(totalPages - 1, currentPage + 1);
 
-    // Если больше чем 2 страницы до текущей страницы, показываем многоточие
+    // Логика добавления многоточия
     if (startPage > 2) pagesToShow.push('...');
-    
+
     // Добавляем страницы в середине
     for (let i = startPage; i <= endPage; i++) {
       pagesToShow.push(i);
     }
 
-    // Если после текущей страницы до конца больше 1 страницы, добавляем многоточие
-    if (endPage < totalPages - 1) pagesToShow.push('...');
-    
+    // Если разрыв до последней страницы больше одной страницы, добавляем одно многоточие
+    if (endPage < totalPages - 2) {
+      pagesToShow.push('...');
+    }
+
     // Всегда показываем последнюю страницу
     if (totalPages > 1) pagesToShow.push(totalPages);
 
