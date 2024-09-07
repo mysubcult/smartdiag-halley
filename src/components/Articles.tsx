@@ -175,9 +175,7 @@ export default function Blog() {
               >
                 {title}
               </h3>
-              {/* Фиксированный отступ после заголовка */}
-              <div className="h-4"></div>
-              {/* Ограничиваем описание тремя строками с инлайн-стилями */}
+              {/* Описание карточки */}
               <p
                 style={{
                   display: '-webkit-box',
@@ -185,14 +183,14 @@ export default function Blog() {
                   WebkitBoxOrient: 'vertical',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
+                  flexGrow: 1, // Позволяет описанию заполнять пространство
                 }}
-                className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex-grow"
+                className="text-sm text-neutral-600 dark:text-neutral-400 mb-4"
               >
                 {excerpt}
               </p>
-              {/* Фиксированный отступ после описания */}
-              <div className="h-4"></div>
-              <div className="flex justify-end mt-auto">
+              {/* Кнопка "Читать далее" всегда внизу */}
+              <div className="mt-auto">
                 <Link href={link}>
                   <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
                     Читать далее
