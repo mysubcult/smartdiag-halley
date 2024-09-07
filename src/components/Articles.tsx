@@ -2,16 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useMemo, useCallback } from "react";
 
-// Типизация для статей
-interface BlogPost {
-  title: string;
-  image: string;
-  excerpt: string;
-  link: string;
-  category: string;
-}
-
-const blogPosts: BlogPost[] = [
+const blogPosts = [
   // Раздел "Ошибки" - 16 статей
   { title: "Как справиться с ошибкой при открытии архива", image: "/images/blog/post1.jpg", excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов и что может вызывать эти проблемы.", link: "/blog/post1", category: "Ошибки" },
   { title: "Проблемы с запуском программы", image: "/images/blog/post1.jpg", excerpt: "Что делать, если программа не запускается или исчезают ярлыки? Решения и советы.", link: "/blog/post2", category: "Ошибки" },
@@ -90,7 +81,6 @@ export default function Blog() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const postsPerPage = 8;
 
-  // Категории статей
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
     { name: "Ошибки", value: "Ошибки" },
@@ -99,7 +89,6 @@ export default function Blog() {
     { name: "Рекомендации", value: "Рекомендации" },
   ], []);
 
-  // Фильтрация статей по категории
   const filteredPosts = useMemo(() => {
     return selectedCategory === "Все"
       ? blogPosts
@@ -113,52 +102,14 @@ export default function Blog() {
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  // Обработчик выбора категории
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1);
   }, []);
 
-  // Обработчик смены страницы
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
   }, []);
-
-  // Рендер кнопок категорий
-  const renderCategoryButton = useCallback(
-    (category: { name: string; value: string }) => (
-      <button
-        key={category.value}
-        onClick={() => handleCategoryClick(category.value)}
-        className={`${
-          category.value === selectedCategory
-            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-      >
-        {category.name}
-      </button>
-    ),
-    [handleCategoryClick, selectedCategory]
-  );
-
-  // Рендер кнопок страниц
-  const renderPageButton = useCallback(
-    (page: number) => (
-      <button
-        key={page}
-        onClick={() => handlePageChange(page)}
-        className={`${
-          page === currentPage
-            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-      >
-        {page}
-      </button>
-    ),
-    [handlePageChange, currentPage]
-  );
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
@@ -171,7 +122,19 @@ export default function Blog() {
 
       <div className="max-w-max mx-auto px-6">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
-          {categories.map(renderCategoryButton)}
+          {categories.map((category) => (
+            <button
+              key={category.value}
+              onClick={() => handleCategoryClick(category.value)}
+              className={`${
+                category.value === selectedCategory
+                  ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                  : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+              } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+            >
+              {category.name}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -197,14 +160,32 @@ export default function Blog() {
               </div>
             </Link>
             <div className="p-4 flex flex-col flex-grow">
-              {/* Ограничиваем заголовок двумя строками с троеточием */}
-              <h3 className="text-lg font-semibold mb-2 overflow-hidden text-ellipsis line-clamp-2">
+              {/* Ограничиваем заголовок двумя строками с инлайн-стилями */}
+              <h3
+                style={{
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+                className="text-lg font-semibold mb-2"
+              >
                 {title}
               </h3>
               {/* Фиксированный отступ после заголовка */}
               <div className="h-4"></div>
-              {/* Ограничиваем описание тремя строками с троеточием */}
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex-grow overflow-hidden text-ellipsis line-clamp-3">
+              {/* Ограничиваем описание тремя строками с инлайн-стилями */}
+              <p
+                style={{
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+                className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex-grow"
+              >
                 {excerpt}
               </p>
               {/* Фиксированный отступ после описания */}
@@ -223,7 +204,19 @@ export default function Blog() {
 
       <div className="max-w-max mx-auto px-6 pb-16">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:flex-row p-1 gap-1">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map(renderPageButton)}
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => handlePageChange(page)}
+              className={`${
+                page === currentPage
+                  ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                  : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+              } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+            >
+              {page}
+            </button>
+          ))}
         </div>
       </div>
     </div>
