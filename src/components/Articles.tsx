@@ -135,16 +135,16 @@ export default function Blog() {
     const startPage = Math.max(2, currentPage - 1);
     const endPage = Math.min(totalPages - 1, currentPage + 1);
 
-    // Логика добавления многоточия
-    if (startPage > 2) pagesToShow.push('...');
+    // Логика добавления многоточия перед текущей страницей
+    if (startPage > 2 && currentPage > 3) pagesToShow.push('...');
 
     // Добавляем страницы в середине
     for (let i = startPage; i <= endPage; i++) {
       pagesToShow.push(i);
     }
 
-    // Если разрыв до последней страницы больше одной страницы, добавляем одно многоточие
-    if (endPage < totalPages - 2) {
+    // Логика добавления многоточия после текущей страницы
+    if (endPage < totalPages - 1 && currentPage < totalPages - 2) {
       pagesToShow.push('...');
     }
 
