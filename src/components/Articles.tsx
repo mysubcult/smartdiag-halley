@@ -180,9 +180,10 @@ export default function Blog() {
         {paginatedPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
-            className="rounded-lg overflow-hidden flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300 h-[400px]" // Фиксируем высоту
+            className="rounded-lg overflow-hidden flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300 h-full"
           >
             <Link href={link}>
+              {/* Фиксированная высота изображения */}
               <div className="relative h-[200px]">
                 <Image
                   src={image}
@@ -200,10 +201,14 @@ export default function Blog() {
               <h3 className="text-lg font-semibold mb-2 overflow-hidden text-ellipsis line-clamp-2">
                 {title}
               </h3>
+              {/* Фиксированный отступ после заголовка */}
+              <div className="h-4"></div>
               {/* Ограничиваем описание тремя строками с троеточием */}
               <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex-grow overflow-hidden text-ellipsis line-clamp-3">
                 {excerpt}
               </p>
+              {/* Фиксированный отступ после описания */}
+              <div className="h-4"></div>
               <div className="flex justify-end mt-auto">
                 <Link href={link}>
                   <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
