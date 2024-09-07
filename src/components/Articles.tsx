@@ -13,6 +13,13 @@ const blogPosts = [
   { title: "Как справиться с зависанием программы во время установки", image: "/images/blog/post8.jpg", excerpt: "Пошаговое руководство для устранения проблем, связанных с зависанием программ во время установки.", link: "/blog/post8", category: "Ошибки" },
   { title: "Настройка облачных хранилищ для резервного копирования", image: "/images/blog/post9.jpg", excerpt: "Руководство по настройке облачных сервисов для резервного копирования ваших файлов и данных.", link: "/blog/post9", category: "Рекомендации" },
   { title: "Обзор программ для работы с архивами", image: "/images/blog/post10.jpg", excerpt: "Сравнение различных программ для работы с архивами и их основные функции.", link: "/blog/post10", category: "Рекомендации" },
+
+  // Placeholder articles to ensure each category has at least 5 articles
+  { title: "Ошибки в программном обеспечении", image: "/images/blog/post11.jpg", excerpt: "Типичные ошибки при работе с программным обеспечением и способы их устранения.", link: "/blog/post11", category: "Ошибки" },
+  { title: "Частые проблемы с установкой", image: "/images/blog/post12.jpg", excerpt: "Советы по устранению проблем с установкой программ.", link: "/blog/post12", category: "Установка ПО" },
+  { title: "Важные аспекты безопасности ПО", image: "/images/blog/post13.jpg", excerpt: "Как избежать вирусов и защитить свои данные.", link: "/blog/post13", category: "Безопасность" },
+  { title: "Лучшие практики настройки антивирусов", image: "/images/blog/post14.jpg", excerpt: "Как настроить антивирусные программы для оптимальной защиты.", link: "/blog/post14", category: "Безопасность" },
+  { title: "Рекомендации по управлению лицензиями", image: "/images/blog/post15.jpg", excerpt: "Советы по управлению лицензиями и активацией ПО.", link: "/blog/post15", category: "Рекомендации" }
 ];
 
 export default function Blog() {
@@ -143,7 +150,7 @@ export default function Blog() {
 
       {/* Пагинация */}
       <div className="max-w-max mx-auto px-6 pb-16">
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:flex-row p-1 gap-1">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map(renderPageButton)}
         </div>
       </div>
