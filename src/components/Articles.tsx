@@ -126,7 +126,7 @@ export default function Blog() {
   };
 
   const renderPagination = () => {
-    const maxVisiblePages = 5;
+    const maxVisiblePages = 5; // Максимальное количество отображаемых страниц в середине
     const pagesToShow: (string | number)[] = [];
 
     // Всегда показываем первую страницу
@@ -135,21 +135,25 @@ export default function Blog() {
     const startPage = Math.max(2, currentPage - 1);
     const endPage = Math.min(totalPages - 1, currentPage + 1);
 
-    // Логика добавления многоточия перед текущей страницей
-    if (startPage > 2 && currentPage > 3) pagesToShow.push('...');
+    // Если текущая страница больше 3, добавляем многоточие перед страницами
+    if (currentPage > 3) {
+      pagesToShow.push('...');
+    }
 
     // Добавляем страницы в середине
     for (let i = startPage; i <= endPage; i++) {
       pagesToShow.push(i);
     }
 
-    // Логика добавления многоточия после текущей страницы
-    if (endPage < totalPages - 1 && currentPage < totalPages - 2) {
+    // Если текущая страница меньше, чем totalPages - 2, добавляем многоточие после страниц
+    if (currentPage < totalPages - 2) {
       pagesToShow.push('...');
     }
 
     // Всегда показываем последнюю страницу
-    if (totalPages > 1) pagesToShow.push(totalPages);
+    if (totalPages > 1) {
+      pagesToShow.push(totalPages);
+    }
 
     return pagesToShow.map((page, index) => (
       <button
