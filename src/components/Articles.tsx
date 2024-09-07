@@ -89,7 +89,6 @@ export default function Blog() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const postsPerPage = 8;
 
-  // Мемоизация категорий
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
     { name: "Ошибки", value: "Ошибки" },
@@ -98,7 +97,6 @@ export default function Blog() {
     { name: "Рекомендации", value: "Рекомендации" },
   ], []);
 
-  // Фильтрация статей
   const filteredPosts = useMemo(() => {
     return selectedCategory === "Все"
       ? blogPosts
@@ -107,19 +105,16 @@ export default function Blog() {
 
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
-  // Пагинация статей
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  // Обработчик клика по категории с типизацией
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1);
   }, []);
 
-  // Обработчик смены страницы с типизацией
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
   }, []);
@@ -173,11 +168,32 @@ export default function Blog() {
             </Link>
             <div className="p-4 flex flex-col flex-grow">
               <h3
-                className="text-lg font-semibold mb-2 truncate-2-lines"
+                style={{
+                  minHeight: '3em', // фиксированная высота для заголовка
+                  lineHeight: '1.5em', // высота строки
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2, // 2 строки
+                  WebkitBoxOrient: 'vertical',
+                }}
+                className="text-lg font-semibold mb-2"
               >
                 {title}
               </h3>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 truncate-3-lines">
+              <p
+                style={{
+                  minHeight: '4.5em', // фиксированная высота для описания
+                  lineHeight: '1.5em', // высота строки
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3, // 3 строки
+                  WebkitBoxOrient: 'vertical',
+                  flexGrow: 1, // для выравнивания контента
+                }}
+                className="text-sm text-neutral-600 dark:text-neutral-400 mb-4"
+              >
                 {excerpt}
               </p>
               <div className="mt-auto text-right">
