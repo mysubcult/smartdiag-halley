@@ -119,6 +119,55 @@ export default function Blog() {
     setCurrentPage(page);
   }, []);
 
+  // Функция для отображения компактной пагинации
+  const renderPagination = () => {
+    const maxVisiblePages = 5; // Максимальное количество видимых страниц
+
+    if (totalPages <= maxVisiblePages) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+        <button
+          key={page}
+          onClick={() => handlePageChange(page)}
+          className={`${
+            page === currentPage
+              ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+              : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+          } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+        >
+          {page}
+        </button>
+      ));
+    }
+
+    const pagesToShow = [];
+    if (currentPage > 2) pagesToShow.push(1, '...');
+    const startPage = Math.max(2, currentPage - 1);
+    const endPage = Math.min(totalPages - 1, currentPage + 1);
+    
+    for (let i = startPage; i <= endPage; i++) {
+      pagesToShow.push(i);
+    }
+    
+    if (currentPage < totalPages - 1) pagesToShow.push('...', totalPages);
+
+    return pagesToShow.map((page, index) => (
+      <button
+        key={index}
+        onClick={() => typeof page === 'number' && handlePageChange(page)}
+        className={`${
+          page === currentPage
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
+          typeof page !== 'number' ? 'cursor-default' : ''
+        }`}
+        disabled={typeof page !== 'number'}
+      >
+        {page}
+      </button>
+    ));
+  };
+
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
@@ -146,8 +195,7 @@ export default function Blog() {
         </div>
       </div>
 
-      {/* Карточки с статьями */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-0 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
         {paginatedPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
@@ -169,12 +217,12 @@ export default function Blog() {
             <div className="p-4 flex flex-col flex-grow">
               <h3
                 style={{
-                  minHeight: '3em', // фиксированная высота для заголовка
-                  lineHeight: '1.5em', // высота строки
+                  minHeight: '3em',
+                  lineHeight: '1.5em',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   display: '-webkit-box',
-                  WebkitLineClamp: 2, // 2 строки
+                  WebkitLineClamp: 2,
                   WebkitBoxOrient: 'vertical',
                 }}
                 className="text-lg font-semibold mb-2"
@@ -183,14 +231,14 @@ export default function Blog() {
               </h3>
               <p
                 style={{
-                  minHeight: '4.5em', // фиксированная высота для описания
-                  lineHeight: '1.5em', // высота строки
+                  minHeight: '4.5em',
+                  lineHeight: '1.5em',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   display: '-webkit-box',
-                  WebkitLineClamp: 3, // 3 строки
+                  WebkitLineClamp: 3,
                   WebkitBoxOrient: 'vertical',
-                  flexGrow: 1, // для выравнивания контента
+                  flexGrow: 1,
                 }}
                 className="text-sm text-neutral-600 dark:text-neutral-400 mb-4"
               >
@@ -209,21 +257,9 @@ export default function Blog() {
       </div>
 
       {/* Пагинация */}
-      <div className="max-w-max mx-auto px-6 pb-16">
+      <div className="max-w-max mx-auto px-6">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <button
-              key={page}
-              onClick={() => handlePageChange(page)}
-              className={`${
-                page === currentPage
-                  ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                  : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-              } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-            >
-              {page}
-            </button>
-          ))}
+          {renderPagination()}
         </div>
       </div>
     </div>
