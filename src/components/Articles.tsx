@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 
 type BlogPost = {
   title: string;
@@ -87,8 +87,10 @@ const blogPosts: BlogPost[] = [
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showPopover, setShowPopover] = useState<boolean>(false);
+  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
   const postsPerPage = 8;
+  const popoverRef = useRef<HTMLDivElement>(null);
 
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
@@ -118,12 +120,30 @@ export default function Blog() {
 
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
-    setShowModal(false);
+    setShowPopover(false);
   }, []);
 
-  const handleEllipsisClick = () => {
-    setShowModal(true);
+  const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
+    setShowPopover(true);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+        setShowPopover(false);
+      }
+    };
+
+    if (showPopover) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showPopover]);
 
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
@@ -134,18 +154,13 @@ export default function Blog() {
     const startPage = Math.max(2, currentPage - 1);
     const endPage = Math.min(totalPages - 1, currentPage + 1);
 
-    // Если текущая страница ближе к началу или середине, показываем многоточие справа
     if (currentPage < totalPages - 2) {
       for (let i = startPage; i <= endPage; i++) {
         pagesToShow.push(i);
       }
-      if (currentPage < totalPages - 2) {
-        pagesToShow.push('...');
-      }
+      pagesToShow.push('...');
       pagesToShow.push(totalPages);
-    }
-    // Если текущая страница ближе к концу, показываем многоточие слева
-    else if (currentPage >= totalPages - 2) {
+    } else if (currentPage >= totalPages - 2) {
       pagesToShow.push('...');
       for (let i = totalPages - 2; i <= totalPages; i++) {
         pagesToShow.push(i);
@@ -155,7 +170,7 @@ export default function Blog() {
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={() => typeof page === 'number' ? handlePageChange(page) : handleEllipsisClick()}
+        onClick={() => typeof page === 'number' ? handlePageChange(page) : handleEllipsisClick}
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
@@ -264,32 +279,31 @@ export default function Blog() {
         </div>
       </div>
 
-      {/* Модальное окно для выбора страницы */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white dark:bg-neutral-800 p-6 rounded-lg">
-            <h2 className="text-lg font-bold mb-4">Выберите страницу</h2>
-            <div className="grid grid-cols-4 gap-4">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  onClick={() => handlePageChange(page)}
-                  className={`${
-                    page === currentPage
-                      ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                      : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-                  } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-                >
-                  {page}
-                </button>
-              ))}
-            </div>
-            <button
-              onClick={() => setShowModal(false)}
-              className="mt-4 bg-red-600 text-white px-4 py-2 rounded-md"
-            >
-              Закрыть
-            </button>
+      {/* Небольшой popover для выбора страницы */}
+      {showPopover && popoverPosition && (
+        <div
+          ref={popoverRef}
+          className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
+          style={{
+            position: 'absolute',
+            top: `${popoverPosition.top}px`,
+            left: `${popoverPosition.left}px`
+          }}
+        >
+          <div className="grid grid-cols-4 gap-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`${
+                  page === currentPage
+                    ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                } rounded-md py-2 px-3 transition-colors duration-300 ease-in-out`}
+              >
+                {page}
+              </button>
+            ))}
           </div>
         </div>
       )}
