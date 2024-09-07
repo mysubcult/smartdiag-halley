@@ -87,6 +87,7 @@ const blogPosts: BlogPost[] = [
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const postsPerPage = 8;
 
   const categories = useMemo(() => [
@@ -117,9 +118,13 @@ export default function Blog() {
 
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
+    setShowModal(false); // закрываем модальное окно при выборе страницы
   }, []);
 
-  // Функция для отображения компактной пагинации
+  const handleEllipsisClick = () => {
+    setShowModal(true);
+  };
+
   const renderPagination = () => {
     const maxVisiblePages = 5; // Максимальное количество видимых страниц
 
@@ -140,30 +145,31 @@ export default function Blog() {
     }
 
     const pagesToShow = [];
-    if (currentPage > 2) pagesToShow.push(1, '...');
+    pagesToShow.push(1); // Первая страница всегда показывается
+
     const startPage = Math.max(2, currentPage - 1);
     const endPage = Math.min(totalPages - 1, currentPage + 1);
-    
+
+    if (startPage > 2) pagesToShow.push('...');
     for (let i = startPage; i <= endPage; i++) {
       pagesToShow.push(i);
     }
-    
-    if (currentPage < totalPages - 1) pagesToShow.push('...', totalPages);
+    if (endPage < totalPages - 1) pagesToShow.push('...');
+    pagesToShow.push(totalPages); // Последняя страница
 
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={() => typeof page === 'number' && handlePageChange(page)}
+        onClick={() => typeof page === 'number' ? handlePageChange(page) : handleEllipsisClick()}
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
             : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
         } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
-          typeof page !== 'number' ? 'cursor-default' : ''
+          typeof page !== 'number' ? 'cursor-pointer' : ''
         }`}
-        disabled={typeof page !== 'number'}
       >
-        {page}
+        {page === '...' ? '...' : page}
       </button>
     ));
   };
@@ -195,7 +201,7 @@ export default function Blog() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-0 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-4 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
         {paginatedPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
@@ -257,11 +263,41 @@ export default function Blog() {
       </div>
 
       {/* Пагинация */}
-      <div className="max-w-max mx-auto px-6">
+      <div className="max-w-max mx-auto px-6 pb-4">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
           {renderPagination()}
         </div>
       </div>
+
+      {/* Модальное окно для выбора страницы */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white dark:bg-neutral-800 p-6 rounded-lg">
+            <h2 className="text-lg font-bold mb-4">Выберите страницу</h2>
+            <div className="grid grid-cols-4 gap-4">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`${
+                    page === currentPage
+                      ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                      : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+                  } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+                >
+                  {page}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => setShowModal(false)}
+              className="mt-4 bg-red-600 text-white px-4 py-2 rounded-md"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
