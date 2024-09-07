@@ -160,16 +160,16 @@ export default function Blog() {
               </div>
             </Link>
             <div className="p-4 flex flex-col flex-grow">
-              {/* Ограничиваем заголовок двумя строками с использованием line-height */}
+              {/* Заголовок с минимальной высотой для двух строк */}
               <h3
                 style={{
+                  minHeight: '3em', // Высота для двух строк (1.5em * 2 = 3em)
+                  lineHeight: '1.5em', // Высота строки 1.5em
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                   display: '-webkit-box',
                   WebkitLineClamp: 2,
                   WebkitBoxOrient: 'vertical',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  lineHeight: '1.5', // Высота одной строки
-                  maxHeight: '3em',   // 2 строки = 1.5 * 2 = 3em
                 }}
                 className="text-lg font-semibold mb-2"
               >
