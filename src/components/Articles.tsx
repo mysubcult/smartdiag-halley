@@ -182,11 +182,11 @@ export default function Blog() {
               </div>
             </Link>
             <div className="p-4 flex flex-col flex-grow">
-              {/* Ограничиваем заголовок двумя строками */}
+              {/* Ограничиваем заголовок двумя строками с троеточием */}
               <h3 className="text-lg font-semibold mb-2 overflow-hidden text-ellipsis line-clamp-2">
                 {title}
               </h3>
-              {/* Ограничиваем описание тремя строками */}
+              {/* Ограничиваем описание тремя строками с троеточием */}
               <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex-grow overflow-hidden text-ellipsis line-clamp-3">
                 {excerpt}
               </p>
