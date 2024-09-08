@@ -1328,7 +1328,9 @@ export default function Blog() {
         }
       } else {
         // Если текущая страница где-то в середине
-        pagesToShow.push("...");
+        if (currentPage > 4) {
+          pagesToShow.push("...");
+        }
         pagesToShow.push(currentPage - 1, currentPage, currentPage + 1);
         if (currentPage + 1 < totalPages - 1) {
           pagesToShow.push("...");
