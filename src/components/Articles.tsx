@@ -321,6 +321,7 @@ const blogPosts: BlogPost[] = [
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
@@ -336,10 +337,18 @@ export default function Blog() {
   ], []);
 
   const filteredPosts = useMemo(() => {
-    return selectedCategory === "Все"
+    const filteredByCategory = selectedCategory === "Все"
       ? blogPosts
       : blogPosts.filter((post) => post.category === selectedCategory);
-  }, [selectedCategory]);
+
+    return filteredByCategory.filter((post) =>
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.keywords.some((keyword) =>
+        keyword.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }, [selectedCategory, searchTerm]);
 
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
@@ -448,6 +457,15 @@ export default function Blog() {
               {category.name}
             </button>
           ))}
+
+          {/* Строка поиска */}
+          <input
+            type="text"
+            placeholder="Поиск..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="ml-4 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+          />
         </div>
       </div>
 
