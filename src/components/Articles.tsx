@@ -4,6 +4,7 @@ import Link from "next/link";
 
 type BlogPost = {
   title: string;
+  title: string;
   image: string;
   excerpt: string;
   link: string;
@@ -2540,7 +2541,15 @@ export default function Blog() {
     const hiddenPagesRight = totalPages - currentPage;
 
     if (totalPages > 5) {
-      if (hiddenPagesLeft > hiddenPagesRight) {
+      // Для первой страницы показываем 1, 2, 3, ..., если больше страниц
+      if (currentPage === 1) {
+        pagesToShow.push(2, 3, "...");
+      } 
+      // Для последней страницы показываем 25, 26, 27
+      else if (currentPage === totalPages) {
+        pagesToShow.push("...", totalPages - 2, totalPages - 1);
+      }
+      else if (hiddenPagesLeft > hiddenPagesRight) {
         // Если слева скрыто больше страниц, показываем троеточие слева
         if (currentPage > 3) {
           pagesToShow.push("...");
