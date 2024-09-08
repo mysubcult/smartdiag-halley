@@ -1,4 +1,17 @@
+import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+
+type BlogPost = {
+  title: string;
+  image: string;
+  excerpt: string;
+  link: string;
+  category: string;
+};
+
+const blogPosts: BlogPost[] = [
+  import Image from "next/image";
 import Link from "next/link";
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 
@@ -315,6 +328,112 @@ export default function Blog() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+];
+
+export default function Blog() {
+  const [selectedCategory, setSelectedCategory] = useState<string>("Все");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const postsPerPage = 8;
+
+  const categories = useMemo(() => [
+    { name: "Все", value: "Все" },
+    { name: "Ошибки", value: "Ошибки" },
+    { name: "Установка ПО", value: "Установка ПО" },
+    { name: "Безопасность", value: "Безопасность" },
+    { name: "Рекомендации", value: "Рекомендации" },
+  ], []);
+
+  const filteredPosts = useMemo(() => {
+    const filteredByCategory = selectedCategory === "Все"
+      ? blogPosts
+      : blogPosts.filter((post) => post.category === selectedCategory);
+
+    return filteredByCategory.filter((post) =>
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [selectedCategory, searchTerm]);
+
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+
+  const paginatedPosts = useMemo(() => {
+    const startIndex = (currentPage - 1) * postsPerPage;
+    return filteredPosts.slice(startIndex, startIndex + postsPerPage);
+  }, [currentPage, filteredPosts]);
+
+  const handleCategoryClick = useCallback((category: string) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
+  }, []);
+
+  const handlePageChange = useCallback((page: number) => {
+    setCurrentPage(page);
+  }, []);
+
+  return (
+    <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+        <h2 className="text-4xl font-bold text-center">Статьи 📰</h2>
+      </div>
+
+      <div className="max-w-max mx-auto px-6">
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
+          {categories.map((category) => (
+            <button
+              key={category.value}
+              onClick={() => handleCategoryClick(category.value)}
+              className={`${
+                category.value === selectedCategory
+                  ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                  : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+              } rounded-md py-2 px-4 transition-colors duration-300 ease-in-out`}
+            >
+              {category.name}
+            </button>
+          ))}
+          
+          {/* Строка поиска */}
+          <input
+            type="text"
+            placeholder="Поиск..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="ml-4 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+          />
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-4 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
+        {paginatedPosts.map(({ title, image, excerpt, link }) => (
+          <div key={title} className="rounded-lg overflow-hidden flex flex-col border dark:border-neutral-600 hover:shadow-lg transition-all duration-300 h-full">
+            <Link href={link}>
+              <div className="relative h-[200px]">
+                <Image src={image} alt={title} layout="fill" className="object-cover" />
+              </div>
+            </Link>
+            <div className="p-4 flex flex-col flex-grow">
+              <h3 className="text-lg font-semibold mb-2">{title}</h3>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">{excerpt}</p>
+              <Link href={link}>
+                <button className="bg-red-600 text-white rounded-md px-4 py-2">Читать далее</button>
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Пагинация */}
+      <div className="max-w-max mx-auto px-6 pb-4">
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <button key={page} onClick={() => handlePageChange(page)} className={`p-2 ${page === currentPage ? 'bg-blue-600 text-white' : ''}`}>
+            {page}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
