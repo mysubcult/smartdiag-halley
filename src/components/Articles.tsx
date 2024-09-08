@@ -1310,38 +1310,26 @@ export default function Blog() {
     // Всегда показываем первую страницу
     pagesToShow.push(1);
 
-    // Логика отображения троеточия и соседних страниц
     if (totalPages > 5) {
-      if (currentPage <= 3) {
-        // Если текущая страница одна из первых (1, 2, 3)
-        for (let i = 2; i <= 4; i++) {
-          pagesToShow.push(i);
-        }
-        if (totalPages > 5) {
-          pagesToShow.push("...");
-        }
-      } else if (currentPage >= totalPages - 2) {
-        // Если текущая страница одна из последних (totalPages - 2, totalPages - 1, totalPages)
-        pagesToShow.push("...");
-        for (let i = totalPages - 3; i < totalPages; i++) {
-          pagesToShow.push(i);
-        }
-      } else {
-        // Если текущая страница 5 или больше, но не последние
-        if (currentPage > 4) {
-          pagesToShow.push(4, currentPage - 1, currentPage, currentPage + 1);
+        if (currentPage >= 8) {
+            // Если текущая страница 8 или больше, показываем троеточие перед
+            pagesToShow.push("...");
+            pagesToShow.push(currentPage - 1);
+            pagesToShow.push(currentPage);
+            pagesToShow.push(currentPage + 1);
+        } else if (currentPage <= 3) {
+            // Если текущая страница 1-3, показываем первые несколько страниц и троеточие после
+            for (let i = 2; i <= 4; i++) {
+                pagesToShow.push(i);
+            }
+            pagesToShow.push("...");
         } else {
-          pagesToShow.push(currentPage - 1, currentPage, currentPage + 1);
+            // Если текущая страница в середине (4-7)
+            pagesToShow.push(currentPage - 1);
+            pagesToShow.push(currentPage);
+            pagesToShow.push(currentPage + 1);
+            pagesToShow.push("...");
         }
-        if (currentPage + 1 < totalPages - 1) {
-          pagesToShow.push("...");
-        }
-      }
-    } else {
-      // Если страниц меньше или равно 5
-      for (let i = 2; i < totalPages; i++) {
-        pagesToShow.push(i);
-      }
     }
 
     // Всегда показываем последнюю страницу, если страниц больше одной
@@ -1349,7 +1337,6 @@ export default function Blog() {
       pagesToShow.push(totalPages);
     }
 
-    // Возвращаем элементы пагинации
     return pagesToShow.map((page, index) => (
       <button
         key={index}
