@@ -2600,8 +2600,7 @@ export default function Blog() {
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        <div className="relative inline-flex justify-center items-center text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 gap-1">
-          {/* Контейнер с категориями */}
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8 p-1 gap-1">
           {categories.map((category) => (
             <button
               key={category.value}
@@ -2616,18 +2615,13 @@ export default function Blog() {
             </button>
           ))}
 
-          {/* Контейнер для поиска */}
-          <div className="relative ml-4">
-            {/* Поле поиска с эффектом расширения вправо */}
-            <input
-              type="text"
-              placeholder="Поиск..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-24 transition-all duration-300 ease-in-out focus:w-64 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-              style={{ position: 'relative', zIndex: 1 }}
-            />
-          </div>
+          <input
+            type="text"
+            placeholder="Поиск..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="ml-4 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+          />
         </div>
       </div>
 
