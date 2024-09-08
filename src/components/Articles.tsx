@@ -165,7 +165,7 @@ export default function Blog() {
       pagesToShow.push(i);
     }
 
-    // Добавляем троеточие перед последней страницей, если нужно
+    // Добавляем троеточие перед последней страницей, если нужно (только одно)
     if (endPage < totalPages - 1) {
       pagesToShow.push('...');
     }
@@ -178,7 +178,7 @@ export default function Blog() {
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={(event) => typeof page === 'number' ? handlePageChange(page) : handleEllipsisClick(event)}
+        onClick={() => typeof page === 'number' ? handlePageChange(page) : handleEllipsisClick(event)}
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
@@ -187,7 +187,7 @@ export default function Blog() {
           typeof page !== 'number' ? 'cursor-pointer' : ''
         }`}
       >
-        {page === '...' ? '...' : page}
+        {typeof page === 'number' ? page : '...'}
       </button>
     ));
   };
