@@ -3,13 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Blog = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Все");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [showPopover, setShowPopover] = useState(false);
-  const [popoverPosition, setPopoverPosition] = useState({ top: 0, left: 0 });
+  const [selectedCategory, setSelectedCategory] = useState<string>("Все");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [showPopover, setShowPopover] = useState<boolean>(false);
+  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
   const postsPerPage = 8;
-  const popoverRef = useRef(null);
+  const popoverRef = useRef<HTMLDivElement | null>(null);
 
   const blogPosts = [
     {
@@ -2487,13 +2487,13 @@ const Blog = () => {
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  const handleCategoryClick = useCallback((category) => {
+  const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
     setSearchTerm(""); // Сброс поиска при смене категории
     setCurrentPage(1);  // Сброс страницы на первую
   }, []);
 
-  const handlePageChange = useCallback((page) => {
+  const handlePageChange = useCallback((page: number) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
@@ -2501,7 +2501,7 @@ const Blog = () => {
   }, [totalPages]);
 
   const renderPagination = () => {
-    const pagesToShow = [];
+    const pagesToShow: (number | string)[] = [];
     pagesToShow.push(1);
 
     if (currentPage === 1) {
