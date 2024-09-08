@@ -2,13 +2,20 @@ import React, { useState, useMemo, useCallback, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+// Очистка текста от HTML-тегов
+const stripHtmlTags = (html: string) => {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  return div.textContent || div.innerText || "";
+};
+
 type BlogPost = {
   title: string;
   image: string;
   excerpt: string;
   link: string;
   category: string;
-  slug: string; // Используем для загрузки статьи
+  slug: string;
 };
 
 const blogPosts: BlogPost[] = [
@@ -237,6 +244,7 @@ export default function Blog() {
   const [articleContents, setArticleContents] = useState<{ [key: string]: string }>({});
   const postsPerPage = 8;
 
+  // Категории
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
     { name: "Ошибки", value: "Ошибки" },
@@ -245,19 +253,24 @@ export default function Blog() {
     { name: "Рекомендации", value: "Рекомендации" },
   ], []);
 
+  // Загрузка текста статьи по slug (асинхронно)
   const loadArticleContent = async (slug: string) => {
     if (!articleContents[slug]) {
       const response = await fetch(`/api/articles/loadArticle?slug=${slug}`);
       const data = await response.json();
-      setArticleContents((prev) => ({ ...prev, [slug]: data.content }));
+      // Очищаем текст от HTML-тегов
+      const strippedContent = stripHtmlTags(data.content);
+      setArticleContents((prev) => ({ ...prev, [slug]: strippedContent }));
     }
   };
 
+  // Фильтрация по категории и строке поиска
   const filteredPosts = useMemo(() => {
     const filteredByCategory = selectedCategory === "Все"
       ? blogPosts
       : blogPosts.filter((post) => post.category === selectedCategory);
 
+    // Поиск по заголовкам, кратким описаниям и загруженному контенту
     return filteredByCategory.filter((post) =>
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -265,6 +278,7 @@ export default function Blog() {
     );
   }, [selectedCategory, searchTerm, articleContents]);
 
+  // При изменении поискового запроса загружаем статьи, если нужно
   useEffect(() => {
     blogPosts.forEach((post) => {
       if (searchTerm && !articleContents[post.slug]) {
@@ -311,6 +325,7 @@ export default function Blog() {
             </button>
           ))}
 
+          {/* Строка поиска */}
           <input
             type="text"
             placeholder="Поиск..."
@@ -379,6 +394,7 @@ export default function Blog() {
         ))}
       </div>
 
+      {/* Пагинация */}
       <div className="max-w-max mx-auto px-6 pb-4">
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
           <button key={page} onClick={() => handlePageChange(page)} className={`p-2 ${page === currentPage ? 'bg-blue-600 text-white' : ''}`}>
