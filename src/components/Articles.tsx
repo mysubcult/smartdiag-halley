@@ -2615,12 +2615,13 @@ export default function Blog() {
             </button>
           ))}
 
+          {/* Поле поиска с эффектом расширения */}
           <input
             type="text"
             placeholder="Поиск..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="ml-4 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+            className="w-48 sm:w-52 md:w-56 lg:w-64 transition-all duration-300 ease-in-out focus:w-72 ml-4 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
           />
         </div>
       </div>
