@@ -88,7 +88,10 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [showPopover, setShowPopover] = useState<boolean>(false);
+  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
   const postsPerPage = 8;
+  const popoverRef = useRef<HTMLDivElement>(null);
 
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
@@ -123,7 +126,77 @@ export default function Blog() {
 
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
+    setShowPopover(false);
   }, []);
+
+  const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
+    setShowPopover(true);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+        setShowPopover(false);
+      }
+    };
+
+    if (showPopover) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showPopover]);
+
+  const renderPagination = () => {
+    const pagesToShow: (string | number)[] = [];
+
+    // Всегда показываем первую страницу
+    pagesToShow.push(1);
+
+    // Определяем диапазон страниц вокруг текущей (слева и справа)
+    const startPage = Math.max(2, currentPage - 1); // Всегда одна страница слева от текущей
+    const endPage = Math.min(totalPages - 1, currentPage + 1); // Всегда одна страница справа от текущей
+
+    // Если текущая страница больше 3, добавляем троеточие перед диапазоном
+    if (startPage > 2) {
+      pagesToShow.push('...');
+    }
+
+    // Добавляем текущую страницу и соседние страницы
+    for (let i = startPage; i <= endPage; i++) {
+      pagesToShow.push(i);
+    }
+
+    // Добавляем троеточие перед последней страницей, если нужно (только одно)
+    if (endPage < totalPages - 1) {
+      pagesToShow.push('...');
+    }
+
+    // Всегда показываем последнюю страницу
+    if (totalPages > 1) {
+      pagesToShow.push(totalPages);
+    }
+
+    return pagesToShow.map((page, index) => (
+      <button
+        key={index}
+        onClick={(event) => typeof page === 'number' ? handlePageChange(page) : handleEllipsisClick(event)}
+        className={`${
+          page === currentPage
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
+          typeof page !== 'number' ? 'cursor-pointer' : ''
+        }`}
+      >
+        {typeof page === 'number' ? page : '...'}
+      </button>
+    ));
+  };
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
@@ -132,7 +205,7 @@ export default function Blog() {
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8 p-1 gap-1">
           {categories.map((category) => (
             <button
               key={category.value}
@@ -141,12 +214,12 @@ export default function Blog() {
                 category.value === selectedCategory
                   ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                   : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-              } rounded-md py-2 px-4 transition-colors duration-300 ease-in-out`}
+              } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
             >
               {category.name}
             </button>
           ))}
-          
+
           {/* Строка поиска */}
           <input
             type="text"
@@ -160,18 +233,57 @@ export default function Blog() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-4 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
         {paginatedPosts.map(({ title, image, excerpt, link }) => (
-          <div key={title} className="rounded-lg overflow-hidden flex flex-col border dark:border-neutral-600 hover:shadow-lg transition-all duration-300 h-full">
+          <div key={title} className="rounded-lg overflow-hidden flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300 h-full">
             <Link href={link}>
               <div className="relative h-[200px]">
-                <Image src={image} alt={title} layout="fill" className="object-cover" />
+                <Image
+                  src={image}
+                  alt={title}
+                  layout="fill"
+                  className="w-full object-cover"
+                  priority={title === paginatedPosts[0].title}
+                  placeholder="blur"
+                  blurDataURL="/images/placeholder.png"
+                />
               </div>
             </Link>
             <div className="p-4 flex flex-col flex-grow">
-              <h3 className="text-lg font-semibold mb-2">{title}</h3>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">{excerpt}</p>
-              <Link href={link}>
-                <button className="bg-red-600 text-white rounded-md px-4 py-2">Читать далее</button>
-              </Link>
+              <h3
+                style={{
+                  minHeight: '3em',
+                  lineHeight: '1.5em',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical',
+                }}
+                className="text-lg font-semibold mb-2"
+              >
+                {title}
+              </h3>
+              <p
+                style={{
+                  minHeight: '4.5em',
+                  lineHeight: '1.5em',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical',
+                  flexGrow: 1,
+                }}
+                className="text-sm text-neutral-600 dark:text-neutral-400 mb-4"
+              >
+                {excerpt}
+              </p>
+              <div className="mt-auto text-right">
+                <Link href={link}>
+                  <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
+                    Читать далее
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         ))}
@@ -179,12 +291,39 @@ export default function Blog() {
 
       {/* Пагинация */}
       <div className="max-w-max mx-auto px-6 pb-4">
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-          <button key={page} onClick={() => handlePageChange(page)} className={`p-2 ${page === currentPage ? 'bg-blue-600 text-white' : ''}`}>
-            {page}
-          </button>
-        ))}
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
+          {renderPagination()}
+        </div>
       </div>
+
+      {/* Небольшой popover для выбора страницы */}
+      {showPopover && popoverPosition && (
+        <div
+          ref={popoverRef}
+          className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
+          style={{
+            position: 'absolute',
+            top: `${popoverPosition.top}px`,
+            left: `${popoverPosition.left}px`
+          }}
+        >
+          <div className="grid grid-cols-4 gap-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`${
+                  page === currentPage
+                    ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                } rounded-md py-2 px-3 transition-colors duration-300 ease-in-out`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
