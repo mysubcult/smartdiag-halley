@@ -1313,8 +1313,8 @@ export default function Blog() {
     pagesToShow.push(1);
 
     if (totalPages > 5) {
-        if (currentPage >= 8) {
-            // Если текущая страница 8 или больше, показываем троеточие перед
+        if (currentPage >= 8 && currentPage < totalPages - 2) {
+            // Если текущая страница 8 или больше и не последние 2, показываем троеточие перед
             pagesToShow.push("...");
             pagesToShow.push(currentPage - 1);
             pagesToShow.push(currentPage);
@@ -1325,6 +1325,12 @@ export default function Blog() {
                 pagesToShow.push(i);
             }
             pagesToShow.push("...");
+        } else if (currentPage >= totalPages - 2) {
+            // Если мы на последних страницах, показываем последние 3 страницы
+            pagesToShow.push("...");
+            for (let i = totalPages - 3; i < totalPages; i++) {
+                pagesToShow.push(i);
+            }
         } else {
             // Если текущая страница в середине (4-7)
             pagesToShow.push(currentPage - 1);
@@ -1334,8 +1340,8 @@ export default function Blog() {
         }
     }
 
-    // Всегда показываем последнюю страницу, если страниц больше одной
-    if (totalPages > 1) {
+    // Всегда показываем последнюю страницу, если страниц больше одной, и предотвращаем повторение страниц
+    if (totalPages > 1 && !pagesToShow.includes(totalPages)) {
       pagesToShow.push(totalPages);
     }
 
