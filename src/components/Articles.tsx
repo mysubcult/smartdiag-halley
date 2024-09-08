@@ -2530,10 +2530,8 @@ export default function Blog() {
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
 
-    // Всегда показываем первую страницу, но не добавляем повторно
-    if (currentPage !== 1) {
-      pagesToShow.push(1);
-    }
+    // Всегда показываем первую страницу
+    pagesToShow.push(1);
 
     // Определяем количество скрытых страниц слева и справа
     const hiddenPagesLeft = currentPage - 1;
