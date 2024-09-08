@@ -365,6 +365,54 @@ export default function Blog() {
     setCurrentPage(page);
   }, []);
 
+  // Отображение номеров страниц с троеточием
+  const renderPagination = () => {
+    const pagesToShow: (string | number)[] = [];
+
+    // Всегда показываем первую страницу
+    pagesToShow.push(1);
+
+    // Определяем диапазон страниц вокруг текущей (слева и справа)
+    const startPage = Math.max(2, currentPage - 1); // Всегда одна страница слева от текущей
+    const endPage = Math.min(totalPages - 1, currentPage + 1); // Всегда одна страница справа от текущей
+
+    // Если текущая страница больше 3, добавляем троеточие перед диапазоном
+    if (startPage > 2) {
+      pagesToShow.push('...');
+    }
+
+    // Добавляем текущую страницу и соседние страницы
+    for (let i = startPage; i <= endPage; i++) {
+      pagesToShow.push(i);
+    }
+
+    // Добавляем троеточие перед последней страницей, если нужно (только одно)
+    if (endPage < totalPages - 1) {
+      pagesToShow.push('...');
+    }
+
+    // Всегда показываем последнюю страницу
+    if (totalPages > 1) {
+      pagesToShow.push(totalPages);
+    }
+
+    return pagesToShow.map((page, index) => (
+      <button
+        key={index}
+        onClick={(event) => typeof page === 'number' ? handlePageChange(page) : null}
+        className={`${
+          page === currentPage
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
+          typeof page !== 'number' ? 'cursor-default' : ''
+        }`}
+      >
+        {typeof page === 'number' ? page : '...'}
+      </button>
+    ));
+  };
+
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
@@ -458,11 +506,7 @@ export default function Blog() {
 
       {/* Пагинация */}
       <div className="max-w-max mx-auto px-6 pb-4">
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-          <button key={page} onClick={() => handlePageChange(page)} className={`p-2 ${page === currentPage ? 'bg-blue-600 text-white' : ''}`}>
-            {page}
-          </button>
-        ))}
+        {renderPagination()}
       </div>
     </div>
   );
