@@ -1,13 +1,6 @@
-import React, { useState, useMemo, useCallback, useEffect } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-// Очистка текста от HTML-тегов
-const stripHtmlTags = (html: string) => {
-  const div = document.createElement("div");
-  div.innerHTML = html;
-  return div.textContent || div.innerText || "";
-};
 
 type BlogPost = {
   title: string;
@@ -15,7 +8,7 @@ type BlogPost = {
   excerpt: string;
   link: string;
   category: string;
-  slug: string;
+  keywords: string[];  // Ключевые слова для поиска
 };
 
 const blogPosts: BlogPost[] = [
@@ -25,7 +18,13 @@ const blogPosts: BlogPost[] = [
     excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов.",
     link: "/blog/post1",
     category: "Ошибки",
-    slug: "archive",
+    keywords: [
+      "ошибки архива",
+      "проблемы с архивом",
+      "ошибка открытия архива",
+      "причины ошибок при открытии архивов",
+      "архив",
+    ],
   },
   {
     title: "Проблемы с запуском программы",
@@ -33,7 +32,12 @@ const blogPosts: BlogPost[] = [
     excerpt: "Что делать, если программа не запускается или исчезают ярлыки?",
     link: "/blog/post2",
     category: "Ошибки",
-    slug: "launch-issue",
+    keywords: [
+      "проблемы запуска",
+      "программа не запускается",
+      "исчезают ярлыки",
+      "причины ошибок запуска",
+    ],
   },
   {
     title: "Как справиться с зависанием программы во время установки",
@@ -41,7 +45,11 @@ const blogPosts: BlogPost[] = [
     excerpt: "Пошаговое руководство для устранения проблем, связанных с зависанием программ во время установки.",
     link: "/blog/post8",
     category: "Ошибки",
-    slug: "installation-freeze",
+    keywords: [
+      "зависание программы",
+      "ошибка установки",
+      "проблемы с установкой",
+    ],
   },
   {
     title: "Ошибки в программном обеспечении",
@@ -49,7 +57,11 @@ const blogPosts: BlogPost[] = [
     excerpt: "Типичные ошибки при работе с программным обеспечением и способы их устранения.",
     link: "/blog/post11",
     category: "Ошибки",
-    slug: "software-errors",
+    keywords: [
+      "ошибки в ПО",
+      "ошибки программного обеспечения",
+      "проблемы с ПО",
+    ],
   },
   {
     title: "Непредвиденные сбои программ при работе",
@@ -57,7 +69,11 @@ const blogPosts: BlogPost[] = [
     excerpt: "Решения для устранения непредвиденных сбоев программного обеспечения.",
     link: "/blog/post12",
     category: "Ошибки",
-    slug: "unexpected-failures",
+    keywords: [
+      "сбои программ",
+      "непредвиденные ошибки",
+      "сбой ПО",
+    ],
   },
   {
     title: "Нестабильная работа приложений",
@@ -65,7 +81,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Как исправить нестабильную работу программных приложений?",
     link: "/blog/post13",
     category: "Ошибки",
-    slug: "unstable-applications",
+    keywords: [
+      "нестабильная работа приложений",
+      "ошибки приложений",
+    ],
   },
   {
     title: "Ошибки при запуске программ",
@@ -73,7 +92,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Советы по устранению ошибок, возникающих при запуске программ.",
     link: "/blog/post14",
     category: "Ошибки",
-    slug: "startup-errors",
+    keywords: [
+      "ошибки при запуске программ",
+      "проблемы с запуском",
+    ],
   },
   {
     title: "Как устранить ошибку установки драйверов",
@@ -81,7 +103,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Узнайте, как справиться с ошибками при установке драйверов.",
     link: "/blog/post15",
     category: "Ошибки",
-    slug: "driver-installation-error",
+    keywords: [
+      "ошибки драйверов",
+      "установка драйверов",
+    ],
   },
   {
     title: "Ошибки совместимости программного обеспечения",
@@ -89,7 +114,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Решения для устранения проблем совместимости программ.",
     link: "/blog/post16",
     category: "Ошибки",
-    slug: "compatibility-issues",
+    keywords: [
+      "совместимость программ",
+      "ошибки совместимости",
+    ],
   },
   {
     title: "Обновление ПО вызывает сбои",
@@ -97,7 +125,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Как справиться с проблемами, возникающими после обновления программного обеспечения?",
     link: "/blog/post17",
     category: "Ошибки",
-    slug: "update-failures",
+    keywords: [
+      "сбои обновлений",
+      "ошибки после обновления",
+    ],
   },
   {
     title: "Ошибка при подключении к серверу",
@@ -105,7 +136,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Что делать, если программа не может подключиться к серверу?",
     link: "/blog/post18",
     category: "Ошибки",
-    slug: "server-connection-error",
+    keywords: [
+      "подключение к серверу",
+      "ошибка сервера",
+    ],
   },
   {
     title: "Зависание программ в процессе работы",
@@ -113,7 +147,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Руководство по решению проблем зависания программ.",
     link: "/blog/post19",
     category: "Ошибки",
-    slug: "app-freezes",
+    keywords: [
+      "зависание программ",
+      "проблемы с программами",
+    ],
   },
   {
     title: "Сбой при сохранении файлов",
@@ -121,7 +158,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Что делать, если программа не может сохранить файлы?",
     link: "/blog/post20",
     category: "Ошибки",
-    slug: "file-save-error",
+    keywords: [
+      "сохранение файлов",
+      "ошибки сохранения",
+    ],
   },
   {
     title: "Ошибки в интерфейсе программ",
@@ -129,7 +169,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Как справиться с проблемами интерфейса программ?",
     link: "/blog/post21",
     category: "Ошибки",
-    slug: "interface-errors",
+    keywords: [
+      "интерфейс программ",
+      "ошибки интерфейса",
+    ],
   },
   {
     title: "Проблемы с лицензированием ПО",
@@ -137,7 +180,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Решение типичных проблем с лицензированием программ.",
     link: "/blog/post22",
     category: "Ошибки",
-    slug: "licensing-issues",
+    keywords: [
+      "лицензирование ПО",
+      "проблемы с лицензией",
+    ],
   },
   {
     title: "Ошибка при установке обновлений",
@@ -145,7 +191,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Как исправить ошибки, возникающие при установке обновлений программ?",
     link: "/blog/post23",
     category: "Ошибки",
-    slug: "update-installation-error",
+    keywords: [
+      "ошибки обновлений",
+      "установка обновлений",
+    ],
   },
   {
     title: "Помощь в установке программного обеспечения",
@@ -153,7 +202,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Как получить помощь при установке программного обеспечения.",
     link: "/blog/post4",
     category: "Установка ПО",
-    slug: "software-installation-help",
+    keywords: [
+      "установка программного обеспечения",
+      "помощь с установкой",
+    ],
   },
   {
     title: "Частые проблемы с установкой",
@@ -161,7 +213,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Советы по устранению проблем с установкой программ.",
     link: "/blog/post12",
     category: "Установка ПО",
-    slug: "installation-issues",
+    keywords: [
+      "проблемы с установкой",
+      "установка ПО",
+    ],
   },
   {
     title: "Как выбрать правильный установочный файл",
@@ -169,7 +224,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Советы по выбору правильных установочных файлов для вашего устройства.",
     link: "/blog/post24",
     category: "Установка ПО",
-    slug: "select-install-file",
+    keywords: [
+      "установочный файл",
+      "выбор установочного файла",
+    ],
   },
   {
     title: "Как исправить ошибку установки",
@@ -177,7 +235,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Решение распространенных проблем с установкой программ.",
     link: "/blog/post25",
     category: "Установка ПО",
-    slug: "installation-error-fix",
+    keywords: [
+      "ошибка установки",
+      "проблемы с установкой программ",
+    ],
   },
   {
     title: "Установка программ на внешние носители",
@@ -185,7 +246,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Руководство по установке программ на внешние носители.",
     link: "/blog/post26",
     category: "Установка ПО",
-    slug: "external-device-install",
+    keywords: [
+      "установка на внешний носитель",
+      "программы на внешнем носителе",
+    ],
   },
   {
     title: "Обновление установленных программ",
@@ -193,7 +257,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Как обновить установленные программы до последней версии.",
     link: "/blog/post27",
     category: "Установка ПО",
-    slug: "update-installed-programs",
+    keywords: [
+      "обновление программ",
+      "установленные программы",
+    ],
   },
   {
     title: "Как установить антивирус",
@@ -201,7 +268,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Шаги по установке антивирусных программ для вашего устройства.",
     link: "/blog/post28",
     category: "Установка ПО",
-    slug: "antivirus-installation",
+    keywords: [
+      "установка антивируса",
+      "антивирусное ПО",
+    ],
   },
   {
     title: "Ошибки при установке ПО на Mac",
@@ -209,7 +279,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Как справиться с ошибками при установке ПО на устройствах Apple.",
     link: "/blog/post29",
     category: "Установка ПО",
-    slug: "mac-installation-errors",
+    keywords: [
+      "установка ПО на Mac",
+      "ошибки на Mac",
+    ],
   },
   {
     title: "Как установить драйвера",
@@ -217,7 +290,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Руководство по установке драйверов для различных устройств.",
     link: "/blog/post30",
     category: "Установка ПО",
-    slug: "driver-installation-guide",
+    keywords: [
+      "установка драйверов",
+      "драйвера устройств",
+    ],
   },
   {
     title: "Проблемы с правами администратора",
@@ -225,7 +301,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Как справиться с проблемами установки, требующими прав администратора.",
     link: "/blog/post31",
     category: "Установка ПО",
-    slug: "admin-rights-issues",
+    keywords: [
+      "права администратора",
+      "установка с правами администратора",
+    ],
   },
   {
     title: "Как установить программы из магазина приложений",
@@ -233,7 +312,10 @@ const blogPosts: BlogPost[] = [
     excerpt: "Руководство по установке приложений из официальных магазинов.",
     link: "/blog/post32",
     category: "Установка ПО",
-    slug: "app-store-installation",
+    keywords: [
+      "установка из магазина приложений",
+      "программы из магазина",
+    ],
   },
 ];
 
@@ -241,7 +323,6 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [articleContents, setArticleContents] = useState<{ [key: string]: string }>({});
   const postsPerPage = 8;
 
   // Категории
@@ -253,39 +334,20 @@ export default function Blog() {
     { name: "Рекомендации", value: "Рекомендации" },
   ], []);
 
-  // Загрузка текста статьи по slug (асинхронно)
-  const loadArticleContent = async (slug: string) => {
-    if (!articleContents[slug]) {
-      const response = await fetch(`/api/articles/loadArticle?slug=${slug}`);
-      const data = await response.json();
-      // Очищаем текст от HTML-тегов
-      const strippedContent = stripHtmlTags(data.content);
-      setArticleContents((prev) => ({ ...prev, [slug]: strippedContent }));
-    }
-  };
-
-  // Фильтрация по категории и строке поиска
+  // Фильтрация по категории и строке поиска (с ключевыми словами, заголовками и описанием)
   const filteredPosts = useMemo(() => {
     const filteredByCategory = selectedCategory === "Все"
       ? blogPosts
       : blogPosts.filter((post) => post.category === selectedCategory);
 
-    // Поиск по заголовкам, кратким описаниям и загруженному контенту
     return filteredByCategory.filter((post) =>
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (articleContents[post.slug] && articleContents[post.slug].toLowerCase().includes(searchTerm.toLowerCase()))
+      post.keywords.some((keyword) =>
+        keyword.toLowerCase().includes(searchTerm.toLowerCase())
+      )
     );
-  }, [selectedCategory, searchTerm, articleContents]);
-
-  // При изменении поискового запроса загружаем статьи, если нужно
-  useEffect(() => {
-    blogPosts.forEach((post) => {
-      if (searchTerm && !articleContents[post.slug]) {
-        loadArticleContent(post.slug);
-      }
-    });
-  }, [searchTerm]);
+  }, [selectedCategory, searchTerm]);
 
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
