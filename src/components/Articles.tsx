@@ -1310,20 +1310,25 @@ export default function Blog() {
     // Всегда показываем первую страницу
     pagesToShow.push(1);
 
-    // Рассчитываем количество скрытых страниц с обеих сторон
-    const hiddenPagesBefore = currentPage - 2 > 1 ? currentPage - 2 : 0;
-    const hiddenPagesAfter = totalPages - currentPage - 1 > 1 ? totalPages - currentPage - 1 : 0;
-
-    // Если страниц больше 5
+    // Логика отображения троеточия и соседних страниц
     if (totalPages > 5) {
-      if (hiddenPagesBefore > hiddenPagesAfter) {
-        // Если скрытых страниц больше до текущей страницы, добавляем троеточие после соседних страниц
-        pagesToShow.push(currentPage - 1, currentPage, currentPage + 1);
+      if (currentPage <= 3) {
+        // Если текущая страница одна из первых (1, 2, 3)
+        for (let i = 2; i <= 4; i++) {
+          pagesToShow.push(i);
+        }
         pagesToShow.push("...");
+      } else if (currentPage >= totalPages - 2) {
+        // Если текущая страница одна из последних (totalPages - 2, totalPages - 1, totalPages)
+        pagesToShow.push("...");
+        for (let i = totalPages - 3; i < totalPages; i++) {
+          pagesToShow.push(i);
+        }
       } else {
-        // Если больше скрытых страниц после текущей страницы, добавляем троеточие перед соседними страницами
+        // Если текущая страница где-то в середине
         pagesToShow.push("...");
         pagesToShow.push(currentPage - 1, currentPage, currentPage + 1);
+        pagesToShow.push("...");
       }
     } else {
       // Если страниц меньше или равно 5
@@ -1332,11 +1337,12 @@ export default function Blog() {
       }
     }
 
-    // Всегда показываем последнюю страницу
+    // Всегда показываем последнюю страницу, если страниц больше одной
     if (totalPages > 1) {
       pagesToShow.push(totalPages);
     }
 
+    // Возвращаем элементы пагинации
     return pagesToShow.map((page, index) => (
       <button
         key={index}
