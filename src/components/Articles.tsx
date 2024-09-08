@@ -151,27 +151,41 @@ export default function Blog() {
     // Всегда показываем первую страницу
     pagesToShow.push(1);
 
-    // Добавляем многоточие перед текущими страницами, если текущая страница больше 3
-    if (currentPage > 3) {
-      pagesToShow.push('...');
+    // Логика для первой страницы
+    if (currentPage === 1) {
+      pagesToShow.push(2);
+      if (totalPages > 3) {
+        pagesToShow.push(3);
+        if (totalPages > 4) {
+          pagesToShow.push('...');
+        }
+        pagesToShow.push(totalPages);
+      }
     }
+    // Логика для остальных страниц
+    else {
+      // Добавляем многоточие перед основными страницами, если текущая страница больше 3
+      if (currentPage > 3) {
+        pagesToShow.push('...');
+      }
 
-    // Определяем диапазон страниц вокруг текущей страницы
-    const startPage = Math.max(2, currentPage - 1);
-    const endPage = Math.min(totalPages - 1, currentPage + 1);
+      // Определяем диапазон страниц вокруг текущей страницы
+      const startPage = Math.max(2, currentPage - 1);
+      const endPage = Math.min(totalPages - 1, currentPage + 1);
 
-    for (let i = startPage; i <= endPage; i++) {
-      pagesToShow.push(i);
-    }
+      for (let i = startPage; i <= endPage; i++) {
+        pagesToShow.push(i);
+      }
 
-    // Добавляем многоточие после текущих страниц, если до последней страницы больше одной страницы
-    if (currentPage < totalPages - 2) {
-      pagesToShow.push('...');
-    }
+      // Добавляем многоточие только перед последней страницей, если есть промежуточные страницы
+      if (endPage < totalPages - 1) {
+        pagesToShow.push('...');
+      }
 
-    // Всегда показываем последнюю страницу
-    if (totalPages > 1) {
-      pagesToShow.push(totalPages);
+      // Всегда показываем последнюю страницу
+      if (totalPages > 1) {
+        pagesToShow.push(totalPages);
+      }
     }
 
     return pagesToShow.map((page, index) => (
