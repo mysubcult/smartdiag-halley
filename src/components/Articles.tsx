@@ -87,18 +87,8 @@ const blogPosts: BlogPost[] = [
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [showPopover, setShowPopover] = useState<boolean>(false);
-  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
   const postsPerPage = 8;
-  const popoverRef = useRef<HTMLDivElement>(null);
-
-  const categories = useMemo(() => [
-    { name: "Все", value: "Все" },
-    { name: "Ошибки", value: "Ошибки" },
-    { name: "Установка ПО", value: "Установка ПО" },
-    { name: "Безопасность", value: "Безопасность" },
-    { name: "Рекомендации", value: "Рекомендации" },
-  ], []);
+  const totalPages = Math.ceil(blogPosts.length / postsPerPage);
 
   const filteredPosts = useMemo(() => {
     return selectedCategory === "Все"
@@ -106,70 +96,38 @@ export default function Blog() {
       : blogPosts.filter((post) => post.category === selectedCategory);
   }, [selectedCategory]);
 
-  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
-
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  const handleCategoryClick = useCallback((category: string) => {
-    setSelectedCategory(category);
-    setCurrentPage(1);
-  }, []);
-
-  const handlePageChange = useCallback((page: number) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    setShowPopover(false);
-  }, []);
-
-  const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
-    setShowPopover(true);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
-        setShowPopover(false);
-      }
-    };
-
-    if (showPopover) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showPopover]);
-
-  // Измененная функция рендера пагинации
+  // Новая функция для рендера пагинации
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
 
     // Всегда показываем первую страницу
     pagesToShow.push(1);
 
-    // Определяем диапазон страниц вокруг текущей (слева и справа)
+    // Определяем страницы для показа вокруг текущей страницы
     const startPage = Math.max(2, currentPage - 1);
     const endPage = Math.min(totalPages - 1, currentPage + 1);
 
-    // Всегда отображаем первые 4 страницы
+    // Добавляем троеточие после первой страницы, если нужно
     if (startPage > 2) {
-      pagesToShow.push(2, 3, 4);
+      pagesToShow.push('...');
     }
 
-    // Добавляем текущую страницу и соседние страницы
+    // Добавляем страницы вокруг текущей
     for (let i = startPage; i <= endPage; i++) {
-      if (i !== 1 && i !== totalPages) {
-        pagesToShow.push(i);
-      }
+      pagesToShow.push(i);
     }
 
     // Добавляем троеточие перед последней страницей, если нужно
-    if (endPage < totalPages - 2) {
+    if (endPage < totalPages - 1) {
       pagesToShow.push('...');
     }
 
@@ -181,16 +139,17 @@ export default function Blog() {
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={(event) => typeof page === 'number' ? handlePageChange(page) : handleEllipsisClick(event)}
+        onClick={() => typeof page === 'number' ? handlePageChange(page) : null}
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
             : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
         } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
-          typeof page !== 'number' ? 'cursor-pointer' : ''
+          typeof page !== 'number' ? 'cursor-default' : 'cursor-pointer'
         }`}
+        disabled={typeof page !== 'number'}
       >
-        {typeof page === 'number' ? page : '...'}
+        {page}
       </button>
     ));
   };
@@ -206,17 +165,18 @@ export default function Blog() {
 
       <div className="max-w-max mx-auto px-6">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8 p-1 gap-1">
-          {categories.map((category) => (
+          {/* Категории */}
+          {['Все', 'Ошибки', 'Установка ПО', 'Безопасность', 'Рекомендации'].map((category) => (
             <button
-              key={category.value}
-              onClick={() => handleCategoryClick(category.value)}
+              key={category}
+              onClick={() => setSelectedCategory(category)}
               className={`${
-                category.value === selectedCategory
+                category === selectedCategory
                   ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                   : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
               } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
             >
-              {category.name}
+              {category}
             </button>
           ))}
         </div>
@@ -242,33 +202,10 @@ export default function Blog() {
               </div>
             </Link>
             <div className="p-4 flex flex-col flex-grow">
-              <h3
-                style={{
-                  minHeight: '3em',
-                  lineHeight: '1.5em',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  display: '-webkit-box',
-                  WebkitLineClamp: 2,
-                  WebkitBoxOrient: 'vertical',
-                }}
-                className="text-lg font-semibold mb-2"
-              >
+              <h3 className="text-lg font-semibold mb-2">
                 {title}
               </h3>
-              <p
-                style={{
-                  minHeight: '4.5em',
-                  lineHeight: '1.5em',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  display: '-webkit-box',
-                  WebkitLineClamp: 3,
-                  WebkitBoxOrient: 'vertical',
-                  flexGrow: 1,
-                }}
-                className="text-sm text-neutral-600 dark:text-neutral-400 mb-4"
-              >
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
                 {excerpt}
               </p>
               <div className="mt-auto text-right">
@@ -289,35 +226,6 @@ export default function Blog() {
           {renderPagination()}
         </div>
       </div>
-
-      {/* Popover для выбора страниц */}
-      {showPopover && popoverPosition && (
-        <div
-          ref={popoverRef}
-          className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
-          style={{
-            position: 'absolute',
-            top: `${popoverPosition.top}px`,
-            left: `${popoverPosition.left}px`
-          }}
-        >
-          <div className="grid grid-cols-4 gap-2">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={`${
-                  page === currentPage
-                    ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                    : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
-                } rounded-md py-2 px-3 transition-colors duration-300 ease-in-out`}
-              >
-                {page}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
