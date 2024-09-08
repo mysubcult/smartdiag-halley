@@ -2615,14 +2615,19 @@ export default function Blog() {
             </button>
           ))}
 
-          {/* Поле поиска с эффектом расширения */}
-          <input
-            type="text"
-            placeholder="Поиск..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-48 sm:w-52 md:w-56 lg:w-64 transition-all duration-300 ease-in-out focus:w-72 ml-4 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-          />
+          {/* Поле поиска с эффектом расширения вправо */}
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Поиск..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-28 transition-all duration-300 ease-in-out focus:w-64 ml-4 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+              style={{ position: 'relative', zIndex: 1 }}
+            />
+            {/* Серая область контейнера */}
+            <div className="absolute left-0 top-0 bottom-0 w-28 bg-neutral-200 dark:bg-neutral-800 transition-none rounded-l-md pointer-events-none"></div>
+          </div>
         </div>
       </div>
 
