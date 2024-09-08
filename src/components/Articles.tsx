@@ -4,7 +4,6 @@ import Link from "next/link";
 
 type BlogPost = {
   title: string;
-  title: string;
   image: string;
   excerpt: string;
   link: string;
