@@ -1317,7 +1317,9 @@ export default function Blog() {
         for (let i = 2; i <= 4; i++) {
           pagesToShow.push(i);
         }
-        pagesToShow.push("...");
+        if (totalPages > 5) {
+          pagesToShow.push("...");
+        }
       } else if (currentPage >= totalPages - 2) {
         // Если текущая страница одна из последних (totalPages - 2, totalPages - 1, totalPages)
         pagesToShow.push("...");
@@ -1328,7 +1330,9 @@ export default function Blog() {
         // Если текущая страница где-то в середине
         pagesToShow.push("...");
         pagesToShow.push(currentPage - 1, currentPage, currentPage + 1);
-        pagesToShow.push("...");
+        if (currentPage + 1 < totalPages - 1) {
+          pagesToShow.push("...");
+        }
       }
     } else {
       // Если страниц меньше или равно 5
