@@ -145,6 +145,7 @@ export default function Blog() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showPopover]);
 
+  // Измененная функция рендера пагинации
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
 
@@ -152,21 +153,23 @@ export default function Blog() {
     pagesToShow.push(1);
 
     // Определяем диапазон страниц вокруг текущей (слева и справа)
-    const startPage = Math.max(2, currentPage - 1); // Всегда одна страница слева от текущей
-    const endPage = Math.min(totalPages - 1, currentPage + 1); // Всегда одна страница справа от текущей
+    const startPage = Math.max(2, currentPage - 1);
+    const endPage = Math.min(totalPages - 1, currentPage + 1);
 
-    // Если текущая страница больше 3, добавляем троеточие перед диапазоном
+    // Всегда отображаем первые 4 страницы
     if (startPage > 2) {
-      pagesToShow.push('...');
+      pagesToShow.push(2, 3, 4);
     }
 
     // Добавляем текущую страницу и соседние страницы
     for (let i = startPage; i <= endPage; i++) {
-      pagesToShow.push(i);
+      if (i !== 1 && i !== totalPages) {
+        pagesToShow.push(i);
+      }
     }
 
-    // Добавляем троеточие перед последней страницей, если нужно (только одно)
-    if (endPage < totalPages - 1) {
+    // Добавляем троеточие перед последней страницей, если нужно
+    if (endPage < totalPages - 2) {
       pagesToShow.push('...');
     }
 
@@ -287,7 +290,7 @@ export default function Blog() {
         </div>
       </div>
 
-      {/* Небольшой popover для выбора страницы */}
+      {/* Popover для выбора страниц */}
       {showPopover && popoverPosition && (
         <div
           ref={popoverRef}
