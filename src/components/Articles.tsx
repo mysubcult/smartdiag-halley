@@ -151,16 +151,16 @@ export default function Blog() {
     // Всегда показываем первую страницу
     pagesToShow.push(1);
 
-    // Определяем диапазон страниц вокруг текущей
-    const startPage = Math.max(2, currentPage - 1);
-    const endPage = Math.min(totalPages - 1, currentPage + 1);
+    // Определяем диапазон страниц вокруг текущей (слева и справа)
+    const startPage = Math.max(2, currentPage - 1); // Всегда одна страница слева от текущей
+    const endPage = Math.min(totalPages - 1, currentPage + 1); // Всегда одна страница справа от текущей
 
     // Если текущая страница больше 3, добавляем троеточие перед диапазоном
     if (startPage > 2) {
       pagesToShow.push('...');
     }
 
-    // Добавляем текущую страницу и соседние
+    // Добавляем текущую страницу и соседние страницы
     for (let i = startPage; i <= endPage; i++) {
       pagesToShow.push(i);
     }
