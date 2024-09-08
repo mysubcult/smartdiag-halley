@@ -8,7 +8,7 @@ type BlogPost = {
   excerpt: string;
   link: string;
   category: string;
-  keywords: string[];  // Ключевые слова для поиска
+  keywords: string[]; // Ключевые слова для поиска
 };
 
 const blogPosts: BlogPost[] = [
@@ -328,25 +328,25 @@ export default function Blog() {
   const postsPerPage = 8;
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  const categories = useMemo(() => [
-    { name: "Все", value: "Все" },
-    { name: "Ошибки", value: "Ошибки" },
-    { name: "Установка ПО", value: "Установка ПО" },
-    { name: "Безопасность", value: "Безопасность" },
-    { name: "Рекомендации", value: "Рекомендации" },
-  ], []);
+  const categories = useMemo(
+    () => [
+      { name: "Все", value: "Все" },
+      { name: "Ошибки", value: "Ошибки" },
+      { name: "Установка ПО", value: "Установка ПО" },
+      { name: "Безопасность", value: "Безопасность" },
+      { name: "Рекомендации", value: "Рекомендации" },
+    ],
+    []
+  );
 
   const filteredPosts = useMemo(() => {
-    const filteredByCategory = selectedCategory === "Все"
-      ? blogPosts
-      : blogPosts.filter((post) => post.category === selectedCategory);
+    const filteredByCategory = selectedCategory === "Все" ? blogPosts : blogPosts.filter((post) => post.category === selectedCategory);
 
-    return filteredByCategory.filter((post) =>
-      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.keywords.some((keyword) =>
-        keyword.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    return filteredByCategory.filter(
+      (post) =>
+        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.keywords.some((keyword) => keyword.toLowerCase().includes(searchTerm.toLowerCase()))
     );
   }, [selectedCategory, searchTerm]);
 
@@ -391,47 +391,47 @@ export default function Blog() {
 
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
+    const totalPagesToShow = 5;
 
-    // Всегда показываем первую страницу
+    // Always show the first page
     pagesToShow.push(1);
 
-    // Определяем диапазон страниц вокруг текущей (слева и справа)
-    const startPage = Math.max(2, currentPage - 1); // Всегда одна страница слева от текущей
-    const endPage = Math.min(totalPages - 1, currentPage + 1); // Всегда одна страница справа от текущей
-
-    // Если текущая страница больше 3, добавляем троеточие перед диапазоном
-    if (startPage > 2) {
-      pagesToShow.push('...');
-    }
-
-    // Добавляем текущую страницу и соседние страницы
-    for (let i = startPage; i <= endPage; i++) {
-      pagesToShow.push(i);
-    }
-
-    // Добавляем троеточие перед последней страницей, если нужно (только одно)
-    if (endPage < totalPages - 1) {
-      pagesToShow.push('...');
-    }
-
-    // Всегда показываем последнюю страницу
     if (totalPages > 1) {
+      const startPage = Math.max(2, currentPage - 2);
+      const endPage = Math.min(totalPages - 1, currentPage + 2);
+
+      // If startPage is greater than 2, show ellipsis before the range
+      if (startPage > 2) {
+        pagesToShow.push("...");
+      }
+
+      // Add the range of pages
+      for (let i = startPage; i <= endPage; i++) {
+        pagesToShow.push(i);
+      }
+
+      // If endPage is less than totalPages - 1, show ellipsis after the range
+      if (endPage < totalPages - 1) {
+        pagesToShow.push("...");
+      }
+
+      // Always show the last page
       pagesToShow.push(totalPages);
     }
 
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={(event) => typeof page === 'number' ? handlePageChange(page) : handleEllipsisClick(event)}
+        onClick={(event) => (typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event))}
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
             : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
         } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
-          typeof page !== 'number' ? 'cursor-pointer' : ''
+          typeof page !== "number" ? "cursor-pointer" : ""
         }`}
       >
-        {typeof page === 'number' ? page : '...'}
+        {typeof page === "number" ? page : "..."}
       </button>
     ));
   };
@@ -458,7 +458,6 @@ export default function Blog() {
             </button>
           ))}
 
-          {/* Строка поиска */}
           <input
             type="text"
             placeholder="Поиск..."
@@ -491,13 +490,13 @@ export default function Blog() {
             <div className="p-4 flex flex-col flex-grow">
               <h3
                 style={{
-                  minHeight: '3em',
-                  lineHeight: '1.5em',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  display: '-webkit-box',
+                  minHeight: "3em",
+                  lineHeight: "1.5em",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
                   WebkitLineClamp: 2,
-                  WebkitBoxOrient: 'vertical',
+                  WebkitBoxOrient: "vertical",
                 }}
                 className="text-lg font-semibold mb-2"
               >
@@ -505,13 +504,13 @@ export default function Blog() {
               </h3>
               <p
                 style={{
-                  minHeight: '4.5em',
-                  lineHeight: '1.5em',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  display: '-webkit-box',
+                  minHeight: "4.5em",
+                  lineHeight: "1.5em",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
                   WebkitLineClamp: 3,
-                  WebkitBoxOrient: 'vertical',
+                  WebkitBoxOrient: "vertical",
                   flexGrow: 1,
                 }}
                 className="text-sm text-neutral-600 dark:text-neutral-400 mb-4"
@@ -543,9 +542,9 @@ export default function Blog() {
           ref={popoverRef}
           className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
           style={{
-            position: 'absolute',
+            position: "absolute",
             top: `${popoverPosition.top}px`,
-            left: `${popoverPosition.left}px`
+            left: `${popoverPosition.left}px`,
           }}
         >
           <div className="grid grid-cols-4 gap-2">
