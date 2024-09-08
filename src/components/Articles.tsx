@@ -145,31 +145,49 @@ export default function Blog() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showPopover]);
 
+  // Исправленная функция рендера пагинации
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
 
     // Всегда показываем первую страницу
     pagesToShow.push(1);
 
-    // Добавляем многоточие, если текущая страница больше 3
-    if (currentPage > 3) {
+    // Если текущая страница больше 4, добавляем многоточие
+    if (currentPage > 4) {
       pagesToShow.push('...');
     }
 
-    // Определяем диапазон страниц вокруг текущей
-    const startPage = Math.max(2, currentPage - 1);
-    const endPage = Math.min(totalPages - 1, currentPage + 1);
-
-    for (let i = startPage; i <= endPage; i++) {
-      pagesToShow.push(i);
+    // Если находимся на первых страницах
+    if (currentPage <= 3) {
+      for (let i = 2; i <= 3; i++) {
+        if (i <= totalPages - 1) {
+          pagesToShow.push(i);
+        }
+      }
+    } 
+    // Если находимся на страницах 3 или 4
+    else if (currentPage <= 4) {
+      for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+        if (i <= totalPages - 1) {
+          pagesToShow.push(i);
+        }
+      }
+    } 
+    // Если текущая страница больше 4
+    else {
+      for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+        if (i <= totalPages - 1) {
+          pagesToShow.push(i);
+        }
+      }
     }
 
-    // Добавляем многоточие, если до последней страницы еще есть расстояние
+    // Добавляем многоточие, если последняя страница не в диапазоне
     if (currentPage < totalPages - 2) {
       pagesToShow.push('...');
     }
 
-    // Всегда добавляем последнюю страницу
+    // Всегда показываем последнюю страницу
     if (totalPages > 1) {
       pagesToShow.push(totalPages);
     }
