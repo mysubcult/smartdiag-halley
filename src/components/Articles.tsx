@@ -1243,17 +1243,7 @@ export default function Blog() {
   const postsPerPage = 8;
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  const categories = useMemo(
-    () => [
-      { name: "Все", value: "Все" },
-      { name: "Ошибки", value: "Ошибки" },
-      { name: "Установка ПО", value: "Установка ПО" },
-      { name: "Безопасность", value: "Безопасность" },
-      { name: "Рекомендации", value: "Рекомендации" },
-    ],
-    []
-  );
-
+  // 1. Рассчитываем общее количество постов и страниц на основе категории и поиска
   const filteredPosts = useMemo(() => {
     const filteredByCategory = selectedCategory === "Все" ? blogPosts : blogPosts.filter((post) => post.category === selectedCategory);
 
@@ -1265,7 +1255,8 @@ export default function Blog() {
     );
   }, [selectedCategory, searchTerm]);
 
-  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+  // 2. Ограничиваем количество страниц числом постов
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage); // Округляем в большую сторону
 
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
@@ -1278,9 +1269,11 @@ export default function Blog() {
   }, []);
 
   const handlePageChange = useCallback((page: number) => {
-    setCurrentPage(page);
+    if (page > 0 && page <= totalPages) { // Убедимся, что страница в пределах допустимого диапазона
+      setCurrentPage(page);
+    }
     setShowPopover(false);
-  }, []);
+  }, [totalPages]);
 
   const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const rect = event.currentTarget.getBoundingClientRect();
