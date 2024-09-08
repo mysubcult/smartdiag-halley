@@ -148,15 +148,15 @@ export default function Blog() {
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
 
-    // Добавляем первую страницу всегда
+    // Всегда показываем первую страницу
     pagesToShow.push(1);
 
-    // Если текущая страница больше 3, добавляем многоточие перед серединой
+    // Добавляем многоточие, если текущая страница больше 3
     if (currentPage > 3) {
       pagesToShow.push('...');
     }
 
-    // Показываем одну страницу слева от текущей, текущую и одну справа
+    // Определяем диапазон страниц вокруг текущей
     const startPage = Math.max(2, currentPage - 1);
     const endPage = Math.min(totalPages - 1, currentPage + 1);
 
@@ -164,7 +164,7 @@ export default function Blog() {
       pagesToShow.push(i);
     }
 
-    // Если последняя страница еще далеко, добавляем многоточие после серединных страниц
+    // Добавляем многоточие, если до последней страницы еще есть расстояние
     if (currentPage < totalPages - 2) {
       pagesToShow.push('...');
     }
