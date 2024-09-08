@@ -700,41 +700,47 @@ export default function Blog() {
     // Всегда показываем первую страницу
     pagesToShow.push(1);
 
-    // Логика добавления страниц
+    // Если всего страниц больше 5
+    if (totalPages > 5) {
+        if (currentPage <= 3) {
+            // Если текущая страница одна из первых (1, 2, 3)
+            pagesToShow.push(2, 3, 4);
+            pagesToShow.push("...");
+        } else if (currentPage >= totalPages - 2) {
+            // Если текущая страница одна из последних (6 или 7)
+            pagesToShow.push("...");
+            pagesToShow.push(totalPages - 3, totalPages - 2, totalPages - 1);
+        } else {
+            // Если текущая страница где-то в середине (например, страница 4 или 5)
+            pagesToShow.push("...");
+            pagesToShow.push(currentPage - 1, currentPage, currentPage + 1);
+        }
+    } else {
+        // Если всего страниц меньше или равно 5
+        for (let i = 2; i < totalPages; i++) {
+            pagesToShow.push(i);
+        }
+    }
+
+    // Всегда показываем последнюю страницу
     if (totalPages > 1) {
-      if (currentPage > 3) {
-        // Добавляем троеточие перед текущей страницей, если текущая страница далеко от начала
-        pagesToShow.push("...");
-      }
-
-      // Добавляем текущую страницу, если она не первая и не последняя
-      if (currentPage > 1 && currentPage < totalPages) {
-        pagesToShow.push(currentPage);
-      }
-
-      if (currentPage < totalPages - 2) {
-        // Добавляем троеточие после текущей страницы, если до конца много страниц
-        pagesToShow.push("...");
-      }
-
-      // Всегда показываем последнюю страницу
-      pagesToShow.push(totalPages);
+        pagesToShow.push(totalPages);
     }
 
     return pagesToShow.map((page, index) => (
-      <button
-        key={index}
-        onClick={(event) => typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event)}
-        className={`${
-          page === currentPage
-            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
-          typeof page !== "number" ? "cursor-pointer" : ""
-        }`}
-      >
-        {typeof page === "number" ? page : "..."}
-      </button>
+        <button
+            key={index}
+            onClick={(event) => typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event)}
+            className={`${
+                page === currentPage
+                    ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+            } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
+                typeof page !== "number" ? "cursor-pointer" : ""
+            }`}
+        >
+            {typeof page === "number" ? page : "..."}
+        </button>
     ));
   };
 
