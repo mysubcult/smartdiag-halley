@@ -2526,41 +2526,44 @@ export default function Blog() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showPopover]);
 
+  // 3. Логика динамического отображения троеточий
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
 
     // Всегда показываем первую страницу
     pagesToShow.push(1);
 
+    // Определяем количество скрытых страниц слева и справа
+    const hiddenPagesLeft = currentPage - 1;
+    const hiddenPagesRight = totalPages - currentPage;
+
     if (totalPages > 5) {
-        if (currentPage >= 8 && currentPage < totalPages - 2) {
-            // Если текущая страница 8 или больше и не последние 2, показываем троеточие перед
-            pagesToShow.push("...");
-            pagesToShow.push(currentPage - 1);
-            pagesToShow.push(currentPage);
-            pagesToShow.push(currentPage + 1);
-        } else if (currentPage <= 3) {
-            // Если текущая страница 1-3, показываем первые несколько страниц и троеточие после
-            for (let i = 2; i <= 4; i++) {
-                pagesToShow.push(i);
-            }
-            pagesToShow.push("...");
-        } else if (currentPage >= totalPages - 2) {
-            // Если мы на последних страницах, показываем последние 3 страницы
-            pagesToShow.push("...");
-            for (let i = totalPages - 3; i < totalPages; i++) {
-                pagesToShow.push(i);
-            }
-        } else {
-            // Если текущая страница в середине (4-7)
-            pagesToShow.push(currentPage - 1);
-            pagesToShow.push(currentPage);
-            pagesToShow.push(currentPage + 1);
-            pagesToShow.push("...");
+      if (hiddenPagesLeft > hiddenPagesRight) {
+        // Если слева скрыто больше страниц, показываем троеточие слева
+        if (currentPage > 3) {
+          pagesToShow.push("...");
         }
+        pagesToShow.push(currentPage - 1);
+        pagesToShow.push(currentPage);
+        if (currentPage + 1 < totalPages) {
+          pagesToShow.push(currentPage + 1);
+        }
+      } else {
+        // Если справа скрыто больше страниц, показываем троеточие справа
+        if (currentPage - 1 > 1) {
+          pagesToShow.push(currentPage - 1);
+        }
+        pagesToShow.push(currentPage);
+        if (currentPage + 1 < totalPages) {
+          pagesToShow.push(currentPage + 1);
+        }
+        if (currentPage < totalPages - 2) {
+          pagesToShow.push("...");
+        }
+      }
     }
 
-    // Всегда показываем последнюю страницу, если страниц больше одной, и предотвращаем повторение страниц
+    // Всегда показываем последнюю страницу, если страниц больше одной
     if (totalPages > 1 && !pagesToShow.includes(totalPages)) {
       pagesToShow.push(totalPages);
     }
