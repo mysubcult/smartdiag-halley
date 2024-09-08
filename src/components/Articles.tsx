@@ -1234,6 +1234,15 @@ const blogPosts: BlogPost[] = [
   },
 ];
 
+// Определяем список категорий
+const categories = [
+  { name: "Все", value: "Все" },
+  { name: "Ошибки", value: "Ошибки" },
+  { name: "Установка ПО", value: "Установка ПО" },
+  { name: "Безопасность", value: "Безопасность" },
+  { name: "Рекомендации", value: "Рекомендации" },
+];
+
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
