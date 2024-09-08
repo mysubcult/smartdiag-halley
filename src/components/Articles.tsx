@@ -696,38 +696,35 @@ export default function Blog() {
 
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
-    const totalPagesToShow = 5;
 
-    // Always show the first page
+    // Всегда показываем первую страницу
     pagesToShow.push(1);
 
+    // Логика добавления страниц
     if (totalPages > 1) {
-      const startPage = Math.max(2, currentPage - 2);
-      const endPage = Math.min(totalPages - 1, currentPage + 2);
-
-      // If startPage is greater than 2, show ellipsis before the range
-      if (startPage > 2) {
+      if (currentPage > 3) {
+        // Добавляем троеточие перед текущей страницей, если текущая страница далеко от начала
         pagesToShow.push("...");
       }
 
-      // Add the range of pages
-      for (let i = startPage; i <= endPage; i++) {
-        pagesToShow.push(i);
+      // Добавляем текущую страницу, если она не первая и не последняя
+      if (currentPage > 1 && currentPage < totalPages) {
+        pagesToShow.push(currentPage);
       }
 
-      // If endPage is less than totalPages - 1, show ellipsis after the range
-      if (endPage < totalPages - 1) {
+      if (currentPage < totalPages - 2) {
+        // Добавляем троеточие после текущей страницы, если до конца много страниц
         pagesToShow.push("...");
       }
 
-      // Always show the last page
+      // Всегда показываем последнюю страницу
       pagesToShow.push(totalPages);
     }
 
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={(event) => (typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event))}
+        onClick={(event) => typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event)}
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
