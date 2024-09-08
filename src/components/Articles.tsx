@@ -1310,49 +1310,47 @@ export default function Blog() {
     // Всегда показываем первую страницу
     pagesToShow.push(1);
 
+    // Рассчитываем количество скрытых страниц с обеих сторон
+    const hiddenPagesBefore = currentPage - 2 > 1 ? currentPage - 2 : 0;
+    const hiddenPagesAfter = totalPages - currentPage - 1 > 1 ? totalPages - currentPage - 1 : 0;
+
     // Если страниц больше 5
     if (totalPages > 5) {
-        if (currentPage <= 3) {
-            // Если текущая страница одна из первых (1, 2, 3), то отображаем первые страницы и троеточие перед последней
-            pagesToShow.push(2, 3, 4);
-            pagesToShow.push("...");
-        } else if (currentPage >= totalPages - 2) {
-            // Если текущая страница одна из последних (13, 14), то отображаем последние страницы и троеточие после первой
-            pagesToShow.push("...");
-            pagesToShow.push(totalPages - 3, totalPages - 2, totalPages - 1);
-        } else {
-            // Если текущая страница где-то в середине (например, страница 6)
-            // Показываем соседние страницы и троеточие с той стороны, где больше пропущенных страниц
-            pagesToShow.push("...");
-            pagesToShow.push(currentPage - 1, currentPage, currentPage + 1);
-            pagesToShow.push("...");
-        }
+      if (hiddenPagesBefore > hiddenPagesAfter) {
+        // Если скрытых страниц больше до текущей страницы, добавляем троеточие после соседних страниц
+        pagesToShow.push(currentPage - 1, currentPage, currentPage + 1);
+        pagesToShow.push("...");
+      } else {
+        // Если больше скрытых страниц после текущей страницы, добавляем троеточие перед соседними страницами
+        pagesToShow.push("...");
+        pagesToShow.push(currentPage - 1, currentPage, currentPage + 1);
+      }
     } else {
-        // Если всего страниц меньше или равно 5
-        for (let i = 2; i < totalPages; i++) {
-            pagesToShow.push(i);
-        }
+      // Если страниц меньше или равно 5
+      for (let i = 2; i < totalPages; i++) {
+        pagesToShow.push(i);
+      }
     }
 
     // Всегда показываем последнюю страницу
     if (totalPages > 1) {
-        pagesToShow.push(totalPages);
+      pagesToShow.push(totalPages);
     }
 
     return pagesToShow.map((page, index) => (
-        <button
-            key={index}
-            onClick={(event) => typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event)}
-            className={`${
-                page === currentPage
-                    ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                    : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-            } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
-                typeof page !== "number" ? "cursor-pointer" : ""
-            }`}
-        >
-            {typeof page === "number" ? page : "..."}
-        </button>
+      <button
+        key={index}
+        onClick={(event) => typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event)}
+        className={`${
+          page === currentPage
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
+          typeof page !== "number" ? "cursor-pointer" : ""
+        }`}
+      >
+        {typeof page === "number" ? page : "..."}
+      </button>
     ));
   };
 
