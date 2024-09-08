@@ -1327,11 +1327,12 @@ export default function Blog() {
           pagesToShow.push(i);
         }
       } else {
-        // Если текущая страница где-то в середине
+        // Если текущая страница 5 или больше, но не последние
         if (currentPage > 4) {
-          pagesToShow.push("...");
+          pagesToShow.push(4, currentPage - 1, currentPage, currentPage + 1);
+        } else {
+          pagesToShow.push(currentPage - 1, currentPage, currentPage + 1);
         }
-        pagesToShow.push(currentPage - 1, currentPage, currentPage + 1);
         if (currentPage + 1 < totalPages - 1) {
           pagesToShow.push("...");
         }
