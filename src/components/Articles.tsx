@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,90 +8,234 @@ type BlogPost = {
   excerpt: string;
   link: string;
   category: string;
+  slug: string; // Используем для загрузки статьи
 };
 
 const blogPosts: BlogPost[] = [
-  // Раздел "Ошибки" - 16 статей
-  { title: "Как справиться с ошибкой при открытии архива", image: "/images/blog/post1.jpg", excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов и что может вызывать эти проблемы.", link: "/blog/post1", category: "Ошибки" },
-  { title: "Проблемы с запуском программы", image: "/images/blog/post1.jpg", excerpt: "Что делать, если программа не запускается или исчезают ярлыки? Решения и советы.", link: "/blog/post2", category: "Ошибки" },
-  { title: "Как справиться с зависанием программы во время установки", image: "/images/blog/post1.jpg", excerpt: "Пошаговое руководство для устранения проблем, связанных с зависанием программ во время установки.", link: "/blog/post8", category: "Ошибки" },
-  { title: "Ошибки в программном обеспечении", image: "/images/blog/post1.jpg", excerpt: "Типичные ошибки при работе с программным обеспечением и способы их устранения.", link: "/blog/post11", category: "Ошибки" },
-  { title: "Непредвиденные сбои программ при работе", image: "/images/blog/post1.jpg", excerpt: "Решения для устранения непредвиденных сбоев программного обеспечения.", link: "/blog/post12", category: "Ошибки" },
-  { title: "Нестабильная работа приложений", image: "/images/blog/post1.jpg", excerpt: "Как исправить нестабильную работу программных приложений?", link: "/blog/post13", category: "Ошибки" },
-  { title: "Ошибки при запуске программ", image: "/images/blog/post1.jpg", excerpt: "Советы по устранению ошибок, возникающих при запуске программ.", link: "/blog/post14", category: "Ошибки" },
-  { title: "Как устранить ошибку установки драйверов", image: "/images/blog/post1.jpg", excerpt: "Узнайте, как справиться с ошибками при установке драйверов.", link: "/blog/post15", category: "Ошибки" },
-  { title: "Ошибки совместимости программного обеспечения", image: "/images/blog/post1.jpg", excerpt: "Решения для устранения проблем совместимости программ.", link: "/blog/post16", category: "Ошибки" },
-  { title: "Обновление ПО вызывает сбои", image: "/images/blog/post1.jpg", excerpt: "Как справиться с проблемами, возникающими после обновления программного обеспечения?", link: "/blog/post17", category: "Ошибки" },
-  { title: "Ошибка при подключении к серверу", image: "/images/blog/post1.jpg", excerpt: "Что делать, если программа не может подключиться к серверу?", link: "/blog/post18", category: "Ошибки" },
-  { title: "Зависание программ в процессе работы", image: "/images/blog/post1.jpg", excerpt: "Руководство по решению проблем зависания программ.", link: "/blog/post19", category: "Ошибки" },
-  { title: "Сбой при сохранении файлов", image: "/images/blog/post1.jpg", excerpt: "Что делать, если программа не может сохранить файлы?", link: "/blog/post20", category: "Ошибки" },
-  { title: "Ошибки в интерфейсе программ", image: "/images/blog/post1.jpg", excerpt: "Как справиться с проблемами интерфейса программ?", link: "/blog/post21", category: "Ошибки" },
-  { title: "Проблемы с лицензированием ПО", image: "/images/blog/post1.jpg", excerpt: "Решение типичных проблем с лицензированием программ.", link: "/blog/post22", category: "Ошибки" },
-  { title: "Ошибка при установке обновлений", image: "/images/blog/post1.jpg", excerpt: "Как исправить ошибки, возникающие при установке обновлений программ?", link: "/blog/post23", category: "Ошибки" },
-
-  // Раздел "Установка ПО" - 16 статей
-  { title: "Помощь в установке программного обеспечения", image: "/images/blog/post1.jpg", excerpt: "Как получить помощь при установке программного обеспечения. Контакты и часы работы службы поддержки.", link: "/blog/post4", category: "Установка ПО" },
-  { title: "Частые проблемы с установкой", image: "/images/blog/post1.jpg", excerpt: "Советы по устранению проблем с установкой программ.", link: "/blog/post12", category: "Установка ПО" },
-  { title: "Как выбрать правильный установочный файл", image: "/images/blog/post1.jpg", excerpt: "Советы по выбору правильных установочных файлов для вашего устройства.", link: "/blog/post24", category: "Установка ПО" },
-  { title: "Как исправить ошибку установки", image: "/images/blog/post1.jpg", excerpt: "Решение распространенных проблем с установкой программ.", link: "/blog/post25", category: "Установка ПО" },
-  { title: "Установка программ на внешние носители", image: "/images/blog/post1.jpg", excerpt: "Руководство по установке программ на внешние носители.", link: "/blog/post26", category: "Установка ПО" },
-  { title: "Обновление установленных программ", image: "/images/blog/post1.jpg", excerpt: "Как обновить установленные программы до последней версии.", link: "/blog/post27", category: "Установка ПО" },
-  { title: "Как установить антивирус", image: "/images/blog/post1.jpg", excerpt: "Шаги по установке антивирусных программ для вашего устройства.", link: "/blog/post28", category: "Установка ПО" },
-  { title: "Ошибки при установке ПО на Mac", image: "/images/blog/post1.jpg", excerpt: "Как справиться с ошибками при установке ПО на устройствах Apple.", link: "/blog/post29", category: "Установка ПО" },
-  { title: "Как установить драйвера", image: "/images/blog/post1.jpg", excerpt: "Руководство по установке драйверов для различных устройств.", link: "/blog/post30", category: "Установка ПО" },
-  { title: "Проблемы с правами администратора", image: "/images/blog/post1.jpg", excerpt: "Как справиться с проблемами установки, требующими прав администратора.", link: "/blog/post31", category: "Установка ПО" },
-  { title: "Как установить программы из магазина приложений", image: "/images/blog/post1.jpg", excerpt: "Руководство по установке приложений из официальных магазинов.", link: "/blog/post32", category: "Установка ПО" },
-  { title: "Решение проблем с установкой на Windows", image: "/images/blog/post1.jpg", excerpt: "Как справиться с проблемами установки на Windows.", link: "/blog/post33", category: "Установка ПО" },
-  { title: "Как установить программы в виртуальной среде", image: "/images/blog/post1.jpg", excerpt: "Установка программ в виртуальных машинах и средах.", link: "/blog/post34", category: "Установка ПО" },
-  { title: "Обновление BIOS перед установкой программ", image: "/images/blog/post1.jpg", excerpt: "Нужно ли обновлять BIOS перед установкой новых программ?", link: "/blog/post35", category: "Установка ПО" },
-  { title: "Ошибки при установке через командную строку", image: "/images/blog/post1.jpg", excerpt: "Как установить программы через командную строку и устранить ошибки.", link: "/blog/post36", category: "Установка ПО" },
-  { title: "Как установить программы через пакеты", image: "/images/blog/post1.jpg", excerpt: "Установка программных пакетов и зависимости.", link: "/blog/post37", category: "Установка ПО" },
-
-  // Раздел "Безопасность" - 16 статей
-  { title: "Безопасность программ и антивирусы", image: "/images/blog/post1.jpg", excerpt: "Как антивирусное ПО может влиять на ваши программы и как правильно настраивать исключения.", link: "/blog/post5", category: "Безопасность" },
-  { title: "Как выбрать лучшее антивирусное ПО для вашего компьютера", image: "/images/blog/post1.jpg", excerpt: "Узнайте, какое антивирусное ПО подходит именно для вас и как его настроить.", link: "/blog/post7", category: "Безопасность" },
-  { title: "Важные аспекты безопасности ПО", image: "/images/blog/post1.jpg", excerpt: "Как избежать вирусов и защитить свои данные.", link: "/blog/post13", category: "Безопасность" },
-  { title: "Лучшие практики настройки антивирусов", image: "/images/blog/post1.jpg", excerpt: "Как настроить антивирусные программы для оптимальной защиты.", link: "/blog/post14", category: "Безопасность" },
-  { title: "Современные угрозы безопасности ПО", image: "/images/blog/post1.jpg", excerpt: "Рассмотрим, какие угрозы могут повлиять на вашу безопасность.", link: "/blog/post16", category: "Безопасность" },
-  { title: "Как настроить VPN для безопасности", image: "/images/blog/post1.jpg", excerpt: "Руководство по настройке VPN для защиты данных в сети.", link: "/blog/post38", category: "Безопасность" },
-  { title: "Обзор лучших антивирусов", image: "/images/blog/post1.jpg", excerpt: "Сравнение антивирусных программ для защиты вашего устройства.", link: "/blog/post39", category: "Безопасность" },
-  { title: "Как защитить данные от фишинговых атак", image: "/images/blog/post1.jpg", excerpt: "Советы по защите от фишинговых атак и мошенничества.", link: "/blog/post40", category: "Безопасность" },
-  { title: "Безопасное хранение данных в облаке", image: "/images/blog/post1.jpg", excerpt: "Рекомендации по безопасному хранению данных в облачных сервисах.", link: "/blog/post41", category: "Безопасность" },
-  { title: "Защита от вредоносного ПО", image: "/images/blog/post1.jpg", excerpt: "Как защитить устройство от вредоносных программ.", link: "/blog/post42", category: "Безопасность" },
-  { title: "Настройка двухфакторной аутентификации", image: "/images/blog/post1.jpg", excerpt: "Шаги по настройке двухфакторной аутентификации для повышения безопасности.", link: "/blog/post43", category: "Безопасность" },
-  { title: "Как защитить данные на мобильных устройствах", image: "/images/blog/post1.jpg", excerpt: "Советы по безопасности для мобильных телефонов и планшетов.", link: "/blog/post44", category: "Безопасность" },
-  { title: "Безопасность сетевых подключений", image: "/images/blog/post1.jpg", excerpt: "Как обезопасить сетевые подключения вашего устройства.", link: "/blog/post45", category: "Безопасность" },
-  { title: "Как выбрать лучший файрвол", image: "/images/blog/post1.jpg", excerpt: "Рекомендации по выбору и настройке файрвола для защиты данных.", link: "/blog/post46", category: "Безопасность" },
-  { title: "Защита от угроз в социальных сетях", image: "/images/blog/post1.jpg", excerpt: "Как защитить себя от угроз в социальных сетях.", link: "/blog/post47", category: "Безопасность" },
-  { title: "Как избежать утечки данных", image: "/images/blog/post1.jpg", excerpt: "Советы по предотвращению утечки данных.", link: "/blog/post48", category: "Безопасность" },
-
-  // Раздел "Рекомендации" - 16 статей
-  { title: "Использование ключа активации на другом устройстве", image: "/images/blog/post1.jpg", excerpt: "Можно ли использовать один ключ активации на нескольких устройствах? Ответы и рекомендации.", link: "/blog/post3", category: "Рекомендации" },
-  { title: "Рекомендации по использованию наших программ", image: "/images/blog/post1.jpg", excerpt: "Лучшие практики и советы по использованию программного обеспечения для достижения максимальной эффективности.", link: "/blog/post6", category: "Рекомендации" },
-  { title: "Настройка облачных хранилищ для резервного копирования", image: "/images/blog/post1.jpg", excerpt: "Руководство по настройке облачных сервисов для резервного копирования ваших файлов и данных.", link: "/blog/post9", category: "Рекомендации" },
-  { title: "Обзор программ для работы с архивами", image: "/images/blog/post1.jpg", excerpt: "Сравнение различных программ для работы с архивами и их основные функции.", link: "/blog/post10", category: "Рекомендации" },
-  { title: "Рекомендации по управлению лицензиями", image: "/images/blog/post1.jpg", excerpt: "Советы по управлению лицензиями и активацией ПО.", link: "/blog/post15", category: "Рекомендации" },
-  { title: "Как настроить резервное копирование", image: "/images/blog/post1.jpg", excerpt: "Советы по организации и настройке резервного копирования данных.", link: "/blog/post49", category: "Рекомендации" },
-  { title: "Как выбрать программное обеспечение для работы с документами", image: "/images/blog/post1.jpg", excerpt: "Рекомендации по выбору программ для работы с текстами и таблицами.", link: "/blog/post50", category: "Рекомендации" },
-  { title: "Как увеличить производительность системы", image: "/images/blog/post1.jpg", excerpt: "Рекомендации по повышению производительности системы.", link: "/blog/post51", category: "Рекомендации" },
-  { title: "Как работать с электронными подписями", image: "/images/blog/post1.jpg", excerpt: "Инструкции по использованию электронных подписей в документах.", link: "/blog/post52", category: "Рекомендации" },
-  { title: "Как настроить программные обновления", image: "/images/blog/post1.jpg", excerpt: "Рекомендации по настройке автоматических обновлений.", link: "/blog/post53", category: "Рекомендации" },
-  { title: "Рекомендации по использованию облачных сервисов", image: "/images/blog/post1.jpg", excerpt: "Как эффективно использовать облачные сервисы.", link: "/blog/post54", category: "Рекомендации" },
-  { title: "Как выбрать правильные периферийные устройства", image: "/images/blog/post1.jpg", excerpt: "Советы по выбору принтеров, сканеров и других периферийных устройств.", link: "/blog/post55", category: "Рекомендации" },
-  { title: "Как настроить синхронизацию данных", image: "/images/blog/post1.jpg", excerpt: "Как настроить синхронизацию данных между устройствами.", link: "/blog/post56", category: "Рекомендации" },
-  { title: "Рекомендации по работе с архивами", image: "/images/blog/post1.jpg", excerpt: "Как эффективно организовать работу с архивными файлами.", link: "/blog/post57", category: "Рекомендации" },
-  { title: "Рекомендации по настройке мониторов", image: "/images/blog/post1.jpg", excerpt: "Как правильно настроить мониторы для лучшей работы.", link: "/blog/post58", category: "Рекомендации" },
-  { title: "Как выбрать лучший PDF-редактор", image: "/images/blog/post1.jpg", excerpt: "Советы по выбору программ для редактирования PDF-файлов.", link: "/blog/post59", category: "Рекомендации" }
+  {
+    title: "Как справиться с ошибкой при открытии архива",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов.",
+    link: "/blog/post1",
+    category: "Ошибки",
+    slug: "archive",
+  },
+  {
+    title: "Проблемы с запуском программы",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Что делать, если программа не запускается или исчезают ярлыки?",
+    link: "/blog/post2",
+    category: "Ошибки",
+    slug: "launch-issue",
+  },
+  {
+    title: "Как справиться с зависанием программы во время установки",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Пошаговое руководство для устранения проблем, связанных с зависанием программ во время установки.",
+    link: "/blog/post8",
+    category: "Ошибки",
+    slug: "installation-freeze",
+  },
+  {
+    title: "Ошибки в программном обеспечении",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Типичные ошибки при работе с программным обеспечением и способы их устранения.",
+    link: "/blog/post11",
+    category: "Ошибки",
+    slug: "software-errors",
+  },
+  {
+    title: "Непредвиденные сбои программ при работе",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Решения для устранения непредвиденных сбоев программного обеспечения.",
+    link: "/blog/post12",
+    category: "Ошибки",
+    slug: "unexpected-failures",
+  },
+  {
+    title: "Нестабильная работа приложений",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Как исправить нестабильную работу программных приложений?",
+    link: "/blog/post13",
+    category: "Ошибки",
+    slug: "unstable-applications",
+  },
+  {
+    title: "Ошибки при запуске программ",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Советы по устранению ошибок, возникающих при запуске программ.",
+    link: "/blog/post14",
+    category: "Ошибки",
+    slug: "startup-errors",
+  },
+  {
+    title: "Как устранить ошибку установки драйверов",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Узнайте, как справиться с ошибками при установке драйверов.",
+    link: "/blog/post15",
+    category: "Ошибки",
+    slug: "driver-installation-error",
+  },
+  {
+    title: "Ошибки совместимости программного обеспечения",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Решения для устранения проблем совместимости программ.",
+    link: "/blog/post16",
+    category: "Ошибки",
+    slug: "compatibility-issues",
+  },
+  {
+    title: "Обновление ПО вызывает сбои",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Как справиться с проблемами, возникающими после обновления программного обеспечения?",
+    link: "/blog/post17",
+    category: "Ошибки",
+    slug: "update-failures",
+  },
+  {
+    title: "Ошибка при подключении к серверу",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Что делать, если программа не может подключиться к серверу?",
+    link: "/blog/post18",
+    category: "Ошибки",
+    slug: "server-connection-error",
+  },
+  {
+    title: "Зависание программ в процессе работы",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Руководство по решению проблем зависания программ.",
+    link: "/blog/post19",
+    category: "Ошибки",
+    slug: "app-freezes",
+  },
+  {
+    title: "Сбой при сохранении файлов",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Что делать, если программа не может сохранить файлы?",
+    link: "/blog/post20",
+    category: "Ошибки",
+    slug: "file-save-error",
+  },
+  {
+    title: "Ошибки в интерфейсе программ",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Как справиться с проблемами интерфейса программ?",
+    link: "/blog/post21",
+    category: "Ошибки",
+    slug: "interface-errors",
+  },
+  {
+    title: "Проблемы с лицензированием ПО",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Решение типичных проблем с лицензированием программ.",
+    link: "/blog/post22",
+    category: "Ошибки",
+    slug: "licensing-issues",
+  },
+  {
+    title: "Ошибка при установке обновлений",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Как исправить ошибки, возникающие при установке обновлений программ?",
+    link: "/blog/post23",
+    category: "Ошибки",
+    slug: "update-installation-error",
+  },
+  {
+    title: "Помощь в установке программного обеспечения",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Как получить помощь при установке программного обеспечения.",
+    link: "/blog/post4",
+    category: "Установка ПО",
+    slug: "software-installation-help",
+  },
+  {
+    title: "Частые проблемы с установкой",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Советы по устранению проблем с установкой программ.",
+    link: "/blog/post12",
+    category: "Установка ПО",
+    slug: "installation-issues",
+  },
+  {
+    title: "Как выбрать правильный установочный файл",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Советы по выбору правильных установочных файлов для вашего устройства.",
+    link: "/blog/post24",
+    category: "Установка ПО",
+    slug: "select-install-file",
+  },
+  {
+    title: "Как исправить ошибку установки",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Решение распространенных проблем с установкой программ.",
+    link: "/blog/post25",
+    category: "Установка ПО",
+    slug: "installation-error-fix",
+  },
+  {
+    title: "Установка программ на внешние носители",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Руководство по установке программ на внешние носители.",
+    link: "/blog/post26",
+    category: "Установка ПО",
+    slug: "external-device-install",
+  },
+  {
+    title: "Обновление установленных программ",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Как обновить установленные программы до последней версии.",
+    link: "/blog/post27",
+    category: "Установка ПО",
+    slug: "update-installed-programs",
+  },
+  {
+    title: "Как установить антивирус",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Шаги по установке антивирусных программ для вашего устройства.",
+    link: "/blog/post28",
+    category: "Установка ПО",
+    slug: "antivirus-installation",
+  },
+  {
+    title: "Ошибки при установке ПО на Mac",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Как справиться с ошибками при установке ПО на устройствах Apple.",
+    link: "/blog/post29",
+    category: "Установка ПО",
+    slug: "mac-installation-errors",
+  },
+  {
+    title: "Как установить драйвера",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Руководство по установке драйверов для различных устройств.",
+    link: "/blog/post30",
+    category: "Установка ПО",
+    slug: "driver-installation-guide",
+  },
+  {
+    title: "Проблемы с правами администратора",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Как справиться с проблемами установки, требующими прав администратора.",
+    link: "/blog/post31",
+    category: "Установка ПО",
+    slug: "admin-rights-issues",
+  },
+  {
+    title: "Как установить программы из магазина приложений",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Руководство по установке приложений из официальных магазинов.",
+    link: "/blog/post32",
+    category: "Установка ПО",
+    slug: "app-store-installation",
+  },
 ];
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [showPopover, setShowPopover] = useState<boolean>(false);
-  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
+  const [articleContents, setArticleContents] = useState<{ [key: string]: string }>({});
   const postsPerPage = 8;
-  const popoverRef = useRef<HTMLDivElement>(null);
 
   const categories = useMemo(() => [
     { name: "Все", value: "Все" },
@@ -101,6 +245,14 @@ export default function Blog() {
     { name: "Рекомендации", value: "Рекомендации" },
   ], []);
 
+  const loadArticleContent = async (slug: string) => {
+    if (!articleContents[slug]) {
+      const response = await fetch(`/api/articles/loadArticle?slug=${slug}`);
+      const data = await response.json();
+      setArticleContents((prev) => ({ ...prev, [slug]: data.content }));
+    }
+  };
+
   const filteredPosts = useMemo(() => {
     const filteredByCategory = selectedCategory === "Все"
       ? blogPosts
@@ -108,9 +260,18 @@ export default function Blog() {
 
     return filteredByCategory.filter((post) =>
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (articleContents[post.slug] && articleContents[post.slug].toLowerCase().includes(searchTerm.toLowerCase()))
     );
-  }, [selectedCategory, searchTerm]);
+  }, [selectedCategory, searchTerm, articleContents]);
+
+  useEffect(() => {
+    blogPosts.forEach((post) => {
+      if (searchTerm && !articleContents[post.slug]) {
+        loadArticleContent(post.slug);
+      }
+    });
+  }, [searchTerm]);
 
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
@@ -126,77 +287,7 @@ export default function Blog() {
 
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
-    setShowPopover(false);
   }, []);
-
-  const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
-    setShowPopover(true);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
-        setShowPopover(false);
-      }
-    };
-
-    if (showPopover) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showPopover]);
-
-  const renderPagination = () => {
-    const pagesToShow: (string | number)[] = [];
-
-    // Всегда показываем первую страницу
-    pagesToShow.push(1);
-
-    // Определяем диапазон страниц вокруг текущей (слева и справа)
-    const startPage = Math.max(2, currentPage - 1); // Всегда одна страница слева от текущей
-    const endPage = Math.min(totalPages - 1, currentPage + 1); // Всегда одна страница справа от текущей
-
-    // Если текущая страница больше 3, добавляем троеточие перед диапазоном
-    if (startPage > 2) {
-      pagesToShow.push('...');
-    }
-
-    // Добавляем текущую страницу и соседние страницы
-    for (let i = startPage; i <= endPage; i++) {
-      pagesToShow.push(i);
-    }
-
-    // Добавляем троеточие перед последней страницей, если нужно (только одно)
-    if (endPage < totalPages - 1) {
-      pagesToShow.push('...');
-    }
-
-    // Всегда показываем последнюю страницу
-    if (totalPages > 1) {
-      pagesToShow.push(totalPages);
-    }
-
-    return pagesToShow.map((page, index) => (
-      <button
-        key={index}
-        onClick={(event) => typeof page === 'number' ? handlePageChange(page) : handleEllipsisClick(event)}
-        className={`${
-          page === currentPage
-            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
-          typeof page !== 'number' ? 'cursor-pointer' : ''
-        }`}
-      >
-        {typeof page === 'number' ? page : '...'}
-      </button>
-    ));
-  };
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
@@ -220,7 +311,6 @@ export default function Blog() {
             </button>
           ))}
 
-          {/* Строка поиска */}
           <input
             type="text"
             placeholder="Поиск..."
@@ -289,41 +379,13 @@ export default function Blog() {
         ))}
       </div>
 
-      {/* Пагинация */}
       <div className="max-w-max mx-auto px-6 pb-4">
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
-          {renderPagination()}
-        </div>
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <button key={page} onClick={() => handlePageChange(page)} className={`p-2 ${page === currentPage ? 'bg-blue-600 text-white' : ''}`}>
+            {page}
+          </button>
+        ))}
       </div>
-
-      {/* Небольшой popover для выбора страницы */}
-      {showPopover && popoverPosition && (
-        <div
-          ref={popoverRef}
-          className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
-          style={{
-            position: 'absolute',
-            top: `${popoverPosition.top}px`,
-            left: `${popoverPosition.left}px`
-          }}
-        >
-          <div className="grid grid-cols-4 gap-2">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={`${
-                  page === currentPage
-                    ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                    : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
-                } rounded-md py-2 px-3 transition-colors duration-300 ease-in-out`}
-              >
-                {page}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
