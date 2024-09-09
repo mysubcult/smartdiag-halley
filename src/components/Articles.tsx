@@ -297,7 +297,7 @@ export default function Blog() {
       <div className="max-w-max mx-auto px-6">
         {/* Контейнер для категорий и поиска */}
         <div
-          className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto"
+          className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto"
         >
           {/* Категории и поиск */}
           <div className="flex items-center w-full sm:w-auto sm:flex-1">
@@ -360,7 +360,7 @@ export default function Blog() {
 
           {/* Строка поиска для мобильных устройств */}
           {showSearch && (
-            <div className="w-full mt-2 sm:hidden"> {/* Строка поиска появляется ниже, без изменения ширины контейнера */}
+            <div className="w-full mt-2 sm:hidden"> {/* Строка поиска принимает ширину контейнера */}
               <input
                 type="text"
                 placeholder="Поиск..."
