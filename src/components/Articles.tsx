@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -2484,8 +2484,9 @@ export default function Blog() {
           .some((field) => field.includes(searchTerm.toLowerCase()))
       );
 
-      setFilteredPosts(filteredBySearchTerm);
-      setCurrentPage(1); // Сбрасываем страницу на 1 при каждом изменении фильтра
+      // Ограничиваем посты до лимита на странице
+      setFilteredPosts(filteredBySearchTerm.slice(0, postsPerPage));
+      setCurrentPage(1); // Сбрасываем страницу при изменении фильтра
     };
 
     filterPosts();
