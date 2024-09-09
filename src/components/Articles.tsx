@@ -2485,7 +2485,7 @@ export default function Blog() {
       );
 
       setFilteredPosts(filteredBySearchTerm);
-      setCurrentPage(1); // Сброс страницы после фильтрации
+      setCurrentPage(1); // Сбрасываем страницу на 1 при каждом изменении фильтра
     };
 
     filterPosts();
@@ -2504,6 +2504,7 @@ export default function Blog() {
   // 4. Обработчик изменения категории
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
+    setCurrentPage(1); // Сбрасываем страницу при смене категории
   }, []);
 
   // 5. Обработчик изменения страницы
@@ -2524,7 +2525,6 @@ export default function Blog() {
 
     // Если страниц больше, чем нужно для отображения
     if (totalPages > maxVisiblePages) {
-      // Если текущая страница - первая
       if (currentPage === 1) {
         pagesToShow.push(2, 3, "...");
       } else if (currentPage === totalPages) {
