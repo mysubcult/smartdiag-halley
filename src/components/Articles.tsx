@@ -12,7 +12,6 @@ type BlogPost = {
 };
 
 const blogPosts: BlogPost[] = [
-  [
   {
     "title": "Как справиться с ошибкой при открытии архива",
     "image": "/images/blog/post1.jpg",
