@@ -2505,6 +2505,7 @@ export default function Blog() {
   // 4. Обработчик изменения категории
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
+    setCurrentPage(1); // Сбрасываем страницу при смене категории
   }, []);
 
   // 5. Обработчик изменения страницы
@@ -2514,7 +2515,7 @@ export default function Blog() {
     }
   }, [totalPages]);
 
-  // 6. Логика для рендеринга сокращенной пагинации
+  // 6. Логика для рендеринга сокращенной пагинации с выпадающим окном при нажатии на троеточие
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
     const hiddenPagesLeft = currentPage - 1;
@@ -2547,21 +2548,43 @@ export default function Blog() {
       pagesToShow.push(totalPages); // Всегда показываем последнюю страницу
     }
 
-    return pagesToShow.map((page, index) => (
-      <button
-        key={index}
-        onClick={() => typeof page === "number" && handlePageChange(page)}
-        className={`${
-          page === currentPage
-            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
-          typeof page !== "number" ? "cursor-pointer" : ""
-        }`}
-      >
-        {typeof page === "number" ? page : "..."}
-      </button>
-    ));
+    return pagesToShow.map((page, index) => {
+      if (page === "...") {
+        return (
+          <span key={index} className="relative">
+            <button className="text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700 rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out">
+              ...
+            </button>
+            <div className="absolute z-10 mt-1 p-2 bg-white dark:bg-neutral-700 shadow-lg rounded-md">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                <button
+                  key={p}
+                  onClick={() => handlePageChange(p)}
+                  className={`block px-4 py-2 text-sm text-neutral-900 dark:text-neutral-100 ${
+                    p === currentPage ? "bg-neutral-200 dark:bg-neutral-600" : ""
+                  }`}
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
+          </span>
+        );
+      }
+      return (
+        <button
+          key={index}
+          onClick={() => typeof page === "number" && handlePageChange(page)}
+          className={`${
+            page === currentPage
+              ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+              : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+          } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+        >
+          {page}
+        </button>
+      );
+    });
   };
 
   return (
