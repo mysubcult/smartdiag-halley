@@ -18,14 +18,6 @@ const blogPosts: BlogPost[] = [
     excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов.",
     link: "/blog/post1",
     category: "Ошибки",
-    keywords: ["ошибки архива", "проблемы с архивом", "ошибка открытия архива"],
-  },
-  {
-    title: "Как справиться с ошибкой при открытии архива",
-    image: "/images/blog/post1.jpg",
-    excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов.",
-    link: "/blog/post1",
-    category: "Ошибки",
     keywords: [
       "ошибки архива",
       "проблемы с архивом",
@@ -2474,49 +2466,64 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>(blogPosts);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
   const postsPerPage = 8;
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  // 1. Filter posts based on selected category and search term
-  const filteredPosts = useMemo(() => {
-    return blogPosts
-      .filter((post) =>
-        selectedCategory === "Все" ? true : post.category === selectedCategory
-      )
-      .filter(
-        (post) =>
-          post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          post.keywords.some((keyword) => keyword.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
+  // 1. Фильтрация постов на основе категории и поискового запроса
+  useEffect(() => {
+    const filteredByCategory =
+      selectedCategory === "Все"
+        ? blogPosts
+        : blogPosts.filter((post) => post.category === selectedCategory);
+
+    const filteredBySearchTerm = filteredByCategory.filter(
+      (post) =>
+        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.keywords.some((keyword) =>
+          keyword.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+    );
+
+    // Устанавливаем отфильтрованные посты и сбрасываем страницу при изменении фильтрации
+    setFilteredPosts(filteredBySearchTerm);
+    setCurrentPage(1);
   }, [selectedCategory, searchTerm]);
 
-  // 2. Calculate total pages
+  // 2. Рассчитываем общее количество страниц
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
-  // 3. Paginate the filtered posts
+  // 3. Пагинация постов
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
-    return filteredPosts.slice(startIndex, startIndex + postsPerPage);
+    const endIndex = startIndex + postsPerPage;
+    return filteredPosts.slice(startIndex, endIndex);
   }, [currentPage, filteredPosts]);
 
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1); // Reset pagination when category changes
+    setSearchTerm(""); // Сброс поискового запроса при смене категории
   }, []);
 
-  const handlePageChange = useCallback((page: number) => {
-    if (page > 0 && page <= totalPages) {
-      setCurrentPage(page);
-    }
-    setShowPopover(false);
-  }, [totalPages]);
+  const handlePageChange = useCallback(
+    (page: number) => {
+      if (page > 0 && page <= totalPages) {
+        setCurrentPage(page);
+      }
+      setShowPopover(false);
+    },
+    [totalPages]
+  );
 
   const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
+    setPopoverPosition({
+      top: rect.bottom + window.scrollY,
+      left: rect.left + window.scrollX,
+    });
     setShowPopover(true);
   };
 
@@ -2536,6 +2543,7 @@ export default function Blog() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showPopover]);
 
+  // 4. Рендеринг пагинации
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
     pagesToShow.push(1);
@@ -2574,7 +2582,9 @@ export default function Blog() {
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={(event) => typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event)}
+        onClick={(event) =>
+          typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event)
+        }
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
