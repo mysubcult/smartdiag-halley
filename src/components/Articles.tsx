@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect } from "react";
+import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,6 +12,14 @@ type BlogPost = {
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    title: "Как справиться с ошибкой при открытии архива",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов.",
+    link: "/blog/post1",
+    category: "Ошибки",
+    keywords: ["ошибки архива", "проблемы с архивом", "ошибка открытия архива"],
+  },
   {
     title: "Как справиться с ошибкой при открытии архива",
     image: "/images/blog/post1.jpg",
@@ -2466,56 +2474,118 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const postsPerPage = 8; // Лимит постов на страницу
+  const [showPopover, setShowPopover] = useState<boolean>(false);
+  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
+  const postsPerPage = 8;
+  const popoverRef = useRef<HTMLDivElement>(null);
 
-  // Фильтрация постов по категории и поисковому запросу
+  // 1. Filter posts based on selected category and search term
   const filteredPosts = useMemo(() => {
-    let filteredByCategory = blogPosts;
-
-    // Фильтруем по категории, если выбрано не "Все"
-    if (selectedCategory !== "Все") {
-      filteredByCategory = blogPosts.filter(post => post.category === selectedCategory);
-    }
-
-    // Если есть поисковый запрос, фильтруем по поиску
-    if (searchTerm) {
-      return filteredByCategory.filter(post =>
-        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.keywords.some(keyword => keyword.toLowerCase().includes(searchTerm.toLowerCase()))
+    return blogPosts
+      .filter((post) =>
+        selectedCategory === "Все" ? true : post.category === selectedCategory
+      )
+      .filter(
+        (post) =>
+          post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          post.keywords.some((keyword) => keyword.toLowerCase().includes(searchTerm.toLowerCase()))
       );
-    }
-
-    // Если поисковый запрос пустой, возвращаем только посты выбранной категории
-    return filteredByCategory;
   }, [selectedCategory, searchTerm]);
 
-  // Определяем общее количество страниц
+  // 2. Calculate total pages
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
-  // Определяем посты для текущей страницы
+  // 3. Paginate the filtered posts
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  // Обработка клика по категории
-  const handleCategoryClick = (category: string) => {
+  const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1);  // Сбрасываем на первую страницу при изменении категории
-  };
+    setCurrentPage(1); // Reset pagination when category changes
+  }, []);
 
-  // Обработка изменения поискового запроса
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-    setCurrentPage(1);  // Сбрасываем на первую страницу при изменении поиска
-  };
-
-  // Обработка смены страницы
-  const handlePageChange = (page: number) => {
+  const handlePageChange = useCallback((page: number) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
+    setShowPopover(false);
+  }, [totalPages]);
+
+  const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
+    setShowPopover(true);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+        setShowPopover(false);
+      }
+    };
+
+    if (showPopover) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showPopover]);
+
+  const renderPagination = () => {
+    const pagesToShow: (string | number)[] = [];
+    pagesToShow.push(1);
+
+    const hiddenPagesLeft = currentPage - 1;
+    const hiddenPagesRight = totalPages - currentPage;
+
+    if (totalPages > 5) {
+      if (currentPage === 1) {
+        pagesToShow.push(2, 3, "...");
+      } else if (currentPage === totalPages) {
+        pagesToShow.push("...", totalPages - 2, totalPages - 1);
+      } else if (hiddenPagesLeft > hiddenPagesRight) {
+        if (currentPage > 3) {
+          pagesToShow.push("...");
+        }
+        pagesToShow.push(currentPage - 1, currentPage);
+        if (currentPage + 1 < totalPages) {
+          pagesToShow.push(currentPage + 1);
+        }
+      } else {
+        if (currentPage - 1 > 1) {
+          pagesToShow.push(currentPage - 1);
+        }
+        pagesToShow.push(currentPage, currentPage + 1);
+        if (currentPage < totalPages - 2) {
+          pagesToShow.push("...");
+        }
+      }
+    }
+
+    if (totalPages > 1 && !pagesToShow.includes(totalPages)) {
+      pagesToShow.push(totalPages);
+    }
+
+    return pagesToShow.map((page, index) => (
+      <button
+        key={index}
+        onClick={(event) => typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event)}
+        className={`${
+          page === currentPage
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
+          typeof page !== "number" ? "cursor-pointer" : ""
+        }`}
+      >
+        {typeof page === "number" ? page : "..."}
+      </button>
+    ));
   };
 
   return (
@@ -2544,7 +2614,7 @@ export default function Blog() {
             type="text"
             placeholder="Поиск..."
             value={searchTerm}
-            onChange={handleSearchChange}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="ml-4 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
           />
         </div>
@@ -2614,21 +2684,38 @@ export default function Blog() {
       {/* Пагинация */}
       <div className="max-w-max mx-auto px-6 pb-4">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <button
-              key={page}
-              onClick={() => handlePageChange(page)}
-              className={`${
-                page === currentPage
-                  ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                  : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
-              } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-            >
-              {page}
-            </button>
-          ))}
+          {renderPagination()}
         </div>
       </div>
+
+      {/* Небольшой popover для выбора страницы */}
+      {showPopover && popoverPosition && (
+        <div
+          ref={popoverRef}
+          className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
+          style={{
+            position: "absolute",
+            top: `${popoverPosition.top}px`,
+            left: `${popoverPosition.left}px`,
+          }}
+        >
+          <div className="grid grid-cols-4 gap-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`${
+                  page === currentPage
+                    ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                } rounded-md py-2 px-3 transition-colors duration-300 ease-in-out`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
