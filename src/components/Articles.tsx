@@ -304,59 +304,62 @@ export default function Blog() {
         {/* Для десктопа и мобильной версии */}
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 gap-1 sm:mt-8 flex flex-wrap items-center justify-between">
           
-          {/* Категории - выпадающий список для мобильных устройств */}
-          <div className="relative sm:block w-full sm:w-auto">
-            <button
-              className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full"
-              onClick={() => setShowCategories(!showCategories)}
-            >
-              {selectedCategory} 
-              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
-            {showCategories && (
-              <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2">
+          {/* Контейнер для кнопок категорий и поиска */}
+          <div className="flex w-full justify-between items-center sm:justify-start">
+            {/* Категории - выпадающий список для мобильных устройств */}
+            <div className="relative sm:block w-full sm:w-auto">
+              <button
+                className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full"
+                onClick={() => setShowCategories(!showCategories)}
+              >
+                {selectedCategory} 
+                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              {showCategories && (
+                <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2">
+                  {categories.map((category) => (
+                    <button
+                      key={category.value}
+                      onClick={() => {
+                        handleCategoryClick(category.value);
+                        setShowCategories(false);
+                      }}
+                      className="block text-left w-full px-4 py-2 hover:bg-blue-100 dark:hover:bg-neutral-600"
+                    >
+                      {category.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <div className="hidden sm:flex flex-wrap gap-2">
                 {categories.map((category) => (
                   <button
                     key={category.value}
-                    onClick={() => {
-                      handleCategoryClick(category.value);
-                      setShowCategories(false);
-                    }}
-                    className="block text-left w-full px-4 py-2 hover:bg-blue-100 dark:hover:bg-neutral-600"
+                    onClick={() => handleCategoryClick(category.value)}
+                    className={`${
+                      category.value === selectedCategory
+                        ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                        : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+                    } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
                   >
                     {category.name}
                   </button>
                 ))}
               </div>
-            )}
-            <div className="hidden sm:flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <button
-                  key={category.value}
-                  onClick={() => handleCategoryClick(category.value)}
-                  className={`${
-                    category.value === selectedCategory
-                      ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                      : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-                  } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-                >
-                  {category.name}
-                </button>
-              ))}
             </div>
-          </div>
 
-          {/* Кнопка для поиска */}
-          <button
-            className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
-            onClick={() => setShowSearch(!showSearch)}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z"></path>
-            </svg>
-          </button>
+            {/* Кнопка для поиска */}
+            <button
+              className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between ml-2"
+              onClick={() => setShowSearch(!showSearch)}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z"></path>
+              </svg>
+            </button>
+          </div>
 
           {/* Строка поиска - отображается при нажатии на кнопку на мобильных устройствах */}
           {showSearch && (
