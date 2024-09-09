@@ -2454,7 +2454,7 @@ const blogPosts: BlogPost[] = [
   },
 ];
 
-// Категории
+// Список категорий
 const categories = [
   { name: "Все", value: "Все" },
   { name: "Ошибки", value: "Ошибки" },
@@ -2472,7 +2472,7 @@ export default function Blog() {
   const postsPerPage = 8;
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  // Фильтрация постов на основе категории и поискового запроса
+  // Фильтрация постов на основе категории и поиска
   const filteredPosts = useMemo(() => {
     const filteredByCategory = selectedCategory === "Все" 
       ? blogPosts 
@@ -2486,7 +2486,7 @@ export default function Blog() {
     );
   }, [selectedCategory, searchTerm]);
 
-  // Вычисление общего числа страниц на основе отфильтрованных постов
+  // Вычисление общего числа страниц
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
   // Пагинация
@@ -2498,7 +2498,7 @@ export default function Blog() {
   // Обработка клика по категории
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1);  // При смене категории возвращаемся на первую страницу
+    setCurrentPage(1);  // Сброс на первую страницу при изменении категории
   }, []);
 
   // Обработка изменения страницы
@@ -2509,12 +2509,14 @@ export default function Blog() {
     setShowPopover(false);
   }, [totalPages]);
 
+  // Обработка клика по троеточию
   const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const rect = event.currentTarget.getBoundingClientRect();
     setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
     setShowPopover(true);
   };
 
+  // Логика скрытия popover при клике вне его
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
@@ -2531,7 +2533,7 @@ export default function Blog() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showPopover]);
 
-  // Рендеринг кнопок пагинации
+  // Отрисовка пагинации
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
     pagesToShow.push(1);
@@ -2605,7 +2607,7 @@ export default function Blog() {
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
-              setCurrentPage(1);  // Сбрасываем на первую страницу при изменении поиска
+              setCurrentPage(1);  // Сбрасываем страницу при изменении поиска
             }}
             className="ml-4 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
           />
@@ -2680,7 +2682,7 @@ export default function Blog() {
         </div>
       </div>
 
-      {/* Popover */}
+      {/* Поповер */}
       {showPopover && popoverPosition && (
         <div
           ref={popoverRef}
