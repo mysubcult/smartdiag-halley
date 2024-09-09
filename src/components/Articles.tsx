@@ -340,7 +340,7 @@ export default function Blog() {
                 </div>
               )}
               {/* Категории для ПК */}
-              <div className="hidden sm:flex flex-wrap gap-2">
+              <div className="hidden sm:flex flex-wrap gap-1">
                 {categories.map((category) => (
                   <button
                     key={category.value}
@@ -376,7 +376,7 @@ export default function Blog() {
                 placeholder="Поиск..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+                className="w-full p-1 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
               />
             </div>
           )}
@@ -388,7 +388,7 @@ export default function Blog() {
               placeholder="Поиск..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+              className="w-full p-1 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
             />
           </div>
         </div>
@@ -473,7 +473,7 @@ export default function Blog() {
             left: `${popoverPosition.left}px`,
           }}
         >
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-4 gap-1">
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <button
                 key={page}
