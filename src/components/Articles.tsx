@@ -307,8 +307,8 @@ export default function Blog() {
       <div className="max-w-max mx-auto px-6">
         {/* Контейнер для категорий и поиска */}
         <div
-          className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-2 sm:mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between"
-          style={{ padding: "8px", borderRadius: "8px", width: `calc(${longestCategory.length + 6}ch + 48px)` }} // Ограничим padding и установим фиксированную ширину
+          className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between"
+          style={{ width: `calc(${longestCategory.length + 6}ch + 48px)` }} // Ограничим padding и установим фиксированную ширину
         >
           {/* Категории и поиск */}
           <div className="flex items-center w-full sm:w-auto">
