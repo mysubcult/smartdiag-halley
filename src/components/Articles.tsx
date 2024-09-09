@@ -307,15 +307,14 @@ export default function Blog() {
       <div className="max-w-max mx-auto px-6">
         {/* Контейнер для категорий и поиска */}
         <div
-          className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between"
-          style={{ width: `calc(${longestCategory.length + 6}ch + 48px)` }} // Ограничим padding и установим фиксированную ширину
+          className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto"
         >
           {/* Категории и поиск */}
-          <div className="flex items-center w-full sm:w-auto">
+          <div className="flex items-center w-full sm:w-auto sm:flex-1">
             {/* Категории - выпадающий список для мобильных устройств */}
             <div className="relative sm:mr-4">
               <button
-                className="sm:hidden bg-white text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between" // Белая кнопка внутри серого контейнера
+                className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
                 onClick={() => setShowCategories(!showCategories)}
                 style={{ minWidth: `${longestCategory.length + 4}ch` }} // Динамическая ширина категории
               >
@@ -341,7 +340,7 @@ export default function Blog() {
                 </div>
               )}
               {/* Категории для ПК */}
-              <div className="hidden sm:flex flex-wrap gap-2 bg-white"> {/* Белый фон для категорий */}
+              <div className="hidden sm:flex flex-wrap gap-2">
                 {categories.map((category) => (
                   <button
                     key={category.value}
@@ -360,7 +359,7 @@ export default function Blog() {
 
             {/* Кнопка для поиска */}
             <button
-              className="sm:hidden bg-white text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
+              className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
               onClick={() => setShowSearch(!showSearch)}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
