@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect } from "react";
+import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -2466,125 +2466,110 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
+  const [showPopover, setShowPopover] = useState<boolean>(false);
+  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
 
-  const postsPerPage = 8; // Количество постов на страницу
-  const maxVisiblePages = 5; // Максимальное количество видимых страниц в пагинации
+  const postsPerPage = 8;
 
-  // 1. Фильтрация постов на основе выбранной категории и поискового запроса
-  useEffect(() => {
-    const filterPosts = () => {
-      const filteredByCategory =
-        selectedCategory === "Все"
-          ? blogPosts
-          : blogPosts.filter((post) => post.category === selectedCategory);
+  // Фильтрация постов по категории и поисковому запросу
+  const filteredPosts = useMemo(() => {
+    const filteredByCategory = selectedCategory === "Все"
+      ? blogPosts
+      : blogPosts.filter((post) => post.category === selectedCategory);
 
-      const filteredBySearchTerm = filteredByCategory.filter((post) =>
-        [post.title, post.excerpt, ...post.keywords]
-          .map((field) => field.toLowerCase())
-          .some((field) => field.includes(searchTerm.toLowerCase()))
-      );
-
-      setFilteredPosts(filteredBySearchTerm); // Сохраняем отфильтрованные посты
-      setCurrentPage(1); // Сбрасываем страницу на первую после фильтрации
-    };
-
-    filterPosts();
+    return filteredByCategory.filter(
+      (post) =>
+        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.keywords.some((keyword) => keyword.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
   }, [selectedCategory, searchTerm]);
 
-  // 2. Рассчитываем количество страниц на основе отфильтрованных постов
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
-
-  // 3. Получение постов для текущей страницы
+  
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
-    const endIndex = startIndex + postsPerPage;
-    return filteredPosts.slice(startIndex, endIndex);
+    return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  // 4. Обработчик изменения категории
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1); // Сбрасываем страницу при смене категории
+    setCurrentPage(1); // Сброс на первую страницу
   }, []);
 
-  // 5. Обработчик изменения страницы
   const handlePageChange = useCallback((page: number) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
+    setShowPopover(false);
   }, [totalPages]);
 
-  // 6. Логика для рендеринга сокращенной пагинации с выпадающим окном при нажатии на троеточие
-  const renderPagination = () => {
-    const pagesToShow: (string | number)[] = [];
-    const hiddenPagesLeft = currentPage - 1;
-    const hiddenPagesRight = totalPages - currentPage;
+  const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
+    setShowPopover(true);
+  };
 
-    pagesToShow.push(1); // Всегда показываем первую страницу
-
-    if (totalPages <= maxVisiblePages) {
-      // Если страниц меньше или равно максимальному числу отображаемых страниц
-      for (let i = 2; i <= totalPages; i++) {
-        pagesToShow.push(i);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+        setShowPopover(false);
       }
+    };
+
+    if (showPopover) {
+      document.addEventListener("mousedown", handleClickOutside);
     } else {
-      // Если страниц больше, показываем сокращенную версию с троеточиями
-      if (currentPage > 3) {
-        pagesToShow.push("...");
-      }
-
-      // Показать 2 страницы до и после текущей, если они существуют
-      const start = Math.max(2, currentPage - 1);
-      const end = Math.min(totalPages - 1, currentPage + 1);
-      for (let i = start; i <= end; i++) {
-        pagesToShow.push(i);
-      }
-
-      if (currentPage < totalPages - 2) {
-        pagesToShow.push("...");
-      }
-
-      pagesToShow.push(totalPages); // Всегда показываем последнюю страницу
+      document.removeEventListener("mousedown", handleClickOutside);
     }
 
-    return pagesToShow.map((page, index) => {
-      if (page === "...") {
-        return (
-          <span key={index} className="relative">
-            <button className="text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700 rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out">
-              ...
-            </button>
-            <div className="absolute z-10 mt-1 p-2 bg-white dark:bg-neutral-700 shadow-lg rounded-md">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-                <button
-                  key={p}
-                  onClick={() => handlePageChange(p)}
-                  className={`block px-4 py-2 text-sm text-neutral-900 dark:text-neutral-100 ${
-                    p === currentPage ? "bg-neutral-200 dark:bg-neutral-600" : ""
-                  }`}
-                >
-                  {p}
-                </button>
-              ))}
-            </div>
-          </span>
-        );
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showPopover]);
+
+  const renderPagination = () => {
+    const pagesToShow: (string | number)[] = [];
+    pagesToShow.push(1);
+
+    if (totalPages > 5) {
+      if (currentPage === 1) {
+        pagesToShow.push(2, 3, "...");
+      } else if (currentPage === totalPages) {
+        pagesToShow.push("...", totalPages - 2, totalPages - 1);
+      } else {
+        if (currentPage > 3) {
+          pagesToShow.push("...");
+        }
+        if (currentPage - 1 > 1) {
+          pagesToShow.push(currentPage - 1);
+        }
+        pagesToShow.push(currentPage);
+        if (currentPage + 1 < totalPages) {
+          pagesToShow.push(currentPage + 1);
+        }
+        if (currentPage < totalPages - 2) {
+          pagesToShow.push("...");
+        }
       }
-      return (
-        <button
-          key={index}
-          onClick={() => typeof page === "number" && handlePageChange(page)}
-          className={`${
-            page === currentPage
-              ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-              : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-          } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-        >
-          {page}
-        </button>
-      );
-    });
+    }
+
+    if (totalPages > 1 && !pagesToShow.includes(totalPages)) {
+      pagesToShow.push(totalPages);
+    }
+
+    return pagesToShow.map((page, index) => (
+      <button
+        key={index}
+        onClick={(event) => typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event)}
+        className={`${
+          page === currentPage
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${typeof page !== "number" ? "cursor-pointer" : ""}`}
+      >
+        {typeof page === "number" ? page : "..."}
+      </button>
+    ));
   };
 
   return (
@@ -2620,77 +2605,98 @@ export default function Blog() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-4 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
-        {paginatedPosts.length > 0 ? (
-          paginatedPosts.map(({ title, image, excerpt, link }) => (
-            <div
-              key={title}
-              className="rounded-lg overflow-hidden flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300 h-full"
-            >
-              <Link href={link}>
-                <div className="relative h-[200px]">
-                  <Image
-                    src={image}
-                    alt={title}
-                    layout="fill"
-                    className="w-full object-cover"
-                    priority={title === paginatedPosts[0].title}
-                    placeholder="blur"
-                    blurDataURL="/images/placeholder.png"
-                  />
-                </div>
-              </Link>
-              <div className="p-4 flex flex-col flex-grow">
-                <h3
-                  style={{
-                    minHeight: "3em",
-                    lineHeight: "1.5em",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    display: "-webkit-box",
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical",
-                  }}
-                  className="text-lg font-semibold mb-2"
-                >
-                  {title}
-                </h3>
-                <p
-                  style={{
-                    minHeight: "4.5em",
-                    lineHeight: "1.5em",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    display: "-webkit-box",
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: "vertical",
-                    flexGrow: 1,
-                  }}
-                  className="text-sm text-neutral-600 dark:text-neutral-400 mb-4"
-                >
-                  {excerpt}
-                </p>
-                <div className="mt-auto text-right">
-                  <Link href={link}>
-                    <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
-                      Читать далее
-                    </button>
-                  </Link>
-                </div>
+        {paginatedPosts.map(({ title, image, excerpt, link }) => (
+          <div
+            key={title}
+            className="rounded-lg overflow-hidden flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300 h-full"
+          >
+            <Link href={link}>
+              <div className="relative h-[200px]">
+                <Image
+                  src={image}
+                  alt={title}
+                  layout="fill"
+                  className="w-full object-cover"
+                  priority={title === paginatedPosts[0].title}
+                  placeholder="blur"
+                  blurDataURL="/images/placeholder.png"
+                />
+              </div>
+            </Link>
+            <div className="p-4 flex flex-col flex-grow">
+              <h3
+                style={{
+                  minHeight: "3em",
+                  lineHeight: "1.5em",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: "vertical",
+                }}
+                className="text-lg font-semibold mb-2"
+              >
+                {title}
+              </h3>
+              <p
+                style={{
+                  minHeight: "4.5em",
+                  lineHeight: "1.5em",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: "vertical",
+                  flexGrow: 1,
+                }}
+                className="text-sm text-neutral-600 dark:text-neutral-400 mb-4"
+              >
+                {excerpt}
+              </p>
+              <div className="mt-auto text-right">
+                <Link href={link}>
+                  <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
+                    Читать далее
+                  </button>
+                </Link>
               </div>
             </div>
-          ))
-        ) : (
-          <div className="text-center text-neutral-600 dark:text-neutral-400">
-            Посты не найдены
           </div>
-        )}
+        ))}
       </div>
 
       {/* Пагинация */}
-      {totalPages > 1 && (
-        <div className="max-w-max mx-auto px-6 pb-4">
-          <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
-            {renderPagination()}
+      <div className="max-w-max mx-auto px-6 pb-4">
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
+          {renderPagination()}
+        </div>
+      </div>
+
+      {/* Небольшой popover для выбора страницы */}
+      {showPopover && popoverPosition && (
+        <div
+          ref={popoverRef}
+          className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
+          style={{
+            position: "absolute",
+            top: `${popoverPosition.top}px`,
+            left: `${popoverPosition.left}px`,
+          }}
+        >
+          <div className="grid grid-cols-4 gap-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`${
+                  page === currentPage
+                    ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                } rounded-md py-2 px-3 transition-colors duration-300 ease-in-out`}
+              >
+                {page}
+              </button>
+            ))}
           </div>
         </div>
       )}
