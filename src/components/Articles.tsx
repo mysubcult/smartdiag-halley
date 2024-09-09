@@ -306,18 +306,18 @@ export default function Blog() {
 
       <div className="max-w-max mx-auto px-6">
         {/* Для десктопа и мобильной версии */}
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 gap-1 sm:mt-8 flex flex-wrap items-center sm:justify-between justify-start"> {/* Исправил чтобы строка поиска и категории были на одной строке */}
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 gap-1 sm:mt-8 flex items-center justify-between flex-wrap sm:flex-nowrap"> {/* Flex wrap в ПК */}
           
           {/* Контейнер для кнопок категорий и поиска */}
-          <div className="flex w-full justify-between items-center sm:justify-start">
+          <div className="flex items-center w-full sm:w-auto justify-between">
             {/* Категории - выпадающий список для мобильных устройств */}
-            <div className="relative sm:block w-full sm:w-auto">
+            <div className="relative sm:block sm:mr-4">
               <button
                 className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
                 onClick={() => setShowCategories(!showCategories)}
-                style={{ width: `${longestCategory.length + 2}ch` }} // Динамическая ширина категории
+                style={{ minWidth: `${longestCategory.length + 4}ch` }} // Динамическая ширина категории
               >
-                <span>{selectedCategory}</span> {/* Стрелочка рядом с категорией */}
+                <span>{selectedCategory}</span>
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
@@ -357,7 +357,7 @@ export default function Blog() {
 
             {/* Кнопка для поиска */}
             <button
-              className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between ml-2"
+              className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
               onClick={() => setShowSearch(!showSearch)}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -368,20 +368,20 @@ export default function Blog() {
 
           {/* Строка поиска - отображается при нажатии на кнопку на мобильных устройствах */}
           {showSearch && (
-            <div className="absolute w-full left-0 sm:hidden mt-2"> {/* Исправил положение строки поиска, теперь под категорией */}
+            <div className="absolute top-full left-0 w-full sm:hidden mt-2 z-10"> {/* Строка поиска открывается под кнопками */}
               <input
                 type="text"
                 placeholder="Поиск..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-                style={{ width: `${longestCategory.length + 2}ch` }} // Ширина поиска соответствует ширине категории
+                style={{ maxWidth: `${longestCategory.length + 4}ch` }} // Ширина поиска соответствует ширине категории
               />
             </div>
           )}
 
           {/* Строка поиска для ПК */}
-          <div className="hidden sm:block sm:ml-4 w-40"> {/* Теперь на одной строке с категориями */}
+          <div className="hidden sm:block w-40"> {/* Теперь на одной строке с категориями */}
             <input
               type="text"
               placeholder="Поиск..."
