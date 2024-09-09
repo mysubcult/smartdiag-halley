@@ -188,6 +188,8 @@ export default function Blog() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
+  const [showSearch, setShowSearch] = useState<boolean>(false); // Для отображения строки поиска
+  const [showCategories, setShowCategories] = useState<boolean>(false); // Для выпадающего списка категорий на мобильных устройствах
   const popoverRef = useRef<HTMLDivElement>(null);
 
   const postsPerPage = 8;
@@ -299,33 +301,79 @@ export default function Blog() {
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        {/* Обёртка для категорий и поиска с добавлением адаптивности */}
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 gap-1 sm:mt-8 flex flex-wrap items-center justify-between sm:flex-row flex-col">
+        {/* Для десктопа и мобильной версии */}
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 gap-1 sm:mt-8 flex flex-wrap items-center justify-between">
           
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <button
-                key={category.value}
-                onClick={() => handleCategoryClick(category.value)}
-                className={`${
-                  category.value === selectedCategory
-                    ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                    : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-                } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-              >
-                {category.name}
-              </button>
-            ))}
+          {/* Категории - выпадающий список для мобильных устройств */}
+          <div className="relative sm:block w-full sm:w-auto">
+            <button
+              className="sm:hidden bg-blue-500 text-white px-4 py-2 rounded-md"
+              onClick={() => setShowCategories(!showCategories)}
+            >
+              Категории
+            </button>
+            {showCategories && (
+              <div className="absolute z-50 w-full bg-white shadow-md rounded-md mt-2">
+                {categories.map((category) => (
+                  <button
+                    key={category.value}
+                    onClick={() => {
+                      handleCategoryClick(category.value);
+                      setShowCategories(false);
+                    }}
+                    className="block text-left w-full px-4 py-2 hover:bg-blue-100"
+                  >
+                    {category.name}
+                  </button>
+                ))}
+              </div>
+            )}
+            <div className="hidden sm:flex flex-wrap gap-2">
+              {categories.map((category) => (
+                <button
+                  key={category.value}
+                  onClick={() => handleCategoryClick(category.value)}
+                  className={`${
+                    category.value === selectedCategory
+                      ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                      : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+                  } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+                >
+                  {category.name}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Строка поиска с уменьшенным размером */}
-          <div className="w-full sm:w-auto mt-2 sm:mt-0">
+          {/* Кнопка для поиска */}
+          <button
+            className="sm:hidden bg-green-500 text-white px-4 py-2 rounded-md"
+            onClick={() => setShowSearch(!showSearch)}
+          >
+            Поиск
+          </button>
+
+          {/* Строка поиска - отображается при нажатии на кнопку на мобильных устройствах */}
+          {showSearch && (
+            <div className="w-full mt-2 sm:hidden">
+              <input
+                type="text"
+                placeholder="Поиск..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+              />
+            </div>
+          )}
+
+          {/* Строка поиска для ПК */}
+          <div className="hidden sm:block w-60">
             <input
               type="text"
               placeholder="Поиск..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full sm:w-60 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
             />
           </div>
         </div>
