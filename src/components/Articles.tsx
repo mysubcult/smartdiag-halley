@@ -307,13 +307,12 @@ export default function Blog() {
       <div className="max-w-max mx-auto px-6">
         {/* Контейнер для категорий и поиска */}
         <div
-          className={`relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-8 flex flex-col items-start sm:flex-row sm:items-center`}
-          style={{ width: `calc(${longestCategory.length + 6}ch + 48px)` }} // Фиксированная ширина с учетом категории и лупы
+          className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-2 sm:mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto"
         >
           {/* Категории и поиск */}
-          <div className="flex justify-between items-center w-full sm:w-auto">
+          <div className="flex items-center w-full sm:w-auto sm:flex-1">
             {/* Категории - выпадающий список для мобильных устройств */}
-            <div className="relative sm:block sm:mr-4">
+            <div className="relative sm:mr-4">
               <button
                 className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
                 onClick={() => setShowCategories(!showCategories)}
@@ -340,6 +339,22 @@ export default function Blog() {
                   ))}
                 </div>
               )}
+              {/* Категории для ПК */}
+              <div className="hidden sm:flex flex-wrap gap-2">
+                {categories.map((category) => (
+                  <button
+                    key={category.value}
+                    onClick={() => handleCategoryClick(category.value)}
+                    className={`${
+                      category.value === selectedCategory
+                        ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                        : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+                    } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+                  >
+                    {category.name}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Кнопка для поиска */}
@@ -353,7 +368,7 @@ export default function Blog() {
             </button>
           </div>
 
-          {/* Строка поиска - отображается под категориями и лупой */}
+          {/* Строка поиска для мобильных устройств */}
           {showSearch && (
             <div className="w-full mt-2 sm:hidden"> {/* Строка поиска появляется ниже, без изменения ширины контейнера */}
               <input
@@ -365,6 +380,17 @@ export default function Blog() {
               />
             </div>
           )}
+
+          {/* Строка поиска для ПК */}
+          <div className="hidden sm:block w-64 ml-4"> {/* Ширина строки поиска для ПК */}
+            <input
+              type="text"
+              placeholder="Поиск..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+            />
+          </div>
         </div>
       </div>
 
