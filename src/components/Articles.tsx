@@ -2505,7 +2505,7 @@ export default function Blog() {
 
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setSearchTerm(""); // Сброс поискового запроса при смене категории
+    setCurrentPage(1); // Сброс страницы при смене категории
   }, []);
 
   const handlePageChange = useCallback(
