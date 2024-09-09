@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -2454,7 +2454,6 @@ const blogPosts: BlogPost[] = [
   },
 ];
 
-// Список категорий
 const categories = [
   { name: "Все", value: "Все" },
   { name: "Ошибки", value: "Ошибки" },
@@ -2467,116 +2466,52 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [showPopover, setShowPopover] = useState<boolean>(false);
-  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
-  const postsPerPage = 8;
-  const popoverRef = useRef<HTMLDivElement>(null);
+  const postsPerPage = 8; // Лимит на число постов
 
-  // Фильтрация постов на основе категории и поиска
+  // Фильтрация постов по категории и поисковому запросу
   const filteredPosts = useMemo(() => {
-    const filteredByCategory = selectedCategory === "Все" 
-      ? blogPosts 
-      : blogPosts.filter(post => post.category === selectedCategory);
+    let filteredByCategory = blogPosts;
 
-    return filteredByCategory.filter(
-      post =>
+    // Фильтруем по категории
+    if (selectedCategory !== "Все") {
+      filteredByCategory = blogPosts.filter(post => post.category === selectedCategory);
+    }
+
+    // Фильтруем по поисковому запросу
+    if (searchTerm) {
+      return filteredByCategory.filter(post =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
         post.keywords.some(keyword => keyword.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
+      );
+    }
+
+    return filteredByCategory;
   }, [selectedCategory, searchTerm]);
 
-  // Вычисление общего числа страниц
+  // Пагинация: определяем, сколько страниц и какие посты показывать
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
-  // Пагинация
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  // Обработка клика по категории
-  const handleCategoryClick = useCallback((category: string) => {
+  // При выборе новой категории или изменении поискового запроса сбрасываем страницу на первую
+  const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1);  // Сброс на первую страницу при изменении категории
-  }, []);
+    setCurrentPage(1); // Сбрасываем на первую страницу
+  };
 
-  // Обработка изменения страницы
-  const handlePageChange = useCallback((page: number) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1); // Сбрасываем на первую страницу при изменении поискового запроса
+  };
+
+  const handlePageChange = (page: number) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
-    setShowPopover(false);
-  }, [totalPages]);
-
-  // Обработка клика по троеточию
-  const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
-    setShowPopover(true);
-  };
-
-  // Логика скрытия popover при клике вне его
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
-        setShowPopover(false);
-      }
-    };
-
-    if (showPopover) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showPopover]);
-
-  // Отрисовка пагинации
-  const renderPagination = () => {
-    const pagesToShow: (string | number)[] = [];
-    pagesToShow.push(1);
-
-    const hiddenPagesLeft = currentPage - 1;
-    const hiddenPagesRight = totalPages - currentPage;
-
-    if (totalPages > 5) {
-      if (currentPage === 1) {
-        pagesToShow.push(2, 3, "...");
-      } else if (currentPage === totalPages) {
-        pagesToShow.push("...", totalPages - 2, totalPages - 1);
-      } else if (hiddenPagesLeft > hiddenPagesRight) {
-        if (currentPage > 3) pagesToShow.push("...");
-        pagesToShow.push(currentPage - 1, currentPage);
-        if (currentPage + 1 < totalPages) pagesToShow.push(currentPage + 1);
-      } else {
-        if (currentPage - 1 > 1) pagesToShow.push(currentPage - 1);
-        pagesToShow.push(currentPage);
-        if (currentPage + 1 < totalPages) pagesToShow.push(currentPage + 1);
-        if (currentPage < totalPages - 2) pagesToShow.push("...");
-      }
-    }
-
-    if (totalPages > 1 && !pagesToShow.includes(totalPages)) {
-      pagesToShow.push(totalPages);
-    }
-
-    return pagesToShow.map((page, index) => (
-      <button
-        key={index}
-        onClick={(event) => typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event)}
-        className={`${
-          page === currentPage
-            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
-          typeof page !== "number" ? "cursor-pointer" : ""
-        }`}
-      >
-        {typeof page === "number" ? page : "..."}
-      </button>
-    ));
   };
 
   return (
@@ -2605,10 +2540,7 @@ export default function Blog() {
             type="text"
             placeholder="Поиск..."
             value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              setCurrentPage(1);  // Сбрасываем страницу при изменении поиска
-            }}
+            onChange={handleSearchChange}
             className="ml-4 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
           />
         </div>
@@ -2678,38 +2610,21 @@ export default function Blog() {
       {/* Пагинация */}
       <div className="max-w-max mx-auto px-6 pb-4">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
-          {renderPagination()}
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => handlePageChange(page)}
+              className={`${
+                page === currentPage
+                  ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                  : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+              } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+            >
+              {page}
+            </button>
+          ))}
         </div>
       </div>
-
-      {/* Поповер */}
-      {showPopover && popoverPosition && (
-        <div
-          ref={popoverRef}
-          className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
-          style={{
-            position: "absolute",
-            top: `${popoverPosition.top}px`,
-            left: `${popoverPosition.left}px`,
-          }}
-        >
-          <div className="grid grid-cols-4 gap-2">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={`${
-                  page === currentPage
-                    ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                    : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
-                } rounded-md py-2 px-3 transition-colors duration-300 ease-in-out`}
-              >
-                {page}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
