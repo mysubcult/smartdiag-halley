@@ -2466,18 +2466,18 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const postsPerPage = 8; // Лимит на число постов
+  const postsPerPage = 8; // Лимит постов на страницу
 
   // Фильтрация постов по категории и поисковому запросу
   const filteredPosts = useMemo(() => {
     let filteredByCategory = blogPosts;
 
-    // Фильтруем по категории
+    // Фильтруем по категории, если выбрано не "Все"
     if (selectedCategory !== "Все") {
       filteredByCategory = blogPosts.filter(post => post.category === selectedCategory);
     }
 
-    // Фильтруем по поисковому запросу
+    // Если есть поисковый запрос, фильтруем по поиску
     if (searchTerm) {
       return filteredByCategory.filter(post =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -2486,28 +2486,32 @@ export default function Blog() {
       );
     }
 
+    // Если поисковый запрос пустой, возвращаем только посты выбранной категории
     return filteredByCategory;
   }, [selectedCategory, searchTerm]);
 
-  // Пагинация: определяем, сколько страниц и какие посты показывать
+  // Определяем общее количество страниц
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
+  // Определяем посты для текущей страницы
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  // При выборе новой категории или изменении поискового запроса сбрасываем страницу на первую
+  // Обработка клика по категории
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1); // Сбрасываем на первую страницу
+    setCurrentPage(1);  // Сбрасываем на первую страницу при изменении категории
   };
 
+  // Обработка изменения поискового запроса
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1); // Сбрасываем на первую страницу при изменении поискового запроса
+    setCurrentPage(1);  // Сбрасываем на первую страницу при изменении поиска
   };
 
+  // Обработка смены страницы
   const handlePageChange = (page: number) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
