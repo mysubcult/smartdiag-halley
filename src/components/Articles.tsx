@@ -2466,7 +2466,7 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>(blogPosts);
+  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
   const postsPerPage = 8;
@@ -2631,72 +2631,80 @@ export default function Blog() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-4 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
-        {paginatedPosts.map(({ title, image, excerpt, link }) => (
-          <div
-            key={title}
-            className="rounded-lg overflow-hidden flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300 h-full"
-          >
-            <Link href={link}>
-              <div className="relative h-[200px]">
-                <Image
-                  src={image}
-                  alt={title}
-                  layout="fill"
-                  className="w-full object-cover"
-                  priority={title === paginatedPosts[0].title}
-                  placeholder="blur"
-                  blurDataURL="/images/placeholder.png"
-                />
-              </div>
-            </Link>
-            <div className="p-4 flex flex-col flex-grow">
-              <h3
-                style={{
-                  minHeight: "3em",
-                  lineHeight: "1.5em",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  display: "-webkit-box",
-                  WebkitLineClamp: 2,
-                  WebkitBoxOrient: "vertical",
-                }}
-                className="text-lg font-semibold mb-2"
-              >
-                {title}
-              </h3>
-              <p
-                style={{
-                  minHeight: "4.5em",
-                  lineHeight: "1.5em",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  display: "-webkit-box",
-                  WebkitLineClamp: 3,
-                  WebkitBoxOrient: "vertical",
-                  flexGrow: 1,
-                }}
-                className="text-sm text-neutral-600 dark:text-neutral-400 mb-4"
-              >
-                {excerpt}
-              </p>
-              <div className="mt-auto text-right">
-                <Link href={link}>
-                  <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
-                    Читать далее
-                  </button>
-                </Link>
+        {paginatedPosts.length > 0 ? (
+          paginatedPosts.map(({ title, image, excerpt, link }) => (
+            <div
+              key={title}
+              className="rounded-lg overflow-hidden flex flex-col border-neutral-300 border dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300 h-full"
+            >
+              <Link href={link}>
+                <div className="relative h-[200px]">
+                  <Image
+                    src={image}
+                    alt={title}
+                    layout="fill"
+                    className="w-full object-cover"
+                    priority={title === paginatedPosts[0].title}
+                    placeholder="blur"
+                    blurDataURL="/images/placeholder.png"
+                  />
+                </div>
+              </Link>
+              <div className="p-4 flex flex-col flex-grow">
+                <h3
+                  style={{
+                    minHeight: "3em",
+                    lineHeight: "1.5em",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                  }}
+                  className="text-lg font-semibold mb-2"
+                >
+                  {title}
+                </h3>
+                <p
+                  style={{
+                    minHeight: "4.5em",
+                    lineHeight: "1.5em",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: "vertical",
+                    flexGrow: 1,
+                  }}
+                  className="text-sm text-neutral-600 dark:text-neutral-400 mb-4"
+                >
+                  {excerpt}
+                </p>
+                <div className="mt-auto text-right">
+                  <Link href={link}>
+                    <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
+                      Читать далее
+                    </button>
+                  </Link>
+                </div>
               </div>
             </div>
+          ))
+        ) : (
+          <div className="text-center text-neutral-600 dark:text-neutral-400">
+            Посты не найдены
           </div>
-        ))}
+        )}
       </div>
 
       {/* Пагинация */}
-      <div className="max-w-max mx-auto px-6 pb-4">
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
-          {renderPagination()}
+      {totalPages > 1 && (
+        <div className="max-w-max mx-auto px-6 pb-4">
+          <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
+            {renderPagination()}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Небольшой popover для выбора страницы */}
       {showPopover && popoverPosition && (
