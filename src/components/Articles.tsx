@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaSearch, FaChevronDown } from "react-icons/fa"; // Импортируем иконки
 
 type BlogPost = {
   title: string;
@@ -311,7 +310,10 @@ export default function Blog() {
               className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full"
               onClick={() => setShowCategories(!showCategories)}
             >
-              {selectedCategory} <FaChevronDown className="ml-2" />
+              {selectedCategory} 
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
             </button>
             {showCategories && (
               <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2">
@@ -351,7 +353,9 @@ export default function Blog() {
             className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
             onClick={() => setShowSearch(!showSearch)}
           >
-            <FaSearch />
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z"></path>
+            </svg>
           </button>
 
           {/* Строка поиска - отображается при нажатии на кнопку на мобильных устройствах */}
