@@ -2454,7 +2454,7 @@ const blogPosts: BlogPost[] = [
   },
 ];
 
-// Categories list
+// Категории
 const categories = [
   { name: "Все", value: "Все" },
   { name: "Ошибки", value: "Ошибки" },
@@ -2472,37 +2472,36 @@ export default function Blog() {
   const postsPerPage = 8;
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  // Filtering posts based on category and search term
+  // Фильтрация постов на основе категории и поискового запроса
   const filteredPosts = useMemo(() => {
     const filteredByCategory = selectedCategory === "Все" 
       ? blogPosts 
       : blogPosts.filter(post => post.category === selectedCategory);
 
     return filteredByCategory.filter(
-      post => 
+      post =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
         post.keywords.some(keyword => keyword.toLowerCase().includes(searchTerm.toLowerCase()))
     );
   }, [selectedCategory, searchTerm]);
 
-  // Total pages based on the number of filtered posts
+  // Вычисление общего числа страниц на основе отфильтрованных постов
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
-  // Paginate posts
+  // Пагинация
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  // Handle category click
+  // Обработка клика по категории
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setSearchTerm("");  // Reset search when switching categories
-    setCurrentPage(1);  // Reset to the first page
+    setCurrentPage(1);  // При смене категории возвращаемся на первую страницу
   }, []);
 
-  // Handle page change
+  // Обработка изменения страницы
   const handlePageChange = useCallback((page: number) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
@@ -2532,10 +2531,10 @@ export default function Blog() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showPopover]);
 
-  // Render pagination buttons
+  // Рендеринг кнопок пагинации
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
-    pagesToShow.push(1); // Always show first page
+    pagesToShow.push(1);
 
     const hiddenPagesLeft = currentPage - 1;
     const hiddenPagesRight = totalPages - currentPage;
@@ -2606,7 +2605,7 @@ export default function Blog() {
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
-              setCurrentPage(1);  // Reset page when search term changes
+              setCurrentPage(1);  // Сбрасываем на первую страницу при изменении поиска
             }}
             className="ml-4 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
           />
@@ -2674,7 +2673,7 @@ export default function Blog() {
         ))}
       </div>
 
-      {/* Pagination */}
+      {/* Пагинация */}
       <div className="max-w-max mx-auto px-6 pb-4">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
           {renderPagination()}
