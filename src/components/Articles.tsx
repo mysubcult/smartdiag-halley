@@ -189,6 +189,7 @@ export default function Blog() {
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
 
   const postsPerPage = 8; // Количество постов на страницу
+  const maxVisiblePages = 5; // Максимальное количество видимых страниц в пагинации
 
   // 1. Фильтрация постов на основе выбранной категории и поискового запроса
   useEffect(() => {
@@ -205,6 +206,7 @@ export default function Blog() {
       );
 
       setFilteredPosts(filteredBySearchTerm); // Сохраняем отфильтрованные посты
+      setCurrentPage(1); // Сбрасываем страницу на первую после фильтрации
     };
 
     filterPosts();
@@ -223,7 +225,6 @@ export default function Blog() {
   // 4. Обработчик изменения категории
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1); // Сброс страницы при смене категории
   }, []);
 
   // 5. Обработчик изменения страницы
@@ -241,10 +242,29 @@ export default function Blog() {
 
     pagesToShow.push(1); // Всегда показываем первую страницу
 
-    if (totalPages > 1) {
+    if (totalPages <= maxVisiblePages) {
+      // Если страниц меньше или равно максимальному числу отображаемых страниц
       for (let i = 2; i <= totalPages; i++) {
         pagesToShow.push(i);
       }
+    } else {
+      // Если страниц больше, показываем сокращенную версию с троеточиями
+      if (currentPage > 3) {
+        pagesToShow.push("...");
+      }
+
+      // Показать 2 страницы до и после текущей, если они существуют
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      for (let i = start; i <= end; i++) {
+        pagesToShow.push(i);
+      }
+
+      if (currentPage < totalPages - 2) {
+        pagesToShow.push("...");
+      }
+
+      pagesToShow.push(totalPages); // Всегда показываем последнюю страницу
     }
 
     return pagesToShow.map((page, index) => (
