@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { FaSearch, FaChevronDown } from "react-icons/fa"; // Импортируем иконки
 
 type BlogPost = {
   title: string;
@@ -307,13 +308,13 @@ export default function Blog() {
           {/* Категории - выпадающий список для мобильных устройств */}
           <div className="relative sm:block w-full sm:w-auto">
             <button
-              className="sm:hidden bg-blue-500 text-white px-4 py-2 rounded-md"
+              className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full"
               onClick={() => setShowCategories(!showCategories)}
             >
-              Категории
+              {selectedCategory} <FaChevronDown className="ml-2" />
             </button>
             {showCategories && (
-              <div className="absolute z-50 w-full bg-white shadow-md rounded-md mt-2">
+              <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2">
                 {categories.map((category) => (
                   <button
                     key={category.value}
@@ -321,7 +322,7 @@ export default function Blog() {
                       handleCategoryClick(category.value);
                       setShowCategories(false);
                     }}
-                    className="block text-left w-full px-4 py-2 hover:bg-blue-100"
+                    className="block text-left w-full px-4 py-2 hover:bg-blue-100 dark:hover:bg-neutral-600"
                   >
                     {category.name}
                   </button>
@@ -347,10 +348,10 @@ export default function Blog() {
 
           {/* Кнопка для поиска */}
           <button
-            className="sm:hidden bg-green-500 text-white px-4 py-2 rounded-md"
+            className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
             onClick={() => setShowSearch(!showSearch)}
           >
-            Поиск
+            <FaSearch />
           </button>
 
           {/* Строка поиска - отображается при нажатии на кнопку на мобильных устройствах */}
@@ -367,7 +368,7 @@ export default function Blog() {
           )}
 
           {/* Строка поиска для ПК */}
-          <div className="hidden sm:block w-60">
+          <div className="hidden sm:block w-40"> {/* Уменьшил ширину на ПК */}
             <input
               type="text"
               placeholder="Поиск..."
