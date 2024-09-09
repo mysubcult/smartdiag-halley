@@ -298,7 +298,6 @@ export default function Blog() {
         {/* Контейнер для категорий и поиска */}
         <div
           className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto gap-2"
-          style={{ position: "relative", maxWidth: "100%" }} // Ограничиваем ширину контейнера
         >
           {/* Категории и поиск */}
           <div className="flex items-center w-full sm:w-auto sm:flex-1 gap-2">
@@ -456,11 +455,6 @@ export default function Blog() {
         <div
           ref={popoverRef}
           className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
-          style={{
-            position: "absolute",
-            top: `${popoverPosition.top}px`,
-            left: `${popoverPosition.left}px`,
-          }}
         >
           <div className="grid grid-cols-4 gap-2">
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
