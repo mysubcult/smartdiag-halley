@@ -306,10 +306,10 @@ export default function Blog() {
 
       <div className="max-w-max mx-auto px-6">
         {/* Для десктопа и мобильной версии */}
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 gap-1 sm:mt-8 flex items-center justify-between flex-wrap sm:flex-nowrap"> {/* Flex wrap в ПК */}
+        <div className={`relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 gap-1 sm:mt-8 flex flex-col items-start sm:flex-row sm:items-center`}> {/* Добавил flex-col для мобильной версии */}
           
           {/* Контейнер для кнопок категорий и поиска */}
-          <div className="relative flex items-center w-full sm:w-auto justify-between">
+          <div className="flex w-full justify-between sm:w-auto">
             {/* Категории - выпадающий список для мобильных устройств */}
             <div className="relative sm:block sm:mr-4">
               <button
@@ -364,20 +364,21 @@ export default function Blog() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z"></path>
               </svg>
             </button>
-
-            {/* Строка поиска - отображается при нажатии на кнопку на мобильных устройствах */}
-            {showSearch && (
-              <div className="absolute left-0 right-0 w-full sm:hidden mt-2 z-10 bg-neutral-200 dark:bg-neutral-800 p-2 rounded-lg"> {/* Строка поиска теперь внутри контейнера */}
-                <input
-                  type="text"
-                  placeholder="Поиск..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-                />
-              </div>
-            )}
           </div>
+
+          {/* Строка поиска - отображается при нажатии на кнопку на мобильных устройствах */}
+          {showSearch && (
+            <div className="w-full mt-2 sm:hidden"> {/* Строка поиска теперь растягивает контейнер вниз */}
+              <input
+                type="text"
+                placeholder="Поиск..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+                style={{ width: `calc(100% - 8px)` }} // Учитываем кнопку лупы и категорию
+              />
+            </div>
+          )}
 
           {/* Строка поиска для ПК */}
           <div className="hidden sm:block w-40"> {/* Теперь на одной строке с категориями */}
