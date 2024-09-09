@@ -205,7 +205,6 @@ export default function Blog() {
       );
 
       setFilteredPosts(filteredBySearchTerm); // Сохраняем отфильтрованные посты
-      setCurrentPage(1); // Сбрасываем страницу на первую после фильтрации
     };
 
     filterPosts();
@@ -224,6 +223,7 @@ export default function Blog() {
   // 4. Обработчик изменения категории
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
+    setCurrentPage(1); // Сброс страницы при смене категории
   }, []);
 
   // 5. Обработчик изменения страницы
@@ -241,34 +241,10 @@ export default function Blog() {
 
     pagesToShow.push(1); // Всегда показываем первую страницу
 
-    // Отображаем сокращенную пагинацию с троеточиями
-    if (totalPages > 5) {
-      if (currentPage === 1) {
-        pagesToShow.push(2, 3, "...");
-      } else if (currentPage === totalPages) {
-        pagesToShow.push("...", totalPages - 2, totalPages - 1);
-      } else if (hiddenPagesLeft > hiddenPagesRight) {
-        if (currentPage > 3) {
-          pagesToShow.push("...");
-        }
-        pagesToShow.push(currentPage - 1, currentPage);
-        if (currentPage + 1 < totalPages) {
-          pagesToShow.push(currentPage + 1);
-        }
-      } else {
-        if (currentPage - 1 > 1) {
-          pagesToShow.push(currentPage - 1);
-        }
-        pagesToShow.push(currentPage, currentPage + 1);
-        if (currentPage < totalPages - 2) {
-          pagesToShow.push("...");
-        }
+    if (totalPages > 1) {
+      for (let i = 2; i <= totalPages; i++) {
+        pagesToShow.push(i);
       }
-    }
-
-    // Всегда показываем последнюю страницу
-    if (totalPages > 1 && !pagesToShow.includes(totalPages)) {
-      pagesToShow.push(totalPages);
     }
 
     return pagesToShow.map((page, index) => (
