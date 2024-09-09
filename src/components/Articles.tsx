@@ -2,16 +2,15 @@ import React, { useState, useMemo, useCallback, useRef, useEffect } from "react"
 import Image from "next/image";
 import Link from "next/link";
 
-type BlogPost = {
-  title: string;
-  image: string;
-  excerpt: string;
-  link: string;
-  category: string;
-  keywords: string[];
-};
+const categories = [
+  { name: "Все", value: "Все" },
+  { name: "Ошибки", value: "Ошибки" },
+  { name: "Установка ПО", value: "Установка ПО" },
+  { name: "Безопасность", value: "Безопасность" },
+  { name: "Рекомендации", value: "Рекомендации" },
+];
 
-const blogPosts: BlogPost[] = [
+const blogPosts = [
   {
     "title": "Как справиться с ошибкой при открытии архива",
     "image": "/images/blog/post1.jpg",
@@ -174,14 +173,6 @@ const blogPosts: BlogPost[] = [
   }
 ];
 
-const categories = [
-  { name: "Все", value: "Все" },
-  { name: "Ошибки", value: "Ошибки" },
-  { name: "Установка ПО", value: "Установка ПО" },
-  { name: "Безопасность", value: "Безопасность" },
-  { name: "Рекомендации", value: "Рекомендации" },
-];
-
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -192,7 +183,6 @@ export default function Blog() {
   const [showCategories, setShowCategories] = useState<boolean>(false); // Для выпадающего списка категорий на мобильных устройствах
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  // Найдем длину самого длинного слова в категориях
   const longestCategory = categories.reduce((max, category) => 
     category.name.length > max.length ? category.name : max, categories[0].name);
 
@@ -307,39 +297,12 @@ export default function Blog() {
       <div className="max-w-max mx-auto px-6">
         {/* Контейнер для категорий и поиска */}
         <div
-          className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto"
+          className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto"
         >
           {/* Категории и поиск */}
           <div className="flex items-center w-full sm:w-auto sm:flex-1">
-            {/* Категории - выпадающий список для мобильных устройств */}
+            {/* Категории для ПК */}
             <div className="relative sm:mr-4">
-              <button
-                className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
-                onClick={() => setShowCategories(!showCategories)}
-                style={{ minWidth: `${longestCategory.length + 4}ch` }} // Динамическая ширина категории
-              >
-                <span>{selectedCategory}</span>
-                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </button>
-              {showCategories && (
-                <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2">
-                  {categories.map((category) => (
-                    <button
-                      key={category.value}
-                      onClick={() => {
-                        handleCategoryClick(category.value);
-                        setShowCategories(false);
-                      }}
-                      className="block text-left w-full px-4 py-2 hover:bg-blue-100 dark:hover:bg-neutral-600"
-                    >
-                      {category.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-              {/* Категории для ПК */}
               <div className="hidden sm:flex flex-wrap gap-1">
                 {categories.map((category) => (
                   <button
@@ -381,8 +344,8 @@ export default function Blog() {
             </div>
           )}
 
-          {/* Строка поиска для ПК */}
-          <div className="hidden sm:block w-64 ml-4"> {/* Ширина строки поиска для ПК */}
+          {/* Строка поиска для ПК с уменьшенной шириной */}
+          <div className="hidden sm:block w-40 ml-4"> {/* Ширина строки поиска для ПК */}
             <input
               type="text"
               placeholder="Поиск..."
@@ -455,14 +418,12 @@ export default function Blog() {
         ))}
       </div>
 
-      {/* Пагинация */}
       <div className="max-w-max mx-auto px-6 pb-4">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
           {renderPagination()}
         </div>
       </div>
 
-      {/* Небольшой popover для выбора страницы */}
       {showPopover && popoverPosition && (
         <div
           ref={popoverRef}
