@@ -192,6 +192,10 @@ export default function Blog() {
   const [showCategories, setShowCategories] = useState<boolean>(false); // Для выпадающего списка категорий на мобильных устройствах
   const popoverRef = useRef<HTMLDivElement>(null);
 
+  // Найдем длину самого длинного слова в категориях
+  const longestCategory = categories.reduce((max, category) => 
+    category.name.length > max.length ? category.name : max, categories[0].name);
+
   const postsPerPage = 8;
 
   const filteredPosts = useMemo(() => {
@@ -311,6 +315,7 @@ export default function Blog() {
               <button
                 className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full"
                 onClick={() => setShowCategories(!showCategories)}
+                style={{ width: `${longestCategory.length + 2}ch` }} // Динамическая ширина категории
               >
                 {selectedCategory} 
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -363,7 +368,7 @@ export default function Blog() {
 
           {/* Строка поиска - отображается при нажатии на кнопку на мобильных устройствах */}
           {showSearch && (
-            <div className="w-full mt-2 sm:hidden">
+            <div className="w-full sm:hidden" style={{ width: `${longestCategory.length + 2}ch` }}>
               <input
                 type="text"
                 placeholder="Поиск..."
