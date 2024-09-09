@@ -2468,6 +2468,7 @@ export default function Blog() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
   const postsPerPage = 8;
+  const maxVisiblePages = 5;
 
   // 1. Фильтрация постов на основе выбранной категории и поискового запроса
   useEffect(() => {
@@ -2511,6 +2512,63 @@ export default function Blog() {
       setCurrentPage(page);
     }
   }, [totalPages]);
+
+  // 6. Логика для рендеринга сокращенной пагинации
+  const renderPagination = () => {
+    const pagesToShow: (string | number)[] = [];
+    const hiddenPagesLeft = currentPage - 1;
+    const hiddenPagesRight = totalPages - currentPage;
+
+    // Всегда показываем первую страницу
+    pagesToShow.push(1);
+
+    // Если страниц больше, чем нужно для отображения
+    if (totalPages > maxVisiblePages) {
+      // Если текущая страница - первая
+      if (currentPage === 1) {
+        pagesToShow.push(2, 3, "...");
+      } else if (currentPage === totalPages) {
+        pagesToShow.push("...", totalPages - 2, totalPages - 1);
+      } else if (hiddenPagesLeft > hiddenPagesRight) {
+        if (currentPage > 3) {
+          pagesToShow.push("...");
+        }
+        pagesToShow.push(currentPage - 1, currentPage);
+        if (currentPage + 1 < totalPages) {
+          pagesToShow.push(currentPage + 1);
+        }
+      } else {
+        if (currentPage - 1 > 1) {
+          pagesToShow.push(currentPage - 1);
+        }
+        pagesToShow.push(currentPage, currentPage + 1);
+        if (currentPage < totalPages - 2) {
+          pagesToShow.push("...");
+        }
+      }
+    }
+
+    // Показываем последнюю страницу
+    if (totalPages > 1 && !pagesToShow.includes(totalPages)) {
+      pagesToShow.push(totalPages);
+    }
+
+    return pagesToShow.map((page, index) => (
+      <button
+        key={index}
+        onClick={() => typeof page === "number" && handlePageChange(page)}
+        className={`${
+          page === currentPage
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
+          typeof page !== "number" ? "cursor-pointer" : ""
+        }`}
+      >
+        {typeof page === "number" ? page : "..."}
+      </button>
+    ));
+  };
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
@@ -2615,19 +2673,7 @@ export default function Blog() {
       {totalPages > 1 && (
         <div className="max-w-max mx-auto px-6 pb-4">
           <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
-            {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={`${
-                  page === currentPage
-                    ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                    : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-                } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-              >
-                {page}
-              </button>
-            ))}
+            {renderPagination()}
           </div>
         </div>
       )}
