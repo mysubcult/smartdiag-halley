@@ -297,11 +297,11 @@ export default function Blog() {
       <div className="max-w-max mx-auto px-6">
         {/* Контейнер для категорий и поиска */}
         <div
-          className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto" // Установил фиксированную ширину
-          style={{ maxWidth: "100%" }} // Максимальная ширина для предотвращения увеличения
+          className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto gap-2"
+          style={{ position: "relative", maxWidth: "100%" }} // Ограничиваем ширину контейнера
         >
           {/* Категории и поиск */}
-          <div className="flex items-center w-full sm:w-auto sm:flex-1 gap-2"> {/* минимальный зазор между элементами */}
+          <div className="flex items-center w-full sm:w-auto sm:flex-1 gap-2">
             {/* Категории для мобильных устройств */}
             <div className="relative sm:mr-4">
               <button
@@ -361,13 +361,13 @@ export default function Blog() {
 
           {/* Строка поиска для мобильных устройств */}
           {showSearch && (
-            <div className="w-full sm:w-auto mt-2 sm:hidden relative"> {/* Появление строки поиска без увеличения контейнера */}
+            <div className="absolute w-full top-full left-0 mt-1"> {/* Абсолютно позиционируем строку поиска */}
               <input
                 type="text"
                 placeholder="Поиск..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 relative z-10"
+                className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
               />
             </div>
           )}
