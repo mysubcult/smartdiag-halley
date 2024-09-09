@@ -360,13 +360,13 @@ export default function Blog() {
 
           {/* Строка поиска для мобильных устройств */}
           {showSearch && (
-            <div className="w-full sm:w-auto mt-2 sm:hidden relative"> {/* Появление строки поиска без увеличения контейнера */}
+            <div className="w-full sm:w-auto mt-2 sm:hidden"> {/* Появление строки поиска без увеличения контейнера */}
               <input
                 type="text"
                 placeholder="Поиск..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 absolute top-10 left-0 z-10"
+                className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 relative z-10"
               />
             </div>
           )}
