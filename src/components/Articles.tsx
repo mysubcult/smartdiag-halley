@@ -305,11 +305,13 @@ export default function Blog() {
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        {/* Для десктопа и мобильной версии */}
-        <div className={`relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 gap-1 sm:mt-8 flex flex-col items-start sm:flex-row sm:items-center`}> {/* Добавил flex-col для мобильной версии */}
-          
-          {/* Контейнер для кнопок категорий и поиска */}
-          <div className="flex w-full justify-between sm:w-auto">
+        {/* Контейнер для категорий и поиска */}
+        <div
+          className={`relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-8 flex flex-col items-start sm:flex-row sm:items-center`}
+          style={{ width: `calc(${longestCategory.length + 6}ch + 48px)` }} // Фиксированная ширина с учетом категории и лупы
+        >
+          {/* Категории и поиск */}
+          <div className="flex justify-between items-center w-full sm:w-auto">
             {/* Категории - выпадающий список для мобильных устройств */}
             <div className="relative sm:block sm:mr-4">
               <button
@@ -338,21 +340,6 @@ export default function Blog() {
                   ))}
                 </div>
               )}
-              <div className="hidden sm:flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <button
-                    key={category.value}
-                    onClick={() => handleCategoryClick(category.value)}
-                    className={`${
-                      category.value === selectedCategory
-                        ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                        : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-                    } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-                  >
-                    {category.name}
-                  </button>
-                ))}
-              </div>
             </div>
 
             {/* Кнопка для поиска */}
@@ -366,30 +353,18 @@ export default function Blog() {
             </button>
           </div>
 
-          {/* Строка поиска - отображается при нажатии на кнопку на мобильных устройствах */}
+          {/* Строка поиска - отображается под категориями и лупой */}
           {showSearch && (
-            <div className="w-full mt-2 sm:hidden"> {/* Строка поиска теперь растягивает контейнер вниз */}
+            <div className="w-full mt-2 sm:hidden"> {/* Строка поиска появляется ниже, без изменения ширины контейнера */}
               <input
                 type="text"
                 placeholder="Поиск..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-                style={{ width: `calc(100% - 8px)` }} // Учитываем кнопку лупы и категорию
               />
             </div>
           )}
-
-          {/* Строка поиска для ПК */}
-          <div className="hidden sm:block w-40"> {/* Теперь на одной строке с категориями */}
-            <input
-              type="text"
-              placeholder="Поиск..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-            />
-          </div>
         </div>
       </div>
 
