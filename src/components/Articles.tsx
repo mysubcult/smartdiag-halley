@@ -297,7 +297,8 @@ export default function Blog() {
       <div className="max-w-max mx-auto px-6">
         {/* Контейнер для категорий и поиска */}
         <div
-          className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto gap-2" // убрал зазор между "Рекомендации" и поиском
+          className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto" // Установил фиксированную ширину
+          style={{ maxWidth: "100%" }} // Максимальная ширина для предотвращения увеличения
         >
           {/* Категории и поиск */}
           <div className="flex items-center w-full sm:w-auto sm:flex-1 gap-2"> {/* минимальный зазор между элементами */}
@@ -360,7 +361,7 @@ export default function Blog() {
 
           {/* Строка поиска для мобильных устройств */}
           {showSearch && (
-            <div className="w-full sm:w-auto mt-2 sm:hidden"> {/* Появление строки поиска без увеличения контейнера */}
+            <div className="w-full sm:w-auto mt-2 sm:hidden relative"> {/* Появление строки поиска без увеличения контейнера */}
               <input
                 type="text"
                 placeholder="Поиск..."
