@@ -2454,6 +2454,7 @@ const blogPosts: BlogPost[] = [
   },
 ];
 
+// Categories list
 const categories = [
   { name: "Все", value: "Все" },
   { name: "Ошибки", value: "Ошибки" },
@@ -2468,37 +2469,37 @@ export default function Blog() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
-  const postsPerPage = 8; // Ensure this limit is respected
-
+  const postsPerPage = 8;
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  // Filter posts based on category and search term
+  // Filtering posts based on category and search term
   const filteredPosts = useMemo(() => {
     const filteredByCategory = selectedCategory === "Все" 
       ? blogPosts 
-      : blogPosts.filter((post) => post.category === selectedCategory);
+      : blogPosts.filter(post => post.category === selectedCategory);
 
     return filteredByCategory.filter(
-      (post) =>
+      post => 
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.keywords.some((keyword) => keyword.toLowerCase().includes(searchTerm.toLowerCase()))
+        post.keywords.some(keyword => keyword.toLowerCase().includes(searchTerm.toLowerCase()))
     );
   }, [selectedCategory, searchTerm]);
 
-  // Total number of pages
+  // Total pages based on the number of filtered posts
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
-  // Get posts for the current page
+  // Paginate posts
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
-  // Handle category change
+  // Handle category click
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1); // Reset to the first page when switching categories
+    setSearchTerm("");  // Reset search when switching categories
+    setCurrentPage(1);  // Reset to the first page
   }, []);
 
   // Handle page change
@@ -2531,9 +2532,10 @@ export default function Blog() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showPopover]);
 
+  // Render pagination buttons
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
-    pagesToShow.push(1);
+    pagesToShow.push(1); // Always show first page
 
     const hiddenPagesLeft = currentPage - 1;
     const hiddenPagesRight = totalPages - currentPage;
@@ -2544,24 +2546,14 @@ export default function Blog() {
       } else if (currentPage === totalPages) {
         pagesToShow.push("...", totalPages - 2, totalPages - 1);
       } else if (hiddenPagesLeft > hiddenPagesRight) {
-        if (currentPage > 3) {
-          pagesToShow.push("...");
-        }
+        if (currentPage > 3) pagesToShow.push("...");
         pagesToShow.push(currentPage - 1, currentPage);
-        if (currentPage + 1 < totalPages) {
-          pagesToShow.push(currentPage + 1);
-        }
+        if (currentPage + 1 < totalPages) pagesToShow.push(currentPage + 1);
       } else {
-        if (currentPage - 1 > 1) {
-          pagesToShow.push(currentPage - 1);
-        }
+        if (currentPage - 1 > 1) pagesToShow.push(currentPage - 1);
         pagesToShow.push(currentPage);
-        if (currentPage + 1 < totalPages) {
-          pagesToShow.push(currentPage + 1);
-        }
-        if (currentPage < totalPages - 2) {
-          pagesToShow.push("...");
-        }
+        if (currentPage + 1 < totalPages) pagesToShow.push(currentPage + 1);
+        if (currentPage < totalPages - 2) pagesToShow.push("...");
       }
     }
 
@@ -2612,7 +2604,10 @@ export default function Blog() {
             type="text"
             placeholder="Поиск..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setCurrentPage(1);  // Reset page when search term changes
+            }}
             className="ml-4 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
           />
         </div>
@@ -2679,12 +2674,14 @@ export default function Blog() {
         ))}
       </div>
 
+      {/* Pagination */}
       <div className="max-w-max mx-auto px-6 pb-4">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
           {renderPagination()}
         </div>
       </div>
 
+      {/* Popover */}
       {showPopover && popoverPosition && (
         <div
           ref={popoverRef}
