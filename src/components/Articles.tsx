@@ -8,7 +8,7 @@ type BlogPost = {
   excerpt: string;
   link: string;
   category: string;
-  keywords: string[]; // Ключевые слова для поиска
+  keywords: string[];
 };
 
 const blogPosts: BlogPost[] = [
@@ -2454,7 +2454,6 @@ const blogPosts: BlogPost[] = [
   },
 ];
 
-// Определяем список категорий
 const categories = [
   { name: "Все", value: "Все" },
   { name: "Ошибки", value: "Ошибки" },
@@ -2469,12 +2468,15 @@ export default function Blog() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
-  const postsPerPage = 8;
+  const postsPerPage = 8; // Ensure this limit is respected
+
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  // 1. Рассчитываем общее количество постов и страниц на основе категории и поиска
+  // Filter posts based on category and search term
   const filteredPosts = useMemo(() => {
-    const filteredByCategory = selectedCategory === "Все" ? blogPosts : blogPosts.filter((post) => post.category === selectedCategory);
+    const filteredByCategory = selectedCategory === "Все" 
+      ? blogPosts 
+      : blogPosts.filter((post) => post.category === selectedCategory);
 
     return filteredByCategory.filter(
       (post) =>
@@ -2484,21 +2486,24 @@ export default function Blog() {
     );
   }, [selectedCategory, searchTerm]);
 
-  // 2. Ограничиваем количество страниц числом постов
-  const totalPages = Math.ceil(filteredPosts.length / postsPerPage); // Округляем в большую сторону
+  // Total number of pages
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
+  // Get posts for the current page
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
   }, [currentPage, filteredPosts]);
 
+  // Handle category change
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1);
+    setCurrentPage(1); // Reset to the first page when switching categories
   }, []);
 
+  // Handle page change
   const handlePageChange = useCallback((page: number) => {
-    if (page > 0 && page <= totalPages) { // Убедимся, что страница в пределах допустимого диапазона
+    if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
     setShowPopover(false);
@@ -2526,38 +2531,27 @@ export default function Blog() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showPopover]);
 
-  // 3. Логика динамического отображения троеточий
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
-
-    // Всегда показываем первую страницу
     pagesToShow.push(1);
 
-    // Определяем количество скрытых страниц слева и справа
     const hiddenPagesLeft = currentPage - 1;
     const hiddenPagesRight = totalPages - currentPage;
 
     if (totalPages > 5) {
-      // Для первой страницы показываем 1, 2, 3, ..., если больше страниц
       if (currentPage === 1) {
         pagesToShow.push(2, 3, "...");
-      } 
-      // Для последней страницы показываем 25, 26, 27
-      else if (currentPage === totalPages) {
+      } else if (currentPage === totalPages) {
         pagesToShow.push("...", totalPages - 2, totalPages - 1);
-      }
-      else if (hiddenPagesLeft > hiddenPagesRight) {
-        // Если слева скрыто больше страниц, показываем троеточие слева
+      } else if (hiddenPagesLeft > hiddenPagesRight) {
         if (currentPage > 3) {
           pagesToShow.push("...");
         }
-        pagesToShow.push(currentPage - 1);
-        pagesToShow.push(currentPage);
+        pagesToShow.push(currentPage - 1, currentPage);
         if (currentPage + 1 < totalPages) {
           pagesToShow.push(currentPage + 1);
         }
       } else {
-        // Если справа скрыто больше страниц, показываем троеточие справа
         if (currentPage - 1 > 1) {
           pagesToShow.push(currentPage - 1);
         }
@@ -2571,7 +2565,6 @@ export default function Blog() {
       }
     }
 
-    // Всегда показываем последнюю страницу, если страниц больше одной
     if (totalPages > 1 && !pagesToShow.includes(totalPages)) {
       pagesToShow.push(totalPages);
     }
@@ -2686,14 +2679,12 @@ export default function Blog() {
         ))}
       </div>
 
-      {/* Пагинация */}
       <div className="max-w-max mx-auto px-6 pb-4">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
           {renderPagination()}
         </div>
       </div>
 
-      {/* Небольшой popover для выбора страницы */}
       {showPopover && popoverPosition && (
         <div
           ref={popoverRef}
