@@ -299,28 +299,35 @@ export default function Blog() {
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center sm:mt-8 p-1 gap-1">
-          {categories.map((category) => (
-            <button
-              key={category.value}
-              onClick={() => handleCategoryClick(category.value)}
-              className={`${
-                category.value === selectedCategory
-                  ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                  : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-              } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-            >
-              {category.name}
-            </button>
-          ))}
+        {/* Обёртка для категорий и поиска с добавлением адаптивности */}
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 gap-1 sm:mt-8 flex flex-wrap items-center justify-between sm:flex-row flex-col">
+          
+          <div className="flex flex-wrap gap-2">
+            {categories.map((category) => (
+              <button
+                key={category.value}
+                onClick={() => handleCategoryClick(category.value)}
+                className={`${
+                  category.value === selectedCategory
+                    ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+                } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
 
-          <input
-            type="text"
-            placeholder="Поиск..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="ml-4 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-          />
+          {/* Строка поиска с уменьшенным размером */}
+          <div className="w-full sm:w-auto mt-2 sm:mt-0">
+            <input
+              type="text"
+              placeholder="Поиск..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full sm:w-60 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+            />
+          </div>
         </div>
       </div>
 
