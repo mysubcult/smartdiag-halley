@@ -192,7 +192,6 @@ export default function Blog() {
 
   const postsPerPage = 8;
 
-  // Фильтрация постов по категории и поисковому запросу
   const filteredPosts = useMemo(() => {
     const filteredByCategory = selectedCategory === "Все"
       ? blogPosts
@@ -252,24 +251,25 @@ export default function Blog() {
     pagesToShow.push(1);
 
     if (totalPages > 5) {
-      if (currentPage === 1) {
+      if (currentPage <= 2) {
         pagesToShow.push(2, 3, "...");
-      } else if (currentPage === totalPages) {
+      } else if (currentPage >= totalPages - 1) {
         pagesToShow.push("...", totalPages - 2, totalPages - 1);
       } else {
         if (currentPage > 3) {
           pagesToShow.push("...");
         }
-        if (currentPage - 1 > 1) {
-          pagesToShow.push(currentPage - 1);
-        }
-        pagesToShow.push(currentPage);
+        pagesToShow.push(currentPage - 1, currentPage);
         if (currentPage + 1 < totalPages) {
           pagesToShow.push(currentPage + 1);
         }
         if (currentPage < totalPages - 2) {
           pagesToShow.push("...");
         }
+      }
+    } else {
+      for (let i = 2; i <= totalPages; i++) {
+        pagesToShow.push(i);
       }
     }
 
