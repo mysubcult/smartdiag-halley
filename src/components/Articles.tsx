@@ -179,20 +179,19 @@ export default function Blog() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
-  const [showSearch, setShowSearch] = useState<boolean>(false); // Для отображения строки поиска
-  const [showCategories, setShowCategories] = useState<boolean>(false); // Для выпадающего списка категорий на мобильных устройствах
+  const [showSearch, setShowSearch] = useState<boolean>(false);
+  const [showCategories, setShowCategories] = useState<boolean>(false);
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  const longestCategory = categories.reduce((max, category) => 
-    category.name.length > max.length ? category.name : max, categories[0].name);
+  const longestCategory = categories.reduce(
+    (max, category) => (category.name.length > max.length ? category.name : max),
+    categories[0].name
+  );
 
   const postsPerPage = 8;
 
   const filteredPosts = useMemo(() => {
-    const filteredByCategory = selectedCategory === "Все"
-      ? blogPosts
-      : blogPosts.filter((post) => post.category === selectedCategory);
-
+    const filteredByCategory = selectedCategory === "Все" ? blogPosts : blogPosts.filter((post) => post.category === selectedCategory);
     return filteredByCategory.filter(
       (post) =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -202,7 +201,7 @@ export default function Blog() {
   }, [selectedCategory, searchTerm]);
 
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
-  
+
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
@@ -210,7 +209,7 @@ export default function Blog() {
 
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
-    setCurrentPage(1); // Сброс на первую страницу
+    setCurrentPage(1);
   }, []);
 
   const handlePageChange = useCallback((page: number) => {
@@ -276,7 +275,7 @@ export default function Blog() {
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={(event) => typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event)}
+        onClick={(event) => (typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event))}
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
@@ -291,26 +290,26 @@ export default function Blog() {
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
-        <h2 className="text-4xl font-bold text-center">Статьи 📰</h2>
+        <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
+        <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+          В этом разделе вы можете найти статьи и решения по программному обеспечению. Определите нужную категорию и найдите статью по проблеме.
+        </p>
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        {/* Контейнер для категорий и поиска */}
-        <div
-          className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto gap-2"
-        >
-          {/* Категории и поиск */}
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto gap-2">
+          {/* Category and search implementation */}
           <div className="flex items-center w-full sm:w-auto sm:flex-1 gap-2">
-            {/* Категории для мобильных устройств */}
+            {/* Categories */}
             <div className="relative sm:mr-4">
               <button
                 className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
                 onClick={() => setShowCategories(!showCategories)}
-                style={{ minWidth: `${longestCategory.length + 4}ch` }} // Динамическая ширина категории
+                style={{ minWidth: `${longestCategory.length + 4}ch` }}
               >
                 <span>{selectedCategory}</span>
-                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               {showCategories && (
@@ -329,7 +328,6 @@ export default function Blog() {
                   ))}
                 </div>
               )}
-              {/* Категории для ПК */}
               <div className="hidden sm:flex flex-wrap gap-1">
                 {categories.map((category) => (
                   <button
@@ -347,20 +345,17 @@ export default function Blog() {
               </div>
             </div>
 
-            {/* Кнопка для поиска */}
             <button
               className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
               onClick={() => setShowSearch(!showSearch)}
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z"></path>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z" />
               </svg>
             </button>
           </div>
-
-          {/* Строка поиска для мобильных устройств */}
           {showSearch && (
-            <div className="absolute w-full top-full left-0 mt-1"> {/* Абсолютно позиционируем строку поиска */}
+            <div className="absolute w-full top-full left-0 mt-1">
               <input
                 type="text"
                 placeholder="Поиск..."
@@ -370,9 +365,7 @@ export default function Blog() {
               />
             </div>
           )}
-
-          {/* Строка поиска для ПК с уменьшенной шириной */}
-          <div className="hidden sm:block w-40"> {/* Ширина строки поиска для ПК */}
+          <div className="hidden sm:block w-40">
             <input
               type="text"
               placeholder="Поиск..."
@@ -384,7 +377,7 @@ export default function Blog() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-4 grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {paginatedPosts.map(({ title, image, excerpt, link }) => (
           <div
             key={title}
