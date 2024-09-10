@@ -281,6 +281,7 @@ export default function Blog() {
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
             : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
         } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${typeof page !== "number" ? "cursor-pointer" : ""}`}
+        aria-label={typeof page === "number" ? `Перейти на страницу ${page}` : "Показать другие страницы"}
       >
         {typeof page === "number" ? page : "..."}
       </button>
@@ -296,17 +297,17 @@ export default function Blog() {
         </p>
       </div>
 
-      {/* Обновление отступов как в soft */}
-      <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8"> {/* Применены те же отступы что и в soft */}
+      {/* Category and search implementation */}
+      <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto gap-2">
-          {/* Category and search implementation */}
+          {/* Categories */}
           <div className="flex items-center w-full sm:w-auto sm:flex-1 gap-2">
-            {/* Categories */}
             <div className="relative sm:mr-4">
               <button
                 className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
                 onClick={() => setShowCategories(!showCategories)}
                 style={{ minWidth: `${longestCategory.length + 4}ch` }}
+                aria-expanded={showCategories}
               >
                 <span>{selectedCategory}</span>
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -314,7 +315,7 @@ export default function Blog() {
                 </svg>
               </button>
               {showCategories && (
-                <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2">
+                <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2 transition-all ease-in-out duration-300">
                   {categories.map((category) => (
                     <button
                       key={category.value}
@@ -323,6 +324,7 @@ export default function Blog() {
                         setShowCategories(false);
                       }}
                       className="block text-left w-full px-4 py-2 hover:bg-blue-100 dark:hover:bg-neutral-600"
+                      aria-label={`Выбрать категорию ${category.name}`}
                     >
                       {category.name}
                     </button>
@@ -339,6 +341,7 @@ export default function Blog() {
                         ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                         : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
                     } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+                    aria-label={`Выбрать категорию ${category.name}`}
                   >
                     {category.name}
                   </button>
@@ -349,6 +352,7 @@ export default function Blog() {
             <button
               className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
               onClick={() => setShowSearch(!showSearch)}
+              aria-expanded={showSearch}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z" />
@@ -394,6 +398,7 @@ export default function Blog() {
                   priority={title === paginatedPosts[0].title}
                   placeholder="blur"
                   blurDataURL="/images/placeholder.png"
+                  loading="lazy"
                 />
               </div>
             </Link>
@@ -439,7 +444,7 @@ export default function Blog() {
         ))}
       </div>
 
-      <div className="max-w-max mx-auto px-6 pb-4">
+      <div className="max-w-max mx-auto px-6 pb-4 sticky bottom-0 bg-gray-50 dark:bg-neutral-900 z-10">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
           {renderPagination()}
         </div>
@@ -460,6 +465,7 @@ export default function Blog() {
                     ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                     : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
                 } rounded-md py-2 px-3 transition-colors duration-300 ease-in-out`}
+                aria-label={`Перейти на страницу ${page}`}
               >
                 {page}
               </button>
