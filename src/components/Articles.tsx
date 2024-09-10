@@ -301,7 +301,7 @@ export default function Blog() {
 
       {/* Category and search implementation */}
       <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
-        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto gap-2">
+        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto">
           {/* Categories */}
           <div className="flex items-center w-full sm:w-auto sm:flex-1 gap-2">
             <div className="relative sm:mr-4">
