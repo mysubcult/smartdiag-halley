@@ -177,10 +177,10 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [showSearch, setShowSearch] = useState<boolean>(false);
-  const [showCategories, setShowCategories] = useState<boolean>(false);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
+  const [showSearch, setShowSearch] = useState<boolean>(false);
+  const [showCategories, setShowCategories] = useState<boolean>(false);
   const popoverRef = useRef<HTMLDivElement>(null);
 
   const longestCategory = useMemo(() => {
@@ -277,7 +277,7 @@ export default function Blog() {
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={(event) => typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event)}
+        onClick={(event) => (typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event))}
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
@@ -300,8 +300,8 @@ export default function Blog() {
       </div>
 
       {/* Category and search implementation */}
-      <div className={`max-w-max mx-auto px-6 mt-6 sm:mt-8 transition-all duration-300`}>
-        <div className={`relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto gap-2 transition-all duration-300`}>
+      <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
+        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto gap-2">
           {/* Categories */}
           <div className="flex items-center w-full sm:w-auto sm:flex-1 gap-2">
             <div className="relative sm:mr-4">
@@ -361,8 +361,17 @@ export default function Blog() {
               </svg>
             </button>
           </div>
-
-          {/* Search input for desktop */}
+          {showSearch && (
+            <div className="absolute w-full top-full left-0 mt-1">
+              <input
+                type="text"
+                placeholder="Поиск..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+              />
+            </div>
+          )}
           <div className="hidden sm:block w-40">
             <input
               type="text"
@@ -370,21 +379,6 @@ export default function Blog() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-            />
-          </div>
-
-          {/* Search input for mobile with animation */}
-          <div
-            className={`w-full overflow-hidden transition-max-height duration-300 ease-in-out ${
-              showSearch ? "max-h-20" : "max-h-0"
-            }`}
-          >
-            <input
-              type="text"
-              placeholder="Поиск..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-2 mt-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
             />
           </div>
         </div>
@@ -454,7 +448,7 @@ export default function Blog() {
 
       <div className="max-w-max mx-auto px-6 pb-4">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
-          {renderPagination()}
+          {renderPagination}
         </div>
       </div>
 
@@ -462,7 +456,6 @@ export default function Blog() {
         <div
           ref={popoverRef}
           className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
-          style={{ top: popoverPosition?.top, left: popoverPosition?.left }}
         >
           <div className="grid grid-cols-4 gap-2">
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
