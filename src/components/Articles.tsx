@@ -312,7 +312,14 @@ export default function Blog() {
                 aria-expanded={showCategories}
               >
                 <span>{selectedCategory}</span>
-                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className={`w-4 h-4 ml-2 transform transition-transform duration-300 ${
+                    showCategories ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
@@ -361,17 +368,22 @@ export default function Blog() {
               </svg>
             </button>
           </div>
-          {showSearch && (
-            <div className="absolute w-full top-full left-0 mt-1">
-              <input
-                type="text"
-                placeholder="Поиск..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-              />
-            </div>
-          )}
+          {/* Search bar with smooth animation */}
+          <div
+            className={`absolute top-full left-0 w-full mt-1 overflow-hidden transition-all duration-300 ${
+              showSearch ? "max-h-40" : "max-h-0"
+            }`}
+          >
+            <input
+              type="text"
+              placeholder="Поиск..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+            />
+          </div>
+
+          {/* Static search bar for larger screens */}
           <div className="hidden sm:block w-40">
             <input
               type="text"
