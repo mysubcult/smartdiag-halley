@@ -28,6 +28,22 @@ const blogPosts = [
     "keywords": ["программа не запускается", "исчезают ярлыки", "причины ошибок запуска"]
   },
   {
+    "title": "Как справиться с ошибкой при открытии архива",
+    "image": "/images/blog/post1.jpg",
+    "excerpt": "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов.",
+    "link": "/blog/post1",
+    "category": "Ошибки",
+    "keywords": ["ошибки архива", "проблемы с архивом", "ошибка открытия архива", "архив"]
+  },
+  {
+    "title": "Проблемы с запуском программы",
+    "image": "/images/blog/post1.jpg",
+    "excerpt": "Что делать, если программа не запускается или исчезают ярлыки?",
+    "link": "/blog/post2",
+    "category": "Ошибки",
+    "keywords": ["программа не запускается", "исчезают ярлыки", "причины ошибок запуска"]
+  },
+  {
     "title": "Как справиться с зависанием программы во время установки",
     "image": "/images/blog/post1.jpg",
     "excerpt": "Пошаговое руководство для устранения проблем, связанных с зависанием программ.",
@@ -179,8 +195,11 @@ export default function Blog() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [showSearch, setShowSearch] = useState<boolean>(false);
+  const [showPopover, setShowPopover] = useState<boolean>(false);
+  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
   const categoryRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
 
   // Handle click outside for both dropdown and search
   useEffect(() => {
@@ -190,6 +209,9 @@ export default function Blog() {
       }
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setShowSearch(false);
+      }
+      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+        setShowPopover(false);
       }
     };
 
@@ -232,7 +254,14 @@ export default function Blog() {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
+    setShowPopover(false);
   }, [totalPages]);
+
+  const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
+    setShowPopover(true);
+  };
 
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
@@ -268,14 +297,14 @@ export default function Blog() {
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={() => typeof page === "number" ? handlePageChange(page) : null}
+        onClick={(event) => (typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event))}
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
             : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
         } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${typeof page !== "number" ? "cursor-pointer" : ""}`}
       >
-        {page}
+        {typeof page === "number" ? page : "..."}
       </button>
     ));
   };
@@ -420,6 +449,30 @@ export default function Blog() {
           {renderPagination()}
         </div>
       </div>
+
+      {showPopover && popoverPosition && (
+        <div
+          ref={popoverRef}
+          className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
+          style={{ top: popoverPosition.top, left: popoverPosition.left }}
+        >
+          <div className="grid grid-cols-4 gap-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`${
+                  page === currentPage
+                    ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                } rounded-md py-2 px-3 transition-colors duration-300 ease-in-out`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
