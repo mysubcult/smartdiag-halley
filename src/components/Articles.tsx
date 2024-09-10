@@ -294,19 +294,21 @@ export default function Blog() {
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 flex justify-between items-center">
           <div ref={categoryRef} className="relative">
             <button
-              className="bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center"
+              className="bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full"
               onClick={() => setShowCategories(!showCategories)}
               style={{ minWidth: `${longestCategory.length + 4}ch` }}
             >
               <span>{selectedCategory}</span>
-              <svg
-                className={`w-4 h-4 ml-2 transition-transform duration-300 ${showCategories ? "rotate-180" : "rotate-0"}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-              </svg>
+              <div className="ml-auto">
+                <svg
+                  className={`w-4 h-4 transition-transform duration-300 ${showCategories ? "rotate-180" : "rotate-0"}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
             </button>
             {showCategories && (
               <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2">
@@ -326,9 +328,9 @@ export default function Blog() {
             )}
           </div>
 
-          <div ref={searchRef} className="relative">
+          <div ref={searchRef} className="relative flex-1">
             <button
-              className="bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center"
+              className="bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-end w-full"
               onClick={() => setShowSearch(!showSearch)}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
