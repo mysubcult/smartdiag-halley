@@ -290,7 +290,7 @@ export default function Blog() {
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
-        <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
+        <h2 className="text-4xl font-bold text-center">Статьи 💻</h2>
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
           В этом разделе вы можете найти статьи и решения по программному обеспечению. Определите нужную категорию и найдите статью по проблеме.
         </p>
