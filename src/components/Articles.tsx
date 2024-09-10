@@ -20,14 +20,6 @@ const blogPosts = [
     "keywords": ["ошибки архива", "проблемы с архивом", "ошибка открытия архива", "архив"]
   },
   {
-    "title": "Проблемы с запуском программы",
-    "image": "/images/blog/post1.jpg",
-    "excerpt": "Что делать, если программа не запускается или исчезают ярлыки?",
-    "link": "/blog/post2",
-    "category": "Ошибки",
-    "keywords": ["программа не запускается", "исчезают ярлыки", "причины ошибок запуска"]
-  },
-  {
     "title": "Как справиться с ошибкой при открытии архива",
     "image": "/images/blog/post1.jpg",
     "excerpt": "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов.",
@@ -201,7 +193,7 @@ export default function Blog() {
   const searchRef = useRef<HTMLDivElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  // Handle click outside for both dropdown and search
+  // Обработка кликов вне области меню
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (categoryRef.current && !categoryRef.current.contains(event.target as Node)) {
@@ -320,7 +312,8 @@ export default function Blog() {
 
       {/* Categories and search */}
       <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
-        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 flex justify-between items-center">
+        {/* Выпадающий список для мобильной версии */}
+        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 flex justify-between items-center sm:hidden">
           <div ref={categoryRef} className="relative">
             <button
               className="bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full"
@@ -378,6 +371,23 @@ export default function Blog() {
               </div>
             )}
           </div>
+        </div>
+
+        {/* Горизонтальное меню для ПК версии */}
+        <div className="hidden sm:flex flex-wrap gap-1">
+          {categories.map((category) => (
+            <button
+              key={category.value}
+              onClick={() => handleCategoryClick(category.value)}
+              className={`${
+                category.value === selectedCategory
+                  ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                  : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+              } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+            >
+              {category.name}
+            </button>
+          ))}
         </div>
       </div>
 
