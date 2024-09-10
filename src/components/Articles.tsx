@@ -370,16 +370,16 @@ export default function Blog() {
           </div>
           {/* Search bar with smooth animation */}
           <div
-            className={`absolute top-full left-0 w-full mt-1 overflow-hidden transition-all duration-300 ${
+            className={`relative w-full transition-all duration-300 ${
               showSearch ? "max-h-40" : "max-h-0"
-            }`}
+            } overflow-hidden`}
           >
             <input
               type="text"
               placeholder="Поиск..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 mt-2"
             />
           </div>
 
