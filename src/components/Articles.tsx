@@ -177,31 +177,29 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [showPopover, setShowPopover] = useState<boolean>(false);
-  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
-  const [showSearch, setShowSearch] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
-  const popoverRef = useRef<HTMLDivElement>(null);
-
-  const longestCategory = categories.reduce(
-    (max, category) => (category.name.length > max.length ? category.name : max),
-    categories[0].name
-  );
 
   const postsPerPage = 8;
 
+  // Фильтрация постов по категории и поисковому запросу
   const filteredPosts = useMemo(() => {
-    const filteredByCategory = selectedCategory === "Все" ? blogPosts : blogPosts.filter((post) => post.category === selectedCategory);
+    const filteredByCategory =
+      selectedCategory === "Все"
+        ? blogPosts
+        : blogPosts.filter((post) => post.category === selectedCategory);
     return filteredByCategory.filter(
       (post) =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.keywords.some((keyword) => keyword.toLowerCase().includes(searchTerm.toLowerCase()))
+        post.keywords.some((keyword) =>
+          keyword.toLowerCase().includes(searchTerm.toLowerCase())
+        )
     );
   }, [selectedCategory, searchTerm]);
 
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
+  // Пагинация
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
@@ -210,37 +208,19 @@ export default function Blog() {
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1);
+    setShowCategories(false); // Закрыть выпадающий список после выбора категории
   }, []);
 
-  const handlePageChange = useCallback((page: number) => {
-    if (page > 0 && page <= totalPages) {
-      setCurrentPage(page);
-    }
-    setShowPopover(false);
-  }, [totalPages]);
-
-  const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
-    setShowPopover(true);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
-        setShowPopover(false);
+  const handlePageChange = useCallback(
+    (page: number) => {
+      if (page > 0 && page <= totalPages) {
+        setCurrentPage(page);
       }
-    };
+    },
+    [totalPages]
+  );
 
-    if (showPopover) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showPopover]);
-
+  // Рендер кнопок пагинации
   const renderPagination = () => {
     const pagesToShow: (string | number)[] = [];
     pagesToShow.push(1);
@@ -275,12 +255,14 @@ export default function Blog() {
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={(event) => (typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event))}
+        onClick={() =>
+          typeof page === "number" ? handlePageChange(page) : null
+        }
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
             : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${typeof page !== "number" ? "cursor-pointer" : ""}`}
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
       >
         {typeof page === "number" ? page : "..."}
       </button>
@@ -290,82 +272,92 @@ export default function Blog() {
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
-        <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
+        <h2 className="text-4xl font-bold text-center">
+          Программы для оборудования 💻
+        </h2>
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          В этом разделе вы можете найти статьи и решения по программному обеспечению. Определите нужную категорию и найдите статью по проблеме.
+          В этом разделе вы можете найти статьи и решения по программному
+          обеспечению. Определите нужную категорию и найдите статью по проблеме.
         </p>
       </div>
 
-      {/* Обновление отступов как в soft */}
-      <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8"> {/* Применены те же отступы что и в soft */}
-        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto gap-2">
-          {/* Category and search implementation */}
-          <div className="flex items-center w-full sm:w-auto sm:flex-1 gap-2">
-            {/* Categories */}
-            <div className="relative sm:mr-4">
-              <button
-                className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
-                onClick={() => setShowCategories(!showCategories)}
-                style={{ minWidth: `${longestCategory.length + 4}ch` }}
+      {/* Категории и поиск */}
+      <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
+        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto gap-2">
+          {/* Мобильная версия выпадающего списка */}
+          <div className="relative sm:hidden">
+            <button
+              className="bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
+              onClick={() => setShowCategories(!showCategories)}
+            >
+              <span>{selectedCategory}</span>
+              <svg
+                className="w-4 h-4 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                <span>{selectedCategory}</span>
-                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {showCategories && (
-                <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2">
-                  {categories.map((category) => (
-                    <button
-                      key={category.value}
-                      onClick={() => {
-                        handleCategoryClick(category.value);
-                        setShowCategories(false);
-                      }}
-                      className="block text-left w-full px-4 py-2 hover:bg-blue-100 dark:hover:bg-neutral-600"
-                    >
-                      {category.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-              <div className="hidden sm:flex flex-wrap gap-1">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            {showCategories && (
+              <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2">
                 {categories.map((category) => (
                   <button
                     key={category.value}
                     onClick={() => handleCategoryClick(category.value)}
-                    className={`${
-                      category.value === selectedCategory
-                        ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                        : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-                    } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+                    className="block text-left w-full px-4 py-2 hover:bg-blue-100 dark:hover:bg-neutral-600"
                   >
                     {category.name}
                   </button>
                 ))}
               </div>
-            </div>
+            )}
+          </div>
 
+          {/* Веб-версия списка категорий */}
+          <div className="hidden sm:flex flex-wrap gap-1">
+            {categories.map((category) => (
+              <button
+                key={category.value}
+                onClick={() => handleCategoryClick(category.value)}
+                className={`${
+                  category.value === selectedCategory
+                    ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+                } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Поиск */}
+          <div className="relative sm:hidden">
             <button
-              className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
-              onClick={() => setShowSearch(!showSearch)}
+              className="bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
+              onClick={() => setShowCategories(!showCategories)}
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z"
+                />
               </svg>
             </button>
           </div>
-          {showSearch && (
-            <div className="absolute w-full top-full left-0 mt-1">
-              <input
-                type="text"
-                placeholder="Поиск..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-              />
-            </div>
-          )}
           <div className="hidden sm:block w-40">
             <input
               type="text"
@@ -378,6 +370,7 @@ export default function Blog() {
         </div>
       </div>
 
+      {/* Список статей */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {paginatedPosts.map(({ title, image, excerpt, link }) => (
           <div
@@ -439,34 +432,12 @@ export default function Blog() {
         ))}
       </div>
 
+      {/* Пагинация */}
       <div className="max-w-max mx-auto px-6 pb-4">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
           {renderPagination()}
         </div>
       </div>
-
-      {showPopover && popoverPosition && (
-        <div
-          ref={popoverRef}
-          className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
-        >
-          <div className="grid grid-cols-4 gap-2">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={`${
-                  page === currentPage
-                    ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                    : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
-                } rounded-md py-2 px-3 transition-colors duration-300 ease-in-out`}
-              >
-                {page}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
