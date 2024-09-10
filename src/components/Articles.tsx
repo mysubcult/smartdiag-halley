@@ -183,10 +183,12 @@ export default function Blog() {
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  const longestCategory = categories.reduce(
-    (max, category) => (category.name.length > max.length ? category.name : max),
-    categories[0].name
-  );
+  const longestCategory = useMemo(() => {
+    return categories.reduce(
+      (max, category) => (category.name.length > max.length ? category.name : max),
+      categories[0].name
+    );
+  }, []);
 
   const postsPerPage = 8;
 
@@ -241,7 +243,7 @@ export default function Blog() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showPopover]);
 
-  const renderPagination = () => {
+  const renderPagination = useMemo(() => {
     const pagesToShow: (string | number)[] = [];
     pagesToShow.push(1);
 
@@ -286,7 +288,7 @@ export default function Blog() {
         {typeof page === "number" ? page : "..."}
       </button>
     ));
-  };
+  }, [currentPage, totalPages]);
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
@@ -444,9 +446,9 @@ export default function Blog() {
         ))}
       </div>
 
-      <div className="max-w-max mx-auto px-6 pb-4 sticky bottom-0 bg-gray-50 dark:bg-neutral-900 z-10">
+      <div className="max-w-max mx-auto px-6 pb-4">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
-          {renderPagination()}
+          {renderPagination}
         </div>
       </div>
 
