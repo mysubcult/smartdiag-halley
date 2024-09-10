@@ -296,8 +296,8 @@ export default function Blog() {
         </p>
       </div>
 
-      {/* Updated without extra padding */}
-      <div className="max-w-max mx-auto px-6"> {/* Matching soft */}
+      {/* Обновил отступы для соответствия soft */}
+      <div className="max-w-max mx-auto px-6 pt-12"> {/* Применил отступы аналогичные soft */}
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto gap-2">
           {/* Category and search implementation */}
           <div className="flex items-center w-full sm:w-auto sm:flex-1 gap-2">
