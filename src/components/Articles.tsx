@@ -340,6 +340,7 @@ export default function Blog() {
                   ))}
                 </div>
               )}
+              {/* Static desktop version */}
               <div className="hidden sm:flex flex-wrap gap-1">
                 {categories.map((category) => (
                   <button
@@ -368,9 +369,9 @@ export default function Blog() {
               </svg>
             </button>
           </div>
-          {/* Search bar with smooth animation */}
+          {/* Search bar with smooth animation for mobile */}
           <div
-            className={`relative w-full transition-all duration-300 ${
+            className={`relative w-full sm:hidden transition-all duration-300 ${
               showSearch ? "max-h-40" : "max-h-0"
             } overflow-hidden`}
           >
