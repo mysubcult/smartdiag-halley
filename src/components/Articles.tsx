@@ -182,7 +182,6 @@ export default function Blog() {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const popoverRef = useRef<HTMLDivElement>(null);
-  const categoryDropdownRef = useRef<HTMLDivElement>(null); // Ref for category dropdown
 
   const postsPerPage = 8;
 
@@ -228,20 +227,21 @@ export default function Blog() {
     setShowPopover(true);
   };
 
-  const handleOutsideClick = useCallback((event: MouseEvent) => {
-    // Close category dropdown when clicking outside
-    if (categoryDropdownRef.current && !categoryDropdownRef.current.contains(event.target as Node)) {
-      setShowCategories(false);
-    }
-    if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
-      setShowPopover(false);
-    }
-  }, []);
-
   useEffect(() => {
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, [handleOutsideClick]);
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+        setShowPopover(false);
+      }
+    };
+
+    if (showPopover) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showPopover]);
 
   const renderPagination = useMemo(() => {
     const pagesToShow: (string | number)[] = [];
@@ -304,7 +304,7 @@ export default function Blog() {
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto">
           {/* Categories */}
           <div className="flex items-center w-full sm:w-auto sm:flex-1 gap-2">
-            <div className="relative sm:mr-4" ref={categoryDropdownRef}>
+            <div className="relative sm:mr-4">
               <button
                 className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
                 onClick={() => setShowCategories(!showCategories)}
@@ -359,14 +359,10 @@ export default function Blog() {
               </div>
             </div>
 
-            {/* Search button with animation */}
             <button
-              className={`sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between transition-transform duration-200 ease-in-out transform ${
-                showSearch ? "scale-95" : ""
-              }`}
+              className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between"
               onClick={() => setShowSearch(!showSearch)}
               aria-expanded={showSearch}
-              onMouseDown={() => setShowSearch(!showSearch)} // Trigger the animation on press
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z" />
