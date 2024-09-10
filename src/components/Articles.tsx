@@ -300,8 +300,12 @@ export default function Blog() {
       </div>
 
       {/* Category and search implementation */}
-      <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
-        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto gap-2">
+      <div className={`max-w-max mx-auto px-6 mt-6 sm:mt-8 transition-all duration-300 ${showSearch ? "py-6" : ""}`}>
+        <div
+          className={`relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto gap-2 transition-all duration-300 ${
+            showSearch ? "h-auto" : ""
+          }`}
+        >
           {/* Categories */}
           <div className="flex items-center w-full sm:w-auto sm:flex-1 gap-2">
             <div className="relative sm:mr-4">
@@ -362,7 +366,7 @@ export default function Blog() {
             </button>
           </div>
           {showSearch && (
-            <div className="absolute w-full top-full left-0 mt-1">
+            <div className="w-full mt-2 sm:mt-0">
               <input
                 type="text"
                 placeholder="Поиск..."
@@ -372,15 +376,6 @@ export default function Blog() {
               />
             </div>
           )}
-          <div className="hidden sm:block w-40">
-            <input
-              type="text"
-              placeholder="Поиск..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-            />
-          </div>
         </div>
       </div>
 
