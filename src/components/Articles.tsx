@@ -347,18 +347,20 @@ export default function Blog() {
             />
           </div>
 
-          {/* Search input for mobile */}
-          {showSearch && (
-            <div className="w-full mt-2 sm:mt-0">
-              <input
-                type="text"
-                placeholder="Поиск..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-              />
-            </div>
-          )}
+          {/* Search input for mobile with animation */}
+          <div
+            className={`w-full overflow-hidden transition-max-height duration-300 ease-in-out ${
+              showSearch ? "max-h-20" : "max-h-0"
+            }`}
+          >
+            <input
+              type="text"
+              placeholder="Поиск..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full p-2 mt-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+            />
+          </div>
         </div>
       </div>
 
