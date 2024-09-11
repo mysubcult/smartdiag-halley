@@ -37,6 +37,7 @@ export default function BlogPost() {
       top: 0,
       behavior: 'smooth',
     });
+    handleMenuClick(null); // Возвращаем начальный заголовок
   };
 
   if (!isClient) return null;
