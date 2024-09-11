@@ -305,15 +305,14 @@ export default function Blog() {
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto">
           {/* Categories */}
           <div className="flex items-center w-full sm:w-auto flex-grow">
-            <div className="relative sm:mr-4">
+            <div className="relative sm:mr-4" style={{ minWidth: `${longestCategory.length + 4}ch` }}>
               <button
-                className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full"
+                className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full relative"
                 onClick={() => setShowCategories(!showCategories)}
-                style={{ minWidth: `${longestCategory.length + 4}ch` }}
               >
                 <span>{selectedCategory}</span>
                 <svg
-                  className={`w-4 h-4 ml-2 transform transition-transform duration-300 ${
+                  className={`w-4 h-4 absolute right-2 transform transition-transform duration-300 ${
                     showCategories ? "rotate-180" : ""
                   }`}
                   fill="none"
