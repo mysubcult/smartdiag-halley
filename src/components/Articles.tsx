@@ -180,6 +180,10 @@ export default function Blog() {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
 
+  const [showPopover, setShowPopover] = useState<boolean>(false);
+  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
   const postsPerPage = 8;
 
   const longestCategory = useMemo(() => {
@@ -215,7 +219,30 @@ export default function Blog() {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
+    setShowPopover(false);
   }, [totalPages]);
+
+  const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
+    setShowPopover(true);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+        setShowPopover(false);
+      }
+    };
+
+    if (showPopover) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showPopover]);
 
   const renderPagination = useMemo(() => {
     const pagesToShow: (string | number)[] = [];
@@ -251,12 +278,12 @@ export default function Blog() {
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={(event) => (typeof page === "number" ? handlePageChange(page) : event.preventDefault())}
+        onClick={(event) => (typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event))}
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
             : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${typeof page !== "number" ? "cursor-pointer" : ""}`}
         aria-label={typeof page === "number" ? `Перейти на страницу ${page}` : "Показать другие страницы"}
       >
         {typeof page === "number" ? page : "..."}
@@ -446,6 +473,31 @@ export default function Blog() {
           {renderPagination}
         </div>
       </div>
+
+      {showPopover && popoverPosition && (
+        <div
+          ref={popoverRef}
+          className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
+          style={{ top: popoverPosition.top, left: popoverPosition.left }}
+        >
+          <div className="grid grid-cols-4 gap-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`${
+                  page === currentPage
+                    ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                } rounded-md py-2 px-3 transition-colors duration-300 ease-in-out`}
+                aria-label={`Перейти на страницу ${page}`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
