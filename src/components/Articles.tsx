@@ -179,37 +179,22 @@ export default function Blog() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
-  const [isMobileView, setIsMobileView] = useState<boolean>(false);
 
-  const categoriesContainerRef = useRef<HTMLDivElement>(null);
+  const [showPopover, setShowPopover] = useState<boolean>(false);
+  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
   const postsPerPage = 8;
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (categoriesContainerRef.current) {
-        const containerWidth = categoriesContainerRef.current.offsetWidth;
-        const totalWidth = Array.from(categoriesContainerRef.current.children).reduce(
-          (acc, child) => acc + (child as HTMLElement).offsetWidth,
-          0
-        );
-        setIsMobileView(totalWidth > containerWidth);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Проверка при первой загрузке компонента
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+  const longestCategory = useMemo(() => {
+    return categories.reduce(
+      (max, category) => (category.name.length > max.length ? category.name : max),
+      categories[0].name
+    );
   }, []);
 
   const filteredPosts = useMemo(() => {
-    const filteredByCategory =
-      selectedCategory === "Все"
-        ? blogPosts
-        : blogPosts.filter((post) => post.category === selectedCategory);
-
+    const filteredByCategory = selectedCategory === "Все" ? blogPosts : blogPosts.filter((post) => post.category === selectedCategory);
     return filteredByCategory.filter(
       (post) =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -229,6 +214,35 @@ export default function Blog() {
     setSelectedCategory(category);
     setCurrentPage(1);
   }, []);
+
+  const handlePageChange = useCallback((page: number) => {
+    if (page > 0 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+    setShowPopover(false);
+  }, [totalPages]);
+
+  const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
+    setShowPopover(true);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+        setShowPopover(false);
+      }
+    };
+
+    if (showPopover) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showPopover]);
 
   const renderPagination = useMemo(() => {
     const pagesToShow: (string | number)[] = [];
@@ -264,12 +278,13 @@ export default function Blog() {
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={() => typeof page === "number" && setCurrentPage(page)}
+        onClick={(event) => (typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event))}
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
             : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${typeof page !== "number" ? "cursor-pointer" : ""}`}
+        aria-label={typeof page === "number" ? `Перейти на страницу ${page}` : "Показать другие страницы"}
       >
         {typeof page === "number" ? page : "..."}
       </button>
@@ -285,25 +300,66 @@ export default function Blog() {
         </p>
       </div>
 
+      {/* Category and search implementation */}
       <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
-        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex sm:flex-row flex-wrap sm:items-center sm:justify-between w-full">
-          <div className="flex flex-wrap gap-1" ref={categoriesContainerRef}>
-            {categories.map((category) => (
+        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto">
+          {/* Categories */}
+          <div className="flex items-center w-full sm:w-auto flex-grow">
+            <div className="relative sm:mr-4" style={{ minWidth: `${longestCategory.length + 4}ch` }}>
               <button
-                key={category.value}
-                onClick={() => handleCategoryClick(category.value)}
-                className={`${
-                  category.value === selectedCategory
-                    ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                    : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-                } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+                className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full relative"
+                onClick={() => setShowCategories(!showCategories)}
               >
-                {category.name}
+                <span>{selectedCategory}</span>
+                <svg
+                  className={`w-4 h-4 absolute right-2 transform transition-transform duration-300 ${
+                    showCategories ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
               </button>
-            ))}
-          </div>
+              {showCategories && (
+                <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2 transition-all ease-in-out duration-300">
+                  {categories.map((category) => (
+                    <button
+                      key={category.value}
+                      onClick={() => {
+                        handleCategoryClick(category.value);
+                        setShowCategories(false);
+                      }}
+                      className="block text-left w-full px-4 py-2 hover:bg-blue-100 dark:hover:bg-neutral-600"
+                      aria-label={`Выбрать категорию ${category.name}`}
+                    >
+                      {category.name}
+                    </button>
+                  ))}
+                </div>
+              )}
 
-          <div className="flex items-center sm:w-auto w-full">
+              {/* Static desktop version */}
+              <div className="hidden sm:flex flex-wrap gap-1">
+                {categories.map((category) => (
+                  <button
+                    key={category.value}
+                    onClick={() => handleCategoryClick(category.value)}
+                    className={`${
+                      category.value === selectedCategory
+                        ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                        : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+                    } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+                    aria-label={`Выбрать категорию ${category.name}`}
+                  >
+                    {category.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Search icon */}
             <button
               className="ml-auto sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md"
               onClick={() => setShowSearch(!showSearch)}
@@ -312,16 +368,32 @@ export default function Blog() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z" />
               </svg>
             </button>
+          </div>
 
-            <div className={`relative w-full sm:w-auto sm:block ${showSearch ? "block" : "hidden"}`}>
-              <input
-                type="text"
-                placeholder="Поиск..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full sm:w-40 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-              />
-            </div>
+          {/* Search bar for mobile */}
+          <div
+            className={`relative w-full sm:hidden transition-all duration-300 ${
+              showSearch ? "max-h-40" : "max-h-0"
+            } overflow-hidden`}
+          >
+            <input
+              type="text"
+              placeholder="Поиск..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 mt-2"
+            />
+          </div>
+
+          {/* Static search bar for desktop */}
+          <div className="hidden sm:block w-40">
+            <input
+              type="text"
+              placeholder="Поиск..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+            />
           </div>
         </div>
       </div>
@@ -400,6 +472,31 @@ export default function Blog() {
           {renderPagination}
         </div>
       </div>
+
+      {showPopover && popoverPosition && (
+        <div
+          ref={popoverRef}
+          className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
+          style={{ top: popoverPosition.top, left: popoverPosition.left }}
+        >
+          <div className="grid grid-cols-4 gap-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`${
+                  page === currentPage
+                    ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                } rounded-md py-2 px-3 transition-colors duration-300 ease-in-out`}
+                aria-label={`Перейти на страницу ${page}`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
