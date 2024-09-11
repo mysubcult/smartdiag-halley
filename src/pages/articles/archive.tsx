@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Layout from '../../components/Layout';
 
 export const metadata = {
-  title: 'Как справиться с ошибкой при открытии архива',
   description: 'Руководство по устранению ошибок при открытии архивов, связанных с антивирусами, устаревшим ПО и другими проблемами.',
   keywords: 'ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО',
 };
@@ -13,7 +12,7 @@ export default function BlogPost() {
   const [isClient, setIsClient] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentTitle, setCurrentTitle] = useState<string>(metadata.title);
+  const [currentTitle, setCurrentTitle] = useState<string>('Как справиться с ошибкой при открытии архива');
 
   useEffect(() => {
     setIsClient(true);
@@ -27,9 +26,9 @@ export default function BlogPost() {
 
   const handleMenuClick = (titleSuffix: string | null) => {
     if (titleSuffix) {
-      setCurrentTitle(`${metadata.title} | ${titleSuffix}`);
+      setCurrentTitle(`Как справиться с ошибкой при открытии архива | ${titleSuffix}`);
     } else {
-      setCurrentTitle(metadata.title);
+      setCurrentTitle('Как справиться с ошибкой при открытии архива');
     }
   };
 
@@ -43,7 +42,7 @@ export default function BlogPost() {
   if (!isClient) return null;
 
   return (
-    <Layout title={metadata.title} description={metadata.description} keywords={metadata.keywords}>
+    <Layout title={currentTitle} description={metadata.description} keywords={metadata.keywords}>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
