@@ -180,7 +180,7 @@ export default function Blog() {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
 
-  const [isMobileView, setIsMobileView] = useState<boolean>(false);
+  const [isMobileView, setIsMobileView] = useState<boolean>(false); // Новый стейт для мобильного вида
   const categoriesContainerRef = useRef<HTMLDivElement>(null);
 
   const postsPerPage = 8;
