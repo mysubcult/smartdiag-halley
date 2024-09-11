@@ -88,7 +88,7 @@ export default function Contact() {
               Суббота - Воскресенье: 10:00 - 18:00 (МСК)
             </span>
             <br />
-            💬 <strong>Мы доступны в:</strong>
+            💬 <strong>Мы доступны в мессенджерах:</strong>
           </p>
           {/* Контактная информация */}
           <div className="flex justify-center mt-2 text-dark-600 dark:text-neutral-400">
