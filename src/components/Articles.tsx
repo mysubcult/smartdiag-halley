@@ -180,12 +180,12 @@ export default function Blog() {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
 
-  const [isMobileView, setIsMobileView] = useState<boolean>(false); // Новый стейт для мобильного вида
+  const [isMobileView, setIsMobileView] = useState<boolean>(false);
+  const categoriesContainerRef = useRef<HTMLDivElement>(null);
+
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
-
-  const categoriesContainerRef = useRef<HTMLDivElement>(null);
 
   const postsPerPage = 8;
 
@@ -211,9 +211,7 @@ export default function Blog() {
     };
 
     window.addEventListener("resize", handleResize);
-
-    // Проверяем сразу после загрузки компонента
-    handleResize();
+    handleResize(); // Проверка при первой загрузке компонента
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -335,60 +333,58 @@ export default function Blog() {
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto">
           <div className="flex items-center w-full sm:w-auto flex-grow">
             {/* Переключаем отображение между мобильным и десктопным видом */}
-            {isMobileView ? (
-              <div className="relative sm:mr-4 w-full">
-                <button
-                  className="bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full relative"
-                  onClick={() => setShowCategories(!showCategories)}
+            <div className="relative sm:mr-4 w-full">
+              <button
+                className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full relative"
+                onClick={() => setShowCategories(!showCategories)}
+              >
+                <span>{selectedCategory}</span>
+                <svg
+                  className={`w-4 h-4 absolute right-2 transform transition-transform duration-300 ${
+                    showCategories ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <span>{selectedCategory}</span>
-                  <svg
-                    className={`w-4 h-4 absolute right-2 transform transition-transform duration-300 ${
-                      showCategories ? "rotate-180" : ""
-                    }`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                  </svg>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {showCategories && (
+                <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2 transition-all ease-in-out duration-300">
+                  {categories.map((category) => (
+                    <button
+                      key={category.value}
+                      onClick={() => {
+                        handleCategoryClick(category.value);
+                        setShowCategories(false);
+                      }}
+                      className="block text-left w-full px-4 py-2 hover:bg-blue-100 dark:hover:bg-neutral-600"
+                      aria-label={`Выбрать категорию ${category.name}`}
+                    >
+                      {category.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="hidden sm:flex flex-wrap gap-1" ref={categoriesContainerRef}>
+              {categories.map((category) => (
+                <button
+                  key={category.value}
+                  onClick={() => handleCategoryClick(category.value)}
+                  className={`${
+                    category.value === selectedCategory
+                      ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                      : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+                  } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+                  aria-label={`Выбрать категорию ${category.name}`}
+                >
+                  {category.name}
                 </button>
-                {showCategories && (
-                  <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2 transition-all ease-in-out duration-300">
-                    {categories.map((category) => (
-                      <button
-                        key={category.value}
-                        onClick={() => {
-                          handleCategoryClick(category.value);
-                          setShowCategories(false);
-                        }}
-                        className="block text-left w-full px-4 py-2 hover:bg-blue-100 dark:hover:bg-neutral-600"
-                        aria-label={`Выбрать категорию ${category.name}`}
-                      >
-                        {category.name}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="flex flex-wrap gap-1" ref={categoriesContainerRef}>
-                {categories.map((category) => (
-                  <button
-                    key={category.value}
-                    onClick={() => handleCategoryClick(category.value)}
-                    className={`${
-                      category.value === selectedCategory
-                        ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                        : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-                    } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-                    aria-label={`Выбрать категорию ${category.name}`}
-                  >
-                    {category.name}
-                  </button>
-                ))}
-              </div>
-            )}
+              ))}
+            </div>
           </div>
 
           {/* Иконка поиска для мобильной версии */}
@@ -400,32 +396,32 @@ export default function Blog() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z" />
             </svg>
           </button>
+        </div>
 
-          {/* Строка поиска для мобильной версии */}
-          <div
-            className={`relative w-full sm:hidden transition-all duration-300 ${
-              showSearch ? "max-h-40" : "max-h-0"
-            } overflow-hidden`}
-          >
-            <input
-              type="text"
-              placeholder="Поиск..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 mt-2"
-            />
-          </div>
+        {/* Строка поиска для мобильной версии */}
+        <div
+          className={`relative w-full sm:hidden transition-all duration-300 ${
+            showSearch ? "max-h-40" : "max-h-0"
+          } overflow-hidden`}
+        >
+          <input
+            type="text"
+            placeholder="Поиск..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 mt-2"
+          />
+        </div>
 
-          {/* Строка поиска для десктопа */}
-          <div className="hidden sm:block w-40">
-            <input
-              type="text"
-              placeholder="Поиск..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-            />
-          </div>
+        {/* Строка поиска для десктопа */}
+        <div className="hidden sm:block w-40">
+          <input
+            type="text"
+            placeholder="Поиск..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+          />
         </div>
       </div>
 
