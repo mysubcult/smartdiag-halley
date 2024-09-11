@@ -185,6 +185,7 @@ export default function Blog() {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null); // Добавлено popoverRef
 
   const postsPerPage = 8;
 
@@ -455,7 +456,7 @@ export default function Blog() {
 
       {showPopover && popoverPosition && (
         <div
-          ref={popoverRef}
+          ref={popoverRef} // Используем popoverRef
           className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
           style={{ top: popoverPosition.top, left: popoverPosition.left }}
         >
