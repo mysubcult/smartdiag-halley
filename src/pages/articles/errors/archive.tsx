@@ -37,7 +37,7 @@ export default function BlogPost() {
   };
 
   // Прокрутка к секции
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
@@ -156,7 +156,7 @@ export default function BlogPost() {
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="download-errors">Ошибки при загрузке</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Ошибки при загрузке файла также могут стать причиной проблем с открытием архива. Убедитесь, что файл полностью загружен и не поврежден. Попробуйте скачать файл снова или использовать другой источник.
+                Также возможно, что архив был поврежден во время загрузки. Попробуйте скачать файл снова, используя надежный источник. Убедитесь, что ваше интернет-соединение стабильно, и файл загружается полностью.
               </p>
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="yandex-tips">Советы для пользователей Яндекс Браузера</h3>
               <hr className="border-neutral-300 mb-4" />
