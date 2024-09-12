@@ -4,15 +4,24 @@ import Link from 'next/link';
 import Layout from '../../../components/Layout';
 
 export const metadata = {
+  title: 'Как справиться с ошибкой при открытии архива',
   description: 'Руководство по устранению ошибок при открытии архивов, связанных с антивирусами, устаревшим ПО и другими проблемами.',
   keywords: 'ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО',
 };
+
+// Панель навигации и пункты меню
+const navItems = [
+  { href: "#antivirus-issue", label: "🛡️ Проблема с антивирусом" },
+  { href: "#outdated-software", label: "⏳ Устаревшее программное обеспечение" },
+  { href: "#download-errors", label: "📥 Ошибки при загрузке" },
+  { href: "#yandex-tips", label: "🌐 Советы для пользователей Яндекс Браузера" },
+  { href: "#support", label: "📞 Поддержка" },
+];
 
 export default function BlogPost() {
   const [isClient, setIsClient] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentTitle, setCurrentTitle] = useState('Как справиться с ошибкой при открытии архива');
 
   useEffect(() => {
     setIsClient(true);
@@ -20,28 +29,21 @@ export default function BlogPost() {
 
   const closeModal = () => setIsModalOpen(false);
 
-  const handleMenuClick = (titleSuffix: string | null) => {
-    if (titleSuffix) {
-      setCurrentTitle(`Как справиться с ошибкой при открытии архива | ${titleSuffix}`);
-    } else {
-      setCurrentTitle('Как справиться с ошибкой при открытии архива');
-    }
-  };
-
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-    handleMenuClick(null);
   };
 
   if (!isClient) return null;
 
   return (
-    <Layout title={currentTitle} description={metadata.description} keywords={metadata.keywords}>
+    <Layout title={metadata.title} description={metadata.description} keywords={metadata.keywords}>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
+          
+          {/* Панель навигации */}
           <div className="lg:hidden w-full flex justify-center mb-4">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -69,52 +71,36 @@ export default function BlogPost() {
             <h3 className="text-center text-xl font-bold mb-3">Навигация</h3>
             <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]" />
             <nav className="space-y-3">
-              <a onClick={scrollToTop} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
-                🏠 В начало
-              </a>
-              <Link href="#antivirus-issue" scroll={false}>
-                <a onClick={() => handleMenuClick('🛡️ Проблема с антивирусом')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
-                  🛡️ Проблема с антивирусом
-                </a>
-              </Link>
-              <Link href="#outdated-software" scroll={false}>
-                <a onClick={() => handleMenuClick('⏳ Устаревшее программное обеспечение')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
-                  ⏳ Устаревшее программное обеспечение
-                </a>
-              </Link>
-              <Link href="#download-errors" scroll={false}>
-                <a onClick={() => handleMenuClick('📥 Ошибки при загрузке')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
-                  📥 Ошибки при загрузке
-                </a>
-              </Link>
-              <Link href="#yandex-tips" scroll={false}>
-                <a onClick={() => handleMenuClick('🌐 Советы для пользователей Яндекс Браузера')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
-                  🌐 Советы для пользователей Яндекс Браузера
-                </a>
-              </Link>
-              <Link href="#support" scroll={false}>
-                <a onClick={() => handleMenuClick('📞 Поддержка')} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
-                  📞 Поддержка
-                </a>
-              </Link>
+              {navItems.map((item) => (
+                <Link href={item.href} key={item.href} scroll={false}>
+                  <a onClick={scrollToTop} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                    {item.label}
+                  </a>
+                </Link>
+              ))}
             </nav>
+            <hr className="border-neutral-300 mb-4 mt-4" /> {/* Уравняли толщину линий */}
           </div>
+
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0">
-            <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
+            <h2 className="text-4xl font-bold text-center">{metadata.title}</h2>
             <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
             </p>
 
-            <Image
-              src="/images/blog/post1.jpg"
-              alt="Ошибки при открытии архива"
-              width={1920}
-              height={1080}
-              quality={75}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="cursor-pointer"
-              onClick={() => setIsModalOpen(true)}
-            />
+            {/* Изображение с одинаковой рамкой */}
+            <div className="border-4 border-neutral-300 rounded-lg">
+              <Image
+                src="/images/blog/post1.jpg"
+                alt="Ошибки при открытии архива"
+                width={1920}
+                height={1080}
+                quality={75}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="cursor-pointer rounded-lg"
+                onClick={() => setIsModalOpen(true)}
+              />
+            </div>
 
             {isModalOpen && (
               <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50" onClick={closeModal}>
