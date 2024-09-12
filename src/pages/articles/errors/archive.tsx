@@ -32,7 +32,7 @@ export default function BlogPost() {
   const closeModal = () => setIsModalOpen(false);
 
   // Прокрутка к элементу
-  const scrollToElement = (id) => {
+  const scrollToElement = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
