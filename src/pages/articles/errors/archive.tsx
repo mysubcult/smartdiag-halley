@@ -31,18 +31,9 @@ export default function BlogPost() {
 
   const closeModal = () => setIsModalOpen(false);
 
-  const handleMenuClick = (titleSuffix: string | null) => {
-    if (titleSuffix) {
-      setCurrentTitle(`${metadata.title} | ${titleSuffix}`);
-    } else {
-      setCurrentTitle(metadata.title);
-    }
-  };
-
   // Прокрутка в самый верх
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    handleMenuClick(null); // Возвращаем заголовок на исходный
   };
 
   if (!isClient) return null;
@@ -81,13 +72,13 @@ export default function BlogPost() {
             <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]" />
             <nav className="space-y-3">
               {navItems.map((item) => (
-                <Link href={item.href} key={item.href} scroll={false}>
+                <Link href={item.href} key={item.href}>
                   <a
                     onClick={() => {
                       if (item.href === "#introduction") {
                         scrollToTop();
                       } else {
-                        handleMenuClick(item.label);
+                        setCurrentTitle(`${metadata.title} | ${item.label}`);
                       }
                     }}
                     className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300"
@@ -133,13 +124,12 @@ export default function BlogPost() {
                     quality={100}
                   />
                   <button
-  onClick={closeModal}
-  className="absolute top-4 right-4 bg-gray-200 text-gray-800 p-2 rounded-full hover:bg-gray-300 active:scale-90 transition-all focus:outline-none"
-  style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}
->
-  &#x2715;
-</button>
-
+                    onClick={closeModal}
+                    className="absolute top-4 right-4 bg-gray-200 text-gray-800 p-2 rounded-full hover:bg-gray-300 active:scale-90 transition-all focus:outline-none"
+                    style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}
+                  >
+                    &#x2715;
+                  </button>
                 </div>
               </div>
             )}
