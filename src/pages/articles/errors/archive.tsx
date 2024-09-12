@@ -11,6 +11,7 @@ export const metadata = {
 
 // Панель навигации и пункты меню
 const navItems = [
+  { href: "#introduction", label: "🏠 В начало" },
   { href: "#antivirus-issue", label: "🛡️ Проблема с антивирусом" },
   { href: "#outdated-software", label: "⏳ Устаревшее программное обеспечение" },
   { href: "#download-errors", label: "📥 Ошибки при загрузке" },
@@ -43,7 +44,7 @@ export default function BlogPost() {
       top: 0,
       behavior: 'smooth',
     });
-    handleMenuClick(null); // Возвращаем начальный заголовок
+    handleMenuClick(null); // Возвращаем заголовок на исходный
   };
 
   if (!isClient) return null;
@@ -83,7 +84,16 @@ export default function BlogPost() {
             <nav className="space-y-3">
               {navItems.map((item) => (
                 <Link href={item.href} key={item.href} scroll={false}>
-                  <a onClick={() => handleMenuClick(item.label)} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                  <a
+                    onClick={() => {
+                      if (item.href === "#introduction") {
+                        scrollToTop();
+                      } else {
+                        handleMenuClick(item.label);
+                      }
+                    }}
+                    className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300"
+                  >
                     {item.label}
                   </a>
                 </Link>
@@ -92,7 +102,8 @@ export default function BlogPost() {
           </div>
 
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0">
-            <h2 className="text-4xl font-bold text-center">{currentTitle}</h2>
+            {/* Статичный заголовок */}
+            <h2 className="text-4xl font-bold text-center">{metadata.title}</h2>
             <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
             </p>
