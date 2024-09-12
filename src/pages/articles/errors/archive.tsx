@@ -12,15 +12,11 @@ export default function BlogPost() {
   const [isClient, setIsClient] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentTitle, setCurrentTitle] = useState<string>('Как справиться с ошибкой при открытии архива');
+  const [currentTitle, setCurrentTitle] = useState('Как справиться с ошибкой при открытии архива');
 
   useEffect(() => {
     setIsClient(true);
   }, []);
-
-  useEffect(() => {
-    document.title = currentTitle;
-  }, [currentTitle]);
 
   const closeModal = () => setIsModalOpen(false);
 
@@ -37,7 +33,7 @@ export default function BlogPost() {
       top: 0,
       behavior: 'smooth',
     });
-    handleMenuClick(null); // Возвращаем начальный заголовок
+    handleMenuClick(null);
   };
 
   if (!isClient) return null;
@@ -115,7 +111,6 @@ export default function BlogPost() {
               width={1920}
               height={1080}
               quality={75}
-              layout="responsive"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="cursor-pointer"
               onClick={() => setIsModalOpen(true)}
@@ -123,14 +118,13 @@ export default function BlogPost() {
 
             {isModalOpen && (
               <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50" onClick={closeModal}>
-                <div className="relative max-w-3xl w-full" onClick={(e) => e.stopPropagation()}>
+                <div className="relative max-w-3xl w-full border-4 border-neutral-300 rounded-lg" onClick={(e) => e.stopPropagation()}>
                   <Image
                     src="/images/blog/post1.jpg"
                     alt="Ошибки при открытии архива"
                     width={1920}
                     height={1080}
                     quality={100}
-                    layout="responsive"
                     className="rounded-lg"
                   />
                   <button
