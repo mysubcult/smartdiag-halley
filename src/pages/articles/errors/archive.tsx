@@ -32,7 +32,7 @@ export default function BlogPost() {
   const closeModal = () => setIsModalOpen(false);
 
   // Прокрутка к элементу
-  const scrollToElement = (id: string) => {
+  const scrollToElement = (id) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -77,9 +77,9 @@ export default function BlogPost() {
               {navItems.map((item) => (
                 <Link href={item.href} key={item.href}>
                   <a
-                    onClick={() => {
-                      const id = item.href.substring(1); // Удаляем '#' из href
-                      scrollToElement(id);
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToElement(item.href.substring(1)); // Убираем #
                       setCurrentTitle(`${metadata.title} | ${item.label}`);
                     }}
                     className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300"
@@ -94,7 +94,7 @@ export default function BlogPost() {
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0">
             {/* Статичный заголовок */}
             <div id="introduction">
-              <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
+              <h2 className="text-4xl font-bold text-center">{metadata.title}</h2>
               <p className="pt-6 pb-8 text-base dark:text-neutral-400">
                 В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
               </p>
@@ -154,24 +154,15 @@ export default function BlogPost() {
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="yandex-tips">Советы для пользователей Яндекс Браузера</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Если вы используете Яндекс Браузер, иногда защита может блокировать архивы при скачивании. Для решения этой проблемы, попробуйте отключить проверку безопасности скачиваемых файлов в настройках браузера. Перейдите в настройки, откройте вкладку «Безопасность», и снимите галочку с опции «Проверять безопасность скачиваемых файлов».
+                Если вы используете Яндекс Браузер, убедитесь, что он обновлен до последней версии. Иногда старые версии браузеров могут вызывать проблемы с открытием архивов. Обновления могут содержать исправления для известных проблем и улучшения функциональности.
               </p>
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="support">Поддержка</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Если указанные выше шаги не помогли, обратитесь в службу поддержки или попробуйте скачать архив снова.
+                Если ни одно из вышеуказанных решений не помогло, возможно, стоит обратиться в службу поддержки. Они могут предоставить дополнительную помощь и руководство по устранению проблемы.
               </p>
             </div>
-
-            <div className="mt-16 flex justify-center">
-              <Link href="/#blog">
-                <a className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
-                  Вернуться в статьи
-                </a>
-              </Link>
-            </div>
           </div>
-          <div className="lg:w-1/6 hidden lg:block"></div>
         </div>
       </main>
     </Layout>
