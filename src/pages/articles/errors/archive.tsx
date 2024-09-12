@@ -133,12 +133,13 @@ export default function BlogPost() {
                     quality={100}
                   />
                   <button
-                    onClick={closeModal}
-                    className="absolute top-4 right-4 bg-gray-200 text-gray-800 p-2 rounded-full hover:bg-gray-300 active:scale-90 transition-all focus:outline-none"
-                    style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justify-content: 'center', fontWeight: 'bold' }}
-                  >
-                    &#x2715;
-                  </button>
+  onClick={closeModal}
+  className="absolute top-4 right-4 bg-gray-200 text-gray-800 p-2 rounded-full hover:bg-gray-300 active:scale-90 transition-all focus:outline-none"
+  style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}
+>
+  &#x2715;
+</button>
+
                 </div>
               </div>
             )}
