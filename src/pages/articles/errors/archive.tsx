@@ -11,12 +11,12 @@ export const metadata = {
 
 // Панель навигации и пункты меню
 const navItems = [
-  { id: "introduction", label: "🏠 В начало" },
-  { id: "antivirus-issue", label: "🛡️ Проблема с антивирусом" },
-  { id: "outdated-software", label: "⏳ Устаревшее программное обеспечение" },
-  { id: "download-errors", label: "📥 Ошибки при загрузке" },
-  { id: "yandex-tips", label: "🌐 Советы для пользователей Яндекс Браузера" },
-  { id: "support", label: "📞 Поддержка" },
+  { href: "#introduction", label: "🏠 В начало" },
+  { href: "#antivirus-issue", label: "🛡️ Проблема с антивирусом" },
+  { href: "#outdated-software", label: "⏳ Устаревшее программное обеспечение" },
+  { href: "#download-errors", label: "📥 Ошибки при загрузке" },
+  { href: "#yandex-tips", label: "🌐 Советы для пользователей Яндекс Браузера" },
+  { href: "#support", label: "📞 Поддержка" },
 ];
 
 export default function BlogPost() {
@@ -31,9 +31,18 @@ export default function BlogPost() {
 
   const closeModal = () => setIsModalOpen(false);
 
+  const handleMenuClick = (titleSuffix: string | null) => {
+    if (titleSuffix) {
+      setCurrentTitle(`${metadata.title} | ${titleSuffix}`);
+    } else {
+      setCurrentTitle(metadata.title);
+    }
+  };
+
   // Прокрутка в самый верх
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    handleMenuClick(null); // Возвращаем заголовок на исходный
   };
 
   // Прокрутка к секции
@@ -41,7 +50,6 @@ export default function BlogPost() {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
-      setCurrentTitle(`${metadata.title} | ${navItems.find(item => item.id === id)?.label}`);
     }
   };
 
@@ -81,19 +89,21 @@ export default function BlogPost() {
             <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]" />
             <nav className="space-y-3">
               {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    if (item.id === "introduction") {
-                      scrollToTop();
-                    } else {
-                      scrollToSection(item.id);
-                    }
-                  }}
-                  className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300"
-                >
-                  {item.label}
-                </button>
+                <Link href={item.href} key={item.href} scroll={false}>
+                  <a
+                    onClick={() => {
+                      if (item.href === "#introduction") {
+                        scrollToTop();
+                      } else {
+                        handleMenuClick(item.label);
+                        scrollToSection(item.href.substring(1));
+                      }
+                    }}
+                    className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300"
+                  >
+                    {item.label}
+                  </a>
+                </Link>
               ))}
             </nav>
           </div>
@@ -156,30 +166,20 @@ export default function BlogPost() {
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="download-errors">Ошибки при загрузке</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Также возможно, что архив был поврежден во время загрузки. Попробуйте скачать файл снова, используя надежный источник. Убедитесь, что ваше интернет-соединение стабильно, и файл загружается полностью.
+                Ошибки при загрузке архива могут также привести к тому, что он не открывается. Убедитесь, что архив был полностью загружен. Попробуйте повторно загрузить архив и проверить, не поврежден ли файл.
               </p>
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="yandex-tips">Советы для пользователей Яндекс Браузера</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Если вы используете Яндекс Браузер, попробуйте отключить функцию проверки безопасности скачиваемых файлов. Перейдите в настройки браузера, выберите раздел «Безопасность» и отключите опцию «Проверять безопасность скачиваемых файлов».
+                Если вы используете Яндекс Браузер и столкнулись с проблемами при открытии архивов, попробуйте воспользоваться встроенным менеджером загрузок. Иногда это может помочь избежать проблем с повреждением файлов.
               </p>
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="support">Поддержка</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Если указанные выше шаги не помогли, обратитесь в службу поддержки или попробуйте скачать архив снова.
+                Если ни одно из перечисленных решений не помогло, обратитесь в службу поддержки. Возможно, проблема связана с особенностями вашего устройства или программного обеспечения.
               </p>
             </div>
-
-            <div className="mt-16 flex justify-center">
-              <button
-                onClick={scrollToTop}
-                className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105"
-              >
-                В начало
-              </button>
-            </div>
           </div>
-          <div className="lg:w-1/6 hidden lg:block"></div>
         </div>
       </main>
     </Layout>
