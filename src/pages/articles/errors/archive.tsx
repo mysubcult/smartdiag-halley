@@ -166,7 +166,7 @@ export default function BlogPost() {
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="download-errors">Ошибки при загрузке</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Ошибки при загрузке архива могут также привести к тому, что он не открывается. Убедитесь, что архив был полностью загружен. Попробуйте повторно загрузить архив и проверить, не поврежден ли файл.
+                Ошибки при загрузке файлов также могут привести к тому, что архив будет поврежден. Убедитесь, что файл был загружен полностью и без ошибок. Иногда помогает повторная загрузка файла.
               </p>
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="yandex-tips">Советы для пользователей Яндекс Браузера</h3>
               <hr className="border-neutral-300 mb-4" />
