@@ -16,7 +16,7 @@ const blogPosts = [
     "title": "Как справиться с ошибкой при открытии архива",
     "image": "/images/blog/post1.jpg",
     "excerpt": "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов.",
-    "link": "/articles/erros/archive",
+    "link": "/articles/errors/archive",
     "category": "Ошибки",
     "keywords": ["ошибки архива", "проблемы с архивом", "ошибка открытия архива", "архив"]
   },
