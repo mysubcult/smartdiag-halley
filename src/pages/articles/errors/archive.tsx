@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../../components/Layout';
@@ -25,6 +25,9 @@ export default function BlogPost() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentTitle, setCurrentTitle] = useState(metadata.title);
 
+  // Ссылка на начало страницы (заголовок статьи)
+  const introductionRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -39,11 +42,9 @@ export default function BlogPost() {
     }
   };
 
+  // Прокрутка к началу с использованием scrollIntoView
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    introductionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     handleMenuClick(null); // Возвращаем заголовок на исходный
   };
 
@@ -103,10 +104,12 @@ export default function BlogPost() {
 
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0">
             {/* Статичный заголовок */}
-            <h2 className="text-4xl font-bold text-center">{metadata.title}</h2>
-            <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
-              В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
-            </p>
+            <div ref={introductionRef}>
+              <h2 className="text-4xl font-bold text-center">{metadata.title}</h2>
+              <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
+                В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
+              </p>
+            </div>
 
             {/* Изображение с одинаковой рамкой */}
             <div className="border-4 border-neutral-300 rounded-lg overflow-hidden">
