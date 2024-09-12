@@ -33,7 +33,9 @@ export default function BlogPost() {
 
   // Прокрутка в самый верх
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   };
 
   if (!isClient) return null;
