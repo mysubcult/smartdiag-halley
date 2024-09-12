@@ -5,10 +5,10 @@ import Link from "next/link";
 const categories = [
   { name: "Все", value: "Все" },
   { name: "Установка ПО", value: "Установка ПО" },
-  { name: "Ошибки", value: "Ошибки" },
   { name: "Оборудование", value: "Оборудование" },
   { name: "Советы", value: "Советы" },
   { name: "Общее", value: "Общее" },
+  { name: "Ошибки", value: "Ошибки" },
 ];
 
 const blogPosts = [
