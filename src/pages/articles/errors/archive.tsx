@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../../components/Layout';
@@ -25,9 +25,6 @@ export default function BlogPost() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentTitle, setCurrentTitle] = useState(metadata.title);
 
-  // Ссылка на начало страницы (заголовок статьи)
-  const introductionRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -42,9 +39,9 @@ export default function BlogPost() {
     }
   };
 
-  // Прокрутка к началу с использованием scrollIntoView
+  // Прокрутка в самый верх
   const scrollToTop = () => {
-    introductionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     handleMenuClick(null); // Возвращаем заголовок на исходный
   };
 
@@ -104,9 +101,9 @@ export default function BlogPost() {
 
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0">
             {/* Статичный заголовок */}
-            <div ref={introductionRef}>
+            <div id="introduction">
               <h2 className="text-4xl font-bold text-center">{metadata.title}</h2>
-              <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
+              <p className="pt-6 pb-8 text-base dark:text-neutral-400">
                 В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
               </p>
             </div>
@@ -138,7 +135,7 @@ export default function BlogPost() {
                   <button
                     onClick={closeModal}
                     className="absolute top-4 right-4 bg-gray-200 text-gray-800 p-2 rounded-full hover:bg-gray-300 active:scale-90 transition-all focus:outline-none"
-                    style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}
+                    style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justify-content: 'center', fontWeight: 'bold' }}
                   >
                     &#x2715;
                   </button>
