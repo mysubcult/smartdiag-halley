@@ -4,10 +4,11 @@ import Link from "next/link";
 
 const categories = [
   { name: "Все", value: "Все" },
-  { name: "Ошибки", value: "Ошибки" },
   { name: "Установка ПО", value: "Установка ПО" },
-  { name: "Безопасность", value: "Безопасность" },
-  { name: "Рекомендации", value: "Рекомендации" },
+  { name: "Ошибки", value: "Ошибки" },
+  { name: "Оборудование", value: "Оборудование" },
+  { name: "Советы", value: "Советы" },
+  { name: "Общее", value: "Общее" },
 ];
 
 const blogPosts = [
