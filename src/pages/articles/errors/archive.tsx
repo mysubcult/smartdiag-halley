@@ -31,11 +31,6 @@ export default function BlogPost() {
 
   const closeModal = () => setIsModalOpen(false);
 
-  // Прокрутка в самый верх
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   if (!isClient) return null;
 
   return (
@@ -74,13 +69,7 @@ export default function BlogPost() {
               {navItems.map((item) => (
                 <Link href={item.href} key={item.href}>
                   <a
-                    onClick={() => {
-                      if (item.href === "#introduction") {
-                        scrollToTop();
-                      } else {
-                        setCurrentTitle(`${metadata.title} | ${item.label}`);
-                      }
-                    }}
+                    onClick={() => setCurrentTitle(`${metadata.title} | ${item.label}`)}
                     className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300"
                   >
                     {item.label}
