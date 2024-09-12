@@ -22,6 +22,7 @@ export default function BlogPost() {
   const [isClient, setIsClient] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentTitle, setCurrentTitle] = useState(metadata.title);
 
   useEffect(() => {
     setIsClient(true);
@@ -29,17 +30,26 @@ export default function BlogPost() {
 
   const closeModal = () => setIsModalOpen(false);
 
+  const handleMenuClick = (titleSuffix: string | null) => {
+    if (titleSuffix) {
+      setCurrentTitle(`${metadata.title} | ${titleSuffix}`);
+    } else {
+      setCurrentTitle(metadata.title);
+    }
+  };
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
+    handleMenuClick(null); // Возвращаем начальный заголовок
   };
 
   if (!isClient) return null;
 
   return (
-    <Layout title={metadata.title} description={metadata.description} keywords={metadata.keywords}>
+    <Layout title={currentTitle} description={metadata.description} keywords={metadata.keywords}>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           
@@ -73,23 +83,22 @@ export default function BlogPost() {
             <nav className="space-y-3">
               {navItems.map((item) => (
                 <Link href={item.href} key={item.href} scroll={false}>
-                  <a onClick={scrollToTop} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
+                  <a onClick={() => handleMenuClick(item.label)} className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                     {item.label}
                   </a>
                 </Link>
               ))}
             </nav>
-            <hr className="border-neutral-300 mb-4 mt-4" /> {/* Уравняли толщину линий */}
           </div>
 
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0">
-            <h2 className="text-4xl font-bold text-center">{metadata.title}</h2>
+            <h2 className="text-4xl font-bold text-center">{currentTitle}</h2>
             <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
             </p>
 
             {/* Изображение с одинаковой рамкой */}
-            <div className="border-4 border-neutral-300 rounded-lg">
+            <div className="border-4 border-neutral-300 rounded-lg overflow-hidden">
               <Image
                 src="/images/blog/post1.jpg"
                 alt="Ошибки при открытии архива"
@@ -97,21 +106,20 @@ export default function BlogPost() {
                 height={1080}
                 quality={75}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="cursor-pointer rounded-lg"
+                className="cursor-pointer"
                 onClick={() => setIsModalOpen(true)}
               />
             </div>
 
             {isModalOpen && (
               <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50" onClick={closeModal}>
-                <div className="relative max-w-3xl w-full border-4 border-neutral-300 rounded-lg" onClick={(e) => e.stopPropagation()}>
+                <div className="relative max-w-3xl w-full border-4 border-neutral-300 rounded-lg overflow-hidden" onClick={(e) => e.stopPropagation()}>
                   <Image
                     src="/images/blog/post1.jpg"
                     alt="Ошибки при открытии архива"
                     width={1920}
                     height={1080}
                     quality={100}
-                    className="rounded-lg"
                   />
                   <button
                     onClick={closeModal}
