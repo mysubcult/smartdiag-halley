@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../../components/Layout';
-import { useRouter } from 'next/router';
 
 // Metadata from archive.txt
 export const metadata = {
@@ -12,38 +10,35 @@ export const metadata = {
 };
 
 export default function BlogPost() {
-  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isClient, setIsClient] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentImage, setCurrentImage] = useState('');
+  
   const baseTitle = "Инструкция по установке Autocom 2021.11";
 
-  useEffect(() => {
-    setIsClient(true);
-    document.title = baseTitle;
-  }, []);
-
+  // Scroll to top functionality
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     window.history.replaceState({}, document.title, window.location.pathname);
   };
 
-  if (!isClient) return null;
+  // Modal functionality for image
+  const openModal = (imageUrl: string) => {
+    setCurrentImage(imageUrl);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => setIsModalOpen(false);
 
   return (
     <Layout title={baseTitle} description={metadata.description} keywords={metadata.keywords}>
-      <Head>
-        <title>{baseTitle} - Полное руководство по установке Autocom 2021.11</title>
-        <meta property="og:title" content="Инструкция по установке Autocom 2021.11" />
-        <meta property="og:description" content="Подробная инструкция по установке программы Autocom 2021.11" />
-        <meta property="og:image" content="/images/install/og-image.png" />
-      </Head>
-
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
+          
           {/* Navigation */}
           <aside className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
             <h3 className="text-center text-xl font-bold mb-3">Навигация</h3>
-            <hr className="border-b-2 border-red-500 mr-[-16px] ml-[-16px]"/>
+            <hr className="border-b-4 border-gray-500 mr-[-16px] ml-[-16px]"/>
             <nav className="space-y-3">
               <a onClick={scrollToTop} className="flex items-center text-base text-left justify-start text-inherit hover:text-red-500 cursor-pointer transition-colors duration-300">
                 🏠 В начало
@@ -96,128 +91,108 @@ export default function BlogPost() {
             {/* Отключение антивирусов */}
             <section id="disable-antivirus">
               <h2 className="text-2xl font-semibold mt-8 scroll-section">Отключение антивирусов</h2>
-              <hr className="border-neutral-300 mb-4" />
+              <hr className="border-gray-500 border-b-4 mb-4" />
               <p className="mb-4">
-                Отключите все антивирусы, в том числе и стандартный Защитник Windows. Мы неоднократно проверяли все файлы - они не содержат никаких вирусов. Вы можете убедиться в этом, например, скачав, на наш взгляд, достойный антивирус Dr.Web и проверить все файлы программы на вирусы, и вы убедитесь в их отсутствии.
+                Отключите все антивирусы, в том числе и стандартный Защитник Windows. Мы неоднократно проверяли все файлы - они не содержат никаких вирусов. Вы можете убедиться в этом, скачав антивирус Dr.Web и проверив все файлы программы на вирусы.
               </p>
               <p className="mb-4">
                 <strong className="text-red-500">Шаги для отключения Защитника Windows:</strong>
                 <ol className="list-decimal ml-5">
-                  <li>Зайдите в <strong className="text-red-500">Параметры</strong>, затем перейдите в <strong className="text-red-500">Безопасность Windows</strong> и отключите ползунки так, как показано на скриншоте. Если у вас есть сторонние антивирусы, то их тоже нужно отключить.</li>
+                  <li>Зайдите в <strong className="text-red-500">Параметры</strong>, затем перейдите в <strong className="text-red-500">Безопасность Windows</strong> и отключите ползунки так, как показано на скриншоте.</li>
                 </ol>
               </p>
-              <Image
-                src="/images/install/disable-windows-defender-step1.png"
-                alt="Параметры безопасности Windows"
-                width={800}
-                height={600}
-                quality={75}
-                layout="responsive"
-              />
+              <div className="my-4">
+                <Image
+                  src="/images/install/disable-windows-defender-step1.png"
+                  alt="Параметры безопасности Windows"
+                  width={800}
+                  height={600}
+                  quality={75}
+                  layout="responsive"
+                  className="cursor-pointer rounded-lg shadow-lg hover:shadow-2xl transition-shadow"
+                  onClick={() => openModal('/images/install/disable-windows-defender-step1.png')}
+                />
+              </div>
             </section>
 
             {/* Отключение брандмауэра */}
             <section id="firewall">
               <h2 className="text-2xl font-semibold mt-8 scroll-section">Отключение брандмауэра</h2>
-              <hr className="border-neutral-300 mb-4" />
+              <hr className="border-gray-500 border-b-4 mb-4" />
               <p className="mb-4">
                 На время установки следует отключить <strong className="text-red-500">брандмауэр Защитника Windows</strong>.
               </p>
               <ol className="list-decimal ml-5 mb-4">
-                <li>Откройте <strong className="text-red-500">Панель управления</strong>, далее откройте <strong className="text-red-500">Брандмауэр Защитника Windows</strong> и сделайте все, как ниже на скриншоте, и нажмите Ok.</li>
+                <li>Откройте <strong className="text-red-500">Панель управления</strong>, далее откройте <strong className="text-red-500">Брандмауэр Защитника Windows</strong> и сделайте все, как показано на скриншоте.</li>
               </ol>
-              <Image
-                src="/images/install/disable-firewall-step1.png"
-                alt="Открытие Брандмауэра Защитника Windows"
-                width={800}
-                height={600}
-                quality={75}
-                layout="responsive"
-              />
+              <div className="my-4">
+                <Image
+                  src="/images/install/disable-firewall-step1.png"
+                  alt="Открытие Брандмауэра Защитника Windows"
+                  width={800}
+                  height={600}
+                  quality={75}
+                  layout="responsive"
+                  className="cursor-pointer rounded-lg shadow-lg hover:shadow-2xl transition-shadow"
+                  onClick={() => openModal('/images/install/disable-firewall-step1.png')}
+                />
+              </div>
             </section>
 
             {/* Установка программы */}
             <section id="install-program">
               <h2 className="text-2xl font-semibold mt-8 scroll-section">Установка программы</h2>
-              <hr className="border-neutral-300 mb-4" />
+              <hr className="border-gray-500 border-b-4 mb-4" />
               <ol className="list-decimal ml-5">
-                <li>Загрузите архив с названием <strong className="text-red-500">Autocom 2021.11.rar</strong> и после завершения загрузки распакуйте его.</li>
-                <li>Запустите файл установки.</li>
-                <li>Нажмите <strong className="text-red-500">Next</strong>.</li>
-                <li>Введите пароль: <code className="text-red-500">NewSoftware2021</code> и нажмите <strong className="text-red-500">Next</strong>.</li>
-                <li>Выберите путь установки.</li>
-                <li>Выберите тип вашего прибора: <strong className="text-red-500">Type 1</strong> или <strong className="text-red-500">Type 2</strong>.</li>
-                <Image
-                  src="/images/install/install-step1.png"
-                  alt="Начало установки программы"
-                  width={800}
-                  height={600}
-                  quality={75}
-                  layout="responsive"
-                />
-                <li>Добавьте папку с установленным приложением в список исключений антивируса.</li>
-                <li>Запустите программу, щелкнув на ярлыке на рабочем столе.</li>
-                <Image
-                  src="/images/install/activation-id.png"
-                  alt="Окно запроса Activation ID"
-                  width={800}
-                  height={600}
-                  quality={75}
-                  layout="responsive"
-                />
+                <li>Загрузите архив с названием <strong className="text-red-500">Autocom 2021.11.rar</strong> и после завершения загрузки распакуйте его. Если возникает ошибка при распаковке, убедитесь, что архив загружен полностью.</li>
+                <li>Запустите файл установки и следуйте инструкциям на экране.</li>
+                <li>Введите пароль <code className="text-red-500">NewSoftware2021</code> и нажмите <strong className="text-red-500">Next</strong>.</li>
+                <li>Выберите путь установки и тип вашего прибора (Type 1 или Type 2).</li>
+                <div className="my-4">
+                  <Image
+                    src="/images/install/install-step1.png"
+                    alt="Начало установки программы"
+                    width={800}
+                    height={600}
+                    quality={75}
+                    layout="responsive"
+                    className="cursor-pointer rounded-lg shadow-lg hover:shadow-2xl transition-shadow"
+                    onClick={() => openModal('/images/install/install-step1.png')}
+                  />
+                </div>
               </ol>
             </section>
 
-            {/* Смена языка в программе */}
-            <section id="change-language">
-              <h2 className="text-2xl font-semibold mt-8 scroll-section">Смена языка в программе</h2>
-              <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4">Для смены языка интерфейса программы:</p>
-              <ol className="list-decimal ml-5 mb-4">
-                <li>Нажмите <strong className="text-red-500">Settings</strong>, затем <strong className="text-red-500">Language</strong>.</li>
-                <Image
-                  src="/images/install/change-language-step1.png"
-                  alt="Меню настроек программы"
-                  width={800}
-                  height={600}
-                  quality={75}
-                  layout="responsive"
-                />
-              </ol>
-            </section>
-
-            {/* Первое подключение */}
-            <section id="first-connection">
-              <h2 className="text-2xl font-semibold mt-8 scroll-section">Первое подключение</h2>
-              <hr className="border-neutral-300 mb-4" />
-              <ol className="list-decimal ml-5 mb-4">
-                <li>В программе нажмите <strong className="text-red-500">Настройки</strong>, далее <strong className="text-red-500">Установки оборудования</strong>.</li>
-                <Image
-                  src="/images/install/first-connection-step1.png"
-                  alt="Меню настроек подключения"
-                  width={800}
-                  height={600}
-                  quality={75}
-                  layout="responsive"
-                />
-              </ol>
-            </section>
-
-            {/* FAQ */}
+            {/* FAQ - Accordion */}
             <section id="faq">
               <h2 className="text-2xl font-semibold mt-8 scroll-section">Часто задаваемые вопросы (FAQ)</h2>
-              <hr className="border-neutral-300 mb-4" />
-              <ul className="list-disc ml-5">
-                <li><strong className="text-red-500">Откуда скачать программу?</strong></li>
-                <li><strong className="text-red-500">Ошибка при открытии архива</strong></li>
-                <li><strong className="text-red-500">Проблемы с запуском на Windows 10, 11</strong></li>
-              </ul>
+              <hr className="border-gray-500 border-b-4 mb-4" />
+              <div className="space-y-4">
+                <details className="group">
+                  <summary className="font-semibold cursor-pointer text-red-500 group-hover:underline">Откуда скачать программу?</summary>
+                  <p className="mt-2 text-base text-gray-700 dark:text-neutral-400">
+                    Вы можете скачать необходимое программное обеспечение на нашем официальном веб-сайте.
+                  </p>
+                </details>
+                <details className="group">
+                  <summary className="font-semibold cursor-pointer text-red-500 group-hover:underline">Ошибка при открытии архива</summary>
+                  <p className="mt-2 text-base text-gray-700 dark:text-neutral-400">
+                    Проверьте настройки антивируса и убедитесь, что архив был загружен полностью.
+                  </p>
+                </details>
+                <details className="group">
+                  <summary className="font-semibold cursor-pointer text-red-500 group-hover:underline">Проблемы с запуском на Windows 10, 11</summary>
+                  <p className="mt-2 text-base text-gray-700 dark:text-neutral-400">
+                    Удалите обновление .NET Framework 4.8.1 или следуйте инструкциям в папке "Если не запускается программа".
+                  </p>
+                </details>
+              </div>
             </section>
 
             {/* ВНИМАНИЕ */}
             <section id="attention">
               <h2 className="text-2xl font-semibold mt-8 scroll-section">ВНИМАНИЕ!</h2>
-              <hr className="border-neutral-300 mb-4" />
+              <hr className="border-gray-500 border-b-4 mb-4" />
               <p className="mb-4">
                 <strong className="text-red-500">Запрещено</strong> подключать автосканер в USB-порт ноутбука, зарядка которого осуществляется от бортовой сети автомобиля.
               </p>
@@ -234,6 +209,30 @@ export default function BlogPost() {
           </article>
           <div className="lg:w-1/6 hidden lg:block"></div>
         </div>
+
+        {/* Modal for images */}
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50" onClick={closeModal}>
+            <div className="relative max-w-3xl w-full" onClick={(e) => e.stopPropagation()}>
+              <Image
+                src={currentImage}
+                alt="Просмотр изображения"
+                width={1920}
+                height={1080}
+                quality={100}
+                layout="responsive"
+                className="rounded-lg"
+              />
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 bg-gray-200 text-gray-800 p-2 rounded-full hover:bg-gray-300 active:scale-90 transition-all focus:outline-none"
+                style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}
+              >
+                &#x2715;
+              </button>
+            </div>
+          </div>
+        )}
       </main>
     </Layout>
   );
