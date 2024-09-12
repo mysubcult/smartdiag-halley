@@ -175,7 +175,7 @@ export default function BlogPost() {
             <div className="mt-16 flex justify-center">
               <Link href="/#blog">
                 <a className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
-                  Вернуться в блог
+                  Вернуться в статьи
                 </a>
               </Link>
             </div>
