@@ -3,10 +3,13 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../../components/Layout';
-import { useRouter } from 'next/router';
+
+export const metadata = {
+  description: 'Руководство по устранению ошибок при открытии архивов, связанных с антивирусами, устаревшим ПО и другими проблемами.',
+  keywords: 'ошибки, архивы, решения, проблемы с антивирусом, устаревшее ПО',
+};
 
 export default function BlogPost() {
-  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
@@ -34,7 +37,7 @@ export default function BlogPost() {
   if (!isClient) return null;
 
   return (
-    <Layout title={baseTitle} description="Полное руководство по установке Autocom 2021.11 с подробными инструкциями">
+    <Layout title={baseTitle} description={metadata.description} keywords={metadata.keywords}>
       <Head>
         <title>{baseTitle} - Полное руководство по установке Autocom 2021.11</title>
         <meta name="description" content="Подробные инструкции по отключению антивирусов, настройке брандмауэра, установке программы, смене языка и первому подключению." />
@@ -42,9 +45,9 @@ export default function BlogPost() {
         <meta property="og:title" content="Инструкция по установке Autocom 2021.11" />
         <meta property="og:description" content="Следуйте нашей пошаговой инструкции по установке программы Autocom 2021.11." />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://смартдиаг.рф${router.asPath}`} />
+        <meta property="og:url" content="https://смартдиаг.рф" />
         <meta property="og:image" content="/images/install/og-image.png" />
-        <link rel="canonical" href={`https://смартдиаг.рф${router.asPath}`} />
+        <link rel="canonical" href="https://смартдиаг.рф" />
       </Head>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
@@ -90,7 +93,6 @@ export default function BlogPost() {
               Мы разработали данную инструкцию, чтобы обеспечить максимальный комфорт и успешность в установке приложения. Чтобы избежать возможных проблем, пожалуйста, внимательно следуйте всем пунктам инструкции.
             </p>
 
-            {/* Отключение антивирусов */}
             <section id="disable-antivirus">
               <h2 className="text-2xl font-semibold">Отключение антивирусов</h2>
               <hr className="border-neutral-300 mb-4" />
@@ -113,7 +115,6 @@ export default function BlogPost() {
               />
             </section>
 
-            {/* Отключение брандмауэра */}
             <section id="firewall">
               <h2 className="text-2xl font-semibold">Отключение брандмауэра</h2>
               <hr className="border-neutral-300 mb-4" />
@@ -133,7 +134,6 @@ export default function BlogPost() {
               />
             </section>
 
-            {/* Установка программы */}
             <section id="install-program">
               <h2 className="text-2xl font-semibold">Установка программы</h2>
               <hr className="border-neutral-300 mb-4" />
@@ -154,7 +154,6 @@ export default function BlogPost() {
               </ol>
             </section>
 
-            {/* Смена языка */}
             <section id="change-language">
               <h2 className="text-2xl font-semibold">Смена языка в программе</h2>
               <hr className="border-neutral-300 mb-4" />
@@ -172,7 +171,6 @@ export default function BlogPost() {
               />
             </section>
 
-            {/* Первое подключение */}
             <section id="first-connection">
               <h2 className="text-2xl font-semibold">Первое подключение</h2>
               <hr className="border-neutral-300 mb-4" />
@@ -189,7 +187,6 @@ export default function BlogPost() {
               </ol>
             </section>
 
-            {/* FAQ */}
             <section id="faq">
               <h2 className="text-2xl font-semibold">Часто задаваемые вопросы (FAQ)</h2>
               <hr className="border-neutral-300 mb-4" />
@@ -199,7 +196,6 @@ export default function BlogPost() {
               </ul>
             </section>
 
-            {/* Внимание */}
             <section id="attention">
               <h2 className="text-2xl font-semibold">ВНИМАНИЕ!</h2>
               <hr className="border-neutral-300 mb-4" />
