@@ -31,26 +31,11 @@ export default function BlogPost() {
 
   const closeModal = () => setIsModalOpen(false);
 
-  const handleMenuClick = (titleSuffix: string | null) => {
-    if (titleSuffix) {
-      setCurrentTitle(`${metadata.title} | ${titleSuffix}`);
-    } else {
-      setCurrentTitle(metadata.title);
-    }
-  };
-
   // Прокрутка в самый верх
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    handleMenuClick(null); // Возвращаем заголовок на исходный
-  };
-
-  // Прокрутка к секции
-  const scrollToSection = (id: string) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   };
 
   if (!isClient) return null;
@@ -89,14 +74,13 @@ export default function BlogPost() {
             <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px]" />
             <nav className="space-y-3">
               {navItems.map((item) => (
-                <Link href={item.href} key={item.href} scroll={false}>
+                <Link href={item.href} key={item.href}>
                   <a
                     onClick={() => {
                       if (item.href === "#introduction") {
                         scrollToTop();
                       } else {
-                        handleMenuClick(item.label);
-                        scrollToSection(item.href.substring(1));
+                        setCurrentTitle(`${metadata.title} | ${item.label}`);
                       }
                     }}
                     className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300"
@@ -166,20 +150,29 @@ export default function BlogPost() {
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="download-errors">Ошибки при загрузке</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Ошибки при загрузке файлов также могут привести к тому, что архив будет поврежден. Убедитесь, что файл был загружен полностью и без ошибок. Иногда помогает повторная загрузка файла.
+                Ошибки при загрузке файла также могут стать причиной проблемы с открытием архива. Проверьте, что архив был загружен полностью. Попробуйте перезагрузить его в случае ошибок при первой попытке.
               </p>
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="yandex-tips">Советы для пользователей Яндекс Браузера</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Если вы используете Яндекс Браузер и столкнулись с проблемами при открытии архивов, попробуйте воспользоваться встроенным менеджером загрузок. Иногда это может помочь избежать проблем с повреждением файлов.
+                Если вы используете Яндекс Браузер, иногда защита может блокировать архивы при скачивании. Для решения этой проблемы, попробуйте отключить проверку безопасности скачиваемых файлов в настройках браузера. Перейдите в настройки, откройте вкладку «Безопасность», и снимите галочку с опции «Проверять безопасность скачиваемых файлов».
               </p>
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="support">Поддержка</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Если ни одно из перечисленных решений не помогло, обратитесь в службу поддержки. Возможно, проблема связана с особенностями вашего устройства или программного обеспечения.
+                Если указанные выше шаги не помогли, обратитесь в службу поддержки или попробуйте скачать архив снова.
               </p>
             </div>
+
+            <div className="mt-16 flex justify-center">
+              <Link href="/#blog">
+                <a className="bg-gradient-to-r from-black to-rose-500 text-white text-base rounded-full px-10 py-3 font-medium shadow-lg transition-transform duration-300 hover:scale-105">
+                  Вернуться в статьи
+                </a>
+              </Link>
+            </div>
           </div>
+          <div className="lg:w-1/6 hidden lg:block"></div>
         </div>
       </main>
     </Layout>
