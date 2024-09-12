@@ -104,13 +104,11 @@ export default function BlogPost() {
             </nav>
           </div>
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0">
-            {/* Заголовок статьи */}
             <h2 className="text-4xl font-bold text-center">Как справиться с ошибкой при открытии архива</h2>
             <p id="introduction" className="pt-6 pb-8 text-base dark:text-neutral-400">
               В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
             </p>
 
-            {/* Thumbnail Image */}
             <Image
               src="/images/blog/post1.jpg"
               alt="Ошибки при открытии архива"
@@ -120,10 +118,9 @@ export default function BlogPost() {
               layout="responsive"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="cursor-pointer"
-              onClick={() => setIsModalOpen(true)} // Open modal on click
+              onClick={() => setIsModalOpen(true)}
             />
 
-            {/* Modal Window */}
             {isModalOpen && (
               <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50" onClick={closeModal}>
                 <div className="relative max-w-3xl w-full" onClick={(e) => e.stopPropagation()}>
@@ -147,32 +144,31 @@ export default function BlogPost() {
               </div>
             )}
 
-            {/* Содержание статьи */}
             <div className="max-w-4xl mx-auto text-lg leading-relaxed">
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="antivirus-issue">Проблема с антивирусом</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Часто проблемы с открытием архивов вызваны антивирусным программным обеспечением.
+                Одной из наиболее частых причин, почему архив не открывается, может быть блокировка со стороны антивирусного программного обеспечения. Некоторые антивирусы могут определять архивы как потенциальную угрозу и блокировать их запуск. Рекомендуется проверить настройки антивируса и убедиться, что он не блокирует открытие архивов.
               </p>
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="outdated-software">Устаревшее программное обеспечение</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Если вы используете старую версию программы для работы с архивами, она может не поддерживать новые форматы архивов.
+                Еще одной причиной может быть использование устаревшего программного обеспечения для работы с архивами, например, старых версий WinRAR или WinZip. Убедитесь, что у вас установлена актуальная версия программы для разархивации. Обновления программ часто включают поддержку новых форматов архивов.
               </p>
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="download-errors">Ошибки при загрузке</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Иногда архив может не открываться из-за ошибок при его загрузке.
+                Ошибки при загрузке файла также могут стать причиной проблемы с открытием архива. Проверьте, что архив был загружен полностью. Попробуйте перезагрузить его в случае ошибок при первой попытке.
               </p>
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="yandex-tips">Советы для пользователей Яндекс Браузера</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                В Яндекс Браузере может быть включена защита, блокирующая загрузку определенных файлов, включая архивы.
+                Если вы используете Яндекс Браузер, иногда защита может блокировать архивы при скачивании. Для решения этой проблемы, попробуйте отключить проверку безопасности скачиваемых файлов в настройках браузера. Перейдите в настройки, откройте вкладку «Безопасность», и снимите галочку с опции «Проверять безопасность скачиваемых файлов».
               </p>
               <h3 className="text-2xl font-semibold mt-8 scroll-section" id="support">Поддержка</h3>
               <hr className="border-neutral-300 mb-4" />
               <p className="mb-4">
-                Если перечисленные выше шаги не помогают, обратитесь в службу поддержки для получения дополнительной помощи.
+                Если указанные выше шаги не помогли, обратитесь в службу поддержки или попробуйте скачать архив снова.
               </p>
             </div>
 
