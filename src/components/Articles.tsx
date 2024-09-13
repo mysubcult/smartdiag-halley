@@ -161,7 +161,7 @@ export default function Blog() {
       <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex items-center justify-between w-full sm:w-auto">
           {/* Categories */}
-          <div className="flex items-center w-full sm:w-auto flex-grow gap-2">
+          <div className="flex items-center w-full sm:w-auto flex-grow gap-1">
             <div className="relative" style={{ minWidth: `${longestCategory.length + 4}ch` }}>
               <button
                 className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full relative"
@@ -198,7 +198,7 @@ export default function Blog() {
               )}
 
               {/* Static desktop version */}
-              <div className="hidden sm:flex flex-wrap gap-2">
+              <div className="hidden sm:flex flex-wrap gap-1">
                 {categories.map((category) => (
                   <button
                     key={category.value}
