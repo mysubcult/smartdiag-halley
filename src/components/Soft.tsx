@@ -193,11 +193,12 @@ const DeviceTypes: ProductType[] = ["все", "мультимарочные", "�
 
 export default function Soft() {
   const [selectedType, setSelectedType] = useState<ProductType>("все");
-  const [searchTerm, setSearchTerm] = useState<string>(""); // Для строки поиска
-  const [showSearch, setShowSearch] = useState<boolean>(false); // Состояние для строки поиска в мобильной версии
-  const [currentPage, setCurrentPage] = useState<number>(1); // Состояние для текущей страницы
+  const [searchTerm, setSearchTerm] = useState<string>(""); // For search input
+  const [showSearch, setShowSearch] = useState<boolean>(false); // Mobile search bar toggle
+  const [showCategories, setShowCategories] = useState<boolean>(false); // Mobile categories toggle
+  const [currentPage, setCurrentPage] = useState<number>(1); // Pagination state
 
-  const productsPerPage = 8; // Количество продуктов на одной странице
+  const productsPerPage = 8; // Products per page
 
   const filteredProducts = useMemo(() => {
     const filtered = selectedType === "все"
@@ -218,7 +219,7 @@ export default function Soft() {
 
   const handleCategoryClick = (type: ProductType) => {
     setSelectedType(type);
-    setCurrentPage(1); // Сбросить страницу на первую при изменении категории
+    setCurrentPage(1); // Reset to first page on category change
   };
 
   const renderButton = (label: string, type: ProductType) => (
@@ -248,17 +249,44 @@ export default function Soft() {
       </div>
 
       <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
-        {/* Категории и строка поиска */}
+        {/* Categories and Search Bar */}
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex items-center justify-between w-full sm:w-auto">
-          {/* Категории */}
+          {/* Categories */}
           <div className="flex items-center w-full sm:w-auto flex-grow gap-2">
             <div className="relative">
+              {/* Static categories for PC */}
               <div className="hidden sm:flex gap-2">
                 {DeviceTypes.map((type) => renderButton(type.charAt(0).toUpperCase() + type.slice(1), type))}
               </div>
+
+              {/* Mobile categories toggle */}
+              <button
+                className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md"
+                onClick={() => setShowCategories(!showCategories)}
+              >
+                Категории
+              </button>
+
+              {/* Mobile categories dropdown */}
+              {showCategories && (
+                <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2 transition-all ease-in-out duration-300">
+                  {DeviceTypes.map((type) => (
+                    <button
+                      key={type}
+                      onClick={() => {
+                        handleCategoryClick(type);
+                        setShowCategories(false); // Close dropdown
+                      }}
+                      className="block text-left w-full px-4 py-2 hover:bg-blue-100 dark:hover:bg-neutral-600"
+                    >
+                      {type.charAt(0).toUpperCase() + type.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
-            {/* Строка поиска для ПК */}
+            {/* Search bar for desktop */}
             <div className="hidden sm:flex">
               <input
                 type="text"
@@ -270,7 +298,7 @@ export default function Soft() {
             </div>
           </div>
 
-          {/* Иконка лупы для мобильной версии */}
+          {/* Search icon for mobile */}
           <button
             className="ml-auto sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md"
             onClick={() => setShowSearch(!showSearch)}
@@ -281,7 +309,7 @@ export default function Soft() {
           </button>
         </div>
 
-        {/* Строка поиска для мобильной версии */}
+        {/* Mobile search bar */}
         <div
           className={`relative w-full sm:hidden transition-all duration-300 ${
             showSearch ? "max-h-40" : "max-h-0"
@@ -297,13 +325,13 @@ export default function Soft() {
         </div>
       </div>
 
-      {/* Сетка продуктов */}
+      {/* Product Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {paginatedProducts.length > 0 ? (
           paginatedProducts.map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => (
             <div
               key={title}
-              className={`rounded-lg py-8 relative flex flex-col ${
+              className={`rounded-lg py-8 relative flex flex-col h-full ${
                 mostPopular
                   ? "border-red-300 border-2 border-solid dark:border-red-600"
                   : "border-neutral-300 border dark:border-neutral-600"
@@ -350,7 +378,7 @@ export default function Soft() {
         )}
       </div>
 
-      {/* Пагинация */}
+      {/* Pagination */}
       <div className="max-w-max mx-auto px-6 pb-4">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
