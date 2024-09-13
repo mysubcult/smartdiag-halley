@@ -291,10 +291,10 @@ export default function Blog() {
                 </div>
               </Link>
               <div className="p-4 flex flex-col flex-grow">
-                <h3 className="text-lg font-semibold mb-2 line-clamp-2 overflow-hidden text-ellipsis">
+                <h3 className="text-lg font-semibold mb-2 flex items-center justify-center h-[calc(2em*2)] overflow-hidden text-ellipsis">
                   {title}
                 </h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-3 overflow-hidden text-ellipsis">
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex items-center justify-center h-[calc(2em*3)] overflow-hidden text-ellipsis">
                   {excerpt}
                 </p>
                 <div className="mt-auto text-right">
