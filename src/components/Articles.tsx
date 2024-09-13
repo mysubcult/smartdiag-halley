@@ -269,6 +269,7 @@ export default function Blog() {
         </div>
       </div>
 
+      {/* Секция с карточками статей */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {paginatedPosts.length > 0 ? (
           paginatedPosts.map(({ title, image, excerpt, link }) => (
@@ -291,12 +292,20 @@ export default function Blog() {
                 </div>
               </Link>
               <div className="p-4 flex flex-col flex-grow">
-                <h3 className="text-lg font-semibold mb-2 flex items-center h-[calc(2em*2)] overflow-hidden text-ellipsis line-clamp-2">
-                  {title}
-                </h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 flex items-center h-[calc(1.5em*3)] overflow-hidden text-ellipsis line-clamp-3">
-                  {excerpt}
-                </p>
+                {/* Обёртка для заголовка */}
+                <div className="h-12 grid place-items-center">
+                  <h3 className="text-lg font-semibold line-clamp-2 text-center">
+                    {title}
+                  </h3>
+                </div>
+
+                {/* Обёртка для описания */}
+                <div className="h-20 grid place-items-center">
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3 text-center">
+                    {excerpt}
+                  </p>
+                </div>
+
                 <div className="mt-auto text-right">
                   <Link href={link}>
                     <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
@@ -315,12 +324,14 @@ export default function Blog() {
         )}
       </div>
 
+      {/* Секция пагинации */}
       <div className="max-w-max mx-auto px-6 pb-4">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
           {renderPagination}
         </div>
       </div>
 
+      {/* Поповер для пагинации */}
       {showPopover && popoverPosition && (
         <div
           ref={popoverRef}
