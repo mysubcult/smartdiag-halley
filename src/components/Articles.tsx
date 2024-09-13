@@ -301,12 +301,12 @@ export default function Blog() {
               </Link>
               <div className="p-4 flex flex-col flex-grow">
                 <h3
-                  className="text-lg font-semibold mb-2 line-clamp-2 h-12 overflow-hidden text-ellipsis"
+                  className="text-lg font-semibold mb-2 line-clamp-2 overflow-hidden text-ellipsis"
                 >
                   {title}
                 </h3>
                 <p
-                  className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-3 h-[4.5rem] overflow-hidden text-ellipsis"
+                  className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-3 overflow-hidden text-ellipsis"
                 >
                   {excerpt}
                 </p>
