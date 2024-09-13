@@ -346,9 +346,9 @@ export default function Soft() {
                   ? "border-red-300 border-2 border-solid dark:border-red-600"
                   : "border-neutral-300 border dark:border-neutral-600"
               } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
-              style={{ height: "100%", maxHeight: "400px", overflow: "hidden" }} 
+              style={{ height: "100%", maxHeight: "450px", overflow: "hidden" }} // Increased height to fit more content
             >
-              <h3 className="px-6 text-lg font-semibold leading-5" style={{ overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
+              <h3 className="px-6 text-lg font-semibold leading-5" style={{ overflow: "hidden", display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2 }}>
                 {title}
               </h3>
               {mostPopular && (
@@ -356,7 +356,7 @@ export default function Soft() {
                   Топ продаж
                 </p>
               )}
-              <p className="px-6 mt-4 leading-6 dark:text-neutral-400" style={{ overflow: "hidden", textOverflow: "ellipsis", maxHeight: "3em", whiteSpace: "nowrap" }}>
+              <p className="px-6 mt-4 leading-6 dark:text-neutral-400" style={{ overflow: "hidden", display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 4 }}>
                 {description}
               </p>
               <div className="flex mt-4 mx-6">
