@@ -352,8 +352,9 @@ export default function Soft() {
               <h3 className="px-6 text-lg font-semibold leading-5" style={{ overflow: "hidden", display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2 }}>
                 {title}
               </h3>
+              {/* Adjust "Топ продаж" - Ensure it doesn't get clipped */}
               {mostPopular && (
-                <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
+                <p className="mx-6 absolute top-0 left-4 px-4 py-1 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
                   Топ продаж
                 </p>
               )}
@@ -378,16 +379,18 @@ export default function Soft() {
                   </button>
                 )}
               </div>
-              {/* Features section */}
-              <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500" style={{ overflow: "hidden", display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 3 }}>
-                <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
-                {features.map((feature) => (
-                  <li key={feature} className="leading-6 flex">
-                    <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
-                    <span className="ml-3 dark:text-neutral-400">{feature}</span>
-                  </li>
-                ))}
-              </ul>
+              {/* Conditionally render features */}
+              {features.length <= 3 && (
+                <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
+                  <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
+                  {features.map((feature) => (
+                    <li key={feature} className="leading-6 flex">
+                      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
+                      <span className="ml-3 dark:text-neutral-400">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))
         ) : (
