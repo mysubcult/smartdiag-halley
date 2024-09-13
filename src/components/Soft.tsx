@@ -207,7 +207,6 @@ export default function Soft() {
 
   const renderButton = (label: string, type: ProductType) => (
     <button
-      key={type}
       onClick={() => setSelectedType(type)}
       className={`${
         selectedType === type
@@ -247,7 +246,7 @@ export default function Soft() {
                   : "border-neutral-300 border dark:border-neutral-600"
               } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
             >
-              <h3 className="px-6 text-lg font-semibold leading-6 line-clamp-1 overflow-hidden text-ellipsis">
+              <h3 className="px-6 text-lg font-semibold leading-5 line-clamp-1 overflow-hidden text-ellipsis">
                 {title}
               </h3>
               {mostPopular && (
@@ -255,14 +254,14 @@ export default function Soft() {
                   Топ продаж
                 </p>
               )}
-              {/* Обёртка для описания */}
-              <div className="px-6 mt-4 flex-grow">
-                <div className="h-24 flex items-center">
-                  <p className="leading-6 dark:text-neutral-400 line-clamp-4 overflow-hidden text-ellipsis">
-                    {description}
-                  </p>
-                </div>
+              
+              {/* Обёртка для описания с вертикальным центрированием */}
+              <div className="px-6 mt-4 h-24 flex items-center">
+                <p className="leading-6 dark:text-neutral-400 line-clamp-4 overflow-hidden text-ellipsis">
+                  {description}
+                </p>
               </div>
+              
               <div className="flex mt-4 mx-6">
                 <button
                   onClick={() => handleDownloadClick(downloadLinks)}
@@ -279,9 +278,10 @@ export default function Soft() {
                   </button>
                 )}
               </div>
-              {/* Секция "В комплекте:" */}
-              <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
-                <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
+              
+              {/* Обёртка для "В комплекте:" с фиксированной высотой и равномерным распределением */}
+              <ul className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500 flex flex-col justify-between h-32">
+                <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
                 {features.slice(0, 3).map((feature, index) => (
                   <li key={index} className="flex">
                     <CheckIcon className="mt-1 w-3 h-3 text-red-600 shrink-0" />
@@ -296,6 +296,14 @@ export default function Soft() {
                     <span className="ml-3 dark:text-neutral-400">и т.д.</span>
                   </li>
                 )}
+                {/* Добавление пустых пунктов для выравнивания до 4 пунктов */}
+                {features.length < 4 &&
+                  Array.from({ length: 4 - features.length }, (_, i) => (
+                    <li key={`empty-${i}`} className="flex">
+                      <CheckIcon className="mt-1 w-3 h-3 text-transparent shrink-0" />
+                      <span className="ml-3 dark:text-neutral-400 opacity-0">&nbsp;</span>
+                    </li>
+                  ))}
               </ul>
             </div>
           ))}
