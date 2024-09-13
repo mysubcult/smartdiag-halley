@@ -271,14 +271,21 @@ export default function Soft() {
                 )}
               </div>
               <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
-                <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
-                {features.map((feature) => (
-                  <li key={feature} className="leading-6 flex">
-                    <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
-                    <span className="ml-3 dark:text-neutral-400">{feature}</span>
-                  </li>
-                ))}
-              </ul>
+  <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
+  {features.slice(0, 3).map((feature, index) => (
+    <li key={index} className="leading-6 flex">
+      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
+      <span className="ml-3 dark:text-neutral-400">{feature}</span>
+    </li>
+  ))}
+  {features.length > 3 && (
+    <li className="leading-6 flex">
+      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
+      <span className="ml-3 dark:text-neutral-400">и т.д.</span>
+    </li>
+  )}
+</ul>
+
             </div>
           ))}
       </div>
