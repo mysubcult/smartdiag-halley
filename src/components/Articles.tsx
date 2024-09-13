@@ -23,7 +23,7 @@ const blogPosts = [
   {
     "title": "Инструкция по установке Autocom 2021",
     "image": "/images/blog/post1.jpg",
-    "excerpt": "Полноценная, подробная инструкция по усатнвоке программного обеспечения.",
+    "excerpt": "Полноценная, подробная инструкция по установке программного обеспечения.",
     "link": "/articles/software/autocom2021",
     "category": "Установка ПО",
     "keywords": ["ошибки архива", "проблемы с архивом", "ошибка открытия архива", "архив"]
@@ -160,29 +160,28 @@ export default function Blog() {
       {/* Category and search implementation */}
       <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto">
-          {/* Categories */}
-          <div className="flex items-center w-full sm:w-auto flex-grow">
-            <div className="relative sm:mr-4 mr-auto" style={{ minWidth: `${longestCategory.length + 4}ch` }}>
-              <div className="hidden sm:flex flex-wrap gap-1">
-                {categories.map((category) => (
-                  <button
-                    key={category.value}
-                    onClick={() => handleCategoryClick(category.value)}
-                    className={`${
-                      category.value === selectedCategory
-                        ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                        : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-                    } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-                    aria-label={`Выбрать категорию ${category.name}`}
-                  >
-                    {category.name}
-                  </button>
-                ))}
-              </div>
+          {/* Categories and Search Bar Container */}
+          <div className="flex items-center justify-between w-full">
+            {/* Categories */}
+            <div className="flex space-x-4">
+              {categories.map((category) => (
+                <button
+                  key={category.value}
+                  onClick={() => handleCategoryClick(category.value)}
+                  className={`${
+                    category.value === selectedCategory
+                      ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                      : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+                  } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+                  aria-label={`Выбрать категорию ${category.name}`}
+                >
+                  {category.name}
+                </button>
+              ))}
             </div>
 
             {/* Search bar for desktop */}
-            <div className="hidden sm:block w-40">
+            <div className="w-40">
               <input
                 type="text"
                 placeholder="Поиск..."
