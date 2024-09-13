@@ -159,7 +159,7 @@ export default function Blog() {
 
       {/* Category and search implementation */}
       <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
-        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto">
+        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex items-center justify-between w-full sm:w-auto">
           {/* Categories */}
           <div className="flex items-center w-full sm:w-auto flex-grow">
             <div className="relative sm:mr-4" style={{ minWidth: `${longestCategory.length + 4}ch` }}>
@@ -216,41 +216,16 @@ export default function Blog() {
               </div>
             </div>
 
-            {/* Search icon */}
-            <button
-              className="ml-auto sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md"
-              onClick={() => setShowSearch(!showSearch)}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Search bar for mobile */}
-          <div
-            className={`relative w-full sm:hidden transition-all duration-300 ${
-              showSearch ? "max-h-40" : "max-h-0"
-            } overflow-hidden`}
-          >
-            <input
-              type="text"
-              placeholder="Поиск..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 mt-2"
-            />
-          </div>
-
-          {/* Static search bar for desktop */}
-          <div className="hidden sm:block w-40">
-            <input
-              type="text"
-              placeholder="Поиск..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-            />
+            {/* Search bar */}
+            <div className="ml-auto w-40 flex-grow">
+              <input
+                type="text"
+                placeholder="Поиск..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+              />
+            </div>
           </div>
         </div>
       </div>
