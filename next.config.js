@@ -1,10 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',  // Для статической сборки
+  output: 'export', // Добавляем эту строку для статической сборки
   reactStrictMode: true,
-  images: {
-    unoptimized: true,  // Отключаем оптимизацию изображений
-  },
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
