@@ -250,7 +250,7 @@ export default function Blog() {
                 <div className="mt-auto text-right">
                   <Link href={link}>
                     <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
-                      Читать далее
+                      Читать далееd
                     </button>
                   </Link>
                 </div>
