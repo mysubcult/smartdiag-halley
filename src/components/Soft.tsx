@@ -24,6 +24,7 @@ const DeviceTypes: ProductType[] = ["мультимарочные", "мароч�
 export default function Soft() {
   const [selectedType, setSelectedType] = useState<ProductType>("мультимарочные");
   const [searchTerm, setSearchTerm] = useState<string>(""); // Для строки поиска
+  const [showSearch, setShowSearch] = useState<boolean>(false); // Состояние для строки поиска в мобильной версии
   const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
 
   const handleDownloadClick = (links: { link: string; label: string }[]) => {
