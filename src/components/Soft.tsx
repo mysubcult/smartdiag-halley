@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 
 type ProductType = "мультимарочные" | "марочные" | "адаптеры elm" | "все";
@@ -163,8 +163,8 @@ const products: Product[] = [
   },
   {
     title: "ELM 327 Mini",
-    description: "Универсальный диагностический сканер для автомобилей, который подключается к порту OBD-II и работает через приложение на смартфоне или компьютере.",
-    features: ["Car Scanner", "Torque", "Carista", "BimmerCode", "LeafSpy"],
+    description: "Универсальный диагностический сканер для автомобилей, работает через приложение на смартфоне или компьютере.",
+    features: ["Car Scanner", "Torque", "ELMScan", "Carista"],
     downloadLinks: [
       { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" },
       { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 1" },
@@ -176,8 +176,8 @@ const products: Product[] = [
   },
   {
     title: "Kingbolen ELM",
-    description: "Диагностический инструмент для автомобилей, оснащенный функцией Bluetooth/Wi-Fi и поддерживающий различные протоколы OBD-II, что позволяет работать с разными автомобильными брендами.",
-    features: ["Car Scanner", "Torque", "Carista", "BimmerCode", "LeafSpy"],
+    description: "Диагностический инструмент для автомобилей, оснащенный функцией Bluetooth/Wi-Fi.",
+    features: ["Car Scanner", "Torque", "ELMScan", "Carista"],
     downloadLinks: [
       { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" },
       { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 1" },
@@ -197,6 +197,7 @@ export default function Soft() {
   const [showSearch, setShowSearch] = useState<boolean>(false); // Mobile search bar toggle
   const [showCategories, setShowCategories] = useState<boolean>(false); // Mobile categories toggle
   const [currentPage, setCurrentPage] = useState<number>(1); // Pagination state
+  const searchRef = useRef<HTMLInputElement>(null); // Ref for search input
 
   const productsPerPage = 8; // Products per page
 
@@ -222,6 +223,13 @@ export default function Soft() {
     setCurrentPage(1); // Reset to first page on category change
   };
 
+  const handleSearchIconClick = () => {
+    setShowSearch(!showSearch);
+    if (showSearch && searchRef.current) {
+      searchRef.current.focus();
+    }
+  };
+
   const renderButton = (label: string, type: ProductType) => (
     <button
       onClick={() => handleCategoryClick(type)}
@@ -229,9 +237,18 @@ export default function Soft() {
         selectedType === type
           ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
           : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-      } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+      } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out relative flex items-center`}
     >
       {label}
+      {/* Добавляем стрелочку */}
+      <svg
+        className={`w-4 h-4 ml-2 transform transition-transform duration-300 ${showCategories ? "rotate-180" : ""}`}
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+      </svg>
     </button>
   );
 
@@ -252,19 +269,28 @@ export default function Soft() {
         {/* Categories and Search Bar */}
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex items-center justify-between w-full sm:w-auto">
           {/* Categories */}
-          <div className="flex items-center w-full sm:w-auto flex-grow gap-2">
+          <div className="flex items-center w-full sm:w-auto flex-grow gap-1">
             <div className="relative">
               {/* Static categories for PC */}
-              <div className="hidden sm:flex gap-2">
+              <div className="hidden sm:flex gap-1">
                 {DeviceTypes.map((type) => renderButton(type.charAt(0).toUpperCase() + type.slice(1), type))}
               </div>
 
               {/* Mobile categories toggle */}
               <button
-                className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md"
+                className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full"
                 onClick={() => setShowCategories(!showCategories)}
               >
-                Категории
+                <span>{selectedType}</span>
+                {/* Dropdown arrow */}
+                <svg
+                  className={`w-4 h-4 ml-2 transform transition-transform duration-300 ${showCategories ? "rotate-180" : ""}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
               </button>
 
               {/* Mobile categories dropdown */}
@@ -301,7 +327,7 @@ export default function Soft() {
           {/* Search icon for mobile */}
           <button
             className="ml-auto sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md"
-            onClick={() => setShowSearch(!showSearch)}
+            onClick={handleSearchIconClick}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z" />
@@ -316,6 +342,7 @@ export default function Soft() {
           } overflow-hidden`}
         >
           <input
+            ref={searchRef}
             type="text"
             placeholder="Поиск..."
             value={searchTerm}
