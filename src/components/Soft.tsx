@@ -346,8 +346,9 @@ export default function Soft() {
                   ? "border-red-300 border-2 border-solid dark:border-red-600"
                   : "border-neutral-300 border dark:border-neutral-600"
               } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
-              style={{ height: "100%", maxHeight: "450px", overflow: "hidden" }} // Increased height to fit more content
+              style={{ height: "100%", maxHeight: "450px", overflow: "hidden" }} 
             >
+              {/* Title section */}
               <h3 className="px-6 text-lg font-semibold leading-5" style={{ overflow: "hidden", display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2 }}>
                 {title}
               </h3>
@@ -356,9 +357,11 @@ export default function Soft() {
                   Топ продаж
                 </p>
               )}
+              {/* Description section */}
               <p className="px-6 mt-4 leading-6 dark:text-neutral-400" style={{ overflow: "hidden", display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 4 }}>
                 {description}
               </p>
+              {/* Buttons section */}
               <div className="flex mt-4 mx-6">
                 <button
                   onClick={() => window.open(downloadLinks[0].link, "_blank")}
@@ -375,7 +378,8 @@ export default function Soft() {
                   </button>
                 )}
               </div>
-              <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
+              {/* Features section */}
+              <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500" style={{ overflow: "hidden", display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 3 }}>
                 <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
                 {features.map((feature) => (
                   <li key={feature} className="leading-6 flex">
