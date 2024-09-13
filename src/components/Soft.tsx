@@ -207,6 +207,7 @@ export default function Soft() {
 
   const renderButton = (label: string, type: ProductType) => (
     <button
+      key={type}
       onClick={() => setSelectedType(type)}
       className={`${
         selectedType === type
@@ -246,7 +247,7 @@ export default function Soft() {
                   : "border-neutral-300 border dark:border-neutral-600"
               } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
             >
-              <h3 className="px-6 text-lg font-semibold leading-5 line-clamp-1 overflow-hidden text-ellipsis">
+              <h3 className="px-6 text-lg font-semibold leading-6 line-clamp-1 overflow-hidden text-ellipsis">
                 {title}
               </h3>
               {mostPopular && (
@@ -254,9 +255,14 @@ export default function Soft() {
                   Топ продаж
                 </p>
               )}
-              <p className="px-6 mt-4 leading-6 dark:text-neutral-400 line-clamp-4 h-auto min-h-[6rem] max-h-[6rem] overflow-hidden">
-                {description}
-              </p>
+              {/* Обёртка для описания */}
+              <div className="px-6 mt-4 flex-grow">
+                <div className="h-24 flex items-center">
+                  <p className="leading-6 dark:text-neutral-400 line-clamp-4 overflow-hidden text-ellipsis">
+                    {description}
+                  </p>
+                </div>
+              </div>
               <div className="flex mt-4 mx-6">
                 <button
                   onClick={() => handleDownloadClick(downloadLinks)}
@@ -273,6 +279,7 @@ export default function Soft() {
                   </button>
                 )}
               </div>
+              {/* Секция "В комплекте:" */}
               <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
                 <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
                 {features.slice(0, 3).map((feature, index) => (
