@@ -26,15 +26,7 @@ const blogPosts = [
     excerpt: "Полноценная, подробная инструкция по усатнвоке программного обеспечения.",
     link: "/articles/software/autocom2021",
     category: "Установка ПО",
-    keywords: ["ошибки архива", "проблемы с архивом", "ошибка открытия архива", "архив"],
-  },
-    {
-    title: "тест",
-    image: "/images/blog/post1.jpg",
-    excerpt: "тест.",
-    link: "/articles/software/autocom2021",
-    category: "Установка ПО",
-    keywords: ["ошибки архива", "проблемы с архивом", "ошибка открытия архива", "архив"],
+    keywords: ["установка ПО", "Autocom 2021", "инструкция"],
   },
 ];
 
@@ -42,23 +34,32 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [showSearch, setShowSearch] = useState<boolean>(false);
+  const [showCategories, setShowCategories] = useState<boolean>(false);
+  const [showPopover, setShowPopover] = useState<boolean>(false);
+  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
 
   const postsPerPage = 8;
 
+  const longestCategory = useMemo(() => {
+    return categories.reduce(
+      (max, category) => (category.name.length > max.length ? category.name : max),
+      categories[0].name
+    );
+  }, []);
+
   const filteredPosts = useMemo(() => {
-    const filteredByCategory =
-      selectedCategory === "Все"
-        ? blogPosts
-        : blogPosts.filter((post) => post.category === selectedCategory);
+    const filteredByCategory = selectedCategory === "Все" ? blogPosts : blogPosts.filter((post) => post.category === selectedCategory);
     return filteredByCategory.filter(
       (post) =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.keywords.some((keyword) =>
-          keyword.toLowerCase().includes(searchTerm.toLowerCase())
-        )
+        post.keywords.some((keyword) => keyword.toLowerCase().includes(searchTerm.toLowerCase()))
     );
   }, [selectedCategory, searchTerm]);
+
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
@@ -70,36 +71,89 @@ export default function Blog() {
     setCurrentPage(1);
   }, []);
 
+  const handlePageChange = useCallback((page: number) => {
+    if (page > 0 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+    setShowPopover(false);
+  }, [totalPages]);
+
+  const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
+    setShowPopover(true);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+        setShowPopover(false);
+      }
+    };
+
+    if (showPopover) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showPopover]);
+
+  const renderPagination = useMemo(() => {
+    const pagesToShow: (string | number)[] = [];
+    pagesToShow.push(1);
+
+    if (totalPages > 5) {
+      if (currentPage <= 2) {
+        pagesToShow.push(2, 3, "...");
+      } else if (currentPage >= totalPages - 1) {
+        pagesToShow.push("...", totalPages - 2, totalPages - 1);
+      } else {
+        if (currentPage > 3) {
+          pagesToShow.push("...");
+        }
+        pagesToShow.push(currentPage - 1, currentPage);
+        if (currentPage + 1 < totalPages) {
+          pagesToShow.push(currentPage + 1);
+        }
+        if (currentPage < totalPages - 2) {
+          pagesToShow.push("...");
+        }
+      }
+    } else {
+      for (let i = 2; i <= totalPages; i++) {
+        pagesToShow.push(i);
+      }
+    }
+
+    if (totalPages > 1 && !pagesToShow.includes(totalPages)) {
+      pagesToShow.push(totalPages);
+    }
+
+    return pagesToShow.map((page, index) => (
+      <button
+        key={index}
+        onClick={(event) => (typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event))}
+        className={`${
+          page === currentPage
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${typeof page !== "number" ? "cursor-pointer" : ""}`}
+        aria-label={typeof page === "number" ? `Перейти на страницу ${page}` : "Показать другие страницы"}
+      >
+        {typeof page === "number" ? page : "..."}
+      </button>
+    ));
+  }, [currentPage, totalPages]);
+
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
-        <h2 className="text-4xl font-bold text-center">Статьи 💻</h2>
+        <h2 className="text-4xl font-bold text-center">Статьи 💻 (в разработке)</h2>
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
           В этом разделе вы можете найти статьи и решения по программному обеспечению.
         </p>
-      </div>
-
-      <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
-        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex items-center justify-between w-full sm:w-auto">
-          <div className="flex items-center w-full sm:w-auto flex-grow gap-1">
-            <div className="hidden sm:flex flex-wrap gap-1">
-              {categories.map((category) => (
-                <button
-                  key={category.value}
-                  onClick={() => handleCategoryClick(category.value)}
-                  className={`${
-                    category.value === selectedCategory
-                      ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                      : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-                  } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-                  aria-label={`Выбрать категорию ${category.name}`}
-                >
-                  {category.name}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
@@ -130,7 +184,7 @@ export default function Blog() {
                   {title}
                 </h3>
                 <p
-                  className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-3 h-auto min-h-[4.5rem] max-h-[4.5rem] flex items-center"
+                  className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-3 h-[4.5rem] flex items-center"
                 >
                   {excerpt}
                 </p>
@@ -151,6 +205,37 @@ export default function Blog() {
           </div>
         )}
       </div>
+
+      <div className="max-w-max mx-auto px-6 pb-4">
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
+          {renderPagination}
+        </div>
+      </div>
+
+      {showPopover && popoverPosition && (
+        <div
+          ref={popoverRef}
+          className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
+          style={{ top: popoverPosition.top, left: popoverPosition.left }}
+        >
+          <div className="grid grid-cols-4 gap-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`${
+                  page === currentPage
+                    ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                } rounded-md py-2 px-3 transition-colors duration-300 ease-in-out`}
+                aria-label={`Перейти на страницу ${page}`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
