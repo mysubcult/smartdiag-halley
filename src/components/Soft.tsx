@@ -257,7 +257,7 @@ export default function Soft() {
                   Топ продаж
                 </p>
               )}
-              <p className="px-6 mt-4 leading-6 dark:text-neutral-400">{description}</p>
+              <p className="px-6 mt-4 leading-6 dark:text-neutral-400 line-clamp-3">{description}</p>
               <div className="flex mt-4 mx-6">
                 <button
                   onClick={() => handleDownloadClick(downloadLinks)}
