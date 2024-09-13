@@ -28,30 +28,7 @@ const blogPosts = [
     category: "Установка ПО",
     keywords: ["установка ПО", "Autocom 2021", "инструкция"],
   },
-    {
-    title: "Инструкция по установке Autocom 2021",
-    image: "/images/blog/post1.jpg",
-    excerpt: "Полноценная, подробная инструкция по установке программного обеспечения.",
-    link: "/articles/software/autocom2021",
-    category: "Установка ПО",
-    keywords: ["установка ПО", "Autocom 2021", "инструкция"],
-  },
-  {
-    title: "тест",
-    image: "/images/blog/post1.jpg",
-    excerpt: "тест.",
-    link: "/articles/software/autocom2021",
-    category: "Установка ПО",
-    keywords: ["установка ПО", "Autocom 2021", "инструкция"],
-  },
-  {
-    title: "Инструкция по установке Autocom 2021 Инструкция по установке Autocom 2021",
-    image: "/images/blog/post1.jpg",
-    excerpt: "Полноценная, подробная инструкция по установке программного обеспечения. Полноценная, подробная инструкция по установке программного обеспечения.",
-    link: "/articles/software/autocom2021",
-    category: "Установка ПО",
-    keywords: ["установка ПО", "Autocom 2021", "инструкция"],
-  },
+  // другие посты...
 ];
 
 export default function Blog() {
@@ -74,7 +51,10 @@ export default function Blog() {
   }, []);
 
   const filteredPosts = useMemo(() => {
-    const filteredByCategory = selectedCategory === "Все" ? blogPosts : blogPosts.filter((post) => post.category === selectedCategory);
+    const filteredByCategory =
+      selectedCategory === "Все"
+        ? blogPosts
+        : blogPosts.filter((post) => post.category === selectedCategory);
     return filteredByCategory.filter(
       (post) =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -84,11 +64,6 @@ export default function Blog() {
   }, [selectedCategory, searchTerm]);
 
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
-
-  const paginatedPosts = useMemo(() => {
-    const startIndex = (currentPage - 1) * postsPerPage;
-    return filteredPosts.slice(startIndex, startIndex + postsPerPage);
-  }, [currentPage, filteredPosts]);
 
   const handleCategoryClick = useCallback((category: string) => {
     setSelectedCategory(category);
@@ -163,18 +138,22 @@ export default function Blog() {
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={(event) => (typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event))}
+        onClick={(event) =>
+          typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event)
+        }
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
             : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${typeof page !== "number" ? "cursor-pointer" : ""}`}
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
+          typeof page !== "number" ? "cursor-pointer" : ""
+        }`}
         aria-label={typeof page === "number" ? `Перейти на страницу ${page}` : "Показать другие страницы"}
       >
         {typeof page === "number" ? page : "..."}
       </button>
     ));
-  }, [currentPage, totalPages]);
+  }, [currentPage, totalPages, handlePageChange]);
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
@@ -188,7 +167,6 @@ export default function Blog() {
       {/* Панель навигации по категориям */}
       <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex items-center justify-between w-full sm:w-auto">
-          {/* Categories */}
           <div className="flex items-center w-full sm:w-auto flex-grow gap-1">
             <div className="relative" style={{ minWidth: `${longestCategory.length + 4}ch` }}>
               <button
@@ -224,8 +202,6 @@ export default function Blog() {
                   ))}
                 </div>
               )}
-
-              {/* Статическая версия для десктопа */}
               <div className="hidden sm:flex flex-wrap gap-1">
                 {categories.map((category) => (
                   <button
@@ -243,8 +219,6 @@ export default function Blog() {
                 ))}
               </div>
             </div>
-
-            {/* Поисковая строка для десктопа */}
             <div className="hidden sm:flex">
               <input
                 type="text"
@@ -255,8 +229,6 @@ export default function Blog() {
               />
             </div>
           </div>
-
-          {/* Мобильная иконка поиска */}
           <button
             className="ml-auto sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md"
             onClick={() => setShowSearch(!showSearch)}
@@ -267,7 +239,6 @@ export default function Blog() {
           </button>
         </div>
 
-        {/* Мобильная поисковая строка */}
         <div
           className={`relative w-full sm:hidden transition-all duration-300 ${
             showSearch ? "max-h-40" : "max-h-0"
@@ -305,14 +276,10 @@ export default function Blog() {
                 </div>
               </Link>
               <div className="p-4 flex flex-col flex-grow">
-                <h3
-                  className="text-lg font-semibold mb-2 line-clamp-2 overflow-hidden text-ellipsis"
-                >
+                <h3 className="text-lg font-semibold mb-2 line-clamp-2 overflow-hidden text-ellipsis">
                   {title}
                 </h3>
-                <p
-                  className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-3 overflow-hidden text-ellipsis"
-                >
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-3 overflow-hidden text-ellipsis">
                   {excerpt}
                 </p>
                 <div className="mt-auto text-right">
