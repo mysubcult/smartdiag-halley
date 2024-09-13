@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <div id="hero" className="bg-white dark:bg-neutral-900 scroll-mt-20">
+    <div id="hero" className="bg-white dark:bg-neutral-900">
       <div className="max-w-7xl mx-auto pt-6 sm:pt-5 pb-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2">
-        <div className="pt-12 sm:pt-6 md:pt-32 justify-center text-center sm:justify-start sm:text-start">
+        <div className="pt-20 sm:pt-6 md:pt-32 justify-center text-center sm:justify-start sm:text-start">
           <h1 className="text-5xl font-bold">
             Добро пожаловать в <br />{" "}
             <span className="text-red-600 font-extrabold">
