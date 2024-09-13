@@ -240,7 +240,7 @@ export default function Soft() {
           .map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => (
             <div
               key={title}
-              className={`rounded-lg py-8 relative flex flex-col ${
+              className={`rounded-lg py-8 relative flex flex-col h-96 ${
                 mostPopular
                   ? "border-red-300 border-2 border-solid dark:border-red-600"
                   : "border-neutral-300 border dark:border-neutral-600"
@@ -254,52 +254,53 @@ export default function Soft() {
                   Топ продаж
                 </p>
               )}
-              
-              {/* Обёртка для описания с вертикальным центрированием */}
-              <div className="px-6 mt-4 h-24 flex items-center">
-                <p className="leading-6 dark:text-neutral-400 line-clamp-4 overflow-hidden text-ellipsis">
-                  {description}
-                </p>
-              </div>
-              
-              <div className="flex mt-4 mx-6">
-                <button
-                  onClick={() => handleDownloadClick(downloadLinks)}
-                  className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 dark:hover:bg-green-500 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
-                >
-                  Скачать
-                </button>
-                {docs && docsLinks.length > 0 && (
-                  <button
-                    onClick={() => handleDownloadClick(docsLinks)}
-                    className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
-                  >
-                    Инструкция
-                  </button>
-                )}
-              </div>
-              
-              {/* Обёртка для "В комплекте:" с использованием Flexbox */}
-              <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500 flex flex-col justify-center">
-  <p className="font-semibold dark:text-neutral-300 mb-4">В комплекте:</p>
-  <ul className="flex flex-col flex-grow">
-    {features.slice(0, 3).map((feature, index) => (
-      <li key={index} className="flex items-start mb-2">
-        <CheckIcon className="mt-1 w-3 h-3 text-red-600 shrink-0" />
-        <span className="ml-3 dark:text-neutral-400 line-clamp-2 overflow-hidden text-ellipsis">
-          {feature}
-        </span>
-      </li>
-    ))}
-    {features.length > 3 && (
-      <li className="flex items-start">
-        <CheckIcon className="mt-1 w-3 h-3 text-red-600 shrink-0" />
-        <span className="ml-3 dark:text-neutral-400">и т.д.</span>
-      </li>
-    )}
-  </ul>
-</div>
 
+              {/* Основная часть карточки */}
+              <div className="flex-1 flex flex-col justify-between px-6 mt-4">
+                <div className="flex-1">
+                  <p className="leading-6 dark:text-neutral-400 line-clamp-4 overflow-hidden text-ellipsis">
+                    {description}
+                  </p>
+                </div>
+
+                <div className="flex mt-4">
+                  <button
+                    onClick={() => handleDownloadClick(downloadLinks)}
+                    className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 dark:hover:bg-green-500 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
+                  >
+                    Скачать
+                  </button>
+                  {docs && docsLinks.length > 0 && (
+                    <button
+                      onClick={() => handleDownloadClick(docsLinks)}
+                      className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
+                    >
+                      Инструкция
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Секция "В комплекте:" */}
+              <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500 flex flex-col justify-center flex-grow">
+                <p className="font-semibold dark:text-neutral-300 mb-4 text-center">В комплекте:</p>
+                <ul className="flex flex-col items-start justify-center space-y-2">
+                  {features.slice(0, 3).map((feature, index) => (
+                    <li key={index} className="flex items-start">
+                      <CheckIcon className="mt-1 w-3 h-3 text-red-600 shrink-0" />
+                      <span className="ml-3 dark:text-neutral-400 line-clamp-2 overflow-hidden text-ellipsis">
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                  {features.length > 3 && (
+                    <li className="flex items-start">
+                      <CheckIcon className="mt-1 w-3 h-3 text-red-600 shrink-0" />
+                      <span className="ml-3 dark:text-neutral-400">и т.д.</span>
+                    </li>
+                  )}
+                </ul>
+              </div>
             </div>
           ))}
       </div>
