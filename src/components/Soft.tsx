@@ -346,14 +346,19 @@ export default function Soft() {
                   ? "border-red-300 border-2 border-solid dark:border-red-600"
                   : "border-neutral-300 border dark:border-neutral-600"
               } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
+              style={{ height: "100%", maxHeight: "400px", overflow: "hidden" }} 
             >
-              <h3 className="px-6 text-lg font-semibold leading-5">{title}</h3>
+              <h3 className="px-6 text-lg font-semibold leading-5" style={{ overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
+                {title}
+              </h3>
               {mostPopular && (
                 <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
                   Топ продаж
                 </p>
               )}
-              <p className="px-6 mt-4 leading-6 dark:text-neutral-400 line-clamp-2">{description}</p>
+              <p className="px-6 mt-4 leading-6 dark:text-neutral-400" style={{ overflow: "hidden", textOverflow: "ellipsis", maxHeight: "3em", whiteSpace: "nowrap" }}>
+                {description}
+              </p>
               <div className="flex mt-4 mx-6">
                 <button
                   onClick={() => window.open(downloadLinks[0].link, "_blank")}
