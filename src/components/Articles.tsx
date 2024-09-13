@@ -37,6 +37,10 @@ export default function Blog() {
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
 
+  const [showPopover, setShowPopover] = useState<boolean>(false);
+  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
   const postsPerPage = 8;
 
   const longestCategory = useMemo(() => {
@@ -72,7 +76,77 @@ export default function Blog() {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
+    setShowPopover(false);
   }, [totalPages]);
+
+  const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
+    setShowPopover(true);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+        setShowPopover(false);
+      }
+    };
+
+    if (showPopover) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showPopover]);
+
+  const renderPagination = useMemo(() => {
+    const pagesToShow: (string | number)[] = [];
+    pagesToShow.push(1);
+
+    if (totalPages > 5) {
+      if (currentPage <= 2) {
+        pagesToShow.push(2, 3, "...");
+      } else if (currentPage >= totalPages - 1) {
+        pagesToShow.push("...", totalPages - 2, totalPages - 1);
+      } else {
+        if (currentPage > 3) {
+          pagesToShow.push("...");
+        }
+        pagesToShow.push(currentPage - 1, currentPage);
+        if (currentPage + 1 < totalPages) {
+          pagesToShow.push(currentPage + 1);
+        }
+        if (currentPage < totalPages - 2) {
+          pagesToShow.push("...");
+        }
+      }
+    } else {
+      for (let i = 2; i <= totalPages; i++) {
+        pagesToShow.push(i);
+      }
+    }
+
+    if (totalPages > 1 && !pagesToShow.includes(totalPages)) {
+      pagesToShow.push(totalPages);
+    }
+
+    return pagesToShow.map((page, index) => (
+      <button
+        key={index}
+        onClick={(event) => (typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event))}
+        className={`${
+          page === currentPage
+            ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${typeof page !== "number" ? "cursor-pointer" : ""}`}
+        aria-label={typeof page === "number" ? `Перейти на страницу ${page}` : "Показать другие страницы"}
+      >
+        {typeof page === "number" ? page : "..."}
+      </button>
+    ));
+  }, [currentPage, totalPages]);
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
@@ -87,8 +161,8 @@ export default function Blog() {
       <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex items-center justify-between w-full sm:w-auto">
           {/* Categories */}
-          <div className="flex items-center w-full sm:w-auto flex-grow">
-            <div className="relative sm:mr-4" style={{ minWidth: `${longestCategory.length + 4}ch` }}>
+          <div className="flex items-center w-full sm:w-auto flex-grow gap-4">
+            <div className="relative" style={{ minWidth: `${longestCategory.length + 4}ch` }}>
               <button
                 className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full relative"
                 onClick={() => setShowCategories(!showCategories)}
@@ -124,7 +198,7 @@ export default function Blog() {
               )}
 
               {/* Static desktop version */}
-              <div className="hidden sm:flex flex-wrap gap-1">
+              <div className="hidden sm:flex flex-wrap gap-4">
                 {categories.map((category) => (
                   <button
                     key={category.value}
@@ -143,13 +217,13 @@ export default function Blog() {
             </div>
 
             {/* Search bar for desktop */}
-            <div className="hidden sm:flex sm:ml-4 items-center">
+            <div className="hidden sm:flex">
               <input
                 type="text"
                 placeholder="Поиск..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full max-w-xs p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 ml-4"
+                className="w-full max-w-xs p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
               />
             </div>
           </div>
@@ -252,9 +326,34 @@ export default function Blog() {
 
       <div className="max-w-max mx-auto px-6 pb-4">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
-          {/* Pagination */}
+          {renderPagination}
         </div>
       </div>
+
+      {showPopover && popoverPosition && (
+        <div
+          ref={popoverRef}
+          className="absolute z-50 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md shadow-lg p-4"
+          style={{ top: popoverPosition.top, left: popoverPosition.left }}
+        >
+          <div className="grid grid-cols-4 gap-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`${
+                  page === currentPage
+                    ? "bg-neutral-200 dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                } rounded-md py-2 px-3 transition-colors duration-300 ease-in-out`}
+                aria-label={`Перейти на страницу ${page}`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
