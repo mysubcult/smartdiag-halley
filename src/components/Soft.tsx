@@ -213,7 +213,6 @@ export default function Soft() {
           ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
           : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
       } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-      aria-label={`Выбрать тип ${label}`}
     >
       {label}
     </button>
@@ -240,67 +239,53 @@ export default function Soft() {
           .map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => (
             <div
               key={title}
-              className={`rounded-lg py-8 relative flex flex-col h-96 ${
+              className={`rounded-lg py-8 relative flex flex-col ${
                 mostPopular
                   ? "border-red-300 border-2 border-solid dark:border-red-600"
                   : "border-neutral-300 border dark:border-neutral-600"
               } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
             >
-              <h3 className="px-6 text-lg font-semibold leading-5 line-clamp-1 overflow-hidden text-ellipsis">
-                {title}
-              </h3>
+              <h3 className="px-6 text-lg font-semibold leading-5">{title}</h3>
               {mostPopular && (
                 <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
                   Топ продаж
                 </p>
               )}
-
-              {/* Основная часть карточки */}
-              <div className="flex-1 flex flex-col justify-between px-6 mt-4">
-                <div className="flex-1">
-                  <p className="leading-6 dark:text-neutral-400 line-clamp-4 overflow-hidden text-ellipsis">
-                    {description}
-                  </p>
-                </div>
-
-                <div className="flex mt-4">
+              <p className="px-6 mt-4 leading-6 dark:text-neutral-400 line-clamp-3 h-auto min-h-[4.5rem] max-h-[4.5rem] overflow-hidden">
+  {description}
+</p>
+              <div className="flex mt-4 mx-6">
+                <button
+                  onClick={() => handleDownloadClick(downloadLinks)}
+                  className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 dark:hover:bg-green-500 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
+                >
+                  Скачать
+                </button>
+                {docs && docsLinks.length > 0 && (
                   <button
-                    onClick={() => handleDownloadClick(downloadLinks)}
-                    className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 dark:hover:bg-green-500 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
+                    onClick={() => handleDownloadClick(docsLinks)}
+                    className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
                   >
-                    Скачать
+                    Инструкция
                   </button>
-                  {docs && docsLinks.length > 0 && (
-                    <button
-                      onClick={() => handleDownloadClick(docsLinks)}
-                      className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
-                    >
-                      Инструкция
-                    </button>
-                  )}
-                </div>
+                )}
               </div>
+              <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
+  <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
+  {features.slice(0, 3).map((feature, index) => (
+    <li key={index} className="leading-6 flex">
+      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
+      <span className="ml-3 dark:text-neutral-400">{feature}</span>
+    </li>
+  ))}
+  {features.length > 3 && (
+    <li className="leading-6 flex">
+      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
+      <span className="ml-3 dark:text-neutral-400">и т.д.</span>
+    </li>
+  )}
+</ul>
 
-              {/* Секция "В комплекте:" */}
-              <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500 flex flex-col justify-center flex-grow">
-                <p className="font-semibold dark:text-neutral-300 mb-4 text-center">В комплекте:</p>
-                <ul className="flex flex-col items-start justify-center space-y-2">
-                  {features.slice(0, 3).map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <CheckIcon className="mt-1 w-3 h-3 text-red-600 shrink-0" />
-                      <span className="ml-3 dark:text-neutral-400 line-clamp-2 overflow-hidden text-ellipsis">
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                  {features.length > 3 && (
-                    <li className="flex items-start">
-                      <CheckIcon className="mt-1 w-3 h-3 text-red-600 shrink-0" />
-                      <span className="ml-3 dark:text-neutral-400">и т.д.</span>
-                    </li>
-                  )}
-                </ul>
-              </div>
             </div>
           ))}
       </div>
@@ -317,14 +302,13 @@ export default function Soft() {
             <button
               onClick={closeModal}
               className="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition-all duration-300 transform hover:scale-110 active:scale-90"
-              aria-label="Закрыть модальное окно"
             >
               ✕
             </button>
             <h3 className="text-lg font-semibold mb-4 text-center">Выберите ссылку для скачивания</h3>
             <div className="flex flex-col space-y-2">
               {modalLinks.map(({ link, label }, index) => (
-                <Link href={link} key={index} target="_blank" passHref>
+                <Link href={link} key={index} target="_blank">
                   <a className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-neutral-300 text-black shadow-md dark:bg-neutral-600 dark:text-white hover:bg-neutral-400 dark:hover:bg-neutral-500 transition-colors duration-200 ease-in-out transform active:scale-95">
                     {label}
                   </a>
