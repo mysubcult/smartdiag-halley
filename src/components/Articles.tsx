@@ -301,7 +301,7 @@ export default function Blog() {
               </Link>
               <div className="p-4 flex flex-col flex-grow">
                 <h3
-                  className="text-lg font-semibold mb-2 line-clamp-2 h-12 flex items-center justify-center"
+                  className="text-lg font-semibold mb-2 line-clamp-2 h-12 flex items-center"
                 >
                   {title}
                 </h3>
