@@ -16,7 +16,177 @@ interface Product {
 }
 
 const products: Product[] = [
-  // Продукты здесь...
+  {
+    title: "Delphi DS150e",
+    description: "Многофункциональный диагностический инструмент для легковых и грузовых автомобилей.",
+    features: ["Delphi 2021.10b, Delphi + Delphi 2020.23", "Инструкции по установке ПО", "Руководство пользователя"],
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/BiaqYzKpxZRTc58", label: "Скачать с сервера 1" },
+      { link: "https://nch.pl/s/8MZQfLRjSy9z4Bk", label: "Скачать с сервера 2" }
+    ],
+    mostPopular: false,
+    docs: true,
+    docsLinks: [
+      { link: "https://i.getspace.us/cloud/s/7BwyBJf2YHxEkaC", label: "Инструкция по установке Delphi 2020.23" },
+      { link: "https://i.getspace.us/cloud/s/qJRfJdgjsqkPxme", label: "Инструкция по установке Delphi 2021.10b" }
+    ],
+    type: "мультимарочные"
+  },
+  {
+    title: "Autocom CDP+",
+    description: "Универсальный диагностический сканер для чтения и удаления кодов неисправностей.",
+    features: ["Autocom 2021.11, Delphi + Autocom 2020.23", "Инструкции по установке ПО", "Руководство пользователя"],
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/S9CKwWMNDbeB2XH", label: "Скачать с сервера 1" },
+      { link: "https://nch.pl/s/XbJnfSYNiw3dzFm", label: "Скачать с сервера 2" }
+    ],
+    mostPopular: true,
+    docs: true,
+    docsLinks: [
+      { link: "https://i.getspace.us/cloud/s/xdr4QZqwsR6k8rr", label: "Инструкция по установке Autocom 2020.23" },
+      { link: "https://i.getspace.us/cloud/s/bbRzaksyH6LkSg4", label: "Инструкция по установке Autocom 2021.11" },
+    ],
+    type: "мультимарочные"
+  },
+  {
+    title: "Wurth WoW Snooper+",
+    description: "Инструмент диагностики автомобилей для чтения и удаления кодов неисправностей.",
+    features: ["Wurth WoW 5.00.8", "Инструкция по установке ПО", "Руководство пользователя"],
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/eTR2gqbEbZi66Md", label: "Скачать с сервера 1" },
+      { link: "https://nch.pl/s/KCCEPPDbpb7j7oJ", label: "Скачать с сервера 2" },
+    ],
+    mostPopular: false,
+    docs: false,
+    docsLinks: [],
+    type: "мультимарочные"
+  },
+  {
+    title: "MUCAR BT200/Thinkcar Mini/Thinkdiag",
+    description: "Универсальные мобильные приборы для диагностики автомобилей.",
+    features: ["Diagzone", "ProDiag", "X-DIAG", "X-PRO5"],
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/fAMr3QsBMekwR2n", label: "Скачать с сервера 1" },
+      { link: "https://nch.pl/s/T6c4C7Gj5Me3mGF", label: "Скачать с сервера 2" },
+    ],
+    mostPopular: false,
+    docs: false,
+    docsLinks: [],
+    type: "мультимарочные"
+  },
+  {
+    title: "Galletto 1260",
+    description: "Универсальный программатор для чип-тюнинга, чтения и удаления кодов неисправностей.",
+    features: ["Galletto 1260", "Драйвер"],
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/dfYejQP9rZGK9Td", label: "Скачать с сервера 1" }
+    ],
+    mostPopular: false,
+    docs: false,
+    docsLinks: [],
+    type: "мультимарочные"
+  },
+  {
+    title: "VCDS + Вася",
+    description: "Диагностический инструмент для автомобилей Volkswagen Group.",
+    features: ["Вася, VCDS", "Инструкции по установке ПО", "Сборники кодировок", "Видеокурсы"],
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/R7ycKecn9P6b55a", label: "Скачать с сервера 1" },
+      { link: "https://nch.pl/s/mnBd982CC52NEko", label: "Скачать с сервера 2" },
+    ],
+    mostPopular: true,
+    docs: true,
+    docsLinks: [
+      { link: "https://i.getspace.us/cloud/s/bmi7a7zdHbXHMnB", label: "Инструкция 1" },
+    ],
+    type: "марочные"
+  },
+  {
+    title: "BMW E-NET (E-Sys)",
+    description: "Диагностическая система для автомобилей BMW.",
+    features: ["E-SYS", "Rheingold", "ISTA+", "ISTA-P", "Инструкции по установке ПО"],
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS", label: "Скачать с сервера 1" }
+    ],
+    mostPopular: false,
+    docs: false,
+    docsLinks: [],
+    type: "марочные"
+  },
+  {
+    title: "K-Dcan INPA",
+    description: "Диагностическая система для автомобилей BMW.",
+    features: ["Rheingold", "INPA", "ISTA-D", "DIS", "NCS", "Инструкции по установке ПО"],
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS", label: "Скачать с сервера 1" }
+    ],
+    mostPopular: false,
+    docs: false,
+    docsLinks: [],
+    type: "марочные"
+  },
+  {
+    title: "ELS 27",
+    description: "Диагностический интерфейс для автомобилей Ford и Mazda.",
+    features: ["FORScan", "FoCCCus", "ELMConfig", "Инструкции по установке ПО"],
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/oBNcC2w85wnj2Lx", label: "Скачать с сервера 1" }
+    ],
+    mostPopular: false,
+    docs: false,
+    docsLinks: [],
+    type: "марочные"
+  },
+  {
+    title: "Mini-VCI",
+    description: "Диагностический инструмент для автомобилей Toyota и Lexus.",
+    features: ["Techstream ", "Инструкция по установке ПО"],
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/Q3kWQ8ajB8WdF5g", label: "Скачать с сервера 1" }
+    ],
+    mostPopular: false,
+    docs: false,
+    docsLinks: [],
+    type: "марочные"
+  },
+  {
+    title: "Lexia 3/PP2000",
+    description: "Диагностический инструмент для автомобилей Peugeot и Citroen.",
+    features: ["Diagbox", "Инструкция по установке ПО"],
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/eBmZpZWza2kt2Dc", label: "Скачать с сервера 1" }
+    ],
+    mostPopular: false,
+    docs: false,
+    docsLinks: [],
+    type: "марочные"
+  },
+  {
+    title: "ELM 327 Mini",
+    description: "Универсальный диагностический сканер для автомобилей, который подключается к порту OBD-II и работает через приложение на смартфоне или компьютере.",
+    features: ["EOBD Facile", "Car Scanner", "Torque", "ELMScan", "Carista", "BimmerCode", "LeafSpy", "и т.д."],
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" },
+      { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 1" },
+    ],
+    mostPopular: true,
+    docs: false,
+    docsLinks: [],
+    type: "адаптеры elm"
+  },
+  {
+    title: "Kingbolen ELM",
+    description: "Диагностический инструмент для автомобилей, оснащенный функцией Bluetooth/Wi-Fi и поддерживающий различные протоколы OBD-II, что позволяет работать с разными автомобильными брендами.",
+    features: ["EOBD Facile", "Car Scanner", "Torque", "ELMScan", "Carista", "BimmerCode", "LeafSpy", "и т.д."],
+    downloadLinks: [
+      { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" },
+      { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 1" },
+    ],
+    mostPopular: false,
+    docs: false,
+    docsLinks: [],
+    type: "адаптеры elm"
+  }
 ];
 
 const DeviceTypes: ProductType[] = ["мультимарочные", "марочные", "адаптеры elm"];
