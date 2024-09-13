@@ -293,15 +293,15 @@ export default function Blog() {
               </Link>
               <div className="p-4 flex flex-col flex-grow">
                 {/* Обёртка для заголовка */}
-                <div className="h-12 grid place-items-center">
-                  <h3 className="text-lg font-semibold line-clamp-2 text-center">
+                <div className="h-12 grid items-center justify-items-start">
+                  <h3 className="text-lg font-semibold line-clamp-2">
                     {title}
                   </h3>
                 </div>
 
                 {/* Обёртка для описания */}
-                <div className="h-20 grid place-items-center">
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3 text-center">
+                <div className="h-20 grid items-center justify-items-start">
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3">
                     {excerpt}
                   </p>
                 </div>
