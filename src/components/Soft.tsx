@@ -193,13 +193,13 @@ const DeviceTypes: ProductType[] = ["все", "мультимарочные", "�
 
 export default function Soft() {
   const [selectedType, setSelectedType] = useState<ProductType>("все");
-  const [searchTerm, setSearchTerm] = useState<string>(""); // For search input
-  const [showSearch, setShowSearch] = useState<boolean>(false); // Mobile search bar toggle
-  const [showCategories, setShowCategories] = useState<boolean>(false); // Mobile categories toggle
-  const [currentPage, setCurrentPage] = useState<number>(1); // Pagination state
-  const searchRef = useRef<HTMLInputElement>(null); // Ref for search input
+  const [searchTerm, setSearchTerm] = useState<string>(""); 
+  const [showSearch, setShowSearch] = useState<boolean>(false); 
+  const [showCategories, setShowCategories] = useState<boolean>(false); 
+  const [currentPage, setCurrentPage] = useState<number>(1); 
+  const searchRef = useRef<HTMLInputElement>(null); 
 
-  const productsPerPage = 8; // Products per page
+  const productsPerPage = 8;
 
   const filteredProducts = useMemo(() => {
     const filtered = selectedType === "все"
@@ -220,7 +220,7 @@ export default function Soft() {
 
   const handleCategoryClick = (type: ProductType) => {
     setSelectedType(type);
-    setCurrentPage(1); // Reset to first page on category change
+    setCurrentPage(1);
   };
 
   const handleSearchIconClick = () => {
@@ -240,7 +240,6 @@ export default function Soft() {
       } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out relative flex items-center`}
     >
       {label}
-      {/* Добавляем стрелочку */}
       <svg
         className={`w-4 h-4 ml-2 transform transition-transform duration-300 ${showCategories ? "rotate-180" : ""}`}
         fill="none"
@@ -258,31 +257,22 @@ export default function Soft() {
         <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
           В этом разделе вы можете скачать программное обеспечение для своего устройства.
-          Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;.
-          Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством
-          и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке
-          &quot;Инструкция&quot;.
         </p>
       </div>
 
       <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
-        {/* Categories and Search Bar */}
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex items-center justify-between w-full sm:w-auto">
-          {/* Categories */}
           <div className="flex items-center w-full sm:w-auto flex-grow gap-1">
             <div className="relative">
-              {/* Static categories for PC */}
               <div className="hidden sm:flex gap-1">
                 {DeviceTypes.map((type) => renderButton(type.charAt(0).toUpperCase() + type.slice(1), type))}
               </div>
 
-              {/* Mobile categories toggle */}
               <button
                 className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full"
                 onClick={() => setShowCategories(!showCategories)}
               >
                 <span>{selectedType}</span>
-                {/* Dropdown arrow */}
                 <svg
                   className={`w-4 h-4 ml-2 transform transition-transform duration-300 ${showCategories ? "rotate-180" : ""}`}
                   fill="none"
@@ -293,7 +283,6 @@ export default function Soft() {
                 </svg>
               </button>
 
-              {/* Mobile categories dropdown */}
               {showCategories && (
                 <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2 transition-all ease-in-out duration-300">
                   {DeviceTypes.map((type) => (
@@ -301,7 +290,7 @@ export default function Soft() {
                       key={type}
                       onClick={() => {
                         handleCategoryClick(type);
-                        setShowCategories(false); // Close dropdown
+                        setShowCategories(false);
                       }}
                       className="block text-left w-full px-4 py-2 hover:bg-blue-100 dark:hover:bg-neutral-600"
                     >
@@ -312,7 +301,6 @@ export default function Soft() {
               )}
             </div>
 
-            {/* Search bar for desktop */}
             <div className="hidden sm:flex">
               <input
                 type="text"
@@ -324,7 +312,6 @@ export default function Soft() {
             </div>
           </div>
 
-          {/* Search icon for mobile */}
           <button
             className="ml-auto sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md"
             onClick={handleSearchIconClick}
@@ -335,11 +322,8 @@ export default function Soft() {
           </button>
         </div>
 
-        {/* Mobile search bar */}
         <div
-          className={`relative w-full sm:hidden transition-all duration-300 ${
-            showSearch ? "max-h-40" : "max-h-0"
-          } overflow-hidden`}
+          className={`relative w-full sm:hidden transition-all duration-300 ${showSearch ? "max-h-40" : "max-h-0"} overflow-hidden`}
         >
           <input
             ref={searchRef}
@@ -352,7 +336,6 @@ export default function Soft() {
         </div>
       </div>
 
-      {/* Product Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {paginatedProducts.length > 0 ? (
           paginatedProducts.map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => (
@@ -370,7 +353,7 @@ export default function Soft() {
                   Топ продаж
                 </p>
               )}
-              <p className="px-6 mt-4 leading-6 dark:text-neutral-400">{description}</p>
+              <p className="px-6 mt-4 leading-6 dark:text-neutral-400 line-clamp-2">{description}</p>
               <div className="flex mt-4 mx-6">
                 <button
                   onClick={() => window.open(downloadLinks[0].link, "_blank")}
@@ -405,7 +388,6 @@ export default function Soft() {
         )}
       </div>
 
-      {/* Pagination */}
       <div className="max-w-max mx-auto px-6 pb-4">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
