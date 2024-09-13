@@ -16,7 +16,7 @@ interface Product {
 }
 
 const products: Product[] = [
-{
+  {
     title: "Delphi DS150e",
     description: "Многофункциональный диагностический инструмент для легковых и грузовых автомобилей.",
     features: ["Delphi 2021.10b, Delphi + Delphi 2020.23", "Инструкции по установке ПО", "Руководство пользователя"],
@@ -222,23 +222,17 @@ export default function Soft() {
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
-        <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400"> 
-          В этом разделе вы можете скачать программное обеспечение для своего устройства.
-          Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;.
-          Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством
-          и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке
-          &quot;Инструкция&quot;.
+        <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
         </p>
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        {/* Применяем стили, как в предыдущем примере */}
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
           {DeviceTypes.map((type) => renderButton(type.charAt(0).toUpperCase() + type.slice(1), type))}
         </div>
       </div>
 
-      {/* Сетка статей */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {products
           .filter(({ type }) => type === selectedType)
@@ -257,7 +251,9 @@ export default function Soft() {
                   Топ продаж
                 </p>
               )}
-              <p className="px-6 mt-4 leading-6 dark:text-neutral-400 line-clamp-3">{description}</p>
+              <p className="px-6 mt-4 leading-6 dark:text-neutral-400 line-clamp-3 h-auto min-h-[4.5rem] max-h-[4.5rem] flex items-center">
+                {description}
+              </p>
               <div className="flex mt-4 mx-6">
                 <button
                   onClick={() => handleDownloadClick(downloadLinks)}
