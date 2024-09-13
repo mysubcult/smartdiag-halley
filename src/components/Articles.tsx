@@ -28,6 +28,14 @@ const blogPosts = [
     category: "Установка ПО",
     keywords: ["ошибки архива", "проблемы с архивом", "ошибка открытия архива", "архив"],
   },
+    {
+    title: "тест",
+    image: "/images/blog/post1.jpg",
+    excerpt: "тест.",
+    link: "/articles/software/autocom2021",
+    category: "Установка ПО",
+    keywords: ["ошибки архива", "проблемы с архивом", "ошибка открытия архива", "архив"],
+  },
 ];
 
 export default function Blog() {
