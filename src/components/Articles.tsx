@@ -102,6 +102,11 @@ export default function Blog() {
     setShowPopover(false);
   }, [totalPages]);
 
+  const paginatedPosts = useMemo(() => {
+    const startIndex = (currentPage - 1) * postsPerPage;
+    return filteredPosts.slice(startIndex, startIndex + postsPerPage);
+  }, [currentPage, filteredPosts, handlePageChange]);
+
   const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const rect = event.currentTarget.getBoundingClientRect();
     setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
