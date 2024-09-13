@@ -28,6 +28,22 @@ const blogPosts = [
     category: "Установка ПО",
     keywords: ["установка ПО", "Autocom 2021", "инструкция"],
   },
+    {
+    title: "Инструкция по установке Autocom 2021",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Полноценная, подробная инструкция по установке программного обеспечения.",
+    link: "/articles/software/autocom2021",
+    category: "Установка ПО",
+    keywords: ["установка ПО", "Autocom 2021", "инструкция"],
+  },
+  {
+    title: "тест",
+    image: "/images/blog/post1.jpg",
+    excerpt: "тест.",
+    link: "/articles/software/autocom2021",
+    category: "Установка ПО",
+    keywords: ["установка ПО", "Autocom 2021", "инструкция"],
+  },
 ];
 
 export default function Blog() {
