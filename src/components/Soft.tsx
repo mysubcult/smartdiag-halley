@@ -243,9 +243,9 @@ export default function Soft() {
         {/* Категории и строка поиска */}
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex items-center justify-between w-full sm:w-auto">
           {/* Категории */}
-          <div className="flex items-center w-full sm:w-auto flex-grow gap-2">
+          <div className="flex items-center w-full sm:w-auto flex-grow gap-1">
             <div className="relative">
-              <div className="hidden sm:flex gap-2">
+              <div className="hidden sm:flex gap-1">
                 {DeviceTypes.map((type) => renderButton(type.charAt(0).toUpperCase() + type.slice(1), type))}
               </div>
             </div>
