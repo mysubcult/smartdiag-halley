@@ -279,12 +279,12 @@ export default function Soft() {
                 )}
               </div>
               
-              {/* Обёртка для "В комплекте:" с фиксированной высотой и равномерным распределением */}
-              <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
-                <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
-                <ul className="grid grid-rows-4 gap-y-2 h-48">
+              {/* Обёртка для "В комплекте:" с использованием Flexbox */}
+              <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500 h-48 flex flex-col">
+                <p className="font-semibold dark:text-neutral-300 mb-2">В комплекте:</p>
+                <ul className="flex flex-col justify-between flex-grow">
                   {features.slice(0, 3).map((feature, index) => (
-                    <li key={index} className="flex">
+                    <li key={index} className="flex items-start">
                       <CheckIcon className="mt-1 w-3 h-3 text-red-600 shrink-0" />
                       <span className="ml-3 dark:text-neutral-400 line-clamp-2 overflow-hidden text-ellipsis">
                         {feature}
@@ -292,19 +292,11 @@ export default function Soft() {
                     </li>
                   ))}
                   {features.length > 3 && (
-                    <li className="flex">
+                    <li className="flex items-start">
                       <CheckIcon className="mt-1 w-3 h-3 text-red-600 shrink-0" />
                       <span className="ml-3 dark:text-neutral-400">и т.д.</span>
                     </li>
                   )}
-                  {/* Добавление пустых пунктов для выравнивания до 4 пунктов */}
-                  {features.length < 4 &&
-                    Array.from({ length: 4 - (features.length > 3 ? 4 : features.length) }, (_, i) => (
-                      <li key={`empty-${i}`} className="flex">
-                        <CheckIcon className="mt-1 w-3 h-3 text-transparent shrink-0" />
-                        <span className="ml-3 dark:text-neutral-400 opacity-0">&nbsp;</span>
-                      </li>
-                    ))}
                 </ul>
               </div>
             </div>
