@@ -163,41 +163,6 @@ export default function Blog() {
           {/* Categories */}
           <div className="flex items-center w-full sm:w-auto flex-grow">
             <div className="relative sm:mr-4 mr-auto" style={{ minWidth: `${longestCategory.length + 4}ch` }}>
-              <button
-                className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full relative"
-                onClick={() => setShowCategories(!showCategories)}
-              >
-                <span>{selectedCategory}</span>
-                <svg
-                  className={`w-4 h-4 absolute right-2 transform transition-transform duration-300 ${
-                    showCategories ? "rotate-180" : ""
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {showCategories && (
-                <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2 transition-all ease-in-out duration-300">
-                  {categories.map((category) => (
-                    <button
-                      key={category.value}
-                      onClick={() => {
-                        handleCategoryClick(category.value);
-                        setShowCategories(false);
-                      }}
-                      className="block text-left w-full px-4 py-2 hover:bg-blue-100 dark:hover:bg-neutral-600"
-                      aria-label={`Выбрать категорию ${category.name}`}
-                    >
-                      {category.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Static desktop version */}
               <div className="hidden sm:flex flex-wrap gap-1">
                 {categories.map((category) => (
                   <button
@@ -216,41 +181,16 @@ export default function Blog() {
               </div>
             </div>
 
-            {/* Search icon */}
-            <button
-              className="ml-auto sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md"
-              onClick={() => setShowSearch(!showSearch)}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Search bar for mobile */}
-          <div
-            className={`relative w-full sm:hidden transition-all duration-300 ${
-              showSearch ? "max-h-40" : "max-h-0"
-            } overflow-hidden`}
-          >
-            <input
-              type="text"
-              placeholder="Поиск..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 mt-2"
-            />
-          </div>
-
-          {/* Static search bar for desktop */}
-          <div className="hidden sm:block w-40">
-            <input
-              type="text"
-              placeholder="Поиск..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
-            />
+            {/* Search bar for desktop */}
+            <div className="hidden sm:block w-40">
+              <input
+                type="text"
+                placeholder="Поиск..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+              />
+            </div>
           </div>
         </div>
       </div>
