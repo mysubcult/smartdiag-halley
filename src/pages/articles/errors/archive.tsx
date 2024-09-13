@@ -69,7 +69,7 @@ export default function BlogPost() {
               {navItems.map((item) => (
                 <Link href={item.href} key={item.href}>
                   <a
-                    onClick={() => setCurrentTitle(`${metadata.title} | ${item.label}`)}
+                    onClick={() => item.href === "#introduction" ? setCurrentTitle(metadata.title) : setCurrentTitle(`${metadata.title} | ${item.label}`)}
                     className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300"
                   >
                     {item.label}
