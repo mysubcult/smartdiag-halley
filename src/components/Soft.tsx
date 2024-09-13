@@ -163,8 +163,8 @@ const products: Product[] = [
   },
   {
     title: "ELM 327 Mini",
-    description: "Универсальный диагностический сканер для автомобилей, работает через приложение на смартфоне или компьютере.",
-    features: ["Car Scanner", "Torque", "ELMScan", "Carista"],
+    description: "Диагностический сканер для автомобилей, работает через приложение на смартфоне или компьютере.",
+    features: ["Car Scanner", "Torque", "Carista"],
     downloadLinks: [
       { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" },
       { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 1" },
@@ -177,7 +177,7 @@ const products: Product[] = [
   {
     title: "Kingbolen ELM",
     description: "Диагностический инструмент для автомобилей, оснащенный функцией Bluetooth/Wi-Fi.",
-    features: ["Car Scanner", "Torque", "ELMScan", "Carista"],
+    features: ["Car Scanner", "Torque", "Carista"],
     downloadLinks: [
       { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" },
       { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 1" },
