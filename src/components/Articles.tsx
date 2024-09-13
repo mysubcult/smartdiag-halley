@@ -37,9 +37,9 @@ const blogPosts = [
     keywords: ["установка ПО", "Autocom 2021", "инструкция"],
   },
   {
-    title: "Инструкdция по установке Autocom 2021Инструкция по установке Autocom 2021Инструкция по установке Autocom 2021Инструкция по установке Autocom 2021",
+    title: "Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021",
     image: "/images/blog/post1.jpg",
-    excerpt: "Инструкция по установке Autocom 2021Инструкция по установке Autocom 2021Инструкция по установке Autocom 2021Инструкция по установке Autocom 2021",
+    excerpt: "Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021",
     link: "/articles/software/autocom2021",
     category: "Установка ПО",
     keywords: ["установка ПО", "Autocom 2021", "инструкция"],
