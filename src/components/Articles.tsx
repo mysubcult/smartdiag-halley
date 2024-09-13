@@ -306,7 +306,7 @@ export default function Blog() {
                   {title}
                 </h3>
                 <p
-                  className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-3 h-[4.5rem] overflow-hidden text-ellipsis"
+                  className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-3 h-[4.5rem] overflow-hidden"
                 >
                   {excerpt}
                 </p>
