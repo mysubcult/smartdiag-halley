@@ -80,7 +80,7 @@ export default function Blog() {
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
     return filteredPosts.slice(startIndex, startIndex + postsPerPage);
-  }, [currentPage, filteredPosts, handlePageChange]);
+  }, [currentPage, filteredPosts]);
 
   const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const rect = event.currentTarget.getBoundingClientRect();
