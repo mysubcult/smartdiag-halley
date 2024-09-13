@@ -13,20 +13,20 @@ const categories = [
 
 const blogPosts = [
   {
-    "title": "Как справиться с ошибкой при открытии архива",
-    "image": "/images/blog/post1.jpg",
-    "excerpt": "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов.",
-    "link": "/articles/errors/archive",
-    "category": "Ошибки",
-    "keywords": ["ошибки архива", "проблемы с архивом", "ошибка открытия архива", "архив"]
+    title: "Как справиться с ошибкой при открытии архива",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов.",
+    link: "/articles/errors/archive",
+    category: "Ошибки",
+    keywords: ["ошибки архива", "проблемы с архивом", "ошибка открытия архива", "архив"],
   },
   {
-    "title": "Инструкция по установке Autocom 2021",
-    "image": "/images/blog/post1.jpg",
-    "excerpt": "Полноценная, подробная инструкция по установке программного обеспечения.",
-    "link": "/articles/software/autocom2021",
-    "category": "Установка ПО",
-    "keywords": ["ошибки архива", "проблемы с архивом", "ошибка открытия архива", "архив"]
+    title: "Инструкция по установке Autocom 2021",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Полноценная, подробная инструкция по установке программного обеспечения.",
+    link: "/articles/software/autocom2021",
+    category: "Установка ПО",
+    keywords: ["ошибки архива", "проблемы с архивом", "ошибка открытия архива", "архив"],
   },
 ];
 
@@ -36,7 +36,6 @@ export default function Blog() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
-
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -51,7 +50,8 @@ export default function Blog() {
   }, []);
 
   const filteredPosts = useMemo(() => {
-    const filteredByCategory = selectedCategory === "Все" ? blogPosts : blogPosts.filter((post) => post.category === selectedCategory);
+    const filteredByCategory =
+      selectedCategory === "Все" ? blogPosts : blogPosts.filter((post) => post.category === selectedCategory);
     return filteredByCategory.filter(
       (post) =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -72,12 +72,15 @@ export default function Blog() {
     setCurrentPage(1);
   }, []);
 
-  const handlePageChange = useCallback((page: number) => {
-    if (page > 0 && page <= totalPages) {
-      setCurrentPage(page);
-    }
-    setShowPopover(false);
-  }, [totalPages]);
+  const handlePageChange = useCallback(
+    (page: number) => {
+      if (page > 0 && page <= totalPages) {
+        setCurrentPage(page);
+      }
+      setShowPopover(false);
+    },
+    [totalPages]
+  );
 
   const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -160,10 +163,9 @@ export default function Blog() {
       {/* Category and search implementation */}
       <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full sm:w-auto">
-          {/* Categories and Search Bar Container */}
-          <div className="flex items-center justify-between w-full">
-            {/* Categories */}
-            <div className="flex space-x-4">
+          {/* Categories and Search Bar */}
+          <div className="flex justify-between items-center w-full sm:w-auto">
+            <div className="flex items-center space-x-4">
               {categories.map((category) => (
                 <button
                   key={category.value}
@@ -180,7 +182,7 @@ export default function Blog() {
               ))}
             </div>
 
-            {/* Search bar for desktop */}
+            {/* Static search bar for desktop */}
             <div className="w-40">
               <input
                 type="text"
