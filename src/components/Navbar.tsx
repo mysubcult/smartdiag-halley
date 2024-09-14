@@ -1,3 +1,5 @@
+// components/Navbar.tsx
+
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -111,7 +113,7 @@ export default function Navbar() {
                       href={item.href}
                       className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
                       style={{ textDecoration: "none" }}
-                      scroll={false}
+                      scroll={!isMobileView}
                       onClick={handleNavigationClick(item.anchor)}
                     >
                       {item.name}
@@ -211,7 +213,7 @@ export default function Navbar() {
         {/* Полноэкранное мобильное меню */}
         {isMenuOpen && (
           <div
-            className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center transition-opacity duration-300 ease-in-out z-40"
+            className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center transition-opacity duration-300 ease-in-out z-40 mt-16" // mt-16 соответствует высоте navbar (h-16)
           >
             <div className="flex flex-col items-center justify-center space-y-6">
               {navigation.map((item) => (
@@ -223,7 +225,7 @@ export default function Navbar() {
                     "hover:text-red-500 transition-colors flex items-center"
                   )}
                   style={{ textDecoration: "none" }}
-                  scroll={isMobileView ? true : false}
+                  scroll={isMobileView ? true : false} // Условное использование scroll
                   onClick={handleNavigationClick(item.anchor)}
                 >
                   {/* Добавление эмодзи только в мобильной версии */}
@@ -365,9 +367,8 @@ export default function Navbar() {
           }
 
           /* Обеспечить, чтобы мобильное меню было под navbar */
-          .navbar + div.fixed.inset-0 {
-            top: 64px; /* Высота navbar */
-            height: calc(100% - 64px);
+          .mt-16 {
+            margin-top: 4rem; /* h-16 = 4rem = 64px */
           }
 
           /* Уменьшение расстояния между логотипом и меню */
