@@ -5,7 +5,7 @@ export function Hero() {
   return (
     <div id="hero" className="bg-white dark:bg-neutral-900">
       <div className="max-w-7xl mx-auto pt-6 sm:pt-5 pb-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="pt-16 sm:pt-6 md:pt-32 flex flex-col justify-center text-center sm:text-start">
+        <div className="pt-14 sm:pt-6 md:pt-32 flex flex-col justify-center text-center sm:text-start">
           <h1 className="text-5xl font-bold leading-tight">
             Добро пожаловать в <br />{" "}
             <span className="text-red-600 font-extrabold">
