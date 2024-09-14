@@ -2,18 +2,11 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
-import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
-// Тип для навигационных ссылок
-interface NavigationItem {
-  name: string;
-  href: string;
-  anchor: string;
-}
-
 // Навигационные ссылки
-const navigation: NavigationItem[] = [
+const navigation = [
   { name: "Главная", href: "/", anchor: "#hero" },
   { name: "Программы", href: "/#soft", anchor: "#soft" },
   { name: "Статьи", href: "/#blog", anchor: "#blog" },
@@ -21,82 +14,42 @@ const navigation: NavigationItem[] = [
   { name: "Обратная связь", href: "/#contact", anchor: "#contact" },
 ];
 
-// Утилита для объединения классов
-const classNames = (...classes: string[]): string => {
+// Комбинирование классов
+function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
-};
+}
 
-// Кастомный компонент иконки меню с тремя линиями разной длины
-const CustomBarsIcon: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
-  return (
-    <div className="relative w-6 h-6">
-      <span
-        className={classNames(
-          "absolute left-0 top-1/4 h-0.5 bg-current transition-all duration-300 ease-in-out",
-          isOpen ? "w-3 transform rotate-45" : "w-full"
-        )}
-      ></span>
-      <span
-        className={classNames(
-          "absolute left-0 top-1/2 h-0.5 bg-current transition-all duration-300 ease-in-out",
-          isOpen ? "opacity-0" : "w-3/4"
-        )}
-      ></span>
-      <span
-        className={classNames(
-          "absolute left-0 top-3/4 h-0.5 bg-current transition-all duration-300 ease-in-out",
-          isOpen ? "w-3 transform -rotate-45" : "w-2/3"
-        )}
-      ></span>
-    </div>
-  );
-};
-
-const Navbar: React.FC = () => {
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+  const [fontSize, setFontSize] = useState("18px");
   const [isMobileView, setIsMobileView] = useState(false);
-  const [fontSize, setFontSize] = useState("18px"); // Сохранение логики динамического размера шрифта
+
   const router = useRouter();
 
-  // Обработчик изменения размера окна для определения мобильного вида
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 1200);
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize(); // Инициализация состояния при монтировании
-
+    handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Обработчик клика по навигационной ссылке
   const handleNavigationClick = useCallback(
-    (anchor: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
+    (anchor: string) => (event: React.MouseEvent) => {
       event.preventDefault();
-      if (router.pathname !== "/") {
-        router.push("/").then(() => {
-          // Добавляем небольшой таймаут для плавного перехода
-          setTimeout(() => {
-            const target = document.querySelector(anchor);
-            if (target) {
-              target.scrollIntoView({ behavior: "smooth" });
-            }
-          }, 100);
-        });
+      if (router.pathname !== '/') {
+        router.push('/').then(() => router.push(anchor, undefined, { scroll: false }));
       } else {
-        const target = document.querySelector(anchor);
-        if (target) {
-          target.scrollIntoView({ behavior: "smooth" });
-        }
+        router.push(anchor, undefined, { scroll: false });
       }
-      setIsMenuOpen(false); // Закрываем мобильное меню после навигации
+      setIsMenuOpen(false);
     },
     [router]
   );
 
-  // Обновление размера шрифта для мобильного меню
   const updateFontSize = useCallback(() => {
     const baseFontSize = 18;
     const minFontSize = 14;
@@ -115,120 +68,89 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener("resize", updateFontSize);
   }, [updateFontSize]);
 
-  // Закрытие подменю при изменении размера окна
-  useEffect(() => {
-    if (!isMobileView) {
-      setIsMenuOpen(false);
-      setIsSubMenuOpen(false);
-    }
-  }, [isMobileView]);
-
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-opacity-90 dark:bg-opacity-80 z-20">
+    <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          {/* Логотип */}
-          <div className="flex-shrink-0">
-            <Link href="/" passHref legacyBehavior>
-              <a onClick={handleNavigationClick("#hero")}>
+        <div className="relative flex h-16 items-center justify-between">
+          <div className="flex flex-1 items-center justify-start">
+            <div className="flex flex-shrink-0 items-center">
+              <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
                 <Image
+                  className="block h-12 w-auto logo-animation"
                   src="/images/logos/logo.png"
                   alt="SmartDiag Logo"
                   width={256}
                   height={117}
                   quality={100}
-                  className="h-12 w-auto logo-animation"
-                  sizes="(max-width: 768px) 100vw, 256px"
-                  priority
+                  sizes="100vw"
+                  loading="eager"
                 />
-              </a>
-            </Link>
-          </div>
+              </Link>
+            </div>
 
-          {/* Горизонтальное меню навигации */}
-          <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
-            <div className="flex space-x-5 items-center">
-              {navigation.map((item) => (
-                <Link key={item.name} href={item.href} passHref legacyBehavior>
-                  <a
+            {/* Горизонтальное меню навигации */}
+            <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
+              <div className="flex space-x-5 items-center">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
+                    style={{ textDecoration: "none" }}
+                    scroll={false}
                     onClick={handleNavigationClick(item.anchor)}
-                    className={classNames(
-                      "text-neutral-900 dark:text-neutral-400 nav-link",
-                      "relative px-3 py-2 transition-colors duration-300 ease-in-out",
-                      "hover:text-red-500"
-                    )}
                   >
                     {item.name}
-                    {/* Подчеркивание при наведении */}
-                    <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-red-500 transition-all duration-300 ease-in-out"></span>
-                    <style jsx>{`
-                      a:hover span {
-                        width: 100%;
-                      }
-                    `}</style>
-                  </a>
-                </Link>
-              ))}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Кнопки магазинов, смены темы и мобильное меню */}
-          <div className="flex items-center space-x-4">
-            {/* Кнопки магазинов отображаются только на десктопе */}
+          {/* Кнопки магазинов, смены темы и меню */}
+          <div className="flex items-center gap-2">
             {!isMobileView && (
               <>
-                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" passHref legacyBehavior>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-ozon flex items-center px-3 py-2 rounded-md hover:bg-blue-100 dark:hover:bg-neutral-800 transition-colors"
-                  >
+                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="block">
+                  <button className="btn-ozon">
                     <Image
                       src="/images/logos/favicon.ico"
                       alt="OZON"
+                      className="w-5 h-5"
                       width={20}
                       height={20}
-                      className="w-5 h-5 mr-2"
                       loading="lazy"
                     />
                     OZON
-                  </a>
+                  </button>
                 </Link>
 
-                <Link href="https://market.yandex.ru/business--smartdiag/50025236" passHref legacyBehavior>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-yandex flex items-center px-3 py-2 rounded-md hover:bg-orange-100 dark:hover:bg-neutral-800 transition-colors"
-                  >
+                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer" className="block">
+                  <button className="btn-yandex">
                     <Image
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
                       alt="Яндекс Маркет"
+                      className="w-5 h-5"
                       width={20}
                       height={20}
-                      className="w-5 h-5 mr-2"
                       loading="lazy"
                     />
                     Яндекс Маркет
-                  </a>
+                  </button>
                 </Link>
 
-                <Link href="https://www.wildberries.ru/seller/1343369" passHref legacyBehavior>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-wildberries flex items-center px-3 py-2 rounded-md hover:bg-purple-100 dark:hover:bg-neutral-800 transition-colors"
-                  >
+                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer" className="block">
+                  <button className="btn-wildberries">
                     <Image
                       src="/images/logos/favicon.ico"
                       alt="Wildberries"
+                      className="w-5 h-5"
                       width={20}
                       height={20}
-                      className="w-5 h-5 mr-2"
                       loading="lazy"
                     />
                     Wildberries
-                  </a>
+                  </button>
                 </Link>
               </>
             )}
@@ -236,31 +158,39 @@ const Navbar: React.FC = () => {
             {/* Кнопка смены темы */}
             <ThemeSwitchButton />
 
-            {/* Кнопка мобильного меню */}
+            {/* Кнопка меню появляется, когда isMobileView == true */}
             {isMobileView && (
-              <button
-                onClick={() => setIsMenuOpen((prev) => !prev)}
-                className="inline-flex items-center justify-center p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
-                aria-expanded={isMenuOpen}
-              >
-                <span className="sr-only">Открыть главное меню</span>
-                <CustomBarsIcon isOpen={isMenuOpen} />
-                <XMarkIcon
-                  className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
-                    isMenuOpen ? "rotate-0 opacity-100" : "rotate-0 opacity-0"
-                  }`}
-                  aria-hidden="true"
-                />
-              </button>
+              <div className="flex items-center">
+                <button
+                  className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                >
+                  <span className="sr-only">Open main menu</span>
+                  <div className="menu-icon-wrapper relative">
+                    <Bars3Icon
+                      className={`h-6 w-6 transition-transform transform ${
+                        isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"
+                      }`}
+                      aria-hidden="true"
+                    />
+                    <XMarkIcon
+                      className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
+                        isMenuOpen ? "rotate-[0deg] opacity-100" : "rotate-0 opacity-0"
+                      }`}
+                      aria-hidden="true"
+                    />
+                  </div>
+                </button>
+              </div>
             )}
           </div>
         </div>
       </div>
 
-      {/* Мобильное меню */}
-      {isMenuOpen && isMobileView && (
+      {/* Popup Menu */}
+      {isMenuOpen && (
         <div
-          className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30 transition-transform duration-300 ease-in-out"
+          className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
           style={{
             fontSize: fontSize,
             maxHeight: `calc(100vh - 128px)`,
@@ -271,22 +201,20 @@ const Navbar: React.FC = () => {
         >
           <div className="flex flex-col items-center justify-center space-y-4">
             {navigation.map((item) => (
-              <Link key={item.name} href={item.href} passHref legacyBehavior>
-                <a
-                  onClick={handleNavigationClick(item.anchor)}
-                  className={classNames(
-                    "text-neutral-900 dark:text-neutral-400",
-                    "block py-2 text-lg font-medium hover:text-red-500 transition-colors"
-                  )}
-                >
-                  {item.name}
-                </a>
+              <Link
+                key={item.name}
+                href={item.href}
+                className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
+                scroll={false}
+                onClick={handleNavigationClick(item.anchor)}
+              >
+                {item.name}
               </Link>
             ))}
             <div className="flex flex-col items-center w-full mt-4">
               <button
                 onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                className="btn-submenu-toggle flex items-center justify-center py-2 text-lg font-medium hover:text-red-500 transition-colors focus:outline-none"
+                className="btn-submenu-toggle flex items-center justify-center py-2 text-lg font-medium"
               >
                 Магазины
                 <ChevronDownIcon
@@ -297,58 +225,55 @@ const Navbar: React.FC = () => {
               </button>
               {isSubMenuOpen && (
                 <div className="submenu mt-2 space-y-3 w-full">
-                  <Link href="https://www.ozon.ru/seller/smartdiag-862410/" passHref legacyBehavior>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-ozon flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
-                    >
-                      <Image
-                        src="/images/logos/favicon.ico"
-                        alt="OZON"
-                        className="w-4 h-4 mr-2"
-                        width={16}
-                        height={16}
-                        loading="lazy"
-                      />
-                      OZON
-                    </a>
+                  <Link
+                    href="https://www.ozon.ru/seller/smartdiag-862410/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-ozon flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
+                  >
+                    <Image
+                      src="/images/logos/favicon.ico"
+                      alt="OZON"
+                      className="w-4 h-4 mr-2"
+                      width={16}
+                      height={16}
+                      loading="lazy"
+                    />
+                    OZON
                   </Link>
 
-                  <Link href="https://market.yandex.ru/business--smartdiag/50025236" passHref legacyBehavior>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
-                    >
-                      <Image
-                        src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                        alt="Яндекс Маркет"
-                        className="w-4 h-4 mr-2"
-                        width={16}
-                        height={16}
-                        loading="lazy"
-                      />
-                      Яндекс Маркет
-                    </a>
+                  <Link
+                    href="https://market.yandex.ru/business--smartdiag/50025236"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
+                  >
+                    <Image
+                      src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                      alt="Яндекс Маркет"
+                      className="w-4 h-4 mr-2"
+                      width={16}
+                      height={16}
+                      loading="lazy"
+                    />
+                    Яндекс Маркет
                   </Link>
 
-                  <Link href="https://www.wildberries.ru/seller/1343369" passHref legacyBehavior>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
-                    >
-                      <Image
-                        src="/images/logos/favicon.ico"
-                        alt="Wildberries"
-                        className="w-4 h-4 mr-2"
-                        width={16}
-                        height={16}
-                        loading="lazy"
-                      />
-                      Wildberries
-                    </a>
+                  <Link
+                    href="https://www.wildberries.ru/seller/1343369"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
+                  >
+                    <Image
+                      src="/images/logos/favicon.ico"
+                      alt="Wildberries"
+                      className="w-4 h-4 mr-2"
+                      width={16}
+                      height={16}
+                      loading="lazy"
+                    />
+                    Wildberries
                   </Link>
                 </div>
               )}
@@ -358,6 +283,4 @@ const Navbar: React.FC = () => {
       )}
     </nav>
   );
-};
-
-export default Navbar;
+}
