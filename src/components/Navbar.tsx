@@ -5,14 +5,24 @@ import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
-// Навигационные ссылки с эмодзи для мобильной версии
+// Навигационные ссылки без эмодзи
 const navigation = [
-  { name: "Главная 🏠", href: "/", anchor: "#hero" },
-  { name: "Программы 💻", href: "/#soft", anchor: "#soft" },
-  { name: "Статьи 📝", href: "/#blog", anchor: "#blog" },
-  { name: "О нас 👥", href: "/#services", anchor: "#services" },
-  { name: "Обратная связь 📞", href: "/#contact", anchor: "#contact" },
+  { name: "Главная", href: "/", anchor: "#hero" },
+  { name: "Программы", href: "/#soft", anchor: "#soft" },
+  { name: "Статьи", href: "/#blog", anchor: "#blog" },
+  { name: "О нас", href: "/#services", anchor: "#services" },
+  { name: "Обратная связь", href: "/#contact", anchor: "#contact" },
 ];
+
+// Эмодзи для мобильной версии меню
+const mobileEmojis: { [key: string]: string } = {
+  "Главная": "🏠",
+  "Программы": "💻",
+  "Статьи": "📝",
+  "О нас": "👥",
+  "Обратная связь": "📞",
+  "Магазины": "🛒",
+};
 
 // Комбинирование классов
 function classNames(...classes: string[]): string {
@@ -51,6 +61,15 @@ export default function Navbar() {
     },
     [router]
   );
+
+  // Отключение прокрутки фона при открытом меню
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isMenuOpen]);
 
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-50">
@@ -153,15 +172,11 @@ export default function Navbar() {
                   <span className="sr-only">Открыть главное меню</span>
                   <div className="menu-icon-wrapper relative">
                     <Bars3Icon
-                      className={`h-6 w-6 transition-transform duration-300 ${
-                        isMenuOpen ? "opacity-0" : "opacity-100"
-                      }`}
+                      className={`h-6 w-6 transition-opacity duration-300 ${isMenuOpen ? "opacity-0" : "opacity-100"}`}
                       aria-hidden="true"
                     />
                     <XMarkIcon
-                      className={`h-6 w-6 transition-transform duration-300 absolute top-0 left-0 ${
-                        isMenuOpen ? "opacity-100" : "opacity-0"
-                      }`}
+                      className={`h-6 w-6 transition-opacity duration-300 absolute top-0 left-0 ${isMenuOpen ? "opacity-100" : "opacity-0"}`}
                       aria-hidden="true"
                     />
                   </div>
@@ -175,7 +190,7 @@ export default function Navbar() {
       {/* Полноэкранное мобильное меню */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center transition-transform duration-300 ease-in-out z-40"
+          className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center transition-opacity duration-300 ease-in-out z-40"
           style={{
             animation: isMenuOpen ? "fadeIn 0.3s" : "fadeOut 0.3s",
           }}
@@ -193,6 +208,8 @@ export default function Navbar() {
                 scroll={false}
                 onClick={handleNavigationClick(item.anchor)}
               >
+                {/* Добавление эмодзи только в мобильной версии */}
+                <span className="mr-2">{mobileEmojis[item.name]}</span>
                 {item.name}
               </Link>
             ))}
@@ -203,11 +220,9 @@ export default function Navbar() {
                 onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
                 className="btn-submenu-toggle flex items-center justify-center py-2 text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors"
               >
-                Магазины 🛒
+                Магазины <span className="ml-2">{mobileEmojis["Магазины"]}</span>
                 <ChevronDownIcon
-                  className={`h-6 w-6 ml-2 transition-transform ${
-                    isSubMenuOpen ? "transform rotate-180" : ""
-                  }`}
+                  className={`h-6 w-6 ml-2 transition-transform ${isSubMenuOpen ? "transform rotate-180" : ""}`}
                 />
               </button>
               {isSubMenuOpen && (
@@ -274,22 +289,22 @@ export default function Navbar() {
         @keyframes fadeIn {
           from {
             opacity: 0;
-            transform: translateY(-20px);
+            transform: scale(0.95);
           }
           to {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1);
           }
         }
 
         @keyframes fadeOut {
           from {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1);
           }
           to {
             opacity: 0;
-            transform: translateY(-20px);
+            transform: scale(0.95);
           }
         }
 
