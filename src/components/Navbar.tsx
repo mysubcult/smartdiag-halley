@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
-import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
 // Тип для навигационных ссылок
@@ -24,6 +24,32 @@ const navigation: NavigationItem[] = [
 // Утилита для объединения классов
 const classNames = (...classes: string[]): string => {
   return classes.filter(Boolean).join(" ");
+};
+
+// Кастомный компонент иконки меню с тремя линиями разной длины
+const CustomBarsIcon: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
+  return (
+    <div className="relative w-6 h-6">
+      <span
+        className={classNames(
+          "absolute left-0 top-1/4 h-0.5 bg-current transition-all duration-300 ease-in-out",
+          isOpen ? "w-3 transform rotate-45" : "w-full"
+        )}
+      ></span>
+      <span
+        className={classNames(
+          "absolute left-0 top-1/2 h-0.5 bg-current transition-all duration-300 ease-in-out",
+          isOpen ? "opacity-0" : "w-3/4"
+        )}
+      ></span>
+      <span
+        className={classNames(
+          "absolute left-0 top-3/4 h-0.5 bg-current transition-all duration-300 ease-in-out",
+          isOpen ? "w-3 transform -rotate-45" : "w-2/3"
+        )}
+      ></span>
+    </div>
+  );
 };
 
 const Navbar: React.FC = () => {
@@ -214,24 +240,17 @@ const Navbar: React.FC = () => {
             {isMobileView && (
               <button
                 onClick={() => setIsMenuOpen((prev) => !prev)}
-                className="inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+                className="inline-flex items-center justify-center p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
                 aria-expanded={isMenuOpen}
               >
                 <span className="sr-only">Открыть главное меню</span>
-                <div className="menu-icon-wrapper relative">
-                  <Bars3Icon
-                    className={`h-6 w-6 transition-transform transform ${
-                      isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"
-                    }`}
-                    aria-hidden="true"
-                  />
-                  <XMarkIcon
-                    className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
-                      isMenuOpen ? "rotate-0 opacity-100" : "rotate-0 opacity-0"
-                    }`}
-                    aria-hidden="true"
-                  />
-                </div>
+                <CustomBarsIcon isOpen={isMenuOpen} />
+                <XMarkIcon
+                  className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
+                    isMenuOpen ? "rotate-0 opacity-100" : "rotate-0 opacity-0"
+                  }`}
+                  aria-hidden="true"
+                />
               </button>
             )}
           </div>
