@@ -245,15 +245,22 @@ export default function Soft() {
                   : "border-neutral-300 border dark:border-neutral-600"
               } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
             >
-              <h3 className="px-6 text-lg font-semibold leading-5">{title}</h3>
+              {/* Заголовок: максимум 2 строки, вертикальное выравнивание */}
+              <h3 className="px-6 text-lg font-semibold line-clamp-2 leading-[1.5rem] h-[3rem] flex items-center justify-center">
+                {title}
+              </h3>
               {mostPopular && (
                 <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
                   Топ продаж
                 </p>
               )}
+
+              {/* Описание: уже настроено */}
               <p className="px-6 mt-4 leading-6 dark:text-neutral-400 line-clamp-3 h-auto min-h-[4.5rem] max-h-[4.5rem] overflow-hidden">
-  {description}
-</p>
+                {description}
+              </p>
+
+              {/* Кнопки скачивания */}
               <div className="flex mt-4 mx-6">
                 <button
                   onClick={() => handleDownloadClick(downloadLinks)}
@@ -270,22 +277,25 @@ export default function Soft() {
                   </button>
                 )}
               </div>
-              <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
-  <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
-  {features.slice(0, 3).map((feature, index) => (
-    <li key={index} className="leading-6 flex">
-      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
-      <span className="ml-3 dark:text-neutral-400">{feature}</span>
-    </li>
-  ))}
-  {features.length > 3 && (
-    <li className="leading-6 flex">
-      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
-      <span className="ml-3 dark:text-neutral-400">и т.д.</span>
-    </li>
-  )}
-</ul>
 
+              {/* В комплекте: пункты центруются вертикально */}
+              <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
+                <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
+                <div className="flex flex-col justify-center min-h-[6rem]">
+                  {features.slice(0, 3).map((feature, index) => (
+                    <li key={index} className="leading-6 flex">
+                      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
+                      <span className="ml-3 dark:text-neutral-400">{feature}</span>
+                    </li>
+                  ))}
+                  {features.length > 3 && (
+                    <li className="leading-6 flex">
+                      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
+                      <span className="ml-3 dark:text-neutral-400">и т.д.</span>
+                    </li>
+                  )}
+                </div>
+              </ul>
             </div>
           ))}
       </div>
