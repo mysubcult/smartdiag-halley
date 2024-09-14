@@ -245,8 +245,8 @@ export default function Soft() {
                   : "border-neutral-300 border dark:border-neutral-600"
               } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
             >
-              {/* Заголовок: максимум 2 строки, вертикальное выравнивание */}
-              <h3 className="px-6 text-lg font-semibold line-clamp-2 leading-[1.5rem] h-[3rem] flex items-center justify-center">
+              {/* Заголовок: максимум 1 строка, выравнивание слева */}
+              <h3 className="px-6 text-lg font-semibold line-clamp-1 leading-5 h-[1.25rem]">
                 {title}
               </h3>
               {mostPopular && (
@@ -278,10 +278,10 @@ export default function Soft() {
                 )}
               </div>
 
-              {/* В комплекте: пункты центруются вертикально */}
-              <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
+              {/* В комплекте: пункты равномерно распределяются вертикально */}
+              <ul className="mt-6 px-6 flex-1 border-t border-neutral-300 dark:border-neutral-500">
                 <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
-                <div className="flex flex-col justify-center min-h-[6rem]">
+                <div className="flex flex-col justify-between min-h-[6rem]">
                   {features.slice(0, 3).map((feature, index) => (
                     <li key={index} className="leading-6 flex">
                       <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
