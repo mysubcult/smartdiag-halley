@@ -243,7 +243,7 @@ export default function Soft() {
             >
               <div className="flex flex-col flex-grow">
                 {/* Заголовок */}
-                <h3 className="px-6 text-lg font-semibold line-clamp-2 h-[3rem] flex items-center">
+                <h3 className="px-6 text-lg font-semibold line-clamp-2 h-[48px] flex items-center">
                   {title}
                 </h3>
                 {/* Бейдж "Топ продаж" */}
@@ -253,7 +253,7 @@ export default function Soft() {
                   </p>
                 )}
                 {/* Описание */}
-                <p className="px-6 mt-4 dark:text-neutral-400 line-clamp-3 h-[4.5rem] flex items-center">
+                <p className="px-6 mt-4 dark:text-neutral-400 line-clamp-3 h-[72px] flex items-center">
                   {description}
                 </p>
               </div>
@@ -278,7 +278,7 @@ export default function Soft() {
               </div>
 
               {/* Блок "В комплекте" */}
-              <ul className="mt-6 px-6 space-y-4 flex-1 flex flex-col justify-between border-t border-neutral-300 dark:border-neutral-500 h-[8rem]">
+              <ul className="mt-6 px-6 space-y-2 flex-1 flex flex-col justify-between border-t border-neutral-300 dark:border-neutral-500 h-[120px]">
                 <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
                 {features.slice(0, 3).map((feature, index) => (
                   <li key={index} className="flex">
