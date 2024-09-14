@@ -208,7 +208,7 @@ export default function Soft() {
         selectedType === type
           ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
           : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-      } rounded-md py-1.5 px-4 transition-colors duration-300`} // Уменьшил высоту кнопок
+      } rounded-md py-1.5 px-4 transition-colors duration-300`}
     >
       {label}
     </button>
@@ -241,24 +241,32 @@ export default function Soft() {
                   : "border-neutral-300 border dark:border-neutral-600"
               } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
             >
-              <h3 className="px-6 text-lg font-semibold line-clamp-2 h-12 flex items-center">{title}</h3> 
-              {/* Заголовок обрезается по 2 строкам и вертикально выровнен */}
-              {mostPopular && (
-                <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold shadow-md">
-                  Топ продаж
+              <div className="flex flex-col flex-grow">
+                {/* Заголовок */}
+                <h3 className="px-6 text-lg font-semibold line-clamp-2 h-[3rem] flex items-center">
+                  {title}
+                </h3>
+                {/* Бейдж "Топ продаж" */}
+                {mostPopular && (
+                  <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold shadow-md">
+                    Топ продаж
+                  </p>
+                )}
+                {/* Описание */}
+                <p className="px-6 mt-4 dark:text-neutral-400 line-clamp-3 h-[4.5rem] flex items-center">
+                  {description}
                 </p>
-              )}
-              <p className="px-6 mt-4 dark:text-neutral-400 line-clamp-3 h-16 flex items-center">
-                {description}
-              </p> 
-              {/* Описание с обрезкой до 3 строк и вертикальным выравниванием */}
+              </div>
+
               <div className="flex mt-4 mx-6">
+                {/* Кнопка "Скачать" */}
                 <button
                   onClick={() => handleDownloadClick(downloadLinks)}
                   className="block px-6 py-2 font-medium rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 transition-colors duration-200 transform active:scale-95 w-full"
                 >
                   Скачать
                 </button>
+                {/* Кнопка "Инструкция" */}
                 {docs && docsLinks.length > 0 && (
                   <button
                     onClick={() => handleDownloadClick(docsLinks)}
@@ -268,8 +276,10 @@ export default function Soft() {
                   </button>
                 )}
               </div>
-              <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
-                <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
+
+              {/* Блок "В комплекте" */}
+              <ul className="mt-6 px-6 space-y-4 flex-1 flex flex-col justify-between border-t border-neutral-300 dark:border-neutral-500 h-[8rem]">
+                <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
                 {features.slice(0, 3).map((feature, index) => (
                   <li key={index} className="flex">
                     <CheckIcon className="mt-2 w-3 h-3 text-red-600" />
@@ -287,6 +297,7 @@ export default function Soft() {
           ))}
       </div>
 
+      {/* Модальное окно для выбора ссылок */}
       {modalLinks && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
