@@ -179,7 +179,7 @@ export default function Navbar() {
                 <button
                   className={classNames(
                     "inline-flex items-center justify-center rounded-full text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors p-2",
-                    "relative w-8 h-8"
+                    "relative w-6 h-6"
                   )}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
