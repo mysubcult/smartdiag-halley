@@ -5,13 +5,13 @@ import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
-// Навигационные ссылки
+// Навигационные ссылки с эмодзи для мобильной версии
 const navigation = [
-  { name: "Главная", href: "/", anchor: "#hero" },
-  { name: "Программы", href: "/#soft", anchor: "#soft" },
-  { name: "Статьи", href: "/#blog", anchor: "#blog" },
-  { name: "О нас", href: "/#services", anchor: "#services" },
-  { name: "Обратная связь", href: "/#contact", anchor: "#contact" },
+  { name: "Главная 🏠", href: "/", anchor: "#hero" },
+  { name: "Программы 💻", href: "/#soft", anchor: "#soft" },
+  { name: "Статьи 📝", href: "/#blog", anchor: "#blog" },
+  { name: "О нас 👥", href: "/#services", anchor: "#services" },
+  { name: "Обратная связь 📞", href: "/#contact", anchor: "#contact" },
 ];
 
 // Комбинирование классов
@@ -22,11 +22,11 @@ function classNames(...classes: string[]): string {
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
-  const [fontSize, setFontSize] = useState("18px");
   const [isMobileView, setIsMobileView] = useState(false);
 
   const router = useRouter();
 
+  // Определение мобильного вида
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 1200);
@@ -37,6 +37,7 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Обработчик кликов по навигации
   const handleNavigationClick = useCallback(
     (anchor: string) => (event: React.MouseEvent) => {
       event.preventDefault();
@@ -46,30 +47,13 @@ export default function Navbar() {
         router.push(anchor, undefined, { scroll: false });
       }
       setIsMenuOpen(false);
+      setIsSubMenuOpen(false);
     },
     [router]
   );
 
-  const updateFontSize = useCallback(() => {
-    const baseFontSize = 18;
-    const minFontSize = 14;
-    const screenHeight = window.innerHeight;
-    const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length;
-    const maxMenuHeight = screenHeight - 64;
-    const requiredHeight = itemsCount * 48;
-
-    const scaleFactor = maxMenuHeight / requiredHeight;
-    setFontSize(`${Math.max(minFontSize, baseFontSize * Math.min(scaleFactor, 1))}px`);
-  }, [isSubMenuOpen]);
-
-  useEffect(() => {
-    updateFontSize();
-    window.addEventListener("resize", updateFontSize);
-    return () => window.removeEventListener("resize", updateFontSize);
-  }, [updateFontSize]);
-
   return (
-    <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
+    <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
@@ -89,7 +73,7 @@ export default function Navbar() {
             </div>
 
             {/* Горизонтальное меню навигации */}
-            <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
+            <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav ml-10`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
                   <Link
@@ -112,11 +96,11 @@ export default function Navbar() {
             {!isMobileView && (
               <>
                 <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="block">
-                  <button className="btn-ozon">
+                  <button className="btn-ozon flex items-center px-3 py-2 rounded-md hover:bg-ozon-hover transition-colors">
                     <Image
                       src="/images/logos/favicon.ico"
                       alt="OZON"
-                      className="w-5 h-5"
+                      className="w-5 h-5 mr-2"
                       width={20}
                       height={20}
                       loading="lazy"
@@ -126,11 +110,11 @@ export default function Navbar() {
                 </Link>
 
                 <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer" className="block">
-                  <button className="btn-yandex">
+                  <button className="btn-yandex flex items-center px-3 py-2 rounded-md hover:bg-yandex-hover transition-colors">
                     <Image
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
                       alt="Яндекс Маркет"
-                      className="w-5 h-5"
+                      className="w-5 h-5 mr-2"
                       width={20}
                       height={20}
                       loading="lazy"
@@ -140,11 +124,11 @@ export default function Navbar() {
                 </Link>
 
                 <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer" className="block">
-                  <button className="btn-wildberries">
+                  <button className="btn-wildberries flex items-center px-3 py-2 rounded-md hover:bg-wildberries-hover transition-colors">
                     <Image
                       src="/images/logos/favicon.ico"
                       alt="Wildberries"
-                      className="w-5 h-5"
+                      className="w-5 h-5 mr-2"
                       width={20}
                       height={20}
                       loading="lazy"
@@ -162,20 +146,21 @@ export default function Navbar() {
             {isMobileView && (
               <div className="flex items-center">
                 <button
-                  className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+                  className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors p-2"
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  aria-label="Открыть главное меню"
                 >
-                  <span className="sr-only">Open main menu</span>
+                  <span className="sr-only">Открыть главное меню</span>
                   <div className="menu-icon-wrapper relative">
                     <Bars3Icon
-                      className={`h-6 w-6 transition-transform transform ${
-                        isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"
+                      className={`h-6 w-6 transition-transform duration-300 ${
+                        isMenuOpen ? "opacity-0" : "opacity-100"
                       }`}
                       aria-hidden="true"
                     />
                     <XMarkIcon
-                      className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
-                        isMenuOpen ? "rotate-[0deg] opacity-100" : "rotate-0 opacity-0"
+                      className={`h-6 w-6 transition-transform duration-300 absolute top-0 left-0 ${
+                        isMenuOpen ? "opacity-100" : "opacity-0"
                       }`}
                       aria-hidden="true"
                     />
@@ -187,56 +172,58 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Popup Menu */}
+      {/* Полноэкранное мобильное меню */}
       {isMenuOpen && (
         <div
-          className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
+          className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center transition-transform duration-300 ease-in-out z-40"
           style={{
-            fontSize: fontSize,
-            maxHeight: `calc(100vh - 128px)`,
-            overflowY: "auto",
-            paddingTop: "24px",
-            paddingBottom: "24px",
+            animation: isMenuOpen ? "fadeIn 0.3s" : "fadeOut 0.3s",
           }}
         >
-          <div className="flex flex-col items-center justify-center space-y-4">
+          <div className="flex flex-col items-center justify-center space-y-6">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
+                className={classNames(
+                  "text-2xl font-semibold text-neutral-900 dark:text-neutral-400",
+                  "hover:text-red-500 transition-colors"
+                )}
+                style={{ textDecoration: "none" }}
                 scroll={false}
                 onClick={handleNavigationClick(item.anchor)}
               >
                 {item.name}
               </Link>
             ))}
-            <div className="flex flex-col items-center w-full mt-4">
+
+            {/* Подменю "Магазины" */}
+            <div className="flex flex-col items-center w-full mt-8">
               <button
                 onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                className="btn-submenu-toggle flex items-center justify-center py-2 text-lg font-medium"
+                className="btn-submenu-toggle flex items-center justify-center py-2 text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors"
               >
-                Магазины
+                Магазины 🛒
                 <ChevronDownIcon
-                  className={`h-5 w-5 ml-2 transition-transform ${
-                    isSubMenuOpen ? "rotate-180" : "rotate-0"
+                  className={`h-6 w-6 ml-2 transition-transform ${
+                    isSubMenuOpen ? "transform rotate-180" : ""
                   }`}
                 />
               </button>
               {isSubMenuOpen && (
-                <div className="submenu mt-2 space-y-3 w-full">
+                <div className="submenu mt-4 space-y-4 w-full flex flex-col items-center">
                   <Link
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-ozon flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
+                    className="btn-ozon flex items-center justify-center w-3/4 px-4 py-3 rounded-lg hover:bg-ozon-hover transition-colors"
                   >
                     <Image
                       src="/images/logos/favicon.ico"
                       alt="OZON"
-                      className="w-4 h-4 mr-2"
-                      width={16}
-                      height={16}
+                      className="w-5 h-5 mr-2"
+                      width={20}
+                      height={20}
                       loading="lazy"
                     />
                     OZON
@@ -246,14 +233,14 @@ export default function Navbar() {
                     href="https://market.yandex.ru/business--smartdiag/50025236"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
+                    className="btn-yandex flex items-center justify-center w-3/4 px-4 py-3 rounded-lg hover:bg-yandex-hover transition-colors"
                   >
                     <Image
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
                       alt="Яндекс Маркет"
-                      className="w-4 h-4 mr-2"
-                      width={16}
-                      height={16}
+                      className="w-5 h-5 mr-2"
+                      width={20}
+                      height={20}
                       loading="lazy"
                     />
                     Яндекс Маркет
@@ -263,14 +250,14 @@ export default function Navbar() {
                     href="https://www.wildberries.ru/seller/1343369"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
+                    className="btn-wildberries flex items-center justify-center w-3/4 px-4 py-3 rounded-lg hover:bg-wildberries-hover transition-colors"
                   >
                     <Image
                       src="/images/logos/favicon.ico"
                       alt="Wildberries"
-                      className="w-4 h-4 mr-2"
-                      width={16}
-                      height={16}
+                      className="w-5 h-5 mr-2"
+                      width={20}
+                      height={20}
                       loading="lazy"
                     />
                     Wildberries
@@ -281,6 +268,59 @@ export default function Navbar() {
           </div>
         </div>
       )}
+
+      {/* Дополнительные стили для анимации */}
+      <style jsx global>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeOut {
+          from {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          to {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+        }
+
+        /* Примеры стилей для кнопок магазинов */
+        .btn-ozon {
+          background-color: #ff7f00;
+          color: white;
+        }
+
+        .btn-yandex {
+          background-color: #ffcc00;
+          color: black;
+        }
+
+        .btn-wildberries {
+          background-color: #a200ff;
+          color: white;
+        }
+
+        .hover\\:bg-ozon-hover:hover {
+          background-color: #e67300;
+        }
+
+        .hover\\:bg-yandex-hover:hover {
+          background-color: #e6b800;
+        }
+
+        .hover\\:bg-wildberries-hover:hover {
+          background-color: #8a00e6;
+        }
+      `}</style>
     </nav>
   );
 }
