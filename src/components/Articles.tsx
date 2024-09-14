@@ -180,46 +180,54 @@ export default function Blog() {
         </p>
       </div>
 
-      {/* Панель навигации по категориям и поиску */}
+      {/* Панель навигации по категориям */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 sm:mt-8">
-        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 flex items-center justify-between w-full">
-          {/* Левая часть: категории */}
-          <div className="flex items-center gap-1">
-            <div className="relative">
-              <button
-                className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between relative"
-                onClick={() => setShowCategories(!showCategories)}
-                aria-label="Выбрать категорию"
-              >
-                <span>{selectedCategory}</span>
-                <svg
-                  className={`w-4 h-4 ml-2 transform transition-transform duration-300 ${
-                    showCategories ? "rotate-180" : ""
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 flex flex-col sm:flex-row items-center justify-between w-full">
+
+          {/* Категории и кнопка поиска */}
+          <div className="flex flex-row items-center justify-between w-full sm:w-auto">
+
+            {/* Категории */}
+            <div className="flex items-center gap-1">
+              {/* Категория для мобильных */}
+              <div className="relative sm:hidden">
+                <button
+                  className="bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full relative"
+                  onClick={() => setShowCategories(!showCategories)}
+                  aria-label="Выбрать категорию"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {showCategories && (
-                <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2 transition-all ease-in-out duration-300">
-                  {categories.map((category) => (
-                    <button
-                      key={category.value}
-                      onClick={() => {
-                        handleCategoryClick(category.value);
-                        setShowCategories(false);
-                      }}
-                      className="block text-left w-full px-4 py-2 hover:bg-blue-100 dark:hover:bg-neutral-600"
-                      aria-label={`Выбрать категорию ${category.name}`}
-                    >
-                      {category.name}
-                    </button>
-                  ))}
-                </div>
-              )}
+                  <span>{selectedCategory}</span>
+                  <svg
+                    className={`w-4 h-4 ml-2 transform transition-transform duration-300 ${
+                      showCategories ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {showCategories && (
+                  <div className="absolute z-50 w-full bg-white dark:bg-neutral-700 shadow-md rounded-md mt-2 transition-all ease-in-out duration-300">
+                    {categories.map((category) => (
+                      <button
+                        key={category.value}
+                        onClick={() => {
+                          handleCategoryClick(category.value);
+                          setShowCategories(false);
+                        }}
+                        className="block text-left w-full px-4 py-2 hover:bg-blue-100 dark:hover:bg-neutral-600"
+                        aria-label={`Выбрать категорию ${category.name}`}
+                      >
+                        {category.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Категории для ПК */}
               <div className="hidden sm:flex flex-wrap gap-1">
                 {categories.map((category) => (
                   <button
@@ -237,23 +245,10 @@ export default function Blog() {
                 ))}
               </div>
             </div>
-          </div>
 
-          {/* Правая часть: поиск */}
-          <div className="flex items-center gap-2">
-            {/* Поиск на ПК */}
-            <div className="hidden sm:block">
-              <input
-                type="text"
-                placeholder="Поиск..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="form-input w-48 p-2 rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 focus:ring-red-500 focus:border-red-500"
-              />
-            </div>
-            {/* Иконка поиска на мобильных */}
+            {/* Кнопка поиска */}
             <button
-              className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md"
+              className="ml-auto sm:ml-4 bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md"
               onClick={() => setShowSearch(!showSearch)}
               aria-label="Открыть поиск"
             >
@@ -262,23 +257,31 @@ export default function Blog() {
               </svg>
             </button>
           </div>
-        </div>
 
-        {/* Строка поиска на мобильных */}
-        <div
-          className={`mt-2 sm:mt-0 transition-all duration-300 ${
-            showSearch ? "max-h-40" : "max-h-0"
-          } overflow-hidden`}
-        >
-          {showSearch && (
+          {/* Поле поиска для ПК */}
+          <div className="hidden sm:block mt-0">
             <input
               type="text"
               placeholder="Поиск..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="form-input w-full p-2 rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 focus:ring-red-500 focus:border-red-500"
+              className="form-input w-64 max-w-xs p-2 rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 focus:ring-red-500 focus:border-red-500"
             />
+          </div>
+
+          {/* Поле поиска для мобильных внутри контейнера */}
+          {showSearch && (
+            <div className="sm:hidden w-full mt-2">
+              <input
+                type="text"
+                placeholder="Поиск..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="form-input w-full p-2 rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 focus:ring-red-500 focus:border-red-500"
+              />
+            </div>
           )}
+
         </div>
       </div>
 
