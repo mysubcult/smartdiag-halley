@@ -178,7 +178,7 @@ export default function Navbar() {
               {isMobileView && (
                 <button
                   className={classNames(
-                    "inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors p-2",
+                    "inline-flex items-center justify-center rounded-full text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors p-2",
                     "transform transition-transform duration-300",
                     isMenuOpen ? "rotate-45" : "rotate-0"
                   )}
