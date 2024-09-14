@@ -100,23 +100,31 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Горизонтальное меню навигации */}
-          {!isMobileView && (
-            <div className="flex space-x-5">
+          <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
+            <div className="flex space-x-5 items-center">
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href} passHref legacyBehavior>
                   <a
                     onClick={handleNavigationClick(item.anchor)}
                     className={classNames(
-                      "px-3 py-2 rounded-md text-sm font-medium hover:text-red-500 transition-colors",
-                      "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      "text-neutral-900 dark:text-neutral-400 nav-link",
+                      "relative px-3 py-2 transition-colors duration-300 ease-in-out",
+                      "hover:text-red-500"
                     )}
                   >
                     {item.name}
+                    {/* Добавление подчеркивания при наведении */}
+                    <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-red-500 transition-all duration-300 ease-in-out"></span>
+                    <style jsx>{`
+                      a:hover span {
+                        width: 100%;
+                      }
+                    `}</style>
                   </a>
                 </Link>
               ))}
             </div>
-          )}
+          </div>
 
           {/* Кнопки магазинов, смены темы и мобильное меню */}
           <div className="flex items-center space-x-4">
@@ -203,48 +211,47 @@ const Navbar: React.FC = () => {
 
       {/* Мобильное меню */}
       {isMenuOpen && isMobileView && (
-        <div className="md:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <div className="mobile-menu bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30 transition-transform duration-300 ease-in-out">
+          <div className="flex flex-col items-center justify-center space-y-4">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href} passHref legacyBehavior>
                 <a
                   onClick={handleNavigationClick(item.anchor)}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors"
+                  className={classNames(
+                    "text-neutral-900 dark:text-neutral-400",
+                    "block py-2 text-lg font-medium hover:text-red-500 transition-colors"
+                  )}
                 >
                   {item.name}
                 </a>
               </Link>
             ))}
-
-            {/* Подменю "Магазины" */}
-            <div className="mt-3">
+            <div className="flex flex-col items-center w-full mt-4">
               <button
-                onClick={() => setIsSubMenuOpen((prev) => !prev)}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-md text-base font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors focus:outline-none"
+                onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
+                className="btn-submenu-toggle flex items-center justify-center py-2 text-lg font-medium hover:text-red-500 transition-colors focus:outline-none"
               >
-                <span>Магазины</span>
+                Магазины
                 <ChevronDownIcon
-                  className={classNames(
-                    "h-5 w-5 transform transition-transform",
+                  className={`h-5 w-5 ml-2 transition-transform ${
                     isSubMenuOpen ? "rotate-180" : "rotate-0"
-                  )}
-                  aria-hidden="true"
+                  }`}
                 />
               </button>
               {isSubMenuOpen && (
-                <div className="mt-2 space-y-1">
+                <div className="submenu mt-2 space-y-3 w-full">
                   <Link href="https://www.ozon.ru/seller/smartdiag-862410/" passHref legacyBehavior>
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center px-5 py-2 rounded-md text-base font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors"
+                      className="btn-ozon flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
                     >
                       <Image
                         src="/images/logos/favicon.ico"
                         alt="OZON"
+                        className="w-4 h-4 mr-2"
                         width={16}
                         height={16}
-                        className="w-4 h-4 mr-2"
                         loading="lazy"
                       />
                       OZON
@@ -255,14 +262,14 @@ const Navbar: React.FC = () => {
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center px-5 py-2 rounded-md text-base font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors"
+                      className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
                     >
                       <Image
                         src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
                         alt="Яндекс Маркет"
+                        className="w-4 h-4 mr-2"
                         width={16}
                         height={16}
-                        className="w-4 h-4 mr-2"
                         loading="lazy"
                       />
                       Яндекс Маркет
@@ -273,14 +280,14 @@ const Navbar: React.FC = () => {
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center px-5 py-2 rounded-md text-base font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors"
+                      className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
                     >
                       <Image
                         src="/images/logos/favicon.ico"
                         alt="Wildberries"
+                        className="w-4 h-4 mr-2"
                         width={16}
                         height={16}
-                        className="w-4 h-4 mr-2"
                         loading="lazy"
                       />
                       Wildberries
