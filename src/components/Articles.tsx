@@ -39,7 +39,7 @@ const blogPosts: BlogPost[] = [
   },
   {
     title: "Инструкция по установке Autocom 2021",
-    image: "/images/blog/post1.jpg",
+    image: "/images/blog/post2.jpg",
     excerpt: "Полноценная, подробная инструкция по установке программного обеспечения.",
     link: "/articles/software/autocom2021",
     category: "Установка ПО",
@@ -47,7 +47,7 @@ const blogPosts: BlogPost[] = [
   },
   {
     title: "Тестовый пост",
-    image: "/images/blog/post1.jpg",
+    image: "/images/blog/post3.jpg",
     excerpt: "Это тестовый пост для демонстрации функционала.",
     link: "/articles/software/autocom2021",
     category: "Установка ПО",
@@ -55,7 +55,7 @@ const blogPosts: BlogPost[] = [
   },
   {
     title: "Инструкция по установке Autocom 2021 (расширенная версия)",
-    image: "/images/blog/post1.jpg",
+    image: "/images/blog/post4.jpg",
     excerpt: "Подробная инструкция по установке Autocom 2021 с дополнительными шагами.",
     link: "/articles/software/autocom2021",
     category: "Установка ПО",
@@ -277,7 +277,7 @@ const Blog: React.FC = () => {
                 placeholder="Поиск..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="form-input w-25 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+                className="form-input w-48 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 focus:border-red-500 focus:ring-red-500"
                 aria-label="Поиск статей"
               />
             </div>
@@ -310,7 +310,7 @@ const Blog: React.FC = () => {
             placeholder="Поиск..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="form-input w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 mt-2"
+            className="form-input w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 mt-2 focus:border-red-500 focus:ring-red-500"
             aria-label="Поиск статей"
           />
         </div>
