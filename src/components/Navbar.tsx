@@ -5,7 +5,7 @@ import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
-// Навигационные ссылки без эмодзи
+// Навигационные ссылки без эмодзи для десктопа
 const navigation = [
   { name: "Главная", href: "/", anchor: "#hero" },
   { name: "Программы", href: "/#soft", anchor: "#soft" },
@@ -72,128 +72,128 @@ export default function Navbar() {
   }, [isMenuOpen]);
 
   return (
-    <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-50">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between">
-          <div className="flex flex-1 items-center justify-start">
-            <div className="flex flex-shrink-0 items-center">
-              <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
-                <Image
-                  className="block h-12 w-auto logo-animation"
-                  src="/images/logos/logo.png"
-                  alt="SmartDiag Logo"
-                  width={256}
-                  height={117}
-                  quality={100}
-                  sizes="100vw"
-                  loading="eager"
-                />
-              </Link>
+    <>
+      {/* Navbar */}
+      <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="relative flex h-16 items-center justify-between">
+            <div className="flex flex-1 items-center justify-start">
+              <div className="flex flex-shrink-0 items-center">
+                <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
+                  <Image
+                    className="block h-12 w-auto logo-animation"
+                    src="/images/logos/logo.png"
+                    alt="SmartDiag Logo"
+                    width={256}
+                    height={117}
+                    quality={100}
+                    sizes="100vw"
+                    loading="eager"
+                  />
+                </Link>
+              </div>
+
+              {/* Горизонтальное меню навигации для десктопа */}
+              <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav ml-10`}>
+                <div className="flex space-x-5 items-center">
+                  {navigation.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
+                      style={{ textDecoration: "none" }}
+                      scroll={false}
+                      onClick={handleNavigationClick(item.anchor)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            {/* Горизонтальное меню навигации */}
-            <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav ml-10`}>
-              <div className="flex space-x-5 items-center">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
-                    style={{ textDecoration: "none" }}
-                    scroll={false}
-                    onClick={handleNavigationClick(item.anchor)}
-                  >
-                    {item.name}
+            {/* Кнопки магазинов, смены темы и меню */}
+            <div className="flex items-center gap-2">
+              {!isMobileView && (
+                <>
+                  <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="block">
+                    <button className="btn-ozon flex items-center px-3 py-2 rounded-md hover:bg-ozon-hover transition-colors">
+                      <Image
+                        src="/images/logos/favicon.ico"
+                        alt="OZON"
+                        className="w-5 h-5 mr-2"
+                        width={20}
+                        height={20}
+                        loading="lazy"
+                      />
+                      OZON
+                    </button>
                   </Link>
-                ))}
-              </div>
+
+                  <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer" className="block">
+                    <button className="btn-yandex flex items-center px-3 py-2 rounded-md hover:bg-yandex-hover transition-colors">
+                      <Image
+                        src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                        alt="Яндекс Маркет"
+                        className="w-5 h-5 mr-2"
+                        width={20}
+                        height={20}
+                        loading="lazy"
+                      />
+                      Яндекс Маркет
+                    </button>
+                  </Link>
+
+                  <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer" className="block">
+                    <button className="btn-wildberries flex items-center px-3 py-2 rounded-md hover:bg-wildberries-hover transition-colors">
+                      <Image
+                        src="/images/logos/favicon.ico"
+                        alt="Wildberries"
+                        className="w-5 h-5 mr-2"
+                        width={20}
+                        height={20}
+                        loading="lazy"
+                      />
+                      Wildberries
+                    </button>
+                  </Link>
+                </>
+              )}
+
+              {/* Кнопка смены темы */}
+              <ThemeSwitchButton />
+
+              {/* Кнопка меню появляется, когда isMobileView == true */}
+              {isMobileView && (
+                <div className="flex items-center">
+                  <button
+                    className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors p-2"
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
+                  >
+                    <span className="sr-only">{isMenuOpen ? "Закрыть меню" : "Открыть меню"}</span>
+                    <div className="menu-icon-wrapper relative">
+                      <Bars3Icon
+                        className={`h-6 w-6 transition-opacity duration-300 ${isMenuOpen ? "opacity-0" : "opacity-100"}`}
+                        aria-hidden="true"
+                      />
+                      <XMarkIcon
+                        className={`h-6 w-6 transition-opacity duration-300 absolute top-0 left-0 ${isMenuOpen ? "opacity-100" : "opacity-0"}`}
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </button>
+                </div>
+              )}
             </div>
-          </div>
-
-          {/* Кнопки магазинов, смены темы и меню */}
-          <div className="flex items-center gap-2">
-            {!isMobileView && (
-              <>
-                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="block">
-                  <button className="btn-ozon flex items-center px-3 py-2 rounded-md hover:bg-ozon-hover transition-colors">
-                    <Image
-                      src="/images/logos/favicon.ico"
-                      alt="OZON"
-                      className="w-5 h-5 mr-2"
-                      width={20}
-                      height={20}
-                      loading="lazy"
-                    />
-                    OZON
-                  </button>
-                </Link>
-
-                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer" className="block">
-                  <button className="btn-yandex flex items-center px-3 py-2 rounded-md hover:bg-yandex-hover transition-colors">
-                    <Image
-                      src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                      alt="Яндекс Маркет"
-                      className="w-5 h-5 mr-2"
-                      width={20}
-                      height={20}
-                      loading="lazy"
-                    />
-                    Яндекс Маркет
-                  </button>
-                </Link>
-
-                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer" className="block">
-                  <button className="btn-wildberries flex items-center px-3 py-2 rounded-md hover:bg-wildberries-hover transition-colors">
-                    <Image
-                      src="/images/logos/favicon.ico"
-                      alt="Wildberries"
-                      className="w-5 h-5 mr-2"
-                      width={20}
-                      height={20}
-                      loading="lazy"
-                    />
-                    Wildberries
-                  </button>
-                </Link>
-              </>
-            )}
-
-            {/* Кнопка смены темы */}
-            <ThemeSwitchButton />
-
-            {/* Кнопка меню появляется, когда isMobileView == true */}
-            {isMobileView && (
-              <div className="flex items-center">
-                <button
-                  className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors p-2"
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  aria-label="Открыть главное меню"
-                >
-                  <span className="sr-only">Открыть главное меню</span>
-                  <div className="menu-icon-wrapper relative">
-                    <Bars3Icon
-                      className={`h-6 w-6 transition-opacity duration-300 ${isMenuOpen ? "opacity-0" : "opacity-100"}`}
-                      aria-hidden="true"
-                    />
-                    <XMarkIcon
-                      className={`h-6 w-6 transition-opacity duration-300 absolute top-0 left-0 ${isMenuOpen ? "opacity-100" : "opacity-0"}`}
-                      aria-hidden="true"
-                    />
-                  </div>
-                </button>
-              </div>
-            )}
           </div>
         </div>
-      </div>
+      </nav>
 
       {/* Полноэкранное мобильное меню */}
       {isMenuOpen && (
         <div
           className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center transition-opacity duration-300 ease-in-out z-40"
-          style={{
-            animation: isMenuOpen ? "fadeIn 0.3s" : "fadeOut 0.3s",
-          }}
         >
           <div className="flex flex-col items-center justify-center space-y-6">
             {navigation.map((item) => (
@@ -202,7 +202,7 @@ export default function Navbar() {
                 href={item.href}
                 className={classNames(
                   "text-2xl font-semibold text-neutral-900 dark:text-neutral-400",
-                  "hover:text-red-500 transition-colors"
+                  "hover:text-red-500 transition-colors flex items-center"
                 )}
                 style={{ textDecoration: "none" }}
                 scroll={false}
@@ -284,7 +284,7 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* Дополнительные стили для анимации */}
+      {/* Дополнительные стили для анимации и кнопок */}
       <style jsx global>{`
         @keyframes fadeIn {
           from {
@@ -335,7 +335,22 @@ export default function Navbar() {
         .hover\\:bg-wildberries-hover:hover {
           background-color: #8a00e6;
         }
+
+        /* Анимация мобильного меню */
+        .fixed.inset-0 {
+          animation: fadeIn 0.3s forwards;
+        }
+
+        .fixed.inset-0.hidden {
+          animation: fadeOut 0.3s forwards;
+        }
+
+        /* Обеспечить, чтобы мобильное меню было под navbar */
+        .navbar + div.fixed.inset-0 {
+          top: 64px; /* Высота navbar */
+          height: calc(100% - 64px);
+        }
       `}</style>
-    </nav>
+    </>
   );
 }
