@@ -206,7 +206,7 @@ const Soft: React.FC = () => {
   const closeModal = useCallback(() => setModalLinks(null), []);
 
   const filteredProducts = useMemo(
-    () => products.filter(product => product.type === selectedType),
+    () => products.filter((product) => product.type === selectedType),
     [selectedType]
   );
 
@@ -238,7 +238,7 @@ const Soft: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
         <p className="pt-6 text-base max-w-2xl text-center mx-auto dark:text-neutral-400">
-          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — 'Марочный' или 'Мультимарочный'. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку 'Скачать'. Инструкция по установке программного обеспечения находится на кнопке 'Инструкция'.
+          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &apos;Марочный&apos; или &apos;Мультимарочный&apos;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &apos;Скачать&apos;. Инструкция по установке программного обеспечения находится на кнопке &apos;Инструкция&apos;.
         </p>
       </div>
 
@@ -251,7 +251,7 @@ const Soft: React.FC = () => {
 
       {/* Сетка продуктов */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
-        {filteredProducts.map(product => (
+        {filteredProducts.map((product) => (
           <div
             key={product.title}
             className={`rounded-lg py-8 relative flex flex-col hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300 ${
@@ -262,19 +262,19 @@ const Soft: React.FC = () => {
           >
             {/* Заголовок продукта */}
             <h3 className="px-6 text-lg font-semibold leading-5">{product.title}</h3>
-            
+
             {/* Метка "Топ продаж" */}
             {product.mostPopular && (
               <span className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
                 Топ продаж
               </span>
             )}
-            
+
             {/* Описание продукта */}
             <p className="px-6 mt-4 leading-6 dark:text-neutral-400 line-clamp-3">
               {product.description}
             </p>
-            
+
             {/* Кнопки "Скачать" и "Инструкция" */}
             <div className="flex mt-4 mx-6 space-x-2">
               <button
@@ -294,7 +294,7 @@ const Soft: React.FC = () => {
                 </button>
               )}
             </div>
-            
+
             {/* Список особенностей */}
             <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
               <li className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</li>
@@ -335,10 +335,10 @@ const Soft: React.FC = () => {
             >
               ✕
             </button>
-            
+
             {/* Заголовок модального окна */}
             <h3 className="text-lg font-semibold mb-4 text-center">Выберите ссылку для скачивания</h3>
-            
+
             {/* Ссылки для скачивания */}
             <div className="flex flex-col space-y-2">
               {modalLinks.map(({ link, label }, index) => (
