@@ -179,29 +179,28 @@ export default function Navbar() {
                 <button
                   className={classNames(
                     "inline-flex items-center justify-center rounded-full text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors p-2",
-                    "transform transition-transform duration-300",
-                    isMenuOpen ? "rotate-45" : "rotate-0"
+                    "relative w-6 h-6"
                   )}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
                 >
                   <span className="sr-only">{isMenuOpen ? "Закрыть меню" : "Открыть меню"}</span>
-                  <div className="relative w-6 h-6">
-                    <Bars3Icon
-                      className={classNames(
-                        "h-6 w-6 absolute top-0 left-0 transition-opacity duration-300",
-                        isMenuOpen ? "opacity-0" : "opacity-100"
-                      )}
-                      aria-hidden="true"
-                    />
-                    <XMarkIcon
-                      className={classNames(
-                        "h-6 w-6 absolute top-0 left-0 transition-opacity duration-300",
-                        isMenuOpen ? "opacity-100" : "opacity-0"
-                      )}
-                      aria-hidden="true"
-                    />
-                  </div>
+                  {/* Иконка "Бургер" */}
+                  <Bars3Icon
+                    className={classNames(
+                      "h-6 w-6 absolute top-0 left-0 transition-opacity duration-300",
+                      isMenuOpen ? "opacity-0" : "opacity-100"
+                    )}
+                    aria-hidden="true"
+                  />
+                  {/* Иконка "Х" */}
+                  <XMarkIcon
+                    className={classNames(
+                      "h-6 w-6 absolute top-0 left-0 transition-opacity duration-300",
+                      isMenuOpen ? "opacity-100" : "opacity-0"
+                    )}
+                    aria-hidden="true"
+                  />
                 </button>
               )}
             </div>
@@ -212,9 +211,9 @@ export default function Navbar() {
       {/* Полноэкранное мобильное меню */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center transition-opacity duration-300 ease-in-out z-40 mt-16 overflow-y-auto"
+          className="fixed top-16 left-0 right-0 bottom-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-start transition-opacity duration-300 ease-in-out z-40 overflow-y-auto"
         >
-          <div className="flex flex-col items-center justify-center space-y-6 px-4">
+          <div className="flex flex-col items-center justify-center space-y-6 py-8">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -224,7 +223,7 @@ export default function Navbar() {
                   "hover:text-red-500 transition-colors flex items-center"
                 )}
                 style={{ textDecoration: "none" }}
-                scroll={isMobileView ? false : false} // Отключаем плавную навигацию в мобильной версии
+                scroll={!isMobileView}
                 onClick={handleNavigationClick(item.anchor)}
               >
                 {/* Добавление эмодзи только в мобильной версии */}
@@ -234,15 +233,15 @@ export default function Navbar() {
             ))}
 
             {/* Подменю "Магазины" */}
-            <div className="flex flex-col items-center w-full mt-8">
+            <div className="flex flex-col items-center w-full mt-8 px-4">
               <button
                 onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                className="btn-submenu-toggle flex items-center justify-center py-2 text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors"
+                className="btn-submenu-toggle flex items-center justify-center py-2 text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors w-full text-left"
               >
                 <span className="mr-2">{mobileEmojis["Магазины"]}</span>
                 Магазины
                 <ChevronDownIcon
-                  className={`h-6 w-6 ml-2 transition-transform ${isSubMenuOpen ? "transform rotate-180" : ""}`}
+                  className={`h-6 w-6 ml-2 transition-transform ${isSubMenuOpen ? "rotate-180" : ""}`}
                 />
               </button>
               {isSubMenuOpen && (
@@ -357,17 +356,12 @@ export default function Navbar() {
         }
 
         /* Анимация мобильного меню */
-        .fixed.inset-0 {
+        .fixed.top-16.left-0.right-0.bottom-0 {
           animation: fadeIn 0.3s forwards;
         }
 
-        .fixed.inset-0.hidden {
+        .fixed.top-16.left-0.right-0.bottom-0.hidden {
           animation: fadeOut 0.3s forwards;
-        }
-
-        /* Обеспечить, чтобы мобильное меню было под navbar */
-        .mt-16 {
-          margin-top: 4rem; /* h-16 = 4rem = 64px */
         }
 
         /* Уменьшение расстояния между логотипом и меню */
@@ -380,9 +374,9 @@ export default function Navbar() {
           position: relative;
         }
 
-        /* Обеспечить плавное вращение иконки меню */
-        button.rotate-45 {
-          transform: rotate(45deg);
+        /* Обеспечить плавное переключение иконок меню */
+        .transition-opacity {
+          transition: opacity 0.3s ease-in-out;
         }
       `}</style>
     </>
