@@ -208,7 +208,7 @@ export default function Soft() {
         selectedType === type
           ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
           : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-      } rounded-md py-2 px-4 transition-colors duration-300`}
+      } rounded-md py-1.5 px-4 transition-colors duration-300`} // Уменьшил высоту кнопок
     >
       {label}
     </button>
@@ -219,8 +219,8 @@ export default function Soft() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-  В этом разделе вы можете скачать программное обеспечение для своего устройства. Определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. После этого найдите устройство и нажмите &quot;Скачать&quot;.
-</p>
+          В этом разделе вы можете скачать программное обеспечение для своего устройства. Определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. После этого найдите устройство и нажмите &quot;Скачать&quot;.
+        </p>
       </div>
 
       <div className="max-w-max mx-auto px-6">
@@ -235,30 +235,34 @@ export default function Soft() {
           .map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => (
             <div
               key={title}
-              className={`rounded-lg py-8 relative flex flex-col ${
+              className={`rounded-lg py-8 relative flex flex-col h-full ${
                 mostPopular
                   ? "border-red-300 border-2 border-solid dark:border-red-600"
                   : "border-neutral-300 border dark:border-neutral-600"
               } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
             >
-              <h3 className="px-6 text-lg font-semibold">{title}</h3>
+              <h3 className="px-6 text-lg font-semibold line-clamp-2 h-12 flex items-center">{title}</h3> 
+              {/* Заголовок обрезается по 2 строкам и вертикально выровнен */}
               {mostPopular && (
                 <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold shadow-md">
                   Топ продаж
                 </p>
               )}
-              <p className="px-6 mt-4 dark:text-neutral-400 line-clamp-3">{description}</p>
+              <p className="px-6 mt-4 dark:text-neutral-400 line-clamp-3 h-16 flex items-center">
+                {description}
+              </p> 
+              {/* Описание с обрезкой до 3 строк и вертикальным выравниванием */}
               <div className="flex mt-4 mx-6">
                 <button
                   onClick={() => handleDownloadClick(downloadLinks)}
-                  className="block px-6 py-3 font-medium rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 transition-colors duration-200 transform active:scale-95 w-full"
+                  className="block px-6 py-2 font-medium rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 transition-colors duration-200 transform active:scale-95 w-full"
                 >
                   Скачать
                 </button>
                 {docs && docsLinks.length > 0 && (
                   <button
                     onClick={() => handleDownloadClick(docsLinks)}
-                    className="ml-2 block px-3 py-3 font-small rounded-lg border-neutral-300 border dark:bg-transparent dark:text-white hover:bg-neutral-200 transition-colors duration-200 transform active:scale-95 w-full"
+                    className="ml-2 block px-3 py-2 font-small rounded-lg border-neutral-300 border dark:bg-transparent dark:text-white hover:bg-neutral-200 transition-colors duration-200 transform active:scale-95 w-full"
                   >
                     Инструкция
                   </button>
