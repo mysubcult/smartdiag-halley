@@ -38,7 +38,7 @@ export default function Navbar() {
 
   const router = useRouter();
 
-  // Определение мобильного вида
+  // Определение мобильного вида и закрытие меню при изменении размера окна
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.innerWidth <= 1200;
@@ -212,9 +212,9 @@ export default function Navbar() {
       {/* Полноэкранное мобильное меню */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center transition-opacity duration-300 ease-in-out z-40 mt-16" // mt-16 соответствует высоте navbar (h-16)
+          className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center transition-opacity duration-300 ease-in-out z-40 mt-16 overflow-y-auto"
         >
-          <div className="flex flex-col items-center justify-center space-y-6">
+          <div className="flex flex-col items-center justify-center space-y-6 px-4">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -224,7 +224,7 @@ export default function Navbar() {
                   "hover:text-red-500 transition-colors flex items-center"
                 )}
                 style={{ textDecoration: "none" }}
-                scroll={isMobileView ? true : false} // Условное использование scroll
+                scroll={isMobileView ? false : false} // Отключаем плавную навигацию в мобильной версии
                 onClick={handleNavigationClick(item.anchor)}
               >
                 {/* Добавление эмодзи только в мобильной версии */}
@@ -251,7 +251,7 @@ export default function Navbar() {
                     href="https://www.ozon.ru/seller/smartdiag-862410/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-ozon flex items-center justify-center w-3/4 px-4 py-3 rounded-lg hover:bg-ozon-hover transition-colors"
+                    className="btn-ozon flex items-center justify-center w-full px-4 py-3 rounded-lg hover:bg-ozon-hover transition-colors"
                   >
                     <Image
                       src="/images/logos/favicon.ico"
@@ -268,7 +268,7 @@ export default function Navbar() {
                     href="https://market.yandex.ru/business--smartdiag/50025236"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-yandex flex items-center justify-center w-3/4 px-4 py-3 rounded-lg hover:bg-yandex-hover transition-colors"
+                    className="btn-yandex flex items-center justify-center w-full px-4 py-3 rounded-lg hover:bg-yandex-hover transition-colors"
                   >
                     <Image
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
@@ -285,7 +285,7 @@ export default function Navbar() {
                     href="https://www.wildberries.ru/seller/1343369"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-wildberries flex items-center justify-center w-3/4 px-4 py-3 rounded-lg hover:bg-wildberries-hover transition-colors"
+                    className="btn-wildberries flex items-center justify-center w-full px-4 py-3 rounded-lg hover:bg-wildberries-hover transition-colors"
                   >
                     <Image
                       src="/images/logos/favicon.ico"
@@ -378,6 +378,11 @@ export default function Navbar() {
         /* Обеспечить относительное позиционирование иконок меню */
         .relative {
           position: relative;
+        }
+
+        /* Обеспечить плавное вращение иконки меню */
+        button.rotate-45 {
+          transform: rotate(45deg);
         }
       `}</style>
     </>
