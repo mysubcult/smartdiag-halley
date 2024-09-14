@@ -178,8 +178,8 @@ export default function Navbar() {
               {isMobileView && (
                 <button
                   className={classNames(
-                    "inline-flex items-center justify-center rounded-full text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors p-2",
-                    "relative w-6 h-6"
+                    "inline-flex items-center justify-center rounded-full text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors p-3",
+                    "relative w-8 h-8" // Увеличены размеры
                   )}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
@@ -213,7 +213,7 @@ export default function Navbar() {
         <div
           className="fixed top-16 left-0 right-0 bottom-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-start transition-opacity duration-300 ease-in-out z-40 overflow-y-auto"
         >
-          <div className="flex flex-col items-center justify-center space-y-6 py-8">
+          <div className="flex flex-col items-center justify-start space-y-6 py-8 px-4">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -223,7 +223,7 @@ export default function Navbar() {
                   "hover:text-red-500 transition-colors flex items-center"
                 )}
                 style={{ textDecoration: "none" }}
-                scroll={!isMobileView}
+                scroll={false} // Отключена плавная навигация в мобильной версии
                 onClick={handleNavigationClick(item.anchor)}
               >
                 {/* Добавление эмодзи только в мобильной версии */}
@@ -236,12 +236,14 @@ export default function Navbar() {
             <div className="flex flex-col items-center w-full mt-8 px-4">
               <button
                 onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                className="btn-submenu-toggle flex items-center justify-center py-2 text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors w-full text-left"
+                className="btn-submenu-toggle flex items-center justify-between py-2 text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors w-full text-left"
               >
-                <span className="mr-2">{mobileEmojis["Магазины"]}</span>
-                Магазины
+                <div className="flex items-center">
+                  <span className="mr-2">{mobileEmojis["Магазины"]}</span>
+                  Магазины
+                </div>
                 <ChevronDownIcon
-                  className={`h-6 w-6 ml-2 transition-transform ${isSubMenuOpen ? "rotate-180" : ""}`}
+                  className={`h-6 w-6 transition-transform ${isSubMenuOpen ? "rotate-180" : ""}`}
                 />
               </button>
               {isSubMenuOpen && (
