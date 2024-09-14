@@ -30,6 +30,7 @@ const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
+  const [fontSize, setFontSize] = useState("18px"); // Сохранение логики динамического размера шрифта
   const router = useRouter();
 
   // Обработчик изменения размера окна для определения мобильного вида
@@ -68,6 +69,25 @@ const Navbar: React.FC = () => {
     },
     [router]
   );
+
+  // Обновление размера шрифта для мобильного меню
+  const updateFontSize = useCallback(() => {
+    const baseFontSize = 18;
+    const minFontSize = 14;
+    const screenHeight = window.innerHeight;
+    const itemsCount = isSubMenuOpen ? navigation.length + 3 : navigation.length;
+    const maxMenuHeight = screenHeight - 64;
+    const requiredHeight = itemsCount * 48;
+
+    const scaleFactor = maxMenuHeight / requiredHeight;
+    setFontSize(`${Math.max(minFontSize, baseFontSize * Math.min(scaleFactor, 1))}px`);
+  }, [isSubMenuOpen]);
+
+  useEffect(() => {
+    updateFontSize();
+    window.addEventListener("resize", updateFontSize);
+    return () => window.removeEventListener("resize", updateFontSize);
+  }, [updateFontSize]);
 
   // Закрытие подменю при изменении размера окна
   useEffect(() => {
@@ -113,7 +133,7 @@ const Navbar: React.FC = () => {
                     )}
                   >
                     {item.name}
-                    {/* Добавление подчеркивания при наведении */}
+                    {/* Подчеркивание при наведении */}
                     <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-red-500 transition-all duration-300 ease-in-out"></span>
                     <style jsx>{`
                       a:hover span {
@@ -194,15 +214,24 @@ const Navbar: React.FC = () => {
             {isMobileView && (
               <button
                 onClick={() => setIsMenuOpen((prev) => !prev)}
-                className="inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                className="inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
                 aria-expanded={isMenuOpen}
               >
                 <span className="sr-only">Открыть главное меню</span>
-                {isMenuOpen ? (
-                  <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                ) : (
-                  <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                )}
+                <div className="menu-icon-wrapper relative">
+                  <Bars3Icon
+                    className={`h-6 w-6 transition-transform transform ${
+                      isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"
+                    }`}
+                    aria-hidden="true"
+                  />
+                  <XMarkIcon
+                    className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
+                      isMenuOpen ? "rotate-0 opacity-100" : "rotate-0 opacity-0"
+                    }`}
+                    aria-hidden="true"
+                  />
+                </div>
               </button>
             )}
           </div>
@@ -211,7 +240,16 @@ const Navbar: React.FC = () => {
 
       {/* Мобильное меню */}
       {isMenuOpen && isMobileView && (
-        <div className="mobile-menu bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30 transition-transform duration-300 ease-in-out">
+        <div
+          className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30 transition-transform duration-300 ease-in-out"
+          style={{
+            fontSize: fontSize,
+            maxHeight: `calc(100vh - 128px)`,
+            overflowY: "auto",
+            paddingTop: "24px",
+            paddingBottom: "24px",
+          }}
+        >
           <div className="flex flex-col items-center justify-center space-y-4">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href} passHref legacyBehavior>
