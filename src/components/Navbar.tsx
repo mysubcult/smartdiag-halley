@@ -1,4 +1,4 @@
-// components/Navbar.tsx
+// src/components/Navbar.tsx
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
@@ -26,7 +26,7 @@ const mobileEmojis: { [key: string]: string } = {
   "Магазины": "🛒",
 };
 
-// Комбинирование классов
+// Функция для комбинирования классов
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
@@ -50,7 +50,7 @@ export default function Navbar() {
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize();
+    handleResize(); // Инициализация при монтировании
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -127,7 +127,7 @@ export default function Navbar() {
             <div className="flex items-center gap-2">
               {!isMobileView && (
                 <>
-                  <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="block">
+                  <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
                     <button className="btn-ozon flex items-center px-3 py-2 rounded-md hover:bg-ozon-hover transition-colors">
                       <Image
                         src="/images/logos/favicon.ico"
@@ -141,7 +141,7 @@ export default function Navbar() {
                     </button>
                   </Link>
 
-                  <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer" className="block">
+                  <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
                     <button className="btn-yandex flex items-center px-3 py-2 rounded-md hover:bg-yandex-hover transition-colors">
                       <Image
                         src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
@@ -155,7 +155,7 @@ export default function Navbar() {
                     </button>
                   </Link>
 
-                  <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer" className="block">
+                  <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
                     <button className="btn-wildberries flex items-center px-3 py-2 rounded-md hover:bg-wildberries-hover transition-colors">
                       <Image
                         src="/images/logos/favicon.ico"
@@ -176,206 +176,210 @@ export default function Navbar() {
 
               {/* Кнопка меню появляется, когда isMobileView == true */}
               {isMobileView && (
-                <div className="flex items-center">
-                  <button
-                    className={classNames(
-                      "inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors p-2",
-                      "transform transition-transform duration-300",
-                      isMenuOpen ? "rotate-45" : "rotate-0"
-                    )}
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
+                <button
+                  className={classNames(
+                    "inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors p-2",
+                    "transform transition-transform duration-300",
+                    isMenuOpen ? "rotate-45" : "rotate-0"
+                  )}
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
+                >
+                  <span className="sr-only">{isMenuOpen ? "Закрыть меню" : "Открыть меню"}</span>
+                  <div className="relative w-6 h-6">
+                    <Bars3Icon
+                      className={classNames(
+                        "h-6 w-6 absolute top-0 left-0 transition-opacity duration-300",
+                        isMenuOpen ? "opacity-0" : "opacity-100"
+                      )}
+                      aria-hidden="true"
+                    />
+                    <XMarkIcon
+                      className={classNames(
+                        "h-6 w-6 absolute top-0 left-0 transition-opacity duration-300",
+                        isMenuOpen ? "opacity-100" : "opacity-0"
+                      )}
+                      aria-hidden="true"
+                    />
+                  </div>
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Полноэкранное мобильное меню */}
+      {isMenuOpen && (
+        <div
+          className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center transition-opacity duration-300 ease-in-out z-40 mt-16" // mt-16 соответствует высоте navbar (h-16)
+        >
+          <div className="flex flex-col items-center justify-center space-y-6">
+            {navigation.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={classNames(
+                  "text-2xl font-semibold text-neutral-900 dark:text-neutral-400",
+                  "hover:text-red-500 transition-colors flex items-center"
+                )}
+                style={{ textDecoration: "none" }}
+                scroll={isMobileView ? true : false} // Условное использование scroll
+                onClick={handleNavigationClick(item.anchor)}
+              >
+                {/* Добавление эмодзи только в мобильной версии */}
+                <span className="mr-2">{mobileEmojis[item.name]}</span>
+                {item.name}
+              </Link>
+            ))}
+
+            {/* Подменю "Магазины" */}
+            <div className="flex flex-col items-center w-full mt-8">
+              <button
+                onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
+                className="btn-submenu-toggle flex items-center justify-center py-2 text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors"
+              >
+                <span className="mr-2">{mobileEmojis["Магазины"]}</span>
+                Магазины
+                <ChevronDownIcon
+                  className={`h-6 w-6 ml-2 transition-transform ${isSubMenuOpen ? "transform rotate-180" : ""}`}
+                />
+              </button>
+              {isSubMenuOpen && (
+                <div className="submenu mt-4 space-y-4 w-full flex flex-col items-center">
+                  <Link
+                    href="https://www.ozon.ru/seller/smartdiag-862410/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-ozon flex items-center justify-center w-3/4 px-4 py-3 rounded-lg hover:bg-ozon-hover transition-colors"
                   >
-                    <span className="sr-only">{isMenuOpen ? "Закрыть меню" : "Открыть меню"}</span>
-                    <div className="relative">
-                      <Bars3Icon
-                        className={classNames(
-                          "h-6 w-6 absolute top-0 left-0 transition-opacity duration-300",
-                          isMenuOpen ? "opacity-0" : "opacity-100"
-                        )}
-                        aria-hidden="true"
-                      />
-                      <XMarkIcon
-                        className={classNames(
-                          "h-6 w-6 absolute top-0 left-0 transition-opacity duration-300",
-                          isMenuOpen ? "opacity-100" : "opacity-0"
-                        )}
-                        aria-hidden="true"
-                      />
-                    </div>
-                  </button>
+                    <Image
+                      src="/images/logos/favicon.ico"
+                      alt="OZON"
+                      className="w-5 h-5 mr-2"
+                      width={20}
+                      height={20}
+                      loading="lazy"
+                    />
+                    OZON
+                  </Link>
+
+                  <Link
+                    href="https://market.yandex.ru/business--smartdiag/50025236"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-yandex flex items-center justify-center w-3/4 px-4 py-3 rounded-lg hover:bg-yandex-hover transition-colors"
+                  >
+                    <Image
+                      src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                      alt="Яндекс Маркет"
+                      className="w-5 h-5 mr-2"
+                      width={20}
+                      height={20}
+                      loading="lazy"
+                    />
+                    Яндекс Маркет
+                  </Link>
+
+                  <Link
+                    href="https://www.wildberries.ru/seller/1343369"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-wildberries flex items-center justify-center w-3/4 px-4 py-3 rounded-lg hover:bg-wildberries-hover transition-colors"
+                  >
+                    <Image
+                      src="/images/logos/favicon.ico"
+                      alt="Wildberries"
+                      className="w-5 h-5 mr-2"
+                      width={20}
+                      height={20}
+                      loading="lazy"
+                    />
+                    Wildberries
+                  </Link>
                 </div>
               )}
             </div>
           </div>
-        </nav>
+        </div>
+      )}
 
-        {/* Полноэкранное мобильное меню */}
-        {isMenuOpen && (
-          <div
-            className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center transition-opacity duration-300 ease-in-out z-40 mt-16" // mt-16 соответствует высоте navbar (h-16)
-          >
-            <div className="flex flex-col items-center justify-center space-y-6">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={classNames(
-                    "text-2xl font-semibold text-neutral-900 dark:text-neutral-400",
-                    "hover:text-red-500 transition-colors flex items-center"
-                  )}
-                  style={{ textDecoration: "none" }}
-                  scroll={isMobileView ? true : false} // Условное использование scroll
-                  onClick={handleNavigationClick(item.anchor)}
-                >
-                  {/* Добавление эмодзи только в мобильной версии */}
-                  <span className="mr-2">{mobileEmojis[item.name]}</span>
-                  {item.name}
-                </Link>
-              ))}
-
-              {/* Подменю "Магазины" */}
-              <div className="flex flex-col items-center w-full mt-8">
-                <button
-                  onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                  className="btn-submenu-toggle flex items-center justify-center py-2 text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors"
-                >
-                  <span className="mr-2">{mobileEmojis["Магазины"]}</span>
-                  Магазины
-                  <ChevronDownIcon
-                    className={`h-6 w-6 ml-2 transition-transform ${isSubMenuOpen ? "transform rotate-180" : ""}`}
-                  />
-                </button>
-                {isSubMenuOpen && (
-                  <div className="submenu mt-4 space-y-4 w-full flex flex-col items-center">
-                    <Link
-                      href="https://www.ozon.ru/seller/smartdiag-862410/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-ozon flex items-center justify-center w-3/4 px-4 py-3 rounded-lg hover:bg-ozon-hover transition-colors"
-                    >
-                      <Image
-                        src="/images/logos/favicon.ico"
-                        alt="OZON"
-                        className="w-5 h-5 mr-2"
-                        width={20}
-                        height={20}
-                        loading="lazy"
-                      />
-                      OZON
-                    </Link>
-
-                    <Link
-                      href="https://market.yandex.ru/business--smartdiag/50025236"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-yandex flex items-center justify-center w-3/4 px-4 py-3 rounded-lg hover:bg-yandex-hover transition-colors"
-                    >
-                      <Image
-                        src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                        alt="Яндекс Маркет"
-                        className="w-5 h-5 mr-2"
-                        width={20}
-                        height={20}
-                        loading="lazy"
-                      />
-                      Яндекс Маркет
-                    </Link>
-
-                    <Link
-                      href="https://www.wildberries.ru/seller/1343369"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-wildberries flex items-center justify-center w-3/4 px-4 py-3 rounded-lg hover:bg-wildberries-hover transition-colors"
-                    >
-                      <Image
-                        src="/images/logos/favicon.ico"
-                        alt="Wildberries"
-                        className="w-5 h-5 mr-2"
-                        width={20}
-                        height={20}
-                        loading="lazy"
-                      />
-                      Wildberries
-                    </Link>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Дополнительные стили для анимации и кнопок */}
-        <style jsx global>{`
-          @keyframes fadeIn {
-            from {
-              opacity: 0;
-              transform: scale(0.95);
-            }
-            to {
-              opacity: 1;
-              transform: scale(1);
-            }
+      {/* Дополнительные стили для анимации и кнопок */}
+      <style jsx global>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
           }
-
-          @keyframes fadeOut {
-            from {
-              opacity: 1;
-              transform: scale(1);
-            }
-            to {
-              opacity: 0;
-              transform: scale(0.95);
-            }
+          to {
+            opacity: 1;
+            transform: scale(1);
           }
+        }
 
-          /* Примеры стилей для кнопок магазинов */
-          .btn-ozon {
-            background-color: #ff7f00;
-            color: white;
+        @keyframes fadeOut {
+          from {
+            opacity: 1;
+            transform: scale(1);
           }
+          to {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+        }
 
-          .btn-yandex {
-            background-color: #ffcc00;
-            color: black;
-          }
+        /* Стиль для кнопок магазинов */
+        .btn-ozon {
+          background-color: #ff7f00;
+          color: white;
+        }
 
-          .btn-wildberries {
-            background-color: #a200ff;
-            color: white;
-          }
+        .btn-yandex {
+          background-color: #ffcc00;
+          color: black;
+        }
 
-          .hover\\:bg-ozon-hover:hover {
-            background-color: #e67300;
-          }
+        .btn-wildberries {
+          background-color: #a200ff;
+          color: white;
+        }
 
-          .hover\\:bg-yandex-hover:hover {
-            background-color: #e6b800;
-          }
+        .hover\\:bg-ozon-hover:hover {
+          background-color: #e67300;
+        }
 
-          .hover\\:bg-wildberries-hover:hover {
-            background-color: #8a00e6;
-          }
+        .hover\\:bg-yandex-hover:hover {
+          background-color: #e6b800;
+        }
 
-          /* Анимация мобильного меню */
-          .fixed.inset-0 {
-            animation: fadeIn 0.3s forwards;
-          }
+        .hover\\:bg-wildberries-hover:hover {
+          background-color: #8a00e6;
+        }
 
-          .fixed.inset-0.hidden {
-            animation: fadeOut 0.3s forwards;
-          }
+        /* Анимация мобильного меню */
+        .fixed.inset-0 {
+          animation: fadeIn 0.3s forwards;
+        }
 
-          /* Обеспечить, чтобы мобильное меню было под navbar */
-          .mt-16 {
-            margin-top: 4rem; /* h-16 = 4rem = 64px */
-          }
+        .fixed.inset-0.hidden {
+          animation: fadeOut 0.3s forwards;
+        }
 
-          /* Уменьшение расстояния между логотипом и меню */
-          .navbar-nav {
-            margin-left: 1rem; /* заменено с ml-10 на ml-4 */
-          }
-        `}</style>
-      </>
-    );
+        /* Обеспечить, чтобы мобильное меню было под navbar */
+        .mt-16 {
+          margin-top: 4rem; /* h-16 = 4rem = 64px */
+        }
+
+        /* Уменьшение расстояния между логотипом и меню */
+        .navbar-nav {
+          margin-left: 1rem; /* заменено с ml-10 на ml-4 */
+        }
+
+        /* Обеспечить относительное позиционирование иконок меню */
+        .relative {
+          position: relative;
+        }
+      `}</style>
+    </>
+  );
 }
