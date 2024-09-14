@@ -1,11 +1,9 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
-import { useRouter } from "next/navigation"; // Для App Router
-// Если вы используете Pages Router, раскомментируйте следующую строку и закомментируйте вышеуказанную
-// import { useRouter } from "next/router";
+import { useRouter, usePathname } from "next/navigation";
 
 // Тип для навигационных ссылок
 interface NavItem {
@@ -31,23 +29,18 @@ function classNames(...classes: string[]): string {
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState<boolean>(false);
+  const [desiredAnchor, setDesiredAnchor] = useState<string | null>(null);
 
   const router = useRouter();
+  const pathname = usePathname();
 
   // Обработчик навигации
   const handleNavigationClick = useCallback(
-    (anchor: string) => async (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    (anchor: string) => (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
       event.preventDefault();
-      if (router.pathname !== "/") {
-        await router.push("/");
-        // Плавный скролл после перехода на главную страницу
-        setTimeout(() => {
-          const id = anchor.replace("#", "");
-          const element = document.getElementById(id);
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-          }
-        }, 100);
+      if (pathname !== "/") {
+        setDesiredAnchor(anchor);
+        router.push("/");
       } else {
         const id = anchor.replace("#", "");
         const element = document.getElementById(id);
@@ -57,8 +50,20 @@ export default function Navbar() {
       }
       setIsMenuOpen(false);
     },
-    [router]
+    [router, pathname]
   );
+
+  // Выполняем прокрутку после смены пути
+  useEffect(() => {
+    if (desiredAnchor && pathname === "/") {
+      const id = desiredAnchor.replace("#", "");
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+        setDesiredAnchor(null);
+      }
+    }
+  }, [pathname, desiredAnchor]);
 
   // Мемозируем навигационные ссылки
   const memoizedNavigation = useMemo(
@@ -108,7 +113,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             {/* Ссылки на магазины - скрыты на мобильных */}
             <div className="hidden lg:flex space-x-2">
-              <Link href="https://www.ozon.ru/seller/smartdiag-862410/" passHref>
+              <Link href="https://www.ozon.ru/seller/smartdiag-862410/">
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
@@ -126,7 +131,7 @@ export default function Navbar() {
                 </a>
               </Link>
 
-              <Link href="https://market.yandex.ru/business--smartdiag/50025236" passHref>
+              <Link href="https://market.yandex.ru/business--smartdiag/50025236">
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
@@ -144,7 +149,7 @@ export default function Navbar() {
                 </a>
               </Link>
 
-              <Link href="https://www.wildberries.ru/seller/1343369" passHref>
+              <Link href="https://www.wildberries.ru/seller/1343369">
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
@@ -192,7 +197,6 @@ export default function Navbar() {
           <div className="mobile-menu bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700 px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href}>
-                {/* Используйте <a> внутри <Link> */}
                 <a
                   onClick={handleNavigationClick(item.anchor)}
                   className="block px-3 py-2 rounded-md text-base font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 hover:bg-gray-50 dark:hover:bg-neutral-800"
