@@ -196,7 +196,11 @@ export default function Soft() {
   const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
 
   const handleDownloadClick = (links: { link: string; label: string }[]) => {
-    links.length === 1 ? window.open(links[0].link, "_blank") : setModalLinks(links);
+    if (links.length === 1) {
+      window.open(links[0].link, "_blank");
+    } else {
+      setModalLinks(links);
+    }
   };
 
   const closeModal = () => setModalLinks(null);
@@ -208,7 +212,7 @@ export default function Soft() {
         selectedType === type
           ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
           : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-      } rounded-md py-1.5 px-4 transition-colors duration-300`}
+      } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
     >
       {label}
     </button>
@@ -219,12 +223,12 @@ export default function Soft() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          В этом разделе вы можете скачать программное обеспечение для своего устройства. Определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. После этого найдите устройство и нажмите &quot;Скачать&quot;.
+          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
         </p>
       </div>
 
       <div className="max-w-max mx-auto px-6">
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row justify-center p-1 gap-1">
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
           {DeviceTypes.map((type) => renderButton(type.charAt(0).toUpperCase() + type.slice(1), type))}
         </div>
       </div>
@@ -235,81 +239,69 @@ export default function Soft() {
           .map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => (
             <div
               key={title}
-              className={`rounded-lg py-8 relative flex flex-col h-full ${
+              className={`rounded-lg py-8 relative flex flex-col ${
                 mostPopular
                   ? "border-red-300 border-2 border-solid dark:border-red-600"
                   : "border-neutral-300 border dark:border-neutral-600"
               } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
             >
-              <div className="flex flex-col flex-grow">
-                {/* Заголовок */}
-                <h3 className="px-6 text-lg font-semibold line-clamp-2 h-[48px] flex items-center">
-                  {title}
-                </h3>
-                {/* Бейдж "Топ продаж" */}
-                {mostPopular && (
-                  <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold shadow-md">
-                    Топ продаж
-                  </p>
-                )}
-                {/* Описание */}
-                <p className="px-6 mt-4 dark:text-neutral-400 line-clamp-3 h-[72px] flex items-center">
-                  {description}
+              <h3 className="px-6 text-lg font-semibold leading-5">{title}</h3>
+              {mostPopular && (
+                <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
+                  Топ продаж
                 </p>
-              </div>
-
+              )}
+              <p className="px-6 mt-4 leading-6 dark:text-neutral-400 line-clamp-3 h-auto min-h-[4.5rem] max-h-[4.5rem] overflow-hidden">
+  {description}
+</p>
               <div className="flex mt-4 mx-6">
-                {/* Кнопка "Скачать" */}
                 <button
                   onClick={() => handleDownloadClick(downloadLinks)}
-                  className="block px-6 py-2 font-medium rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 transition-colors duration-200 transform active:scale-95 w-full"
+                  className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 dark:hover:bg-green-500 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
                 >
                   Скачать
                 </button>
-                {/* Кнопка "Инструкция" */}
                 {docs && docsLinks.length > 0 && (
                   <button
                     onClick={() => handleDownloadClick(docsLinks)}
-                    className="ml-2 block px-3 py-2 font-small rounded-lg border-neutral-300 border dark:bg-transparent dark:text-white hover:bg-neutral-200 transition-colors duration-200 transform active:scale-95 w-full"
+                    className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
                   >
                     Инструкция
                   </button>
                 )}
               </div>
+              <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
+  <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
+  {features.slice(0, 3).map((feature, index) => (
+    <li key={index} className="leading-6 flex">
+      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
+      <span className="ml-3 dark:text-neutral-400">{feature}</span>
+    </li>
+  ))}
+  {features.length > 3 && (
+    <li className="leading-6 flex">
+      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
+      <span className="ml-3 dark:text-neutral-400">и т.д.</span>
+    </li>
+  )}
+</ul>
 
-              {/* Блок "В комплекте" */}
-              <ul className="mt-6 px-6 space-y-2 flex-1 flex flex-col justify-between border-t border-neutral-300 dark:border-neutral-500 h-[120px]">
-                <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
-                {features.slice(0, 3).map((feature, index) => (
-                  <li key={index} className="flex">
-                    <CheckIcon className="mt-2 w-3 h-3 text-red-600" />
-                    <span className="ml-3 dark:text-neutral-400">{feature}</span>
-                  </li>
-                ))}
-                {features.length > 3 && (
-                  <li className="flex">
-                    <CheckIcon className="mt-2 w-3 h-3 text-red-600" />
-                    <span className="ml-3 dark:text-neutral-400">и т.д.</span>
-                  </li>
-                )}
-              </ul>
             </div>
           ))}
       </div>
 
-      {/* Модальное окно для выбора ссылок */}
       {modalLinks && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
           onClick={closeModal}
         >
           <div
-            className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative"
-            onClick={(e) => e.stopPropagation()}
+            className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative transform transition-transform duration-300 ease-out scale-100"
+            onClick={(e) => e.stopPropagation()} // Остановить всплытие события клика
           >
             <button
               onClick={closeModal}
-              className="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition-transform duration-300 transform hover:scale-110"
+              className="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition-all duration-300 transform hover:scale-110 active:scale-90"
             >
               ✕
             </button>
@@ -317,7 +309,7 @@ export default function Soft() {
             <div className="flex flex-col space-y-2">
               {modalLinks.map(({ link, label }, index) => (
                 <Link href={link} key={index} target="_blank">
-                  <a className="block px-6 py-3 font-medium text-center rounded-lg bg-neutral-300 text-black shadow-md dark:bg-neutral-600 dark:text-white hover:bg-neutral-400 dark:hover:bg-neutral-500 transition-colors duration-200">
+                  <a className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-neutral-300 text-black shadow-md dark:bg-neutral-600 dark:text-white hover:bg-neutral-400 dark:hover:bg-neutral-500 transition-colors duration-200 ease-in-out transform active:scale-95">
                     {label}
                   </a>
                 </Link>
