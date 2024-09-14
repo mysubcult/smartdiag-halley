@@ -70,11 +70,12 @@ export default function Blog() {
       selectedCategory === "Все"
         ? blogPosts
         : blogPosts.filter((post) => post.category === selectedCategory);
+    const lowerSearchTerm = searchTerm.toLowerCase();
     return filteredByCategory.filter(
       (post) =>
-        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.keywords.some((keyword) => keyword.toLowerCase().includes(searchTerm.toLowerCase()))
+        post.title.toLowerCase().includes(lowerSearchTerm) ||
+        post.excerpt.toLowerCase().includes(lowerSearchTerm) ||
+        post.keywords.some((keyword) => keyword.toLowerCase().includes(lowerSearchTerm))
     );
   }, [selectedCategory, searchTerm]);
 
@@ -85,12 +86,15 @@ export default function Blog() {
     setCurrentPage(1);
   }, []);
 
-  const handlePageChange = useCallback((page: number) => {
-    if (page > 0 && page <= totalPages) {
-      setCurrentPage(page);
-    }
-    setShowPopover(false);
-  }, [totalPages]);
+  const handlePageChange = useCallback(
+    (page: number) => {
+      if (page > 0 && page <= totalPages) {
+        setCurrentPage(page);
+      }
+      setShowPopover(false);
+    },
+    [totalPages]
+  );
 
   const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
@@ -132,10 +136,7 @@ export default function Blog() {
         if (currentPage > 3) {
           pagesToShow.push("...");
         }
-        pagesToShow.push(currentPage - 1, currentPage);
-        if (currentPage + 1 < totalPages) {
-          pagesToShow.push(currentPage + 1);
-        }
+        pagesToShow.push(currentPage - 1, currentPage, currentPage + 1);
         if (currentPage < totalPages - 2) {
           pagesToShow.push("...");
         }
@@ -240,13 +241,14 @@ export default function Blog() {
                 placeholder="Поиск..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-25 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+                className="form-input w-25 p-2 rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
               />
             </div>
           </div>
           <button
             className="ml-auto sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md"
             onClick={() => setShowSearch(!showSearch)}
+            aria-label="Открыть поиск"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z" />
@@ -264,7 +266,7 @@ export default function Blog() {
             placeholder="Поиск..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 mt-2"
+            className="form-input w-full p-2 rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 mt-2"
           />
         </div>
       </div>
@@ -294,9 +296,7 @@ export default function Blog() {
               <div className="p-4 flex flex-col flex-grow">
                 {/* Обёртка для заголовка */}
                 <div className="h-12 grid items-center justify-items-start">
-                  <h3 className="text-lg font-semibold line-clamp-2">
-                    {title}
-                  </h3>
+                  <h3 className="text-lg font-semibold line-clamp-2">{title}</h3>
                 </div>
 
                 {/* Обёртка для описания */}
