@@ -182,12 +182,13 @@ export default function Blog() {
 
       {/* Панель навигации по категориям */}
       <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
-        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex items-center justify-between w-full sm:w-auto">
+        <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex flex-col sm:flex-row items-center justify-between w-full sm:w-auto">
           <div className="flex items-center w-full sm:w-auto flex-grow gap-1">
             <div className="relative" style={{ minWidth: `${longestCategory.length + 4}ch` }}>
               <button
                 className="sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md flex items-center justify-between w-full relative"
                 onClick={() => setShowCategories(!showCategories)}
+                aria-label="Выбрать категорию"
               >
                 <span>{selectedCategory}</span>
                 <svg
@@ -235,13 +236,13 @@ export default function Blog() {
                 ))}
               </div>
             </div>
-            <div className="hidden sm:flex">
+            <div className="hidden sm:flex mt-2 sm:mt-0">
               <input
                 type="text"
                 placeholder="Поиск..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="form-input w-25 p-2 rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700"
+                className="form-input w-64 max-w-full p-2 rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 focus:ring-red-500 focus:border-red-500"
               />
             </div>
           </div>
@@ -258,7 +259,7 @@ export default function Blog() {
 
         <div
           className={`relative w-full sm:hidden transition-all duration-300 ${
-            showSearch ? "max-h-40" : "max-h-0"
+            showSearch ? "max-h-40 mt-2" : "max-h-0"
           } overflow-hidden`}
         >
           <input
@@ -266,7 +267,7 @@ export default function Blog() {
             placeholder="Поиск..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="form-input w-full p-2 rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 mt-2"
+            className="form-input w-full p-2 rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 focus:ring-red-500 focus:border-red-500"
           />
         </div>
       </div>
