@@ -178,8 +178,8 @@ export default function Navbar() {
               {isMobileView && (
                 <button
                   className={classNames(
-                    "inline-flex items-center justify-center rounded-full text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors p-3",
-                    "relative w-8 h-8" // Увеличены размеры
+                    "inline-flex items-center justify-center rounded-full text-neutral-900 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-600 transition-colors p-3",
+                    "relative w-10 h-10" // Размеры совпадают с ThemeSwitchButton
                   )}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
@@ -188,7 +188,7 @@ export default function Navbar() {
                   {/* Иконка "Бургер" */}
                   <Bars3Icon
                     className={classNames(
-                      "h-6 w-6 absolute top-0 left-0 transition-opacity duration-300",
+                      "h-6 w-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300",
                       isMenuOpen ? "opacity-0" : "opacity-100"
                     )}
                     aria-hidden="true"
@@ -196,7 +196,7 @@ export default function Navbar() {
                   {/* Иконка "Х" */}
                   <XMarkIcon
                     className={classNames(
-                      "h-6 w-6 absolute top-0 left-0 transition-opacity duration-300",
+                      "h-6 w-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300",
                       isMenuOpen ? "opacity-100" : "opacity-0"
                     )}
                     aria-hidden="true"
