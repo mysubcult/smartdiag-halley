@@ -37,9 +37,9 @@ const blogPosts = [
     keywords: ["установка ПО", "Autocom 2021", "инструкция"],
   },
   {
-    title: "Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021",
+    title: "Инструкция по установке Autocom 2021 Инструкция по установке Autocom 2021 Инструкция по установке Autocom 2021",
     image: "/images/blog/post1.jpg",
-    excerpt: "Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021",
+    excerpt: "Инструкция по установке Autocom 2021 Инструкция по установке Autocom 2021 Инструкция по установке Autocom 2021",
     link: "/articles/software/autocom2021",
     category: "Установка ПО",
     keywords: ["установка ПО", "Autocom 2021", "инструкция"],
@@ -51,7 +51,6 @@ export default function Blog() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showSearch, setShowSearch] = useState<boolean>(false);
-  const [showCategories, setShowCategories] = useState<boolean>(false);
   const [showPopover, setShowPopover] = useState<boolean>(false);
   const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -175,7 +174,7 @@ export default function Blog() {
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <h2 className="text-4xl font-bold text-center">Статьи 💻 (в разработке)</h2>
-        <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+        <p className="pt-6 text-base max-w-2xl text-center mx-auto dark:text-neutral-400">
           В этом разделе вы можете найти статьи и решения по программному обеспечению.
         </p>
       </div>
@@ -216,8 +215,18 @@ export default function Blog() {
             onClick={() => setShowSearch(!showSearch)}
             aria-label="Открыть поиск"
           >
-            <svg className="w-6 h-6 text-neutral-900 dark:text-neutral-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z" />
+            <svg
+              className="w-6 h-6 text-neutral-900 dark:text-neutral-100"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z"
+              />
             </svg>
           </button>
         </div>
