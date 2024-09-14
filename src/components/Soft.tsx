@@ -238,7 +238,7 @@ const Soft: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
         <p className="pt-6 text-base max-w-2xl text-center mx-auto dark:text-neutral-400">
-          {`В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — "Марочный" или "Мультимарочный". Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку "Скачать". Инструкция по установке программного обеспечения находится на кнопке "Инструкция".`}
+          {`В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &ldquo;Марочный&rdquo; или &ldquo;Мультимарочный&rdquo;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &ldquo;Скачать&rdquo;. Инструкция по установке программного обеспечения находится на кнопке &ldquo;Инструкция&rdquo;.`}
         </p>
       </div>
 
@@ -271,12 +271,12 @@ const Soft: React.FC = () => {
             )}
 
             {/* Описание продукта */}
-            <p className="px-6 mt-4 leading-6 dark:text-neutral-400 line-clamp-3 h-auto min-h-[4.5rem] max-h-[4.5rem] overflow-hidden">
+            <p className="px-6 mt-4 leading-6 dark:text-neutral-400 line-clamp-3">
               {product.description}
             </p>
 
             {/* Кнопки "Скачать" и "Инструкция" */}
-            <div className="flex mt-4 mx-6 space-x-2">
+            <div className="flex flex-col mt-4 mx-6 space-y-2">
               <button
                 onClick={() => handleDownloadClick(product.downloadLinks)}
                 className="px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 dark:hover:bg-green-500 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
@@ -287,7 +287,7 @@ const Soft: React.FC = () => {
               {product.docs && product.docsLinks.length > 0 && (
                 <button
                   onClick={() => handleDownloadClick(product.docsLinks)}
-                  className="ml-2 px-3 py-3 font-medium leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
+                  className="px-3 py-3 font-medium leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
                   aria-label={`Инструкция для ${product.title}`}
                 >
                   Инструкция
@@ -297,7 +297,7 @@ const Soft: React.FC = () => {
 
             {/* Список особенностей */}
             <ul className="mt-6 px-6 space-y-4 flex-1 border-t border-neutral-300 dark:border-neutral-500">
-              <li className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</li>
+              <li className="font-semibold dark:text-neutral-300">В комплекте:</li>
               {product.features.slice(0, 3).map((feature, index) => (
                 <li key={index} className="flex items-start">
                   <CheckIcon className="mt-1 w-3 h-3 text-red-600 shrink-0" aria-hidden="true" />
