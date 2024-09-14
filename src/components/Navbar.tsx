@@ -211,9 +211,9 @@ export default function Navbar() {
       {/* Полноэкранное мобильное меню */}
       {isMenuOpen && (
         <div
-          className="fixed top-16 left-0 right-0 bottom-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-start transition-opacity duration-300 ease-in-out z-40 overflow-y-auto"
+          className="fixed top-16 left-0 right-0 bottom-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center transition-opacity duration-300 ease-in-out z-40 overflow-y-auto"
         >
-          <div className="flex flex-col items-center justify-start space-y-6 py-8 px-4">
+          <div className="flex flex-col items-center justify-center space-y-6 py-8 px-4">
             {navigation.map((item) => (
               <Link
                 key={item.name}
