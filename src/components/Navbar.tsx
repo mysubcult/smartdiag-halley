@@ -109,7 +109,7 @@ export default function Navbar() {
             {!isMobileView && (
               <>
                 <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
-                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
                     <Image
                       src="/images/logos/favicon.ico"
                       alt="OZON"
@@ -123,7 +123,7 @@ export default function Navbar() {
                 </Link>
 
                 <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
-                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
                     <Image
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
                       alt="Яндекс Маркет"
@@ -137,7 +137,7 @@ export default function Navbar() {
                 </Link>
 
                 <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
-                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
                     <Image
                       src="/images/logos/favicon.ico"
                       alt="Wildberries"
@@ -189,17 +189,17 @@ export default function Navbar() {
             {isSubMenuOpen && (
               <div className="flex flex-col space-y-3 w-full">
                 <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
-                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
                     OZON
                   </button>
                 </Link>
                 <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
-                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
                     Яндекс Маркет
                   </button>
                 </Link>
                 <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
-                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
                     Wildberries
                   </button>
                 </Link>
