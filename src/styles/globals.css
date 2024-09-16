@@ -11,8 +11,10 @@ html {
 }
 
 /* Tailwind animation and color utilities replace the custom styles */
-.wave {
-  @apply animate-wiggle inline-block transform-origin-70-70;
+@layer utilities {
+  .wave {
+    @apply animate-wiggle inline-block transform-origin-70-70;
+  }
 }
 
 /* Removed unnecessary custom styles */
