@@ -20,7 +20,7 @@ export function Hero() {
               <a className="bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white rounded-full py-3 px-6 text-base font-medium flex items-center group shadow-lg transform transition-transform duration-300 hover:scale-105">
                 Программы для приборов
                 <svg
-                  className="w-5 h-5 ml-2 transform group-hover:rotate-90 transition-transform"
+                  className="w-5 h-5 ml-2 transform group-hover:rotate-180 transition-transform"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
                   viewBox="0 0 16 16"
