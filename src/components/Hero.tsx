@@ -39,7 +39,7 @@ export function Hero() {
               </a>
             </Link>
             <Link href="#contact" scroll={false}>
-              <a className="btn-grad-black2 text-base font-medium">Обратная связь</a>
+              <a className="btn-grad-black text-base font-medium">Обратная связь</a>
             </Link>
           </div>
         </div>
@@ -58,7 +58,7 @@ export function Hero() {
       </div>
 
       <style jsx>{`
-        .btn-grad-red2, .btn-grad-black2 {
+        .btn-grad-red, .btn-grad-black {
           position: relative;
           overflow: hidden;
           display: flex;
@@ -73,15 +73,15 @@ export function Hero() {
           will-change: transform;
         }
 
-        .btn-grad-red2 {
+        .btn-grad-red {
           background: linear-gradient(90deg, #e50000, #ff0000);
         }
 
-        .btn-grad-black2 {
+        .btn-grad-black {
           background: linear-gradient(90deg, #111827, #1f2937);
         }
 
-        .btn-grad-red2:hover, .btn-grad-black2:hover {
+        .btn-grad-red:hover, .btn-grad-black:hover {
           transform: scale(1.05);
         }
       `}</style>
