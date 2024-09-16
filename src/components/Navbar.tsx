@@ -5,16 +5,14 @@ import ThemeSwitchButton from "./ThemeSwitchButton";
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
-// Навигационные ссылки
 const navigation = [
   { name: "Главная", href: "/", anchor: "#hero" },
   { name: "Программы", href: "/#soft", anchor: "#soft" },
   { name: "Статьи", href: "/#blog", anchor: "#blog" },
   { name: "О нас", href: "/#services", anchor: "#services" },
-  { name: "Обратная связь", href: "/#contact", anchor: "#contact" },
+  { name: "Обратная связь", href: "/#contact" },
 ];
 
-// Комбинирование классов
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
 }
@@ -76,7 +74,7 @@ export default function Navbar() {
             <div className="flex flex-shrink-0 items-center">
               <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
                 <Image
-                  className="block h-12 w-auto logo-animation"
+                  className="block h-12 w-auto"
                   src="/images/logos/logo.png"
                   alt="SmartDiag Logo"
                   width={256}
@@ -88,14 +86,13 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Горизонтальное меню навигации */}
             <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={classNames("text-neutral-900 dark:text-neutral-400", "nav-link")}
+                    className="text-neutral-900 dark:text-neutral-400 hover:text-red-500"
                     style={{ textDecoration: "none" }}
                     scroll={false}
                     onClick={handleNavigationClick(item.anchor)}
@@ -107,12 +104,11 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Кнопки магазинов, смены темы и меню */}
           <div className="flex items-center gap-2">
             {!isMobileView && (
               <>
-                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="block">
-                  <button className="btn-ozon">
+                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
+                  <button className="bg-gradient-to-r from-blue-500 to-blue-800 text-white flex items-center gap-1 px-4 py-2 rounded-full">
                     <Image
                       src="/images/logos/favicon.ico"
                       alt="OZON"
@@ -125,8 +121,8 @@ export default function Navbar() {
                   </button>
                 </Link>
 
-                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer" className="block">
-                  <button className="btn-yandex">
+                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
+                  <button className="bg-gradient-to-r from-yellow-500 to-yellow-700 text-black flex items-center gap-1 px-4 py-2 rounded-full">
                     <Image
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
                       alt="Яндекс Маркет"
@@ -139,8 +135,8 @@ export default function Navbar() {
                   </button>
                 </Link>
 
-                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer" className="block">
-                  <button className="btn-wildberries">
+                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
+                  <button className="bg-gradient-to-r from-purple-500 to-purple-700 text-white flex items-center gap-1 px-4 py-2 rounded-full">
                     <Image
                       src="/images/logos/favicon.ico"
                       alt="Wildberries"
@@ -155,129 +151,53 @@ export default function Navbar() {
               </>
             )}
 
-            {/* Кнопка смены темы */}
             <ThemeSwitchButton />
 
-            {/* Кнопка меню появляется, когда isMobileView == true */}
             {isMobileView && (
-              <div className="flex items-center">
-                <button
-                  className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-                >
-                  <span className="sr-only">Open main menu</span>
-                  <div className="menu-icon-wrapper relative">
-                    <Bars3Icon
-                      className={`h-6 w-6 transition-transform transform ${
-                        isMenuOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"
-                      }`}
-                      aria-hidden="true"
-                    />
-                    <XMarkIcon
-                      className={`h-6 w-6 transition-transform transform absolute top-0 left-0 ${
-                        isMenuOpen ? "rotate-[0deg] opacity-100" : "rotate-0 opacity-0"
-                      }`}
-                      aria-hidden="true"
-                    />
-                  </div>
-                </button>
-              </div>
+              <button
+                className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              >
+                <span className="sr-only">Open main menu</span>
+                <Bars3Icon className={`h-6 w-6 ${isMenuOpen ? "hidden" : "block"}`} />
+                <XMarkIcon className={`h-6 w-6 ${isMenuOpen ? "block" : "hidden"}`} />
+              </button>
             )}
           </div>
         </div>
       </div>
 
-      {/* Popup Menu */}
       {isMenuOpen && (
-        <div
-          className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
-          style={{
-            fontSize: fontSize,
-            maxHeight: `calc(100vh - 128px)`,
-            overflowY: "auto",
-            paddingTop: "24px",
-            paddingBottom: "24px",
-          }}
-        >
-          <div className="flex flex-col items-center justify-center space-y-4">
+        <div className="mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
+          <div className="flex flex-col items-center space-y-4">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={classNames("text-neutral-900 dark:text-neutral-400", "block py-2 text-lg font-medium hover:text-red-500")}
+                className="block py-2 text-lg font-medium hover:text-red-500"
                 scroll={false}
                 onClick={handleNavigationClick(item.anchor)}
               >
                 {item.name}
               </Link>
             ))}
-            <div className="flex flex-col items-center w-full mt-4">
-              <button
-                onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                className="btn-submenu-toggle flex items-center justify-center py-2 text-lg font-medium"
-              >
-                Магазины
-                <ChevronDownIcon
-                  className={`h-5 w-5 ml-2 transition-transform ${
-                    isSubMenuOpen ? "rotate-180" : "rotate-0"
-                  }`}
-                />
-              </button>
-              {isSubMenuOpen && (
-                <div className="submenu mt-2 space-y-3 w-full">
-                  <Link
-                    href="https://www.ozon.ru/seller/smartdiag-862410/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-ozon flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-blue-500 transition-colors"
-                  >
-                    <Image
-                      src="/images/logos/favicon.ico"
-                      alt="OZON"
-                      className="w-4 h-4 mr-2"
-                      width={16}
-                      height={16}
-                      loading="lazy"
-                    />
-                    OZON
-                  </Link>
-
-                  <Link
-                    href="https://market.yandex.ru/business--smartdiag/50025236"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-yandex flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-orange-500 transition-colors"
-                  >
-                    <Image
-                      src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                      alt="Яндекс Маркет"
-                      className="w-4 h-4 mr-2"
-                      width={16}
-                      height={16}
-                      loading="lazy"
-                    />
-                    Яндекс Маркет
-                  </Link>
-
-                  <Link
-                    href="https://www.wildberries.ru/seller/1343369"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-wildberries flex items-center justify-center w-full mx-auto px-4 py-3 rounded-lg hover:bg-purple-500 transition-colors"
-                  >
-                    <Image
-                      src="/images/logos/favicon.ico"
-                      alt="Wildberries"
-                      className="w-4 h-4 mr-2"
-                      width={16}
-                      height={16}
-                      loading="lazy"
-                    />
-                    Wildberries
-                  </Link>
-                </div>
-              )}
-            </div>
+            <button onClick={() => setIsSubMenuOpen(!isSubMenuOpen)} className="flex items-center justify-center">
+              Магазины
+              <ChevronDownIcon className={`h-5 w-5 transition-transform ${isSubMenuOpen ? "rotate-180" : "rotate-0"}`} />
+            </button>
+            {isSubMenuOpen && (
+              <div className="flex flex-col space-y-3 w-full">
+                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-800 text-white px-4 py-2 rounded-lg">
+                  OZON
+                </Link>
+                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center bg-gradient-to-r from-yellow-500 to-yellow-700 text-black px-4 py-2 rounded-lg">
+                  Яндекс Маркет
+                </Link>
+                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 text-white px-4 py-2 rounded-lg">
+                  Wildberries
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}
