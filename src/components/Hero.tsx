@@ -71,12 +71,13 @@ export function Hero() {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: linear-gradient(90deg, #ef4444, #f87171);
+          background: linear-gradient(90deg, #e50000, #ff0000); /* Ярко-красный градиент */
           border: none;
           border-radius: 0.375rem;
           padding: 0.5rem 1rem;
           color: white;
           cursor: pointer;
+          transition: transform 0.3s ease; /* Плавный переход для предотвращения дерганий */
         }
 
         .btn-grad-black {
@@ -91,6 +92,11 @@ export function Hero() {
           padding: 0.5rem 1rem;
           color: white;
           cursor: pointer;
+          transition: transform 0.3s ease; /* Плавный переход */
+        }
+
+        .btn-grad-red:hover, .btn-grad-black:hover {
+          transform: scale(1.05); /* Легкий эффект увеличения при наведении */
         }
       `}</style>
     </div>
