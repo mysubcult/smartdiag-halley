@@ -8,11 +8,6 @@ import { Services } from "../components/Services";
 export default function Home() {
   return (
     <Layout title="SmartDiag - Ваш проводник в мире автодиагностики">
-      <Hero />
-      <Soft />
-      <Articles />
-      <Services />
-      <Contact />
     </Layout>
   );
 }
