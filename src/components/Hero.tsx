@@ -37,7 +37,7 @@ export function Hero() {
               </a>
             </Link>
             <Link href="#contact" scroll={false}>
-              <a className="bg-black text-white rounded-full py-3 px-6 text-base font-medium shadow-lg transform transition-transform duration-300 hover:scale-110 hover:bg-opacity-90">
+              <a className="bg-black text-white rounded-full py-3 px-6 text-base font-medium shadow-lg transform transition-transform duration-300 hover:scale-110 hover:bg-gray-800 hover:bg-opacity-90">
                 Обратная связь
               </a>
             </Link>
