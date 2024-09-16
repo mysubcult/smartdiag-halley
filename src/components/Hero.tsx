@@ -15,7 +15,7 @@ export function Hero() {
           <p className="text-base sm:w-10/12 dark:text-neutral-400">
             Здесь вы найдёте всё необходимое программное обеспечение для диагностики и обслуживания вашего автомобиля. Мы предлагаем высококачественное и надёжное оборудование, которое поможет вам быстро и эффективно провести анализ и ремонт вашего авто. Мы уверены, что техническое обслуживание автомобиля может быть простым и доступным для каждого.
           </p>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 min-w-[350px]">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
             <Link href="#soft" scroll={false}>
               <a className="bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white rounded-full py-3 px-6 text-base font-medium flex items-center group shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-opacity-90">
                 Программы для приборов
