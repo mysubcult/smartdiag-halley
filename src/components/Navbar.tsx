@@ -86,7 +86,7 @@ export default function Navbar() {
               </Link>
             </div>
 
-            <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav`}>
+            <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav ml-4`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
                   <Link
