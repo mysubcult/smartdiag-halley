@@ -7,7 +7,7 @@ export function Hero() {
       <div className="max-w-7xl mx-auto pt-6 sm:pt-5 pb-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="pt-14 sm:pt-6 md:pt-32 flex flex-col justify-center text-center sm:text-start">
           <h1 className="text-5xl font-bold leading-tight">
-            Добро пожаловать в <br />{" "}
+            Добро пожаловать в <br />
             <span className="text-red-600 font-extrabold">
               SmartDiag <span className="wave">👋</span>
             </span>
@@ -22,7 +22,7 @@ export function Hero() {
           </p>
           <div className="flex flex-col sm:flex-row pt-10 gap-4 min-w-[350px]">
             <Link href="#soft" scroll={false}>
-              <a className="btn-grad-red text-base font-medium flex items-center group">
+              <a className="btn-grad-red text-base font-medium flex items-center group min-w-[180px]">
                 Программы для приборов
                 <span className="icon-container ml-2">
                   <svg
@@ -44,7 +44,7 @@ export function Hero() {
               </a>
             </Link>
             <Link href="#contact" scroll={false}>
-              <a className="btn-grad-black text-base font-medium">
+              <a className="btn-grad-black text-base font-medium min-w-[180px]">
                 Обратная связь
               </a>
             </Link>
@@ -71,12 +71,18 @@ export function Hero() {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: linear-gradient(90deg, #ef4444, #f87171);
+          background: linear-gradient(90deg, #dc2626, #ef4444);
           border: none;
           border-radius: 0.375rem;
-          padding: 0.5rem 1rem;
+          padding: 0.75rem 1.25rem;
           color: white;
           cursor: pointer;
+          min-width: 180px;
+          transition: background-color 0.3s ease;
+        }
+
+        .btn-grad-red:hover {
+          background-color: #b91c1c;
         }
 
         .btn-grad-black {
@@ -88,9 +94,15 @@ export function Hero() {
           background: linear-gradient(90deg, #111827, #1f2937);
           border: none;
           border-radius: 0.375rem;
-          padding: 0.5rem 1rem;
+          padding: 0.75rem 1.25rem;
           color: white;
           cursor: pointer;
+          min-width: 180px;
+          transition: background-color 0.3s ease;
+        }
+
+        .btn-grad-black:hover {
+          background-color: #0f172a;
         }
       `}</style>
     </div>
