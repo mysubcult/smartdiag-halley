@@ -7,7 +7,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: "class", // Вы можете использовать 'media' или 'class'
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
@@ -21,6 +21,9 @@ module.exports = {
       },
       animation: {
         wiggle: 'wiggle 1s ease-in-out infinite',
+      },
+      transformOrigin: {
+        '70-70': '70% 70%', // Кастомная точка для transform-origin
       },
     },
   },
