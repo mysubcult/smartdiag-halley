@@ -91,15 +91,16 @@ export default function Navbar() {
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
                   <Link
-                    key={item.name}
-                    href={item.href}
-                    className="relative text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-red-500 before:scale-x-0 before:origin-left hover:before:scale-x-100 transition-all duration-300 ease-in-out"
-                    style={{ textDecoration: "none" }}
-                    scroll={false}
-                    onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
-                  >
-                    {item.name}
-                  </Link>
+  key={item.name}
+  href={item.href}
+  className="relative text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-red-500 before:scale-x-0 before:origin-left hover:before:scale-x-100 transition-transform duration-300 ease-in-out"
+  style={{ textDecoration: "none" }}
+  scroll={false}
+  onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
+>
+  {item.name}
+</Link>
+
                 ))}
               </div>
             </div>
