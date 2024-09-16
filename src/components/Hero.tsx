@@ -17,10 +17,10 @@ export function Hero() {
           </p>
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 min-w-[350px]">
             <Link href="#soft" scroll={false}>
-              <a className="btn-grad-red text-base font-medium flex items-center group">
+              <a className="text-white bg-gradient-to-r from-red-600 to-red-500 hover:scale-105 transition-transform duration-300 text-base font-medium flex items-center justify-center py-2 px-4 rounded-md">
                 Программы для приборов
                 <svg
-                  className="w-5 h-5 ml-2 transform group-hover:rotate-90 transition-transform"
+                  className="w-5 h-5 ml-2 transform group-hover:rotate-180 transition-transform"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
                   viewBox="0 0 16 16"
@@ -37,7 +37,9 @@ export function Hero() {
               </a>
             </Link>
             <Link href="#contact" scroll={false}>
-              <a className="btn-grad-black text-base font-medium">Обратная связь</a>
+              <a className="text-white bg-gradient-to-r from-gray-900 to-gray-700 hover:scale-105 transition-transform duration-300 text-base font-medium flex items-center justify-center py-2 px-4 rounded-md">
+                Обратная связь
+              </a>
             </Link>
           </div>
         </div>
