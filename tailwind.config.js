@@ -23,7 +23,7 @@ module.exports = {
         wiggle: 'wiggle 1s ease-in-out infinite',
       },
       transformOrigin: {
-        '70-70': '70% 70%', // Кастомная точка для transform-origin
+        '70-70': '70% 70%', // Custom point for transform-origin
       },
     },
   },
