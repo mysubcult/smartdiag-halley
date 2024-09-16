@@ -91,16 +91,15 @@ export default function Navbar() {
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
                   <Link
-  key={item.name}
-  href={item.href}
-  className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out"
-  style={{ textDecoration: "none" }}
-  scroll={false}
-  onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
->
-  {item.name}
-</Link>
-
+                    key={item.name}
+                    href={item.href}
+                    className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out"
+                    style={{ textDecoration: "none" }}
+                    scroll={false}
+                    onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
+                  >
+                    {item.name}
+                  </Link>
                 ))}
               </div>
             </div>
@@ -110,11 +109,11 @@ export default function Navbar() {
             {!isMobileView && (
               <>
                 <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
-                  <button className="bg-gradient-to-r from-blue-500 to-blue-800 text-white flex items-center gap-1 px-4 py-2 rounded-full">
+                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105">
                     <Image
                       src="/images/logos/favicon.ico"
                       alt="OZON"
-                      className="w-5 h-5"
+                      className="w-5 h-5 mr-2"
                       width={20}
                       height={20}
                       loading="lazy"
@@ -124,11 +123,11 @@ export default function Navbar() {
                 </Link>
 
                 <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
-                  <button className="bg-gradient-to-r from-yellow-500 to-yellow-700 text-black flex items-center gap-1 px-4 py-2 rounded-full">
+                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105">
                     <Image
                       src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
                       alt="Яндекс Маркет"
-                      className="w-5 h-5"
+                      className="w-5 h-5 mr-2"
                       width={20}
                       height={20}
                       loading="lazy"
@@ -138,11 +137,11 @@ export default function Navbar() {
                 </Link>
 
                 <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
-                  <button className="bg-gradient-to-r from-purple-500 to-purple-700 text-white flex items-center gap-1 px-4 py-2 rounded-full">
+                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105">
                     <Image
                       src="/images/logos/favicon.ico"
                       alt="Wildberries"
-                      className="w-5 h-5"
+                      className="w-5 h-5 mr-2"
                       width={20}
                       height={20}
                       loading="lazy"
@@ -189,14 +188,20 @@ export default function Navbar() {
             </button>
             {isSubMenuOpen && (
               <div className="flex flex-col space-y-3 w-full">
-                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-800 text-white px-4 py-2 rounded-lg">
-                  OZON
+                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
+                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+                    OZON
+                  </button>
                 </Link>
-                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center bg-gradient-to-r from-yellow-500 to-yellow-700 text-black px-4 py-2 rounded-lg">
-                  Яндекс Маркет
+                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
+                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+                    Яндекс Маркет
+                  </button>
                 </Link>
-                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 text-white px-4 py-2 rounded-lg">
-                  Wildberries
+                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
+                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+                    Wildberries
+                  </button>
                 </Link>
               </div>
             )}
