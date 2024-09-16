@@ -22,11 +22,11 @@ export function Hero() {
           </p>
           <div className="flex flex-col sm:flex-row pt-10 gap-4 min-w-[350px]">
             <Link href="#soft" scroll={false}>
-              <a className="btn-grad-red text-base font-medium flex items-center group min-w-[180px]">
+              <a className="btn-grad-red text-base font-medium flex items-center group min-w-[200px]">
                 Программы для приборов
                 <span className="icon-container ml-2">
                   <svg
-                    className="icon w-5 h-5 transition-transform duration-1000 group-hover:rotate-180"
+                    className="icon w-5 h-5 transition-transform duration-300 group-hover:rotate-90"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor"
                     viewBox="0 0 16 16"
@@ -44,7 +44,7 @@ export function Hero() {
               </a>
             </Link>
             <Link href="#contact" scroll={false}>
-              <a className="btn-grad-black text-base font-medium min-w-[180px]">
+              <a className="btn-grad-black text-base font-medium min-w-[200px]">
                 Обратная связь
               </a>
             </Link>
@@ -77,12 +77,13 @@ export function Hero() {
           padding: 0.75rem 1.25rem;
           color: white;
           cursor: pointer;
-          min-width: 180px;
-          transition: background-color 0.3s ease;
+          min-width: 200px;
+          transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .btn-grad-red:hover {
           background-color: #b91c1c;
+          transform: scale(1.05);
         }
 
         .btn-grad-black {
@@ -97,12 +98,17 @@ export function Hero() {
           padding: 0.75rem 1.25rem;
           color: white;
           cursor: pointer;
-          min-width: 180px;
-          transition: background-color 0.3s ease;
+          min-width: 200px;
+          transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .btn-grad-black:hover {
           background-color: #0f172a;
+          transform: scale(1.05);
+        }
+
+        .icon-container {
+          display: inline-block;
         }
       `}</style>
     </div>
