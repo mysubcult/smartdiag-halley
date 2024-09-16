@@ -17,10 +17,10 @@ export function Hero() {
           </p>
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 min-w-[350px]">
             <Link href="#soft" scroll={false}>
-              <a className="bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white rounded-full py-3 px-6 text-base font-medium flex items-center group shadow-lg transform transition-transform duration-300 hover:scale-105">
+              <a className="bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white rounded-full py-3 px-6 text-base font-medium flex items-center group shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-opacity-80">
                 Программы для приборов
                 <svg
-                  className="w-5 h-5 ml-2 transform group-hover:rotate-180 transition-transform"
+                  className="w-5 h-5 ml-2 transform group-hover:rotate-180 transition-transform duration-1000"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
                   viewBox="0 0 16 16"
@@ -37,7 +37,7 @@ export function Hero() {
               </a>
             </Link>
             <Link href="#contact" scroll={false}>
-              <a className="bg-gradient-to-r from-[#434343] to-[#000000] text-white rounded-full py-3 px-6 text-base font-medium shadow-lg transform transition-transform duration-300 hover:scale-105">
+              <a className="bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white rounded-full py-3 px-6 text-base font-medium shadow-lg transform transition-transform duration-300 hover:scale-110 hover:bg-opacity-80">
                 Обратная связь
               </a>
             </Link>
