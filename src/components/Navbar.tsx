@@ -95,7 +95,7 @@ export default function Navbar() {
                     className="text-neutral-900 dark:text-neutral-400 hover:text-red-500"
                     style={{ textDecoration: "none" }}
                     scroll={false}
-                    onClick={handleNavigationClick(item.anchor)}
+                    onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined} // Опциональная цепочка
                   >
                     {item.name}
                   </Link>
@@ -176,7 +176,7 @@ export default function Navbar() {
                 href={item.href}
                 className="block py-2 text-lg font-medium hover:text-red-500"
                 scroll={false}
-                onClick={handleNavigationClick(item.anchor)}
+                onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
               >
                 {item.name}
               </Link>
