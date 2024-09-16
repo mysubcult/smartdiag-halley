@@ -18,13 +18,24 @@ module.exports = {
           '0%, 100%': { transform: 'rotate(-3deg)' },
           '50%': { transform: 'rotate(3deg)' },
         },
+        underlineGrow: { // Анимация для подчеркивания
+          '0%': { transform: 'scaleX(0)' },
+          '100%': { transform: 'scaleX(1)' },
+        },
       },
       animation: {
         wiggle: 'wiggle 1s ease-in-out infinite',
+        underlineGrow: 'underlineGrow 0.3s ease-in-out forwards',
       },
       transformOrigin: {
         '70-70': '70% 70%', // Custom point for transform-origin
       },
+    },
+  },
+  variants: {
+    extend: {
+      scale: ['hover', 'focus'],
+      transform: ['before', 'after'], // Для трансформации псевдоэлементов
     },
   },
   plugins: [
