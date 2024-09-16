@@ -58,18 +58,13 @@ export default function Blog() {
 
   const postsPerPage = 8;
 
-  const longestCategory = useMemo(() => {
-    return categories.reduce(
-      (max, category) => (category.name.length > max.length ? category.name : max),
-      categories[0].name
-    );
-  }, []);
+  const longestCategory = useMemo(
+    () => categories.reduce((max, category) => (category.name.length > max.length ? category.name : max), categories[0].name),
+    []
+  );
 
   const filteredPosts = useMemo(() => {
-    const filteredByCategory =
-      selectedCategory === "Все"
-        ? blogPosts
-        : blogPosts.filter((post) => post.category === selectedCategory);
+    const filteredByCategory = selectedCategory === "Все" ? blogPosts : blogPosts.filter((post) => post.category === selectedCategory);
     return filteredByCategory.filter(
       (post) =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -153,9 +148,7 @@ export default function Blog() {
     return pagesToShow.map((page, index) => (
       <button
         key={index}
-        onClick={(event) =>
-          typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event)
-        }
+        onClick={(event) => (typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event))}
         className={`${
           page === currentPage
             ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
@@ -179,7 +172,6 @@ export default function Blog() {
         </p>
       </div>
 
-      {/* Панель навигации по категориям */}
       <div className="max-w-max mx-auto px-6 mt-6 sm:mt-8">
         <div className="relative text-base font-semibold bg-neutral-200 dark:bg-neutral-800 rounded-lg p-1 sm:mt-0 flex items-center justify-between w-full sm:w-auto">
           <div className="flex items-center w-full sm:w-auto flex-grow gap-1">
@@ -238,6 +230,8 @@ export default function Blog() {
               <input
                 type="text"
                 placeholder="Поиск..."
+                id="search"
+                name="search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-25 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 focus:border-red-500 focus:ring-red-500"
@@ -247,6 +241,7 @@ export default function Blog() {
           <button
             className="ml-auto sm:hidden bg-transparent text-neutral-900 dark:text-neutral-100 px-4 py-2 rounded-md"
             onClick={() => setShowSearch(!showSearch)}
+            aria-label="Открыть поиск"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M16 10.5a5.5 5.5 0 1 0-11 0 5.5 5.5 0 0 0 11 0z" />
@@ -261,6 +256,8 @@ export default function Blog() {
         >
           <input
             type="text"
+            id="search-small"
+            name="search-small"
             placeholder="Поиск..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -269,7 +266,7 @@ export default function Blog() {
         </div>
       </div>
 
-      {/* Секция с карточками статей */}
+      {/* Render blog posts */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {paginatedPosts.length > 0 ? (
           paginatedPosts.map(({ title, image, excerpt, link }) => (
@@ -292,20 +289,12 @@ export default function Blog() {
                 </div>
               </Link>
               <div className="p-4 flex flex-col flex-grow">
-                {/* Обёртка для заголовка */}
                 <div className="h-12 grid items-center justify-items-start">
-                  <h3 className="text-lg font-semibold line-clamp-2">
-                    {title}
-                  </h3>
+                  <h3 className="text-lg font-semibold line-clamp-2">{title}</h3>
                 </div>
-
-                {/* Обёртка для описания */}
                 <div className="h-20 grid items-center justify-items-start">
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3">
-                    {excerpt}
-                  </p>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3">{excerpt}</p>
                 </div>
-
                 <div className="mt-auto text-right">
                   <Link href={link}>
                     <button className="bg-red-600 text-white text-sm rounded-md px-4 py-2 transition-colors duration-300 hover:bg-red-500">
@@ -324,14 +313,14 @@ export default function Blog() {
         )}
       </div>
 
-      {/* Секция пагинации */}
+      {/* Pagination */}
       <div className="max-w-max mx-auto px-6 pb-4">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-wrap justify-center p-1 gap-1">
           {renderPagination}
         </div>
       </div>
 
-      {/* Поповер для пагинации */}
+      {/* Pagination popover */}
       {showPopover && popoverPosition && (
         <div
           ref={popoverRef}
