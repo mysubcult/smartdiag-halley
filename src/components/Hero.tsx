@@ -1,19 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 export function Hero() {
-  const [isMounted, setIsMounted] = useState(false);
-
-  // Ensure components are mounted correctly to avoid hydration issues
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return null; // Prevent rendering until component is mounted to fix React hydration error
-  }
-
   return (
     <div id="hero" className="bg-white dark:bg-neutral-900">
       <div className="max-w-7xl mx-auto pt-6 sm:pt-5 pb-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -25,11 +13,7 @@ export function Hero() {
             </span>
           </h1>
           <p className="pt-6 text-base w-auto sm:w-10/12 dark:text-neutral-400">
-            Здесь вы найдёте всё необходимое программное обеспечение для диагностики и
-            обслуживания вашего автомобиля. Мы предлагаем высококачественное и надёжное
-            оборудование, которое поможет вам быстро и эффективно провести анализ и ремонт
-            вашего авто. Мы уверены, что техническое обслуживание автомобиля может быть
-            простым и доступным для каждого.
+            Здесь вы найдёте всё необходимое программное обеспечение для диагностики и обслуживания вашего автомобиля. Мы предлагаем высококачественное и надёжное оборудование, которое поможет вам быстро и эффективно провести анализ и ремонт вашего авто. Мы уверены, что техническое обслуживание автомобиля может быть простым и доступным для каждого.
           </p>
           <div className="flex flex-col sm:flex-row pt-10 gap-4 min-w-[350px]">
             <Link href="#soft" scroll={false}>
@@ -55,9 +39,7 @@ export function Hero() {
               </a>
             </Link>
             <Link href="#contact" scroll={false}>
-              <a className="btn-grad-black text-base font-medium">
-                Обратная связь
-              </a>
+              <a className="btn-grad-black text-base font-medium">Обратная связь</a>
             </Link>
           </div>
         </div>
