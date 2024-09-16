@@ -10,16 +10,19 @@ html {
   @apply bg-red-600 text-white;
 }
 
-/* Tailwind animation and color utilities replace the custom styles */
 @layer utilities {
   .wave {
     @apply animate-wiggle inline-block transform-origin-70-70;
   }
 }
 
-/* Removed unnecessary custom styles */
+/* Добавьте явно класс transform-origin-70-70 */
+@layer utilities {
+  .transform-origin-70-70 {
+    transform-origin: 70% 70%;
+  }
+}
+
 nav .dark\:text-neutral-400:hover {
   @apply text-red-500;
 }
-
-/* Removed custom keyframes as they are not directly applied */
