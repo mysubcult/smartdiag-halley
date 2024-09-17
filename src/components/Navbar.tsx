@@ -147,7 +147,7 @@ export default function Navbar() {
                   aria-expanded={isMenuOpen}
                   aria-controls="mobile-menu"
                 >
-                  <span className="sr-only">Open main menu</span>
+                  <span className="sr-only">Toggle main menu</span>
                   <Bars3Icon className={`h-6 w-6 ${isMenuOpen ? "hidden" : "block"}`} />
                   <XMarkIcon className={`h-6 w-6 ${isMenuOpen ? "block" : "hidden"}`} />
                 </button>
@@ -159,16 +159,16 @@ export default function Navbar() {
 
       {/* Полноэкранное мобильное меню */}
       {isMenuOpen && (
-        <div className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center z-40 mt-16 overflow-y-auto">
+        <div className="fixed top-16 left-0 right-0 bottom-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center z-40 overflow-y-auto">
           {/* Контент меню */}
-          <div className="w-full flex flex-col items-center justify-center space-y-8 px-4">
+          <div className="w-full max-w-md flex flex-col items-center justify-center space-y-8 px-4">
             {/* Основные ссылки */}
-            <nav className="flex flex-col items-center space-y-6">
+            <nav className="flex flex-col items-center space-y-6 w-full">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="flex items-center justify-center text-xl sm:text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500"
+                  className="flex items-center justify-center text-xl sm:text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 py-2"
                   scroll={false}
                   onClick={item.anchor ? handleNavigationClick(item.anchor) : () => setIsMenuOpen(false)}
                 >
@@ -189,27 +189,27 @@ export default function Navbar() {
             <div className="mt-8 w-full flex flex-col items-center space-y-4 px-4">
               <button
                 onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                className="flex items-center justify-center text-xl sm:text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500"
+                className="flex items-center justify-center text-xl sm:text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 py-2"
               >
                 🛒 Магазины
                 <ChevronDownIcon className={`h-6 w-6 ml-2 transition-transform ${isSubMenuOpen ? "rotate-180" : "rotate-0"}`} />
               </button>
               {isSubMenuOpen && (
-                <div className="flex flex-col items-center space-y-4 mt-4">
+                <div className="flex flex-col items-center space-y-4 mt-4 w-full">
                   <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
-                    <button className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-6 py-3 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
+                    <button className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-6 py-3 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 w-full">
                       🟦 OZON
                     </button>
                   </Link>
 
                   <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
-                    <button className="flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-6 py-3 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
+                    <button className="flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-6 py-3 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 w-full">
                       🟨 Яндекс Маркет
                     </button>
                   </Link>
 
                   <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
-                    <button className="flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-6 py-3 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
+                    <button className="flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-6 py-3 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 w-full">
                       🟪 Wildberries
                     </button>
                   </Link>
