@@ -44,6 +44,15 @@ export default function Navbar() {
     };
   }, [isMenuOpen]);
 
+  // Предотвращение прокрутки основного содержимого при открытом меню
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [isMenuOpen]);
+
   return (
     <>
       {/* Navbar */}
@@ -150,11 +159,11 @@ export default function Navbar() {
 
       {/* Полноэкранное мобильное меню */}
       {isMenuOpen && (
-        <div className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center z-40 mt-16 overflow-y-auto">
+        <div className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-start z-40 mt-16 overflow-y-auto">
           {/* Контент меню */}
-          <div className="relative w-full h-full flex flex-col items-center justify-center space-y-8">
+          <div className="w-full flex flex-col items-center justify-center space-y-8 px-4">
             {/* Основные ссылки */}
-            <nav className="flex flex-col items-center space-y-6 px-4">
+            <nav className="flex flex-col items-center space-y-6">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
