@@ -35,7 +35,7 @@ const products: Product[] = [
   {
     title: "Autocom CDP+",
     description: "Универсальный диагностический сканер для чтения и удаления кодов неисправностей.",
-    features: ["Autocom 2021.11, Delphi + Autocom 2020.23", "Инструкции по установке ПО", "Руководство пользователя"],
+    features: ["Autocom 2021.11, Delphi + Autocom 2020.23"],
     downloadLinks: [
       { link: "https://i.getspace.us/cloud/s/S9CKwWMNDbeB2XH", label: "Скачать с сервера 1" },
       { link: "https://nch.pl/s/XbJnfSYNiw3dzFm", label: "Скачать с сервера 2" }
