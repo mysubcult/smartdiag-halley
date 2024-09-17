@@ -220,7 +220,7 @@ export default function Soft() {
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
-      <div className="pt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="pt-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
           В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
@@ -246,7 +246,7 @@ export default function Soft() {
               } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
             >
               {/* Заголовок: максимум 1 строка, выравнивание слева */}
-              <h3 className="px-6 text-lg font-semibold line-clamp-1">
+              <h3 className="px-6 text-lg font-semibold line-clamp-1 leading-5 h-[1.25rem]">
                 {title}
               </h3>
               {mostPopular && (
@@ -255,25 +255,25 @@ export default function Soft() {
                 </p>
               )}
 
-              {/* Описание: убираем фиксированную высоту */}
-              <div className="px-6 mt-4 flex-1">
-                <p className="leading-6 dark:text-neutral-400">
+              {/* Описание: уже настроено */}
+              <div className="px-6 mt-4 h-[4.5rem] flex items-center">
+                <p className="leading-6 dark:text-neutral-400 line-clamp-3">
                   {description}
                 </p>
               </div>
 
               {/* Кнопки скачивания */}
-              <div className="flex mt-4 mx-6 space-x-2">
+              <div className="flex mt-4 mx-6">
                 <button
                   onClick={() => handleDownloadClick(downloadLinks)}
-                  className="flex-1 px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 dark:hover:bg-green-500 transition-colors duration-200 ease-in-out transform active:scale-95"
+                  className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 dark:hover:bg-green-500 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
                 >
                   Скачать
                 </button>
                 {docs && docsLinks.length > 0 && (
                   <button
                     onClick={() => handleDownloadClick(docsLinks)}
-                    className="flex-1 px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out transform active:scale-95"
+                    className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
                   >
                     Инструкция
                   </button>
@@ -281,17 +281,17 @@ export default function Soft() {
               </div>
 
               {/* В комплекте: пункты равномерно распределяются вертикально */}
-              <div className="mt-4 px-6 border-t border-neutral-300 dark:border-neutral-500">
+              <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
                 <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
-                <ul className="flex flex-col space-y-2 mt-2">
+                <ul className="flex flex-col justify-between h-32 mt-2">
                   {features.slice(0, 4).map((feature, index) => (
-                    <li key={index} className="flex items-center">
+                    <li key={index} className="flex items-center h-8">
                       <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
-                      <span className="ml-3 dark:text-neutral-400">{feature}</span>
+                      <span className="ml-3 dark:text-neutral-400 line-clamp-2">{feature}</span>
                     </li>
                   ))}
                   {features.length > 4 && (
-                    <li className="flex items-center">
+                    <li className="flex items-center h-8">
                       <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
                       <span className="ml-3 dark:text-neutral-400">и т.д.</span>
                     </li>
