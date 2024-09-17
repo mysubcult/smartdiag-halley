@@ -254,15 +254,17 @@ export default function Soft() {
                 } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
               >
                 {/* Заголовок: максимум 1 строка, выравнивание слева */}
-                <h3 className="px-6 text-lg font-semibold line-clamp-1">{title}</h3>
+                <h3 className="px-6 text-lg font-semibold line-clamp-1">
+                  {title}
+                </h3>
                 {mostPopular && (
                   <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
                     Топ продаж
                   </p>
                 )}
 
-                {/* Описание: уже настроено */}
-                <div className="px-6 mt-4 h-[4.5rem] flex items-center">
+                {/* Описание: гибкое выравнивание без фиксированной высоты */}
+                <div className="px-6 mt-4 flex-grow flex items-center">
                   <p className="leading-6 dark:text-neutral-400 line-clamp-3">
                     {description}
                   </p>
