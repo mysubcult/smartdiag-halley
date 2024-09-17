@@ -236,70 +236,80 @@ export default function Soft() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {products
           .filter(({ type }) => type === selectedType)
-          .map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => (
-            <div
-              key={title}
-              className={`rounded-lg py-8 relative flex flex-col ${
-                mostPopular
-                  ? "border-red-300 border-2 border-solid dark:border-red-600"
-                  : "border-neutral-300 border dark:border-neutral-600"
-              } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
-            >
-              {/* Заголовок: максимум 1 строка, выравнивание слева */}
-              <h3 className="px-6 text-lg font-semibold line-clamp-1 leading-5 h-[1.25rem]">
-                {title}
-              </h3>
-              {mostPopular && (
-                <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
-                  Топ продаж
-                </p>
-              )}
+          .map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => {
+            // Определяем количество отображаемых элементов в списке
+            const displayedFeatures = features.slice(0, 4);
+            const showEllipsis = features.length > 4;
+            const totalItems = showEllipsis ? displayedFeatures.length + 1 : displayedFeatures.length;
 
-              {/* Описание: уже настроено */}
-              <div className="px-6 mt-4 h-[4.5rem] flex items-center">
-                <p className="leading-6 dark:text-neutral-400 line-clamp-3">
-                  {description}
-                </p>
-              </div>
+            // Определяем класс justify в зависимости от количества элементов
+            const justifyClass = totalItems <= 2 ? "justify-center" : "justify-between";
 
-              {/* Кнопки скачивания */}
-              <div className="flex mt-4 mx-6">
-                <button
-                  onClick={() => handleDownloadClick(downloadLinks)}
-                  className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 dark:hover:bg-green-500 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
-                >
-                  Скачать
-                </button>
-                {docs && docsLinks.length > 0 && (
-                  <button
-                    onClick={() => handleDownloadClick(docsLinks)}
-                    className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
-                  >
-                    Инструкция
-                  </button>
+            return (
+              <div
+                key={title}
+                className={`rounded-lg py-8 relative flex flex-col ${
+                  mostPopular
+                    ? "border-red-300 border-2 border-solid dark:border-red-600"
+                    : "border-neutral-300 border dark:border-neutral-600"
+                } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
+              >
+                {/* Заголовок: максимум 1 строка, выравнивание слева */}
+                <h3 className="px-6 text-lg font-semibold line-clamp-1 leading-5 h-[1.25rem]">
+                  {title}
+                </h3>
+                {mostPopular && (
+                  <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
+                    Топ продаж
+                  </p>
                 )}
-              </div>
 
-              {/* В комплекте: пункты равномерно распределяются вертикально */}
-              <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
-                <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
-                <ul className="flex flex-col justify-between h-32 mt-2">
-                  {features.slice(0, 4).map((feature, index) => (
-                    <li key={index} className="flex items-center h-8">
-                      <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
-                      <span className="ml-3 dark:text-neutral-400 line-clamp-2">{feature}</span>
-                    </li>
-                  ))}
-                  {features.length > 4 && (
-                    <li className="flex items-center h-8">
-                      <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
-                      <span className="ml-3 dark:text-neutral-400">и т.д.</span>
-                    </li>
+                {/* Описание: уже настроено */}
+                <div className="px-6 mt-4 h-[4.5rem] flex items-center">
+                  <p className="leading-6 dark:text-neutral-400 line-clamp-3">
+                    {description}
+                  </p>
+                </div>
+
+                {/* Кнопки скачивания */}
+                <div className="flex mt-4 mx-6">
+                  <button
+                    onClick={() => handleDownloadClick(downloadLinks)}
+                    className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 dark:hover:bg-green-500 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
+                  >
+                    Скачать
+                  </button>
+                  {docs && docsLinks.length > 0 && (
+                    <button
+                      onClick={() => handleDownloadClick(docsLinks)}
+                      className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
+                    >
+                      Инструкция
+                    </button>
                   )}
-                </ul>
+                </div>
+
+                {/* В комплекте: пункты равномерно распределяются вертикально */}
+                <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
+                  <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
+                  <ul className={`flex flex-col ${justifyClass} h-32 mt-2`}>
+                    {displayedFeatures.map((feature, index) => (
+                      <li key={index} className="flex items-center h-8">
+                        <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
+                        <span className="ml-3 dark:text-neutral-400 line-clamp-2">{feature}</span>
+                      </li>
+                    ))}
+                    {showEllipsis && (
+                      <li className="flex items-center h-8">
+                        <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
+                        <span className="ml-3 dark:text-neutral-400">и т.д.</span>
+                      </li>
+                    )}
+                  </ul>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
       </div>
 
       {modalLinks && (
