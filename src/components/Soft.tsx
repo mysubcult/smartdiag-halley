@@ -207,6 +207,7 @@ export default function Soft() {
 
   const renderButton = (label: string, type: ProductType) => (
     <button
+      key={type}
       onClick={() => setSelectedType(type)}
       className={`${
         selectedType === type
@@ -246,9 +247,7 @@ export default function Soft() {
               } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
             >
               {/* Заголовок: максимум 1 строка, выравнивание слева */}
-              <h3 className="px-6 text-lg font-semibold line-clamp-1 leading-5 h-[1.25rem]">
-                {title}
-              </h3>
+              <h3 className="px-6 text-lg font-semibold line-clamp-1">{title}</h3>
               {mostPopular && (
                 <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
                   Топ продаж
@@ -283,17 +282,19 @@ export default function Soft() {
               {/* В комплекте: пункты равномерно распределяются вертикально */}
               <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
                 {/* Добавлен отступ сверху для текста "В комплекте:" */}
-                <p className="font-semibold dark:text-neutral-300 mt-2">В комплекте:</p>
-                {/* Используем flex с фиксированной высотой и равномерным распределением */}
-                <ul className="flex flex-col justify-between h-32 mt-2">
+                <p className="font-semibold dark:text-neutral-300 mt-4">В комплекте:</p>
+                {/* Используем grid с фиксированным количеством строк и высотой для 2 строк на пункт */}
+                <ul className="grid grid-rows-4 gap-y-2 mt-2">
                   {features.slice(0, 4).map((feature, index) => (
-                    <li key={index} className="flex items-center h-8">
+                    <li key={index} className="flex items-center h-10">
                       <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
-                      <span className="ml-3 dark:text-neutral-400 line-clamp-2">{feature}</span>
+                      <span className="ml-3 dark:text-neutral-400 line-clamp-2">
+                        {feature}
+                      </span>
                     </li>
                   ))}
                   {features.length > 4 && (
-                    <li className="flex items-center h-8">
+                    <li className="flex items-center h-10">
                       <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
                       <span className="ml-3 dark:text-neutral-400">и т.д.</span>
                     </li>
