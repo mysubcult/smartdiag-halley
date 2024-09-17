@@ -19,7 +19,7 @@ const products: Product[] = [
   {
     title: "Delphi DS150e",
     description: "Многофункциональный диагностический инструмент для легковых и грузовых автомобилей.",
-    features: ["Delphi 2021.10b, Delphi + Delphi 2020.23", "Инструкции по установке ПО", "Руководство пользователя", "Руководство пользователя"],
+    features: ["Delphi 2021.10b, Delphi + Delphi 2020.23", "Инструкции по установке ПО", "Руководство пользователя"],
     downloadLinks: [
       { link: "https://i.getspace.us/cloud/s/BiaqYzKpxZRTc58", label: "Скачать с сервера 1" },
       { link: "https://nch.pl/s/8MZQfLRjSy9z4Bk", label: "Скачать с сервера 2" }
@@ -292,16 +292,16 @@ export default function Soft() {
                 {/* В комплекте: пункты равномерно распределяются вертикально */}
                 <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500 pt-4">
                   <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
-                  <ul className={`flex flex-col ${justifyClass} h-32 mt-2`}>
+                  <ul className={`flex flex-col ${justifyClass} space-y-2 mt-2`}>
                     {displayedFeatures.map((feature, index) => (
-                      <li key={index} className="flex items-center h-8">
-                        <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
+                      <li key={index} className="flex items-start">
+                        <CheckIcon className="w-3 h-3 text-red-600 shrink-0 mt-1" />
                         <span className="ml-3 dark:text-neutral-400 line-clamp-2">{feature}</span>
                       </li>
                     ))}
                     {showEllipsis && (
-                      <li className="flex items-center h-8">
-                        <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
+                      <li className="flex items-start">
+                        <CheckIcon className="w-3 h-3 text-red-600 shrink-0 mt-1" />
                         <span className="ml-3 dark:text-neutral-400">и т.д.</span>
                       </li>
                     )}
