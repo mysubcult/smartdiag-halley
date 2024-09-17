@@ -193,17 +193,10 @@ const DeviceTypes: ProductType[] = ["мультимарочные", "мароч�
 
 export default function Soft() {
   const [selectedType, setSelectedType] = useState<ProductType>("мультимарочные");
-  const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
 
   const handleDownloadClick = (links: { link: string; label: string }[]) => {
-    if (links.length === 1) {
-      window.open(links[0].link, "_blank");
-    } else {
-      setModalLinks(links);
-    }
+    links.forEach(({ link }) => window.open(link, "_blank"));
   };
-
-  const closeModal = () => setModalLinks(null);
 
   const renderButton = (label: string, type: ProductType) => (
     <button
@@ -224,7 +217,7 @@ export default function Soft() {
       <div className="pt-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
+          В этом разделе вы можете скачать программное обеспечение для своего устройства.
         </p>
       </div>
 
@@ -238,14 +231,8 @@ export default function Soft() {
         {products
           .filter(({ type }) => type === selectedType)
           .map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => {
-            // Определяем отображаемые пункты
             const displayedFeatures =
               features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
-            const justifyClass =
-              displayedFeatures.length < 4 ? "justify-center" : "justify-between";
-
-            // Определяем класс gap-y в зависимости от количества пунктов
-            const gapClass = displayedFeatures.length < 4 ? "gap-y-4" : "gap-y-2";
 
             return (
               <div
@@ -256,24 +243,19 @@ export default function Soft() {
                     : "border-neutral-300 border dark:border-neutral-600"
                 } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
               >
-                {/* Заголовок: максимум 1 строка, выравнивание слева */}
-                <h3 className="px-6 text-lg font-semibold line-clamp-1">
-                  {title}
-                </h3>
+                <h3 className="px-6 text-lg font-semibold line-clamp-1">{title}</h3>
                 {mostPopular && (
                   <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
                     Топ продаж
                   </p>
                 )}
 
-                {/* Описание: гибкое выравнивание без фиксированной высоты */}
                 <div className="px-6 mt-4 flex-grow flex items-center">
                   <p className="leading-6 dark:text-neutral-400 line-clamp-3">
                     {description}
                   </p>
                 </div>
 
-                {/* Кнопки скачивания */}
                 <div className="flex mt-4 mx-6">
                   <button
                     onClick={() => handleDownloadClick(downloadLinks)}
@@ -291,14 +273,9 @@ export default function Soft() {
                   )}
                 </div>
 
-                {/* В комплекте: пункты равномерно распределяются вертикально */}
                 <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
-                  {/* Добавлен увеличенный отступ сверху и снизу для текста "В комплекте:" */}
                   <p className="font-semibold dark:text-neutral-300 mt-4 mb-6">В комплекте:</p>
-                  {/* Используем flex с динамическим выравниванием и изменяемым gap */}
-                  <ul
-                    className={`flex flex-col ${justifyClass} h-32 mt-2 ${gapClass}`}
-                  >
+                  <ul className="flex flex-col justify-between h-32 mt-2 gap-y-2">
                     {displayedFeatures.map((feature, index) => (
                       <li key={index} className="flex items-start h-14">
                         <CheckIcon className="w-4 h-4 text-red-600 shrink-0 mt-1" />
@@ -313,35 +290,6 @@ export default function Soft() {
             );
           })}
       </div>
-
-      {modalLinks && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
-          onClick={closeModal}
-        >
-          <div
-            className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative transform transition-transform duration-300 ease-out scale-100"
-            onClick={(e) => e.stopPropagation()} // Остановить всплытие события клика
-          >
-            <button
-              onClick={closeModal}
-              className="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition-all duration-300 transform hover:scale-110 active:scale-90"
-            >
-              ✕
-            </button>
-            <h3 className="text-lg font-semibold mb-4 text-center">Выберите ссылку для скачивания</h3>
-            <div className="flex flex-col space-y-2">
-              {modalLinks.map(({ link, label }, index) => (
-                <Link href={link} key={index} target="_blank" passHref>
-                  <a className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-neutral-300 text-black shadow-md dark:bg-neutral-600 dark:text-white hover:bg-neutral-400 dark:hover:bg-neutral-500 transition-colors duration-200 ease-in-out transform active:scale-95">
-                    {label}
-                  </a>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
