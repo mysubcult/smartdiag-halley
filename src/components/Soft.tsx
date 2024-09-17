@@ -281,7 +281,7 @@ export default function Soft() {
               </div>
 
               {/* В комплекте: пункты равномерно распределяются вертикально */}
-              <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
+              <div className="mt-10 px-6 border-t border-neutral-300 dark:border-neutral-500">
                 <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
                 <ul className="flex flex-col justify-between h-32 mt-2">
                   {features.slice(0, 4).map((feature, index) => (
