@@ -1,5 +1,5 @@
 import Link from "next/link"; 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 
 type ProductType = "мультимарочные" | "марочные" | "адаптеры elm";
@@ -205,20 +205,6 @@ export default function Soft() {
 
   const closeModal = () => setModalLinks(null);
 
-  const renderButton = (label: string, type: ProductType) => (
-    <button
-      key={type}
-      onClick={() => setSelectedType(type)}
-      className={`${
-        selectedType === type
-          ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-          : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-      } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-    >
-      {label}
-    </button>
-  );
-
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
       <div className="pt-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
@@ -230,7 +216,19 @@ export default function Soft() {
 
       <div className="max-w-max mx-auto px-6">
         <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
-          {DeviceTypes.map((type) => renderButton(type.charAt(0).toUpperCase() + type.slice(1), type))}
+          {DeviceTypes.map((type) => (
+            <button
+              key={type}
+              onClick={() => setSelectedType(type)}
+              className={`${
+                selectedType === type
+                  ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                  : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+              } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+            >
+              {type.charAt(0).toUpperCase() + type.slice(1)}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -239,8 +237,6 @@ export default function Soft() {
           .filter(({ type }) => type === selectedType)
           .map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => {
             const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
-            const justifyClass = displayedFeatures.length < 4 ? "justify-center" : "justify-between";
-            const gapClass = displayedFeatures.length < 4 ? "gap-y-4" : "gap-y-2";
 
             return (
               <div
@@ -281,7 +277,7 @@ export default function Soft() {
 
                 <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
                   <p className="font-semibold dark:text-neutral-300 mt-4 mb-6">В комплекте:</p>
-                  <ul className={`flex flex-col ${justifyClass} h-32 mt-2 ${gapClass}`}>
+                  <ul className="flex flex-col gap-y-2 overflow-y-auto h-32">
                     {displayedFeatures.map((feature, index) => (
                       <li key={index} className="flex items-start h-14">
                         <CheckIcon className="w-4 h-4 text-red-600 shrink-0 mt-1" />
