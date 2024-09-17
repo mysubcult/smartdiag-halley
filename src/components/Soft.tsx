@@ -187,32 +187,6 @@ const products: Product[] = [
     docsLinks: [],
     type: "адаптеры elm"
   }
-  {
-    title: "ELM 327 Mini",
-    description: "Универсальный диагностический сканер для автомобилей, который подключается к порту OBD-II и работает через приложение на смартфоне или компьютере.",
-    features: ["EOBD Facile", "Car Scanner", "Torque", "ELMScan", "Carista", "BimmerCode", "LeafSpy", "и т.д."],
-    downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" },
-      { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 2" },
-    ],
-    mostPopular: true,
-    docs: false,
-    docsLinks: [],
-    type: "адаптеры elm"
-  },
-  {
-    title: "Kingbolen ELM",
-    description: "Диагностический инструмент для автомобилей, оснащенный функцией Bluetooth/Wi-Fi и поддерживающий различные протоколы OBD-II, что позволяет работать с разными автомобильными брендами.",
-    features: ["EOBD Facile", "Car Scanner", "Torque", "ELMScan", "Carista", "BimmerCode", "LeafSpy", "и т.д."],
-    downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" },
-      { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 2" },
-    ],
-    mostPopular: false,
-    docs: false,
-    docsLinks: [],
-    type: "адаптеры elm"
-  }
 ];
 
 const DeviceTypes: ProductType[] = ["мультимарочные", "марочные", "адаптеры elm"];
