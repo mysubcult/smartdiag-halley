@@ -2,7 +2,11 @@ import { useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
-import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import {
+  ChevronDownIcon,
+  Bars3Icon,
+  XMarkIcon,
+} from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
 const navigation = [
@@ -21,8 +25,10 @@ export default function Navbar() {
   const handleNavigationClick = useCallback(
     (anchor: string) => (event: React.MouseEvent) => {
       event.preventDefault();
-      if (router.pathname !== '/') {
-        router.push('/').then(() => router.push(anchor, undefined, { scroll: false }));
+      if (router.pathname !== "/") {
+        router.push("/").then(() =>
+          router.push(anchor, undefined, { scroll: false })
+        );
       } else {
         router.push(anchor, undefined, { scroll: false });
       }
@@ -70,8 +76,59 @@ export default function Navbar() {
           <div className="flex items-center space-x-2">
             {/* Магазины (только на десктопе) */}
             <div className="hidden lg:flex space-x-2">
-              {/* Кнопки магазинов */}
-              {/* ... (оставляем ваш код кнопок магазинов без изменений) */}
+              <Link
+                href="https://www.ozon.ru/seller/smartdiag-862410/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
+                  <Image
+                    src="/images/logos/favicon.ico"
+                    alt="OZON"
+                    className="w-5 h-5 mr-2"
+                    width={20}
+                    height={20}
+                    loading="lazy"
+                  />
+                  OZON
+                </button>
+              </Link>
+
+              <Link
+                href="https://market.yandex.ru/business--smartdiag/50025236"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
+                  <Image
+                    src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
+                    alt="Яндекс Маркет"
+                    className="w-5 h-5 mr-2"
+                    width={20}
+                    height={20}
+                    loading="lazy"
+                  />
+                  Яндекс Маркет
+                </button>
+              </Link>
+
+              <Link
+                href="https://www.wildberries.ru/seller/1343369"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
+                  <Image
+                    src="/images/logos/favicon.ico"
+                    alt="Wildberries"
+                    className="w-5 h-5 mr-2"
+                    width={20}
+                    height={20}
+                    loading="lazy"
+                  />
+                  Wildberries
+                </button>
+              </Link>
             </div>
 
             {/* Переключатель темы */}
@@ -130,18 +187,29 @@ export default function Navbar() {
                 </button>
                 {isSubMenuOpen && (
                   <div className="mt-2 flex flex-col space-y-3">
-                    {/* Кнопки магазинов */}
-                    <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
+                    <Link
+                      href="https://www.ozon.ru/seller/smartdiag-862410/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <button className="w-full flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full transition-all duration-300">
                         OZON
                       </button>
                     </Link>
-                    <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
+                    <Link
+                      href="https://market.yandex.ru/business--smartdiag/50025236"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <button className="w-full flex items-center justify-center bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-full transition-all duration-300">
                         Яндекс Маркет
                       </button>
                     </Link>
-                    <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
+                    <Link
+                      href="https://www.wildberries.ru/seller/1343369"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <button className="w-full flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full transition-all duration-300">
                         Wildberries
                       </button>
