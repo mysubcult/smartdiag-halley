@@ -19,7 +19,7 @@ const products: Product[] = [
   {
     title: "Delphi DS150e",
     description: "Многофункциональный диагностический инструмент для легковых и грузовых автомобилей.",
-    features: ["Delphi 2021.10b, Delphi + Delphi 2020.23", "Инструкции по установке ПО", "Руководство пользователя"],
+    features: ["Delphi 2021.10b, Delphi + Delphi 2020.23", "Инструкции по установке ПО", "Руководство пользователя, "Руководство пользователя"],
     downloadLinks: [
       { link: "https://i.getspace.us/cloud/s/BiaqYzKpxZRTc58", label: "Скачать с сервера 1" },
       { link: "https://nch.pl/s/8MZQfLRjSy9z4Bk", label: "Скачать с сервера 2" }
