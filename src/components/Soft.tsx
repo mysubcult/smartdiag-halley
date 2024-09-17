@@ -255,7 +255,7 @@ export default function Soft() {
                 </p>
               )}
 
-              {/* Описание: изменённая часть */}
+              {/* Описание: уже настроено */}
               <div className="px-6 mt-4 h-[4.5rem] flex items-center">
                 <p className="leading-6 dark:text-neutral-400 line-clamp-3">
                   {description}
@@ -281,18 +281,18 @@ export default function Soft() {
               </div>
 
               {/* В комплекте: пункты равномерно распределяются вертикально */}
-              <ul className="mt-6 px-6 flex-1 border-t border-neutral-300 dark:border-neutral-500">
-                <p className="mt-6 font-semibold dark:text-neutral-300">В комплекте:</p>
-                <div className="flex flex-col justify-between min-h-[6rem]">
+              <ul className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500 h-24 flex flex-col">
+                <p className="mt-4 font-semibold dark:text-neutral-300">В комплекте:</p>
+                <div className="flex flex-col justify-between flex-1 mt-2">
                   {features.slice(0, 3).map((feature, index) => (
-                    <li key={index} className="leading-6 flex">
-                      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
+                    <li key={index} className="leading-6 flex items-center">
+                      <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
                       <span className="ml-3 dark:text-neutral-400">{feature}</span>
                     </li>
                   ))}
                   {features.length > 3 && (
-                    <li className="leading-6 flex">
-                      <CheckIcon className="mt-2 w-3 h-3 text-red-600 shrink-0" />
+                    <li className="leading-6 flex items-center">
+                      <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
                       <span className="ml-3 dark:text-neutral-400">и т.д.</span>
                     </li>
                   )}
@@ -320,7 +320,7 @@ export default function Soft() {
             <h3 className="text-lg font-semibold mb-4 text-center">Выберите ссылку для скачивания</h3>
             <div className="flex flex-col space-y-2">
               {modalLinks.map(({ link, label }, index) => (
-                <Link href={link} key={index} target="_blank">
+                <Link href={link} key={index} target="_blank" passHref>
                   <a className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-neutral-300 text-black shadow-md dark:bg-neutral-600 dark:text-white hover:bg-neutral-400 dark:hover:bg-neutral-500 transition-colors duration-200 ease-in-out transform active:scale-95">
                     {label}
                   </a>
