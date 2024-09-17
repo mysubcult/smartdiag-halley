@@ -159,7 +159,7 @@ export default function Navbar() {
 
       {/* Полноэкранное мобильное меню */}
       {isMenuOpen && (
-        <div className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-start z-40 mt-16 overflow-y-auto">
+        <div className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center z-40 mt-16 overflow-y-auto">
           {/* Контент меню */}
           <div className="w-full flex flex-col items-center justify-center space-y-8 px-4">
             {/* Основные ссылки */}
@@ -168,7 +168,7 @@ export default function Navbar() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="flex items-center text-xl sm:text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500"
+                  className="flex items-center justify-center text-xl sm:text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500"
                   scroll={false}
                   onClick={item.anchor ? handleNavigationClick(item.anchor) : () => setIsMenuOpen(false)}
                 >
@@ -189,7 +189,7 @@ export default function Navbar() {
             <div className="mt-8 w-full flex flex-col items-center space-y-4 px-4">
               <button
                 onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                className="flex items-center text-xl sm:text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500"
+                className="flex items-center justify-center text-xl sm:text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500"
               >
                 🛒 Магазины
                 <ChevronDownIcon className={`h-6 w-6 ml-2 transition-transform ${isSubMenuOpen ? "rotate-180" : "rotate-0"}`} />
@@ -217,15 +217,6 @@ export default function Navbar() {
               )}
             </div>
           </div>
-
-          {/* Кнопка закрытия меню */}
-          <button
-            className="absolute top-4 right-4 p-2 rounded-full text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
-            onClick={() => setIsMenuOpen(false)}
-            aria-label="Close main menu"
-          >
-            <XMarkIcon className="h-8 w-8" />
-          </button>
         </div>
       )}
     </>
