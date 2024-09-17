@@ -86,7 +86,6 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Добавляем отступ между логотипом и пунктом меню */}
             <div className={`${isMobileView ? "hidden" : "flex"} navbar-nav ml-4`}>
               <div className="flex space-x-5 items-center">
                 {navigation.map((item) => (
