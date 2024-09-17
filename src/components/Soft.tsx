@@ -246,7 +246,7 @@ export default function Soft() {
               } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
             >
               {/* Заголовок: максимум 1 строка, выравнивание слева */}
-              <h3 className="px-6 text-lg font-semibold line-clamp-1 leading-5 h-[1.25rem]">
+              <h3 className="px-6 text-lg font-semibold line-clamp-1">
                 {title}
               </h3>
               {mostPopular && (
@@ -255,9 +255,9 @@ export default function Soft() {
                 </p>
               )}
 
-              {/* Описание: уже настроено */}
-              <div className="px-6 mt-4 h-[4.5rem] flex items-center">
-                <p className="leading-6 dark:text-neutral-400 line-clamp-3">
+              {/* Описание: убираем фиксированную высоту */}
+              <div className="px-6 mt-4 flex-1">
+                <p className="leading-6 dark:text-neutral-400">
                   {description}
                 </p>
               </div>
@@ -281,13 +281,13 @@ export default function Soft() {
               </div>
 
               {/* В комплекте: пункты равномерно распределяются вертикально */}
-              <div className="mt-10 px-6 border-t border-neutral-300 dark:border-neutral-500 bg-opacity-50">
+              <div className="mt-4 px-6 border-t border-neutral-300 dark:border-neutral-500">
                 <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
-                <ul className="flex flex-col space-y-3 mt-2">
+                <ul className="flex flex-col space-y-2 mt-2">
                   {features.slice(0, 4).map((feature, index) => (
                     <li key={index} className="flex items-center">
                       <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
-                      <span className="ml-3 dark:text-neutral-400 line-clamp-2">{feature}</span>
+                      <span className="ml-3 dark:text-neutral-400">{feature}</span>
                     </li>
                   ))}
                   {features.length > 4 && (
