@@ -293,8 +293,8 @@ export default function Soft() {
 
                 {/* В комплекте: пункты равномерно распределяются вертикально */}
                 <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
-                  {/* Добавлен отступ сверху и снизу для текста "В комплекте:" */}
-                  <p className="font-semibold dark:text-neutral-300 mt-4 mb-4">В комплекте:</p>
+                  {/* Добавлен увеличенный отступ сверху и снизу для текста "В комплекте:" */}
+                  <p className="font-semibold dark:text-neutral-300 mt-4 mb-6">В комплекте:</p>
                   {/* Используем flex с динамическим выравниванием и изменяемым gap */}
                   <ul
                     className={`flex flex-col ${justifyClass} h-32 mt-2 ${gapClass}`}
