@@ -6,11 +6,11 @@ import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid
 import { useRouter } from "next/router";
 
 const navigation = [
-  { name: "Главная", href: "/", anchor: "#hero" },
-  { name: "Программы", href: "/#soft", anchor: "#soft" },
-  { name: "Статьи", href: "/#blog", anchor: "#blog" },
-  { name: "О нас", href: "/#services", anchor: "#services" },
-  { name: "Обратная связь", href: "/#contact" },
+  { name: "🏠 Главная", href: "/", anchor: "#hero" },
+  { name: "💻 Программы", href: "/#soft", anchor: "#soft" },
+  { name: "📰 Статьи", href: "/#blog", anchor: "#blog" },
+  { name: "👥 О нас", href: "/#services", anchor: "#services" },
+  { name: "📩 Обратная связь", href: "/#contact" },
 ];
 
 export default function Navbar() {
@@ -32,27 +32,24 @@ export default function Navbar() {
   );
 
   return (
-    <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
+    <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between flex-wrap">
-          <div className="flex flex-1 items-center justify-start">
-            <div className="flex flex-shrink-0 items-center">
-              <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
-                <Image
-                  className="block h-12 w-auto"
-                  src="/images/logos/logo.png"
-                  alt="SmartDiag Logo"
-                  width={256}
-                  height={117}
-                  quality={100}
-                  sizes="100vw"
-                  loading="eager"
-                />
-              </Link>
-            </div>
-
+        <div className="relative flex h-16 items-center justify-between">
+          <div className="flex items-center">
+            <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
+              <Image
+                className="block h-12 w-auto"
+                src="/images/logos/logo.png"
+                alt="SmartDiag Logo"
+                width={256}
+                height={117}
+                quality={100}
+                sizes="100vw"
+                loading="eager"
+              />
+            </Link>
             {/* Десктопная версия меню */}
-            <div className="hidden flex-wrap items-center space-x-5 ml-4 lg:flex">
+            <div className="hidden lg:flex space-x-5 ml-10">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
@@ -133,44 +130,60 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* Полноэкранное мобильное меню */}
       {isMenuOpen && (
-        <div className="lg:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
-          <div className="flex flex-col items-center space-y-4">
+        <div className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center z-40 transition-transform duration-300 ease-in-out">
+          <button
+            className="absolute top-5 right-5 p-2 rounded-full text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <XMarkIcon className="h-8 w-8" />
+          </button>
+          <nav className="flex flex-col items-center space-y-8">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="block py-2 text-lg font-medium hover:text-red-500"
+                className="text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500"
                 scroll={false}
-                onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
+                onClick={item.anchor ? handleNavigationClick(item.anchor) : () => setIsMenuOpen(false)}
               >
                 {item.name}
               </Link>
             ))}
-            <button onClick={() => setIsSubMenuOpen(!isSubMenuOpen)} className="flex items-center justify-center">
-              Магазины
-              <ChevronDownIcon className={`h-5 w-5 transition-transform ${isSubMenuOpen ? "rotate-180" : "rotate-0"}`} />
-            </button>
-            {isSubMenuOpen && (
-              <div className="flex flex-col space-y-3 w-full">
-                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
-                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
-                    OZON
-                  </button>
-                </Link>
-                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
-                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
-                    Яндекс Маркет
-                  </button>
-                </Link>
-                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
-                  <button className="w-full flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
-                    Wildberries
-                  </button>
-                </Link>
-              </div>
-            )}
-          </div>
+
+            {/* Раздел магазинов */}
+            <div className="mt-8 w-full flex flex-col items-center space-y-4">
+              <button
+                onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
+                className="flex items-center text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500"
+              >
+                🛒 Магазины
+                <ChevronDownIcon className={`h-6 w-6 ml-2 transition-transform ${isSubMenuOpen ? "rotate-180" : "rotate-0"}`} />
+              </button>
+              {isSubMenuOpen && (
+                <div className="flex flex-col items-center space-y-4 mt-4">
+                  <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
+                    <button className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-6 py-3 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
+                      🟦 OZON
+                    </button>
+                  </Link>
+
+                  <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
+                    <button className="flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-6 py-3 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
+                      🟨 Яндекс Маркет
+                    </button>
+                  </Link>
+
+                  <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
+                    <button className="flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-6 py-3 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
+                      🟪 Wildberries
+                    </button>
+                  </Link>
+                </div>
+              )}
+            </div>
+          </nav>
         </div>
       )}
     </nav>
