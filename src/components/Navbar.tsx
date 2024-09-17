@@ -13,10 +13,6 @@ const navigation = [
   { name: "Обратная связь", href: "/#contact" },
 ];
 
-function classNames(...classes: string[]): string {
-  return classes.filter(Boolean).join(" ");
-}
-
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
@@ -38,7 +34,7 @@ export default function Navbar() {
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between">
+        <div className="relative flex h-16 items-center justify-between flex-wrap">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
               <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
@@ -56,28 +52,28 @@ export default function Navbar() {
             </div>
 
             {/* Десктопная версия меню */}
-            <div className="hidden lg:flex navbar-nav ml-4">
-              <div className="flex space-x-5 items-center">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out"
-                    style={{ textDecoration: "none" }}
-                    scroll={false}
-                    onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
+            <div className="hidden flex-wrap items-center space-x-5 ml-4 lg:flex">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out"
+                  style={{ textDecoration: "none" }}
+                  scroll={false}
+                  onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
+                >
+                  {item.name}
+                </Link>
+              ))}
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <div className="hidden lg:flex">
+          {/* Группа кнопок для магазинов */}
+          <div className="flex items-center space-x-4">
+            {/* Скрываем кнопки на мобильной версии */}
+            <div className="hidden lg:flex space-x-2">
               <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
-                <button className="w-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
+                <button className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
                   <Image
                     src="/images/logos/favicon.ico"
                     alt="OZON"
@@ -91,7 +87,7 @@ export default function Navbar() {
               </Link>
 
               <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
-                <button className="w-full flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
+                <button className="flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
                   <Image
                     src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
                     alt="Яндекс Маркет"
@@ -105,7 +101,7 @@ export default function Navbar() {
               </Link>
 
               <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
-                <button className="w-full flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
+                <button className="flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
                   <Image
                     src="/images/logos/favicon.ico"
                     alt="Wildberries"
