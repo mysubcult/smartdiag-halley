@@ -34,9 +34,10 @@ export default function Navbar() {
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between flex-wrap">
-          <div className="flex flex-1 items-center justify-start">
-            <div className="flex flex-shrink-0 items-center">
+        {/* Используем Grid с фиксированной строкой */}
+        <div className="relative grid grid-cols-[1fr_auto] h-16 items-center justify-between">
+          <div className="flex items-center">
+            <div className="flex-shrink-0">
               <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
                 <Image
                   className="block h-12 w-auto"
@@ -52,13 +53,13 @@ export default function Navbar() {
             </div>
 
             {/* Десктопная версия меню */}
-            <div className="hidden flex-wrap items-center space-x-5 ml-4 lg:flex">
+            <div className="hidden lg:flex space-x-5 ml-4">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
                   className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out"
-                  style={{ textDecoration: "none" }}
+                  style={{ textDecoration: "none", minWidth: "120px" }} // Указываем минимальную ширину
                   scroll={false}
                   onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
                 >
@@ -69,7 +70,7 @@ export default function Navbar() {
           </div>
 
           {/* Группа кнопок для магазинов */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
             {/* Скрываем кнопки на мобильной версии */}
             <div className="hidden lg:flex space-x-2">
               <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
