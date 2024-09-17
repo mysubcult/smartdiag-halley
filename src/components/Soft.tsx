@@ -220,7 +220,7 @@ export default function Soft() {
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
-      <div className="pt-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="pt-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
           В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
@@ -281,11 +281,9 @@ export default function Soft() {
               </div>
 
               {/* В комплекте: пункты равномерно распределяются вертикально */}
-              <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500 flex-1 flex flex-col justify-center">
-                {/* Заголовок "В комплекте:" с отступом сверху */}
-                <p className="font-semibold dark:text-neutral-300 mb-2">В комплекте:</p>
-                {/* Список пунктов */}
-                <ul className="flex flex-col justify-between flex-1">
+              <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
+                <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
+                <ul className="flex flex-col justify-between h-32 mt-2">
                   {features.slice(0, 4).map((feature, index) => (
                     <li key={index} className="flex items-center h-8">
                       <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
