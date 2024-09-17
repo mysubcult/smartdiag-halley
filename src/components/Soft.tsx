@@ -244,6 +244,9 @@ export default function Soft() {
             const justifyClass =
               displayedFeatures.length < 4 ? "justify-center" : "justify-between";
 
+            // Определяем класс gap-y в зависимости от количества пунктов
+            const gapClass = displayedFeatures.length < 4 ? "gap-y-4" : "gap-y-2";
+
             return (
               <div
                 key={title}
@@ -290,11 +293,11 @@ export default function Soft() {
 
                 {/* В комплекте: пункты равномерно распределяются вертикально */}
                 <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
-                  {/* Добавлен отступ сверху для текста "В комплекте:" */}
+                  {/* Добавлен отступ сверху и снизу для текста "В комплекте:" */}
                   <p className="font-semibold dark:text-neutral-300 mt-4 mb-4">В комплекте:</p>
-                  {/* Используем flex с динамическим выравниванием и увеличенным gap */}
+                  {/* Используем flex с динамическим выравниванием и изменяемым gap */}
                   <ul
-                    className={`flex flex-col ${justifyClass} h-32 mt-2 gap-y-4`}
+                    className={`flex flex-col ${justifyClass} h-32 mt-2 ${gapClass}`}
                   >
                     {displayedFeatures.map((feature, index) => (
                       <li key={index} className="flex items-start h-14">
