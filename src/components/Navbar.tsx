@@ -68,8 +68,8 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Группа кнопок для магазинов */}
-          <div className="flex items-center space-x-4">
+          {/* Группа кнопок для магазинов и переключателей */}
+          <div className="flex items-center space-x-2">
             {/* Скрываем кнопки на мобильной версии */}
             <div className="hidden lg:flex space-x-2">
               <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
@@ -115,12 +115,13 @@ export default function Navbar() {
               </Link>
             </div>
 
+            {/* Переключатель темы */}
             <ThemeSwitchButton />
 
             {/* Мобильная версия меню */}
             <div className="lg:hidden">
               <button
-                className="inline-flex items-center justify-center rounded-md text-neutral-900 dark:text-white menu-icon-container hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+                className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
                 <span className="sr-only">Open main menu</span>
