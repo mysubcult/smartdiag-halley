@@ -282,7 +282,9 @@ export default function Soft() {
 
               {/* В комплекте: пункты равномерно распределяются вертикально */}
               <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
-                <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
+                {/* Добавлен отступ сверху для текста "В комплекте:" */}
+                <p className="font-semibold dark:text-neutral-300 mt-2">В комплекте:</p>
+                {/* Используем flex с фиксированной высотой и равномерным распределением */}
                 <ul className="flex flex-col justify-between h-32 mt-2">
                   {features.slice(0, 4).map((feature, index) => (
                     <li key={index} className="flex items-center h-8">
