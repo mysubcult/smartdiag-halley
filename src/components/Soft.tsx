@@ -281,23 +281,23 @@ export default function Soft() {
               </div>
 
               {/* В комплекте: пункты равномерно распределяются вертикально */}
-              <ul className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500 h-24 flex flex-col">
-                <p className="mt-4 font-semibold dark:text-neutral-300">В комплекте:</p>
-                <div className="flex flex-col justify-between flex-1 mt-2">
-                  {features.slice(0, 3).map((feature, index) => (
-                    <li key={index} className="leading-6 flex items-center">
+              <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
+                <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
+                <ul className="flex flex-col justify-between h-32 mt-2">
+                  {features.slice(0, 4).map((feature, index) => (
+                    <li key={index} className="flex items-center h-8">
                       <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
-                      <span className="ml-3 dark:text-neutral-400">{feature}</span>
+                      <span className="ml-3 dark:text-neutral-400 line-clamp-2">{feature}</span>
                     </li>
                   ))}
-                  {features.length > 3 && (
-                    <li className="leading-6 flex items-center">
+                  {features.length > 4 && (
+                    <li className="flex items-center h-8">
                       <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
                       <span className="ml-3 dark:text-neutral-400">и т.д.</span>
                     </li>
                   )}
-                </div>
-              </ul>
+                </ul>
+              </div>
             </div>
           ))}
       </div>
