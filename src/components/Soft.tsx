@@ -243,7 +243,7 @@ export default function Soft() {
             const totalItems = showEllipsis ? displayedFeatures.length + 1 : displayedFeatures.length;
 
             // Определяем класс justify в зависимости от количества элементов
-            const justifyClass = totalItems <= 2 ? "justify-center" : "justify-between";
+            const justifyClass = totalItems <= 2 ? "justify-center" : "space-y-2";
 
             return (
               <div
@@ -255,7 +255,7 @@ export default function Soft() {
                 } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
               >
                 {/* Заголовок: максимум 1 строка, выравнивание слева */}
-                <h3 className="px-6 text-lg font-semibold line-clamp-1 leading-5 h-[1.25rem]">
+                <h3 className="px-6 text-lg font-semibold line-clamp-1 leading-5">
                   {title}
                 </h3>
                 {mostPopular && (
@@ -292,11 +292,11 @@ export default function Soft() {
                 {/* В комплекте: пункты равномерно распределяются вертикально */}
                 <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500 pt-4">
                   <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
-                  <ul className={`flex flex-col ${justifyClass} space-y-2 mt-2`}>
+                  <ul className={`flex flex-col ${justifyClass} mt-2`}>
                     {displayedFeatures.map((feature, index) => (
                       <li key={index} className="flex items-start">
                         <CheckIcon className="w-3 h-3 text-red-600 shrink-0 mt-1" />
-                        <span className="ml-3 dark:text-neutral-400 line-clamp-2">{feature}</span>
+                        <span className="ml-3 dark:text-neutral-400">{feature}</span>
                       </li>
                     ))}
                     {showEllipsis && (
