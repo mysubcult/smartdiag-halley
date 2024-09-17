@@ -281,9 +281,11 @@ export default function Soft() {
               </div>
 
               {/* В комплекте: пункты равномерно распределяются вертикально */}
-              <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
-                <p className="font-semibold dark:text-neutral-300">В комплекте:</p>
-                <ul className="flex flex-col justify-between h-32 mt-2">
+              <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500 h-32 flex flex-col justify-center">
+                {/* Заголовок "В комплекте:" с отступом сверху */}
+                <p className="font-semibold dark:text-neutral-300 mb-2">В комплекте:</p>
+                {/* Список пунктов */}
+                <ul className="flex flex-col justify-between flex-1">
                   {features.slice(0, 4).map((feature, index) => (
                     <li key={index} className="flex items-center h-8">
                       <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
