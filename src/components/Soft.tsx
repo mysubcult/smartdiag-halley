@@ -292,13 +292,13 @@ export default function Soft() {
                 <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
                   {/* Добавлен отступ сверху для текста "В комплекте:" */}
                   <p className="font-semibold dark:text-neutral-300 mt-4">В комплекте:</p>
-                  {/* Используем flex с динамическим выравниванием */}
+                  {/* Используем flex с динамическим выравниванием и увеличенным gap */}
                   <ul
-                    className={`flex flex-col ${justifyClass} h-32 mt-2`}
+                    className={`flex flex-col ${justifyClass} h-32 mt-2 gap-y-2`}
                   >
                     {displayedFeatures.map((feature, index) => (
-                      <li key={index} className="flex items-center h-10">
-                        <CheckIcon className="w-3 h-3 text-red-600 shrink-0" />
+                      <li key={index} className="flex items-start h-12">
+                        <CheckIcon className="w-4 h-4 text-red-600 shrink-0 mt-1" />
                         <span className="ml-3 dark:text-neutral-400 line-clamp-2">
                           {feature}
                         </span>
