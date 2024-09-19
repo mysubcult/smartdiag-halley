@@ -47,8 +47,8 @@ export function Hero() {
         <div className="flex items-center">
           <Image
             src="/images/hero/hero.svg"
-            alt="Illustration representing car diagnostics"
-            title="Это всплывающее описание для изображения"
+            alt="Иллюстрация, представляющая диагностику автомобиля"
+            title="Диагностическое оборудование для вашего автомобиля"
             width={512.5}
             height={331}
             quality={75}
