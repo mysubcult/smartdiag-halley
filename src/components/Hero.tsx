@@ -48,6 +48,7 @@ export function Hero() {
           <Image
             src="/images/hero/hero.svg"
             alt="Illustration representing car diagnostics"
+            title="Это всплывающее описание для изображения"
             width={512.5}
             height={331}
             quality={75}
