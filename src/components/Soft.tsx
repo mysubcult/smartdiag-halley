@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "next/link"; 
 import { useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 
@@ -207,10 +207,10 @@ export default function Soft() {
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
-      <div className="pt-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="pt-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;.
+          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
         </p>
       </div>
 
@@ -220,11 +220,11 @@ export default function Soft() {
             <button
               key={type}
               onClick={() => setSelectedType(type)}
-              className={`rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
+              className={`${
                 selectedType === type
                   ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
                   : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-              }`}
+              } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
             >
               {type.charAt(0).toUpperCase() + type.slice(1)}
             </button>
@@ -253,19 +253,22 @@ export default function Soft() {
                     Топ продаж
                   </p>
                 )}
-                <p className="px-6 mt-4 leading-6 dark:text-neutral-400 line-clamp-3">{description}</p>
-                
+
+                <div className="px-6 mt-4 flex-grow flex items-center">
+                  <p className="leading-6 dark:text-neutral-400 line-clamp-3">{description}</p>
+                </div>
+
                 <div className="flex mt-4 mx-6">
                   <button
                     onClick={() => handleDownloadClick(downloadLinks)}
-                    className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 dark:hover:bg-green-500 transition-colors duration-200 ease-in-out w-full"
+                    className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 dark:hover:bg-green-500 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
                   >
                     Скачать
                   </button>
                   {docs && docsLinks.length > 0 && (
                     <button
                       onClick={() => handleDownloadClick(docsLinks)}
-                      className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out w-full"
+                      className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
                     >
                       Инструкция
                     </button>
@@ -290,7 +293,10 @@ export default function Soft() {
 
       {modalLinks && (
         <dialog open className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center" onClick={closeModal}>
-          <div className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative transform transition-transform duration-300 ease-out scale-100"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               onClick={closeModal}
               className="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition-all duration-300 transform hover:scale-110 active:scale-90"
@@ -300,7 +306,7 @@ export default function Soft() {
             <h3 className="text-lg font-semibold mb-4 text-center">Выберите ссылку для скачивания</h3>
             <div className="flex flex-col space-y-2">
               {modalLinks.map(({ link, label }) => (
-                <Link href={link} key={link} target="_blank" rel="noopener noreferrer" className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-neutral-300 text-black shadow-md dark:bg-neutral-600 dark:text-white hover:bg-neutral-400 dark:hover:bg-neutral-500 transition-colors duration-200 ease-in-out">
+                <Link href={link} key={link} target="_blank" rel="noopener noreferrer" className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-neutral-300 text-black shadow-md dark:bg-neutral-600 dark:text-white hover:bg-neutral-400 dark:hover:bg-neutral-500 transition-colors duration-200 ease-in-out transform active:scale-95">
                   {label}
                 </Link>
               ))}
