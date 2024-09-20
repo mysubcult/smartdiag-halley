@@ -1,6 +1,7 @@
-import Link from "next/link"; 
+import Link from "next/link";
 import { useState } from "react";
-import { CheckIcon } from "@heroicons/react/24/solid";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { motion, AnimatePresence } from "framer-motion";
 
 type ProductType = "мультимарочные" | "марочные" | "адаптеры elm";
 
@@ -207,113 +208,180 @@ export default function Soft() {
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
-      <div className="pt-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
-        <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
-        <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+      {/* Заголовок */}
+      <div className="pt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.h2
+          className="text-4xl font-extrabold text-center text-gray-900 dark:text-white"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Программы для оборудования 💻
+        </motion.h2>
+        <motion.p
+          className="pt-6 text-lg max-w-2xl text-center m-auto text-gray-600 dark:text-neutral-400"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+        >
           В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
-        </p>
+        </motion.p>
       </div>
 
-      <div className="max-w-max mx-auto px-6">
-        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
+      {/* Фильтры */}
+      <div className="max-w-max mx-auto px-6 mt-8">
+        <div className="flex justify-center space-x-4">
           {DeviceTypes.map((type) => (
-            <button
+            <motion.button
               key={type}
               onClick={() => setSelectedType(type)}
-              className={`${
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
                 selectedType === type
-                  ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                  : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-              } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+                  ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg"
+                  : "bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               {type.charAt(0).toUpperCase() + type.slice(1)}
-            </button>
+            </motion.button>
           ))}
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
+      {/* Карточки продуктов */}
+      <motion.div
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: {},
+          visible: {
+            transition: {
+              staggerChildren: 0.1,
+            },
+          },
+        }}
+      >
         {products
           .filter(({ type }) => type === selectedType)
           .map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => {
             const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
 
             return (
-              <div
+              <motion.div
                 key={title}
-                className={`rounded-lg py-8 relative flex flex-col ${
-                  mostPopular
-                    ? "border-red-300 border-2 border-solid dark:border-red-600"
-                    : "border-neutral-300 border dark:border-neutral-600"
-                } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
+                className={`relative rounded-2xl p-6 bg-white dark:bg-neutral-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col`}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                whileHover={{ scale: 1.02 }}
               >
-                <h3 className="px-6 text-lg font-semibold line-clamp-1">{title}</h3>
+                {/* Топ продаж */}
                 {mostPopular && (
-                  <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-red-500 to-yellow-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
                     Топ продаж
-                  </p>
+                  </div>
                 )}
 
-                <div className="px-6 mt-4 flex-grow flex items-center">
-                  <p className="leading-6 dark:text-neutral-400 line-clamp-3">{description}</p>
-                </div>
+                {/* Заголовок */}
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2 line-clamp-1">
+                  {title}
+                </h3>
 
-                <div className="flex mt-4 mx-6">
-                  <button
+                {/* Описание */}
+                <p className="text-gray-600 dark:text-neutral-400 flex-grow line-clamp-3 mb-4">
+                  {description}
+                </p>
+
+                {/* Кнопки */}
+                <div className="flex space-x-2 mb-4">
+                  <motion.button
                     onClick={() => handleDownloadClick(downloadLinks)}
-                    className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 dark:hover:bg-green-500 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
+                    className="flex-1 px-4 py-2 bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-lg shadow hover:from-green-500 hover:to-blue-600 transition-colors duration-300"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     Скачать
-                  </button>
+                  </motion.button>
                   {docs && docsLinks.length > 0 && (
-                    <button
+                    <motion.button
                       onClick={() => handleDownloadClick(docsLinks)}
-                      className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
+                      className="flex-1 px-4 py-2 bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300 rounded-lg shadow hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-colors duration-300"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                     >
                       Инструкция
-                    </button>
+                    </motion.button>
                   )}
                 </div>
 
-                <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
-                  <p className="font-semibold dark:text-neutral-300 mt-4 mb-6">В комплекте:</p>
-                  <ul className="flex flex-col gap-y-2 overflow-y-auto h-32">
+                {/* В комплекте */}
+                <div className="mt-auto">
+                  <h4 className="text-sm font-semibold text-gray-700 dark:text-neutral-300 mb-2">В комплекте:</h4>
+                  <ul className="space-y-1 h-24 overflow-y-auto">
                     {displayedFeatures.map((feature, index) => (
-                      <li key={index} className="flex items-start h-14">
-                        <CheckIcon className="w-4 h-4 text-red-600 shrink-0 mt-1" />
-                        <span className="ml-3 dark:text-neutral-400 line-clamp-2">{feature}</span>
+                      <li key={index} className="flex items-start">
+                        <CheckIcon className="w-5 h-5 text-green-500 mt-1 shrink-0" />
+                        <span className="ml-2 text-gray-600 dark:text-neutral-400 line-clamp-2">{feature}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-      </div>
+      </motion.div>
 
-      {modalLinks && (
-        <dialog open className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center" onClick={closeModal}>
-          <div
-            className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative transform transition-transform duration-300 ease-out scale-100"
-            onClick={(e) => e.stopPropagation()}
+      {/* Модальное окно для ссылок на скачивание */}
+      <AnimatePresence>
+        {modalLinks && (
+          <motion.dialog
+            open
+            className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeModal}
           >
-            <button
-              onClick={closeModal}
-              className="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition-all duration-300 transform hover:scale-110 active:scale-90"
+            <motion.div
+              className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
             >
-              ✕
-            </button>
-            <h3 className="text-lg font-semibold mb-4 text-center">Выберите ссылку для скачивания</h3>
-            <div className="flex flex-col space-y-2">
-              {modalLinks.map(({ link, label }) => (
-                <Link href={link} key={link} target="_blank" rel="noopener noreferrer" className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-neutral-300 text-black shadow-md dark:bg-neutral-600 dark:text-white hover:bg-neutral-400 dark:hover:bg-neutral-500 transition-colors duration-200 ease-in-out transform active:scale-95">
-                  {label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </dialog>
-      )}
+              {/* Закрыть */}
+              <button
+                onClick={closeModal}
+                className="absolute top-3 right-3 text-gray-500 dark:text-neutral-400 hover:text-red-500 transition-colors duration-300"
+              >
+                <XMarkIcon className="w-6 h-6" />
+              </button>
+              {/* Заголовок */}
+              <h3 className="text-lg font-semibold text-center text-gray-800 dark:text-white mb-4">
+                Выберите ссылку для скачивания
+              </h3>
+              {/* Ссылки */}
+              <div className="flex flex-col space-y-3">
+                {modalLinks.map(({ link, label }) => (
+                  <Link
+                    href={link}
+                    key={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-gradient-to-r from-blue-400 to-purple-500 text-white rounded-lg shadow hover:from-blue-500 hover:to-purple-600 transition-colors duration-300 text-center"
+                  >
+                    {label}
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          </motion.dialog>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
