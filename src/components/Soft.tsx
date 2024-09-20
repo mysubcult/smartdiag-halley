@@ -312,7 +312,7 @@ export default function Soft() {
           return (
             <motion.div
               key={title}
-              className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col h-full border border-gray-500 dark:border-gray-700`}
+              className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-500 dark:border-gray-700`}
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 },
@@ -326,55 +326,59 @@ export default function Soft() {
                 </div>
               )}
 
-              {/* Основной контент */}
-              <div className="flex flex-col flex-1">
+              {/* Основной контейнер для компонентов */}
+              <div className="flex flex-col h-full">
                 {/* Заголовок */}
-                <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">
-                  {title}
-                </h3>
+                <div className="mb-2">
+                  <h3 className="text-xl font-semibold text-black dark:text-white line-clamp-1">
+                    {title}
+                  </h3>
+                </div>
 
                 {/* Описание */}
-                <p className="text-gray-700 dark:text-gray-300 line-clamp-3 mb-4 min-h-[4.5rem]">
-                  {description}
-                </p>
-              </div>
+                <div className="mb-4 flex-1">
+                  <p className="text-gray-700 dark:text-gray-300 line-clamp-3 min-h-[4.5rem]">
+                    {description}
+                  </p>
+                </div>
 
-              {/* Кнопки */}
-              <div className="flex space-x-2 mb-4">
-                <motion.button
-                  onClick={() => handleDownloadClick(downloadLinks)}
-                  className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Скачать
-                </motion.button>
-                {docs && docsLinks.length > 0 && (
+                {/* Кнопки */}
+                <div className="flex space-x-2 mb-4">
                   <motion.button
-                    onClick={() => handleDownloadClick(docsLinks)}
-                    className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
+                    onClick={() => handleDownloadClick(downloadLinks)}
+                    className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    Инструкция
+                    Скачать
                   </motion.button>
-                )}
-              </div>
+                  {docs && docsLinks.length > 0 && (
+                    <motion.button
+                      onClick={() => handleDownloadClick(docsLinks)}
+                      className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Инструкция
+                    </motion.button>
+                  )}
+                </div>
 
-              {/* Горизонтальная линия */}
-              <hr className="my-4 border-t border-gray-300 dark:border-gray-700" />
+                {/* Горизонтальная линия */}
+                <hr className="my-4 border-t border-gray-300 dark:border-gray-700" />
 
-              {/* В комплекте */}
-              <div>
-                <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">В комплекте:</h4>
-                <ul className="space-y-1">
-                  {displayedFeatures.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
-                      <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                {/* В комплекте */}
+                <div>
+                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">В комплекте:</h4>
+                  <ul className="space-y-1">
+                    {displayedFeatures.map((feature, index) => (
+                      <li key={index} className="flex items-start">
+                        <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
+                        <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </motion.div>
           );
