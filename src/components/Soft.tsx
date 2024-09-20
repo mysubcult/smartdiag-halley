@@ -312,7 +312,7 @@ export default function Soft() {
           return (
             <motion.div
               key={title}
-              className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-500 dark:border-gray-700`}
+              className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col h-full border border-gray-500 dark:border-gray-700`}
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 },
@@ -326,15 +326,18 @@ export default function Soft() {
                 </div>
               )}
 
-              {/* Заголовок */}
-              <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">
-                {title}
-              </h3>
+              {/* Основной контент */}
+              <div className="flex flex-col flex-1">
+                {/* Заголовок */}
+                <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">
+                  {title}
+                </h3>
 
-              {/* Описание */}
-              <p className="text-gray-700 dark:text-gray-300 line-clamp-3 mb-4">
-                {description}
-              </p>
+                {/* Описание */}
+                <p className="text-gray-700 dark:text-gray-300 line-clamp-3 mb-4 min-h-[4.5rem]">
+                  {description}
+                </p>
+              </div>
 
               {/* Кнопки */}
               <div className="flex space-x-2 mb-4">
@@ -362,7 +365,7 @@ export default function Soft() {
               <hr className="my-4 border-t border-gray-300 dark:border-gray-700" />
 
               {/* В комплекте */}
-              <div className="mt-auto">
+              <div>
                 <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">В комплекте:</h4>
                 <ul className="space-y-1">
                   {displayedFeatures.map((feature, index) => (
