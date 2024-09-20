@@ -253,9 +253,9 @@ export default function Soft() {
 
       {/* Фильтры и строка поиска */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow">
           {/* Панель фильтров */}
-          <div className="flex space-x-2 mb-2 sm:mb-0">
+          <div className="flex space-x-2 mb-4 sm:mb-0">
             {DeviceTypes.map((type) => (
               <motion.button
                 key={type}
@@ -311,7 +311,7 @@ export default function Soft() {
           return (
             <motion.div
               key={title}
-              className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700`}
+              className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col h-full border border-gray-300 dark:border-gray-700`}
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 },
@@ -357,10 +357,13 @@ export default function Soft() {
                 )}
               </div>
 
+              {/* Горизонтальная линия после кнопок */}
+              <hr className="my-4 border-gray-300 dark:border-gray-700" />
+
               {/* В комплекте */}
               <div className="mt-auto">
                 <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">В комплекте:</h4>
-                <ul className="space-y-1 h-24 overflow-y-auto">
+                <ul className={`space-y-1 ${features.length <= 4 ? "flex flex-col items-center" : ""}`}>
                   {displayedFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start">
                       <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
