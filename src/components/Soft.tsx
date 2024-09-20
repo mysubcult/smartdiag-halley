@@ -31,7 +31,7 @@ const products: Product[] = [
       { link: "https://i.getspace.us/cloud/s/7BwyBJf2YHxEkaC", label: "Инструкция по установке Delphi 2020.23" },
       { link: "https://i.getspace.us/cloud/s/qJRfJdgjsqkPxme", label: "Инструкция по установке Delphi 2021.10b" }
     ],
-    type: "мультимарочные"
+    type: "Мультимарочные"
   },
   {
     title: "Autocom CDP+",
@@ -47,7 +47,7 @@ const products: Product[] = [
       { link: "https://i.getspace.us/cloud/s/xdr4QZqwsR6k8rr", label: "Инструкция по установке Autocom 2020.23" },
       { link: "https://i.getspace.us/cloud/s/bbRzaksyH6LkSg4", label: "Инструкция по установке Autocom 2021.11" },
     ],
-    type: "мультимарочные"
+    type: "Мультимарочные"
   },
   {
     title: "Wurth WoW Snooper+",
@@ -60,7 +60,7 @@ const products: Product[] = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "мультимарочные"
+    type: "Мультимарочные"
   },
   {
     title: "MUCAR BT200/Thinkcar Mini/Thinkdiag",
@@ -73,7 +73,7 @@ const products: Product[] = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "мультимарочные"
+    type: "Мультимарочные"
   },
   {
     title: "Galletto 1260",
@@ -85,7 +85,7 @@ const products: Product[] = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "мультимарочные"
+    type: "Мультимарочные"
   },
   {
     title: "VCDS + Вася",
@@ -112,7 +112,7 @@ const products: Product[] = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "марочные"
+    type: "Марочные"
   },
   {
     title: "K-Dcan INPA",
@@ -124,7 +124,7 @@ const products: Product[] = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "марочные"
+    type: "Марочные"
   },
   {
     title: "ELS 27",
@@ -136,7 +136,7 @@ const products: Product[] = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "марочные"
+    type: "Марочные"
   },
   {
     title: "Mini-VCI",
@@ -148,7 +148,7 @@ const products: Product[] = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "марочные"
+    type: "Марочные"
   },
   {
     title: "Lexia 3/PP2000",
@@ -160,7 +160,7 @@ const products: Product[] = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "марочные"
+    type: "Марочные"
   },
   {
     title: "ELM 327 Mini",
@@ -173,7 +173,7 @@ const products: Product[] = [
     mostPopular: true,
     docs: false,
     docsLinks: [],
-    type: "адаптеры elm"
+    type: "Адаптеры elm"
   },
   {
     title: "Kingbolen ELM",
@@ -186,7 +186,7 @@ const products: Product[] = [
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "адаптеры elm"
+    type: "Адаптеры elm"
   }
 ];
 
