@@ -13,7 +13,16 @@ const categories = [
   { name: "Ошибки", value: "Ошибки" },
 ];
 
-const blogPosts = [
+interface BlogPost {
+  title: string;
+  image: string;
+  excerpt: string;
+  link: string;
+  category: string;
+  keywords: string[];
+}
+
+const blogPosts: BlogPost[] = [
   {
     title: "Как справиться с ошибкой при открытии архива",
     image: "/images/blog/post1.jpg",
@@ -110,7 +119,7 @@ export default function Blog() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showPopover]);
 
-  const renderPagination = () => {
+  const renderPagination = useMemo(() => {
     const pagesToShow: (string | number)[] = [];
     pagesToShow.push(1);
 
@@ -145,20 +154,23 @@ export default function Blog() {
       <button
         key={index}
         onClick={(event) => (typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event))}
-        className={`px-4 py-2 rounded-md ${
+        className={`${
           page === currentPage
             ? "bg-red-600 text-white"
-            : "bg-neutral-200 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 hover:bg-red-500 hover:text-white transition-colors"
+            : "bg-neutral-200 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 hover:bg-red-500 hover:text-white"
+        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
+          typeof page !== "number" ? "cursor-pointer" : ""
         }`}
         aria-label={typeof page === "number" ? `Перейти на страницу ${page}` : "Показать другие страницы"}
       >
         {typeof page === "number" ? page : "..."}
       </button>
     ));
-  };
+  }, [currentPage, totalPages, handlePageChange]);
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="blog">
+      {/* Заголовок */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <h2 className="text-4xl font-bold text-center text-neutral-900 dark:text-neutral-100">Статьи 💻 (в разработке)</h2>
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
@@ -166,7 +178,7 @@ export default function Blog() {
         </p>
       </div>
 
-      {/* Навигационная Панель с Поиском */}
+      {/* Панель навигации с категориями и поиском */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div className="flex flex-col sm:flex-row items-center justify-between bg-neutral-200 dark:bg-neutral-800 rounded-lg p-4">
           {/* Категории */}
@@ -174,15 +186,13 @@ export default function Blog() {
             {categories.map((category) => (
               <button
                 key={category.value}
-                onClick={() => {
-                  handleCategoryClick(category.value);
-                  setCurrentPage(1);
-                }}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                  selectedCategory === category.value
+                onClick={() => handleCategoryClick(category.value)}
+                className={`${
+                  category.value === selectedCategory
                     ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                    : "bg-neutral-300 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-400 hover:bg-red-500 hover:text-white"
-                }`}
+                    : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+                } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+                aria-label={`Выбрать категорию ${category.name}`}
               >
                 {category.name}
               </button>
@@ -195,17 +205,14 @@ export default function Blog() {
               type="text"
               placeholder="Поиск..."
               value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-                setCurrentPage(1);
-              }}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full sm:w-64 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 focus:border-red-500 focus:ring-red-500"
             />
           </div>
         </div>
       </div>
 
-      {/* Карточки Статей */}
+      {/* Список статей */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
         {paginatedPosts.length > 0 ? (
           paginatedPosts.map(({ title, image, excerpt, link }) => (
@@ -213,6 +220,7 @@ export default function Blog() {
               key={title}
               className="rounded-lg overflow-hidden flex flex-col bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300 h-full"
             >
+              {/* Изображение с ссылкой */}
               <Link href={link}>
                 <div className="relative h-48">
                   <Image
@@ -227,9 +235,13 @@ export default function Blog() {
                   />
                 </div>
               </Link>
+
+              {/* Содержание статьи */}
               <div className="p-4 flex flex-col flex-grow">
                 <div className="h-16 grid items-center justify-items-start">
-                  <h3 className="text-lg font-semibold line-clamp-2 dark:text-neutral-100">{title}</h3>
+                  <h3 className="text-lg font-semibold line-clamp-2 dark:text-neutral-100 hover:underline">
+                    <Link href={link}>{title}</Link>
+                  </h3>
                 </div>
                 <div className="h-24 grid items-center justify-items-start">
                   <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3">{excerpt}</p>
@@ -256,12 +268,12 @@ export default function Blog() {
       {totalPages > 1 && (
         <div className="max-w-max mx-auto px-6 pb-4">
           <div className="flex space-x-2 justify-center">
-            {renderPagination()}
+            {renderPagination}
           </div>
         </div>
       )}
 
-      {/* Появление поповера для пагинации */}
+      {/* Поповер для пагинации */}
       {showPopover && popoverPosition && (
         <div
           ref={popoverRef}
@@ -273,11 +285,11 @@ export default function Blog() {
               <button
                 key={page}
                 onClick={() => handlePageChange(page)}
-                className={`px-3 py-2 rounded-md ${
+                className={`${
                   page === currentPage
                     ? "bg-red-600 text-white"
-                    : "bg-neutral-200 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 hover:bg-red-500 hover:text-white transition-colors"
-                }`}
+                    : "bg-neutral-200 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 hover:bg-red-500 hover:text-white"
+                } rounded-md py-2 px-3 transition-colors duration-300 ease-in-out`}
                 aria-label={`Перейти на страницу ${page}`}
               >
                 {page}
