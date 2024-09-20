@@ -245,9 +245,7 @@ export default function Soft() {
             return (
               <div
                 key={title}
-                className={`relative rounded-2xl bg-white dark:bg-neutral-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col p-6 ${
-                  mostPopular ? "border-2 border-red-500" : "border border-gray-200 dark:border-neutral-700"
-                }`}
+                className={`relative rounded-2xl bg-white dark:bg-neutral-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col p-6`}
               >
                 {mostPopular && (
                   <span className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
@@ -255,8 +253,12 @@ export default function Soft() {
                   </span>
                 )}
 
-                <h3 className="mt-4 text-xl font-bold text-gray-800 dark:text-white line-clamp-1">{title}</h3>
-                <p className="mt-2 text-gray-600 dark:text-neutral-400 flex-grow line-clamp-3">{description}</p>
+                <h3 className="mt-4 text-xl font-bold text-gray-800 dark:text-white line-clamp-2">
+                  {title}
+                </h3>
+                <p className="mt-2 text-gray-600 dark:text-neutral-400 flex-grow line-clamp-3">
+                  {description}
+                </p>
 
                 <div className="mt-4 flex space-x-2">
                   <button
@@ -279,7 +281,7 @@ export default function Soft() {
                   <h4 className="text-sm font-semibold text-gray-700 dark:text-neutral-300 mb-2">В комплекте:</h4>
                   <ul className="space-y-1 max-h-24 overflow-y-auto pr-2">
                     {displayedFeatures.map((feature, index) => (
-                      <li key={index} className="flex items-center text-gray-600 dark:text-neutral-400 text-sm">
+                      <li key={index} className="flex items-center text-gray-600 dark:text-neutral-400 text-sm line-clamp-2">
                         <CheckIcon className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
                         {feature}
                       </li>
@@ -306,7 +308,9 @@ export default function Soft() {
             >
               &times;
             </button>
-            <h3 className="text-lg font-semibold text-center text-gray-800 dark:text-white mb-4">Выберите ссылку для скачивания</h3>
+            <h3 className="text-lg font-semibold text-center text-gray-800 dark:text-white mb-4">
+              Выберите ссылку для скачивания
+            </h3>
             <div className="space-y-3">
               {modalLinks.map(({ link, label }) => (
                 <Link
