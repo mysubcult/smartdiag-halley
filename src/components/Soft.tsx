@@ -3,7 +3,7 @@ import { useState } from "react";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { motion, AnimatePresence } from "framer-motion";
 
-type ProductType = "Все" | "Мультимарочные" | "Марочные" | "Адаптеры Elm";
+type ProductType = "Все" | "Мультимарочные" | "Марочные" | "Адаптеры elm";
 
 interface Product {
   title: string;
@@ -190,11 +190,7 @@ const products: Product[] = [
   }
 ];
 
-const DeviceTypes: ProductType[] = ["Все", "Мультимарочные", "Марочные", "Адаптеры Elm"];
-
-// Функция для капитализации всех слов
-const capitalizeWords = (str: string) =>
-  str.replace(/\b\w/g, (char) => char.toUpperCase());
+const DeviceTypes: ProductType[] = ["Все", "Мультимарочные", "Марочные", "Адаптеры elm"];
 
 export default function Soft() {
   const [selectedType, setSelectedType] = useState<ProductType>("Все");
@@ -203,7 +199,7 @@ export default function Soft() {
 
   // Пагинация
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const productsPerPage = 8; // Количество продуктов на странице
+  const productsPerPage = 8; // 2 строки по 4 карточки
 
   const handleDownloadClick = (links: { link: string; label: string }[]) => {
     if (links.length === 1) {
@@ -257,7 +253,7 @@ export default function Soft() {
 
       {/* Фильтры и строка поиска */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow">
           {/* Панель фильтров */}
           <div className="flex space-x-2 mb-2 sm:mb-0">
             {DeviceTypes.map((type) => (
@@ -275,7 +271,7 @@ export default function Soft() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {capitalizeWords(type)}
+                {type}
               </motion.button>
             ))}
           </div>
