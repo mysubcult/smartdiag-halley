@@ -1,24 +1,18 @@
-// pages/soft.tsx
 import Link from "next/link";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { motion, AnimatePresence } from "framer-motion";
 
 type ProductType = "Все" | "Мультимарочные" | "Марочные" | "Адаптеры elm";
 
-interface DownloadLink {
-  link: string;
-  label: string;
-}
-
 interface Product {
   title: string;
   description: string;
   features: string[];
-  downloadLinks: DownloadLink[];
+  downloadLinks: { link: string; label: string }[];
   mostPopular: boolean;
   docs: boolean;
-  docsLinks: DownloadLink[];
+  docsLinks: { link: string; label: string }[];
   type: ProductType;
 }
 
@@ -196,22 +190,18 @@ const products: Product[] = [
   }
 ];
 
-const deviceTypes: ProductType[] = [
-  "Все",
-  "Мультимарочные",
-  "Марочные",
-  "Адаптеры elm",
-];
+const DeviceTypes: ProductType[] = ["Все", "Мультимарочные", "Марочные", "Адаптеры elm"];
 
-const Soft: React.FC = () => {
+export default function Soft() {
   const [selectedType, setSelectedType] = useState<ProductType>("Все");
-  const [modalLinks, setModalLinks] = useState<DownloadLink[] | null>(null);
+  const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const productsPerPage = 8;
 
-  // Обработчик клика по кнопке скачивания
-  const handleDownloadClick = (links: DownloadLink[]) => {
+  // Пагинация
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const productsPerPage = 8; // 2 строки по 4 карточки
+
+  const handleDownloadClick = (links: { link: string; label: string }[]) => {
     if (links.length === 1) {
       window.open(links[0].link, "_blank", "noopener noreferrer");
     } else {
@@ -219,36 +209,25 @@ const Soft: React.FC = () => {
     }
   };
 
-  // Закрытие модального окна
   const closeModal = () => setModalLinks(null);
 
   // Фильтрация продуктов по типу и поисковому запросу
-  const filteredProducts = useMemo(
-    () =>
-      products.filter(
-        ({ type, title }) =>
-          (selectedType === "Все" || type === selectedType) &&
-          title.toLowerCase().includes(searchQuery.toLowerCase())
-      ),
-    [selectedType, searchQuery]
+  const filteredProducts = products.filter(
+    ({ type, title }) =>
+      (selectedType === "Все" || type === selectedType) &&
+      title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Пагинация
+  // Определение продуктов для текущей страницы
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
-  const currentProducts = useMemo(
-    () =>
-      filteredProducts.slice(
-        (currentPage - 1) * productsPerPage,
-        currentPage * productsPerPage
-      ),
-    [filteredProducts, currentPage, productsPerPage]
-  );
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  // Обработчики пагинации
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
   return (
     <div className="bg-white dark:bg-black" id="soft">
@@ -268,26 +247,21 @@ const Soft: React.FC = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          В этом разделе вы можете скачать программное обеспечение для своего
-          устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе
-          устройства вы найдёте в упаковке. После этого найдите карточку с
-          вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по
-          установке программного обеспечения находится на кнопке
-          &quot;Инструкция&quot;.
+          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
         </motion.p>
       </div>
 
       {/* Фильтры и строка поиска */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow">
           {/* Панель фильтров */}
-          <div className="flex flex-wrap space-x-2 mb-4 sm:mb-0">
-            {deviceTypes.map((type) => (
+          <div className="flex space-x-2 mb-2 sm:mb-0">
+            {DeviceTypes.map((type) => (
               <motion.button
                 key={type}
                 onClick={() => {
                   setSelectedType(type);
-                  setCurrentPage(1);
+                  setCurrentPage(1); // Сброс страницы при изменении фильтра
                 }}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
                   selectedType === type
@@ -296,7 +270,6 @@ const Soft: React.FC = () => {
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                aria-pressed={selectedType === type}
               >
                 {type}
               </motion.button>
@@ -310,10 +283,9 @@ const Soft: React.FC = () => {
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
-                setCurrentPage(1);
+                setCurrentPage(1); // Сброс страницы при изменении поиска
               }}
               className="w-full sm:w-64 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
-              aria-label="Поиск продуктов"
             />
           </div>
         </div>
@@ -333,142 +305,114 @@ const Soft: React.FC = () => {
           },
         }}
       >
-        {currentProducts.map(
-          ({
-            title,
-            mostPopular,
-            description,
-            features,
-            downloadLinks,
-            docs,
-            docsLinks,
-          }) => {
-            const displayedFeatures =
-              features.length > 4
-                ? [...features.slice(0, 3), "и т.д."]
-                : features;
+        {currentProducts.map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => {
+          const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
 
-            return (
-              <motion.div
-                key={title}
-                className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700`}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                whileHover={{ scale: 1.02 }}
-              >
-                {/* Топ продаж */}
-                {mostPopular && (
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
-                    Топ продаж
-                  </div>
-                )}
+          return (
+            <motion.div
+              key={title}
+              className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700`}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              whileHover={{ scale: 1.02 }}
+            >
+              {/* Топ продаж */}
+              {mostPopular && (
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+                  Топ продаж
+                </div>
+              )}
 
-                {/* Заголовок */}
-                <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">
-                  {title}
-                </h3>
+              {/* Заголовок */}
+              <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">
+                {title}
+              </h3>
 
-                {/* Описание */}
-                <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">
-                  {description}
-                </p>
+              {/* Описание */}
+              <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">
+                {description}
+              </p>
 
-                {/* Кнопки */}
-                <div className="flex space-x-2 mb-4">
+              {/* Кнопки */}
+              <div className="flex space-x-2 mb-4">
+                <motion.button
+                  onClick={() => handleDownloadClick(downloadLinks)}
+                  className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Скачать
+                </motion.button>
+                {docs && docsLinks.length > 0 && (
                   <motion.button
-                    onClick={() => handleDownloadClick(downloadLinks)}
-                    className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-red-500"
+                    onClick={() => handleDownloadClick(docsLinks)}
+                    className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    Скачать
+                    Инструкция
                   </motion.button>
-                  {docs && docsLinks.length > 0 && (
-                    <motion.button
-                      onClick={() => handleDownloadClick(docsLinks)}
-                      className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-red-500"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      Инструкция
-                    </motion.button>
-                  )}
-                </div>
+                )}
+              </div>
 
-                {/* В комплекте */}
-                <div className="mt-auto">
-                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                    В комплекте:
-                  </h4>
-                  <ul className="space-y-1 max-h-24 overflow-y-auto">
-                    {displayedFeatures.map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
-                        <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">
-                          {feature}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            );
-          }
-        )}
+              {/* В комплекте */}
+              <div className="mt-auto">
+                <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">В комплекте:</h4>
+                <ul className="space-y-1 h-24 overflow-y-auto">
+                  {displayedFeatures.map((feature, index) => (
+                    <li key={index} className="flex items-start">
+                      <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
+                      <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          );
+        })}
       </motion.div>
 
       {/* Пагинация */}
       {totalPages > 1 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex justify-center items-center space-x-2">
-          <motion.button
-            onClick={() => handlePageChange(currentPage - 1)}
+          <button
+            onClick={prevPage}
             disabled={currentPage === 1}
             className={`px-3 py-1 rounded-md text-sm font-medium ${
               currentPage === 1
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                 : "bg-red-500 text-white hover:bg-red-600"
             } transition-colors duration-300`}
-            whileHover={currentPage !== 1 ? { scale: 1.05 } : {}}
-            whileTap={currentPage !== 1 ? { scale: 0.95 } : {}}
-            aria-label="Предыдущая страница"
           >
             Предыдущая
-          </motion.button>
+          </button>
           {/* Номера страниц */}
-          {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-            (number) => (
-              <motion.button
-                key={number}
-                onClick={() => handlePageChange(number)}
-                className={`px-3 py-1 rounded-md text-sm font-medium ${
-                  currentPage === number
-                    ? "bg-red-600 text-white"
-                    : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-                } transition-colors duration-300`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                aria-current={currentPage === number ? "page" : undefined}
-              >
-                {number}
-              </motion.button>
-            )
-          )}
-          <motion.button
-            onClick={() => handlePageChange(currentPage + 1)}
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map((number) => (
+            <button
+              key={number}
+              onClick={() => paginate(number)}
+              className={`px-3 py-1 rounded-md text-sm font-medium ${
+                currentPage === number
+                  ? "bg-red-600 text-white"
+                  : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+              } transition-colors duration-300`}
+            >
+              {number}
+            </button>
+          ))}
+          <button
+            onClick={nextPage}
             disabled={currentPage === totalPages}
             className={`px-3 py-1 rounded-md text-sm font-medium ${
               currentPage === totalPages
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                 : "bg-red-500 text-white hover:bg-red-600"
             } transition-colors duration-300`}
-            whileHover={currentPage !== totalPages ? { scale: 1.05 } : {}}
-            whileTap={currentPage !== totalPages ? { scale: 0.95 } : {}}
-            aria-label="Следующая страница"
           >
             Следующая
-          </motion.button>
+          </button>
         </div>
       )}
 
@@ -481,9 +425,6 @@ const Soft: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeModal}
-            aria-modal="true"
-            role="dialog"
-            aria-labelledby="download-modal-title"
           >
             <motion.div
               className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative"
@@ -497,15 +438,11 @@ const Soft: React.FC = () => {
               <button
                 onClick={closeModal}
                 className="absolute top-3 right-3 text-gray-500 dark:text-gray-400 hover:text-red-500 transition-colors duration-300"
-                aria-label="Закрыть модальное окно"
               >
                 <XMarkIcon className="w-6 h-6" />
               </button>
               {/* Заголовок */}
-              <h3
-                id="download-modal-title"
-                className="text-lg font-semibold text-black dark:text-white text-center mb-4"
-              >
+              <h3 className="text-lg font-semibold text-black dark:text-white text-center mb-4">
                 Выберите ссылку для скачивания
               </h3>
               {/* Ссылки */}
@@ -528,6 +465,4 @@ const Soft: React.FC = () => {
       </AnimatePresence>
     </div>
   );
-};
-
-export default Soft;
+}
