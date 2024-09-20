@@ -207,11 +207,11 @@ export default function Soft() {
   const closeModal = () => setModalLinks(null);
 
   return (
-    <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
+    <div className="bg-white dark:bg-black" id="soft">
       {/* Заголовок */}
       <div className="pt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
-          className="text-4xl font-extrabold text-center text-gray-900 dark:text-white"
+          className="text-4xl font-extrabold text-center text-black dark:text-white"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -219,7 +219,7 @@ export default function Soft() {
           Программы для оборудования 💻
         </motion.h2>
         <motion.p
-          className="pt-6 text-lg max-w-2xl text-center m-auto text-gray-600 dark:text-neutral-400"
+          className="pt-6 text-lg max-w-2xl text-center m-auto text-gray-700 dark:text-gray-300"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
@@ -237,8 +237,8 @@ export default function Soft() {
               onClick={() => setSelectedType(type)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
                 selectedType === type
-                  ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg"
-                  : "bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600"
+                  ? "bg-gradient-to-r from-red-500 to-red-700 text-white shadow-lg"
+                  : "bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700"
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -271,7 +271,7 @@ export default function Soft() {
             return (
               <motion.div
                 key={title}
-                className={`relative rounded-2xl p-6 bg-white dark:bg-neutral-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col`}
+                className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col`}
                 variants={{
                   hidden: { opacity: 0, y: 20 },
                   visible: { opacity: 1, y: 0 },
@@ -280,18 +280,18 @@ export default function Soft() {
               >
                 {/* Топ продаж */}
                 {mostPopular && (
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-red-500 to-yellow-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
                     Топ продаж
                   </div>
                 )}
 
                 {/* Заголовок */}
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2 line-clamp-1">
+                <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">
                   {title}
                 </h3>
 
                 {/* Описание */}
-                <p className="text-gray-600 dark:text-neutral-400 flex-grow line-clamp-3 mb-4">
+                <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">
                   {description}
                 </p>
 
@@ -299,7 +299,7 @@ export default function Soft() {
                 <div className="flex space-x-2 mb-4">
                   <motion.button
                     onClick={() => handleDownloadClick(downloadLinks)}
-                    className="flex-1 px-4 py-2 bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-lg shadow hover:from-green-500 hover:to-blue-600 transition-colors duration-300"
+                    className="flex-1 px-4 py-2 bg-gradient-to-r from-red-500 to-red-700 text-white rounded-lg shadow hover:from-red-600 hover:to-red-800 transition-colors duration-300"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -308,7 +308,7 @@ export default function Soft() {
                   {docs && docsLinks.length > 0 && (
                     <motion.button
                       onClick={() => handleDownloadClick(docsLinks)}
-                      className="flex-1 px-4 py-2 bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300 rounded-lg shadow hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-colors duration-300"
+                      className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -319,12 +319,12 @@ export default function Soft() {
 
                 {/* В комплекте */}
                 <div className="mt-auto">
-                  <h4 className="text-sm font-semibold text-gray-700 dark:text-neutral-300 mb-2">В комплекте:</h4>
+                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">В комплекте:</h4>
                   <ul className="space-y-1 h-24 overflow-y-auto">
                     {displayedFeatures.map((feature, index) => (
                       <li key={index} className="flex items-start">
-                        <CheckIcon className="w-5 h-5 text-green-500 mt-1 shrink-0" />
-                        <span className="ml-2 text-gray-600 dark:text-neutral-400 line-clamp-2">{feature}</span>
+                        <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
+                        <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -346,7 +346,7 @@ export default function Soft() {
             onClick={closeModal}
           >
             <motion.div
-              className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative"
+              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
@@ -356,12 +356,12 @@ export default function Soft() {
               {/* Закрыть */}
               <button
                 onClick={closeModal}
-                className="absolute top-3 right-3 text-gray-500 dark:text-neutral-400 hover:text-red-500 transition-colors duration-300"
+                className="absolute top-3 right-3 text-gray-500 dark:text-gray-400 hover:text-red-500 transition-colors duration-300"
               >
                 <XMarkIcon className="w-6 h-6" />
               </button>
               {/* Заголовок */}
-              <h3 className="text-lg font-semibold text-center text-gray-800 dark:text-white mb-4">
+              <h3 className="text-lg font-semibold text-center text-black dark:text-white mb-4">
                 Выберите ссылку для скачивания
               </h3>
               {/* Ссылки */}
@@ -372,7 +372,7 @@ export default function Soft() {
                     key={link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 bg-gradient-to-r from-blue-400 to-purple-500 text-white rounded-lg shadow hover:from-blue-500 hover:to-purple-600 transition-colors duration-300 text-center"
+                    className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300 text-center"
                   >
                     {label}
                   </Link>
