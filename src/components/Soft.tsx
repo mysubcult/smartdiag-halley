@@ -3,7 +3,7 @@ import { useState } from "react";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { motion, AnimatePresence } from "framer-motion";
 
-type ProductType = "мультимарочные" | "марочные" | "адаптеры elm";
+type ProductType = "Все" | "мультимарочные" | "марочные" | "адаптеры elm";
 
 interface Product {
   title: string;
@@ -17,7 +17,7 @@ interface Product {
 }
 
 const products: Product[] = [
- {
+  {
     title: "Delphi DS150e",
     description: "Многофункциональный диагностический инструмент для легковых и грузовых автомобилей.",
     features: ["Delphi 2021.10b, Delphi + Delphi 2020.23", "Инструкции по установке ПО", "Руководство пользователя", "Руководство пользователя"],
@@ -190,10 +190,10 @@ const products: Product[] = [
   }
 ];
 
-const DeviceTypes: ProductType[] = ["мультимарочные", "марочные", "адаптеры elm"];
+const DeviceTypes: ProductType[] = ["Все", "мультимарочные", "марочные", "адаптеры elm"];
 
 export default function Soft() {
-  const [selectedType, setSelectedType] = useState<ProductType>("мультимарочные");
+  const [selectedType, setSelectedType] = useState<ProductType>("Все");
   const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -210,7 +210,7 @@ export default function Soft() {
   // Фильтрация продуктов по типу и поисковому запросу
   const filteredProducts = products.filter(
     ({ type, title }) =>
-      type === selectedType &&
+      (selectedType === "Все" || type === selectedType) &&
       title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -237,7 +237,7 @@ export default function Soft() {
       </div>
 
       {/* Фильтры и строка поиска */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow">
           {/* Панель фильтров */}
           <div className="flex space-x-2 mb-4 sm:mb-0">
@@ -253,7 +253,7 @@ export default function Soft() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {type.charAt(0).toUpperCase() + type.slice(1)}
+                {type}
               </motion.button>
             ))}
           </div>
