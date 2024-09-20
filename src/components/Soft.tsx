@@ -197,6 +197,10 @@ export default function Soft() {
   const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
+  // Пагинация
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const productsPerPage = 12; // Количество продуктов на странице
+
   const handleDownloadClick = (links: { link: string; label: string }[]) => {
     if (links.length === 1) {
       window.open(links[0].link, "_blank", "noopener noreferrer");
@@ -213,6 +217,17 @@ export default function Soft() {
       (selectedType === "Все" || type === selectedType) &&
       title.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // Определение продуктов для текущей страницы
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+  // Обработчики пагинации
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
   return (
     <div className="bg-white dark:bg-black" id="soft">
@@ -244,7 +259,10 @@ export default function Soft() {
             {DeviceTypes.map((type) => (
               <motion.button
                 key={type}
-                onClick={() => setSelectedType(type)}
+                onClick={() => {
+                  setSelectedType(type);
+                  setCurrentPage(1); // Сброс страницы при изменении фильтра
+                }}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
                   selectedType === type
                     ? "bg-red-500 text-white shadow-lg"
@@ -263,7 +281,10 @@ export default function Soft() {
               type="text"
               placeholder="Поиск..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setCurrentPage(1); // Сброс страницы при изменении поиска
+              }}
               className="w-full sm:w-64 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
             />
           </div>
@@ -284,7 +305,7 @@ export default function Soft() {
           },
         }}
       >
-        {filteredProducts.map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => {
+        {currentProducts.map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => {
           const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
 
           return (
@@ -352,6 +373,48 @@ export default function Soft() {
           );
         })}
       </motion.div>
+
+      {/* Пагинация */}
+      {totalPages > 1 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex justify-center items-center space-x-2">
+          <button
+            onClick={prevPage}
+            disabled={currentPage === 1}
+            className={`px-3 py-1 rounded-md text-sm font-medium ${
+              currentPage === 1
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-red-500 text-white hover:bg-red-600"
+            } transition-colors duration-300`}
+          >
+            Предыдущая
+          </button>
+          {/* Номера страниц */}
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map((number) => (
+            <button
+              key={number}
+              onClick={() => paginate(number)}
+              className={`px-3 py-1 rounded-md text-sm font-medium ${
+                currentPage === number
+                  ? "bg-red-600 text-white"
+                  : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+              } transition-colors duration-300`}
+            >
+              {number}
+            </button>
+          ))}
+          <button
+            onClick={nextPage}
+            disabled={currentPage === totalPages}
+            className={`px-3 py-1 rounded-md text-sm font-medium ${
+              currentPage === totalPages
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-red-500 text-white hover:bg-red-600"
+            } transition-colors duration-300`}
+          >
+            Следующая
+          </button>
+        </div>
+      )}
 
       {/* Модальное окно для ссылок на скачивание */}
       <AnimatePresence>
