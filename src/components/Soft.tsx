@@ -1,10 +1,12 @@
 // components/Soft.tsx
 
 import Link from "next/link";
-import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
+import NavigationPanel from "./NavigationPanel";
 
 type ProductType = "мультимарочные" | "марочные" | "адаптеры elm";
+type DeviceTypeFilter = "Все" | ProductType;
 
 interface Product {
   title: string;
@@ -15,7 +17,6 @@ interface Product {
   docs: boolean;
   docsLinks: { link: string; label: string }[];
   type: ProductType;
-  link?: string; // Добавлено для ссылок на страницы продуктов
 }
 
 const products: Product[] = [
@@ -192,28 +193,27 @@ const products: Product[] = [
   }
 ];
 
-const DeviceTypes: ProductType[] = ["Все", "мультимарочные", "марочные", "адаптеры elm"];
+const DeviceTypes: DeviceTypeFilter[] = ["Все", "мультимарочные", "марочные", "адаптеры elm"];
 
 export default function Soft() {
-  const [selectedType, setSelectedType] = useState<ProductType>("Все");
+  const [selectedType, setSelectedType] = useState<DeviceTypeFilter>("Все");
   const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [showPopover, setShowPopover] = useState<boolean>(false);
-  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
-  const popoverRef = useRef<HTMLDivElement>(null);
 
   const productsPerPage = 6;
 
   const filteredProducts = useMemo(() => {
-    return products.filter(product => {
-      const matchesType = selectedType === "Все" || product.type === selectedType;
-      const matchesSearch =
-        product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.features.some(feature => feature.toLowerCase().includes(searchTerm.toLowerCase()));
-      return matchesType && matchesSearch;
-    });
+    let filtered = selectedType === "Все" ? products : products.filter(product => product.type === selectedType);
+    if (searchTerm.trim() !== "") {
+      filtered = filtered.filter(
+        product =>
+          product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.features.some(feature => feature.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
+    return filtered;
   }, [selectedType, searchTerm]);
 
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
@@ -233,207 +233,110 @@ export default function Soft() {
 
   const closeModal = () => setModalLinks(null);
 
-  const handleCategoryClick = useCallback((type: ProductType) => {
-    setSelectedType(type);
-    setCurrentPage(1);
-  }, []);
-
-  const handlePageChange = useCallback((page: number) => {
-    if (page > 0 && page <= totalPages) {
-      setCurrentPage(page);
+  const renderPagination = () => {
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(
+        <button
+          key={i}
+          onClick={() => setCurrentPage(i)}
+          className={`px-4 py-2 rounded-md ${
+            i === currentPage
+              ? "bg-red-600 text-white"
+              : "bg-neutral-200 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 hover:bg-red-500 hover:text-white transition-colors"
+          }`}
+        >
+          {i}
+        </button>
+      );
     }
-    setShowPopover(false);
-  }, [totalPages]);
-
-  const handleEllipsisClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setPopoverPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
-    setShowPopover(true);
+    return pages;
   };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
-        setShowPopover(false);
-      }
-    };
-
-    if (showPopover) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showPopover]);
-
-  const renderPagination = useMemo(() => {
-    const pagesToShow: (string | number)[] = [];
-    pagesToShow.push(1);
-
-    if (totalPages > 5) {
-      if (currentPage <= 2) {
-        pagesToShow.push(2, 3, "...");
-      } else if (currentPage >= totalPages - 1) {
-        pagesToShow.push("...", totalPages - 2, totalPages - 1);
-      } else {
-        if (currentPage > 3) {
-          pagesToShow.push("...");
-        }
-        pagesToShow.push(currentPage - 1, currentPage);
-        if (currentPage + 1 < totalPages) {
-          pagesToShow.push(currentPage + 1);
-        }
-        if (currentPage < totalPages - 2) {
-          pagesToShow.push("...");
-        }
-      }
-    } else {
-      for (let i = 2; i <= totalPages; i++) {
-        pagesToShow.push(i);
-      }
-    }
-
-    if (totalPages > 1 && !pagesToShow.includes(totalPages)) {
-      pagesToShow.push(totalPages);
-    }
-
-    return pagesToShow.map((page, index) => (
-      <button
-        key={index}
-        onClick={(event) => (typeof page === "number" ? handlePageChange(page) : handleEllipsisClick(event))}
-        className={`${
-          page === currentPage
-            ? "bg-red-600 text-white"
-            : "bg-neutral-200 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 hover:bg-red-500 hover:text-white"
-        } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out ${
-          typeof page !== "number" ? "cursor-pointer" : ""
-        }`}
-        aria-label={typeof page === "number" ? `Перейти на страницу ${page}` : "Показать другие страницы"}
-      >
-        {typeof page === "number" ? page : "..."}
-      </button>
-    ));
-  }, [currentPage, totalPages, handlePageChange]);
 
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
-      {/* Заголовок */}
       <div className="pt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl font-bold text-center text-neutral-900 dark:text-neutral-100">Программы для оборудования 💻</h2>
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
-          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot;, &quot;Мультимарочный&quot; или &quot;Адаптер ELM&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
+          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
         </p>
       </div>
 
-      {/* Панель навигации с категориями и поиском */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between bg-neutral-200 dark:bg-neutral-800 rounded-lg p-4">
-          {/* Категории */}
-          <div className="flex flex-wrap gap-2">
-            {DeviceTypes.map((type) => (
-              <button
-                key={type}
-                onClick={() => handleCategoryClick(type)}
-                className={`${
-                  type === selectedType
-                    ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
-                    : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
-                } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
-                aria-label={`Выбрать категорию ${type}`}
-              >
-                {type.charAt(0).toUpperCase() + type.slice(1)}
-              </button>
-            ))}
-          </div>
-
-          {/* Поиск */}
-          <div className="mt-4 sm:mt-0">
-            <input
-              type="text"
-              placeholder="Поиск..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full sm:w-64 p-2 border rounded-md text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-700 focus:border-red-500 focus:ring-red-500"
-            />
-          </div>
-        </div>
+      <div className="max-w-max mx-auto px-6 mt-8">
+        <NavigationPanel
+          categories={DeviceTypes}
+          selectedCategory={selectedType}
+          onCategorySelect={(category) => {
+            setSelectedType(category);
+            setCurrentPage(1);
+          }}
+          showSearch={true}
+          searchTerm={searchTerm}
+          onSearchChange={(term) => {
+            setSearchTerm(term);
+            setCurrentPage(1);
+          }}
+        />
       </div>
 
-      {/* Список продуктов */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
-        {paginatedProducts.length > 0 ? (
-          paginatedProducts.map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks, link }) => {
-            const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
+        {paginatedProducts.map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => {
+          const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
 
-            return (
-              <div
-                key={title}
-                className={`rounded-lg py-8 relative flex flex-col bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
-              >
-                {/* Заголовок с ссылкой на страницу продукта */}
-                <Link href={link || "#"}>
-                  <h3 className="px-6 text-lg font-semibold line-clamp-1 hover:underline">{title}</h3>
-                </Link>
+          return (
+            <div
+              key={title}
+              className={`rounded-lg py-8 relative flex flex-col bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
+            >
+              <h3 className="px-6 text-lg font-semibold line-clamp-1">{title}</h3>
+              {mostPopular && (
+                <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
+                  Топ продаж
+                </p>
+              )}
 
-                {/* Маркер "Топ продаж" */}
-                {mostPopular && (
-                  <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
-                    Топ продаж
-                  </p>
-                )}
-
-                {/* Описание */}
-                <div className="px-6 mt-4 flex-grow flex items-center">
-                  <p className="leading-6 dark:text-neutral-400 line-clamp-3">{description}</p>
-                </div>
-
-                {/* Кнопки "Скачать" и "Инструкция" */}
-                <div className="flex mt-4 mx-6 space-x-2">
-                  <button
-                    onClick={() => handleDownloadClick(downloadLinks)}
-                    className="flex-1 px-4 py-2 font-medium text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-red-500 dark:hover:bg-red-500 transition-colors duration-200 ease-in-out transform active:scale-95"
-                  >
-                    Скачать
-                  </button>
-                  {docs && docsLinks.length > 0 && (
-                    <button
-                      onClick={() => handleDownloadClick(docsLinks)}
-                      className="flex-1 px-4 py-2 font-medium text-center rounded-lg border border-neutral-300 dark:border-neutral-600 dark:bg-transparent dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-200 ease-in-out transform active:scale-95"
-                    >
-                      Инструкция
-                    </button>
-                  )}
-                </div>
-
-                {/* Список функций */}
-                <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
-                  <p className="font-semibold dark:text-neutral-300 mt-4 mb-2">В комплекте:</p>
-                  <ul className="flex flex-col gap-y-2 overflow-y-auto h-24">
-                    {displayedFeatures.map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <CheckIcon className="w-4 h-4 text-red-600 shrink-0 mt-1" />
-                        <span className="ml-3 dark:text-neutral-400 line-clamp-2">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="px-6 mt-4 flex-grow flex items-center">
+                <p className="leading-6 dark:text-neutral-400 line-clamp-3">{description}</p>
               </div>
-            );
-          })
-        ) : (
-          <div className="text-center text-neutral-900 dark:text-neutral-400 col-span-full">
-            <h3 className="text-xl font-semibold mb-4">Ничего не найдено</h3>
-            <p>К сожалению, по вашему запросу не удалось найти продукты. Попробуйте изменить категорию или поисковый запрос.</p>
-          </div>
-        )}
+
+              <div className="flex mt-4 mx-6 space-x-2">
+                <button
+                  onClick={() => handleDownloadClick(downloadLinks)}
+                  className="flex-1 px-4 py-2 font-medium text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-red-500 dark:hover:bg-red-500 transition-colors duration-200 ease-in-out transform active:scale-95"
+                >
+                  Скачать
+                </button>
+                {docs && docsLinks.length > 0 && (
+                  <button
+                    onClick={() => handleDownloadClick(docsLinks)}
+                    className="flex-1 px-4 py-2 font-medium text-center rounded-lg border border-neutral-300 dark:border-neutral-600 dark:bg-transparent dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-200 ease-in-out transform active:scale-95"
+                  >
+                    Инструкция
+                  </button>
+                )}
+              </div>
+
+              <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
+                <p className="font-semibold dark:text-neutral-300 mt-4 mb-2">В комплекте:</p>
+                <ul className="flex flex-col gap-y-2 overflow-y-auto h-24">
+                  {displayedFeatures.map((feature, index) => (
+                    <li key={index} className="flex items-start">
+                      <CheckIcon className="w-4 h-4 text-red-600 shrink-0 mt-1" />
+                      <span className="ml-3 dark:text-neutral-400 line-clamp-2">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {/* Пагинация */}
       {totalPages > 1 && (
         <div className="max-w-max mx-auto px-6 pb-4">
           <div className="flex space-x-2 justify-center">
-            {renderPagination}
+            {renderPagination()}
           </div>
         </div>
       )}
