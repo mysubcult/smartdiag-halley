@@ -100,7 +100,7 @@ const products: Product[] = [
     docsLinks: [
       { link: "https://i.getspace.us/cloud/s/bmi7a7zdHbXHMnB", label: "Инструкция 1" },
     ],
-    type: "марочные"
+    type: "Марочные"
   },
   {
     title: "BMW E-NET (E-Sys)",
