@@ -308,7 +308,6 @@ export default function Soft() {
         {currentProducts.map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => {
           const hasMoreFeatures = features.length > 3;
           const displayedFeatures = hasMoreFeatures ? [...features.slice(0, 3), "и т.д."] : features;
-          const fontSizeClass = hasMoreFeatures ? "text-sm" : "text-base";
 
           return (
             <motion.div
@@ -333,7 +332,7 @@ export default function Soft() {
               </h3>
 
               {/* Описание */}
-              <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">
+              <p className="text-gray-700 dark:text-gray-300 line-clamp-3 mb-4">
                 {description}
               </p>
 
@@ -365,11 +364,11 @@ export default function Soft() {
               {/* В комплекте */}
               <div className="mt-auto">
                 <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">В комплекте:</h4>
-                <ul className={`space-y-1 ${fontSizeClass}`}>
+                <ul className="space-y-1">
                   {displayedFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start">
                       <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
-                      <span className="ml-2 text-gray-700 dark:text-gray-400">{feature}</span>
+                      <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">{feature}</span>
                     </li>
                   ))}
                 </ul>
