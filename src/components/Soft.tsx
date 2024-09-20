@@ -306,12 +306,14 @@ export default function Soft() {
         }}
       >
         {currentProducts.map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => {
-          const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
+          const hasMoreFeatures = features.length > 3;
+          const displayedFeatures = hasMoreFeatures ? [...features.slice(0, 3), "и т.д."] : features;
+          const fontSizeClass = hasMoreFeatures ? "text-sm" : "text-base";
 
           return (
             <motion.div
               key={title}
-              className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700`}
+              className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-500 dark:border-gray-700`}
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 },
@@ -357,14 +359,17 @@ export default function Soft() {
                 )}
               </div>
 
+              {/* Горизонтальная линия */}
+              <hr className="my-4 border-t border-gray-300 dark:border-gray-700" />
+
               {/* В комплекте */}
               <div className="mt-auto">
                 <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">В комплекте:</h4>
-                <ul className="space-y-1 h-24 overflow-y-auto">
+                <ul className={`space-y-1 ${fontSizeClass}`}>
                   {displayedFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start">
                       <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
-                      <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">{feature}</span>
+                      <span className="ml-2 text-gray-700 dark:text-gray-400">{feature}</span>
                     </li>
                   ))}
                 </ul>
