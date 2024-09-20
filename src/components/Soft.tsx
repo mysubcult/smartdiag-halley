@@ -245,48 +245,50 @@ export default function Soft() {
             return (
               <div
                 key={title}
-                className={`relative rounded-2xl bg-white dark:bg-neutral-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col p-6`}
+                className={`relative rounded-2xl bg-white dark:bg-neutral-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col`}
               >
-                {mostPopular && (
-                  <span className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
-                    Топ продаж
-                  </span>
-                )}
-
-                <h3 className="mt-4 text-xl font-bold text-gray-800 dark:text-white line-clamp-2">
-                  {title}
-                </h3>
-                <p className="mt-2 text-gray-600 dark:text-neutral-400 flex-grow line-clamp-3">
-                  {description}
-                </p>
-
-                <div className="mt-4 flex space-x-2">
-                  <button
-                    onClick={() => handleDownloadClick(downloadLinks)}
-                    className="flex-1 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-300"
-                  >
-                    Скачать
-                  </button>
-                  {docs && docsLinks.length > 0 && (
-                    <button
-                      onClick={() => handleDownloadClick(docsLinks)}
-                      className="flex-1 px-4 py-2 border border-red-600 text-red-600 rounded-md hover:bg-red-600 hover:text-white transition-colors duration-300"
-                    >
-                      Инструкция
-                    </button>
+                <div className="flex flex-col h-full p-6">
+                  {mostPopular && (
+                    <span className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
+                      Топ продаж
+                    </span>
                   )}
-                </div>
 
-                <div className="mt-6 pt-4 border-t border-gray-200 dark:border-neutral-700">
-                  <h4 className="text-sm font-semibold text-gray-700 dark:text-neutral-300 mb-2">В комплекте:</h4>
-                  <ul className="space-y-1 max-h-24 overflow-y-auto pr-2">
-                    {displayedFeatures.map((feature, index) => (
-                      <li key={index} className="flex items-center text-gray-600 dark:text-neutral-400 text-sm line-clamp-2">
-                        <CheckIcon className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+                  <h3 className="mt-4 text-xl font-bold text-gray-800 dark:text-white line-clamp-2">
+                    {title}
+                  </h3>
+                  <p className="mt-2 text-gray-600 dark:text-neutral-400 flex-grow line-clamp-3">
+                    {description}
+                  </p>
+
+                  <div className="mt-4 flex space-x-2">
+                    <button
+                      onClick={() => handleDownloadClick(downloadLinks)}
+                      className="flex-1 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-300"
+                    >
+                      Скачать
+                    </button>
+                    {docs && docsLinks.length > 0 && (
+                      <button
+                        onClick={() => handleDownloadClick(docsLinks)}
+                        className="flex-1 px-4 py-2 border border-red-600 text-red-600 rounded-md hover:bg-red-600 hover:text-white transition-colors duration-300"
+                      >
+                        Инструкция
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="mt-6 pt-4 border-t border-gray-200 dark:border-neutral-700">
+                    <h4 className="text-sm font-semibold text-gray-700 dark:text-neutral-300 mb-2">В комплекте:</h4>
+                    <ul className="space-y-1 max-h-24 overflow-y-auto pr-2">
+                      {displayedFeatures.map((feature, index) => (
+                        <li key={index} className="flex items-start text-gray-600 dark:text-neutral-400 text-sm line-clamp-2">
+                          <CheckIcon className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             );
