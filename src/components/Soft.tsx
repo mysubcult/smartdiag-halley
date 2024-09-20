@@ -17,7 +17,7 @@ interface Product {
 }
 
 const products: Product[] = [
-  {
+ {
     title: "Delphi DS150e",
     description: "Многофункциональный диагностический инструмент для легковых и грузовых автомобилей.",
     features: ["Delphi 2021.10b, Delphi + Delphi 2020.23", "Инструкции по установке ПО", "Руководство пользователя", "Руководство пользователя"],
@@ -195,6 +195,7 @@ const DeviceTypes: ProductType[] = ["мультимарочные", "мароч�
 export default function Soft() {
   const [selectedType, setSelectedType] = useState<ProductType>("мультимарочные");
   const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const handleDownloadClick = (links: { link: string; label: string }[]) => {
     if (links.length === 1) {
@@ -205,6 +206,13 @@ export default function Soft() {
   };
 
   const closeModal = () => setModalLinks(null);
+
+  // Фильтрация продуктов по типу и поисковому запросу
+  const filteredProducts = products.filter(
+    ({ type, title }) =>
+      type === selectedType &&
+      title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="bg-white dark:bg-black" id="soft">
@@ -228,24 +236,37 @@ export default function Soft() {
         </motion.p>
       </div>
 
-      {/* Фильтры */}
-      <div className="max-w-max mx-auto px-6 mt-8">
-        <div className="flex justify-center space-x-4">
-          {DeviceTypes.map((type) => (
-            <motion.button
-              key={type}
-              onClick={() => setSelectedType(type)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
-                selectedType === type
-                  ? "bg-gradient-to-r from-red-500 to-red-700 text-white shadow-lg"
-                  : "bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700"
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {type.charAt(0).toUpperCase() + type.slice(1)}
-            </motion.button>
-          ))}
+      {/* Фильтры и строка поиска */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow">
+          {/* Панель фильтров */}
+          <div className="flex space-x-2 mb-4 sm:mb-0">
+            {DeviceTypes.map((type) => (
+              <motion.button
+                key={type}
+                onClick={() => setSelectedType(type)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                  selectedType === type
+                    ? "bg-red-500 text-white shadow-lg"
+                    : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {type.charAt(0).toUpperCase() + type.slice(1)}
+              </motion.button>
+            ))}
+          </div>
+          {/* Строка поиска */}
+          <div className="w-full sm:w-auto">
+            <input
+              type="text"
+              placeholder="Поиск..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full sm:w-64 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
+            />
+          </div>
         </div>
       </div>
 
@@ -263,82 +284,79 @@ export default function Soft() {
           },
         }}
       >
-        {products
-          .filter(({ type }) => type === selectedType)
-          .map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => {
-            const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
+        {filteredProducts.map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => {
+          const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
 
-            return (
-              <motion.div
-                key={title}
-                className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col`}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                whileHover={{ scale: 1.02 }}
-              >
-                {/* Топ продаж */}
-                {mostPopular && (
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
-                    Топ продаж
-                  </div>
-                )}
+          return (
+            <motion.div
+              key={title}
+              className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700`}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              whileHover={{ scale: 1.02 }}
+            >
+              {/* Топ продаж */}
+              {mostPopular && (
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+                  Топ продаж
+                </div>
+              )}
 
-                {/* Заголовок */}
-                <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">
-                  {title}
-                </h3>
+              {/* Заголовок */}
+              <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">
+                {title}
+              </h3>
 
-                {/* Описание */}
-                <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">
-                  {description}
-                </p>
+              {/* Описание */}
+              <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">
+                {description}
+              </p>
 
-                {/* Кнопки */}
-                <div className="flex space-x-2 mb-4">
+              {/* Кнопки */}
+              <div className="flex space-x-2 mb-4">
+                <motion.button
+                  onClick={() => handleDownloadClick(downloadLinks)}
+                  className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Скачать
+                </motion.button>
+                {docs && docsLinks.length > 0 && (
                   <motion.button
-                    onClick={() => handleDownloadClick(downloadLinks)}
-                    className="flex-1 px-4 py-2 bg-gradient-to-r from-red-500 to-red-700 text-white rounded-lg shadow hover:from-red-600 hover:to-red-800 transition-colors duration-300"
+                    onClick={() => handleDownloadClick(docsLinks)}
+                    className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    Скачать
+                    Инструкция
                   </motion.button>
-                  {docs && docsLinks.length > 0 && (
-                    <motion.button
-                      onClick={() => handleDownloadClick(docsLinks)}
-                      className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      Инструкция
-                    </motion.button>
-                  )}
-                </div>
+                )}
+              </div>
 
-                {/* В комплекте */}
-                <div className="mt-auto">
-                  <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">В комплекте:</h4>
-                  <ul className="space-y-1 h-24 overflow-y-auto">
-                    {displayedFeatures.map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
-                        <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            );
-          })}
+              {/* В комплекте */}
+              <div className="mt-auto">
+                <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">В комплекте:</h4>
+                <ul className="space-y-1 h-24 overflow-y-auto">
+                  {displayedFeatures.map((feature, index) => (
+                    <li key={index} className="flex items-start">
+                      <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
+                      <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          );
+        })}
       </motion.div>
 
       {/* Модальное окно для ссылок на скачивание */}
       <AnimatePresence>
         {modalLinks && (
-          <motion.dialog
-            open
+          <motion.div
             className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -361,7 +379,7 @@ export default function Soft() {
                 <XMarkIcon className="w-6 h-6" />
               </button>
               {/* Заголовок */}
-              <h3 className="text-lg font-semibold text-center text-black dark:text-white mb-4">
+              <h3 className="text-lg font-semibold text-black dark:text-white text-center mb-4">
                 Выберите ссылку для скачивания
               </h3>
               {/* Ссылки */}
@@ -379,7 +397,7 @@ export default function Soft() {
                 ))}
               </div>
             </motion.div>
-          </motion.dialog>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
