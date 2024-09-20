@@ -254,13 +254,18 @@ export default function Soft() {
                     </span>
                   )}
 
-                  <h3 className="mt-4 text-xl font-bold text-gray-800 dark:text-white line-clamp-2">
-                    {title}
-                  </h3>
+                  {/* Контейнер заголовка с минимальной высотой для двух строк */}
+                  <div className="mt-4 min-h-12">
+                    <h3 className="text-xl font-bold text-gray-800 dark:text-white line-clamp-2">
+                      {title}
+                    </h3>
+                  </div>
+
                   <p className="mt-2 text-gray-600 dark:text-neutral-400 line-clamp-3">
                     {description}
                   </p>
 
+                  {/* Используем flex для распределения пространства между описанием и кнопками */}
                   <div className="mt-4 flex space-x-2">
                     <button
                       onClick={() => handleDownloadClick(downloadLinks)}
