@@ -1,12 +1,8 @@
-// components/Soft.tsx
-
-import Link from "next/link";
-import { useState, useMemo } from "react";
+import Link from "next/link"; 
+import { useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
-import NavigationPanel from "./NavigationPanel";
 
 type ProductType = "мультимарочные" | "марочные" | "адаптеры elm";
-type DeviceTypeFilter = "Все" | ProductType;
 
 interface Product {
   title: string;
@@ -193,35 +189,11 @@ const products: Product[] = [
   }
 ];
 
-const DeviceTypes: DeviceTypeFilter[] = ["Все", "мультимарочные", "марочные", "адаптеры elm"];
+const DeviceTypes: ProductType[] = ["мультимарочные", "марочные", "адаптеры elm"];
 
 export default function Soft() {
-  const [selectedType, setSelectedType] = useState<DeviceTypeFilter>("Все");
+  const [selectedType, setSelectedType] = useState<ProductType>("мультимарочные");
   const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [searchTerm, setSearchTerm] = useState<string>("");
-
-  const productsPerPage = 6;
-
-  const filteredProducts = useMemo(() => {
-    let filtered = selectedType === "Все" ? products : products.filter(product => product.type === selectedType);
-    if (searchTerm.trim() !== "") {
-      filtered = filtered.filter(
-        product =>
-          product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.features.some(feature => feature.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
-    }
-    return filtered;
-  }, [selectedType, searchTerm]);
-
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-
-  const paginatedProducts = useMemo(() => {
-    const startIndex = (currentPage - 1) * productsPerPage;
-    return filteredProducts.slice(startIndex, startIndex + productsPerPage);
-  }, [currentPage, filteredProducts]);
 
   const handleDownloadClick = (links: { link: string; label: string }[]) => {
     if (links.length === 1) {
@@ -233,115 +205,92 @@ export default function Soft() {
 
   const closeModal = () => setModalLinks(null);
 
-  const renderPagination = () => {
-    const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(
-        <button
-          key={i}
-          onClick={() => setCurrentPage(i)}
-          className={`px-4 py-2 rounded-md ${
-            i === currentPage
-              ? "bg-red-600 text-white"
-              : "bg-neutral-200 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 hover:bg-red-500 hover:text-white transition-colors"
-          }`}
-        >
-          {i}
-        </button>
-      );
-    }
-    return pages;
-  };
-
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="soft">
-      <div className="pt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold text-center text-neutral-900 dark:text-neutral-100">Программы для оборудования 💻</h2>
+      <div className="pt-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+        <h2 className="text-4xl font-bold text-center">Программы для оборудования 💻</h2>
         <p className="pt-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
           В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
         </p>
       </div>
 
-      <div className="max-w-max mx-auto px-6 mt-8">
-        <NavigationPanel
-          categories={DeviceTypes}
-          selectedCategory={selectedType}
-          onCategorySelect={(category) => {
-            setSelectedType(category);
-            setCurrentPage(1);
-          }}
-          showSearch={true}
-          searchTerm={searchTerm}
-          onSearchChange={(term) => {
-            setSearchTerm(term);
-            setCurrentPage(1);
-          }}
-        />
+      <div className="max-w-max mx-auto px-6">
+        <div className="relative text-base font-semibold mt-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg inline-flex flex-col sm:flex-row sm:flex-wrap justify-center sm:mt-8 p-1 gap-1">
+          {DeviceTypes.map((type) => (
+            <button
+              key={type}
+              onClick={() => setSelectedType(type)}
+              className={`${
+                selectedType === type
+                  ? "bg-white dark:bg-neutral-600 text-neutral-900 dark:text-neutral-100"
+                  : "text-neutral-900 dark:text-neutral-400 hover:bg-white dark:hover:bg-neutral-700"
+              } rounded-md py-2 px-4 whitespace-nowrap transition-colors duration-300 ease-in-out`}
+            >
+              {type.charAt(0).toUpperCase() + type.slice(1)}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16">
-        {paginatedProducts.map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => {
-          const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
+        {products
+          .filter(({ type }) => type === selectedType)
+          .map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => {
+            const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
 
-          return (
-            <div
-              key={title}
-              className={`rounded-lg py-8 relative flex flex-col bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
-            >
-              <h3 className="px-6 text-lg font-semibold line-clamp-1">{title}</h3>
-              {mostPopular && (
-                <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
-                  Топ продаж
-                </p>
-              )}
-
-              <div className="px-6 mt-4 flex-grow flex items-center">
-                <p className="leading-6 dark:text-neutral-400 line-clamp-3">{description}</p>
-              </div>
-
-              <div className="flex mt-4 mx-6 space-x-2">
-                <button
-                  onClick={() => handleDownloadClick(downloadLinks)}
-                  className="flex-1 px-4 py-2 font-medium text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-red-500 dark:hover:bg-red-500 transition-colors duration-200 ease-in-out transform active:scale-95"
-                >
-                  Скачать
-                </button>
-                {docs && docsLinks.length > 0 && (
-                  <button
-                    onClick={() => handleDownloadClick(docsLinks)}
-                    className="flex-1 px-4 py-2 font-medium text-center rounded-lg border border-neutral-300 dark:border-neutral-600 dark:bg-transparent dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-200 ease-in-out transform active:scale-95"
-                  >
-                    Инструкция
-                  </button>
+            return (
+              <div
+                key={title}
+                className={`rounded-lg py-8 relative flex flex-col ${
+                  mostPopular
+                    ? "border-red-300 border-2 border-solid dark:border-red-600"
+                    : "border-neutral-300 border dark:border-neutral-600"
+                } hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-lg transition-all duration-300`}
+              >
+                <h3 className="px-6 text-lg font-semibold line-clamp-1">{title}</h3>
+                {mostPopular && (
+                  <p className="mx-6 absolute top-0 px-4 py-1 -translate-y-1/2 bg-red-100 text-red-600 rounded-full text-sm font-semibold tracking-wide shadow-md">
+                    Топ продаж
+                  </p>
                 )}
-              </div>
 
-              <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
-                <p className="font-semibold dark:text-neutral-300 mt-4 mb-2">В комплекте:</p>
-                <ul className="flex flex-col gap-y-2 overflow-y-auto h-24">
-                  {displayedFeatures.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <CheckIcon className="w-4 h-4 text-red-600 shrink-0 mt-1" />
-                      <span className="ml-3 dark:text-neutral-400 line-clamp-2">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="px-6 mt-4 flex-grow flex items-center">
+                  <p className="leading-6 dark:text-neutral-400 line-clamp-3">{description}</p>
+                </div>
+
+                <div className="flex mt-4 mx-6">
+                  <button
+                    onClick={() => handleDownloadClick(downloadLinks)}
+                    className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-red-600 text-white shadow-md hover:bg-green-500 dark:hover:bg-green-500 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
+                  >
+                    Скачать
+                  </button>
+                  {docs && docsLinks.length > 0 && (
+                    <button
+                      onClick={() => handleDownloadClick(docsLinks)}
+                      className="ml-2 block px-3 py-3 font-small leading-4 text-center rounded-lg border-neutral-300 border dark:border-neutral-600 dark:bg-transparent dark:text-white dark:hover:bg-neutral-600 hover:bg-neutral-200 transition-colors duration-200 ease-in-out transform active:scale-95 w-full"
+                    >
+                      Инструкция
+                    </button>
+                  )}
+                </div>
+
+                <div className="mt-6 px-6 border-t border-neutral-300 dark:border-neutral-500">
+                  <p className="font-semibold dark:text-neutral-300 mt-4 mb-6">В комплекте:</p>
+                  <ul className="flex flex-col gap-y-2 overflow-y-auto h-32">
+                    {displayedFeatures.map((feature, index) => (
+                      <li key={index} className="flex items-start h-14">
+                        <CheckIcon className="w-4 h-4 text-red-600 shrink-0 mt-1" />
+                        <span className="ml-3 dark:text-neutral-400 line-clamp-2">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
 
-      {/* Пагинация */}
-      {totalPages > 1 && (
-        <div className="max-w-max mx-auto px-6 pb-4">
-          <div className="flex space-x-2 justify-center">
-            {renderPagination()}
-          </div>
-        </div>
-      )}
-
-      {/* Модальное окно */}
       {modalLinks && (
         <dialog open className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center" onClick={closeModal}>
           <div
@@ -354,10 +303,10 @@ export default function Soft() {
             >
               ✕
             </button>
-            <h3 className="text-lg font-semibold mb-4 text-center dark:text-neutral-100">Выберите ссылку для скачивания</h3>
+            <h3 className="text-lg font-semibold mb-4 text-center">Выберите ссылку для скачивания</h3>
             <div className="flex flex-col space-y-2">
               {modalLinks.map(({ link, label }) => (
-                <Link href={link} key={link} target="_blank" rel="noopener noreferrer" className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-neutral-300 text-black dark:bg-neutral-600 dark:text-white hover:bg-neutral-400 dark:hover:bg-neutral-500 transition-colors duration-200 ease-in-out transform active:scale-95">
+                <Link href={link} key={link} target="_blank" rel="noopener noreferrer" className="block px-6 py-3 font-medium leading-4 text-center rounded-lg bg-neutral-300 text-black shadow-md dark:bg-neutral-600 dark:text-white hover:bg-neutral-400 dark:hover:bg-neutral-500 transition-colors duration-200 ease-in-out transform active:scale-95">
                   {label}
                 </Link>
               ))}
