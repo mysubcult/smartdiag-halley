@@ -1,4 +1,4 @@
-// components/Soft.tsx
+// src/components/Soft.tsx
 "use client";
 
 import Link from "next/link";
@@ -6,7 +6,7 @@ import { useState, useMemo } from "react";
 import {
   CheckIcon,
   XMarkIcon,
-  MenuIcon,
+  Bars3Icon, // Заменили MenuIcon на Bars3Icon
 } from "@heroicons/react/24/solid";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -387,7 +387,7 @@ const NavBar: React.FC = () => {
               {isMobileMenuOpen ? (
                 <XMarkIcon className="h-6 w-6" />
               ) : (
-                <MenuIcon className="h-6 w-6" />
+                <Bars3Icon className="h-6 w-6" />
               )}
             </button>
           </div>
