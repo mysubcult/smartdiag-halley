@@ -97,8 +97,8 @@ export default function Blog() {
       </div>
 
       {/* Фильтры */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="flex flex-wrap sm:flex-nowrap items-center justify-between bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow space-y-4 sm:space-y-0">
+      <div className="max-w-max mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div className="flex flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow space-y-4 sm:space-y-0 sm:space-x-4">
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <motion.button
