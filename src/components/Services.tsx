@@ -66,31 +66,34 @@ const cardVariants = {
 
 const ServiceCard: React.FC<Service> = React.memo(({ title, description, image, alt }) => (
   <motion.div
-    className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-gray-200 hover:dark:bg-neutral-700 h-full flex flex-col justify-between"
+    className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-gray-200 hover:dark:bg-neutral-700 h-full flex flex-col"
     variants={cardVariants}
     initial="hidden"
     animate="visible"
   >
-    <div className="flex justify-center">
-      <div className="h-24 w-24">
-        <Image
-          src={image}
-          alt={alt}
-          width={96}
-          height={96}
-          quality={75}
-          sizes="100vw"
-          priority
-          loading="lazy"
-        />
-      </div>
+    {/* Контейнер для изображения с фиксированной высотой */}
+    <div className="flex justify-center mb-4 h-24">
+      <Image
+        src={image}
+        alt={alt}
+        width={96}
+        height={96}
+        quality={75}
+        sizes="100vw"
+        priority
+        loading="lazy"
+      />
     </div>
-    <div className="flex-grow flex flex-col justify-center text-center">
-      <h2 className="font-bold text-lg mt-4">{title}</h2>
-      <p className="pt-2 text-sm dark:text-neutral-400 mt-2">
-        {description}
-      </p>
-    </div>
+    
+    {/* Заголовок с фиксированной высотой */}
+    <h2 className="font-bold text-lg text-center mb-2 line-clamp-2 min-h-[48px]">
+      {title}
+    </h2>
+
+    {/* Описание с фиксированной высотой */}
+    <p className="text-sm text-center dark:text-neutral-400 flex-grow line-clamp-3 min-h-[72px]">
+      {description}
+    </p>
   </motion.div>
 ));
 
