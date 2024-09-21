@@ -19,13 +19,40 @@ const blogPosts = [
     excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов.",
     link: "/articles/errors/archive",
     category: "Ошибки",
+    keywords: ["ошибки архива", "проблемы с архивом", "ошибка открытия архива", "архив"],
   },
-  // Добавьте другие статьи
+  {
+    title: "Инструкция по установке Autocom 2021",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Полноценная, подробная инструкция по установке программного обеспечения.",
+    link: "/articles/software/autocom2021",
+    category: "Установка ПО",
+    keywords: ["установка ПО", "Autocom 2021", "инструкция"],
+  },
+  {
+    title: "тест",
+    image: "/images/blog/post1.jpg",
+    excerpt: "тест.",
+    link: "/articles/software/autocom2021",
+    category: "Установка ПО",
+    keywords: ["установка ПО", "Autocom 2021", "инструкция"],
+  },
+  {
+    title: "Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021",
+    image: "/images/blog/post1.jpg",
+    excerpt: "Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021",
+    link: "/articles/software/autocom2021",
+    category: "Установка ПО",
+    keywords: ["установка ПО", "Autocom 2021", "инструкция"],
+  },
 ];
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  
+  const postsPerPage = 8;
 
   const filteredPosts = useMemo(() => {
     const filteredByCategory = selectedCategory === "Все" ? blogPosts : blogPosts.filter((post) => post.category === selectedCategory);
@@ -35,6 +62,17 @@ export default function Blog() {
         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [selectedCategory, searchTerm]);
+
+  const paginatedPosts = useMemo(() => {
+    const startIndex = (currentPage - 1) * postsPerPage;
+    return filteredPosts.slice(startIndex, startIndex + postsPerPage);
+  }, [currentPage, filteredPosts]);
+
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="bg-white dark:bg-black" id="blog">
@@ -59,7 +97,7 @@ export default function Blog() {
       </div>
 
       {/* Фильтры */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+      <div className="max-w-max mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow space-y-4 sm:space-y-0">
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
@@ -105,7 +143,7 @@ export default function Blog() {
           },
         }}
       >
-        {filteredPosts.map(({ title, image, excerpt, link }) => (
+        {paginatedPosts.map(({ title, image, excerpt, link }) => (
           <motion.div
             key={title}
             className="relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700"
@@ -129,9 +167,9 @@ export default function Blog() {
             </Link>
 
             {/* Заголовок */}
-            <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-2">{title}</h3>
+            <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-3">{title}</h3>
             {/* Описание */}
-            <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">{excerpt}</p>
+            <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-5 mb-4">{excerpt}</p>
             {/* Кнопка */}
             <Link href={link}>
               <motion.button
@@ -145,6 +183,47 @@ export default function Blog() {
           </motion.div>
         ))}
       </motion.div>
+
+      {/* Пагинация */}
+      {totalPages > 1 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex justify-center items-center space-x-2">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`px-3 py-1 rounded-md text-sm font-medium ${
+              currentPage === 1
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-red-500 text-white hover:bg-red-600"
+            } transition-colors duration-300`}
+          >
+            Предыдущая
+          </button>
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map((number) => (
+            <button
+              key={number}
+              onClick={() => handlePageChange(number)}
+              className={`px-3 py-1 rounded-md text-sm font-medium ${
+                currentPage === number
+                  ? "bg-red-600 text-white"
+                  : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+              } transition-colors duration-300`}
+            >
+              {number}
+            </button>
+          ))}
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`px-3 py-1 rounded-md text-sm font-medium ${
+              currentPage === totalPages
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-red-500 text-white hover:bg-red-600"
+            } transition-colors duration-300`}
+          >
+            Следующая
+          </button>
+        </div>
+      )}
     </div>
   );
 }
