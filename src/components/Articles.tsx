@@ -1,7 +1,7 @@
-import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const categories = [
   { name: "Все", value: "Все" },
@@ -19,55 +19,22 @@ const blogPosts = [
     excerpt: "Узнайте, как справиться с наиболее частыми ошибками при открытии архивов.",
     link: "/articles/errors/archive",
     category: "Ошибки",
-    keywords: ["ошибки архива", "проблемы с архивом", "ошибка открытия архива", "архив"],
   },
-  {
-    title: "Инструкция по установке Autocom 2021",
-    image: "/images/blog/post1.jpg",
-    excerpt: "Полноценная, подробная инструкция по установке программного обеспечения.",
-    link: "/articles/software/autocom2021",
-    category: "Установка ПО",
-    keywords: ["установка ПО", "Autocom 2021", "инструкция"],
-  },
-  {
-    title: "тест",
-    image: "/images/blog/post1.jpg",
-    excerpt: "тест.",
-    link: "/articles/software/autocom2021",
-    category: "Установка ПО",
-    keywords: ["установка ПО", "Autocom 2021", "инструкция"],
-  },
-  {
-    title: "Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021",
-    image: "/images/blog/post1.jpg",
-    excerpt: "Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021",
-    link: "/articles/software/autocom2021",
-    category: "Установка ПО",
-    keywords: ["установка ПО", "Autocom 2021", "инструкция"],
-  },
+  // Добавьте другие статьи
 ];
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  
-  const postsPerPage = 8;
 
   const filteredPosts = useMemo(() => {
     const filteredByCategory = selectedCategory === "Все" ? blogPosts : blogPosts.filter((post) => post.category === selectedCategory);
     return filteredByCategory.filter(
       (post) =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.keywords.some((keyword) => keyword.toLowerCase().includes(searchTerm.toLowerCase()))
+        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [selectedCategory, searchTerm]);
-
-  const paginatedPosts = useMemo(() => {
-    const startIndex = (currentPage - 1) * postsPerPage;
-    return filteredPosts.slice(startIndex, startIndex + postsPerPage);
-  }, [currentPage, filteredPosts]);
 
   return (
     <div className="bg-white dark:bg-black" id="blog">
@@ -92,16 +59,13 @@ export default function Blog() {
       </div>
 
       {/* Фильтры */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow">
-          <div className="flex space-x-2 mb-2 sm:mb-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow space-y-4 sm:space-y-0">
+          <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <motion.button
                 key={category.value}
-                onClick={() => {
-                  setSelectedCategory(category.value);
-                  setCurrentPage(1); 
-                }}
+                onClick={() => setSelectedCategory(category.value)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
                   selectedCategory === category.value
                     ? "bg-red-500 text-white shadow-lg"
@@ -141,7 +105,7 @@ export default function Blog() {
           },
         }}
       >
-        {paginatedPosts.map(({ title, image, excerpt, link }) => (
+        {filteredPosts.map(({ title, image, excerpt, link }) => (
           <motion.div
             key={title}
             className="relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700"
@@ -151,8 +115,24 @@ export default function Blog() {
             }}
             whileHover={{ scale: 1.02 }}
           >
+            {/* Изображение */}
+            <Link href={link}>
+              <div className="relative h-48 mb-4 rounded-lg overflow-hidden">
+                <Image
+                  src={image}
+                  alt={title}
+                  layout="fill"
+                  objectFit="cover"
+                  className="w-full h-full"
+                />
+              </div>
+            </Link>
+
+            {/* Заголовок */}
             <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-2">{title}</h3>
+            {/* Описание */}
             <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">{excerpt}</p>
+            {/* Кнопка */}
             <Link href={link}>
               <motion.button
                 className="w-full px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300"
