@@ -66,28 +66,31 @@ const cardVariants = {
 
 const ServiceCard: React.FC<Service> = React.memo(({ title, description, image, alt }) => (
   <motion.div
-    className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-gray-200 hover:dark:bg-neutral-700"
+    className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-gray-200 hover:dark:bg-neutral-700 h-full flex flex-col justify-between"
     variants={cardVariants}
     initial="hidden"
     animate="visible"
-    whileHover={{ scale: 1.05 }}
   >
-    <div className="h-24 w-24 flex justify-center mx-auto">
-      <Image
-        src={image}
-        alt={alt}
-        width={96}
-        height={96}
-        quality={75}
-        sizes="100vw"
-        priority
-        loading="lazy"
-      />
+    <div className="flex justify-center">
+      <div className="h-24 w-24">
+        <Image
+          src={image}
+          alt={alt}
+          width={96}
+          height={96}
+          quality={75}
+          sizes="100vw"
+          priority
+          loading="lazy"
+        />
+      </div>
     </div>
-    <h2 className="font-bold text-lg text-center mt-4">{title}</h2>
-    <p className="pt-2 text-sm text-center dark:text-neutral-400 mt-2">
-      {description}
-    </p>
+    <div className="flex-grow flex flex-col justify-center text-center">
+      <h2 className="font-bold text-lg mt-4">{title}</h2>
+      <p className="pt-2 text-sm dark:text-neutral-400 mt-2">
+        {description}
+      </p>
+    </div>
   </motion.div>
 ));
 
