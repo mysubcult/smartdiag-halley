@@ -253,42 +253,40 @@ export default function Soft() {
 
       {/* Фильтры и строка поиска */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow">
-          {/* Панель фильтров */}
-          <div className="flex space-x-2 mb-2 sm:mb-0">
-            {DeviceTypes.map((type) => (
-              <motion.button
-                key={type}
-                onClick={() => {
-                  setSelectedType(type);
-                  setCurrentPage(1); // Сброс страницы при изменении фильтра
-                }}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
-                  selectedType === type
-                    ? "bg-red-500 text-white shadow-lg"
-                    : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {type}
-              </motion.button>
-            ))}
-          </div>
-          {/* Строка поиска */}
-          <div className="w-full sm:w-auto">
-            <input
-              type="text"
-              placeholder="Поиск..."
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                setCurrentPage(1); // Сброс страницы при изменении поиска
-              }}
-              className="w-full sm:w-64 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
-            />
-          </div>
-        </div>
+<div className="max-w-max mx-auto flex flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow space-y-4 sm:space-y-0 sm:space-x-4">
+  <div className="flex flex-wrap gap-2">
+    {DeviceTypes.map((type) => (
+      <motion.button
+        key={type}
+        onClick={() => {
+          setSelectedType(type);
+          setCurrentPage(1); // Сброс страницы при изменении фильтра
+        }}
+        className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+          selectedType === type
+            ? "bg-red-500 text-white shadow-lg"
+            : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+        }`}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        {type}
+      </motion.button>
+    ))}
+  </div>
+  <div className="w-full sm:w-auto mt-4 sm:mt-0">
+    <input
+      type="text"
+      placeholder="Поиск..."
+      value={searchQuery}
+      onChange={(e) => {
+        setSearchQuery(e.target.value);
+        setCurrentPage(1); // Сброс страницы при изменении поиска
+      }}
+      className="w-full sm:w-64 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
+    />
+  </div>
+</div>
       </div>
 
       {/* Карточки продуктов */}
