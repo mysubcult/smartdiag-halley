@@ -1,29 +1,68 @@
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export function Hero() {
   return (
-    <div id="hero" className="bg-white dark:bg-neutral-900">
+    <section id="hero" className="bg-white dark:bg-neutral-900">
       <div className="max-w-7xl mx-auto pt-20 sm:pt-32 pb-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="flex flex-col justify-center text-center sm:text-start space-y-6">
-          <h1 className="text-5xl font-bold leading-tight">
+        {/* Текстовый блок */}
+        <motion.div
+          className="flex flex-col justify-center text-center sm:text-start space-y-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <motion.h1
+            className="text-5xl font-bold leading-tight"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
+          >
             Добро пожаловать в <br />
-            <span className="text-red-600 font-extrabold">
+            <motion.span
+              className="text-red-600 font-extrabold"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1.1 }}
+              transition={{ yoyo: Infinity, duration: 1.5, ease: "easeInOut" }}
+            >
               SmartDiag <span className="wave">👋</span>
-            </span>
-          </h1>
-          <p className="text-base sm:w-10/12 dark:text-neutral-400">
-            Здесь вы найдёте всё необходимое программное обеспечение для диагностики и обслуживания вашего автомобиля. Мы предлагаем высококачественное и надёжное оборудование, которое поможет вам быстро и эффективно провести анализ и ремонт вашего авто. Мы уверены, что техническое обслуживание автомобиля может быть простым и доступным для каждого.
-          </p>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            </motion.span>
+          </motion.h1>
+
+          <motion.p
+            className="text-base sm:w-10/12 dark:text-neutral-400"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
+          >
+            Здесь вы найдёте всё необходимое программное обеспечение для диагностики и обслуживания вашего автомобиля.
+            Мы предлагаем высококачественное и надёжное оборудование, которое поможет вам быстро и эффективно провести
+            анализ и ремонт вашего авто. Мы уверены, что техническое обслуживание автомобиля может быть простым и
+            доступным для каждого.
+          </motion.p>
+
+          {/* Кнопки */}
+          <motion.div
+            className="flex flex-col sm:flex-row sm:items-center gap-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.6, ease: "easeOut" }}
+          >
             <Link href="#soft" scroll={false}>
-              <div className="inline-flex bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-opacity-90">
+              <motion.a
+                className="inline-flex bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-opacity-90"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Перейти к программам для приборов"
+              >
                 Программы для приборов
-                <svg
+                <motion.svg
                   className="w-5 h-5 ml-2 transform group-hover:rotate-180 transition-transform duration-1000"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
                   viewBox="0 0 16 16"
+                  aria-hidden="true"
                 >
                   <path
                     d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"
@@ -34,17 +73,29 @@ export function Hero() {
                     fill="white"
                   />
                 </svg>
-              </div>
+              </motion.a>
             </Link>
-            <Link href="#contact" scroll={false}>
-              <div className="inline-flex bg-black text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-gray-800 hover:bg-opacity-90">
-                Обратная связь
-              </div>
-            </Link>
-          </div>
-        </div>
 
-        <div className="flex items-center">
+            <Link href="#contact" scroll={false}>
+              <motion.a
+                className="inline-flex bg-black text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-gray-800 hover:bg-opacity-90"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Перейти к разделу обратной связи"
+              >
+                Обратная связь
+              </motion.a>
+            </Link>
+          </motion.div>
+        </motion.div>
+
+        {/* Изображение */}
+        <motion.div
+          className="flex items-center justify-center"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.6, duration: 0.6, ease: "easeOut" }}
+        >
           <Image
             src="/images/hero/hero.svg"
             alt="Иллюстрация, представляющая диагностику автомобиля"
@@ -55,8 +106,8 @@ export function Hero() {
             sizes="100vw"
             priority
           />
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 }
