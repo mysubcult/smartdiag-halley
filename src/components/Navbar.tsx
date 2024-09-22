@@ -63,24 +63,24 @@ export default function Navbar() {
           <div className="flex items-center">
             <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
               <Image
-                className="block h-12 w-auto"
+                className="block h-12 w-auto max-w-[150px]"
                 src="/images/logos/logo.png"
                 alt="SmartDiag Logo"
                 width={256}
                 height={117}
                 quality={100}
-                sizes="100vw"
+                sizes="(max-width: 768px) 100px, 150px"
                 loading="eager"
               />
             </Link>
 
             {/* Десктопное меню */}
-            <div className="hidden lg:flex lg:ml-6 space-x-4">
+            <div className="hidden xl:flex xl:ml-6 space-x-4">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out"
+                  className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out whitespace-nowrap"
                   style={{ textDecoration: "none" }}
                   scroll={false}
                   onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
@@ -143,33 +143,63 @@ export default function Navbar() {
       {/* Мобильное меню */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
-            className="fixed inset-0 bg-white dark:bg-neutral-900 z-30"
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -100 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="flex flex-col items-center mt-24 space-y-6">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500"
-                  scroll={false}
-                  onClick={(event) => {
-                    if (item.anchor) {
-                      handleNavigationClick(item.anchor)(event);
-                    }
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  {item.name}
-                </Link>
-              ))}
+          <>
+            {/* Оверлей */}
+            <motion.div
+              className="fixed inset-0 bg-black bg-opacity-50 z-40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMenuOpen(false)}
+            />
 
+            {/* Меню */}
+            <motion.div
+              className="fixed inset-y-0 right-0 w-64 bg-white dark:bg-neutral-900 z-50 overflow-y-auto"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            >
+              <div className="flex items-center justify-between p-4">
+                <Image
+                  className="h-10 w-auto"
+                  src="/images/logos/logo.png"
+                  alt="SmartDiag Logo"
+                  width={256}
+                  height={117}
+                  quality={100}
+                  sizes="100vw"
+                  loading="eager"
+                />
+                <button
+                  className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                  aria-label="Закрыть меню"
+                >
+                  <XMarkIcon className="h-6 w-6" />
+                </button>
+              </div>
+              <nav className="flex flex-col space-y-4 mt-4 px-4">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="text-lg font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500"
+                    scroll={false}
+                    onClick={(event) => {
+                      if (item.anchor) {
+                        handleNavigationClick(item.anchor)(event);
+                      }
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </nav>
               {/* Кнопки магазинов */}
-              <div className="flex flex-col space-y-4 mt-8">
+              <div className="flex flex-col space-y-4 mt-8 px-4 mb-8">
                 {storeLinks.map((store) => (
                   <Link
                     key={store.name}
@@ -178,15 +208,15 @@ export default function Navbar() {
                     rel="noopener noreferrer"
                   >
                     <button
-                      className={`w-64 flex items-center justify-center bg-gradient-to-r ${store.bgColor} ${store.textColor} px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105`}
+                      className={`w-full flex items-center justify-center bg-gradient-to-r ${store.bgColor} ${store.textColor} px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105`}
                     >
                       {store.name}
                     </button>
                   </Link>
                 ))}
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
