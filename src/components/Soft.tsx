@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { motion, AnimatePresence } from "framer-motion";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
 
 type ProductType = "Все" | "Мультимарочные" | "Марочные" | "Адаптеры elm";
 
@@ -197,9 +198,8 @@ export default function Soft() {
   const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // Пагинация
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const productsPerPage = 8; // 2 строки по 4 карточки
+  // State for mobile menu
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleDownloadClick = (links: { link: string; label: string }[]) => {
     if (links.length === 1) {
@@ -211,26 +211,93 @@ export default function Soft() {
 
   const closeModal = () => setModalLinks(null);
 
-  // Фильтрация продуктов по типу и поисковому запросу
+  // Filter products by type and search query
   const filteredProducts = products.filter(
     ({ type, title }) =>
       (selectedType === "Все" || type === selectedType) &&
       title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Определение продуктов для текущей страницы
+  // Pagination logic
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const productsPerPage = 8;
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
-  // Обработчики пагинации
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
   const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
+  // Stagger animation for mobile menu
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const staggerItem = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <div className="bg-white dark:bg-black" id="soft">
+      {/* Navbar */}
+      <header className="bg-white dark:bg-gray-800 shadow-md fixed w-full z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <Link href="/" className="text-xl font-bold text-gray-900 dark:text-white">
+                MySite
+              </Link>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="flex items-center md:hidden">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-gray-900 dark:text-white focus:outline-none"
+              >
+                {isOpen ? <XIcon className="w-8 h-8" /> : <MenuIcon className="w-8 h-8" />}
+              </button>
+            </div>
+
+            {/* Desktop Menu */}
+            <nav className="hidden md:flex space-x-4">
+              <Link href="/" className="text-gray-900 dark:text-white">Главная</Link>
+              <Link href="/products" className="text-gray-900 dark:text-white">Продукты</Link>
+              <Link href="/contact" className="text-gray-900 dark:text-white">Контакты</Link>
+              <Link href="/about" className="text-gray-900 dark:text-white">О нас</Link>
+            </nav>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <motion.nav
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={staggerContainer}
+            className="md:hidden bg-white dark:bg-gray-800 fixed top-16 left-0 w-full px-4 py-6 space-y-6"
+          >
+            {["Главная", "Продукты", "Контакты", "О нас"].map((item, index) => (
+              <motion.div key={index} variants={staggerItem}>
+                <Link href={`/${item.toLowerCase()}`} className="block text-lg font-semibold text-gray-900 dark:text-white">
+                  {item}
+                </Link>
+              </motion.div>
+            ))}
+          </motion.nav>
+        )}
+      </header>
+
       {/* Заголовок */}
       <div className="pt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
@@ -247,46 +314,46 @@ export default function Soft() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
+          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — "Марочный" или "Мультимарочный".
         </motion.p>
       </div>
 
       {/* Фильтры и строка поиска */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-<div className="max-w-max mx-auto flex flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow space-y-4 sm:space-y-0 sm:space-x-4">
-  <div className="flex flex-wrap gap-2">
-    {DeviceTypes.map((type) => (
-      <motion.button
-        key={type}
-        onClick={() => {
-          setSelectedType(type);
-          setCurrentPage(1); // Сброс страницы при изменении фильтра
-        }}
-        className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
-          selectedType === type
-            ? "bg-red-500 text-white shadow-lg"
-            : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-        }`}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        {type}
-      </motion.button>
-    ))}
-  </div>
-  <div className="w-full sm:w-auto mt-4 sm:mt-0">
-    <input
-      type="text"
-      placeholder="Поиск..."
-      value={searchQuery}
-      onChange={(e) => {
-        setSearchQuery(e.target.value);
-        setCurrentPage(1); // Сброс страницы при изменении поиска
-      }}
-      className="w-full sm:w-64 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
-    />
-  </div>
-</div>
+        <div className="max-w-max mx-auto flex flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow space-y-4 sm:space-y-0 sm:space-x-4">
+          <div className="flex flex-wrap gap-2">
+            {DeviceTypes.map((type) => (
+              <motion.button
+                key={type}
+                onClick={() => {
+                  setSelectedType(type);
+                  setCurrentPage(1); // Reset page on filter change
+                }}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                  selectedType === type
+                    ? "bg-red-500 text-white shadow-lg"
+                    : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {type}
+              </motion.button>
+            ))}
+          </div>
+          <div className="w-full sm:w-auto mt-4 sm:mt-0">
+            <input
+              type="text"
+              placeholder="Поиск..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setCurrentPage(1); // Reset page on search change
+              }}
+              className="w-full sm:w-64 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
+            />
+          </div>
+        </div>
       </div>
 
       {/* Карточки продуктов */}
@@ -309,7 +376,7 @@ export default function Soft() {
           return (
             <motion.div
               key={title}
-              className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700`}
+              className="relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700"
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 },
