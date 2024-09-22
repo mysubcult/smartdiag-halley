@@ -316,7 +316,7 @@ export default function Soft() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="mt-4 w-full bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
+              className="mt-4 w-full max-w-xs bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
               initial="closed"
               animate="open"
               exit="closed"
@@ -345,7 +345,7 @@ export default function Soft() {
         <AnimatePresence>
           {isSearchOpen && (
             <motion.div
-              className="mt-4 w-full bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
+              className="mt-4 w-full max-w-xs bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
