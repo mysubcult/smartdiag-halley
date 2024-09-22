@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import { CheckIcon, XMarkIcon, Bars3Icon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { CheckIcon, XMarkIcon, Bars3Icon, MagnifyingGlassIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { motion, AnimatePresence } from "framer-motion";
 
 type ProductType = "Все" | "Мультимарочные" | "Марочные" | "Адаптеры elm";
@@ -263,17 +263,27 @@ export default function Soft() {
     <div className="bg-white dark:bg-black" id="soft">
       {/* Мобильное меню */}
       <div className="lg:hidden flex flex-col items-center pt-4">
-        <div className="flex items-center justify-center space-x-4">
+        {/* Общий серый контейнер с кнопками */}
+        <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md flex items-center space-x-4">
+          {/* Кнопка выбора категории с анимацией стрелочки */}
           <motion.button
-            className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-black dark:text-white rounded-lg shadow"
+            className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full flex items-center justify-between space-x-2 w-full"
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            {selectedType}
+            <span>{selectedType}</span>
+            <motion.div
+              animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <ChevronDownIcon className="w-5 h-5" />
+            </motion.div>
           </motion.button>
+
+          {/* Кнопка поиска */}
           <motion.button
-            className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-black dark:text-white rounded-lg shadow"
+            className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full shadow"
             onClick={() => setIsSearchOpen((prev) => !prev)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -286,7 +296,7 @@ export default function Soft() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="mt-2 w-64 bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
+              className="mt-2 w-full bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
               initial="closed"
               animate="open"
               exit="closed"
@@ -315,7 +325,7 @@ export default function Soft() {
         <AnimatePresence>
           {isSearchOpen && (
             <motion.div
-              className="mt-2 w-64 bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
+              className="mt-2 w-full bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
