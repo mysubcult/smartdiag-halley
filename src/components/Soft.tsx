@@ -1,8 +1,9 @@
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
-import { useState } from "react";
-import { CheckIcon, XMarkIcon, Bars3Icon, MagnifyingGlassIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import { CheckIcon, XMarkIcon, MagnifyingGlassIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { motion, AnimatePresence } from "framer-motion";
 
+// Типы и интерфейсы
 type ProductType = "Все" | "Мультимарочные" | "Марочные" | "Адаптеры elm";
 
 interface Product {
@@ -16,6 +17,7 @@ interface Product {
   type: ProductType;
 }
 
+// Данные продуктов (проверьте на наличие ошибок и дубликатов в ваших данных)
 const products: Product[] = [
   {
     title: "Delphi DS150e",
@@ -192,15 +194,149 @@ const products: Product[] = [
 
 const DeviceTypes: ProductType[] = ["Все", "Мультимарочные", "Марочные", "Адаптеры elm"];
 
+// Варианты анимации для Framer Motion
+const menuVariants = {
+  open: {
+    opacity: 1,
+    height: "auto",
+    transition: { type: "spring", stiffness: 80, staggerChildren: 0.1 },
+  },
+  closed: {
+    opacity: 0,
+    height: 0,
+    transition: { type: "spring", stiffness: 80 },
+  },
+};
+
+const menuItemVariants = {
+  open: { opacity: 1, x: 0, transition: { duration: 0.3 } },
+  closed: { opacity: 0, x: -20 },
+};
+
+// Компонент карточки продукта
+interface ProductCardProps {
+  product: Product;
+  handleDownloadClick: (links: { link: string; label: string }[]) => void;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({ product, handleDownloadClick }) => {
+  const { title, mostPopular, description, features, downloadLinks, docs, docsLinks } = product;
+  const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
+
+  return (
+    <motion.div
+      className="relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700"
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      whileHover={{ scale: 1.02 }}
+    >
+      {mostPopular && (
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+          Топ продаж
+        </div>
+      )}
+      <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">{title}</h3>
+      <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">{description}</p>
+      <div className="flex space-x-2 mb-4">
+        <motion.button
+          onClick={() => handleDownloadClick(downloadLinks)}
+          className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Скачать
+        </motion.button>
+        {docs && docsLinks.length > 0 && (
+          <motion.button
+            onClick={() => handleDownloadClick(docsLinks)}
+            className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Инструкция
+          </motion.button>
+        )}
+      </div>
+      <div className="mt-auto">
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">В комплекте:</h4>
+        <ul className="space-y-1 h-24 overflow-y-auto">
+          {displayedFeatures.map((feature, index) => (
+            <li key={index} className="flex items-start">
+              <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
+              <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </motion.div>
+  );
+};
+
+// Компонент модального окна
+interface ModalProps {
+  modalLinks: { link: string; label: string }[] | null;
+  closeModal: () => void;
+}
+
+const Modal: React.FC<ModalProps> = ({ modalLinks, closeModal }) => {
+  if (!modalLinks) return null;
+
+  return (
+    <motion.div
+      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={closeModal}
+    >
+      <motion.div
+        className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={closeModal}
+          aria-label="Закрыть"
+          className="absolute top-3 right-3 text-gray-500 dark:text-gray-400 hover:text-red-500 transition-colors duration-300"
+        >
+          <XMarkIcon className="w-6 h-6" />
+        </button>
+        <h3 className="text-lg font-semibold text-black dark:text-white text-center mb-4">
+          Выберите ссылку для скачивания
+        </h3>
+        <div className="flex flex-col space-y-3">
+          {modalLinks.map(({ link, label }) => (
+            <Link
+              href={link}
+              key={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300 text-center"
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+// Главный компонент
 export default function Soft() {
   const [selectedType, setSelectedType] = useState<ProductType>("Все");
   const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Состояние для мобильного меню
-  const [isSearchOpen, setIsSearchOpen] = useState(false); // Состояние для поиска
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const productsPerPage = 8;
-  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handleDownloadClick = (links: { link: string; label: string }[]) => {
     if (links.length === 1) {
@@ -212,52 +348,27 @@ export default function Soft() {
 
   const closeModal = () => setModalLinks(null);
 
-  const filteredProducts = products.filter(
-    ({ type, title }) =>
-      (selectedType === "Все" || type === selectedType) &&
-      title.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredProducts = useMemo(
+    () =>
+      products.filter(
+        ({ type, title }) =>
+          (selectedType === "Все" || type === selectedType) &&
+          title.toLowerCase().includes(searchQuery.toLowerCase())
+      ),
+    [selectedType, searchQuery]
   );
 
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const totalPages = useMemo(() => Math.ceil(filteredProducts.length / productsPerPage), [filteredProducts]);
+
+  const currentProducts = useMemo(() => {
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    return filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  }, [filteredProducts, currentPage]);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
   const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-
-  const menuVariants = {
-    open: {
-      opacity: 1,
-      height: "auto",
-      transition: {
-        type: "spring",
-        stiffness: 80,
-        staggerChildren: 0.1,
-      },
-    },
-    closed: {
-      opacity: 0,
-      height: 0,
-      transition: {
-        type: "spring",
-        stiffness: 80,
-      },
-    },
-  };
-
-  const menuItemVariants = {
-    open: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.3 },
-    },
-    closed: {
-      opacity: 0,
-      x: -20,
-    },
-  };
 
   return (
     <div className="bg-white dark:bg-black" id="soft">
@@ -277,42 +388,39 @@ export default function Soft() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
+          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип
+          вашего устройства — "Марочный" или "Мультимарочный". Информацию о типе устройства вы найдёте в упаковке.
+          После этого найдите карточку с вашим устройством и нажмите кнопку "Скачать". Инструкция по установке
+          программного обеспечения находится на кнопке "Инструкция".
         </motion.p>
       </div>
 
-      {/* Мобильное меню: теперь оно располагается ниже основного контента */}
+      {/* Мобильное меню */}
       <div className="lg:hidden flex flex-col items-center pt-4">
-        {/* Общий серый контейнер с кнопками */}
         <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md flex items-center justify-between w-full max-w-xs">
-          {/* Кнопка выбора категории с анимацией стрелочки */}
           <motion.button
             className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full flex items-center justify-between w-full"
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            aria-expanded={isMobileMenuOpen}
+            aria-label="Выберите категорию"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <span>{selectedType}</span>
-            <motion.div
-              animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
-              transition={{ duration: 0.2 }}
-            >
+            <motion.div animate={{ rotate: isMobileMenuOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
               <ChevronDownIcon className="w-5 h-5" />
             </motion.div>
           </motion.button>
-
-          {/* Кнопка поиска */}
           <motion.button
             className="ml-4 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full shadow"
             onClick={() => setIsSearchOpen((prev) => !prev)}
+            aria-label="Поиск"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <MagnifyingGlassIcon className="w-6 h-6" />
           </motion.button>
         </div>
-
-        {/* Выпадающее меню */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -330,7 +438,7 @@ export default function Soft() {
                     className="text-black dark:text-white px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
                     onClick={() => {
                       setSelectedType(type);
-                      setIsMobileMenuOpen(false); // Закрытие меню после выбора категории
+                      setIsMobileMenuOpen(false);
                     }}
                   >
                     {type}
@@ -340,8 +448,6 @@ export default function Soft() {
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Поисковая строка */}
         <AnimatePresence>
           {isSearchOpen && (
             <motion.div
@@ -357,7 +463,7 @@ export default function Soft() {
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
-                  setCurrentPage(1); // Сброс страницы при изменении поиска
+                  setCurrentPage(1);
                 }}
                 className="w-full px-4 py-2 border-none focus:outline-none bg-gray-100 dark:bg-gray-700 dark:text-white"
               />
@@ -366,7 +472,7 @@ export default function Soft() {
         </AnimatePresence>
       </div>
 
-      {/* Фильтры и строка поиска для десктопной версии */}
+      {/* Десктопные фильтры и поиск */}
       <div className="hidden lg:block max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div className="max-w-max mx-auto flex flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow space-y-4 sm:space-y-0 sm:space-x-4">
           <div className="flex flex-wrap gap-2">
@@ -375,7 +481,7 @@ export default function Soft() {
                 key={type}
                 onClick={() => {
                   setSelectedType(type);
-                  setCurrentPage(1); // Сброс страницы при изменении фильтра
+                  setCurrentPage(1);
                 }}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
                   selectedType === type
@@ -396,7 +502,7 @@ export default function Soft() {
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
-                setCurrentPage(1); // Сброс страницы при изменении поиска
+                setCurrentPage(1);
               }}
               className="w-full sm:w-64 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
             />
@@ -412,79 +518,13 @@ export default function Soft() {
         variants={{
           hidden: {},
           visible: {
-            transition: {
-              staggerChildren: 0.1,
-            },
+            transition: { staggerChildren: 0.1 },
           },
         }}
       >
-        {currentProducts.map(({ title, mostPopular, description, features, downloadLinks, docs, docsLinks }) => {
-          const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
-
-          return (
-            <motion.div
-              key={title}
-              className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700`}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              whileHover={{ scale: 1.02 }}
-            >
-              {/* Топ продаж */}
-              {mostPopular && (
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
-                  Топ продаж
-                </div>
-              )}
-
-              {/* Заголовок */}
-              <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">
-                {title}
-              </h3>
-
-              {/* Описание */}
-              <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">
-                {description}
-              </p>
-
-              {/* Кнопки */}
-              <div className="flex space-x-2 mb-4">
-                <motion.button
-                  onClick={() => handleDownloadClick(downloadLinks)}
-                  className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Скачать
-                </motion.button>
-                {docs && docsLinks.length > 0 && (
-                  <motion.button
-                    onClick={() => handleDownloadClick(docsLinks)}
-                    className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Инструкция
-                  </motion.button>
-                )}
-              </div>
-
-              {/* В комплекте */}
-              <div className="mt-auto">
-                <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">В комплекте:</h4>
-                <ul className="space-y-1 h-24 overflow-y-auto">
-                  {displayedFeatures.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
-                      <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          );
-        })}
+        {currentProducts.map((product) => (
+          <ProductCard key={product.title} product={product} handleDownloadClick={handleDownloadClick} />
+        ))}
       </motion.div>
 
       {/* Пагинация */}
@@ -494,7 +534,9 @@ export default function Soft() {
             onClick={prevPage}
             disabled={currentPage === 1}
             className={`px-3 py-1 rounded-md text-sm font-medium ${
-              currentPage === 1 ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-red-500 text-white hover:bg-red-600"
+              currentPage === 1
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-red-500 text-white hover:bg-red-600"
             } transition-colors duration-300`}
           >
             Предыдущая
@@ -526,52 +568,9 @@ export default function Soft() {
         </div>
       )}
 
-      {/* Модальное окно для ссылок на скачивание */}
+      {/* Модальное окно */}
       <AnimatePresence>
-        {modalLinks && (
-          <motion.div
-            className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeModal}
-          >
-            <motion.div
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Закрыть */}
-              <button
-                onClick={closeModal}
-                className="absolute top-3 right-3 text-gray-500 dark:text-gray-400 hover:text-red-500 transition-colors duration-300"
-              >
-                <XMarkIcon className="w-6 h-6" />
-              </button>
-              {/* Заголовок */}
-              <h3 className="text-lg font-semibold text-black dark:text-white text-center mb-4">
-                Выберите ссылку для скачивания
-              </h3>
-              {/* Ссылки */}
-              <div className="flex flex-col space-y-3">
-                {modalLinks.map(({ link, label }) => (
-                  <Link
-                    href={link}
-                    key={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300 text-center"
-                  >
-                    {label}
-                  </Link>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
+        {modalLinks && <Modal modalLinks={modalLinks} closeModal={closeModal} />}
       </AnimatePresence>
     </div>
   );
