@@ -45,8 +45,8 @@ export default function Navbar() {
   const handleNavigationClick = useCallback(
     (anchor: string) => (event: React.MouseEvent) => {
       event.preventDefault();
-      if (router.pathname !== '/') {
-        router.push('/').then(() => router.push(anchor, undefined, { scroll: false }));
+      if (router.pathname !== "/") {
+        router.push("/").then(() => router.push(anchor, undefined, { scroll: false }));
       } else {
         router.push(anchor, undefined, { scroll: false });
       }
@@ -56,89 +56,91 @@ export default function Navbar() {
   );
 
   return (
-    <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between">
-          {/* Логотип и десктопное меню */}
-          <div className="flex items-center">
-            <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
-              <Image
-                className="block h-12 w-auto max-w-[150px]"
-                src="/images/logos/logo.png"
-                alt="SmartDiag Logo"
-                width={256}
-                height={117}
-                quality={100}
-                sizes="(max-width: 768px) 100px, 150px"
-                loading="eager"
-              />
-            </Link>
+    <>
+      <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="relative flex h-16 items-center justify-between">
+            {/* Логотип и десктопное меню */}
+            <div className="flex items-center">
+              <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")}>
+                <Image
+                  className="block h-12 w-auto max-w-[150px]"
+                  src="/images/logos/logo.png"
+                  alt="SmartDiag Logo"
+                  width={256}
+                  height={117}
+                  quality={100}
+                  sizes="(max-width: 768px) 100px, 150px"
+                  loading="eager"
+                />
+              </Link>
 
-            {/* Десктопное меню */}
-            <div className="hidden xl:flex xl:ml-6 space-x-4">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out whitespace-nowrap"
-                  style={{ textDecoration: "none" }}
-                  scroll={false}
-                  onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Правая часть: кнопки магазинов и переключатель темы */}
-          <div className="flex items-center space-x-2">
-            {/* Кнопки магазинов (только для десктопа) */}
-            <div className="hidden lg:flex space-x-2">
-              {storeLinks.map((store) => (
-                <Link
-                  key={store.name}
-                  href={store.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <button
-                    className={`flex items-center justify-center bg-gradient-to-r ${store.bgColor} ${store.textColor} px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105`}
+              {/* Десктопное меню */}
+              <div className="hidden lg:flex lg:ml-6 space-x-4">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 whitespace-nowrap"
+                    style={{ textDecoration: "none" }}
+                    scroll={false}
+                    onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
                   >
-                    <Image
-                      src={store.iconSrc}
-                      alt={store.name}
-                      className="w-5 h-5 mr-2"
-                      width={20}
-                      height={20}
-                      loading="lazy"
-                    />
-                    {store.name}
-                  </button>
-                </Link>
-              ))}
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
             </div>
 
-            {/* Переключатель темы */}
-            <ThemeSwitchButton />
+            {/* Правая часть: кнопки магазинов и переключатель темы */}
+            <div className="flex items-center space-x-2">
+              {/* Кнопки магазинов (только для десктопа) */}
+              <div className="hidden xl:flex space-x-2">
+                {storeLinks.map((store) => (
+                  <Link
+                    key={store.name}
+                    href={store.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button
+                      className={`flex items-center justify-center bg-gradient-to-r ${store.bgColor} ${store.textColor} px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 whitespace-nowrap`}
+                    >
+                      <Image
+                        src={store.iconSrc}
+                        alt={store.name}
+                        className="w-5 h-5 mr-2"
+                        width={20}
+                        height={20}
+                        loading="lazy"
+                      />
+                      {store.name}
+                    </button>
+                  </Link>
+                ))}
+              </div>
 
-            {/* Кнопка мобильного меню */}
-            <div className="lg:hidden">
-              <button
-                className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                aria-label="Открыть главное меню"
-              >
-                {isMenuOpen ? (
-                  <XMarkIcon className="h-6 w-6" />
-                ) : (
-                  <Bars3Icon className="h-6 w-6" />
-                )}
-              </button>
+              {/* Переключатель темы */}
+              <ThemeSwitchButton />
+
+              {/* Кнопка мобильного меню */}
+              <div className="lg:hidden">
+                <button
+                  className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  aria-label="Открыть главное меню"
+                >
+                  {isMenuOpen ? (
+                    <XMarkIcon className="h-6 w-6" />
+                  ) : (
+                    <Bars3Icon className="h-6 w-6" />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </nav>
 
       {/* Мобильное меню */}
       <AnimatePresence>
@@ -155,11 +157,11 @@ export default function Navbar() {
 
             {/* Меню */}
             <motion.div
-              className="fixed inset-y-0 right-0 w-64 bg-white dark:bg-neutral-900 z-50 overflow-y-auto"
-              initial={{ x: '100%' }}
+              className="fixed inset-0 bg-white dark:bg-neutral-900 z-50 overflow-y-auto"
+              initial={{ x: "100%" }}
               animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
               <div className="flex items-center justify-between p-4">
                 <Image
@@ -219,6 +221,6 @@ export default function Navbar() {
           </>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 }
