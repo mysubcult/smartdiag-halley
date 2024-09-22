@@ -53,7 +53,6 @@ const externalStores = [
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isStoresMenuOpen, setIsStoresMenuOpen] = useState(false);
   const router = useRouter();
 
   const handleNavigationClick = useCallback(
@@ -94,13 +93,13 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Десктопное меню */}
-          <div className="hidden lg:flex lg:items-center lg:space-x-6">
+          <div className="hidden lg:flex lg:items-center lg:space-x-8 xl:space-x-12">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 onClick={handleNavigationClick(item.anchor)}
-                className="relative text-lg font-medium hover:text-red-500 transition-colors whitespace-nowrap"
+                className="relative text-lg font-medium hover:text-red-500 transition-colors whitespace-nowrap group"
               >
                 {item.name}
                 {/* Подчеркивание при наведении */}
@@ -113,7 +112,7 @@ const Navbar: React.FC = () => {
               {externalStores.map((store) => (
                 <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
                   <button
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105 whitespace-nowrap`}
+                    className={`flex items-center space-x-2 px-3 py-1.5 rounded-full bg-gradient-to-r ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105 whitespace-nowrap`}
                   >
                     <Image
                       src={store.iconSrc}
@@ -123,7 +122,7 @@ const Navbar: React.FC = () => {
                       className="w-5 h-5"
                       loading="lazy"
                     />
-                    <span>{store.name}</span>
+                    <span className="text-sm">{store.name}</span>
                   </button>
                 </Link>
               ))}
@@ -178,9 +177,15 @@ const Navbar: React.FC = () => {
               {/* Внешние магазины в мобильном меню */}
               <div className="mt-4 w-full">
                 <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-400 mb-2 text-center">Магазины</h3>
-                <div className="flex flex-col space-y-2 overflow-y-auto max-h-48">
+                <div className="flex flex-col space-y-2 max-h-48 overflow-y-auto">
                   {externalStores.map((store) => (
-                    <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer" className="w-full">
+                    <Link
+                      key={store.name}
+                      href={store.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full"
+                    >
                       <button
                         className={`w-full flex items-center justify-center space-x-2 px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105 whitespace-nowrap`}
                       >
@@ -192,7 +197,7 @@ const Navbar: React.FC = () => {
                           className="w-5 h-5"
                           loading="lazy"
                         />
-                        <span>{store.name}</span>
+                        <span className="text-sm">{store.name}</span>
                       </button>
                     </Link>
                   ))}
