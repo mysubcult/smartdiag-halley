@@ -1,5 +1,5 @@
 // components/Navbar.tsx
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
@@ -53,9 +53,6 @@ const externalStores = [
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const navbarRef = useRef<HTMLDivElement>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const handleNavigationClick = useCallback(
@@ -77,33 +74,8 @@ const Navbar: React.FC = () => {
     [router]
   );
 
-  useEffect(() => {
-    const navbar = navbarRef.current;
-    const menu = menuRef.current;
-    if (!navbar || !menu) return;
-
-    const resizeObserver = new ResizeObserver(() => {
-      const isOverflowing = menu.scrollWidth > navbar.clientWidth - 150; // 150px резерв для логотипа и кнопок
-      setIsMobile(isOverflowing);
-    });
-
-    resizeObserver.observe(menu);
-
-    // Инициальная проверка
-    const isOverflowing = menu.scrollWidth > navbar.clientWidth - 150;
-    setIsMobile(isOverflowing);
-
-    // Очистка наблюдателя при размонтировании
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, []);
-
   return (
-    <nav
-      ref={navbarRef}
-      className="fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-opacity-100 z-50"
-    >
+    <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-opacity-100 z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Логотип */}
@@ -121,8 +93,9 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Десктопное меню */}
-          {!isMobile && (
-            <div ref={menuRef} className="hidden lg:flex lg:items-center lg:space-x-8 xl:space-x-12">
+          <div className="hidden lg:flex lg:items-center lg:space-x-8 xl:space-x-12">
+            {/* Навигационные ссылки */}
+            <div className="flex space-x-6">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
@@ -135,29 +108,29 @@ const Navbar: React.FC = () => {
                   <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-red-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
                 </Link>
               ))}
-
-              {/* Внешние магазины */}
-              <div className="flex space-x-2">
-                {externalStores.map((store) => (
-                  <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
-                    <button
-                      className={`flex items-center space-x-2 px-3 py-1.5 rounded-full bg-gradient-to-r ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105 whitespace-nowrap`}
-                    >
-                      <Image
-                        src={store.iconSrc}
-                        alt={store.alt}
-                        width={20}
-                        height={20}
-                        className="w-5 h-5"
-                        loading="lazy"
-                      />
-                      <span className="text-sm">{store.name}</span>
-                    </button>
-                  </Link>
-                ))}
-              </div>
             </div>
-          )}
+
+            {/* Внешние магазины */}
+            <div className="flex space-x-2">
+              {externalStores.map((store) => (
+                <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
+                  <button
+                    className={`flex items-center space-x-2 px-3 py-1.5 rounded-full bg-gradient-to-r ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105 whitespace-nowrap`}
+                  >
+                    <Image
+                      src={store.iconSrc}
+                      alt={store.alt}
+                      width={20}
+                      height={20}
+                      className="w-5 h-5"
+                      loading="lazy"
+                    />
+                    <span className="text-sm">{store.name}</span>
+                  </button>
+                </Link>
+              ))}
+            </div>
+          </div>
 
           {/* Группа кнопок справа */}
           <div className="flex items-center space-x-4">
@@ -165,28 +138,26 @@ const Navbar: React.FC = () => {
             <ThemeSwitchButton />
 
             {/* Мобильное меню */}
-            {isMobile && (
-              <div className="lg:hidden">
-                <button
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500"
-                >
-                  <span className="sr-only">Открыть главное меню</span>
-                  {isMenuOpen ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                  )}
-                </button>
-              </div>
-            )}
+            <div className="lg:hidden">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500"
+              >
+                <span className="sr-only">Открыть главное меню</span>
+                {isMenuOpen ? (
+                  <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                ) : (
+                  <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Мобильное меню с анимацией */}
       <AnimatePresence>
-        {isMenuOpen && isMobile && (
+        {isMenuOpen && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
@@ -194,7 +165,7 @@ const Navbar: React.FC = () => {
             transition={{ duration: 0.3 }}
             className="lg:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700"
           >
-            <div className="px-4 pt-2 pb-4 space-y-4 flex flex-col items-center">
+            <div className="px-4 pt-2 pb-4 space-y-4">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
@@ -207,9 +178,9 @@ const Navbar: React.FC = () => {
               ))}
 
               {/* Внешние магазины в мобильном меню */}
-              <div className="mt-4 w-full">
+              <div className="mt-4">
                 <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-400 mb-2 text-center">Магазины</h3>
-                <div className="flex flex-col space-y-2 max-h-48 overflow-y-auto">
+                <div className="flex flex-col space-y-2">
                   {externalStores.map((store) => (
                     <Link
                       key={store.name}
