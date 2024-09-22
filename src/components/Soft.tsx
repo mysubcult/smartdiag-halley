@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import { CheckIcon, XMarkIcon, Bars3Icon } from "@heroicons/react/24/solid";
+import { CheckIcon, XMarkIcon, Bars3Icon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { motion, AnimatePresence } from "framer-motion";
 
 type ProductType = "Все" | "Мультимарочные" | "Марочные" | "Адаптеры elm";
@@ -196,7 +196,8 @@ export default function Soft() {
   const [selectedType, setSelectedType] = useState<ProductType>("Все");
   const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Добавляем состояние для мобильного меню
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Состояние для мобильного меню
+  const [isSearchOpen, setIsSearchOpen] = useState(false); // Состояние для поиска
 
   const productsPerPage = 8;
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -261,51 +262,79 @@ export default function Soft() {
   return (
     <div className="bg-white dark:bg-black" id="soft">
       {/* Мобильное меню */}
-      <div className="lg:hidden flex justify-between items-center px-4 py-4">
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="text-black dark:text-white"
-        >
-          <Bars3Icon className="w-8 h-8" />
-        </button>
-        <motion.h2
-          className="text-xl font-extrabold text-black dark:text-white"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          Меню Категорий
-        </motion.h2>
-      </div>
-
-      {/* Компактное мобильное меню */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            className="absolute top-16 left-4 right-4 z-50 bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
-            initial="closed"
-            animate="open"
-            exit="closed"
-            variants={menuVariants}
+      <div className="lg:hidden flex flex-col items-center pt-4">
+        <div className="flex items-center justify-center space-x-4">
+          <motion.button
+            className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-black dark:text-white rounded-lg shadow"
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <motion.ul className="py-2">
-              {DeviceTypes.map((type) => (
-                <motion.li
-                  key={type}
-                  variants={menuItemVariants}
-                  className="text-black dark:text-white px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                  onClick={() => {
-                    setSelectedType(type);
-                    setIsMobileMenuOpen(false); // Закрытие меню после выбора категории
-                  }}
-                >
-                  {type}
-                </motion.li>
-              ))}
-            </motion.ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {selectedType}
+          </motion.button>
+          <motion.button
+            className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-black dark:text-white rounded-lg shadow"
+            onClick={() => setIsSearchOpen((prev) => !prev)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <MagnifyingGlassIcon className="w-6 h-6" />
+          </motion.button>
+        </div>
+
+        {/* Выпадающее меню */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              className="mt-2 w-64 bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
+              initial="closed"
+              animate="open"
+              exit="closed"
+              variants={menuVariants}
+            >
+              <motion.ul className="py-2">
+                {DeviceTypes.map((type) => (
+                  <motion.li
+                    key={type}
+                    variants={menuItemVariants}
+                    className="text-black dark:text-white px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                    onClick={() => {
+                      setSelectedType(type);
+                      setIsMobileMenuOpen(false); // Закрытие меню после выбора категории
+                    }}
+                  >
+                    {type}
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Поисковая строка */}
+        <AnimatePresence>
+          {isSearchOpen && (
+            <motion.div
+              className="mt-2 w-64 bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 80 }}
+            >
+              <input
+                type="text"
+                placeholder="Поиск..."
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setCurrentPage(1); // Сброс страницы при изменении поиска
+                }}
+                className="w-full px-4 py-2 border-none focus:outline-none bg-gray-100 dark:bg-gray-700 dark:text-white"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       {/* Основное содержимое */}
       <div className="pt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -455,9 +484,7 @@ export default function Soft() {
             onClick={prevPage}
             disabled={currentPage === 1}
             className={`px-3 py-1 rounded-md text-sm font-medium ${
-              currentPage === 1
-                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-red-500 text-white hover:bg-red-600"
+              currentPage === 1 ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-red-500 text-white hover:bg-red-600"
             } transition-colors duration-300`}
           >
             Предыдущая
