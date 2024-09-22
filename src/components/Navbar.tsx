@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
   );
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-50">
+    <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-opacity-100 z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Логотип */}
@@ -100,7 +100,7 @@ const Navbar: React.FC = () => {
                 key={item.name}
                 href={item.href}
                 onClick={handleNavigationClick(item.anchor)}
-                className="relative text-lg font-medium hover:text-red-500 transition-colors"
+                className="relative text-lg font-medium hover:text-red-500 transition-colors whitespace-nowrap"
               >
                 {item.name}
                 {/* Подчеркивание при наведении */}
@@ -113,7 +113,7 @@ const Navbar: React.FC = () => {
               {externalStores.map((store) => (
                 <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
                   <button
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} hover:from-${store.hoverGradient.split("to-")[1]} ${store.textColor} transition-transform transform hover:scale-105`}
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105 whitespace-nowrap`}
                   >
                     <Image
                       src={store.iconSrc}
@@ -163,26 +163,26 @@ const Navbar: React.FC = () => {
             transition={{ duration: 0.3 }}
             className="lg:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700"
           >
-            <div className="px-2 pt-2 pb-3 space-y-1">
+            <div className="px-4 pt-2 pb-4 space-y-4 flex flex-col items-center">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
                   onClick={handleNavigationClick(item.anchor)}
-                  className="block px-3 py-2 rounded-md text-base font-medium hover:text-red-500"
+                  className="block px-3 py-2 rounded-md text-base font-medium hover:text-red-500 whitespace-nowrap text-center"
                 >
                   {item.name}
                 </Link>
               ))}
 
               {/* Внешние магазины в мобильном меню */}
-              <div className="mt-4 border-t border-neutral-200 dark:border-neutral-700 pt-4">
-                <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-400 mb-2">Магазины</h3>
-                <div className="space-y-2">
+              <div className="mt-4 w-full">
+                <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-400 mb-2 text-center">Магазины</h3>
+                <div className="flex flex-col space-y-2 overflow-y-auto max-h-48">
                   {externalStores.map((store) => (
-                    <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
+                    <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer" className="w-full">
                       <button
-                        className={`w-full flex items-center space-x-2 px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} hover:from-${store.hoverGradient.split("to-")[1]} ${store.textColor} transition-transform transform hover:scale-105`}
+                        className={`w-full flex items-center justify-center space-x-2 px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105 whitespace-nowrap`}
                       >
                         <Image
                           src={store.iconSrc}
