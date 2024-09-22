@@ -261,91 +261,6 @@ export default function Soft() {
 
   return (
     <div className="bg-white dark:bg-black" id="soft">
-      {/* Мобильное меню */}
-      <div className="lg:hidden flex flex-col items-center pt-4">
-        {/* Общий серый контейнер с кнопками */}
-        <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md flex items-center space-x-4">
-          {/* Кнопка выбора категории с анимацией стрелочки */}
-          <motion.button
-            className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full flex items-center justify-between space-x-2 w-full"
-            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span>{selectedType}</span>
-            <motion.div
-              animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <ChevronDownIcon className="w-5 h-5" />
-            </motion.div>
-          </motion.button>
-
-          {/* Кнопка поиска */}
-          <motion.button
-            className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full shadow"
-            onClick={() => setIsSearchOpen((prev) => !prev)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <MagnifyingGlassIcon className="w-6 h-6" />
-          </motion.button>
-        </div>
-
-        {/* Выпадающее меню */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              className="mt-2 w-full bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
-              initial="closed"
-              animate="open"
-              exit="closed"
-              variants={menuVariants}
-            >
-              <motion.ul className="py-2">
-                {DeviceTypes.map((type) => (
-                  <motion.li
-                    key={type}
-                    variants={menuItemVariants}
-                    className="text-black dark:text-white px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                    onClick={() => {
-                      setSelectedType(type);
-                      setIsMobileMenuOpen(false); // Закрытие меню после выбора категории
-                    }}
-                  >
-                    {type}
-                  </motion.li>
-                ))}
-              </motion.ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Поисковая строка */}
-        <AnimatePresence>
-          {isSearchOpen && (
-            <motion.div
-              className="mt-2 w-full bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 80 }}
-            >
-              <input
-                type="text"
-                placeholder="Поиск..."
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setCurrentPage(1); // Сброс страницы при изменении поиска
-                }}
-                className="w-full px-4 py-2 border-none focus:outline-none bg-gray-100 dark:bg-gray-700 dark:text-white"
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
       {/* Основное содержимое */}
       <div className="pt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
@@ -364,6 +279,91 @@ export default function Soft() {
         >
           В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства...
         </motion.p>
+      </div>
+
+      {/* Мобильное меню: теперь оно располагается ниже основного контента */}
+      <div className="lg:hidden flex flex-col items-center pt-4">
+        {/* Общий серый контейнер с кнопками */}
+        <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md flex flex-col items-center w-full max-w-xs">
+          {/* Кнопка выбора категории с анимацией стрелочки */}
+          <motion.button
+            className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full flex items-center justify-between space-x-2 w-full"
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span>{selectedType}</span>
+            <motion.div
+              animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <ChevronDownIcon className="w-5 h-5" />
+            </motion.div>
+          </motion.button>
+
+          {/* Кнопка поиска */}
+          <motion.button
+            className="mt-4 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full shadow w-full"
+            onClick={() => setIsSearchOpen((prev) => !prev)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <MagnifyingGlassIcon className="w-6 h-6 mx-auto" />
+          </motion.button>
+
+          {/* Выпадающее меню */}
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.div
+                className="mt-4 w-full bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
+                initial="closed"
+                animate="open"
+                exit="closed"
+                variants={menuVariants}
+              >
+                <motion.ul className="py-2 text-center">
+                  {DeviceTypes.map((type) => (
+                    <motion.li
+                      key={type}
+                      variants={menuItemVariants}
+                      className="text-black dark:text-white px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
+                      onClick={() => {
+                        setSelectedType(type);
+                        setIsMobileMenuOpen(false); // Закрытие меню после выбора категории
+                      }}
+                    >
+                      {type}
+                    </motion.li>
+                  ))}
+                </motion.ul>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Поисковая строка */}
+          <AnimatePresence>
+            {isSearchOpen && (
+              <motion.div
+                className="mt-4 w-full bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 80 }}
+              >
+                <input
+                  type="text"
+                  placeholder="Поиск..."
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setCurrentPage(1); // Сброс страницы при изменении поиска
+                  }}
+                  className="w-full px-4 py-2 border-none focus:outline-none bg-gray-100 dark:bg-gray-700 dark:text-white"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
 
       {/* Фильтры и строка поиска для десктопной версии */}
