@@ -198,7 +198,7 @@ export default function Soft() {
   const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // State for mobile menu
+  // State для мобильного меню
   const [isOpen, setIsOpen] = useState(false);
 
   const handleDownloadClick = (links: { link: string; label: string }[]) => {
@@ -211,14 +211,14 @@ export default function Soft() {
 
   const closeModal = () => setModalLinks(null);
 
-  // Filter products by type and search query
+  // Фильтрация продуктов
   const filteredProducts = products.filter(
     ({ type, title }) =>
       (selectedType === "Все" || type === selectedType) &&
       title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Pagination logic
+  // Логика пагинации
   const [currentPage, setCurrentPage] = useState<number>(1);
   const productsPerPage = 8;
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -230,7 +230,7 @@ export default function Soft() {
   const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
-  // Stagger animation for mobile menu
+  // Stagger-анимация для мобильного меню
   const staggerContainer = {
     hidden: { opacity: 0 },
     visible: {
@@ -314,7 +314,7 @@ export default function Soft() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — "Марочный" или "Мультимарочный".
+          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;.
         </motion.p>
       </div>
 
