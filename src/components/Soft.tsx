@@ -17,7 +17,7 @@ interface Product {
   type: ProductType;
 }
 
-// Данные продуктов (проверьте на наличие ошибок и дубликатов в ваших данных)
+// Данные продуктов
 const products: Product[] = [
   {
     title: "Delphi DS150e",
@@ -226,6 +226,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, handleDownloadClick 
   return (
     <motion.div
       className="relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700"
+      initial={false} // Добавлено initial={false}
       variants={{
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0 },
@@ -510,7 +511,7 @@ export default function Soft() {
       {/* Карточки продуктов */}
       <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16"
-        initial="hidden"
+        initial={false} // Добавлено initial={false}
         animate="visible"
         variants={{
           hidden: {},
