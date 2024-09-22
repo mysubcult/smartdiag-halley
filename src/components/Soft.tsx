@@ -228,17 +228,17 @@ export default function Soft() {
 
   const menuVariants = {
     open: {
-      x: 0,
       opacity: 1,
+      height: "auto",
       transition: {
         type: "spring",
         stiffness: 80,
-        staggerChildren: 0.2,
+        staggerChildren: 0.1,
       },
     },
     closed: {
-      x: "-100%",
       opacity: 0,
+      height: 0,
       transition: {
         type: "spring",
         stiffness: 80,
@@ -278,43 +278,31 @@ export default function Soft() {
         </motion.h2>
       </div>
 
-      {/* Анимация для мобильного меню */}
+      {/* Компактное мобильное меню */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-50 bg-gray-800 bg-opacity-75 flex justify-center items-center"
+            className="absolute top-16 left-4 right-4 z-50 bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
             initial="closed"
             animate="open"
             exit="closed"
             variants={menuVariants}
           >
-            <motion.div
-              className="bg-white dark:bg-gray-800 w-3/4 p-6 rounded-lg shadow-lg"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <motion.button
-                className="absolute top-4 right-4 text-black dark:text-white"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <XMarkIcon className="w-6 h-6" />
-              </motion.button>
-
-              <motion.ul>
-                {DeviceTypes.map((type) => (
-                  <motion.li
-                    key={type}
-                    variants={menuItemVariants}
-                    className="text-black dark:text-white py-4 border-b border-gray-300 dark:border-gray-700"
-                    onClick={() => {
-                      setSelectedType(type);
-                      setIsMobileMenuOpen(false); // Закрытие меню после выбора категории
-                    }}
-                  >
-                    {type}
-                  </motion.li>
-                ))}
-              </motion.ul>
-            </motion.div>
+            <motion.ul className="py-2">
+              {DeviceTypes.map((type) => (
+                <motion.li
+                  key={type}
+                  variants={menuItemVariants}
+                  className="text-black dark:text-white px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                  onClick={() => {
+                    setSelectedType(type);
+                    setIsMobileMenuOpen(false); // Закрытие меню после выбора категории
+                  }}
+                >
+                  {type}
+                </motion.li>
+              ))}
+            </motion.ul>
           </motion.div>
         )}
       </AnimatePresence>
