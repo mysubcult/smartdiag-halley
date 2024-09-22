@@ -3,7 +3,7 @@ import { useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { Bars3Icon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -53,6 +53,7 @@ const externalStores = [
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isStoresDropdownOpen, setIsStoresDropdownOpen] = useState(false);
   const router = useRouter();
 
   const handleNavigationClick = useCallback(
@@ -69,6 +70,7 @@ const Navbar: React.FC = () => {
           element?.scrollIntoView({ behavior: "smooth" });
         }
         setIsMenuOpen(false);
+        setIsStoresDropdownOpen(false);
       }
     },
     [router]
@@ -110,25 +112,47 @@ const Navbar: React.FC = () => {
               ))}
             </div>
 
-            {/* Внешние магазины */}
-            <div className="flex space-x-2">
-              {externalStores.map((store) => (
-                <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
-                  <button
-                    className={`flex items-center space-x-2 px-3 py-1.5 rounded-full bg-gradient-to-r ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105 whitespace-nowrap`}
+            {/* Внешние магазины в выпадающем меню */}
+            <div className="relative">
+              <button
+                onClick={() => setIsStoresDropdownOpen(!isStoresDropdownOpen)}
+                className="flex items-center text-base sm:text-lg font-medium hover:text-red-500 transition-colors whitespace-nowrap group focus:outline-none"
+              >
+                Магазины
+                <ChevronDownIcon className="ml-1 h-5 w-5" />
+              </button>
+
+              <AnimatePresence>
+                {isStoresDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-neutral-800 ring-1 ring-black ring-opacity-5"
                   >
-                    <Image
-                      src={store.iconSrc}
-                      alt={store.alt}
-                      width={20}
-                      height={20}
-                      className="w-5 h-5"
-                      loading="lazy"
-                    />
-                    <span className="text-sm sm:text-base">{store.name}</span>
-                  </button>
-                </Link>
-              ))}
+                    <div className="py-1">
+                      {externalStores.map((store) => (
+                        <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
+                          <button
+                            className={`flex items-center space-x-2 px-4 py-2 text-sm rounded-md w-full text-left ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105`}
+                          >
+                            <Image
+                              src={store.iconSrc}
+                              alt={store.alt}
+                              width={20}
+                              height={20}
+                              className="w-5 h-5"
+                              loading="lazy"
+                            />
+                            <span>{store.name}</span>
+                          </button>
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
 
@@ -142,6 +166,8 @@ const Navbar: React.FC = () => {
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500"
+                aria-expanded={isMenuOpen}
+                aria-controls="mobile-menu"
               >
                 <span className="sr-only">Открыть главное меню</span>
                 {isMenuOpen ? (
@@ -164,6 +190,7 @@ const Navbar: React.FC = () => {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="lg:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700"
+            id="mobile-menu"
           >
             <div className="px-4 pt-2 pb-4 space-y-4">
               {navigation.map((item) => (
