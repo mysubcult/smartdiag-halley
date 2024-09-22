@@ -1,9 +1,9 @@
 // components/Navbar.tsx
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
-import { Bars3Icon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -55,6 +55,7 @@ const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isStoresDropdownOpen, setIsStoresDropdownOpen] = useState(false);
   const router = useRouter();
+  const storesDropdownRef = useRef<HTMLDivElement>(null);
 
   const handleNavigationClick = useCallback(
     (anchor?: string) => (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -75,6 +76,28 @@ const Navbar: React.FC = () => {
     },
     [router]
   );
+
+  // Закрытие выпадающего меню при клике вне его
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        storesDropdownRef.current &&
+        !storesDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsStoresDropdownOpen(false);
+      }
+    };
+
+    if (isStoresDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isStoresDropdownOpen]);
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-opacity-100 z-50">
@@ -113,7 +136,7 @@ const Navbar: React.FC = () => {
             </div>
 
             {/* Внешние магазины в выпадающем меню */}
-            <div className="relative">
+            <div className="relative" ref={storesDropdownRef}>
               <button
                 onClick={() => setIsStoresDropdownOpen(!isStoresDropdownOpen)}
                 className="flex items-center text-base sm:text-lg font-medium hover:text-red-500 transition-colors whitespace-nowrap group focus:outline-none"
@@ -135,7 +158,7 @@ const Navbar: React.FC = () => {
                       {externalStores.map((store) => (
                         <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
                           <button
-                            className={`flex items-center space-x-2 px-4 py-2 text-sm rounded-md w-full text-left ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105`}
+                            className={`flex items-center space-x-2 px-4 py-2 text-sm rounded-md w-full text-left ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105 whitespace-nowrap`}
                           >
                             <Image
                               src={store.iconSrc}
