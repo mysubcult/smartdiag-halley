@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
-import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { CheckIcon, XMarkIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { motion, AnimatePresence } from "framer-motion";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
 
 type ProductType = "Все" | "Мультимарочные" | "Марочные" | "Адаптеры elm";
 
@@ -197,9 +196,10 @@ export default function Soft() {
   const [selectedType, setSelectedType] = useState<ProductType>("Все");
   const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Добавляем состояние для мобильного меню
 
-  // State для мобильного меню
-  const [isOpen, setIsOpen] = useState(false);
+  const productsPerPage = 8;
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handleDownloadClick = (links: { link: string; label: string }[]) => {
     if (links.length === 1) {
@@ -211,16 +211,12 @@ export default function Soft() {
 
   const closeModal = () => setModalLinks(null);
 
-  // Фильтрация продуктов
   const filteredProducts = products.filter(
     ({ type, title }) =>
       (selectedType === "Все" || type === selectedType) &&
       title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Логика пагинации
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const productsPerPage = 8;
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
@@ -230,75 +226,100 @@ export default function Soft() {
   const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
-  // Stagger-анимация для мобильного меню
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
+  const menuVariants = {
+    open: {
+      x: 0,
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        type: "spring",
+        stiffness: 80,
+        staggerChildren: 0.2,
+      },
+    },
+    closed: {
+      x: "-100%",
+      opacity: 0,
+      transition: {
+        type: "spring",
+        stiffness: 80,
       },
     },
   };
 
-  const staggerItem = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0 },
+  const menuItemVariants = {
+    open: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.3 },
+    },
+    closed: {
+      opacity: 0,
+      x: -20,
+    },
   };
 
   return (
     <div className="bg-white dark:bg-black" id="soft">
-      {/* Navbar */}
-      <header className="bg-white dark:bg-gray-800 shadow-md fixed w-full z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Link href="/" className="text-xl font-bold text-gray-900 dark:text-white">
-                MySite
-              </Link>
-            </div>
+      {/* Мобильное меню */}
+      <div className="lg:hidden flex justify-between items-center px-4 py-4">
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="text-black dark:text-white"
+        >
+          <Bars3Icon className="w-8 h-8" />
+        </button>
+        <motion.h2
+          className="text-xl font-extrabold text-black dark:text-white"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Меню Категорий
+        </motion.h2>
+      </div>
 
-            {/* Mobile Menu Button */}
-            <div className="flex items-center md:hidden">
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="text-gray-900 dark:text-white focus:outline-none"
-              >
-                {isOpen ? <XIcon className="w-8 h-8" /> : <MenuIcon className="w-8 h-8" />}
-              </button>
-            </div>
-
-            {/* Desktop Menu */}
-            <nav className="hidden md:flex space-x-4">
-              <Link href="/" className="text-gray-900 dark:text-white">Главная</Link>
-              <Link href="/products" className="text-gray-900 dark:text-white">Продукты</Link>
-              <Link href="/contact" className="text-gray-900 dark:text-white">Контакты</Link>
-              <Link href="/about" className="text-gray-900 dark:text-white">О нас</Link>
-            </nav>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <motion.nav
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            variants={staggerContainer}
-            className="md:hidden bg-white dark:bg-gray-800 fixed top-16 left-0 w-full px-4 py-6 space-y-6"
+      {/* Анимация для мобильного меню */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 bg-gray-800 bg-opacity-75 flex justify-center items-center"
+            initial="closed"
+            animate="open"
+            exit="closed"
+            variants={menuVariants}
           >
-            {["Главная", "Продукты", "Контакты", "О нас"].map((item, index) => (
-              <motion.div key={index} variants={staggerItem}>
-                <Link href={`/${item.toLowerCase()}`} className="block text-lg font-semibold text-gray-900 dark:text-white">
-                  {item}
-                </Link>
-              </motion.div>
-            ))}
-          </motion.nav>
-        )}
-      </header>
+            <motion.div
+              className="bg-white dark:bg-gray-800 w-3/4 p-6 rounded-lg shadow-lg"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <motion.button
+                className="absolute top-4 right-4 text-black dark:text-white"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <XMarkIcon className="w-6 h-6" />
+              </motion.button>
 
-      {/* Заголовок */}
+              <motion.ul>
+                {DeviceTypes.map((type) => (
+                  <motion.li
+                    key={type}
+                    variants={menuItemVariants}
+                    className="text-black dark:text-white py-4 border-b border-gray-300 dark:border-gray-700"
+                    onClick={() => {
+                      setSelectedType(type);
+                      setIsMobileMenuOpen(false); // Закрытие меню после выбора категории
+                    }}
+                  >
+                    {type}
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Основное содержимое */}
       <div className="pt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           className="text-4xl font-extrabold text-center text-black dark:text-white"
@@ -314,12 +335,12 @@ export default function Soft() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;.
+          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства...
         </motion.p>
       </div>
 
-      {/* Фильтры и строка поиска */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+      {/* Фильтры и строка поиска для десктопной версии */}
+      <div className="hidden lg:block max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div className="max-w-max mx-auto flex flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow space-y-4 sm:space-y-0 sm:space-x-4">
           <div className="flex flex-wrap gap-2">
             {DeviceTypes.map((type) => (
@@ -327,7 +348,7 @@ export default function Soft() {
                 key={type}
                 onClick={() => {
                   setSelectedType(type);
-                  setCurrentPage(1); // Reset page on filter change
+                  setCurrentPage(1); // Сброс страницы при изменении фильтра
                 }}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
                   selectedType === type
@@ -348,7 +369,7 @@ export default function Soft() {
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
-                setCurrentPage(1); // Reset page on search change
+                setCurrentPage(1); // Сброс страницы при изменении поиска
               }}
               className="w-full sm:w-64 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
             />
@@ -376,7 +397,7 @@ export default function Soft() {
           return (
             <motion.div
               key={title}
-              className="relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700"
+              className={`relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700`}
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 },
@@ -453,7 +474,6 @@ export default function Soft() {
           >
             Предыдущая
           </button>
-          {/* Номера страниц */}
           {Array.from({ length: totalPages }, (_, index) => index + 1).map((number) => (
             <button
               key={number}
