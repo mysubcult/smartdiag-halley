@@ -2,7 +2,7 @@
 
 import Head from "next/head";
 import Layout from "../components/Layout";
-import { Blog } from "../components/articles"; // Предполагая, что ваш компонент называется Blog и экспортируется по умолчанию
+import { Blog } from "../components/Articles"; // Предполагая, что ваш компонент называется Blog и экспортируется по умолчанию
 
 const ArticlesPage: React.FC = () => {
   return (
