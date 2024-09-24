@@ -89,7 +89,7 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="relative text-base font-medium hover:text-red-500 transition-colors"
+                className="relative text-base font-medium hover:text-red-500 transition-colors whitespace-nowrap"
                 style={{ textDecoration: "none" }}
                 scroll={false}
                 onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
@@ -113,7 +113,7 @@ export default function Navbar() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} ${store.textColor} transition-colors duration-300`}
+                    className={`flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} ${store.textColor} transition-colors duration-300 whitespace-nowrap`}
                   >
                     <Image
                       src={store.iconSrc}
@@ -185,7 +185,7 @@ export default function Navbar() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors"
+                  className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors whitespace-nowrap"
                   scroll={false}
                   onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
                 >
@@ -205,7 +205,7 @@ export default function Navbar() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className={`w-full flex items-center justify-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} ${store.textColor} transition-colors duration-300`}
+                      className={`w-full flex items-center justify-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} ${store.textColor} transition-colors duration-300 whitespace-nowrap`}
                     >
                       <Image
                         src={store.iconSrc}
