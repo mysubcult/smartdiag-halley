@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Layout from "../components/Layout";
-import { Soft } from "../components/Soft";
+import Soft from "../components/Soft"; // Импорт компонента Soft без деструктуризации
 
 const SoftPage: React.FC = () => {
   return (
