@@ -116,7 +116,7 @@ export default function Contact() {
             <h3 className="text-md font-semibold mb-4 text-red-600">Мы доступны в мессенджерах:</h3>
             <div className="flex justify-center space-x-8">
               <ContactInfo
-                href="https://t.me/yourtelegramlink" // Убедитесь, что ссылка правильная
+                href="https://смартдиаг-поддержка.рф/telegram" // Убедитесь, что ссылка правильная
                 imageSrc="/images/hero/telegram-qr.svg"
                 alt="QR Code Telegram"
                 platform="Telegram"
@@ -142,7 +142,7 @@ export default function Contact() {
                 hoverColor="hover:text-blue-500"
               />
               <ContactInfo
-                href="https://wa.me/yourwhatsapplink" // Убедитесь, что ссылка правильная
+                href="https://смартдиаг-поддержка.рф/whatsapp" // Убедитесь, что ссылка правильная
                 imageSrc="/images/hero/whatsapp-qr.svg"
                 alt="QR Code WhatsApp"
                 platform="WhatsApp"
