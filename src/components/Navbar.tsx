@@ -97,7 +97,7 @@ const Navbar: React.FC = () => {
               <Link
                 key={item.name}
                 href={item.href}
-                className="relative text-lg font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors"
+                className="relative text-lg font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors whitespace-nowrap"
                 style={{ textDecoration: "none" }}
                 scroll={false}
                 onClick={handleNavigationClick(item.anchor)}
@@ -114,7 +114,7 @@ const Navbar: React.FC = () => {
             {storeLinks.map((store) => (
               <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
                 <button
-                  className={`flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bg} hover:${store.hoverBg} ${store.textColor} transition-transform duration-300 ease-in-out transform hover:scale-105`}
+                  className={`flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bg} hover:${store.hoverBg} ${store.textColor} transition-transform duration-300 ease-in-out transform hover:scale-105 whitespace-nowrap`}
                 >
                   <Image
                     src={store.iconSrc}
@@ -124,7 +124,7 @@ const Navbar: React.FC = () => {
                     height={20}
                     loading="lazy"
                   />
-                  {store.name}
+                  <span className="truncate">{store.name}</span>
                 </button>
               </Link>
             ))}
@@ -165,7 +165,7 @@ const Navbar: React.FC = () => {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block text-lg font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors"
+                  className="block text-lg font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors whitespace-nowrap"
                   scroll={false}
                   onClick={handleNavigationClick(item.anchor)}
                 >
@@ -177,7 +177,7 @@ const Navbar: React.FC = () => {
               <div>
                 <button
                   onClick={() => setIsStoreMenuOpen(!isStoreMenuOpen)}
-                  className="w-full flex items-center justify-between text-lg font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors focus:outline-none"
+                  className="w-full flex items-center justify-between text-lg font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors focus:outline-none whitespace-nowrap"
                   aria-expanded={isStoreMenuOpen}
                 >
                   Магазины
@@ -197,7 +197,7 @@ const Navbar: React.FC = () => {
                       {storeLinks.map((store) => (
                         <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
                           <button
-                            className={`w-full flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bg} hover:${store.hoverBg} ${store.textColor} transition-transform duration-300 ease-in-out transform hover:scale-105`}
+                            className={`w-full flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bg} hover:${store.hoverBg} ${store.textColor} transition-transform duration-300 ease-in-out transform hover:scale-105 whitespace-nowrap`}
                           >
                             <Image
                               src={store.iconSrc}
@@ -207,7 +207,7 @@ const Navbar: React.FC = () => {
                               height={20}
                               loading="lazy"
                             />
-                            {store.name}
+                            <span className="truncate">{store.name}</span>
                           </button>
                         </Link>
                       ))}
