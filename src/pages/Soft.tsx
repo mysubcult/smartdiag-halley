@@ -1,5 +1,3 @@
-// pages/soft.tsx
-
 import Head from "next/head";
 import Layout from "../components/Layout";
 import { Soft } from "../components/Soft";
@@ -26,9 +24,11 @@ const SoftPage: React.FC = () => {
           property="og:description"
           content="SmartDiag предлагает качественные диагностические решения для автомобилей. Узнайте больше о наших услугах."
         />
+        {/* Указываем favicon */}
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Компонент Услуг */}
+      {/* Компонент Программ */}
       <Soft />
     </Layout>
   );
