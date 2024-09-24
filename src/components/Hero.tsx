@@ -23,7 +23,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="bg-white dark:bg-neutral-900 flex items-start lg:items-center justify-center"
+      className="bg-white dark:bg-neutral-900 flex items-start lg:items-center justify-center h-full"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32 flex flex-col lg:flex-row items-center lg:justify-center gap-8">
         
@@ -36,7 +36,7 @@ export function Hero() {
         >
           {/* Заголовок */}
           <motion.h1
-            className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100"
+            className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl"
             variants={itemVariants}
           >
             Добро пожаловать в <br />
@@ -70,18 +70,17 @@ export function Hero() {
                   className="w-5 h-5 ml-2 transform group-hover:rotate-180 transition-transform duration-1000"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
-                  viewBox="0 0 16 16"
+                  viewBox="0 0 24 24"
                   initial={{ rotate: 0 }}
                   animate={{ rotate: 360 }}
                   transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
                 >
+                  {/* Шестерёнка SVG */}
                   <path
-                    d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"
-                    fill="white"
+                    d="M12 15.5c1.933 0 3.5-1.567 3.5-3.5S13.933 8.5 12 8.5 8.5 10.067 8.5 12s1.567 3.5 3.5 3.5zm0-5c.828 0 1.5.672 1.5 1.5S12.828 11.5 12 11.5 10.5 10.828 10.5 10s.672-1.5 1.5-1.5z"
                   />
                   <path
-                    d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 2.693-1.115l.094.318c.527.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 0 2.692-1.115l.292.16c.764.415 1.6-.42 1.184-1.185l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094-.319zM6.163 1.626c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"
-                    fill="white"
+                    d="M19.4 15a1.992 1.992 0 0 0 .1-1c0-.3-.05-.59-.14-.87l2.12-1.65a.5.5 0 0 0 .11-.7l-2-3.464a.5.5 0 0 0-.6-.2l-2.49 1a7.014 7.014 0 0 0-1.6-.93l-.38-2.65A.5.5 0 0 0 14 4h-4a.5.5 0 0 0-.5.42l-.38 2.65c-.56.24-1.09.56-1.6.93l-2.49-1a.5.5 0 0 0-.6.2l-2 3.464a.5.5 0 0 0 .11.7l2.12 1.65c-.09.28-.14.58-.14.87 0 .3.05.59.14.87l-2.12 1.65a.5.5 0 0 0-.11.7l2 3.464c.12.2.38.3.6.2l2.49-1c.51.37 1.04.69 1.6.93l.38 2.65c.04.23.24.42.5.42h4c.26 0 .46-.19.5-.42l.38-2.65c.56-.24 1.09-.56 1.6-.93l2.49 1c.22.1.48 0 .6-.2l2-3.464a.5.5 0 0 0-.11-.7l-2.12-1.65c.09-.28.14-.58.14-.87zm-7.4 3c-1.93 0-3.5-1.57-3.5-3.5S10.07 11 12 11s3.5 1.57 3.5 3.5S13.93 18 12 18z"
                   />
                 </motion.svg>
               </motion.a>
