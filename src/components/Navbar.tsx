@@ -52,11 +52,10 @@ const storeLinks = [
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isStoreMenuOpen, setIsStoreMenuOpen] = useState(false);
   const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
   const [visibleItems, setVisibleItems] = useState<NavigationItem[]>(navigation);
   const [hiddenItems, setHiddenItems] = useState<NavigationItem[]>([]);
-  
+
   const router = useRouter();
   const navbarRef = useRef<HTMLDivElement>(null);
   const menuItemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -73,7 +72,6 @@ const Navbar: React.FC = () => {
       }
       setIsMenuOpen(false);
       setIsMoreMenuOpen(false);
-      setIsStoreMenuOpen(false);
     },
     [router]
   );
@@ -94,7 +92,7 @@ const Navbar: React.FC = () => {
 
     menuItemRefs.current.forEach((ref, index) => {
       if (ref) {
-        const itemWidth = ref.offsetWidth + 32; // 32px margin
+        const itemWidth = ref.offsetWidth + 32; // 32px margin (space-x-8 = 2rem = 32px)
         if (totalWidth + itemWidth <= availableWidth) {
           visible.push(navigation[index]);
           totalWidth += itemWidth;
@@ -157,8 +155,8 @@ const Navbar: React.FC = () => {
                 <Link
                   key={item.name}
                   href={item.href}
-                  ref={el => menuItemRefs.current[index] = el}
-                  className="relative text-lg font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors whitespace-nowrap"
+                  ref={el => { menuItemRefs.current[index] = el; }} // Исправлено: функция возвращает void
+                  className="relative text-lg font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors whitespace-nowrap group"
                   style={{ textDecoration: "none" }}
                   scroll={false}
                   onClick={handleNavigationClick(item.anchor)}
@@ -224,7 +222,7 @@ const Navbar: React.FC = () => {
                       height={20}
                       loading="lazy"
                     />
-                    <span className="truncate">{store.name}</span>
+                    <span>{store.name}</span>
                   </button>
                 </Link>
               ))}
@@ -311,17 +309,17 @@ const Navbar: React.FC = () => {
               {/* Подменю магазинов */}
               <div>
                 <button
-                  onClick={() => setIsStoreMenuOpen(!isStoreMenuOpen)}
+                  onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
                   className="w-full flex items-center justify-between text-lg font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors focus:outline-none whitespace-nowrap"
-                  aria-expanded={isStoreMenuOpen}
+                  aria-expanded={isMoreMenuOpen}
                 >
                   Магазины
                   <ChevronDownIcon
-                    className={`h-5 w-5 transition-transform ${isStoreMenuOpen ? "transform rotate-180" : ""}`}
+                    className={`h-5 w-5 transition-transform ${isMoreMenuOpen ? "transform rotate-180" : ""}`}
                   />
                 </button>
                 <AnimatePresence>
-                  {isStoreMenuOpen && (
+                  {isMoreMenuOpen && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
