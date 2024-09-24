@@ -1,7 +1,9 @@
+// components/Contact.tsx
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import PrivacyPolicyModal from './PrivacyPolicyModal';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 type Info = {
   access_key: string;
@@ -70,34 +72,75 @@ export default function Contact() {
     }
   };
 
+  // Варианты анимации для заголовка и описания
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.3, // Задержка между анимациями дочерних элементов
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <div className="bg-white dark:bg-neutral-900" id="contact">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 text-center">
-        <h2 className="text-4xl font-bold">Обратная связь 📩</h2>
-        <p className="pt-6 pb-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+        <motion.h2
+          className="text-4xl font-bold"
+          variants={itemVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ duration: 0.6 }}
+        >
+          Обратная связь 📩
+        </motion.h2>
+
+        <motion.p
+          className="pt-6 pb-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400"
+          variants={itemVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           Мы очень ценим ваше мнение и постоянно работаем над улучшением нашего сервиса. Если у вас есть предложения,
           вопросы или комментарии, пожалуйста, свяжитесь с нами! Вы можете написать нам через форму обратной связи,
           которая находится ниже, или связаться с нами через мессенджеры. Наша команда старается оперативно отвечать на
           все запросы, и мы гарантируем, что вы получите ответ в течение 12 рабочих часов.
-        </p>
+        </motion.p>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 grid md:grid-cols-2 gap-y-8 md:gap-x-8">
         {/* Левая часть с контактной информацией */}
-        <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-lg font-bold text-center mb-6">📞 Наши контакты</h2>
+        <motion.div
+          className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+        >
+          <motion.h2
+            className="text-lg font-bold text-center mb-6"
+            variants={itemVariants}
+            transition={{ duration: 0.6 }}
+          >
+            📞 Наши контакты
+          </motion.h2>
 
-          <div className="mb-6">
+          <motion.div className="mb-6" variants={itemVariants} transition={{ duration: 0.6, delay: 0.2 }}>
             <h3 className="text-md font-semibold mb-2 text-red-600">График работы технической поддержки:</h3>
             <div className="text-sm text-gray-700 dark:text-gray-300">
               <p>🕑 Понедельник - Пятница: 10:00 - 19:00 (МСК)</p>
               <p>🕑 Суббота - Воскресенье: 10:00 - 18:00 (МСК)</p>
             </div>
-          </div>
+          </motion.div>
 
-          <hr className="border-gray-300 dark:border-gray-700 mb-6" />
+          <motion.hr className="border-gray-300 dark:border-gray-700 mb-6" variants={itemVariants} transition={{ duration: 0.6, delay: 0.4 }} />
 
-          <div className="mb-6">
+          <motion.div className="mb-6" variants={itemVariants} transition={{ duration: 0.6, delay: 0.6 }}>
             <h3 className="text-md font-semibold mb-4 text-red-600">Мы доступны в мессенджерах:</h3>
             <div className="flex justify-center space-x-8">
               <ContactInfo
@@ -120,7 +163,8 @@ export default function Contact() {
                   >
                     <path
                       id="telegram-1"
-                      d="M18.384,22.779c0.322,0.228 0.737,0.285 1.107,0.145c0.37,-0.141 0.642,-0.457 0.724,-0.84c0.869,-4.084 2.977,-14.421 3.768,-18.136c0.06,-0.28 -0.04,-0.571 -0.26,-0.758c-0.22,-0.187 -0.525,-0.241 -0.797,-0.14c-4.193,1.552 -17.106,6.397 -22.384,8.35c-0.335,0.124 -0.553,0.446 -0.542,0.799c0.012,0.354 0.25,0.661 0.593,0.764c2.367,0.708 5.474,1.693 5.474,1.693c0,0 1.452,4.385 2.209,6.615c0.095,0.28 0.314,0.5 0.603,0.576c0.288,0.075 0.596,-0.004 0.811,-0.207c1.216,-1.148 3.096,-2.923 3.096,-2.923c0,0 3.572,2.619 5.598,4.062Zm-11.01,-8.677l1.679,5.538l0.373,-3.507c0,0 6.487,-5.851 10.185,-9.186c0.108,-0.098 0.123,-0.262 0.033,-0.377c-0.089,-0.115 -0.253,-0.142 -0.376,-0.064c-4.286,2.737 -11.894,7.596 -11.894,7.596Z"
+                      d="M18.384,15a1.992,1.992,0,0,0,.1-1c0-.3-.05-.59-.14-.87l2.12-1.65a.5.5,0,0,0,.11-.7l-2-3.464a.5.5,0,0,0-.6-.2l-2.49,1a7.014,7.014,0,0,0-1.6-.93l-.38-2.65A.5.5,0,0,0,14,4h-4a.5.5,0,0,0-.5.42l-.38,2.65c-.56.24-1.09.56-1.6.93l-2.49-1a.5.5,0,0,0-.6.22l-2,3.464a.5.5,0,0,0,.12.63l2.12,1.65c-.09.28-.14.58-.14.87 0,.3.05.59.14.87l-2.12,1.65a.5.5,0,0,0-.12.63l2,3.464c.12.2.38.3.6.2l2.49-1c.51.37,1.04.69,1.6.93l.38,2.65c.04.23.24.42.5.42h4c.26,0,.46-.19,.5-.42l.38-2.65c.56-.24,1.09-.56,1.6-.93l2.49,1c.22.1,.48,0,.6-.2l2-3.464a.5.5,0,0,0-.12-.63l-2.12-1.65c.09-.28,.14-.58,.14-.87Zm-7.14,2.564a3,3,0,1,1,3-3A3,3,0,0,1,12,15.5Z"
+                      fill="white"
                     />
                   </svg>
                 }
@@ -144,39 +188,50 @@ export default function Contact() {
                 hoverColor="hover:text-green-500"
               />
             </div>
-          </div>
+          </motion.div>
 
-          <hr className="border-gray-300 dark:border-gray-700 mb-6" />
+          <motion.hr className="border-gray-300 dark:border-gray-700 mb-6" variants={itemVariants} transition={{ duration: 0.6, delay: 0.8 }} />
 
-          <div className="mb-6">
+          <motion.div className="mb-6" variants={itemVariants} transition={{ duration: 0.6, delay: 1.0 }}>
             <h3 className="text-md font-semibold mb-2 text-red-600">Email отдела продаж:</h3>
             <p className="text-sm text-gray-700 dark:text-gray-300">
               <a href="mailto:sales@смартдиаг.рф" className="text-blue-600 hover:underline">
                 sales@смартдиаг.рф
               </a>
             </p>
-          </div>
+          </motion.div>
 
-          <div className="mb-6">
+          <motion.div className="mb-6" variants={itemVariants} transition={{ duration: 0.6, delay: 1.2 }}>
             <h3 className="text-md font-semibold mb-2 text-red-600">Email технической поддержки:</h3>
             <p className="text-sm text-gray-700 dark:text-gray-300">
               <a href="mailto:support@смартдиаг.рф" className="text-blue-600 hover:underline">
                 support@смартдиаг.рф
               </a>
             </p>
-          </div>
+          </motion.div>
 
-          <hr className="border-gray-300 dark:border-gray-700 mb-6" />
+          <motion.hr className="border-gray-300 dark:border-gray-700 mb-6" variants={itemVariants} transition={{ duration: 0.6, delay: 1.4 }} />
 
-          <div>
+          <motion.div variants={itemVariants} transition={{ duration: 0.6, delay: 1.6 }}>
             <h3 className="text-md font-semibold mb-2 text-red-600">Адрес компании:</h3>
             <p className="text-sm text-gray-700 dark:text-gray-300">📍 г. Тольятти, ул. Ленинградская 68</p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Правая часть с формой обратной связи */}
-        <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-lg font-bold text-center mb-5">✍️ Обратная связь</h2>
+        <motion.div
+          className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+        >
+          <motion.h2
+            className="text-lg font-bold text-center mb-5"
+            variants={itemVariants}
+            transition={{ duration: 0.6 }}
+          >
+            ✍️ Обратная связь
+          </motion.h2>
           {!isSubmitSuccessful && (
             <form onSubmit={handleSubmit(onSubmit)}>
               <input type="hidden" value="c39d2187-6537-4c0b-87e1-3cff0bf0c1c3" {...register('access_key')} />
@@ -243,7 +298,11 @@ export default function Contact() {
                 })}
               />
 
-              <div className="flex items-center mb-4 mt-4">
+              <motion.div
+                className="flex items-center mb-4 mt-4"
+                variants={itemVariants}
+                transition={{ duration: 0.6, delay: 1.8 }}
+              >
                 <input
                   type="checkbox"
                   id="agree"
@@ -262,11 +321,15 @@ export default function Contact() {
                     правилами на обработку персональных данных
                   </button>
                 </span>
-              </div>
+              </motion.div>
 
-              <button
+              <motion.button
                 type="submit"
                 className="w-full py-3 font-semibold text-white bg-red-600 rounded-md transition duration-300 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300"
+                variants={itemVariants}
+                transition={{ duration: 0.6, delay: 2.0 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 {isSubmitting ? (
                   <svg
@@ -285,12 +348,12 @@ export default function Contact() {
                 ) : (
                   'Отправить сообщение'
                 )}
-              </button>
+              </motion.button>
             </form>
           )}
           {isSubmitSuccessful && modalState.isSuccess && <SuccessMessage onReset={reset} />}
           {isSubmitSuccessful && !modalState.isSuccess && <ErrorMessage onReset={reset} />}
-        </div>
+        </motion.div>
       </div>
       <PrivacyPolicyModal
         isOpen={modalState.isModalOpen}
