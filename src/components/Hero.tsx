@@ -23,7 +23,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="bg-white dark:bg-neutral-900 min-h-screen flex items-start lg:items-center justify-center"
+      className="bg-white dark:bg-neutral-900 flex items-start lg:items-center justify-center"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32 flex flex-col lg:flex-row items-center lg:justify-center gap-8">
         
@@ -36,7 +36,7 @@ export function Hero() {
         >
           {/* Заголовок */}
           <motion.h1
-            className="text-5xl sm:text-6xl lg:text-6xl font-bold leading-tight text-neutral-900 dark:text-neutral-100"
+            className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100"
             variants={itemVariants}
           >
             Добро пожаловать в <br />
