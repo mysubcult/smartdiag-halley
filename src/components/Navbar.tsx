@@ -59,6 +59,9 @@ const Navbar: React.FC = () => {
   const router = useRouter();
   const navbarRef = useRef<HTMLDivElement>(null);
   const menuItemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const themeButtonRef = useRef<HTMLDivElement>(null);
+  const storeButtonsRef = useRef<HTMLDivElement>(null);
+  const hamburgerButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleNavigationClick = useCallback(
     (anchor?: string) => (event: React.MouseEvent) => {
@@ -80,10 +83,23 @@ const Navbar: React.FC = () => {
     if (!navbarRef.current) return;
 
     const navbarWidth = navbarRef.current.offsetWidth;
-    const logoWidth = navbarRef.current.querySelector("#logo")?.clientWidth || 0;
-    const themeButtonWidth = navbarRef.current.querySelector("#theme-button")?.clientWidth || 0;
-    const storeButtonsWidth = Array.from(navbarRef.current.querySelectorAll(".store-button")).reduce((acc, btn) => acc + (btn as HTMLElement).offsetWidth + 8, 0); // 8px margin
-    const hamburgerWidth = navbarRef.current.querySelector("#hamburger-button")?.clientWidth || 0;
+
+    // Ширина логотипа
+    const logoElement = navbarRef.current.querySelector("#logo");
+    const logoWidth = logoElement ? (logoElement as HTMLElement).offsetWidth : 0;
+
+    // Ширина кнопки темы
+    const themeButtonWidth = themeButtonRef.current ? themeButtonRef.current.offsetWidth : 0;
+
+    // Ширина кнопок магазинов
+    const storeButtonsWidth = storeButtonsRef.current
+      ? Array.from(storeButtonsRef.current.children).reduce((acc, btn) => acc + (btn as HTMLElement).offsetWidth + 8, 0) // 8px margin
+      : 0;
+
+    // Ширина кнопки гамбургера
+    const hamburgerWidth = hamburgerButtonRef.current ? hamburgerButtonRef.current.offsetWidth : 0;
+
+    // Доступная ширина для пунктов меню
     const availableWidth = navbarWidth - logoWidth - themeButtonWidth - storeButtonsWidth - hamburgerWidth - 32; // 32px padding
 
     let totalWidth = 0;
@@ -155,7 +171,7 @@ const Navbar: React.FC = () => {
                 <Link
                   key={item.name}
                   href={item.href}
-                  ref={el => { menuItemRefs.current[index] = el; }} // Исправлено: функция возвращает void
+                  ref={el => { menuItemRefs.current[index] = el; }}
                   className="relative text-lg font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors whitespace-nowrap group"
                   style={{ textDecoration: "none" }}
                   scroll={false}
@@ -173,6 +189,7 @@ const Navbar: React.FC = () => {
                     className="flex items-center text-lg font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors whitespace-nowrap focus:outline-none"
                     aria-haspopup="true"
                     aria-expanded={isMoreMenuOpen}
+                    aria-label="Дополнительные пункты меню"
                   >
                     Дополнительно
                     <ChevronDownIcon className={`h-5 w-5 ml-1 transition-transform ${isMoreMenuOpen ? "transform rotate-180" : ""}`} />
@@ -208,7 +225,7 @@ const Navbar: React.FC = () => {
             </div>
 
             {/* Кнопки магазинов */}
-            <div className="flex space-x-2 ml-4">
+            <div className="flex space-x-2 ml-4" ref={storeButtonsRef}>
               {storeLinks.map((store) => (
                 <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
                   <button
@@ -229,8 +246,8 @@ const Navbar: React.FC = () => {
             </div>
 
             {/* Переключатель темы */}
-            <div className="ml-4">
-              <ThemeSwitchButton id="theme-button" />
+            <div className="ml-4" ref={themeButtonRef}>
+              <ThemeSwitchButton />
             </div>
           </div>
 
@@ -238,7 +255,7 @@ const Navbar: React.FC = () => {
           <div className="lg:hidden flex items-center space-x-2">
             <ThemeSwitchButton />
             <button
-              id="hamburger-button"
+              ref={hamburgerButtonRef}
               className="p-2 rounded-md text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Меню навигации"
@@ -262,21 +279,23 @@ const Navbar: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700 z-40"
+            className="hidden lg:block absolute top-16 left-0 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700 w-full z-40"
           >
-            <div className="px-4 pt-4 pb-6 space-y-6">
-              {hiddenItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="block text-lg font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors whitespace-nowrap"
-                  style={{ textDecoration: "none" }}
-                  scroll={false}
-                  onClick={handleNavigationClick(item.anchor)}
-                >
-                  {item.name}
-                </Link>
-              ))}
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="py-2">
+                {hiddenItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="block px-4 py-2 text-lg font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors whitespace-nowrap"
+                    style={{ textDecoration: "none" }}
+                    scroll={false}
+                    onClick={handleNavigationClick(item.anchor)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}
@@ -312,6 +331,7 @@ const Navbar: React.FC = () => {
                   onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
                   className="w-full flex items-center justify-between text-lg font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors focus:outline-none whitespace-nowrap"
                   aria-expanded={isMoreMenuOpen}
+                  aria-label="Магазины"
                 >
                   Магазины
                   <ChevronDownIcon
