@@ -12,10 +12,13 @@ interface NavigationItem {
   anchor?: string;
 }
 
-const navigation: NavigationItem[] = [
+const primaryNavigation: NavigationItem[] = [
   { name: "Главная", href: "/", anchor: "#hero" },
   { name: "Программы", href: "/#soft", anchor: "#soft" },
   { name: "Статьи", href: "/#blog", anchor: "#blog" },
+];
+
+const secondaryNavigation: NavigationItem[] = [
   { name: "О нас", href: "/#services", anchor: "#services" },
   { name: "Обратная связь", href: "/#contact" },
 ];
@@ -52,6 +55,7 @@ const storeLinks = [
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
   const [isStoreMenuOpen, setIsStoreMenuOpen] = useState(false);
   const router = useRouter();
 
@@ -66,6 +70,7 @@ const Navbar: React.FC = () => {
         }
       }
       setIsMenuOpen(false);
+      setIsMoreMenuOpen(false);
       setIsStoreMenuOpen(false);
     },
     [router]
@@ -92,42 +97,88 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Десктопное меню */}
-          <div className="hidden lg:flex lg:space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="relative text-lg font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors whitespace-nowrap"
-                style={{ textDecoration: "none" }}
-                scroll={false}
-                onClick={handleNavigationClick(item.anchor)}
-              >
-                {item.name}
-                {/* Подчеркивание при наведении */}
-                <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-red-500 transition-all duration-300 ease-in-out group-hover:w-full"></span>
-              </Link>
-            ))}
-          </div>
-
-          {/* Кнопки магазинов и переключатель темы */}
-          <div className="hidden lg:flex items-center space-x-4">
-            {storeLinks.map((store) => (
-              <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
-                <button
-                  className={`flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bg} hover:${store.hoverBg} ${store.textColor} transition-transform duration-300 ease-in-out transform hover:scale-105 whitespace-nowrap`}
+          <div className="hidden lg:flex lg:items-center lg:space-x-4">
+            {/* Основные пункты меню */}
+            <div className="flex space-x-8">
+              {primaryNavigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="relative text-lg font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors whitespace-nowrap"
+                  style={{ textDecoration: "none" }}
+                  scroll={false}
+                  onClick={handleNavigationClick(item.anchor)}
                 >
-                  <Image
-                    src={store.iconSrc}
-                    alt={store.alt}
-                    className="w-5 h-5 mr-2"
-                    width={20}
-                    height={20}
-                    loading="lazy"
-                  />
-                  <span className="truncate">{store.name}</span>
+                  {item.name}
+                  {/* Подчеркивание при наведении */}
+                  <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-red-500 transition-all duration-300 ease-in-out group-hover:w-full"></span>
+                </Link>
+              ))}
+            </div>
+
+            {/* Дополнительные пункты меню */}
+            {secondaryNavigation.length > 0 && (
+              <div className="relative">
+                <button
+                  onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
+                  className="flex items-center text-lg font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors whitespace-nowrap focus:outline-none"
+                  aria-haspopup="true"
+                  aria-expanded={isMoreMenuOpen}
+                >
+                  Дополнительно
+                  <ChevronDownIcon className={`h-5 w-5 ml-1 transition-transform ${isMoreMenuOpen ? "transform rotate-180" : ""}`} />
                 </button>
-              </Link>
-            ))}
+                <AnimatePresence>
+                  {isMoreMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute left-0 mt-2 w-48 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-md shadow-lg z-20"
+                    >
+                      <div className="py-1">
+                        {secondaryNavigation.map((item) => (
+                          <Link
+                            key={item.name}
+                            href={item.href}
+                            className="block px-4 py-2 text-sm text-neutral-900 dark:text-neutral-400 hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors whitespace-nowrap"
+                            style={{ textDecoration: "none" }}
+                            scroll={false}
+                            onClick={handleNavigationClick(item.anchor)}
+                          >
+                            {item.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            )}
+
+            {/* Кнопки магазинов */}
+            <div className="flex space-x-2 ml-4">
+              {storeLinks.map((store) => (
+                <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
+                  <button
+                    className={`flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bg} hover:${store.hoverBg} ${store.textColor} transition-transform duration-300 ease-in-out transform hover:scale-105 whitespace-nowrap`}
+                  >
+                    <Image
+                      src={store.iconSrc}
+                      alt={store.alt}
+                      className="w-5 h-5 mr-2"
+                      width={20}
+                      height={20}
+                      loading="lazy"
+                    />
+                    <span className="truncate">{store.name}</span>
+                  </button>
+                </Link>
+              ))}
+            </div>
+
+            {/* Переключатель темы */}
             <ThemeSwitchButton />
           </div>
 
@@ -150,6 +201,33 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
+      {/* Десктопное выпадающее меню "Дополнительно" */}
+      <AnimatePresence>
+        {isMoreMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700 z-40"
+          >
+            <div className="px-4 pt-4 pb-6 space-y-6">
+              {secondaryNavigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="block text-lg font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors whitespace-nowrap"
+                  scroll={false}
+                  onClick={handleNavigationClick(item.anchor)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Мобильное меню с анимацией */}
       <AnimatePresence>
         {isMenuOpen && (
@@ -161,7 +239,7 @@ const Navbar: React.FC = () => {
             className="lg:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700"
           >
             <div className="px-4 pt-4 pb-6 space-y-6">
-              {navigation.map((item) => (
+              {primaryNavigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
@@ -173,47 +251,64 @@ const Navbar: React.FC = () => {
                 </Link>
               ))}
 
-              {/* Подменю магазинов */}
-              <div>
-                <button
-                  onClick={() => setIsStoreMenuOpen(!isStoreMenuOpen)}
-                  className="w-full flex items-center justify-between text-lg font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors focus:outline-none whitespace-nowrap"
-                  aria-expanded={isStoreMenuOpen}
-                >
-                  Магазины
-                  <ChevronDownIcon
-                    className={`h-5 w-5 transition-transform ${isStoreMenuOpen ? "transform rotate-180" : ""}`}
-                  />
-                </button>
-                <AnimatePresence>
-                  {isStoreMenuOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="mt-2 space-y-3 pl-4"
-                    >
-                      {storeLinks.map((store) => (
-                        <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
-                          <button
-                            className={`w-full flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bg} hover:${store.hoverBg} ${store.textColor} transition-transform duration-300 ease-in-out transform hover:scale-105 whitespace-nowrap`}
+              {/* Дополнительные пункты меню в мобильном виде */}
+              {secondaryNavigation.length > 0 && (
+                <div className="relative">
+                  <button
+                    onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
+                    className="w-full flex items-center justify-between text-lg font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors focus:outline-none whitespace-nowrap"
+                    aria-expanded={isMoreMenuOpen}
+                  >
+                    Дополнительно
+                    <ChevronDownIcon
+                      className={`h-5 w-5 transition-transform ${isMoreMenuOpen ? "transform rotate-180" : ""}`}
+                    />
+                  </button>
+                  <AnimatePresence>
+                    {isMoreMenuOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="mt-2 space-y-3 pl-4"
+                      >
+                        {secondaryNavigation.map((item) => (
+                          <Link
+                            key={item.name}
+                            href={item.href}
+                            className="block text-lg font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors whitespace-nowrap"
+                            scroll={false}
+                            onClick={handleNavigationClick(item.anchor)}
                           >
-                            <Image
-                              src={store.iconSrc}
-                              alt={store.alt}
-                              className="w-5 h-5 mr-2"
-                              width={20}
-                              height={20}
-                              loading="lazy"
-                            />
-                            <span className="truncate">{store.name}</span>
-                          </button>
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                            {item.name}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )}
+
+              {/* Кнопки магазинов в мобильном меню */}
+              <div className="space-y-2">
+                {storeLinks.map((store) => (
+                  <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
+                    <button
+                      className={`w-full flex items-center justify-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bg} hover:${store.hoverBg} ${store.textColor} transition-transform duration-300 ease-in-out transform hover:scale-105 whitespace-nowrap`}
+                    >
+                      <Image
+                        src={store.iconSrc}
+                        alt={store.alt}
+                        className="w-5 h-5 mr-2"
+                        width={20}
+                        height={20}
+                        loading="lazy"
+                      />
+                      {store.name}
+                    </button>
+                  </Link>
+                ))}
               </div>
             </div>
           </motion.div>
