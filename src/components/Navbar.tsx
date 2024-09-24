@@ -67,7 +67,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-opacity-90 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Логотип */}
           <div className="flex-shrink-0">
@@ -84,12 +84,12 @@ export default function Navbar() {
           </div>
 
           {/* Десктопное меню */}
-          <div className="hidden lg:flex space-x-8 items-center">
+          <div className="hidden lg:flex flex-1 items-center justify-center space-x-4 overflow-hidden">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="relative text-base font-medium hover:text-red-500 transition-colors whitespace-nowrap"
+                className="relative text-[clamp(0.875rem, 1.2vw, 1rem)] font-medium hover:text-red-500 transition-colors whitespace-nowrap flex-shrink-0"
                 style={{ textDecoration: "none" }}
                 scroll={false}
                 onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
@@ -102,7 +102,7 @@ export default function Navbar() {
             ))}
 
             {/* Кнопки магазинов */}
-            <div className="flex space-x-2">
+            <div className="flex space-x-2 flex-shrink-0">
               {storeLinks.map((store) => (
                 <Link
                   key={store.name}
@@ -113,14 +113,14 @@ export default function Navbar() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} ${store.textColor} transition-colors duration-300 whitespace-nowrap`}
+                    className={`flex items-center px-3 py-1.5 rounded-full bg-gradient-to-r ${store.bgGradient} ${store.textColor} transition-colors duration-300 whitespace-nowrap text-[clamp(0.75rem, 1vw, 0.875rem)]`}
                   >
                     <Image
                       src={store.iconSrc}
                       alt={store.alt}
-                      width={20}
-                      height={20}
-                      className="mr-2"
+                      width={16}
+                      height={16}
+                      className="mr-1"
                       loading="lazy"
                     />
                     {store.name}
@@ -205,7 +205,7 @@ export default function Navbar() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className={`w-full flex items-center justify-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} ${store.textColor} transition-colors duration-300 whitespace-nowrap`}
+                      className={`w-full flex items-center justify-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} ${store.textColor} transition-colors duration-300 whitespace-nowrap text-sm`}
                     >
                       <Image
                         src={store.iconSrc}
