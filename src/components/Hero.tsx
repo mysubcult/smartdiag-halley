@@ -1,62 +1,113 @@
+// components/Hero.tsx
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export function Hero() {
   return (
-    <div id="hero" className="bg-white dark:bg-neutral-900">
-      <div className="max-w-7xl mx-auto pt-20 sm:pt-32 pb-16 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="flex flex-col justify-center text-center sm:text-start space-y-6">
-          <h1 className="text-5xl font-bold leading-tight">
+    <section
+      id="hero"
+      className="bg-white dark:bg-neutral-900"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32 flex flex-col lg:flex-row items-center lg:justify-center gap-8">
+        
+        {/* Левый блок с текстом и кнопками */}
+        <motion.div
+          className="flex flex-col justify-center text-center lg:text-left space-y-6 lg:w-1/2"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <motion.h1
+            className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100"
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+          >
             Добро пожаловать в <br />
             <span className="text-red-600 font-extrabold">
               SmartDiag <span className="wave">👋</span>
             </span>
-          </h1>
-          <p className="text-base sm:w-10/12 dark:text-neutral-400">
+          </motion.h1>
+
+          <motion.p
+            className="text-base sm:text-lg dark:text-neutral-400"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
+          >
             Здесь вы найдёте всё необходимое программное обеспечение для диагностики и обслуживания вашего автомобиля. Мы предлагаем высококачественное и надёжное оборудование, которое поможет вам быстро и эффективно провести анализ и ремонт вашего авто. Мы уверены, что техническое обслуживание автомобиля может быть простым и доступным для каждого.
-          </p>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-            <Link href="/soft" scroll={false}>
-              <div className="inline-flex bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-opacity-90">
+          </motion.p>
+
+          <motion.div
+            className="flex flex-col sm:flex-row sm:items-center gap-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
+          >
+            {/* Кнопка "Программы для приборов" */}
+            <Link href="/soft" passHref>
+              <motion.a
+                className="inline-flex bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-opacity-90"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 Программы для приборов
-                <svg
+                <motion.svg
                   className="w-5 h-5 ml-2 transform group-hover:rotate-180 transition-transform duration-1000"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
                   viewBox="0 0 16 16"
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
                 >
                   <path
                     d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"
                     fill="white"
                   />
                   <path
-                    d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"
+                    d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 2.693-1.115l.094.318c.527.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 0 2.692-1.115l.292.16c.764.415 1.6-.42 1.184-1.185l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094-.319zM6.163 1.626c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"
                     fill="white"
                   />
-                </svg>
-              </div>
+                </motion.svg>
+              </motion.a>
             </Link>
-            <Link href="/contact" scroll={false}>
-              <div className="inline-flex bg-black text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-gray-800 hover:bg-opacity-90">
-                Обратная связь
-              </div>
-            </Link>
-          </div>
-        </div>
 
-        <div className="flex items-center">
+            {/* Кнопка "Обратная связь" */}
+            <Link href="/contact" passHref>
+              <motion.a
+                className="inline-flex bg-black text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-gray-800 hover:bg-opacity-90"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Обратная связь
+              </motion.a>
+            </Link>
+          </motion.div>
+        </motion.div>
+
+        {/* Правый блок с изображением */}
+        <motion.div
+          className="flex items-center justify-center lg:w-1/2"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        >
           <Image
             src="/images/hero/hero.svg"
             alt="Иллюстрация, представляющая диагностику автомобиля"
             title="Диагностическое оборудование для вашего автомобиля"
-            width={512.5}
+            width={512}
             height={331}
             quality={75}
             sizes="100vw"
             priority
+            className="w-full h-auto"
           />
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 }
