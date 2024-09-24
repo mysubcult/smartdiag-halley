@@ -36,7 +36,7 @@ export function Hero() {
                 </svg>
               </div>
             </Link>
-            <Link href="#contact" scroll={false}>
+            <Link href="/contact" scroll={false}>
               <div className="inline-flex bg-black text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-gray-800 hover:bg-opacity-90">
                 Обратная связь
               </div>
