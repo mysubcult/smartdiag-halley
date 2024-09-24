@@ -82,7 +82,7 @@ ServiceCard.displayName = "ServiceCard";
 
 export function Services() {
   return (
-    <div className="bg-gray-50 dark:bg-neutral-900" id="services">
+    <div className="bg-gray-50 dark:bg-neutral-900 mt-6" id="services"> {/* Добавлен mt-6 */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 text-center">
         <motion.h2
           className="text-4xl font-bold"
@@ -107,7 +107,7 @@ export function Services() {
       </div>
 
       <div
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 grid md:grid-cols-2 lg:grid-cols-3 gap-y-8 md:gap-x-8 md:gap-y-8 lg:gap-x-8 lg:gap-y-16"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 grid md:grid-cols-2 lg:grid-cols-3 gap-y-8 md:gap-x-8 lg:gap-x-8 lg:gap-y-16"
       >
         {services.map((service) => (
           <ServiceCard key={service.title} {...service} />
