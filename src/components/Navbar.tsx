@@ -2,8 +2,9 @@ import { useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface NavigationItem {
   name: string;
@@ -19,193 +20,207 @@ const navigation: NavigationItem[] = [
   { name: "Обратная связь", href: "/#contact" },
 ];
 
-export default function Navbar() {
+const storeLinks = [
+  {
+    name: "OZON",
+    href: "https://www.ozon.ru/seller/smartdiag-862410/",
+    bg: "from-blue-500 to-blue-700",
+    hoverBg: "from-blue-600 to-blue-900",
+    textColor: "text-white",
+    iconSrc: "/images/logos/favicon.ico",
+    alt: "OZON",
+  },
+  {
+    name: "Яндекс Маркет",
+    href: "https://market.yandex.ru/business--smartdiag/50025236",
+    bg: "from-yellow-400 to-yellow-600",
+    hoverBg: "from-yellow-500 to-yellow-700",
+    textColor: "text-black",
+    iconSrc: "https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico",
+    alt: "Яндекс Маркет",
+  },
+  {
+    name: "Wildberries",
+    href: "https://www.wildberries.ru/seller/1343369",
+    bg: "from-purple-500 to-purple-700",
+    hoverBg: "from-purple-600 to-purple-900",
+    textColor: "text-white",
+    iconSrc: "/images/logos/favicon.ico",
+    alt: "Wildberries",
+  },
+];
+
+const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isStoreMenuOpen, setIsStoreMenuOpen] = useState(false);
   const router = useRouter();
 
   const handleNavigationClick = useCallback(
-    (anchor: string) => (event: React.MouseEvent) => {
-      event.preventDefault();
-      if (router.pathname !== '/') {
-        router.push('/').then(() => router.push(anchor, undefined, { scroll: false }));
-      } else {
-        router.push(anchor, undefined, { scroll: false });
+    (anchor?: string) => (event: React.MouseEvent) => {
+      if (anchor) {
+        event.preventDefault();
+        if (router.pathname !== '/') {
+          router.push('/').then(() => router.push(anchor, undefined, { scroll: false }));
+        } else {
+          router.push(anchor, undefined, { scroll: false });
+        }
       }
       setIsMenuOpen(false);
+      setIsStoreMenuOpen(false);
     },
     [router]
   );
 
   return (
-    <header className="flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full bg-white border-b border-gray-200 dark:bg-neutral-800 dark:border-neutral-700">
-      <nav className="relative max-w-[85rem] w-full mx-auto md:flex md:items-center md:justify-between md:gap-3 py-2 px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center w-full md:w-auto">
+    <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-50">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
           {/* Логотип */}
-          <Link href="/" onClick={handleNavigationClick("#hero")} className="flex-none">
-            <Image
-              src="/images/logos/logo.png"
-              alt="SmartDiag Logo"
-              width={256}
-              height={117}
-              className="h-12 w-auto"
-              priority
-            />
-          </Link>
-
-          {/* Кнопка меню для мобильных устройств */}
-          <button
-            type="button"
-            className="md:hidden flex items-center justify-center p-2 rounded-lg text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-700 focus:outline-none focus:bg-gray-200 dark:focus:bg-neutral-700 transition-colors"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle navigation"
-          >
-            {isMenuOpen ? (
-              <XMarkIcon className="h-6 w-6" />
-            ) : (
-              <Bars3Icon className="h-6 w-6" />
-            )}
-          </button>
-        </div>
-
-        {/* Меню навигации */}
-        <div
-          className={`${
-            isMenuOpen ? "block" : "hidden"
-          } md:block w-full md:w-auto`}
-        >
-          <div className="flex flex-col md:flex-row md:items-center md:gap-3">
-            {/* Ссылки навигации */}
-            <div className="flex flex-col md:flex-row md:items-center md:gap-5">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="relative text-lg font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors"
-                  onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
-                >
-                  {item.name}
-                  {/* Подчеркивание при наведении */}
-                  <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-red-500 transition-all duration-300 ease-in-out group-hover:w-full"></span>
-                </Link>
-              ))}
-            </div>
-
-            {/* Группы кнопок */}
-            <div className="flex items-center space-x-2 mt-4 md:mt-0">
-              {/* Внешние ссылки на магазины (отображаются только на десктопе) */}
-              <div className="hidden lg:flex space-x-2">
-                <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
-                  <button className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-4 py-2 rounded-full transition-transform duration-300 transform hover:scale-105">
-                    <Image
-                      src="/images/logos/favicon.ico"
-                      alt="OZON"
-                      className="w-5 h-5 mr-2"
-                      width={20}
-                      height={20}
-                      loading="lazy"
-                    />
-                    OZON
-                  </button>
-                </Link>
-
-                <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
-                  <button className="flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-4 py-2 rounded-full transition-transform duration-300 transform hover:scale-105">
-                    <Image
-                      src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                      alt="Яндекс Маркет"
-                      className="w-5 h-5 mr-2"
-                      width={20}
-                      height={20}
-                      loading="lazy"
-                    />
-                    Яндекс Маркет
-                  </button>
-                </Link>
-
-                <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
-                  <button className="flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-4 py-2 rounded-full transition-transform duration-300 transform hover:scale-105">
-                    <Image
-                      src="/images/logos/favicon.ico"
-                      alt="Wildberries"
-                      className="w-5 h-5 mr-2"
-                      width={20}
-                      height={20}
-                      loading="lazy"
-                    />
-                    Wildberries
-                  </button>
-                </Link>
-              </div>
-
-              {/* Переключатель темы */}
-              <ThemeSwitchButton />
-            </div>
+          <div className="flex-shrink-0">
+            <Link href="/" scroll={false} onClick={handleNavigationClick("#hero")} aria-label="Главная">
+              <Image
+                className="h-12 w-auto"
+                src="/images/logos/logo.png"
+                alt="SmartDiag Logo"
+                width={256}
+                height={117}
+                quality={100}
+                sizes="100vw"
+                priority
+              />
+            </Link>
           </div>
-        </div>
-      </nav>
 
-      {/* Мобильное меню */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-neutral-800 border-t border-gray-200 dark:border-neutral-700">
-          <div className="px-4 pt-4 pb-2 space-y-1">
+          {/* Десктопное меню */}
+          <div className="hidden lg:flex lg:space-x-8">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="block px-3 py-2 rounded-md text-base font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 hover:bg-gray-50 dark:hover:bg-neutral-700"
-                onClick={item.anchor ? handleNavigationClick(item.anchor) : undefined}
+                className="relative text-lg font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors"
+                style={{ textDecoration: "none" }}
+                scroll={false}
+                onClick={handleNavigationClick(item.anchor)}
               >
                 {item.name}
+                {/* Подчеркивание при наведении */}
+                <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-red-500 transition-all duration-300 ease-in-out group-hover:w-full"></span>
               </Link>
             ))}
+          </div>
 
-            {/* Внешние ссылки на магазины для мобильных устройств */}
-            <div className="flex flex-col space-y-2 mt-4">
-              <Link href="https://www.ozon.ru/seller/smartdiag-862410/" target="_blank" rel="noopener noreferrer">
-                <button className="w-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-4 py-2 rounded-full transition-transform duration-300 transform hover:scale-105">
+          {/* Кнопки магазинов и переключатель темы */}
+          <div className="hidden lg:flex items-center space-x-4">
+            {storeLinks.map((store) => (
+              <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
+                <button
+                  className={`flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bg} hover:${store.hoverBg} ${store.textColor} transition-transform duration-300 ease-in-out transform hover:scale-105`}
+                >
                   <Image
-                    src="/images/logos/favicon.ico"
-                    alt="OZON"
+                    src={store.iconSrc}
+                    alt={store.alt}
                     className="w-5 h-5 mr-2"
                     width={20}
                     height={20}
                     loading="lazy"
                   />
-                  OZON
+                  {store.name}
                 </button>
               </Link>
+            ))}
+            <ThemeSwitchButton />
+          </div>
 
-              <Link href="https://market.yandex.ru/business--smartdiag/50025236" target="_blank" rel="noopener noreferrer">
-                <button className="w-full flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-4 py-2 rounded-full transition-transform duration-300 transform hover:scale-105">
-                  <Image
-                    src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
-                    alt="Яндекс Маркет"
-                    className="w-5 h-5 mr-2"
-                    width={20}
-                    height={20}
-                    loading="lazy"
-                  />
-                  Яндекс Маркет
-                </button>
-              </Link>
-
-              <Link href="https://www.wildberries.ru/seller/1343369" target="_blank" rel="noopener noreferrer">
-                <button className="w-full flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-4 py-2 rounded-full transition-transform duration-300 transform hover:scale-105">
-                  <Image
-                    src="/images/logos/favicon.ico"
-                    alt="Wildberries"
-                    className="w-5 h-5 mr-2"
-                    width={20}
-                    height={20}
-                    loading="lazy"
-                  />
-                  Wildberries
-                </button>
-              </Link>
-            </div>
+          {/* Мобильная навигация */}
+          <div className="lg:hidden flex items-center space-x-2">
+            <ThemeSwitchButton />
+            <button
+              className="p-2 rounded-md text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Меню навигации"
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? (
+                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+              )}
+            </button>
           </div>
         </div>
-      )}
-    </header>
+      </div>
+
+      {/* Мобильное меню с анимацией */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="lg:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700"
+          >
+            <div className="px-4 pt-4 pb-6 space-y-6">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="block text-lg font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors"
+                  scroll={false}
+                  onClick={handleNavigationClick(item.anchor)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+
+              {/* Подменю магазинов */}
+              <div>
+                <button
+                  onClick={() => setIsStoreMenuOpen(!isStoreMenuOpen)}
+                  className="w-full flex items-center justify-between text-lg font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors focus:outline-none"
+                  aria-expanded={isStoreMenuOpen}
+                >
+                  Магазины
+                  <ChevronDownIcon
+                    className={`h-5 w-5 transition-transform ${isStoreMenuOpen ? "transform rotate-180" : ""}`}
+                  />
+                </button>
+                <AnimatePresence>
+                  {isStoreMenuOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="mt-2 space-y-3 pl-4"
+                    >
+                      {storeLinks.map((store) => (
+                        <Link key={store.name} href={store.href} target="_blank" rel="noopener noreferrer">
+                          <button
+                            className={`w-full flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bg} hover:${store.hoverBg} ${store.textColor} transition-transform duration-300 ease-in-out transform hover:scale-105`}
+                          >
+                            <Image
+                              src={store.iconSrc}
+                              alt={store.alt}
+                              className="w-5 h-5 mr-2"
+                              width={20}
+                              height={20}
+                              loading="lazy"
+                            />
+                            {store.name}
+                          </button>
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   );
-}
+};
+
+export default Navbar;
