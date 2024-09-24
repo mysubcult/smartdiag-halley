@@ -5,25 +5,39 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 export function Hero() {
+  // Определение вариантов анимации
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.3, // Задержка между анимациями дочерних элементов
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <section
       id="hero"
-      className="bg-white dark:bg-neutral-900"
+      className="bg-white dark:bg-neutral-900 min-h-screen flex items-start lg:items-center justify-center"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32 flex flex-col lg:flex-row items-center lg:justify-center gap-8">
         
-        {/* Левый блок с текстом и кнопками */}
+        {/* Левый блок: Текст и кнопки */}
         <motion.div
           className="flex flex-col justify-center text-center lg:text-left space-y-6 lg:w-1/2"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
         >
+          {/* Заголовок */}
           <motion.h1
-            className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100"
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+            className="text-5xl sm:text-6xl lg:text-6xl font-bold leading-tight text-neutral-900 dark:text-neutral-100"
+            variants={itemVariants}
           >
             Добро пожаловать в <br />
             <span className="text-red-600 font-extrabold">
@@ -31,20 +45,18 @@ export function Hero() {
             </span>
           </motion.h1>
 
+          {/* Описание */}
           <motion.p
             className="text-base sm:text-lg dark:text-neutral-400"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
+            variants={itemVariants}
           >
             Здесь вы найдёте всё необходимое программное обеспечение для диагностики и обслуживания вашего автомобиля. Мы предлагаем высококачественное и надёжное оборудование, которое поможет вам быстро и эффективно провести анализ и ремонт вашего авто. Мы уверены, что техническое обслуживание автомобиля может быть простым и доступным для каждого.
           </motion.p>
 
+          {/* Кнопки */}
           <motion.div
             className="flex flex-col sm:flex-row sm:items-center gap-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
+            variants={itemVariants}
           >
             {/* Кнопка "Программы для приборов" */}
             <Link href="/soft" passHref>
@@ -88,7 +100,7 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Правый блок с изображением */}
+        {/* Правый блок: Изображение */}
         <motion.div
           className="flex items-center justify-center lg:w-1/2"
           initial={{ opacity: 0, x: 50 }}
