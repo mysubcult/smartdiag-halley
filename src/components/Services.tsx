@@ -1,7 +1,5 @@
 // components/Services.tsx
 
-"use client"; // Добавляем эту строку
-
 import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
