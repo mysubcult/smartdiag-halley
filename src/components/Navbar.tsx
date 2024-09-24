@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeSwitchButton from "./ThemeSwitchButton";
-import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
 interface NavigationItem {
@@ -45,8 +45,8 @@ export default function Navbar() {
             <Image
               src="/images/logos/logo.png"
               alt="SmartDiag Logo"
-              width={120}
-              height={50}
+              width={256}
+              height={117}
               className="h-12 w-auto"
               priority
             />
@@ -85,7 +85,7 @@ export default function Navbar() {
                 >
                   {item.name}
                   {/* Подчеркивание при наведении */}
-                  <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-red-500 transition-all duration-300 ease-in-out hover:w-full"></span>
+                  <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-red-500 transition-all duration-300 ease-in-out group-hover:w-full"></span>
                 </Link>
               ))}
             </div>
