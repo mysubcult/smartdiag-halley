@@ -21,7 +21,6 @@ const navigation: NavigationItem[] = [
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const router = useRouter();
 
   const handleNavigationClick = useCallback(
@@ -89,42 +88,6 @@ export default function Navbar() {
                   <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-red-500 transition-all duration-300 ease-in-out hover:w-full"></span>
                 </Link>
               ))}
-
-              {/* Пример выпадающего меню */}
-              <div className="relative">
-                <button
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="flex items-center text-lg font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 transition-colors"
-                >
-                  Дополнительно
-                  <ChevronDownIcon className="ml-1 h-5 w-5" />
-                </button>
-                {isDropdownOpen && (
-                  <div className="absolute left-0 mt-2 w-48 bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 rounded-lg shadow-lg z-10">
-                    <Link
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-800 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-700"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      Подпункт 1
-                    </Link>
-                    <Link
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-800 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-700"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      Подпункт 2
-                    </Link>
-                    <Link
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-800 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-700"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      Подпункт 3
-                    </Link>
-                  </div>
-                )}
-              </div>
             </div>
 
             {/* Группы кнопок */}
@@ -176,16 +139,6 @@ export default function Navbar() {
 
               {/* Переключатель темы */}
               <ThemeSwitchButton />
-
-              {/* Кнопки для аутентификации */}
-              <div className="flex flex-col md:flex-row md:items-center md:space-x-2 mt-4 md:mt-0">
-                <Link href="#" className="py-2 px-3 inline-flex items-center font-medium text-sm rounded-lg border border-gray-200 bg-white text-gray-800 hover:bg-gray-50 transition-colors dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-700">
-                  Войти
-                </Link>
-                <Link href="#" className="py-2 px-3 inline-flex items-center font-medium text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors dark:bg-blue-500 dark:hover:bg-blue-600">
-                  Начать
-                </Link>
-              </div>
             </div>
           </div>
         </div>
