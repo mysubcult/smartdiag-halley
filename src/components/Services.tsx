@@ -56,11 +56,8 @@ const services: Service[] = [
 ];
 
 const ServiceCard: React.FC<Service> = React.memo(({ title, description, image, alt }) => (
-  <motion.div
+  <div
     className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-gray-200 hover:dark:bg-neutral-700"
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
   >
     <div className="h-24 w-24 flex justify-center mx-auto">
       <Image
@@ -78,27 +75,12 @@ const ServiceCard: React.FC<Service> = React.memo(({ title, description, image, 
     <p className="pt-2 text-sm text-center dark:text-neutral-400 mt-2">
       {description}
     </p>
-  </motion.div>
+  </div>
 ));
 
 ServiceCard.displayName = "ServiceCard";
 
 export function Services() {
-  // Варианты анимации для контейнера и элементов
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.3, // Задержка между анимациями дочерних элементов
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
   return (
     <div className="bg-gray-50 dark:bg-neutral-900" id="services">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 text-center">
@@ -124,16 +106,13 @@ export function Services() {
         </motion.p>
       </div>
 
-      <motion.div
+      <div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 grid md:grid-cols-2 lg:grid-cols-3 gap-y-8 md:gap-x-8 md:gap-y-8 lg:gap-x-8 lg:gap-y-16"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
       >
         {services.map((service) => (
           <ServiceCard key={service.title} {...service} />
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }
