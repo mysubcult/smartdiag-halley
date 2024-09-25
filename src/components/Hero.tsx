@@ -31,7 +31,7 @@ export function Hero() {
         >
           {/* Заголовок */}
           <motion.h1
-            className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl sm:max-w-xs"
+            className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl"
             variants={headerVariants}
           >
             Добро пожаловать <br />
