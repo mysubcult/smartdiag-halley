@@ -31,12 +31,12 @@ export function Hero() {
         >
           {/* Заголовок */}
           <motion.h1
-            className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl"
+            className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl sm:max-w-xs"
             variants={headerVariants}
           >
-            Добро пожаловать в <br />
+            Добро пожаловать <br />
             <span className="text-red-600 font-extrabold">
-              SmartDiag <span className="wave">👋</span>
+              в SmartDiag <span className="wave">👋</span>
             </span>
           </motion.h1>
 
