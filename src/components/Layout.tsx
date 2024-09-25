@@ -1,4 +1,3 @@
-// components/Layout.tsx
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
@@ -27,7 +26,7 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <>
       <Head>
         <title>{meta.title}</title>
         <meta name="description" content={meta.description} />
@@ -41,18 +40,10 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SmartDiag Team" />
       </Head>
-
-      {/* Навигационная панель */}
       <Navbar />
-
-      {/* Основной контент */}
-      <main className="flex-grow">
-        {children}
-      </main>
-
-      {/* Футер */}
+      <main>{children}</main>
       <Footer />
-    </div>
+    </>
   );
 };
 
