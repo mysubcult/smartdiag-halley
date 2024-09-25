@@ -5,19 +5,15 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 export function Hero() {
-  // Анимации заголовка и описания
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.3,
-      },
-    },
+  // Варианты анимации заголовка и описания, как в soft
+  const headerVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
+  const descriptionVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { delay: 0.3, duration: 0.6 } },
   };
 
   return (
@@ -30,14 +26,13 @@ export function Hero() {
         {/* Левый блок: Текст и кнопки */}
         <motion.div
           className="flex flex-col justify-center text-center lg:text-left space-y-6 lg:w-1/2"
-          variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           {/* Заголовок */}
           <motion.h1
             className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl"
-            variants={itemVariants}
+            variants={headerVariants}
           >
             Добро пожаловать в <br />
             <span className="text-red-600 font-extrabold">
@@ -48,7 +43,7 @@ export function Hero() {
           {/* Описание */}
           <motion.p
             className="text-base sm:text-lg dark:text-neutral-400"
-            variants={itemVariants}
+            variants={descriptionVariants}
           >
             Здесь вы найдёте всё необходимое программное обеспечение для диагностики и обслуживания вашего автомобиля. Мы предлагаем высококачественное и надёжное оборудование, которое поможет вам быстро и эффективно провести анализ и ремонт вашего авто. Мы уверены, что техническое обслуживание автомобиля может быть простым и доступным для каждого.
           </motion.p>
@@ -56,7 +51,7 @@ export function Hero() {
           {/* Кнопки */}
           <motion.div
             className="flex flex-col sm:flex-row sm:items-center gap-4"
-            variants={itemVariants}
+            variants={descriptionVariants}
           >
             {/* Кнопка "Программы для приборов" */}
             <Link href="/soft" passHref>
@@ -75,7 +70,6 @@ export function Hero() {
                   animate={{ rotate: 360 }}
                   transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
                 >
-                  {/* Иконка шестерёнки */}
                   <path
                     d="M19.14,12.936a7.07,7.07,0,0,0,.06-1.936,7.07,7.07,0,0,0-.06-1.936l2.11-1.65a.5.5,0,0,0,.12-.63l-2-3.464a.5.5,0,0,0-.61-.22l-2.49,1a7.07,7.07,0,0,0-1.6-.93l-.38-2.65A.5.5,0,0,0,14,4H10a.5.5,0,0,0-.5.42l-.38,2.65a7.07,7.07,0,0,0-1.6.93l-2.49-1a.5.5,0,0,0-.61.22l-2,3.464a.5.5,0,0,0,.12.63l2.11,1.65a7.07,7.07,0,0,0-.06,1.936,7.07,7.07,0,0,0,.06,1.936L3.45,14.586a.5.5,0,0,0-.12.63l2,3.464a.5.5,0,0,0,.61.22l2.49-1a7.07,7.07,0,0,0,1.6.93l.38,2.65a.5.5,0,0,0,.5.42h4a.5.5,0,0,0,.5-.42l.38-2.65a7.07,7.07,0,0,0,1.6-.93l2.49,1a.5.5,0,0,0,.61-.22l2-3.464a.5.5,0,0,0-.12-.63Zm-7.14,2.564a3,3,0,1,1,3-3A3,3,0,0,1,12,15.5Z"
                     fill="white"
