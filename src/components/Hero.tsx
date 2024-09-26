@@ -34,9 +34,9 @@ export function Hero() {
             className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl"
             variants={headerVariants}
           >
-            Добро пожаловать <br />
+            Добро пожаловать в<br />
             <span className="text-red-600 font-extrabold">
-              в SmartDiag <span className="wave">👋</span>
+              SmartDiag <span className="wave">👋</span>
             </span>
           </motion.h1>
 
