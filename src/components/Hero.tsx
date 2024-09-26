@@ -17,7 +17,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="bg-white dark:bg-gray-950 w-full pt-16 lg:pt-0 flex items-center justify-center flex-1"
+      className="bg-white dark:bg-gray-850 w-full pt-16 lg:pt-0 flex items-center justify-center flex-1"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-center gap-8 w-full">
         
