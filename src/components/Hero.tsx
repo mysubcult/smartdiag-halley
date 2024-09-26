@@ -19,9 +19,9 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="bg-white dark:bg-neutral-900 flex items-start lg:items-center justify-center flex-1"
+      className="bg-white dark:bg-neutral-900 flex items-center justify-center flex-1"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32 flex flex-col lg:flex-row items-center lg:justify-center gap-8 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-center gap-8 w-full">
         
         {/* Левый блок: Текст и кнопки */}
         <motion.div
