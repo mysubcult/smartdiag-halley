@@ -19,7 +19,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="bg-white dark:bg-neutral-900 w-full pt-16 lg:pt-0 flex items-center justify-center flex-1"
+      className="bg-white dark:bg-neutral-900 w-full pt-6 pb-6 flex items-center justify-center flex-1"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-center gap-8 w-full">
         
@@ -50,7 +50,7 @@ export function Hero() {
 
           {/* Кнопки */}
           <motion.div
-            className="flex flex-col sm:flex-row sm:items-center gap-4"
+            className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6"
             variants={descriptionVariants}
           >
             {/* Кнопка "Программы для приборов" */}
