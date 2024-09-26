@@ -1,3 +1,4 @@
+// components/Layout.tsx
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
@@ -26,7 +27,7 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
   };
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Head>
         <title>{meta.title}</title>
         <meta name="description" content={meta.description} />
@@ -41,9 +42,11 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
         <meta name="author" content="SmartDiag Team" />
       </Head>
       <Navbar />
-      <main>{children}</main>
+      <main className="flex-grow">
+        {children}
+      </main>
       <Footer />
-    </>
+    </div>
   );
 };
 
