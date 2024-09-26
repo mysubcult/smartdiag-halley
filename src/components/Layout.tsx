@@ -42,7 +42,7 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
         <meta name="author" content="SmartDiag Team" />
       </Head>
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow flex items-center justify-center">
         {children}
       </main>
       <Footer />
