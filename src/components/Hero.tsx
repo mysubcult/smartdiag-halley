@@ -27,7 +27,7 @@ export function Hero() {
           animate="visible"
         >
           <motion.h1
-            className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl hover:underline cursor-pointer"
+            className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl cursor-pointer"
             variants={headerVariants}
             whileHover={{ scale: 1.05 }}
           >
@@ -41,7 +41,7 @@ export function Hero() {
             className="text-base sm:text-lg dark:text-neutral-400"
             variants={descriptionVariants}
           >
-            Здесь вы найдёте всё необходимое программное обеспечение для диагностики и обслуживания вашего автомобиля. Мы предлагаем высококачественное и надёжное оборудование, которое поможет вам быстро и эффективно провести анализ и ремонт вашего авто.
+            Здесь вы найдёте всё необходимое программное обеспечение для диагностики и обслуживания вашего автомобиля. Мы предлагаем высококачественное и надёжное оборудование, которое поможет вам быстро и эффективно провести анализ и ремонт вашего авто. Мы уверены, что техническое обслуживание автомобиля может быть простым и доступным для каждого.
           </motion.p>
 
           <motion.div
@@ -72,12 +72,6 @@ export function Hero() {
               </motion.a>
             </Link>
           </motion.div>
-
-          <Link href="/about">
-            <motion.a className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
-              Узнать больше
-            </motion.a>
-          </Link>
         </motion.div>
 
         <motion.div
