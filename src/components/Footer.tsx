@@ -27,9 +27,9 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="bg-white dark:bg-neutral-900 border-t border-neutral-200">
-      <div className="mx-auto px-6 lg:px-8 py-24 lg:py-4 grid grid-cols-1 lg:grid-cols-3">
-        {/* Copyright Section */}
-        <div className="text-center lg:text-left my-auto order-3 lg:order-1">
+      <div className="container mx-auto px-6 lg:px-8 py-4 flex flex-col lg:flex-row justify-between items-center">
+        {/* Раздел авторских прав */}
+        <div className="text-center lg:text-left mb-4 lg:mb-0">
           <Link href="/">
             <a className="hover:text-red-500">
               SmartDiag &copy; 2023-{new Date().getFullYear()}
@@ -37,19 +37,23 @@ export default function Footer() {
           </Link>
         </div>
 
-        {/* Menu Section */}
-        <nav className="order-2 lg:order-2 py-10 lg:py-0 lg:flex gap-6 text-center mx-auto flex-nowrap">
-          {menus.map(({ title, url }) => (
-            <Link key={title} href={url}>
-              <a className="py-2 hover:text-red-500 font-medium whitespace-nowrap">
-                {title}
-              </a>
-            </Link>
-          ))}
+        {/* Раздел меню */}
+        <nav className="mb-4 lg:mb-0">
+          <ul className="flex flex-wrap gap-6 justify-center">
+            {menus.map(({ title, url }) => (
+              <li key={title}>
+                <Link href={url}>
+                  <a className="hover:text-red-500 font-medium">
+                    {title}
+                  </a>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </nav>
 
-        {/* Social Links Section */}
-        <div className="flex gap-8 max-w-full justify-center my-auto lg:justify-end order-1 lg:order-3">
+        {/* Раздел социальных ссылок */}
+        <div className="flex space-x-4 justify-center lg:justify-end">
           {socialLinks.map(({ name, href, iconPath }) => (
             <Link key={name} href={href} passHref>
               <a
