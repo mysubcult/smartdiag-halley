@@ -86,7 +86,7 @@ export const Hero: FC<HeroProps> = () => {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
           <Image
-            src="/images/hero/hero.webp"
+            src="/images/hero/hero.svg"
             alt="Иллюстрация, представляющая диагностику автомобиля"
             title="Диагностическое оборудование для вашего автомобиля"
             width={512}
