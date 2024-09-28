@@ -1,28 +1,41 @@
-import React, { useState, useMemo } from "react";
+// soft.tsx
+"use client";
+
+import { useState, useMemo } from "react";
 import Link from "next/link";
-import {
-  CheckIcon,
-  XMarkIcon,
-  MagnifyingGlassIcon,
-  ChevronDownIcon,
-} from "@heroicons/react/24/solid";
+import { CheckIcon, XMarkIcon, MagnifyingGlassIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
 
-// Типы и интерфейсы
+// Types and Interfaces
 type ProductType = "Все" | "Мультимарочные" | "Марочные" | "Адаптеры elm";
 
 interface Product {
   title: string;
   description: string;
   features: string[];
-  downloadLinks: { link: string; label: string }[];
+  downloadLinks: DownloadLink[];
   mostPopular: boolean;
   docs: boolean;
-  docsLinks: { link: string; label: string }[];
+  docsLinks: DownloadLink[];
   type: ProductType;
 }
 
-// Данные продуктов
+interface DownloadLink {
+  link: string;
+  label: string;
+}
+
+interface ProductCardProps {
+  product: Product;
+  onDownloadClick: (links: DownloadLink[]) => void;
+}
+
+interface ModalProps {
+  modalLinks: DownloadLink[] | null;
+  onCloseModal: () => void;
+}
+
+// Static Content
 const products: Product[] = [
   {
     title: "Delphi DS150e",
@@ -197,34 +210,12 @@ const products: Product[] = [
   }
 ];
 
-const DeviceTypes: ProductType[] = [
-  "Все",
-  "Мультимарочные",
-  "Марочные",
-  "Адаптеры elm",
-];
+const deviceTypes: ProductType[] = ["Все", "Мультимарочные", "Марочные", "Адаптеры elm"];
 
-// Компонент карточки продукта
-interface ProductCardProps {
-  product: Product;
-  handleDownloadClick: (links: { link: string; label: string }[]) => void;
-}
-
-const ProductCard: React.FC<ProductCardProps> = ({
-  product,
-  handleDownloadClick,
-}) => {
-  const {
-    title,
-    mostPopular,
-    description,
-    features,
-    downloadLinks,
-    docs,
-    docsLinks,
-  } = product;
-  const displayedFeatures =
-    features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
+// Helper Components
+function ProductCard({ product, onDownloadClick }: ProductCardProps) {
+  const { title, mostPopular, description, features, downloadLinks, docs, docsLinks } = product;
+  const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
 
   return (
     <motion.div
@@ -238,15 +229,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
           Топ продаж
         </div>
       )}
-      <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">
-        {title}
-      </h3>
-      <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">
-        {description}
-      </p>
+      <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">{title}</h3>
+      <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">{description}</p>
       <div className="flex space-x-2 mb-4">
         <motion.button
-          onClick={() => handleDownloadClick(downloadLinks)}
+          onClick={() => onDownloadClick(downloadLinks)}
           className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -255,7 +242,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </motion.button>
         {docs && docsLinks.length > 0 && (
           <motion.button
-            onClick={() => handleDownloadClick(docsLinks)}
+            onClick={() => onDownloadClick(docsLinks)}
             className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -265,31 +252,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
         )}
       </div>
       <div className="mt-auto">
-        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-          В комплекте:
-        </h4>
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">В комплекте:</h4>
         <ul className="space-y-1 h-24 overflow-y-auto">
           {displayedFeatures.map((feature, index) => (
             <li key={index} className="flex items-start">
               <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
-              <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">
-                {feature}
-              </span>
+              <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">{feature}</span>
             </li>
           ))}
         </ul>
       </div>
     </motion.div>
   );
-};
-
-// Компонент модального окна
-interface ModalProps {
-  modalLinks: { link: string; label: string }[] | null;
-  closeModal: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ modalLinks, closeModal }) => {
+function Modal({ modalLinks, onCloseModal }: ModalProps) {
   if (!modalLinks) return null;
 
   return (
@@ -298,7 +275,7 @@ const Modal: React.FC<ModalProps> = ({ modalLinks, closeModal }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      onClick={closeModal}
+      onClick={onCloseModal}
     >
       <motion.div
         className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative"
@@ -309,7 +286,7 @@ const Modal: React.FC<ModalProps> = ({ modalLinks, closeModal }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          onClick={closeModal}
+          onClick={onCloseModal}
           aria-label="Закрыть"
           className="absolute top-3 right-3 text-gray-500 dark:text-gray-400 hover:text-red-500 transition-colors duration-300"
         >
@@ -334,14 +311,12 @@ const Modal: React.FC<ModalProps> = ({ modalLinks, closeModal }) => {
       </motion.div>
     </motion.div>
   );
-};
+}
 
-// Главный компонент
+// Main Component
 export default function Soft() {
   const [selectedType, setSelectedType] = useState<ProductType>("Все");
-  const [modalLinks, setModalLinks] = useState<
-    { link: string; label: string }[] | null
-  >(null);
+  const [modalLinks, setModalLinks] = useState<DownloadLink[] | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -349,7 +324,7 @@ export default function Soft() {
 
   const productsPerPage = 8;
 
-  const handleDownloadClick = (links: { link: string; label: string }[]) => {
+  const handleDownloadClick = (links: DownloadLink[]) => {
     if (links.length === 1) {
       window.open(links[0].link, "_blank", "noopener noreferrer");
     } else {
@@ -381,13 +356,12 @@ export default function Soft() {
   }, [filteredProducts, currentPage]);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-  const nextPage = () =>
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
   return (
     <div className="mt-6" id="soft">
-      {/* Основное содержимое */}
+      {/* Main Content */}
       <div className="pt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           className="text-4xl font-extrabold text-center text-black dark:text-white"
@@ -403,22 +377,17 @@ export default function Soft() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          В этом разделе вы можете скачать программное обеспечение для своего
-          устройства. Для начала определите тип вашего устройства —
-          &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе
-          устройства вы найдёте в упаковке. После этого найдите карточку с вашим
-          устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по
-          установке программного обеспечения находится на кнопке
-          &quot;Инструкция&quot;.
+          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала
+          определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;.
+          Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим
+          устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного
+          обеспечения находится на кнопке &quot;Инструкция&quot;.
         </motion.p>
       </div>
 
-      {/* Мобильное меню */}
+      {/* Mobile Menu */}
       <div className="lg:hidden flex flex-col items-center pt-4">
-        <motion.div
-          className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md w-full max-w-xs"
-          layout
-        >
+        <motion.div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md w-full max-w-xs" layout>
           <div className="flex items-center justify-between">
             <motion.button
               className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full flex items-center justify-between w-full"
@@ -432,10 +401,7 @@ export default function Soft() {
               whileTap={{ scale: 0.95 }}
             >
               <span>{selectedType}</span>
-              <motion.div
-                animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
-                transition={{ duration: 0.2 }}
-              >
+              <motion.div animate={{ rotate: isMobileMenuOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
                 <ChevronDownIcon className="w-5 h-5" />
               </motion.div>
             </motion.button>
@@ -453,18 +419,14 @@ export default function Soft() {
             </motion.button>
           </div>
 
-          {/* Выпадающий список */}
+          {/* Dropdown */}
           <motion.ul
             className="mt-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden text-center m-0 p-0 list-none"
             initial={false}
-            animate={
-              isMobileMenuOpen
-                ? { opacity: 1, height: "auto" }
-                : { opacity: 0, height: 0 }
-            }
+            animate={isMobileMenuOpen ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
             style={{ overflow: "hidden" }}
           >
-            {DeviceTypes.map((type) => (
+            {deviceTypes.map((type) => (
               <li
                 key={type}
                 className="text-black dark:text-white px-4 py-2 leading-tight hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
@@ -478,15 +440,11 @@ export default function Soft() {
             ))}
           </motion.ul>
 
-          {/* Строка поиска */}
+          {/* Search Bar */}
           <motion.div
             className="overflow-hidden w-full mt-4"
             initial={false}
-            animate={
-              isSearchOpen
-                ? { opacity: 1, height: "auto" }
-                : { opacity: 0, height: 0 }
-            }
+            animate={isSearchOpen ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
             style={{ overflow: "hidden" }}
           >
             <input
@@ -503,11 +461,11 @@ export default function Soft() {
         </motion.div>
       </div>
 
-      {/* Десктопные фильтры и поиск */}
+      {/* Desktop Filters and Search */}
       <div className="hidden lg:block max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div className="max-w-max mx-auto flex flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow space-y-4 sm:space-y-0 sm:space-x-4">
           <div className="flex flex-wrap gap-2">
-            {DeviceTypes.map((type) => (
+            {deviceTypes.map((type) => (
               <motion.button
                 key={type}
                 onClick={() => {
@@ -541,7 +499,7 @@ export default function Soft() {
         </div>
       </div>
 
-      {/* Карточки продуктов */}
+      {/* Product Cards */}
       <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16"
         initial={false}
@@ -554,15 +512,11 @@ export default function Soft() {
         }}
       >
         {currentProducts.map((product) => (
-          <ProductCard
-            key={product.title}
-            product={product}
-            handleDownloadClick={handleDownloadClick}
-          />
+          <ProductCard key={product.title} product={product} onDownloadClick={handleDownloadClick} />
         ))}
       </motion.div>
 
-      {/* Пагинация */}
+      {/* Pagination */}
       {totalPages > 1 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex justify-center items-center space-x-2">
           <button
@@ -576,21 +530,19 @@ export default function Soft() {
           >
             Предыдущая
           </button>
-          {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-            (number) => (
-              <button
-                key={number}
-                onClick={() => paginate(number)}
-                className={`px-3 py-1 rounded-md text-sm font-medium ${
-                  currentPage === number
-                    ? "bg-red-600 text-white"
-                    : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-                } transition-colors duration-300`}
-              >
-                {number}
-              </button>
-            )
-          )}
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map((number) => (
+            <button
+              key={number}
+              onClick={() => paginate(number)}
+              className={`px-3 py-1 rounded-md text-sm font-medium ${
+                currentPage === number
+                  ? "bg-red-600 text-white"
+                  : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+              } transition-colors duration-300`}
+            >
+              {number}
+            </button>
+          ))}
           <button
             onClick={nextPage}
             disabled={currentPage === totalPages}
@@ -605,8 +557,8 @@ export default function Soft() {
         </div>
       )}
 
-      {/* Модальное окно */}
-      {modalLinks && <Modal modalLinks={modalLinks} closeModal={closeModal} />}
+      {/* Modal */}
+      {modalLinks && <Modal modalLinks={modalLinks} onCloseModal={closeModal} />}
     </div>
   );
 }
