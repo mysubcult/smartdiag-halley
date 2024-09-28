@@ -10,10 +10,6 @@ html {
   @apply bg-red-600 text-white;
 }
 
-body {
-  @apply bg-white dark:bg-neutral-900;
-}
-
 @layer utilities {
   .wave {
     @apply animate-wiggle inline-block transform-origin-70-70;
