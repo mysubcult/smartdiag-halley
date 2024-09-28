@@ -1,3 +1,4 @@
+
 'use client';
 
 // components/Services.tsx
@@ -121,7 +122,7 @@ export function Services() {
         ) : (
           <>
             <h2 className="text-4xl font-bold">О нас 👋</h2>
-            <p className="pt-6 text-lg max-w-2xl text-center m-auto text-gray-700 dark:text-gray-300">
+            <p className="pt-6 pb-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
               Мы специализируемся на продаже оборудования для диагностики
               автомобилей уже на протяжении многих лет. За это время мы
               зарекомендировали себя как надежный поставщик высококачественного
