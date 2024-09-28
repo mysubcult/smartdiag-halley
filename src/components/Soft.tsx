@@ -198,12 +198,12 @@ const DeviceTypes: ProductType[] = ["Все", "Мультимарочные", "�
 const menuVariants = {
   open: {
     opacity: 1,
-    height: "auto",
+    scaleY: 1,
     transition: { type: "spring", stiffness: 80, staggerChildren: 0.1 },
   },
   closed: {
     opacity: 0,
-    height: 0,
+    scaleY: 0,
     transition: { type: "spring", stiffness: 80 },
   },
 };
@@ -226,7 +226,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, handleDownloadClick 
   return (
     <motion.div
       className="relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700"
-      initial={false} // Добавлено initial={false}
+      initial={false}
       variants={{
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0 },
@@ -372,7 +372,7 @@ export default function Soft() {
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
   return (
-    <div className="mt-6" id="soft"> {/* Добавлен mt-6 */}
+    <div className="mt-6" id="soft">
       {/* Основное содержимое */}
       <div className="pt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
@@ -394,7 +394,7 @@ export default function Soft() {
       </div>
 
       {/* Мобильное меню */}
-      <div className="lg:hidden flex flex-col items-center pt-4">
+      <div className="lg:hidden flex flex-col items-center pt-4 relative">
         <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md flex items-center justify-between w-full max-w-xs">
           <motion.button
             className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full flex items-center justify-between w-full"
@@ -422,11 +422,12 @@ export default function Soft() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="mt-4 w-full max-w-xs bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
+              className="mt-4 w-full max-w-xs bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden absolute z-10"
               initial="closed"
               animate="open"
               exit="closed"
               variants={menuVariants}
+              style={{ transformOrigin: "top" }}
             >
               <motion.ul className="py-2 text-center">
                 {DeviceTypes.map((type) => (
@@ -450,10 +451,11 @@ export default function Soft() {
           {isSearchOpen && (
             <motion.div
               className="mt-4 w-full max-w-xs bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
+              initial={{ scaleY: 0 }}
+              animate={{ scaleY: 1 }}
+              exit={{ scaleY: 0 }}
               transition={{ type: "spring", stiffness: 80 }}
+              style={{ transformOrigin: "top" }}
             >
               <input
                 type="text"
@@ -511,7 +513,7 @@ export default function Soft() {
       {/* Карточки продуктов */}
       <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16"
-        initial={false} // Добавлено initial={false}
+        initial={false}
         animate="visible"
         variants={{
           hidden: {},
