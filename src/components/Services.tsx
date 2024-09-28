@@ -85,7 +85,7 @@ ServiceCard.displayName = "ServiceCard";
 
 export function Services() {
   return (
-    <div className="bg-white dark:bg-neutral-900 mt-6" id="services"> {/* Добавлен mt-6 */}
+    <div className="mt-6" id="services"> {/* Добавлен mt-6 */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 text-center">
         <motion.h2
           className="text-4xl font-bold"
