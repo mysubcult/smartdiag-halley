@@ -1,9 +1,8 @@
-'use client';
-
 // components/Footer.tsx
 
 import Link from 'next/link';
 
+// Define menus and socialLinks outside the component to prevent re-creation on each render
 const menus = [
   { title: 'Главная', url: '/' },
   { title: 'Программы', url: '/soft' },
@@ -28,6 +27,9 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  // Define currentYear outside of the JSX to ensure it's consistent
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="bg-white dark:bg-neutral-900 border-t border-neutral-200">
       <div className="container mx-auto px-6 lg:px-8 py-4 flex flex-col lg:flex-row justify-between items-center">
@@ -35,7 +37,7 @@ export default function Footer() {
         <div className="text-center lg:text-left mb-4 lg:mb-0">
           <Link href="/">
             <a className="hover:text-red-500">
-              SmartDiag &copy; 2023-{new Date().getFullYear()}
+              SmartDiag &copy; 2023-{currentYear}
             </a>
           </Link>
         </div>
@@ -58,7 +60,7 @@ export default function Footer() {
         {/* Раздел социальных ссылок */}
         <div className="flex space-x-4 justify-center lg:justify-end">
           {socialLinks.map(({ name, href, iconPath }) => (
-            <Link key={name} href={href} passHref>
+            <Link key={name} href={href}>
               <a
                 target="_blank"
                 rel="noopener noreferrer"
