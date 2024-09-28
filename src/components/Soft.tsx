@@ -6,7 +6,7 @@ import {
   MagnifyingGlassIcon,
   ChevronDownIcon,
 } from "@heroicons/react/24/solid";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 // Типы и интерфейсы
 type ProductType = "Все" | "Мультимарочные" | "Марочные" | "Адаптеры elm";
@@ -203,38 +203,6 @@ const DeviceTypes: ProductType[] = [
   "Марочные",
   "Адаптеры elm",
 ];
-
-// Варианты анимации для Framer Motion
-const dropdownVariants = {
-  open: {
-    opacity: 1,
-    height: "auto",
-    transition: { duration: 0.3 },
-  },
-  closed: {
-    opacity: 0,
-    height: 0,
-    transition: { duration: 0.3 },
-  },
-};
-
-const searchVariants = {
-  open: {
-    opacity: 1,
-    height: "auto",
-    transition: { duration: 0.3 },
-  },
-  closed: {
-    opacity: 0,
-    height: 0,
-    transition: { duration: 0.3 },
-  },
-};
-
-const menuItemVariants = {
-  open: { opacity: 1, y: 0, transition: { duration: 0.2 } },
-  closed: { opacity: 0, y: -10 },
-};
 
 // Компонент карточки продукта
 interface ProductCardProps {
@@ -445,7 +413,10 @@ export default function Soft() {
 
       {/* Мобильное меню */}
       <div className="lg:hidden flex flex-col items-center pt-4">
-        <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md w-full max-w-xs">
+        <motion.div
+          className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md w-full max-w-xs"
+          layout
+        >
           <div className="flex items-center justify-between">
             <motion.button
               className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full flex items-center justify-between w-full"
@@ -481,56 +452,45 @@ export default function Soft() {
           </div>
 
           {/* Выпадающий список */}
-          <AnimatePresence initial={false}>
-            {isMobileMenuOpen && (
-              <motion.ul
-                className="mt-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden py-2 text-center"
-                initial="closed"
-                animate="open"
-                exit="closed"
-                variants={dropdownVariants}
+          <motion.ul
+            className="mt-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden py-2 text-center"
+            initial={false}
+            animate={isMobileMenuOpen ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
+            style={{ overflow: "hidden" }}
+          >
+            {DeviceTypes.map((type) => (
+              <li
+                key={type}
+                className="text-black dark:text-white px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
+                onClick={() => {
+                  setSelectedType(type);
+                  setIsMobileMenuOpen(false);
+                }}
               >
-                {DeviceTypes.map((type) => (
-                  <motion.li
-                    key={type}
-                    variants={menuItemVariants}
-                    className="text-black dark:text-white px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
-                    onClick={() => {
-                      setSelectedType(type);
-                      setIsMobileMenuOpen(false);
-                    }}
-                  >
-                    {type}
-                  </motion.li>
-                ))}
-              </motion.ul>
-            )}
-          </AnimatePresence>
+                {type}
+              </li>
+            ))}
+          </motion.ul>
 
           {/* Строка поиска */}
-          <AnimatePresence initial={false}>
-            {isSearchOpen && (
-              <motion.div
-                className="overflow-hidden w-full mt-4"
-                initial="closed"
-                animate="open"
-                exit="closed"
-                variants={searchVariants}
-              >
-                <input
-                  type="text"
-                  placeholder="Поиск..."
-                  value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    setCurrentPage(1);
-                  }}
-                  className="w-full px-4 py-2 border-none focus:outline-none bg-gray-100 dark:bg-gray-700 dark:text-white rounded-lg"
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+          <motion.div
+            className="overflow-hidden w-full mt-4"
+            initial={false}
+            animate={isSearchOpen ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
+            style={{ overflow: "hidden" }}
+          >
+            <input
+              type="text"
+              placeholder="Поиск..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setCurrentPage(1);
+              }}
+              className="w-full px-4 py-2 border-none focus:outline-none bg-gray-100 dark:bg-gray-700 dark:text-white rounded-lg"
+            />
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* Десктопные фильтры и поиск */}
@@ -636,11 +596,9 @@ export default function Soft() {
       )}
 
       {/* Модальное окно */}
-      <AnimatePresence>
-        {modalLinks && (
-          <Modal modalLinks={modalLinks} closeModal={closeModal} />
-        )}
-      </AnimatePresence>
+      {modalLinks && (
+        <Modal modalLinks={modalLinks} closeModal={closeModal} />
+      )}
     </div>
   );
 }
