@@ -45,14 +45,14 @@ const storeLinks = [
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [mounted, setMounted] = useState(false); // To handle client-side rendering
+  const [mounted, setMounted] = useState(false); // Для обработки рендеринга на клиенте
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) {
-    return null; // Prevents hydration mismatch by not rendering until client-side
+    return null; // Предотвращает несоответствие гидратации, не рендерит до рендеринга на клиенте
   }
 
   return (
@@ -76,10 +76,13 @@ export default function Navbar() {
           </div>
 
           {/* Десктоп Меню */}
-          <div className="hidden lg:flex space-x-8">
+          <div className="hidden md:flex flex-1 space-x-4 overflow-hidden min-w-0">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href}>
-                <a className="relative text-lg font-semibold hover:text-red-500 transition-colors whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">
+                <a
+                  className="relative text-base font-semibold hover:text-red-500 transition-colors whitespace-nowrap overflow-hidden text-ellipsis flex-shrink flex-grow-0"
+                  title={item.name}
+                >
                   {item.name}
                   <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-red-500 transition-all duration-300 group-hover:w-full"></span>
                 </a>
@@ -90,14 +93,14 @@ export default function Navbar() {
           {/* Кнопки и переключатель темы */}
           <div className="flex items-center space-x-4">
             {/* Кнопки магазинов (только на десктопе) */}
-            <div className="hidden lg:flex space-x-2">
+            <div className="hidden md:flex space-x-2">
               {storeLinks.map((store) => (
                 <a
                   key={store.name}
                   href={store.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105 whitespace-nowrap`}
+                  className={`flex items-center px-3 py-1 rounded-full bg-gradient-to-r ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105 whitespace-nowrap`}
                 >
                   <Image
                     src={store.iconSrc}
@@ -116,7 +119,7 @@ export default function Navbar() {
             <ThemeSwitchButton />
 
             {/* Кнопка открытия мобильного меню */}
-            <div className="lg:hidden">
+            <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
@@ -142,14 +145,15 @@ export default function Navbar() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700"
+            className="md:hidden bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700"
           >
             <div className="px-4 pt-4 pb-2 space-y-1">
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href}>
                   <a
-                    className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-neutral-800 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs"
+                    className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-neutral-800 whitespace-nowrap overflow-hidden text-ellipsis"
                     onClick={() => setIsMenuOpen(false)}
+                    title={item.name}
                   >
                     {item.name}
                   </a>
