@@ -4,6 +4,7 @@
 
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Footer from './Footer';
 import Navbar from './Navbar';
 import { ReactNode } from 'react';
 
@@ -51,6 +52,7 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
       <main className="flex-grow flex items-center justify-center">
         {children}
       </main>
+      <Footer />
     </div>
   );
 };
