@@ -6,6 +6,10 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  @apply bg-white dark:bg-neutral-900;
+}
+
 ::selection {
   @apply bg-red-600 text-white;
 }
