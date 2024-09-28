@@ -79,7 +79,7 @@ export default function Navbar() {
           <div className="hidden lg:flex space-x-8">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href}>
-                <a className="relative text-lg font-semibold hover:text-red-500 transition-colors">
+                <a className="relative text-lg font-semibold hover:text-red-500 transition-colors whitespace-nowrap overflow-hidden text-ellipsis max-w-xs">
                   {item.name}
                   <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-red-500 transition-all duration-300 group-hover:w-full"></span>
                 </a>
@@ -97,7 +97,7 @@ export default function Navbar() {
                   href={store.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} hover:from-${store.hoverGradient.split(' to-')[0]} hover:to-${store.hoverGradient.split(' to-')[1]} ${store.textColor} transition-transform transform hover:scale-105`}
+                  className={`flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105 whitespace-nowrap`}
                 >
                   <Image
                     src={store.iconSrc}
@@ -148,7 +148,7 @@ export default function Navbar() {
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href}>
                   <a
-                    className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-neutral-800"
+                    className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 dark:hover:bg-neutral-800 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
@@ -164,7 +164,7 @@ export default function Navbar() {
                     href={store.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex items-center justify-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} hover:from-${store.hoverGradient.split(' to-')[0]} hover:to-${store.hoverGradient.split(' to-')[1]} ${store.textColor} transition-transform transform hover:scale-105`}
+                    className={`flex items-center justify-center px-4 py-2 rounded-full bg-gradient-to-r ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105 whitespace-nowrap`}
                   >
                     <Image
                       src={store.iconSrc}
