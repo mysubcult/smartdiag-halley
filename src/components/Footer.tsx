@@ -26,10 +26,10 @@ const socialLinks = [
   },
 ];
 
-export default function Footer() {
-  // Define currentYear outside of the JSX to ensure it's consistent
-  const currentYear = new Date().getFullYear();
+// Define currentYear outside component to ensure it's consistent
+const currentYear = new Date().getFullYear();
 
+export default function Footer() {
   return (
     <footer className="bg-white dark:bg-neutral-900 border-t border-neutral-200">
       <div className="container mx-auto px-6 lg:px-8 py-4 flex flex-col lg:flex-row justify-between items-center">
@@ -60,24 +60,24 @@ export default function Footer() {
         {/* Раздел социальных ссылок */}
         <div className="flex space-x-4 justify-center lg:justify-end">
           {socialLinks.map(({ name, href, iconPath }) => (
-            <Link key={name} href={href}>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                title={name}
-                className="hover:text-red-500"
+            <a
+              key={name}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={name}
+              className="hover:text-red-500"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-6 w-6"
               >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="h-6 w-6"
-                >
-                  <path d={iconPath} />
-                </svg>
-              </a>
-            </Link>
+                <path d={iconPath} />
+              </svg>
+            </a>
           ))}
         </div>
       </div>
