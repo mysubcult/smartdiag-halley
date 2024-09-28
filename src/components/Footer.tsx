@@ -1,3 +1,5 @@
+'use client';
+
 // components/Footer.tsx
 import Link from "next/link";
 
