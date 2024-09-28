@@ -205,7 +205,20 @@ const DeviceTypes: ProductType[] = [
 ];
 
 // Варианты анимации для Framer Motion
-const menuVariants = {
+const dropdownVariants = {
+  open: {
+    opacity: 1,
+    height: "auto",
+    transition: { duration: 0.3 },
+  },
+  closed: {
+    opacity: 0,
+    height: 0,
+    transition: { duration: 0.3 },
+  },
+};
+
+const searchVariants = {
   open: {
     opacity: 1,
     height: "auto",
@@ -432,12 +445,7 @@ export default function Soft() {
 
       {/* Мобильное меню */}
       <div className="lg:hidden flex flex-col items-center pt-4">
-        <motion.div
-          className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md w-full max-w-xs overflow-hidden"
-          animate={
-            isMobileMenuOpen || isSearchOpen ? { height: "auto" } : { height: "auto" }
-          }
-        >
+        <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md w-full max-w-xs">
           <div className="flex items-center justify-between">
             <motion.button
               className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full flex items-center justify-between w-full"
@@ -471,6 +479,8 @@ export default function Soft() {
               <MagnifyingGlassIcon className="w-6 h-6" />
             </motion.button>
           </div>
+
+          {/* Выпадающий список */}
           <AnimatePresence initial={false}>
             {isMobileMenuOpen && (
               <motion.ul
@@ -478,7 +488,7 @@ export default function Soft() {
                 initial="closed"
                 animate="open"
                 exit="closed"
-                variants={menuVariants}
+                variants={dropdownVariants}
               >
                 {DeviceTypes.map((type) => (
                   <motion.li
@@ -496,14 +506,16 @@ export default function Soft() {
               </motion.ul>
             )}
           </AnimatePresence>
+
+          {/* Строка поиска */}
           <AnimatePresence initial={false}>
             {isSearchOpen && (
               <motion.div
                 className="overflow-hidden w-full mt-4"
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3 }}
+                initial="closed"
+                animate="open"
+                exit="closed"
+                variants={searchVariants}
               >
                 <input
                   type="text"
@@ -518,7 +530,7 @@ export default function Soft() {
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.div>
+        </div>
       </div>
 
       {/* Десктопные фильтры и поиск */}
