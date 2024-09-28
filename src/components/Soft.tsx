@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { CheckIcon, XMarkIcon, MagnifyingGlassIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
