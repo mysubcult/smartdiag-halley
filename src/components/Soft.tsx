@@ -198,19 +198,19 @@ const DeviceTypes: ProductType[] = ["Все", "Мультимарочные", "�
 const menuVariants = {
   open: {
     opacity: 1,
-    maxHeight: 200, // Установите максимальную высоту, соответствующую содержимому
-    transition: { type: "spring", stiffness: 80, staggerChildren: 0.1 },
+    height: "auto",
+    transition: { duration: 0.3 },
   },
   closed: {
     opacity: 0,
-    maxHeight: 0,
-    transition: { type: "spring", stiffness: 80 },
+    height: 0,
+    transition: { duration: 0.3 },
   },
 };
 
 const menuItemVariants = {
-  open: { opacity: 1, x: 0, transition: { duration: 0.3 } },
-  closed: { opacity: 0, x: -20 },
+  open: { opacity: 1, y: 0, transition: { duration: 0.2 } },
+  closed: { opacity: 0, y: -20 },
 };
 
 // Компонент карточки продукта
@@ -225,7 +225,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, handleDownloadClick 
 
   return (
     <motion.div
-      layout
       className="relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -387,7 +386,10 @@ export default function Soft() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
+          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип
+          вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы
+          найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;.
+          Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
         </motion.p>
       </div>
 
@@ -420,14 +422,13 @@ export default function Soft() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              layout
-              className="mt-4 w-full max-w-xs bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
+              className="overflow-hidden w-full max-w-xs"
               initial="closed"
               animate="open"
               exit="closed"
               variants={menuVariants}
             >
-              <motion.ul className="py-2 text-center">
+              <motion.ul className="bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden py-2 text-center">
                 {DeviceTypes.map((type) => (
                   <motion.li
                     key={type}
@@ -448,12 +449,11 @@ export default function Soft() {
         <AnimatePresence>
           {isSearchOpen && (
             <motion.div
-              layout
-              className="mt-4 w-full max-w-xs bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden"
-              initial={{ maxHeight: 0, opacity: 0 }}
-              animate={{ maxHeight: 100, opacity: 1 }}
-              exit={{ maxHeight: 0, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 80 }}
+              className="overflow-hidden w-full max-w-xs mt-4"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3 }}
             >
               <input
                 type="text"
@@ -510,7 +510,6 @@ export default function Soft() {
 
       {/* Карточки продуктов */}
       <motion.div
-        layout
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16"
         initial={false}
         animate="visible"
