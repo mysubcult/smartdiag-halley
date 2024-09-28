@@ -372,7 +372,7 @@ export default function Soft() {
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
   return (
-    <div className="bg-white dark:bg-black mt-6" id="soft"> {/* Добавлен mt-6 */}
+    <div className="mt-6" id="soft"> {/* Добавлен mt-6 */}
       {/* Основное содержимое */}
       <div className="pt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
