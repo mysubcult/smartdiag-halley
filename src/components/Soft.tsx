@@ -404,11 +404,12 @@ export default function Soft() {
           transition={{ delay: 0.3, duration: 0.6 }}
         >
           В этом разделе вы можете скачать программное обеспечение для своего
-          устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot;
-          или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в
-          упаковке. После этого найдите карточку с вашим устройством и нажмите
-          кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения
-          находится на кнопке &quot;Инструкция&quot;.
+          устройства. Для начала определите тип вашего устройства —
+          &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе
+          устройства вы найдёте в упаковке. После этого найдите карточку с вашим
+          устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по
+          установке программного обеспечения находится на кнопке
+          &quot;Инструкция&quot;.
         </motion.p>
       </div>
 
@@ -454,7 +455,7 @@ export default function Soft() {
 
           {/* Выпадающий список */}
           <motion.ul
-            className="mt-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden text-center"
+            className="mt-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden text-center m-0 p-0 list-none"
             initial={false}
             animate={
               isMobileMenuOpen
@@ -466,7 +467,7 @@ export default function Soft() {
             {DeviceTypes.map((type) => (
               <li
                 key={type}
-                className="text-black dark:text-white px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
+                className="text-black dark:text-white px-4 py-2 leading-tight hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
                 onClick={() => {
                   setSelectedType(type);
                   setIsMobileMenuOpen(false);
