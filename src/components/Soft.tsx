@@ -3,7 +3,12 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { CheckIcon, XMarkIcon, MagnifyingGlassIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import {
+  CheckIcon,
+  XMarkIcon,
+  MagnifyingGlassIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
 
 // Types and Interfaces
@@ -215,7 +220,8 @@ const deviceTypes: ProductType[] = ["Все", "Мультимарочные", "�
 // Helper Components
 function ProductCard({ product, onDownloadClick }: ProductCardProps) {
   const { title, mostPopular, description, features, downloadLinks, docs, docsLinks } = product;
-  const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
+  const displayedFeatures =
+    features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
 
   return (
     <motion.div
@@ -229,8 +235,12 @@ function ProductCard({ product, onDownloadClick }: ProductCardProps) {
           Топ продаж
         </div>
       )}
-      <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">{title}</h3>
-      <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">{description}</p>
+      <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">
+        {title}
+      </h3>
+      <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">
+        {description}
+      </p>
       <div className="flex space-x-2 mb-4">
         <motion.button
           onClick={() => onDownloadClick(downloadLinks)}
@@ -252,12 +262,16 @@ function ProductCard({ product, onDownloadClick }: ProductCardProps) {
         )}
       </div>
       <div className="mt-auto">
-        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">В комплекте:</h4>
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+          В комплекте:
+        </h4>
         <ul className="space-y-1 h-24 overflow-y-auto">
           {displayedFeatures.map((feature, index) => (
             <li key={index} className="flex items-start">
               <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
-              <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">{feature}</span>
+              <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">
+                {feature}
+              </span>
             </li>
           ))}
         </ul>
@@ -387,7 +401,10 @@ export default function Soft() {
 
       {/* Mobile Menu */}
       <div className="lg:hidden flex flex-col items-center pt-4">
-        <motion.div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md w-full max-w-xs" layout>
+        <motion.div
+          className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md w-full max-w-xs"
+          layout
+        >
           <div className="flex items-center justify-between">
             <motion.button
               className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full flex items-center justify-between w-full"
@@ -401,7 +418,10 @@ export default function Soft() {
               whileTap={{ scale: 0.95 }}
             >
               <span>{selectedType}</span>
-              <motion.div animate={{ rotate: isMobileMenuOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+              <motion.div
+                animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
                 <ChevronDownIcon className="w-5 h-5" />
               </motion.div>
             </motion.button>
@@ -421,10 +441,14 @@ export default function Soft() {
 
           {/* Dropdown */}
           <motion.ul
-            className="mt-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden text-center m-0 p-0 list-none"
+            className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden text-center m-0 p-0 list-none"
             initial={false}
-            animate={isMobileMenuOpen ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
-            style={{ overflow: "hidden" }}
+            animate={
+              isMobileMenuOpen
+                ? { opacity: 1, height: "auto", marginTop: "1rem" }
+                : { opacity: 0, height: 0, marginTop: 0 }
+            }
+            transition={{ duration: 0.3 }}
           >
             {deviceTypes.map((type) => (
               <li
@@ -442,10 +466,14 @@ export default function Soft() {
 
           {/* Search Bar */}
           <motion.div
-            className="overflow-hidden w-full mt-4"
+            className="overflow-hidden w-full"
             initial={false}
-            animate={isSearchOpen ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
-            style={{ overflow: "hidden" }}
+            animate={
+              isSearchOpen
+                ? { opacity: 1, height: "auto", marginTop: "1rem" }
+                : { opacity: 0, height: 0, marginTop: 0 }
+            }
+            transition={{ duration: 0.3 }}
           >
             <input
               type="text"
@@ -512,7 +540,11 @@ export default function Soft() {
         }}
       >
         {currentProducts.map((product) => (
-          <ProductCard key={product.title} product={product} onDownloadClick={handleDownloadClick} />
+          <ProductCard
+            key={product.title}
+            product={product}
+            onDownloadClick={handleDownloadClick}
+          />
         ))}
       </motion.div>
 
@@ -530,19 +562,21 @@ export default function Soft() {
           >
             Предыдущая
           </button>
-          {Array.from({ length: totalPages }, (_, index) => index + 1).map((number) => (
-            <button
-              key={number}
-              onClick={() => paginate(number)}
-              className={`px-3 py-1 rounded-md text-sm font-medium ${
-                currentPage === number
-                  ? "bg-red-600 text-white"
-                  : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-              } transition-colors duration-300`}
-            >
-              {number}
-            </button>
-          ))}
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+            (number) => (
+              <button
+                key={number}
+                onClick={() => paginate(number)}
+                className={`px-3 py-1 rounded-md text-sm font-medium ${
+                  currentPage === number
+                    ? "bg-red-600 text-white"
+                    : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+                } transition-colors duration-300`}
+              >
+                {number}
+              </button>
+            )
+          )}
           <button
             onClick={nextPage}
             disabled={currentPage === totalPages}
