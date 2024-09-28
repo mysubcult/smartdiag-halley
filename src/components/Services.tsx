@@ -1,3 +1,5 @@
+'use client';
+
 // components/Services.tsx
 
 import Image from "next/image";
