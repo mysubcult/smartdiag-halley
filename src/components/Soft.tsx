@@ -454,10 +454,14 @@ export default function Soft() {
             }
             transition={{ duration: 0.3 }}
           >
-            {deviceTypes.map((type) => (
+            {deviceTypes.map((type, index) => (
               <li
                 key={type}
-                className="text-black dark:text-white px-4 py-2 leading-tight hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer rounded-none"
+                className={`text-black dark:text-white px-4 py-2 leading-tight hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer rounded-none ${
+                  index === 0 ? "first:rounded-t-none" : ""
+                } ${
+                  index === deviceTypes.length - 1 ? "last:rounded-b-none" : ""
+                }`}
                 onClick={() => {
                   setSelectedType(type);
                   setIsMobileMenuOpen(false);
