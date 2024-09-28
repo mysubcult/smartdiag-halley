@@ -215,7 +215,12 @@ const products: Product[] = [
   }
 ];
 
-const deviceTypes: ProductType[] = ["Все", "Мультимарочные", "Марочные", "Адаптеры elm"];
+const deviceTypes: ProductType[] = [
+  "Все",
+  "Мультимарочные",
+  "Марочные",
+  "Адаптеры elm",
+];
 
 // Helper Components
 function ProductCard({ product, onDownloadClick }: ProductCardProps) {
@@ -370,8 +375,10 @@ export default function Soft() {
   }, [filteredProducts, currentPage]);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-  const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-  const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
+  const nextPage = () =>
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const prevPage = () =>
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
 
   return (
     <div className="mt-6" id="soft">
@@ -391,11 +398,8 @@ export default function Soft() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала
-          определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;.
-          Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим
-          устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного
-          обеспечения находится на кнопке &quot;Инструкция&quot;.
+          В этом разделе вы можете скачать программное обеспечение для своего
+          устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
         </motion.p>
       </div>
 
@@ -441,7 +445,7 @@ export default function Soft() {
 
           {/* Dropdown */}
           <motion.ul
-            className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden text-center m-0 p-0 list-none"
+            className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden text-center m-0 p-0 list-none divide-y divide-gray-300 dark:divide-gray-700"
             initial={false}
             animate={
               isMobileMenuOpen
@@ -453,7 +457,7 @@ export default function Soft() {
             {deviceTypes.map((type) => (
               <li
                 key={type}
-                className="text-black dark:text-white px-4 py-2 leading-tight hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
+                className="text-black dark:text-white px-4 py-2 leading-tight hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer rounded-none"
                 onClick={() => {
                   setSelectedType(type);
                   setIsMobileMenuOpen(false);
