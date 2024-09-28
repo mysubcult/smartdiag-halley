@@ -1,6 +1,11 @@
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
-import { CheckIcon, XMarkIcon, MagnifyingGlassIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import {
+  CheckIcon,
+  XMarkIcon,
+  MagnifyingGlassIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/24/solid";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Типы и интерфейсы
@@ -192,7 +197,12 @@ const products: Product[] = [
   }
 ];
 
-const DeviceTypes: ProductType[] = ["Все", "Мультимарочные", "Марочные", "Адаптеры elm"];
+const DeviceTypes: ProductType[] = [
+  "Все",
+  "Мультимарочные",
+  "Марочные",
+  "Адаптеры elm",
+];
 
 // Варианты анимации для Framer Motion
 const menuVariants = {
@@ -210,7 +220,7 @@ const menuVariants = {
 
 const menuItemVariants = {
   open: { opacity: 1, y: 0, transition: { duration: 0.2 } },
-  closed: { opacity: 0, y: -20 },
+  closed: { opacity: 0, y: -10 },
 };
 
 // Компонент карточки продукта
@@ -219,9 +229,21 @@ interface ProductCardProps {
   handleDownloadClick: (links: { link: string; label: string }[]) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, handleDownloadClick }) => {
-  const { title, mostPopular, description, features, downloadLinks, docs, docsLinks } = product;
-  const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  handleDownloadClick,
+}) => {
+  const {
+    title,
+    mostPopular,
+    description,
+    features,
+    downloadLinks,
+    docs,
+    docsLinks,
+  } = product;
+  const displayedFeatures =
+    features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
 
   return (
     <motion.div
@@ -235,8 +257,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, handleDownloadClick 
           Топ продаж
         </div>
       )}
-      <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">{title}</h3>
-      <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">{description}</p>
+      <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-1">
+        {title}
+      </h3>
+      <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-3 mb-4">
+        {description}
+      </p>
       <div className="flex space-x-2 mb-4">
         <motion.button
           onClick={() => handleDownloadClick(downloadLinks)}
@@ -258,12 +284,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, handleDownloadClick 
         )}
       </div>
       <div className="mt-auto">
-        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">В комплекте:</h4>
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+          В комплекте:
+        </h4>
         <ul className="space-y-1 h-24 overflow-y-auto">
           {displayedFeatures.map((feature, index) => (
             <li key={index} className="flex items-start">
               <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
-              <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">{feature}</span>
+              <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">
+                {feature}
+              </span>
             </li>
           ))}
         </ul>
@@ -328,7 +358,9 @@ const Modal: React.FC<ModalProps> = ({ modalLinks, closeModal }) => {
 // Главный компонент
 export default function Soft() {
   const [selectedType, setSelectedType] = useState<ProductType>("Все");
-  const [modalLinks, setModalLinks] = useState<{ link: string; label: string }[] | null>(null);
+  const [modalLinks, setModalLinks] = useState<
+    { link: string; label: string }[] | null
+  >(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -356,7 +388,10 @@ export default function Soft() {
     [selectedType, searchQuery]
   );
 
-  const totalPages = useMemo(() => Math.ceil(filteredProducts.length / productsPerPage), [filteredProducts]);
+  const totalPages = useMemo(
+    () => Math.ceil(filteredProducts.length / productsPerPage),
+    [filteredProducts]
+  );
 
   const currentProducts = useMemo(() => {
     const indexOfLastProduct = currentPage * productsPerPage;
@@ -386,49 +421,65 @@ export default function Soft() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          В этом разделе вы можете скачать программное обеспечение для своего устройства. Для начала определите тип
-          вашего устройства — &quot;Марочный&quot; или &quot;Мультимарочный&quot;. Информацию о типе устройства вы
-          найдёте в упаковке. После этого найдите карточку с вашим устройством и нажмите кнопку &quot;Скачать&quot;.
-          Инструкция по установке программного обеспечения находится на кнопке &quot;Инструкция&quot;.
+          В этом разделе вы можете скачать программное обеспечение для своего
+          устройства. Для начала определите тип вашего устройства — &quot;Марочный&quot;
+          или &quot;Мультимарочный&quot;. Информацию о типе устройства вы найдёте в
+          упаковке. После этого найдите карточку с вашим устройством и нажмите
+          кнопку &quot;Скачать&quot;. Инструкция по установке программного обеспечения
+          находится на кнопке &quot;Инструкция&quot;.
         </motion.p>
       </div>
 
       {/* Мобильное меню */}
       <div className="lg:hidden flex flex-col items-center pt-4">
-        <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md flex items-center justify-between w-full max-w-xs">
-          <motion.button
-            className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full flex items-center justify-between w-full"
-            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-            aria-expanded={isMobileMenuOpen}
-            aria-label="Выберите категорию"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span>{selectedType}</span>
-            <motion.div animate={{ rotate: isMobileMenuOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
-              <ChevronDownIcon className="w-5 h-5" />
-            </motion.div>
-          </motion.button>
-          <motion.button
-            className="ml-4 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full shadow"
-            onClick={() => setIsSearchOpen((prev) => !prev)}
-            aria-label="Поиск"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <MagnifyingGlassIcon className="w-6 h-6" />
-          </motion.button>
-        </div>
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              className="overflow-hidden w-full max-w-xs"
-              initial="closed"
-              animate="open"
-              exit="closed"
-              variants={menuVariants}
+        <motion.div
+          className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md w-full max-w-xs overflow-hidden"
+          animate={
+            isMobileMenuOpen || isSearchOpen ? { height: "auto" } : { height: "auto" }
+          }
+        >
+          <div className="flex items-center justify-between">
+            <motion.button
+              className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full flex items-center justify-between w-full"
+              onClick={() => {
+                setIsMobileMenuOpen((prev) => !prev);
+                if (isSearchOpen) setIsSearchOpen(false);
+              }}
+              aria-expanded={isMobileMenuOpen}
+              aria-label="Выберите категорию"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <motion.ul className="bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden py-2 text-center">
+              <span>{selectedType}</span>
+              <motion.div
+                animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ChevronDownIcon className="w-5 h-5" />
+              </motion.div>
+            </motion.button>
+            <motion.button
+              className="ml-4 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full shadow"
+              onClick={() => {
+                setIsSearchOpen((prev) => !prev);
+                if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+              }}
+              aria-label="Поиск"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <MagnifyingGlassIcon className="w-6 h-6" />
+            </motion.button>
+          </div>
+          <AnimatePresence initial={false}>
+            {isMobileMenuOpen && (
+              <motion.ul
+                className="mt-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden py-2 text-center"
+                initial="closed"
+                animate="open"
+                exit="closed"
+                variants={menuVariants}
+              >
                 {DeviceTypes.map((type) => (
                   <motion.li
                     key={type}
@@ -443,31 +494,31 @@ export default function Soft() {
                   </motion.li>
                 ))}
               </motion.ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <AnimatePresence>
-          {isSearchOpen && (
-            <motion.div
-              className="overflow-hidden w-full max-w-xs mt-4"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <input
-                type="text"
-                placeholder="Поиск..."
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setCurrentPage(1);
-                }}
-                className="w-full px-4 py-2 border-none focus:outline-none bg-gray-100 dark:bg-gray-700 dark:text-white"
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+            )}
+          </AnimatePresence>
+          <AnimatePresence initial={false}>
+            {isSearchOpen && (
+              <motion.div
+                className="overflow-hidden w-full mt-4"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <input
+                  type="text"
+                  placeholder="Поиск..."
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className="w-full px-4 py-2 border-none focus:outline-none bg-gray-100 dark:bg-gray-700 dark:text-white rounded-lg"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </div>
 
       {/* Десктопные фильтры и поиск */}
@@ -521,7 +572,11 @@ export default function Soft() {
         }}
       >
         {currentProducts.map((product) => (
-          <ProductCard key={product.title} product={product} handleDownloadClick={handleDownloadClick} />
+          <ProductCard
+            key={product.title}
+            product={product}
+            handleDownloadClick={handleDownloadClick}
+          />
         ))}
       </motion.div>
 
@@ -539,19 +594,21 @@ export default function Soft() {
           >
             Предыдущая
           </button>
-          {Array.from({ length: totalPages }, (_, index) => index + 1).map((number) => (
-            <button
-              key={number}
-              onClick={() => paginate(number)}
-              className={`px-3 py-1 rounded-md text-sm font-medium ${
-                currentPage === number
-                  ? "bg-red-600 text-white"
-                  : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-              } transition-colors duration-300`}
-            >
-              {number}
-            </button>
-          ))}
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+            (number) => (
+              <button
+                key={number}
+                onClick={() => paginate(number)}
+                className={`px-3 py-1 rounded-md text-sm font-medium ${
+                  currentPage === number
+                    ? "bg-red-600 text-white"
+                    : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+                } transition-colors duration-300`}
+              >
+                {number}
+              </button>
+            )
+          )}
           <button
             onClick={nextPage}
             disabled={currentPage === totalPages}
@@ -568,7 +625,9 @@ export default function Soft() {
 
       {/* Модальное окно */}
       <AnimatePresence>
-        {modalLinks && <Modal modalLinks={modalLinks} closeModal={closeModal} />}
+        {modalLinks && (
+          <Modal modalLinks={modalLinks} closeModal={closeModal} />
+        )}
       </AnimatePresence>
     </div>
   );
