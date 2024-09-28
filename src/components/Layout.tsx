@@ -1,9 +1,12 @@
+'use client';
+
 // components/Layout.tsx
-import Head from "next/head";
-import { useRouter } from "next/router";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
-import { ReactNode } from "react";
+
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import Footer from './Footer';
+import Navbar from './Navbar';
+import { ReactNode } from 'react';
 
 interface LayoutProps {
   children: ReactNode;
@@ -19,11 +22,15 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
 
   const meta = {
-    title: title || "SmartDiag - Ваш проводник в мире автодиагностики",
-    description: description || "SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.",
-    keywords: keywords || "автодиагностика, Autocom CDP+, Delphi DS150E, VCDS, Вася, mucar, thinkdiag, Thinkcar, диагностика автомобилей, программы для диагностики, оборудование для диагностики, car diagnostics, diagnostic tools, software for diagnostics, diagnostic equipment, vehicle diagnostics, diagnostic software, installation instructions, BMW, Audi, Mercedes, Toyota, Volkswagen, Ford, Nissan, Honda, Chevrolet, Kia",
-    image: image || "/images/seo/halley-banner.png",
-    type: type || "website",
+    title: title || 'SmartDiag - Ваш проводник в мире автодиагностики',
+    description:
+      description ||
+      'SmartDiag предлагает широкий ассортимент оборудования для диагностики автомобилей, включая Autocom CDP+, Delphi DS150E, VCDS. Программы и инструкции по установке.',
+    keywords:
+      keywords ||
+      'автодиагностика, Autocom CDP+, Delphi DS150E, VCDS, Вася, mucar, thinkdiag, Thinkcar, диагностика автомобилей, программы для диагностики, оборудование для диагностики, car diagnostics, diagnostic tools, software for diagnostics, diagnostic equipment, vehicle diagnostics, diagnostic software, installation instructions, BMW, Audi, Mercedes, Toyota, Volkswagen, Ford, Nissan, Honda, Chevrolet, Kia',
+    image: image || '/images/seo/halley-banner.png',
+    type: type || 'website',
   };
 
   return (
