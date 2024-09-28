@@ -76,11 +76,11 @@ export default function Navbar() {
           </div>
 
           {/* Десктоп Меню */}
-          <div className="hidden md:flex flex-1 space-x-4 overflow-hidden min-w-0">
+          <div className="hidden lg:flex flex-grow space-x-8">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href}>
                 <a
-                  className="relative text-base font-semibold hover:text-red-500 transition-colors whitespace-nowrap overflow-hidden text-ellipsis flex-shrink flex-grow-0"
+                  className="relative text-base font-semibold hover:text-red-500 transition-colors whitespace-nowrap overflow-hidden text-ellipsis"
                   title={item.name}
                 >
                   {item.name}
@@ -90,49 +90,45 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Кнопки и переключатель темы */}
-          <div className="flex items-center space-x-4">
-            {/* Кнопки магазинов (только на десктопе) */}
-            <div className="hidden md:flex space-x-2">
-              {storeLinks.map((store) => (
-                <a
-                  key={store.name}
-                  href={store.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`flex items-center px-3 py-1 rounded-full bg-gradient-to-r ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105 whitespace-nowrap`}
-                >
-                  <Image
-                    src={store.iconSrc}
-                    alt={store.name}
-                    width={20}
-                    height={20}
-                    className="w-5 h-5 mr-2"
-                    loading="lazy"
-                  />
-                  {store.name}
-                </a>
-              ))}
-            </div>
-
-            {/* Переключатель темы */}
-            <ThemeSwitchButton />
-
-            {/* Кнопка открытия мобильного меню */}
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-                aria-label="Toggle Menu"
-                aria-expanded={isMenuOpen}
+          {/* Магазинные кнопки и переключатель темы */}
+          <div className="hidden xl:flex items-center space-x-4">
+            {storeLinks.map((store) => (
+              <a
+                key={store.name}
+                href={store.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-center px-3 py-1 rounded-full bg-gradient-to-r ${store.bgGradient} hover:${store.hoverGradient} ${store.textColor} transition-transform transform hover:scale-105 whitespace-nowrap`}
               >
-                {isMenuOpen ? (
-                  <XMarkIcon className="h-6 w-6" />
-                ) : (
-                  <Bars3Icon className="h-6 w-6" />
-                )}
-              </button>
-            </div>
+                <Image
+                  src={store.iconSrc}
+                  alt={store.name}
+                  width={20}
+                  height={20}
+                  className="w-5 h-5 mr-2"
+                  loading="lazy"
+                />
+                {store.name}
+              </a>
+            ))}
+
+            <ThemeSwitchButton />
+          </div>
+
+          {/* Кнопка открытия мобильного меню */}
+          <div className="lg:hidden">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              aria-label="Toggle Menu"
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? (
+                <XMarkIcon className="h-6 w-6" />
+              ) : (
+                <Bars3Icon className="h-6 w-6" />
+              )}
+            </button>
           </div>
         </div>
       </div>
@@ -145,7 +141,7 @@ export default function Navbar() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700"
+            className="lg:hidden bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700"
           >
             <div className="px-4 pt-4 pb-2 space-y-1">
               {navigation.map((item) => (
