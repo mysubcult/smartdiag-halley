@@ -2,12 +2,9 @@
 
 // components/Services.tsx
 
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-
-// Dynamically import framer-motion to disable SSR
-const Motion = dynamic(() => import('framer-motion'), { ssr: false });
+import { motion } from 'framer-motion';
 
 interface Service {
   title: string;
@@ -95,31 +92,43 @@ export function Services() {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null; // Prevent hydration mismatch by not rendering on the server
-
   return (
     <div className="mt-6" id="services">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 text-center">
-        <Motion.h2
-          className="text-4xl font-bold"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          О нас 👋
-        </Motion.h2>
+        {mounted ? (
+          <>
+            <motion.h2
+              className="text-4xl font-bold"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              О нас 👋
+            </motion.h2>
 
-        <Motion.p
-          className="pt-6 pb-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          Мы специализируемся на продаже оборудования для диагностики
-          автомобилей уже на протяжении многих лет. За это время мы
-          зарекомендировали себя как надежный поставщик высококачественного
-          оборудования.
-        </Motion.p>
+            <motion.p
+              className="pt-6 pb-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              Мы специализируемся на продаже оборудования для диагностики
+              автомобилей уже на протяжении многих лет. За это время мы
+              зарекомендировали себя как надежный поставщик высококачественного
+              оборудования.
+            </motion.p>
+          </>
+        ) : (
+          <>
+            <h2 className="text-4xl font-bold">О нас 👋</h2>
+            <p className="pt-6 pb-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+              Мы специализируемся на продаже оборудования для диагностики
+              автомобилей уже на протяжении многих лет. За это время мы
+              зарекомендировали себя как надежный поставщик высококачественного
+              оборудования.
+            </p>
+          </>
+        )}
       </div>
 
       <div
