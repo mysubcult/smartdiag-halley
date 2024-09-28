@@ -381,7 +381,8 @@ export default function Soft() {
   }, [filteredProducts, currentPage]);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-  const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const nextPage = () =>
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
   return (
@@ -453,9 +454,13 @@ export default function Soft() {
 
           {/* Выпадающий список */}
           <motion.ul
-            className="mt-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden py-2 text-center"
+            className="mt-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden text-center"
             initial={false}
-            animate={isMobileMenuOpen ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
+            animate={
+              isMobileMenuOpen
+                ? { opacity: 1, height: "auto" }
+                : { opacity: 0, height: 0 }
+            }
             style={{ overflow: "hidden" }}
           >
             {DeviceTypes.map((type) => (
@@ -476,7 +481,11 @@ export default function Soft() {
           <motion.div
             className="overflow-hidden w-full mt-4"
             initial={false}
-            animate={isSearchOpen ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
+            animate={
+              isSearchOpen
+                ? { opacity: 1, height: "auto" }
+                : { opacity: 0, height: 0 }
+            }
             style={{ overflow: "hidden" }}
           >
             <input
@@ -596,9 +605,7 @@ export default function Soft() {
       )}
 
       {/* Модальное окно */}
-      {modalLinks && (
-        <Modal modalLinks={modalLinks} closeModal={closeModal} />
-      )}
+      {modalLinks && <Modal modalLinks={modalLinks} closeModal={closeModal} />}
     </div>
   );
 }
