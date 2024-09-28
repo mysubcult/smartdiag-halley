@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import { useTheme } from 'next-themes';
+import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // TypeScript Interfaces
 interface NavigationItem {
@@ -106,7 +107,7 @@ const ThemeSwitchButton: React.FC = () => {
 // Main Navbar Component
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [isSubMenuOpen, setIsSubMenuOpen] = useState<boolean>(false);
+  const [isStoreSubMenuOpen, setIsStoreSubMenuOpen] = useState<boolean>(false);
   const [mounted, setMounted] = useState<boolean>(false);
 
   // Handle client-side rendering to prevent hydration mismatch
@@ -121,26 +122,23 @@ const Navbar: React.FC = () => {
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between flex-wrap">
+        <div className="relative flex h-16 items-center justify-between">
           {/* Logo and Desktop Navigation */}
-          <div className="flex flex-1 items-center justify-start">
-            <div className="flex flex-shrink-0 items-center">
-              <Link href="/">
-                <Image
-                  className="block h-12 w-auto"
-                  src="/images/logos/logo.webp" // Optimized WebP format
-                  alt="SmartDiag Logo"
-                  width={256}
-                  height={117}
-                  quality={80}
-                  sizes="(max-width: 768px) 100vw, 256px"
-                  priority // Eagerly load the logo as it's critical for the layout
-                />
-              </Link>
-            </div>
-
+          <div className="flex items-center">
+            <Link href="/">
+              <Image
+                className="block h-12 w-auto"
+                src="/images/logos/logo.webp" // Optimized WebP format
+                alt="SmartDiag Logo"
+                width={256}
+                height={117}
+                quality={80}
+                sizes="(max-width: 768px) 100vw, 256px"
+                priority // Eagerly load the logo as it's critical for the layout
+              />
+            </Link>
             {/* Desktop Menu */}
-            <div className="hidden lg:flex flex-wrap items-center space-x-5 ml-4">
+            <div className="hidden lg:flex ml-10 space-x-5">
               {navigationItems.map((item: NavigationItem) => (
                 <Link key={item.name} href={item.href}>
                   <span className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out cursor-pointer">
@@ -161,7 +159,7 @@ const Navbar: React.FC = () => {
                   href={store.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center justify-center bg-gradient-to-r ${store.bgGradient} hover:bg-gradient-to-r ${store.hoverGradient} ${store.textColor} px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105`}
+                  className={`flex items-center justify-center bg-gradient-to-r ${store.bgGradient} hover:bg-gradient-to-r ${store.hoverGradient} ${store.textColor} px-4 py-2 rounded-full transition-transform duration-300 ease-in-out transform hover:scale-105`}
                 >
                   <Image
                     src={store.iconSrc}
@@ -195,54 +193,73 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="lg:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
-          <div className="flex flex-col items-center space-y-4">
-            {navigationItems.map((item: NavigationItem) => (
-              <Link key={item.name} href={item.href}>
-                <span
-                  className="block py-2 text-lg font-medium hover:text-red-500 cursor-pointer"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </span>
-              </Link>
-            ))}
-
-            {/* Submenu for Stores */}
-            <button
-              onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-              className="flex items-center justify-between w-full text-left py-2 text-lg font-medium hover:text-red-500 focus:outline-none"
-              aria-haspopup="true"
-              aria-expanded={isSubMenuOpen}
-            >
-              Магазины
-              <ChevronDownIcon
-                className={`h-5 w-5 transition-transform ${
-                  isSubMenuOpen ? 'rotate-180' : 'rotate-0'
-                }`}
-              />
-            </button>
-
-            {isSubMenuOpen && (
-              <div className="flex flex-col space-y-3 w-full mt-2">
-                {storeLinks.map((store: StoreLink) => (
-                  <a
-                    key={store.name}
-                    href={store.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex items-center justify-center bg-gradient-to-r ${store.bgGradient} hover:bg-gradient-to-r ${store.hoverGradient} ${store.textColor} px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 w-full`}
+      {/* Mobile Menu with Framer Motion Animations */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="lg:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+          >
+            <div className="flex flex-col items-center space-y-4">
+              {navigationItems.map((item: NavigationItem) => (
+                <Link key={item.name} href={item.href}>
+                  <span
+                    className="block py-2 text-lg font-medium hover:text-red-500 cursor-pointer"
+                    onClick={() => setIsMenuOpen(false)}
                   >
-                    {store.name}
-                  </a>
-                ))}
+                    {item.name}
+                  </span>
+                </Link>
+              ))}
+
+              {/* Submenu for Stores */}
+              <div className="w-full">
+                <button
+                  onClick={() => setIsStoreSubMenuOpen(!isStoreSubMenuOpen)}
+                  className="flex items-center justify-between w-full text-left py-2 text-lg font-medium hover:text-red-500 focus:outline-none"
+                  aria-haspopup="true"
+                  aria-expanded={isStoreSubMenuOpen}
+                >
+                  Магазины
+                  <ChevronDownIcon
+                    className={`h-5 w-5 transition-transform ${
+                      isStoreSubMenuOpen ? 'rotate-180' : 'rotate-0'
+                    }`}
+                  />
+                </button>
+
+                <AnimatePresence>
+                  {isStoreSubMenuOpen && (
+                    <motion.div
+                      className="flex flex-col space-y-3 w-full mt-2"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      {storeLinks.map((store: StoreLink) => (
+                        <a
+                          key={store.name}
+                          href={store.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`flex items-center justify-center bg-gradient-to-r ${store.bgGradient} hover:bg-gradient-to-r ${store.hoverGradient} ${store.textColor} px-4 py-2 rounded-full transition-transform duration-300 ease-in-out transform hover:scale-105 w-full`}
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {store.name}
+                        </a>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-            )}
-          </div>
-        </div>
-      )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
