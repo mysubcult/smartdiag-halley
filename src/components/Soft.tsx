@@ -445,7 +445,7 @@ export default function Soft() {
 
           {/* Dropdown */}
           <motion.ul
-            className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden text-center m-0 p-0 list-none divide-y divide-gray-300 dark:divide-gray-700"
+            className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden text-center m-0 p-0 list-none"
             initial={false}
             animate={
               isMobileMenuOpen
