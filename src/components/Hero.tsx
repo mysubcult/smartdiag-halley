@@ -1,3 +1,5 @@
+'use client';
+
 // components/hero/Hero.tsx
 
 import { FC } from "react";
