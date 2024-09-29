@@ -109,33 +109,35 @@ export default function Navbar() {
                 </Link>
               ))}
 
-              {/* "Магазины" dropdown for LG screens */}
-              <div className="relative">
-                <button
-                  onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                  className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none"
-                  aria-haspopup="true"
-                  aria-expanded={isSubMenuOpen}
-                >
-                  Магазины
-                  <ChevronDownIcon className={`h-5 w-5 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
-                </button>
-                {isSubMenuOpen && (
-                  <div className="absolute mt-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg py-2 w-48">
-                    {storeLinks.map((store) => (
-                      <Link key={store.name} href={store.href} passHref>
-                        <a
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`block px-4 py-2 ${store.textColor} hover:bg-neutral-100 dark:hover:bg-neutral-700`}
-                        >
-                          {store.name}
-                        </a>
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
+              {/* "Магазины" dropdown only on lg screens */}
+              {currentBreakpoint === 'lg' && (
+                <div className="relative">
+                  <button
+                    onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
+                    className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none"
+                    aria-haspopup="true"
+                    aria-expanded={isSubMenuOpen}
+                  >
+                    Магазины
+                    <ChevronDownIcon className={`h-5 w-5 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
+                  </button>
+                  {isSubMenuOpen && (
+                    <div className="absolute mt-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg py-2 w-48">
+                      {storeLinks.map((store) => (
+                        <Link key={store.name} href={store.href} passHref>
+                          <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`block px-4 py-2 ${store.textColor} hover:bg-neutral-100 dark:hover:bg-neutral-700`}
+                          >
+                            {store.name}
+                          </a>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Store buttons displayed inline on xl and 2xl */}
@@ -206,15 +208,17 @@ export default function Navbar() {
             ))}
 
             {/* Submenu for Stores */}
-            <button
-              onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-              className="flex items-center justify-center w-full text-left py-2 text-lg font-medium hover:text-red-500 focus:outline-none"
-              aria-haspopup="true"
-              aria-expanded={isSubMenuOpen}
-            >
-              Магазины
-              <ChevronDownIcon className={`h-5 w-5 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
-            </button>
+            {currentBreakpoint === 'lg' && (
+              <button
+                onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
+                className="flex items-center justify-center w-full text-left py-2 text-lg font-medium hover:text-red-500 focus:outline-none"
+                aria-haspopup="true"
+                aria-expanded={isSubMenuOpen}
+              >
+                Магазины
+                <ChevronDownIcon className={`h-5 w-5 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
+              </button>
+            )}
 
             {isSubMenuOpen && (
               <div className="flex flex-col space-y-3 w-full mt-2">
