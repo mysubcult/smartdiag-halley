@@ -13,7 +13,7 @@ const navigation = [
   { name: 'Главная', href: '/', emoji: '🏠' },
   { name: 'Программы', href: '/soft', emoji: '💻' },
   { name: 'Статьи', href: '/articles', emoji: '📝' },
-  { name: 'О нас', href: '/about', emoji: '👥' }, // Fixed the href here
+  { name: 'О нас', href: '/about', emoji: '👥' },
   { name: 'Обратная связь', href: '/contact', emoji: '💬' },
 ];
 
@@ -21,7 +21,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [currentBreakpoint, setCurrentBreakpoint] = useState(''); // Initialize with an empty string
+  const [currentBreakpoint, setCurrentBreakpoint] = useState('');
 
   useEffect(() => {
     setMounted(true);
@@ -30,7 +30,7 @@ export default function Navbar() {
   useEffect(() => {
     if (!mounted) return;
 
-    const getBreakpoint = (width: number): string => {
+    const getBreakpoint = (width: number) => {
       if (width >= 1536) return '2xl';
       if (width >= 1280) return 'xl';
       if (width >= 1024) return 'lg';
@@ -89,7 +89,7 @@ export default function Navbar() {
                   href={item.href}
                   className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out"
                 >
-                  {item.name} <span className="inline-block ml-2">{item.emoji}</span>
+                  {item.name}
                 </Link>
               ))}
             </div>
@@ -182,7 +182,6 @@ export default function Navbar() {
                 ) : (
                   <Bars3Icon className="h-6 w-6" />
                 )}
-                {/* Индикатор текущего брейкпоинта для мобильного меню */}
                 <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1">
                   {currentBreakpoint.toUpperCase()}
                 </span>
@@ -199,7 +198,7 @@ export default function Navbar() {
           animate="open"
           exit="closed"
           variants={menuVariants}
-          className="xl:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-full max-w-sm"
+          className="xl:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-full max-w-xs"
         >
           <div className="flex flex-col items-center space-y-4">
             {navigation.map((item) => (
