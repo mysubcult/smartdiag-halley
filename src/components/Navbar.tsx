@@ -146,6 +146,31 @@ export default function Navbar() {
                 </div>
               )}
             </div>
+
+            {/* Store buttons displayed inline on xl and 2xl */}
+            {currentBreakpoint !== 'lg' && (
+              <div className="hidden xl:flex space-x-2 ml-4">
+                {storeLinks.map((store) => (
+                  <Link key={store.name} href={store.href} passHref>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`flex items-center justify-center ${store.bgGradient} ${store.textColor} px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105`}
+                    >
+                      <Image
+                        src={store.iconSrc}
+                        alt={store.name}
+                        className="w-5 h-5 mr-2"
+                        width={20}
+                        height={20}
+                        loading="lazy"
+                      />
+                      {store.name}
+                    </a>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Button Group for Theme Switch */}
@@ -182,7 +207,7 @@ export default function Navbar() {
       {isMenuOpen && (
         <div className="lg:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
           <div className="flex flex-col items-center space-y-4">
-            {navigation.map((item) => (
+{navigation.map((item) => (
               <Link key={item.name} href={item.href} passHref>
                 <a
                   className="block py-2 text-lg font-medium hover:text-red-500"
