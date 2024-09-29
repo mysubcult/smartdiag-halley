@@ -1,9 +1,6 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Viewer, Worker } from '@react-pdf-viewer/core';
-import '@react-pdf-viewer/core/lib/styles/index.css';
-import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 interface Service {
   title: string;
@@ -47,7 +44,7 @@ export function About() {
 
   return (
     <div className="mt-6" id="about">
-      {/* Встраивание PDF-файла с красивым просмотром */}
+      {/* Встраивание PDF-файла с встроенным просмотром */}
       <motion.div
         className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 text-center"
         initial={{ opacity: 0, y: -20 }}
@@ -59,13 +56,13 @@ export function About() {
           Наши товары и услуги соответствуют высоким стандартам качества, и мы гордимся тем, что имеем зарегистрированный торговый знак.
         </p>
         <div className="mt-8 border rounded-lg shadow-lg overflow-hidden">
-          <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.1.81/build/pdf.worker.min.js`}>
-            <Viewer
-              fileUrl="/docs/certificate.pdf"
-              defaultScale={1.5}
-              theme="dark"
-            />
-          </Worker>
+          <iframe
+            src="/docs/certificate.pdf"
+            className="w-full h-[600px]"
+            title="Сертификат"
+            frameBorder="0"
+            allowFullScreen
+          />
         </div>
       </motion.div>
 
