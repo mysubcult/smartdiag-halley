@@ -12,7 +12,7 @@ const navigation = [
   { name: 'Главная', href: '/' },
   { name: 'Программы', href: '/soft' },
   { name: 'Статьи', href: '/articles' },
-  { name: 'О нас', href: '/services' },
+  { name: 'О нас', href: '/about' }, // Fixed the href here
   { name: 'Обратная связь', href: '/contact' },
 ];
 
@@ -20,7 +20,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [currentBreakpoint, setCurrentBreakpoint] = useState<string>(''); // Новое состояние для брейкпоинта
+  const [currentBreakpoint, setCurrentBreakpoint] = useState(''); // Initialize with an empty string
 
   useEffect(() => {
     setMounted(true);
@@ -35,7 +35,7 @@ export default function Navbar() {
       if (width >= 1024) return 'lg';
       if (width >= 768) return 'md';
       if (width >= 640) return 'sm';
-      return 'xs'; // Для ширин меньше чем sm
+      return 'xs';
     };
 
     const updateBreakpoint = () => {
@@ -44,18 +44,15 @@ export default function Navbar() {
       setCurrentBreakpoint(bp);
     };
 
-    // Инициализация при загрузке
     updateBreakpoint();
 
-    // Обработчик изменения размера окна
     window.addEventListener('resize', updateBreakpoint);
 
-    // Очистка обработчика при размонтировании
     return () => window.removeEventListener('resize', updateBreakpoint);
   }, [mounted]);
 
   if (!mounted) {
-    return null; // Prevents hydration mismatch by not rendering until client-side
+    return null;
   }
 
   return (
@@ -73,7 +70,7 @@ export default function Navbar() {
                   height={117}
                   quality={100}
                   sizes="100vw"
-                  priority // Eagerly load the logo as it's critical for the layout
+                  priority
                 />
               </Link>
             </div>
