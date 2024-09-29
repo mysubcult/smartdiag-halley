@@ -1,7 +1,7 @@
 
 'use client';
 
-// components/Services.tsx
+// components/About.tsx
 
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
@@ -84,8 +84,8 @@ const ServiceCard: React.FC<Service> = React.memo(({ title, description, image, 
 
 ServiceCard.displayName = 'ServiceCard';
 
-// Services Component
-export function Services() {
+// About Component
+export function About() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -94,7 +94,7 @@ export function Services() {
   }, []);
 
   return (
-    <div className="mt-6" id="services">
+    <div className="mt-6" id="about">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 text-center">
         {mounted ? (
           <>
@@ -135,7 +135,7 @@ export function Services() {
       <div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 grid md:grid-cols-2 lg:grid-cols-3 gap-y-8 md:gap-x-8 lg:gap-x-8 lg:gap-y-16"
       >
-        {services.map((service) => (
+        {About.map((service) => (
           <ServiceCard key={service.title} {...service} />
         ))}
       </div>
