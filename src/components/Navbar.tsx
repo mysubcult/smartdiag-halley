@@ -77,7 +77,6 @@ export default function Navbar() {
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
               <Link href="/">
-                {/* Removed <a> as Next.js 13 handles it internally */}
                 <Image
                   className="block h-12 w-auto"
                   src="/images/logos/logo.png"
@@ -92,7 +91,7 @@ export default function Navbar() {
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden flex-wrap items-center space-x-5 ml-4 lg:flex">
+            <div className="hidden md:flex flex-wrap items-center space-x-5 ml-4">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
@@ -108,7 +107,7 @@ export default function Navbar() {
           {/* Button Group for Stores and Theme Switch */}
           <div className="flex items-center space-x-2">
             {/* Hidden on mobile */}
-            <div className="hidden lg:flex space-x-2">
+            <div className="hidden md:flex space-x-2">
               {/* OZON */}
               <Link href="https://www.ozon.ru/seller/smartdiag-862410/" passHref>
                 <a
@@ -171,12 +170,11 @@ export default function Navbar() {
             <ThemeSwitchButton />
 
             {/* Индикатор брейкпоинта */}
-            <div className="hidden lg:flex items-center ml-2">
+            <div className="hidden md:flex items-center ml-2">
               <div className="relative">
                 <span className="px-2 py-1 text-xs font-semibold text-white bg-blue-500 rounded-full">
                   {currentBreakpoint.toUpperCase()}
                 </span>
-                {/* Добавим подсказку при наведении */}
                 <div className="absolute bottom-full mb-2 hidden group-hover:block">
                   <span className="px-2 py-1 text-xs text-white bg-gray-800 rounded">Текущий брейкпоинт</span>
                 </div>
@@ -184,7 +182,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Menu Toggle */}
-            <div className="lg:hidden">
+            <div className="md:hidden">
               <button
                 className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors relative"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -193,7 +191,6 @@ export default function Navbar() {
               >
                 <Bars3Icon className={`h-6 w-6 ${isMenuOpen ? 'hidden' : 'block'}`} />
                 <XMarkIcon className={`h-6 w-6 ${isMenuOpen ? 'block' : 'hidden'}`} />
-                {/* Индикатор брейкпоинта на мобильных */}
                 <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1">
                   {currentBreakpoint.toUpperCase()}
                 </span>
@@ -205,7 +202,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
+        <div className="md:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
           <div className="flex flex-col items-center space-y-4">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href} passHref>
