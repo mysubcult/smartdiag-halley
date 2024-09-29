@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ThemeSwitchButton from './ThemeSwitchButton';
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
+import { motion } from 'framer-motion';
 
 const navigation = [
   { name: 'Главная', href: '/' },
@@ -18,22 +19,16 @@ const storeLinks = [
   {
     name: 'OZON',
     href: 'https://www.ozon.ru/seller/smartdiag-862410/',
-    bgGradient: 'bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900',
-    textColor: 'text-white',
     iconSrc: '/images/logos/favicon.ico',
   },
   {
     name: 'Яндекс Маркет',
     href: 'https://market.yandex.ru/business--smartdiag/50025236',
-    bgGradient: 'bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700',
-    textColor: 'text-black',
     iconSrc: 'https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico',
   },
   {
     name: 'Wildberries',
     href: 'https://www.wildberries.ru/seller/1343369',
-    bgGradient: 'bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900',
-    textColor: 'text-white',
     iconSrc: '/images/logos/favicon.ico',
   },
 ];
@@ -122,19 +117,25 @@ export default function Navbar() {
                     <ChevronDownIcon className={`h-5 w-5 ml-1 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
                   </button>
                   {isSubMenuOpen && (
-                    <div className="absolute mt-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg py-2 w-48">
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="absolute mt-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg py-2 w-48"
+                    >
                       {storeLinks.map((store) => (
                         <Link key={store.name} href={store.href} passHref>
                           <a
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`block px-4 py-2 ${store.textColor} hover:bg-neutral-100 dark:hover:bg-neutral-700`}
+                            className="flex items-center px-4 py-2 text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
                           >
+                            <Image src={store.iconSrc} alt={store.name} className="w-5 h-5 mr-2" width={20} height={20} loading="lazy" />
                             {store.name}
                           </a>
                         </Link>
                       ))}
-                    </div>
+                    </motion.div>
                   )}
                 </div>
               )}
@@ -221,7 +222,12 @@ export default function Navbar() {
             )}
 
             {isSubMenuOpen && (
-              <div className="flex flex-col space-y-3 w-full mt-2">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="flex flex-col space-y-3 w-full mt-2"
+              >
                 {storeLinks.map((store) => (
                   <Link key={store.name} href={store.href} passHref>
                     <a
@@ -229,11 +235,12 @@ export default function Navbar() {
                       rel="noopener noreferrer"
                       className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105"
                     >
+                      <Image src={store.iconSrc} alt={store.name} className="w-5 h-5 mr-2" width={20} height={20} loading="lazy" />
                       {store.name}
                     </a>
                   </Link>
                 ))}
-              </div>
+              </motion.div>
             )}
           </div>
         </div>
