@@ -65,7 +65,7 @@ export const Hero: FC<HeroProps> = () => {
               whileHover={{ scale: 1.05 }}
               className="inline-flex bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300"
             >
-              <Link href="/soft" className="flex items-center">
+              <Link href="/soft" className="flex items-center whitespace-nowrap">
                 Программы для приборов
                 <motion.svg
                   className="w-5 h-5 ml-2 transform group-hover:rotate-90 transition-transform duration-300"
@@ -83,7 +83,7 @@ export const Hero: FC<HeroProps> = () => {
               whileHover={{ scale: 1.05 }}
               className="inline-flex bg-black text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 hover:bg-gray-800 hover:bg-opacity-90"
             >
-              <Link href="/contact" className="flex items-center">
+              <Link href="/contact" className="flex items-center whitespace-nowrap">
                 Обратная связь
               </Link>
             </motion.div>
