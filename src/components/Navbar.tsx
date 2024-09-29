@@ -16,14 +16,6 @@ const navigation = [
   { name: 'Обратная связь', href: '/contact' },
 ];
 
-const breakpoints = [
-  { name: 'sm', min: 640 },
-  { name: 'md', min: 768 },
-  { name: 'lg', min: 1024 },
-  { name: 'xl', min: 1280 },
-  { name: '2xl', min: 1536 },
-];
-
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
@@ -38,12 +30,12 @@ export default function Navbar() {
     if (!mounted) return;
 
     const getBreakpoint = (width: number): string => {
-      for (let bp of breakpoints) {
-        if (width >= bp.min) {
-          return bp.name;
-        }
-      }
-      return 'unknown';
+      if (width >= 1536) return '2xl';
+      if (width >= 1280) return 'xl';
+      if (width >= 1024) return 'lg';
+      if (width >= 768) return 'md';
+      if (width >= 640) return 'sm';
+      return 'xs'; // Для ширин меньше чем sm
     };
 
     const updateBreakpoint = () => {
