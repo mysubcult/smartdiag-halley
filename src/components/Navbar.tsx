@@ -98,7 +98,7 @@ export default function Navbar() {
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden lg:flex flex-wrap items-center space-x-5 ml-4">
+            <div className="hidden xl:flex flex-wrap items-center space-x-5 ml-4">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
@@ -109,39 +109,34 @@ export default function Navbar() {
                 </Link>
               ))}
 
-              {/* "Магазины" dropdown only on lg screens */}
-              {currentBreakpoint === 'lg' && (
-                <div className="relative">
-                  <button
-                    onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                    className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none"
-                    aria-haspopup="true"
-                    aria-expanded={isSubMenuOpen}
-                  >
-                    Магазины
-                    <ChevronDownIcon className={`h-5 w-5 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
-                  </button>
-                  {isSubMenuOpen && (
-                    <div className="absolute mt-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg py-2 w-48">
-                      {storeLinks.map((store) => (
-                        <Link key={store.name} href={store.href} passHref>
-                          <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`block px-4 py-2 ${store.textColor} hover:bg-neutral-100 dark:hover:bg-neutral-700`}
-                          >
-                            {store.name}
-                          </a>
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+              {/* Store buttons - Visible on xl and 2xl */}
+              {currentBreakpoint !== 'lg' && (
+                <div className="flex space-x-2">
+                  {storeLinks.map((store) => (
+                    <Link key={store.name} href={store.href} passHref>
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`flex items-center justify-center ${store.bgGradient} ${store.textColor} px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105`}
+                      >
+                        <Image
+                          src={store.iconSrc}
+                          alt={store.name}
+                          className="w-5 h-5 mr-2"
+                          width={20}
+                          height={20}
+                          loading="lazy"
+                        />
+                        {store.name}
+                      </a>
+                    </Link>
+                  ))}
                 </div>
               )}
             </div>
           </div>
 
-          {/* Button Group for Theme Switch and Current Breakpoint */}
+          {/* Button Group for Theme Switch */}
           <div className="flex items-center space-x-2">
             <ThemeSwitchButton />
 
