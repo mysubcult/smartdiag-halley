@@ -22,7 +22,7 @@ export const Hero: FC<HeroProps> = () => {
   return (
     <section
       id="hero"
-      className="w-full pt-16 lg:pt-0 flex items-center justify-center flex-1"
+      className="w-full py-16 lg:py-24 flex items-center justify-center flex-1"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-center gap-8 w-full">
         <motion.div
@@ -91,7 +91,7 @@ export const Hero: FC<HeroProps> = () => {
         </motion.div>
 
         <motion.div
-          className="flex items-center justify-center lg:w-1/2 w-full"
+          className="hidden lg:flex items-center justify-center lg:w-1/2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
@@ -103,7 +103,7 @@ export const Hero: FC<HeroProps> = () => {
             width={512}
             height={331}
             quality={75}
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="100vw"
             priority
             className="w-full h-auto"
             loading="lazy"
