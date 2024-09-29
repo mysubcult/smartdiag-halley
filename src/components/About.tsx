@@ -1,6 +1,3 @@
-
-'use client';
-
 // components/About.tsx
 
 import Image from 'next/image';
