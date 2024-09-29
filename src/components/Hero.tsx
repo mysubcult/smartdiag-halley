@@ -63,7 +63,7 @@ export const Hero: FC<HeroProps> = () => {
           >
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="inline-flex bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300"
+              className="inline-flex bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 w-auto sm:w-auto"
             >
               <Link href="/soft" className="flex items-center whitespace-nowrap">
                 Программы для приборов
@@ -80,7 +80,7 @@ export const Hero: FC<HeroProps> = () => {
 
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="inline-flex bg-black text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 hover:bg-gray-800 hover:bg-opacity-90"
+              className="inline-flex bg-black text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 hover:bg-gray-800 hover:bg-opacity-90 w-auto sm:w-auto"
             >
               <Link href="/contact" className="flex items-center whitespace-nowrap">
                 Обратная связь
