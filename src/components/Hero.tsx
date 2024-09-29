@@ -26,7 +26,7 @@ export const Hero: FC<HeroProps> = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-center gap-8 w-full">
         <motion.div
-          className="flex flex-col justify-center text-center space-y-6 lg:w-1/2 w-full"
+          className="flex flex-col justify-center text-center lg:text-left space-y-6 lg:w-1/2 w-full"
           initial="hidden"
           animate="visible"
           variants={{
@@ -35,7 +35,7 @@ export const Hero: FC<HeroProps> = () => {
           }}
         >
           <motion.h1
-            className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl mx-auto lg:mx-auto"
+            className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl mx-auto lg:mx-0"
             variants={headerVariants}
             whileHover={{ scale: 1.05 }}
           >
@@ -46,7 +46,7 @@ export const Hero: FC<HeroProps> = () => {
           </motion.h1>
 
           <motion.p
-            className="text-base sm:text-lg dark:text-neutral-400 mx-auto lg:mx-auto"
+            className="text-base sm:text-lg dark:text-neutral-400 mx-auto lg:mx-0"
             variants={descriptionVariants}
           >
             Здесь вы найдёте всё необходимое программное обеспечение для
@@ -58,7 +58,7 @@ export const Hero: FC<HeroProps> = () => {
           </motion.p>
 
           <motion.div
-            className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6 justify-center"
+            className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6 justify-center lg:justify-start"
             variants={descriptionVariants}
           >
             <motion.div
