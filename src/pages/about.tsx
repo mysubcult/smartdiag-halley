@@ -6,7 +6,7 @@ import { About } from "../components/About";
 
 const AboutPage: React.FC = () => {
   return (
-    <Layout title="Наши Услуги - SmartDiag">
+    <Layout title="О нас - SmartDiag">
       <Head>
         {/* Мета-теги для SEO */}
         <meta
@@ -20,7 +20,7 @@ const AboutPage: React.FC = () => {
         <meta name="robots" content="index, follow" />
         <meta
           property="og:title"
-          content="Наши Услуги - SmartDiag"
+          content="О нас - SmartDiag"
         />
         <meta
           property="og:description"
