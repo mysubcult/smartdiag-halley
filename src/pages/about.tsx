@@ -1,10 +1,10 @@
-// pages/services.tsx
+// pages/about.tsx
 
 import Head from "next/head";
 import Layout from "../components/Layout";
-import { Services } from "../components/Services";
+import { About } from "../components/About";
 
-const ServicesPage: React.FC = () => {
+const AboutPage: React.FC = () => {
   return (
     <Layout title="Наши Услуги - SmartDiag">
       <Head>
@@ -29,9 +29,9 @@ const ServicesPage: React.FC = () => {
       </Head>
 
       {/* Компонент Услуг */}
-      <Services />
+      <About />
     </Layout>
   );
 };
 
-export default ServicesPage;
+export default AboutPage;
