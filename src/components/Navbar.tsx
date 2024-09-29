@@ -7,13 +7,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ThemeSwitchButton from './ThemeSwitchButton';
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
+import { motion } from 'framer-motion';
 
 const navigation = [
-  { name: 'Главная', href: '/' },
-  { name: 'Программы', href: '/soft' },
-  { name: 'Статьи', href: '/articles' },
-  { name: 'О нас', href: '/about' }, // Fixed the href here
-  { name: 'Обратная связь', href: '/contact' },
+  { name: 'Главная', href: '/', emoji: '🏠' },
+  { name: 'Программы', href: '/soft', emoji: '💻' },
+  { name: 'Статьи', href: '/articles', emoji: '📝' },
+  { name: 'О нас', href: '/about', emoji: '👥' }, // Fixed the href here
+  { name: 'Обратная связь', href: '/contact', emoji: '💬' },
 ];
 
 export default function Navbar() {
@@ -55,6 +56,11 @@ export default function Navbar() {
     return null;
   }
 
+  const menuVariants = {
+    open: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+    closed: { opacity: 0, y: -20, transition: { duration: 0.3 } },
+  };
+
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -83,7 +89,7 @@ export default function Navbar() {
                   href={item.href}
                   className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out"
                 >
-                  {item.name}
+                  {item.name} <span className="inline-block ml-2">{item.emoji}</span>
                 </Link>
               ))}
             </div>
@@ -188,7 +194,13 @@ export default function Navbar() {
 
       {/* Mobile Menu - Visible on lg and smaller screens */}
       {isMenuOpen && (
-        <div className="xl:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
+        <motion.div
+          initial="closed"
+          animate="open"
+          exit="closed"
+          variants={menuVariants}
+          className="xl:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-full max-w-sm"
+        >
           <div className="flex flex-col items-center space-y-4">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href} passHref>
@@ -196,7 +208,7 @@ export default function Navbar() {
                   className="block py-2 text-lg font-medium hover:text-red-500"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {item.name}
+                  {item.name} <span className="inline-block ml-2">{item.emoji}</span>
                 </a>
               </Link>
             ))}
@@ -208,12 +220,17 @@ export default function Navbar() {
               aria-haspopup="true"
               aria-expanded={isSubMenuOpen}
             >
-              Магазины
-              <ChevronDownIcon className={`h-5 w-5 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
+              Магазины <ChevronDownIcon className={`h-5 w-5 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
             </button>
 
             {isSubMenuOpen && (
-              <div className="flex flex-col space-y-3 w-full mt-2">
+              <motion.div
+                initial="closed"
+                animate="open"
+                exit="closed"
+                variants={menuVariants}
+                className="flex flex-col space-y-3 w-full mt-2"
+              >
                 {/* OZON */}
                 <Link href="https://www.ozon.ru/seller/smartdiag-862410/" passHref>
                   <a
@@ -246,10 +263,10 @@ export default function Navbar() {
                     Wildberries
                   </a>
                 </Link>
-              </div>
+              </motion.div>
             )}
           </div>
-        </div>
+        </motion.div>
       )}
     </nav>
   );
