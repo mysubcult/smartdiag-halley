@@ -109,35 +109,7 @@ export default function Navbar() {
                 </Link>
               ))}
 
-              {/* "Магазины" dropdown only on lg screens */}
-              <div className="relative">
-                <button
-                  onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                  className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none"
-                  aria-haspopup="true"
-                  aria-expanded={isSubMenuOpen}
-                >
-                  Магазины
-                  <ChevronDownIcon className={`h-5 w-5 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
-                </button>
-                {isSubMenuOpen && (
-                  <div className="absolute mt-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg py-2 w-48">
-                    {storeLinks.map((store) => (
-                      <Link key={store.name} href={store.href} passHref>
-                        <a
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`block px-4 py-2 ${store.textColor} hover:bg-neutral-100 dark:hover:bg-neutral-700`}
-                        >
-                          {store.name}
-                        </a>
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Store buttons - Visible on xl and 2xl */}
+              {/* Store buttons displayed inline on xl and 2xl */}
               {currentBreakpoint !== 'lg' && (
                 <div className="flex space-x-2">
                   {storeLinks.map((store) => (
