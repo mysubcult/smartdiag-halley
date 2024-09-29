@@ -16,14 +16,55 @@ const navigation = [
   { name: 'Обратная связь', href: '/contact' },
 ];
 
+const breakpoints = [
+  { name: 'xs', max: 575.98 },
+  { name: 'sm', min: 576, max: 767.98 },
+  { name: 'md', min: 768, max: 991.98 },
+  { name: 'lg', min: 992, max: 1199.98 },
+  { name: 'xl', min: 1200 },
+];
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [currentBreakpoint, setCurrentBreakpoint] = useState<string>(''); // Новое состояние для брейкпоинта
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    const getBreakpoint = (width: number): string => {
+      for (let bp of breakpoints) {
+        if (bp.min && bp.max) {
+          if (width >= bp.min && width < bp.max) return bp.name;
+        } else if (bp.min && !bp.max) {
+          if (width >= bp.min) return bp.name;
+        } else if (!bp.min && bp.max) {
+          if (width < bp.max) return bp.name;
+        }
+      }
+      return 'unknown';
+    };
+
+    const updateBreakpoint = () => {
+      const width = window.innerWidth;
+      const bp = getBreakpoint(width);
+      setCurrentBreakpoint(bp);
+    };
+
+    // Инициализация при загрузке
+    updateBreakpoint();
+
+    // Обработчик изменения размера окна
+    window.addEventListener('resize', updateBreakpoint);
+
+    // Очистка обработчика при размонтировании
+    return () => window.removeEventListener('resize', updateBreakpoint);
+  }, [mounted]);
 
   if (!mounted) {
     return null; // Prevents hydration mismatch by not rendering until client-side
@@ -128,6 +169,15 @@ export default function Navbar() {
             {/* Theme Switcher */}
             <ThemeSwitchButton />
 
+            {/* Индикатор текущего брейкпоинта */}
+            <div className="hidden lg:flex items-center ml-2">
+              <div className="relative">
+                <span className="px-2 py-1 text-xs font-semibold text-white bg-blue-500 rounded-full">
+                  {currentBreakpoint.toUpperCase()}
+                </span>
+              </div>
+            </div>
+
             {/* Mobile Menu Toggle - Visible on lg and smaller screens */}
             <div className="lg:hidden">
               <button
@@ -141,6 +191,10 @@ export default function Navbar() {
                 ) : (
                   <Bars3Icon className="h-6 w-6" />
                 )}
+                {/* Индикатор текущего брейкпоинта для мобильного меню */}
+                <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1">
+                  {currentBreakpoint.toUpperCase()}
+                </span>
               </button>
             </div>
           </div>
