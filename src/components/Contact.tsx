@@ -1,6 +1,6 @@
 'use client';
 
-// components/Contact.tsx
+// components/contact.tsx
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import PrivacyPolicyModal from './PrivacyPolicyModal';
@@ -78,7 +78,7 @@ export default function Contact() {
     <div className="bg-white dark:bg-neutral-900 mt-6" id="contact">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 text-center">
         <motion.h2
-          className="text-4xl font-bold"
+          className="text-4xl font-extrabold text-black dark:text-white"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -194,7 +194,7 @@ export default function Contact() {
 
         {/* Правая часть с формой обратной связи */}
         <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h2 className="text-lg font-bold text-center mb-5">✍️ Обратная связь</h2>
+          <h2 className="text-lg font-extrabold text-center mb-5">✍️ Обратная связь</h2>
           {!isSubmitSuccessful && (
             <form onSubmit={handleSubmit(onSubmit)}>
               <input type="hidden" value="c39d2187-6537-4c0b-87e1-3cff0bf0c1c3" {...register('access_key')} />
@@ -465,7 +465,7 @@ const SuccessMessage: React.FC<MessageProps> = ({ onReset }) => (
         strokeWidth="3"
       />
     </svg>
-    <h3 className="py-5 text-2xl font-medium text-green-500">Успешно!</h3>
+    <h3 className="py-5 text-2xl font-extrabold text-green-500">Успешно!</h3>
     <p className="text-neutral-900 dark:text-neutral-300 md:px-4">Ваше сообщение отправлено.</p>
     <button
       className="mt-6 py-2 px-4 bg-red-500 rounded-full focus:outline-none text-neutral-100"
@@ -493,7 +493,7 @@ const ErrorMessage: React.FC<MessageProps> = ({ onReset }) => (
         strokeWidth="3"
       />
     </svg>
-    <h3 className="py-5 text-2xl font-medium text-rose-500">Ошибка</h3>
+    <h3 className="py-5 text-2xl font-extrabold text-rose-500">Ошибка</h3>
     <p className="text-neutral-900 dark:text-neutral-300 md:px-4">
       Ваше сообщение не было отправлено. Пожалуйста, попробуйте снова позже.
     </p>
