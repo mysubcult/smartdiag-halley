@@ -21,7 +21,7 @@ export const Hero: FC<HeroProps> = () => {
   return (
     <section
       id="hero"
-      className="w-full pt-24 pb-16 lg:pt-32 lg:pb-24 flex items-center justify-center flex-1"
+      className="w-full pt-16 pb-16 lg:pt-32 lg:pb-24 flex items-center justify-center flex-1"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-center gap-8 w-full">
         <motion.div
