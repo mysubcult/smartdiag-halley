@@ -1,5 +1,3 @@
-// components/About.tsx
-
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
@@ -56,11 +54,8 @@ const services: Service[] = [
   },
 ];
 
-// ServiceCard Component
 const ServiceCard: React.FC<Service> = React.memo(({ title, description, image, alt }) => (
-  <div
-    className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-gray-200 hover:dark:bg-neutral-700"
-  >
+  <div className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-gray-200 hover:dark:bg-neutral-700">
     <div className="h-24 w-24 flex justify-center mx-auto">
       <Image
         src={image}
@@ -69,7 +64,7 @@ const ServiceCard: React.FC<Service> = React.memo(({ title, description, image, 
         height={96}
         quality={75}
         sizes="100vw"
-        priority // Removed loading="lazy" as priority implies eager loading
+        priority
       />
     </div>
     <h2 className="font-bold text-lg text-center mt-4">{title}</h2>
@@ -81,12 +76,10 @@ const ServiceCard: React.FC<Service> = React.memo(({ title, description, image, 
 
 ServiceCard.displayName = 'ServiceCard';
 
-// About Component
 export function About() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Indicate that the component has mounted to handle client-side only features
     setMounted(true);
   }, []);
 
@@ -103,7 +96,6 @@ export function About() {
             >
               О нас 👋
             </motion.h2>
-
             <motion.p
               className="pt-6 pb-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400"
               initial={{ opacity: 0 }}
@@ -129,13 +121,31 @@ export function About() {
         )}
       </div>
 
-      <div
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 grid md:grid-cols-2 lg:grid-cols-3 gap-y-8 md:gap-x-8 lg:gap-x-8 lg:gap-y-16"
-      >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 grid md:grid-cols-2 lg:grid-cols-3 gap-y-8 md:gap-x-8 lg:gap-x-8 lg:gap-y-16">
         {services.map((service) => (
           <ServiceCard key={service.title} {...service} />
         ))}
       </div>
+
+      {/* Встраивание PDF-файла с анимацией */}
+      <motion.div
+        className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 text-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+      >
+        <h3 className="text-2xl font-bold mt-8">Наш сертификат на торговый знак</h3>
+        <motion.embed
+          src="/path/to/certificate.pdf"
+          type="application/pdf"
+          width="100%"
+          height="600px"
+          className="mt-4 border rounded-lg shadow-md"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.0, delay: 0.6 }}
+        />
+      </motion.div>
     </div>
   );
 }
