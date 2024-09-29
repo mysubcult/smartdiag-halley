@@ -12,7 +12,7 @@ const navigation = [
   { name: 'Главная', href: '/' },
   { name: 'Программы', href: '/soft' },
   { name: 'Статьи', href: '/articles' },
-  { name: 'О нас', href: '/services' }, // Fixed the href here
+  { name: 'О нас', href: '/about' }, // Fixed the href here
   { name: 'Обратная связь', href: '/contact' },
 ];
 
