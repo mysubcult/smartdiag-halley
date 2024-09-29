@@ -1,5 +1,3 @@
-'use client';
-
 // components/contact.tsx
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
