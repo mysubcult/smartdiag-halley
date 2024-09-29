@@ -7,21 +7,20 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ThemeSwitchButton from './ThemeSwitchButton';
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
-import { motion } from 'framer-motion';
 
 const navigation = [
-  { name: 'Главная', href: '/', emoji: '🏠' },
-  { name: 'Программы', href: '/soft', emoji: '💻' },
-  { name: 'Статьи', href: '/articles', emoji: '📝' },
-  { name: 'О нас', href: '/about', emoji: '👥' },
-  { name: 'Обратная связь', href: '/contact', emoji: '💬' },
+  { name: 'Главная', href: '/' },
+  { name: 'Программы', href: '/soft' },
+  { name: 'Статьи', href: '/articles' },
+  { name: 'О нас', href: '/about' }, // Fixed the href here
+  { name: 'Обратная связь', href: '/contact' },
 ];
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [currentBreakpoint, setCurrentBreakpoint] = useState('');
+  const [currentBreakpoint, setCurrentBreakpoint] = useState(''); // Initialize with an empty string
 
   useEffect(() => {
     setMounted(true);
@@ -30,7 +29,7 @@ export default function Navbar() {
   useEffect(() => {
     if (!mounted) return;
 
-    const getBreakpoint = (width: number) => {
+    const getBreakpoint = (width: number): string => {
       if (width >= 1536) return '2xl';
       if (width >= 1280) return 'xl';
       if (width >= 1024) return 'lg';
@@ -55,11 +54,6 @@ export default function Navbar() {
   if (!mounted) {
     return null;
   }
-
-  const menuVariants = {
-    open: { opacity: 1, y: 0, transition: { duration: 0.3 } },
-    closed: { opacity: 0, y: -20, transition: { duration: 0.3 } },
-  };
 
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
@@ -182,6 +176,7 @@ export default function Navbar() {
                 ) : (
                   <Bars3Icon className="h-6 w-6" />
                 )}
+                {/* Индикатор текущего брейкпоинта для мобильного меню */}
                 <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1">
                   {currentBreakpoint.toUpperCase()}
                 </span>
@@ -193,13 +188,7 @@ export default function Navbar() {
 
       {/* Mobile Menu - Visible on lg and smaller screens */}
       {isMenuOpen && (
-        <motion.div
-          initial="closed"
-          animate="open"
-          exit="closed"
-          variants={menuVariants}
-          className="xl:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-full max-w-xs"
-        >
+        <div className="xl:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
           <div className="flex flex-col items-center space-y-4">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href} passHref>
@@ -207,7 +196,7 @@ export default function Navbar() {
                   className="block py-2 text-lg font-medium hover:text-red-500"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {item.name} <span className="inline-block ml-2">{item.emoji}</span>
+                  {item.name}
                 </a>
               </Link>
             ))}
@@ -219,17 +208,12 @@ export default function Navbar() {
               aria-haspopup="true"
               aria-expanded={isSubMenuOpen}
             >
-              Магазины <ChevronDownIcon className={`h-5 w-5 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
+              Магазины
+              <ChevronDownIcon className={`h-5 w-5 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
             </button>
 
             {isSubMenuOpen && (
-              <motion.div
-                initial="closed"
-                animate="open"
-                exit="closed"
-                variants={menuVariants}
-                className="flex flex-col space-y-3 w-full mt-2"
-              >
+              <div className="flex flex-col space-y-3 w-full mt-2">
                 {/* OZON */}
                 <Link href="https://www.ozon.ru/seller/smartdiag-862410/" passHref>
                   <a
@@ -262,10 +246,10 @@ export default function Navbar() {
                     Wildberries
                   </a>
                 </Link>
-              </motion.div>
+              </div>
             )}
           </div>
-        </motion.div>
+        </div>
       )}
     </nav>
   );
