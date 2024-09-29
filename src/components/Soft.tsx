@@ -486,6 +486,7 @@ export default function Soft() {
             <input
               type="text"
               placeholder="Поиск..."
+              id="mobile-search" // Add an id or name here
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
@@ -524,6 +525,7 @@ export default function Soft() {
             <input
               type="text"
               placeholder="Поиск..."
+              id="desktop-search" // Add an id or name here
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
