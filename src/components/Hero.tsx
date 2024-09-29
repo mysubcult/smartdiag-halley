@@ -68,7 +68,7 @@ export const Hero: FC<HeroProps> = () => {
               <Link href="/soft" className="flex items-center whitespace-nowrap">
                 Программы для приборов
                 <motion.svg
-                  className="w-5 h-5 ml-2 transform group-hover:rotate-90 transition-transform duration-1000"
+                  className="w-5 h-5 ml-2 transform group-hover:rotate-180 transition-transform duration-1000"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
                   viewBox="0 0 24 24"
