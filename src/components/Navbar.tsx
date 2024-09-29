@@ -16,55 +16,14 @@ const navigation = [
   { name: 'Обратная связь', href: '/contact' },
 ];
 
-const breakpoints = [
-  { name: 'xs', max: 575.98 },
-  { name: 'sm', min: 576, max: 767.98 },
-  { name: 'md', min: 768, max: 991.98 },
-  { name: 'lg', min: 992, max: 1199.98 },
-  { name: 'xl', min: 1200 },
-];
-
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
-  const [mounted, setMounted] = useState(false); // To handle client-side rendering
-  const [currentBreakpoint, setCurrentBreakpoint] = useState<string>(''); // Новое состояние для брейкпоинта
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-
-    const getBreakpoint = (width: number): string => {
-      for (let bp of breakpoints) {
-        if (bp.min && bp.max) {
-          if (width >= bp.min && width < bp.max) return bp.name;
-        } else if (bp.min && !bp.max) {
-          if (width >= bp.min) return bp.name;
-        } else if (!bp.min && bp.max) {
-          if (width < bp.max) return bp.name;
-        }
-      }
-      return 'unknown';
-    };
-
-    const updateBreakpoint = () => {
-      const width = window.innerWidth;
-      const bp = getBreakpoint(width);
-      setCurrentBreakpoint(bp);
-    };
-
-    // Инициализация при загрузке
-    updateBreakpoint();
-
-    // Обработчик изменения размера окна
-    window.addEventListener('resize', updateBreakpoint);
-
-    // Очистка обработчика при размонтировании
-    return () => window.removeEventListener('resize', updateBreakpoint);
-  }, [mounted]);
 
   if (!mounted) {
     return null; // Prevents hydration mismatch by not rendering until client-side
@@ -90,8 +49,8 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Desktop Menu */}
-            <div className="hidden md:flex flex-wrap items-center space-x-5 ml-4">
+            {/* Desktop Menu - Hidden on screens smaller than lg */}
+            <div className="hidden lg:flex flex-wrap items-center space-x-5 ml-4">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
@@ -107,7 +66,7 @@ export default function Navbar() {
           {/* Button Group for Stores and Theme Switch */}
           <div className="flex items-center space-x-2">
             {/* Hidden on mobile */}
-            <div className="hidden md:flex space-x-2">
+            <div className="hidden lg:flex space-x-2">
               {/* OZON */}
               <Link href="https://www.ozon.ru/seller/smartdiag-862410/" passHref>
                 <a
@@ -169,40 +128,28 @@ export default function Navbar() {
             {/* Theme Switcher */}
             <ThemeSwitchButton />
 
-            {/* Индикатор брейкпоинта */}
-            <div className="hidden md:flex items-center ml-2">
-              <div className="relative">
-                <span className="px-2 py-1 text-xs font-semibold text-white bg-blue-500 rounded-full">
-                  {currentBreakpoint.toUpperCase()}
-                </span>
-                <div className="absolute bottom-full mb-2 hidden group-hover:block">
-                  <span className="px-2 py-1 text-xs text-white bg-gray-800 rounded">Текущий брейкпоинт</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Mobile Menu Toggle */}
-            <div className="md:hidden">
+            {/* Mobile Menu Toggle - Visible on lg and smaller screens */}
+            <div className="lg:hidden">
               <button
                 className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors relative"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle Menu"
                 aria-expanded={isMenuOpen}
               >
-                <Bars3Icon className={`h-6 w-6 ${isMenuOpen ? 'hidden' : 'block'}`} />
-                <XMarkIcon className={`h-6 w-6 ${isMenuOpen ? 'block' : 'hidden'}`} />
-                <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1">
-                  {currentBreakpoint.toUpperCase()}
-                </span>
+                {isMenuOpen ? (
+                  <XMarkIcon className="h-6 w-6" />
+                ) : (
+                  <Bars3Icon className="h-6 w-6" />
+                )}
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Visible on lg and smaller screens */}
       {isMenuOpen && (
-        <div className="md:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
+        <div className="lg:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
           <div className="flex flex-col items-center space-y-4">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href} passHref>
