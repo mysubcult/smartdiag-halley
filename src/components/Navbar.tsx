@@ -114,12 +114,12 @@ export default function Navbar() {
                 <div className="relative">
                   <button
                     onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                    className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none"
+                    className="flex items-center text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none"
                     aria-haspopup="true"
                     aria-expanded={isSubMenuOpen}
                   >
                     Магазины
-                    <ChevronDownIcon className={`h-5 w-5 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
+                    <ChevronDownIcon className={`h-5 w-5 ml-1 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
                   </button>
                   {isSubMenuOpen && (
                     <div className="absolute mt-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg py-2 w-48">
@@ -216,7 +216,7 @@ export default function Navbar() {
                 aria-expanded={isSubMenuOpen}
               >
                 Магазины
-                <ChevronDownIcon className={`h-5 w-5 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
+                <ChevronDownIcon className={`h-5 w-5 ml-1 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
               </button>
             )}
 
