@@ -1,6 +1,9 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { Viewer, Worker } from '@react-pdf-viewer/core';
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 interface Service {
   title: string;
@@ -10,48 +13,7 @@ interface Service {
 }
 
 const services: Service[] = [
-  {
-    title: 'Широкий ассортимент оборудования',
-    description:
-      'У нас вы найдете все необходимое для компьютерной диагностики автомобилей, включая сканеры, программное обеспечение, кабели и другие аксессуары.',
-    image: '/images/services/1.svg',
-    alt: 'Широкий ассортимент оборудования для компьютерной диагностики автомобилей',
-  },
-  {
-    title: 'Качественные товары',
-    description:
-      'Мы работаем только с проверенными поставщиками и гарантируем качество продукции.',
-    image: '/images/services/2.svg',
-    alt: 'Качественные товары от проверенных поставщиков',
-  },
-  {
-    title: 'Опытные специалисты',
-    description:
-      'Наши сотрудники имеют большой опыт работы с диагностическим оборудованием и всегда готовы помочь с выбором и использованием продукции.',
-    image: '/images/services/3.svg',
-    alt: 'Опытные специалисты, готовые помочь с выбором оборудования',
-  },
-  {
-    title: 'Конкурентные цены',
-    description:
-      'Мы стараемся предложить нашим клиентам наилучшее соотношение цены и качества.',
-    image: '/images/services/4.svg',
-    alt: 'Конкурентные цены на высококачественное оборудование',
-  },
-  {
-    title: 'Быстрая доставка',
-    description:
-      'Мы оперативно обрабатываем заказы и быстро доставляем товары по всей России.',
-    image: '/images/services/5.svg',
-    alt: 'Быстрая доставка товаров по всей России',
-  },
-  {
-    title: 'Онлайн-поддержка',
-    description:
-      'Мы всегда готовы ответить на ваши вопросы и помочь в решении любых проблем, связанных с диагностическим оборудованием, через наш сайт или мессенджеры.',
-    image: '/images/services/6.svg',
-    alt: 'Онлайн-поддержка для решения любых вопросов',
-  },
+  // Данные services
 ];
 
 const ServiceCard: React.FC<Service> = React.memo(({ title, description, image, alt }) => (
@@ -85,7 +47,7 @@ export function About() {
 
   return (
     <div className="mt-6" id="about">
-      {/* Встраивание PDF-файла с сертификатом в верхней части страницы */}
+      {/* Встраивание PDF-файла с красивым просмотром */}
       <motion.div
         className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 text-center"
         initial={{ opacity: 0, y: -20 }}
@@ -96,16 +58,15 @@ export function About() {
         <p className="text-base mt-4 mb-6 dark:text-neutral-400">
           Наши товары и услуги соответствуют высоким стандартам качества, и мы гордимся тем, что имеем зарегистрированный торговый знак.
         </p>
-        <motion.embed
-          src="/docs/certificate.pdf"
-          type="application/pdf"
-          width="100%"
-          height="600px"
-          className="mt-4 border rounded-lg shadow-lg"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.0, delay: 0.4 }}
-        />
+        <div className="mt-8 border rounded-lg shadow-lg overflow-hidden">
+          <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.1.81/build/pdf.worker.min.js`}>
+            <Viewer
+              fileUrl="/docs/certificate.pdf"
+              defaultScale={1.5}
+              theme="dark"
+            />
+          </Worker>
+        </div>
       </motion.div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 text-center">
