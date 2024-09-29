@@ -16,14 +16,55 @@ const navigation = [
   { name: 'Обратная связь', href: '/contact' },
 ];
 
+const breakpoints = [
+  { name: 'xs', max: 575.98 },
+  { name: 'sm', min: 576, max: 767.98 },
+  { name: 'md', min: 768, max: 991.98 },
+  { name: 'lg', min: 992, max: 1199.98 },
+  { name: 'xl', min: 1200 },
+];
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false); // To handle client-side rendering
+  const [currentBreakpoint, setCurrentBreakpoint] = useState<string>(''); // Новое состояние для брейкпоинта
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    const getBreakpoint = (width: number): string => {
+      for (let bp of breakpoints) {
+        if (bp.min && bp.max) {
+          if (width >= bp.min && width < bp.max) return bp.name;
+        } else if (bp.min && !bp.max) {
+          if (width >= bp.min) return bp.name;
+        } else if (!bp.min && bp.max) {
+          if (width < bp.max) return bp.name;
+        }
+      }
+      return 'unknown';
+    };
+
+    const updateBreakpoint = () => {
+      const width = window.innerWidth;
+      const bp = getBreakpoint(width);
+      setCurrentBreakpoint(bp);
+    };
+
+    // Инициализация при загрузке
+    updateBreakpoint();
+
+    // Обработчик изменения размера окна
+    window.addEventListener('resize', updateBreakpoint);
+
+    // Очистка обработчика при размонтировании
+    return () => window.removeEventListener('resize', updateBreakpoint);
+  }, [mounted]);
 
   if (!mounted) {
     return null; // Prevents hydration mismatch by not rendering until client-side
@@ -70,7 +111,11 @@ export default function Navbar() {
             <div className="hidden lg:flex space-x-2">
               {/* OZON */}
               <Link href="https://www.ozon.ru/seller/smartdiag-862410/" passHref>
-                <a target="_blank" rel="noopener noreferrer" className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105"
+                >
                   <Image
                     src="/images/logos/favicon.ico"
                     alt="OZON"
@@ -85,7 +130,11 @@ export default function Navbar() {
 
               {/* Яндекс Маркет */}
               <Link href="https://market.yandex.ru/business--smartdiag/50025236" passHref>
-                <a target="_blank" rel="noopener noreferrer" className="flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105"
+                >
                   <Image
                     src="https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico"
                     alt="Яндекс Маркет"
@@ -100,7 +149,11 @@ export default function Navbar() {
 
               {/* Wildberries */}
               <Link href="https://www.wildberries.ru/seller/1343369" passHref>
-                <a target="_blank" rel="noopener noreferrer" className="flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900 text-white px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105"
+                >
                   <Image
                     src="/images/logos/favicon.ico"
                     alt="Wildberries"
@@ -117,16 +170,33 @@ export default function Navbar() {
             {/* Theme Switcher */}
             <ThemeSwitchButton />
 
+            {/* Индикатор брейкпоинта */}
+            <div className="hidden lg:flex items-center ml-2">
+              <div className="relative">
+                <span className="px-2 py-1 text-xs font-semibold text-white bg-blue-500 rounded-full">
+                  {currentBreakpoint.toUpperCase()}
+                </span>
+                {/* Добавим подсказку при наведении */}
+                <div className="absolute bottom-full mb-2 hidden group-hover:block">
+                  <span className="px-2 py-1 text-xs text-white bg-gray-800 rounded">Текущий брейкпоинт</span>
+                </div>
+              </div>
+            </div>
+
             {/* Mobile Menu Toggle */}
             <div className="lg:hidden">
               <button
-                className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+                className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors relative"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle Menu"
                 aria-expanded={isMenuOpen}
               >
                 <Bars3Icon className={`h-6 w-6 ${isMenuOpen ? 'hidden' : 'block'}`} />
                 <XMarkIcon className={`h-6 w-6 ${isMenuOpen ? 'block' : 'hidden'}`} />
+                {/* Индикатор брейкпоинта на мобильных */}
+                <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1">
+                  {currentBreakpoint.toUpperCase()}
+                </span>
               </button>
             </div>
           </div>
