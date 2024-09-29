@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ThemeSwitchButton from './ThemeSwitchButton';
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const navigation = [
   { name: 'Главная', href: '/' },
@@ -79,9 +79,9 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
+    <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between flex-wrap">
+        <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-start">
             <div className="flex flex-shrink-0 items-center">
               <Link href="/">
@@ -204,57 +204,67 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="lg:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
-          <div className="flex flex-col items-center space-y-4">
-{navigation.map((item) => (
-              <Link key={item.name} href={item.href} passHref>
-                <a
-                  className="block py-2 text-lg font-medium hover:text-red-500"
-                  onClick={() => setIsMenuOpen(false)}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-white dark:bg-neutral-900 flex flex-col items-center justify-center z-40"
+          >
+            <div className="flex flex-col items-center space-y-6">
+              {navigation.map((item) => (
+                <Link key={item.name} href={item.href} passHref>
+                  <a
+                    className="text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </a>
+                </Link>
+              ))}
+
+              {/* Submenu for Stores */}
+              <div className="w-full flex flex-col items-center">
+                <button
+                  onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
+                  className="flex items-center text-2xl font-semibold text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none"
+                  aria-haspopup="true"
+                  aria-expanded={isSubMenuOpen}
                 >
-                  {item.name}
-                </a>
-              </Link>
-            ))}
+                  Магазины
+                  <ChevronDownIcon className={`h-6 w-6 ml-2 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
+                </button>
 
-            {/* Submenu for Stores */}
-            {currentBreakpoint === 'lg' && (
-              <button
-                onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                className="flex items-center justify-center w-full text-left py-2 text-lg font-medium hover:text-red-500 focus:outline-none"
-                aria-haspopup="true"
-                aria-expanded={isSubMenuOpen}
-              >
-                Магазины
-                <ChevronDownIcon className={`h-5 w-5 ml-1 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
-              </button>
-            )}
-
-            {isSubMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="flex flex-col space-y-3 w-full mt-2"
-              >
-                {storeLinks.map((store) => (
-                  <Link key={store.name} href={store.href} passHref>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105"
-                    >
-                      <Image src={store.iconSrc} alt={store.name} className="w-5 h-5 mr-2" width={20} height={20} loading="lazy" />
-                      {store.name}
-                    </a>
-                  </Link>
-                ))}
-              </motion.div>
-            )}
-          </div>
-        </div>
-      )}
+                {isSubMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-4 flex flex-col items-center space-y-4"
+                  >
+                    {storeLinks.map((store) => (
+                      <Link key={store.name} href={store.href} passHref>
+                        <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center px-6 py-3 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <Image src={store.iconSrc} alt={store.name} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
+                          <span className="text-lg font-medium">{store.name}</span>
+                        </a>
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }
