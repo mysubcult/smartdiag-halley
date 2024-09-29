@@ -97,8 +97,8 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Desktop Menu - Hidden on screens lg and below */}
-            <div className="hidden xl:flex flex-wrap items-center space-x-5 ml-4">
+            {/* Desktop Menu */}
+            <div className="hidden lg:flex flex-wrap items-center space-x-5 ml-4">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
@@ -141,18 +141,15 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Button Group for Theme Switch */}
+          {/* Button Group for Theme Switch and Current Breakpoint */}
           <div className="flex items-center space-x-2">
-            {/* Theme Switcher */}
             <ThemeSwitchButton />
 
             {/* Индикатор текущего брейкпоинта */}
             <div className="hidden lg:flex items-center ml-2">
-              <div className="relative">
-                <span className="px-2 py-1 text-xs font-semibold text-white bg-blue-500 rounded-full">
-                  {currentBreakpoint.toUpperCase()}
-                </span>
-              </div>
+              <span className="px-2 py-1 text-xs font-semibold text-white bg-blue-500 rounded-full">
+                {currentBreakpoint.toUpperCase()}
+              </span>
             </div>
 
             {/* Mobile Menu Toggle - Visible on lg and smaller screens */}
@@ -164,10 +161,6 @@ export default function Navbar() {
                 aria-expanded={isMenuOpen}
               >
                 {isMenuOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
-                {/* Индикатор текущего брейкпоинта для мобильного меню */}
-                <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1">
-                  {currentBreakpoint.toUpperCase()}
-                </span>
               </button>
             </div>
           </div>
