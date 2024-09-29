@@ -146,31 +146,6 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-
-            {/* Store buttons displayed inline on xl and 2xl */}
-            {currentBreakpoint !== 'lg' && (
-              <div className="hidden xl:flex space-x-2 ml-4">
-                {storeLinks.map((store) => (
-                  <Link key={store.name} href={store.href} passHref>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`flex items-center justify-center ${store.bgGradient} ${store.textColor} px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105`}
-                    >
-                      <Image
-                        src={store.iconSrc}
-                        alt={store.name}
-                        className="w-5 h-5 mr-2"
-                        width={20}
-                        height={20}
-                        loading="lazy"
-                      />
-                      {store.name}
-                    </a>
-                  </Link>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Button Group for Theme Switch */}
@@ -193,6 +168,10 @@ export default function Navbar() {
                 aria-expanded={isMenuOpen}
               >
                 {isMenuOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+                {/* Индикатор текущего брейкпоинта для мобильного меню */}
+                <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1">
+                  {currentBreakpoint.toUpperCase()}
+                </span>
               </button>
             </div>
           </div>
