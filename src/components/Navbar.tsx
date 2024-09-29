@@ -141,35 +141,19 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Button Group for Stores and Theme Switch */}
+          {/* Button Group for Theme Switch */}
           <div className="flex items-center space-x-2">
-            {/* Store buttons - Visible on xl and above, except on lg screens */}
-            {currentBreakpoint !== 'lg' && (
-              <div className="hidden xl:flex space-x-2">
-                {storeLinks.map((store) => (
-                  <Link key={store.name} href={store.href} passHref>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`flex items-center justify-center ${store.bgGradient} ${store.textColor} px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105`}
-                    >
-                      <Image
-                        src={store.iconSrc}
-                        alt={store.name}
-                        className="w-5 h-5 mr-2"
-                        width={20}
-                        height={20}
-                        loading="lazy"
-                      />
-                      {store.name}
-                    </a>
-                  </Link>
-                ))}
-              </div>
-            )}
-
             {/* Theme Switcher */}
             <ThemeSwitchButton />
+
+            {/* Индикатор текущего брейкпоинта */}
+            <div className="hidden lg:flex items-center ml-2">
+              <div className="relative">
+                <span className="px-2 py-1 text-xs font-semibold text-white bg-blue-500 rounded-full">
+                  {currentBreakpoint.toUpperCase()}
+                </span>
+              </div>
+            </div>
 
             {/* Mobile Menu Toggle - Visible on lg and smaller screens */}
             <div className="lg:hidden">
@@ -180,6 +164,10 @@ export default function Navbar() {
                 aria-expanded={isMenuOpen}
               >
                 {isMenuOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+                {/* Индикатор текущего брейкпоинта для мобильного меню */}
+                <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1">
+                  {currentBreakpoint.toUpperCase()}
+                </span>
               </button>
             </div>
           </div>
@@ -201,6 +189,7 @@ export default function Navbar() {
               </Link>
             ))}
 
+            {/* Submenu for Stores */}
             <button
               onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
               className="flex items-center justify-center w-full text-left py-2 text-lg font-medium hover:text-red-500 focus:outline-none"
