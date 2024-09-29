@@ -42,9 +42,11 @@ export function About() {
     setMounted(true);
   }, []);
 
+  const pdfUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/docs/certificate.pdf`; // Убедитесь, что PDF доступен по публичному URL
+
   return (
     <div className="mt-6" id="about">
-      {/* Встраивание PDF-файла с встроенным просмотром */}
+      {/* Встраивание PDF-файла через Google Docs Viewer */}
       <motion.div
         className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 text-center"
         initial={{ opacity: 0, y: -20 }}
@@ -57,7 +59,7 @@ export function About() {
         </p>
         <div className="mt-8 border rounded-lg shadow-lg overflow-hidden">
           <iframe
-            src="/docs/certificate.pdf"
+            src={`https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`}
             className="w-full h-[600px]"
             title="Сертификат"
             frameBorder="0"
