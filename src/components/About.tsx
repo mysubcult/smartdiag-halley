@@ -97,7 +97,7 @@ export function About() {
           Наши товары и услуги соответствуют высоким стандартам качества, и мы гордимся тем, что имеем зарегистрированный торговый знак.
         </p>
         <motion.embed
-          src="/path/to/certificate.pdf"
+          src="/docs/certificate.pdf"
           type="application/pdf"
           width="100%"
           height="600px"
