@@ -90,8 +90,8 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Desktop Menu - Hidden on screens smaller than lg */}
-            <div className="hidden lg:flex flex-wrap items-center space-x-5 ml-4">
+            {/* Desktop Menu - Hidden on screens lg and below */}
+            <div className="hidden xl:flex flex-wrap items-center space-x-5 ml-4">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
@@ -107,7 +107,7 @@ export default function Navbar() {
           {/* Button Group for Stores and Theme Switch */}
           <div className="flex items-center space-x-2">
             {/* Hidden on mobile */}
-            <div className="hidden lg:flex space-x-2">
+            <div className="hidden xl:flex space-x-2">
               {/* OZON */}
               <Link href="https://www.ozon.ru/seller/smartdiag-862410/" passHref>
                 <a
@@ -170,7 +170,7 @@ export default function Navbar() {
             <ThemeSwitchButton />
 
             {/* Индикатор текущего брейкпоинта */}
-            <div className="hidden lg:flex items-center ml-2">
+            <div className="hidden xl:flex items-center ml-2">
               <div className="relative">
                 <span className="px-2 py-1 text-xs font-semibold text-white bg-blue-500 rounded-full">
                   {currentBreakpoint.toUpperCase()}
@@ -179,7 +179,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Menu Toggle - Visible on lg and smaller screens */}
-            <div className="lg:hidden">
+            <div className="xl:hidden">
               <button
                 className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors relative"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -203,7 +203,7 @@ export default function Navbar() {
 
       {/* Mobile Menu - Visible on lg and smaller screens */}
       {isMenuOpen && (
-        <div className="lg:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
+        <div className="xl:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
           <div className="flex flex-col items-center space-y-4">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href} passHref>
