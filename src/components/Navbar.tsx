@@ -20,16 +20,22 @@ const storeLinks = [
     name: 'OZON',
     href: 'https://www.ozon.ru/seller/smartdiag-862410/',
     iconSrc: '/images/logos/favicon.ico',
+    bgGradient: 'bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900',
+    textColor: 'text-white',
   },
   {
     name: 'Яндекс Маркет',
     href: 'https://market.yandex.ru/business--smartdiag/50025236',
     iconSrc: 'https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico',
+    bgGradient: 'bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700',
+    textColor: 'text-black',
   },
   {
     name: 'Wildberries',
     href: 'https://www.wildberries.ru/seller/1343369',
     iconSrc: '/images/logos/favicon.ico',
+    bgGradient: 'bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900',
+    textColor: 'text-white',
   },
 ];
 
