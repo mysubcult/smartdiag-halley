@@ -85,6 +85,29 @@ export function About() {
 
   return (
     <div className="mt-6" id="about">
+      {/* Встраивание PDF-файла с сертификатом в верхней части страницы */}
+      <motion.div
+        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 text-center"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <h3 className="text-3xl font-bold mt-8">Мы сертифицированные специалисты с торговым знаком!</h3>
+        <p className="text-base mt-4 mb-6 dark:text-neutral-400">
+          Наши товары и услуги соответствуют высоким стандартам качества, и мы гордимся тем, что имеем зарегистрированный торговый знак.
+        </p>
+        <motion.embed
+          src="/path/to/certificate.pdf"
+          type="application/pdf"
+          width="100%"
+          height="600px"
+          className="mt-4 border rounded-lg shadow-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.0, delay: 0.4 }}
+        />
+      </motion.div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 text-center">
         {mounted ? (
           <>
@@ -126,26 +149,6 @@ export function About() {
           <ServiceCard key={service.title} {...service} />
         ))}
       </div>
-
-      {/* Встраивание PDF-файла с анимацией */}
-      <motion.div
-        className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 text-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-      >
-        <h3 className="text-2xl font-bold mt-8">Наш сертификат на торговый знак</h3>
-        <motion.embed
-          src="/docs/certificate.pdf"
-          type="application/pdf"
-          width="100%"
-          height="600px"
-          className="mt-4 border rounded-lg shadow-md"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.0, delay: 0.6 }}
-        />
-      </motion.div>
     </div>
   );
 }
