@@ -53,7 +53,7 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  
+
   const postsPerPage = 8;
 
   const filteredPosts = useMemo(() => {
@@ -169,7 +169,7 @@ export default function Blog() {
             </Link>
 
             {/* Заголовок */}
-            <h3 className="text-xl font-semibold text-black dark:text-white mb-2 line-clamp-3">{title}</h3>
+            <h3 className="text-xl font-extrabold text-black dark:text-white mb-2 line-clamp-3">{title}</h3>
             {/* Описание */}
             <p className="text-gray-700 dark:text-gray-300 flex-grow line-clamp-5 mb-4">{excerpt}</p>
             {/* Кнопка */}
