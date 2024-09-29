@@ -136,7 +136,7 @@ export function About() {
       >
         <h3 className="text-2xl font-bold mt-8">Наш сертификат на торговый знак</h3>
         <motion.embed
-          src="/path/to/certificate.pdf"
+          src="/docs/certificate.pdf"
           type="application/pdf"
           width="100%"
           height="600px"
