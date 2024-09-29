@@ -17,11 +17,11 @@ const navigation = [
 ];
 
 const breakpoints = [
-  { name: 'xs', max: 575.98 },
-  { name: 'sm', min: 576, max: 767.98 },
-  { name: 'md', min: 768, max: 991.98 },
-  { name: 'lg', min: 992, max: 1199.98 },
-  { name: 'xl', min: 1200 },
+  { name: 'sm', min: 640 },
+  { name: 'md', min: 768 },
+  { name: 'lg', min: 1024 },
+  { name: 'xl', min: 1280 },
+  { name: '2xl', min: 1536 },
 ];
 
 export default function Navbar() {
@@ -39,12 +39,8 @@ export default function Navbar() {
 
     const getBreakpoint = (width: number): string => {
       for (let bp of breakpoints) {
-        if (bp.min && bp.max) {
-          if (width >= bp.min && width < bp.max) return bp.name;
-        } else if (bp.min && !bp.max) {
-          if (width >= bp.min) return bp.name;
-        } else if (!bp.min && bp.max) {
-          if (width < bp.max) return bp.name;
+        if (width >= bp.min) {
+          return bp.name;
         }
       }
       return 'unknown';
