@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 wwidth: 350,
                 pheight: 520,
                 pwidth: 500,
-                domain: 'xn----7sbabnedajkp5ap8aokkew.xn--p1ai',
+                domain: 'xn--80aajcuv3afm.xn--p1ai',
                 leaveamessage: true,
                 department: ["1"],
                 theme: "9",
