@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 const categories = [
   { name: "Все", value: "Все" },
@@ -29,33 +30,23 @@ const blogPosts = [
     category: "Установка ПО",
     keywords: ["установка ПО", "Autocom 2021", "инструкция"],
   },
-  {
-    title: "тест",
-    image: "/images/blog/post1.jpg",
-    excerpt: "тест.",
-    link: "/articles/software/autocom2021",
-    category: "Установка ПО",
-    keywords: ["установка ПО", "Autocom 2021", "инструкция"],
-  },
-  {
-    title: "Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021",
-    image: "/images/blog/post1.jpg",
-    excerpt: "Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021 Инструкdция по установке Autocom 2021",
-    link: "/articles/software/autocom2021",
-    category: "Установка ПО",
-    keywords: ["установка ПО", "Autocom 2021", "инструкция"],
-  },
+  // Добавьте больше статей по необходимости
 ];
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Все");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const postsPerPage = 8;
 
   const filteredPosts = useMemo(() => {
-    const filteredByCategory = selectedCategory === "Все" ? blogPosts : blogPosts.filter((post) => post.category === selectedCategory);
+    const filteredByCategory =
+      selectedCategory === "Все"
+        ? blogPosts
+        : blogPosts.filter((post) => post.category === selectedCategory);
     return filteredByCategory.filter(
       (post) =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -96,9 +87,96 @@ export default function Blog() {
         </motion.p>
       </div>
 
-      {/* Фильтры */}
-      <div className="max-w-max mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="flex flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow space-y-4 sm:space-y-0 sm:space-x-4">
+      {/* Навигационная панель для мобильных устройств */}
+      <div className="lg:hidden flex flex-col items-center pt-4">
+        <motion.div
+          className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md w-full max-w-xs"
+          layout
+        >
+          <div className="flex items-center justify-between">
+            <motion.button
+              className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full flex items-center justify-between w-full"
+              onClick={() => {
+                setIsMobileMenuOpen((prev) => !prev);
+                if (isSearchOpen) setIsSearchOpen(false);
+              }}
+              aria-expanded={isMobileMenuOpen}
+              aria-label="Выберите категорию"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span>{selectedCategory}</span>
+              <motion.div
+                animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ChevronDownIcon className="w-5 h-5" />
+              </motion.div>
+            </motion.button>
+            <motion.button
+              className="ml-4 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-full shadow"
+              onClick={() => {
+                setIsSearchOpen((prev) => !prev);
+                if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+              }}
+              aria-label="Поиск"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <MagnifyingGlassIcon className="w-6 h-6" />
+            </motion.button>
+          </div>
+
+          {/* Dropdown для выбора категории */}
+          <motion.ul
+            className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden text-center m-0 p-0 list-none"
+            initial={false}
+            animate={
+              isMobileMenuOpen
+                ? { opacity: 1, height: "auto", marginTop: "1rem" }
+                : { opacity: 0, height: 0, marginTop: 0 }
+            }
+            transition={{ duration: 0.3 }}
+          >
+            {categories.map((category, index) => (
+              <li
+                key={category.value}
+                className={`text-black dark:text-white px-4 py-2 leading-tight hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer`}
+                onClick={() => {
+                  setSelectedCategory(category.value);
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                {category.name}
+              </li>
+            ))}
+          </motion.ul>
+
+          {/* Поисковая панель */}
+          <motion.div
+            className="overflow-hidden w-full"
+            initial={false}
+            animate={
+              isSearchOpen
+                ? { opacity: 1, height: "auto", marginTop: "1rem" }
+                : { opacity: 0, height: 0, marginTop: 0 }
+            }
+            transition={{ duration: 0.3 }}
+          >
+            <input
+              type="text"
+              placeholder="Поиск..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-4 py-2 border-none focus:outline-none bg-gray-100 dark:bg-gray-700 dark:text-white rounded-lg"
+            />
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Навигационная панель для десктопных устройств */}
+      <div className="hidden lg:block max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div className="max-w-max mx-auto flex flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow space-y-4 sm:space-y-0 sm:space-x-4">
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <motion.button
@@ -116,7 +194,6 @@ export default function Blog() {
               </motion.button>
             ))}
           </div>
-          {/* Поиск */}
           <div className="w-full sm:w-auto mt-4 sm:mt-0">
             <input
               type="text"
