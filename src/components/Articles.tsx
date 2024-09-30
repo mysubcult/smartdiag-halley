@@ -176,8 +176,8 @@ export default function Blog() {
 
       {/* Навигационная панель для десктопных устройств */}
       <div className="hidden lg:block max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="max-w-max mx-auto flex flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow space-y-4 sm:space-y-0 sm:space-x-4">
-          <div className="flex flex-wrap gap-2">
+        <div className="flex items-center justify-between bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow">
+          <div className="flex flex-wrap gap-2 whitespace-nowrap"> {/* Изменения здесь */}
             {categories.map((category) => (
               <motion.button
                 key={category.value}
@@ -194,7 +194,7 @@ export default function Blog() {
               </motion.button>
             ))}
           </div>
-          <div className="w-full sm:w-auto mt-4 sm:mt-0">
+          <div className="flex-grow mt-4 sm:mt-0"> {/* Изменения здесь */}
             <input
               type="text"
               placeholder="Поиск..."
