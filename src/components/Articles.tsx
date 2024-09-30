@@ -177,7 +177,7 @@ export default function Blog() {
       {/* Навигационная панель для десктопных устройств */}
       <div className="hidden lg:block max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div className="flex items-center justify-between bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow">
-          <div className="flex flex-wrap gap-2 whitespace-nowrap"> {/* Изменения здесь */}
+          <div className="flex flex-wrap gap-2 whitespace-nowrap overflow-auto"> {/* Изменения здесь */}
             {categories.map((category) => (
               <motion.button
                 key={category.value}
