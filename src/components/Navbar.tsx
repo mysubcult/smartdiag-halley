@@ -1,11 +1,11 @@
 // components/Navbar.tsx
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ThemeSwitchButton from './ThemeSwitchButton';
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const navigation = [
   { name: 'Главная', href: '/' },
@@ -39,9 +39,44 @@ const storeLinks = [
   },
 ];
 
-function Navbar() {
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [currentBreakpoint, setCurrentBreakpoint] = useState('');
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    const getBreakpoint = (width: number): string => {
+      if (width >= 1536) return '2xl';
+      if (width >= 1280) return 'xl';
+      if (width >= 1024) return 'lg';
+      if (width >= 768) return 'md';
+      if (width >= 640) return 'sm';
+      return 'xs';
+    };
+
+    const updateBreakpoint = () => {
+      const width = window.innerWidth;
+      const bp = getBreakpoint(width);
+      setCurrentBreakpoint(bp);
+    };
+
+    updateBreakpoint();
+
+    window.addEventListener('resize', updateBreakpoint);
+
+    return () => window.removeEventListener('resize', updateBreakpoint);
+  }, [mounted]);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-20">
@@ -75,17 +110,18 @@ function Navbar() {
                 </Link>
               ))}
 
-              <div className="relative">
-                <button
-                  onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                  className="flex items-center text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none"
-                  aria-haspopup="true"
-                  aria-expanded={isSubMenuOpen}
-                >
-                  Магазины
-                  <ChevronDownIcon className={`h-5 w-5 ml-1 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
-                </button>
-                <AnimatePresence>
+              {/* "Магазины" dropdown only on lg screens */}
+              {currentBreakpoint === 'lg' && (
+                <div className="relative">
+                  <button
+                    onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
+                    className="flex items-center text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none"
+                    aria-haspopup="true"
+                    aria-expanded={isSubMenuOpen}
+                  >
+                    Магазины
+                    <ChevronDownIcon className={`h-5 w-5 ml-1 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
+                  </button>
                   {isSubMenuOpen && (
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
@@ -107,24 +143,60 @@ function Navbar() {
                       ))}
                     </motion.div>
                   )}
-                </AnimatePresence>
-              </div>
+                </div>
+              )}
             </div>
+
+            {/* Store buttons displayed inline on xl and 2xl */}
+            {currentBreakpoint !== 'lg' && (
+              <div className="hidden xl:flex space-x-2 ml-4">
+                {storeLinks.map((store) => (
+                  <Link key={store.name} href={store.href} passHref>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`flex items-center justify-center ${store.bgGradient} ${store.textColor} px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105`}
+                    >
+                      <Image
+                        src={store.iconSrc}
+                        alt={store.name}
+                        className="w-5 h-5 mr-2"
+                        width={20}
+                        height={20}
+                        loading="lazy"
+                      />
+                      {store.name}
+                    </a>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Button Group for Theme Switch */}
           <div className="flex items-center space-x-2">
             <ThemeSwitchButton />
 
-            {/* Mobile Menu Toggle */}
+            {/* Индикатор текущего брейкпоинта */}
+            <div className="hidden lg:flex items-center ml-2">
+              <span className="px-2 py-1 text-xs font-semibold text-white bg-blue-500 rounded-full">
+                {currentBreakpoint.toUpperCase()}
+              </span>
+            </div>
+
+            {/* Mobile Menu Toggle - Visible on lg and smaller screens */}
             <div className="lg:hidden">
               <button
-                className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+                className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors relative"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle Menu"
                 aria-expanded={isMenuOpen}
               >
                 {isMenuOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+                {/* Индикатор текущего брейкпоинта для мобильного меню */}
+                <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1">
+                  {currentBreakpoint.toUpperCase()}
+                </span>
               </button>
             </div>
           </div>
@@ -132,26 +204,22 @@ function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="lg:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30"
-          >
-            <div className="flex flex-col items-center space-y-4">
-              {navigation.map((item) => (
-                <Link key={item.name} href={item.href} passHref>
-                  <a
-                    className="block py-2 text-lg font-medium hover:text-red-500"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </a>
-                </Link>
-              ))}
+      {isMenuOpen && (
+        <div className="lg:hidden mobile-menu bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg p-4 absolute right-4 top-20 w-64 z-30">
+          <div className="flex flex-col items-center space-y-4">
+{navigation.map((item) => (
+              <Link key={item.name} href={item.href} passHref>
+                <a
+                  className="block py-2 text-lg font-medium hover:text-red-500"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </a>
+              </Link>
+            ))}
 
+            {/* Submenu for Stores */}
+            {currentBreakpoint === 'lg' && (
               <button
                 onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
                 className="flex items-center justify-center w-full text-left py-2 text-lg font-medium hover:text-red-500 focus:outline-none"
@@ -161,36 +229,32 @@ function Navbar() {
                 Магазины
                 <ChevronDownIcon className={`h-5 w-5 ml-1 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
               </button>
+            )}
 
-              <AnimatePresence>
-                {isSubMenuOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="flex flex-col space-y-3 w-full mt-2"
-                  >
-                    {storeLinks.map((store) => (
-                      <Link key={store.name} href={store.href} passHref>
-                        <a
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105"
-                        >
-                          <Image src={store.iconSrc} alt={store.name} className="w-5 h-5 mr-2" width={20} height={20} loading="lazy" />
-                          {store.name}
-                        </a>
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {isSubMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="flex flex-col space-y-3 w-full mt-2"
+              >
+                {storeLinks.map((store) => (
+                  <Link key={store.name} href={store.href} passHref>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105"
+                    >
+                      <Image src={store.iconSrc} alt={store.name} className="w-5 h-5 mr-2" width={20} height={20} loading="lazy" />
+                      {store.name}
+                    </a>
+                  </Link>
+                ))}
+              </motion.div>
+            )}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
-
-export default Navbar;
