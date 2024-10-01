@@ -205,76 +205,75 @@ export default function Navbar() {
                 </button>
               </div>
             </div>
-          </div>
-        </nav>
+          </nav>
 
-        {/* Мобильное меню */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              key="mobile-menu"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-white dark:bg-neutral-900 z-20 pt-16 overflow-y-auto"
-            >
-              <div className="flex flex-col items-center space-y-4 py-8 px-4">
-                {navigation.map((item) => (
-                  <Link key={item.name} href={item.href}>
-                    <a
-                      className="text-xl font-medium hover:text-red-500"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.name}
-                    </a>
-                  </Link>
-                ))}
+          {/* Мобильное меню */}
+          <AnimatePresence>
+            {isMenuOpen && (
+              <motion.div
+                key="mobile-menu"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className="fixed inset-0 bg-white dark:bg-neutral-900 z-20 pt-16 overflow-y-auto"
+              >
+                <div className="flex flex-col items-center space-y-4 py-8 px-4">
+                  {navigation.map((item) => (
+                    <Link key={item.name} href={item.href}>
+                      <a
+                        className="text-xl font-medium hover:text-red-500"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {item.name}
+                      </a>
+                    </Link>
+                  ))}
 
-                {/* Подменю для "Магазины" */}
-                {currentBreakpoint === 'lg' && (
-                  <div className="w-full px-4">
-                    <button
-                      onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                      className="flex items-center justify-between w-full text-lg font-medium hover:text-red-500 focus:outline-none"
-                      aria-haspopup="true"
-                      aria-expanded={isSubMenuOpen}
-                    >
-                      <span>Магазины</span>
-                      <ChevronDownIcon className={`h-6 w-6 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
-                    </button>
-                    <AnimatePresence>
-                      {isSubMenuOpen && (
-                        <motion.div
-                          key="submenu"
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="mt-4 space-y-4"
-                        >
-                          {storeLinks.map((store) => (
-                            <Link key={store.name} href={store.href}>
-                              <a
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out hover:scale-105"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <Image src={store.iconSrc} alt={store.name} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
-                                {store.name}
-                              </a>
-                            </Link>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </>
-    );
-}
+                  {/* Подменю для "Магазины" */}
+                  {currentBreakpoint === 'lg' && (
+                    <div className="w-full px-4">
+                      <button
+                        onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
+                        className="flex items-center justify-between w-full text-lg font-medium hover:text-red-500 focus:outline-none"
+                        aria-haspopup="true"
+                        aria-expanded={isSubMenuOpen}
+                      >
+                        <span>Магазины</span>
+                        <ChevronDownIcon className={`h-6 w-6 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
+                      </button>
+                      <AnimatePresence>
+                        {isSubMenuOpen && (
+                          <motion.div
+                            key="submenu"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="mt-4 space-y-4"
+                          >
+                            {storeLinks.map((store) => (
+                              <Link key={store.name} href={store.href}>
+                                <a
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out hover:scale-105"
+                                  onClick={() => setIsMenuOpen(false)}
+                                >
+                                  <Image src={store.iconSrc} alt={store.name} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
+                                  {store.name}
+                                </a>
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </>
+      );
+    }
