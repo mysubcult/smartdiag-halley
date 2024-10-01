@@ -5,9 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 
-interface HeroProps {}
-
-export const Hero: FC<HeroProps> = () => {
+export const Hero: FC = () => {
   const headerVariants: Variants = {
     hidden: { opacity: 0, y: -20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -28,10 +26,6 @@ export const Hero: FC<HeroProps> = () => {
           className="flex flex-col justify-center text-center lg:text-left space-y-6 lg:w-1/2 w-full"
           initial="hidden"
           animate="visible"
-          variants={{
-            hidden: {},
-            visible: {},
-          }}
         >
           <motion.h1
             className="text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl mx-auto lg:mx-0"
@@ -104,7 +98,6 @@ export const Hero: FC<HeroProps> = () => {
             sizes="100vw"
             priority
             className="w-full h-auto"
-            loading="lazy"
           />
         </motion.div>
       </div>
