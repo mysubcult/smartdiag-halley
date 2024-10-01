@@ -253,21 +253,24 @@ export default function Navbar() {
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="w-full mt-4 space-y-4"
+                      className="flex flex-col items-center mt-4 space-y-4"
                     >
-                      {storeLinks.map((store) => (
-                        <Link key={store.name} href={store.href} passHref>
-                          <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out hover:scale-105"
-                            onClick={() => setIsMenuOpen(false)}
-                          >
-                            <Image src={store.iconSrc} alt={store.name} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
-                            {store.name}
-                          </a>
-                        </Link>
-                      ))}
+                      {/* Контейнер для кнопок магазинов с фиксированной шириной */}
+                      <div className="w-full max-w-xs mx-auto flex flex-col space-y-4">
+                        {storeLinks.map((store) => (
+                          <Link key={store.name} href={store.href} passHref>
+                            <a
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out hover:scale-105"
+                              onClick={() => setIsMenuOpen(false)}
+                            >
+                              <Image src={store.iconSrc} alt={store.name} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
+                              {store.name}
+                            </a>
+                          </Link>
+                        ))}
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
