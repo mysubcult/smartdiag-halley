@@ -220,11 +220,11 @@ export default function Navbar() {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 bg-white dark:bg-neutral-900 z-20 pt-16 overflow-y-auto"
           >
-            <div className="flex flex-col items-center space-y-4 py-8 px-4">
+            <div className="flex flex-col items-start space-y-4 py-8 px-4"> {/* Изменено items-center на items-start */}
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href} passHref>
                   <a
-                    className="text-xl font-medium hover:text-red-500"
+                    className="w-full text-xl font-medium hover:text-red-500" /* Добавлено w-full */
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
@@ -233,10 +233,10 @@ export default function Navbar() {
               ))}
 
               {/* Подменю для "Магазины" */}
-              <div className="px-4">
+              <div className="w-full"> {/* Изменено с px-4 на w-full */}
                 <button
                   onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                  className="inline-flex items-center space-x-2 text-xl font-medium hover:text-red-500 focus:outline-none"
+                  className="w-full flex justify-between items-center text-xl font-medium hover:text-red-500 focus:outline-none" /* Добавлено w-full и justify-between */
                   aria-haspopup="true"
                   aria-expanded={isSubMenuOpen}
                 >
@@ -251,14 +251,14 @@ export default function Navbar() {
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="mt-4 space-y-4"
+                      className="w-full mt-4 space-y-4" /* Добавлено w-full */
                     >
                       {storeLinks.map((store) => (
                         <Link key={store.name} href={store.href} passHref>
                           <a
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out hover:scale-105"
+                            className="flex items-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out hover:scale-105"
                             onClick={() => setIsMenuOpen(false)}
                           >
                             <Image src={store.iconSrc} alt={store.name} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
