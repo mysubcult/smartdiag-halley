@@ -93,7 +93,7 @@ const Trademark: React.FC = () => (
     transition={{ duration: 0.6 }}
   >
     <div className="prose dark:prose-dark mb-4 md:mb-0">
-      <h3 className="text-xl font-semibold text-black dark:text-white">Наш товарный знак</h3>
+      <h3 className="text-xl font-semibold text-black dark:text-white">Наш товарный знак СМАРТДИАГ</h3>
       <p className="text-gray-700 dark:text-gray-300">
         Мы гордимся нашим товарным знаком, который символизирует качество и надёжность нашей продукции.
       </p>
