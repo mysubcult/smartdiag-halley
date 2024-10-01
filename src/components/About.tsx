@@ -91,12 +91,12 @@ ServiceCard.displayName = 'ServiceCard';
 const Trademark: React.FC = () => (
   <div className="mt-12">
     <motion.div
-      className="max-w-3xl mx-auto p-6 bg-blue-50 dark:bg-blue-900 rounded-lg shadow-lg flex items-center justify-between"
+      className="max-w-3xl mx-auto p-6 bg-blue-50 dark:bg-blue-900 rounded-lg shadow-lg flex flex-col md:flex-row items-center justify-between"
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <div className="prose dark:prose-dark">
+      <div className="prose dark:prose-dark mb-4 md:mb-0">
         <h3 className="text-xl font-semibold">Наш товарный знак</h3>
         <p>
           Мы гордимся нашим товарным знаком, который символизирует качество и надёжность нашей продукции.
@@ -148,6 +148,9 @@ export function About() {
         >
           Мы специализируемся на продаже оборудования для диагностики автомобилей уже на протяжении многих лет. За это время мы зарекомендировали себя как надежный поставщик высококачественного оборудования.
         </motion.p>
+
+        {/* Перемещаем секцию Trademark сюда */}
+        <Trademark />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 grid md:grid-cols-2 lg:grid-cols-3 gap-y-8 md:gap-x-8 lg:gap-x-8 lg:gap-y-16">
@@ -155,9 +158,6 @@ export function About() {
           <ServiceCard key={service.title} {...service} />
         ))}
       </div>
-
-      {/* Добавление информации о товарном знаке */}
-      <Trademark />
     </section>
   );
 }
