@@ -58,14 +58,14 @@ const services: Service[] = [
 // ServiceCard Component
 const ServiceCard: React.FC<Service> = React.memo(({ title, description, image, alt }) => (
   <motion.div
-    className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md border border-gray-200 dark:border-neutral-700 transition duration-200 ease-out hover:shadow-lg"
+    className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md border border-gray-200 dark:border-neutral-700 transition duration-200 ease-out hover:shadow-lg flex flex-col items-center"
     whileHover={{ scale: 1.02 }}
     whileTap={{ scale: 0.98 }}
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
   >
-    <div className="h-24 w-24 flex justify-center mx-auto">
+    <div className="h-24 w-24 flex justify-center items-center mb-4">
       <Image
         src={image}
         alt={alt}
@@ -75,8 +75,8 @@ const ServiceCard: React.FC<Service> = React.memo(({ title, description, image, 
         sizes="100vw"
       />
     </div>
-    <h2 className="font-bold text-lg text-center mt-4">{title}</h2>
-    <p className="pt-2 text-sm text-center text-gray-700 dark:text-gray-300 mt-2">
+    <h2 className="font-bold text-lg text-center">{title}</h2>
+    <p className="pt-2 text-sm text-center text-gray-700 dark:text-gray-300">
       {description}
     </p>
   </motion.div>
@@ -147,7 +147,7 @@ export function About() {
         <Trademark />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 grid md:grid-cols-2 lg:grid-cols-3 gap-y-8 md:gap-x-8 lg:gap-x-8 lg:gap-y-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 grid md:grid-cols-2 lg:grid-cols-3 gap-y-8 md:gap-x-8 lg:gap-x-8 lg:gap-y-16 auto-rows-fr">
         {services.map((service) => (
           <ServiceCard key={service.title} {...service} />
         ))}
