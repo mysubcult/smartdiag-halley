@@ -102,12 +102,10 @@ export default function Navbar() {
               {/* Desktop Menu */}
               <div className="hidden lg:flex flex-wrap items-center space-x-5 ml-4">
                 {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out"
-                  >
-                    {item.name}
+                  <Link key={item.name} href={item.href}>
+                    <a className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out">
+                      {item.name}
+                    </a>
                   </Link>
                 ))}
 
@@ -202,75 +200,76 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-        </nav>
+        </div>
+      </nav>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              key="mobile-menu"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-white dark:bg-neutral-900 z-30 pt-16 overflow-y-auto"
-            >
-              <div className="flex flex-col items-center space-y-6 py-8">
-                {navigation.map((item) => (
-                  <Link key={item.name} href={item.href} passHref>
-                    <a
-                      className="text-2xl font-medium hover:text-red-500"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.name}
-                    </a>
-                  </Link>
-                ))}
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-white dark:bg-neutral-900 z-30 pt-16 overflow-y-auto"
+          >
+            <div className="flex flex-col items-center space-y-6 py-8">
+              {navigation.map((item) => (
+                <Link key={item.name} href={item.href} passHref>
+                  <a
+                    className="text-2xl font-medium hover:text-red-500"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </a>
+                </Link>
+              ))}
 
-                {/* Submenu for Stores */}
-                {currentBreakpoint === 'lg' && (
-                  <div className="w-full px-4">
-                    <button
-                      onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                      className="flex items-center justify-between w-full text-2xl font-medium hover:text-red-500 focus:outline-none"
-                      aria-haspopup="true"
-                      aria-expanded={isSubMenuOpen}
-                    >
-                      <span>Магазины</span>
-                      <ChevronDownIcon className={`h-6 w-6 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
-                    </button>
-                    <AnimatePresence>
-                      {isSubMenuOpen && (
-                        <motion.div
-                          key="submenu"
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="mt-4 space-y-4"
-                        >
-                          {storeLinks.map((store) => (
-                            <Link key={store.name} href={store.href} passHref>
-                              <a
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center justify-center w-full text-xl font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out hover:scale-105"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <Image src={store.iconSrc} alt={store.name} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
-                                {store.name}
-                              </a>
-                            </Link>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </>
-    );
+              {/* Submenu for Stores */}
+              {currentBreakpoint === 'lg' && (
+                <div className="w-full px-4">
+                  <button
+                    onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
+                    className="flex items-center justify-between w-full text-2xl font-medium hover:text-red-500 focus:outline-none"
+                    aria-haspopup="true"
+                    aria-expanded={isSubMenuOpen}
+                  >
+                    <span>Магазины</span>
+                    <ChevronDownIcon className={`h-6 w-6 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
+                  </button>
+                  <AnimatePresence>
+                    {isSubMenuOpen && (
+                      <motion.div
+                        key="submenu"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="mt-4 space-y-4"
+                      >
+                        {storeLinks.map((store) => (
+                          <Link key={store.name} href={store.href} passHref>
+                            <a
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-center w-full text-xl font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out hover:scale-105"
+                              onClick={() => setIsMenuOpen(false)}
+                            >
+                              <Image src={store.iconSrc} alt={store.name} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
+                              {store.name}
+                            </a>
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
 }
