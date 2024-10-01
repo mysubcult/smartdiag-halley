@@ -80,26 +80,30 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Навигационная панель */}
       <nav className="navbar fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between flex-wrap">
+            {/* Логотип и основные ссылки */}
             <div className="flex flex-1 items-center justify-start">
               <div className="flex flex-shrink-0 items-center">
                 <Link href="/">
-                  <Image
-                    className="block h-12 w-auto"
-                    src="/images/logos/logo.png"
-                    alt="SmartDiag Logo"
-                    width={256}
-                    height={117}
-                    quality={100}
-                    sizes="100vw"
-                    priority
-                  />
+                  <a>
+                    <Image
+                      className="block h-12 w-auto"
+                      src="/images/logos/logo.png"
+                      alt="SmartDiag Logo"
+                      width={256}
+                      height={117}
+                      quality={100}
+                      sizes="100vw"
+                      priority
+                    />
+                  </a>
                 </Link>
               </div>
 
-              {/* Desktop Menu */}
+              {/* Десктопное меню */}
               <div className="hidden lg:flex flex-wrap items-center space-x-5 ml-4">
                 {navigation.map((item) => (
                   <Link key={item.name} href={item.href}>
@@ -109,7 +113,7 @@ export default function Navbar() {
                   </Link>
                 ))}
 
-                {/* "Магазины" dropdown only on lg screens */}
+                {/* Выпадающее меню "Магазины" только на брейкпоинте lg */}
                 {currentBreakpoint === 'lg' && (
                   <div className="relative">
                     <button
@@ -121,36 +125,38 @@ export default function Navbar() {
                       Магазины
                       <ChevronDownIcon className={`h-5 w-5 ml-1 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
                     </button>
-                    {isSubMenuOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className="absolute mt-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg py-2 w-48"
-                      >
-                        {storeLinks.map((store) => (
-                          <Link key={store.name} href={store.href} passHref>
-                            <a
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center px-4 py-2 text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
-                            >
-                              <Image src={store.iconSrc} alt={store.name} className="w-5 h-5 mr-2" width={20} height={20} loading="lazy" />
-                              {store.name}
-                            </a>
-                          </Link>
-                        ))}
-                      </motion.div>
-                    )}
+                    <AnimatePresence>
+                      {isSubMenuOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          className="absolute mt-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg py-2 w-48"
+                        >
+                          {storeLinks.map((store) => (
+                            <Link key={store.name} href={store.href}>
+                              <a
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center px-4 py-2 text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                              >
+                                <Image src={store.iconSrc} alt={store.name} className="w-5 h-5 mr-2" width={20} height={20} loading="lazy" />
+                                {store.name}
+                              </a>
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 )}
               </div>
 
-              {/* Store buttons displayed inline on xl and 2xl */}
+              {/* Кнопки магазинов, отображаемые на брейкпоинтах xl и 2xl */}
               {currentBreakpoint !== 'lg' && (
                 <div className="hidden xl:flex space-x-2 ml-4">
                   {storeLinks.map((store) => (
-                    <Link key={store.name} href={store.href} passHref>
+                    <Link key={store.name} href={store.href}>
                       <a
                         target="_blank"
                         rel="noopener noreferrer"
@@ -172,7 +178,7 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* Button Group for Theme Switch */}
+            {/* Группа кнопок: переключение темы и индикатор брейкпоинта */}
             <div className="flex items-center space-x-2">
               <ThemeSwitchButton />
 
@@ -183,7 +189,7 @@ export default function Navbar() {
                 </span>
               </div>
 
-              {/* Mobile Menu Toggle - Visible on lg and smaller screens */}
+              {/* Кнопка открытия мобильного меню - видима на брейкпоинтах lg и меньше */}
               <div className="lg:hidden">
                 <button
                   className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors relative"
@@ -202,7 +208,7 @@ export default function Navbar() {
           </div>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Мобильное меню */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
@@ -215,7 +221,7 @@ export default function Navbar() {
             >
               <div className="flex flex-col items-center space-y-4 py-8 px-4">
                 {navigation.map((item) => (
-                  <Link key={item.name} href={item.href} passHref>
+                  <Link key={item.name} href={item.href}>
                     <a
                       className="text-xl font-medium hover:text-red-500"
                       onClick={() => setIsMenuOpen(false)}
@@ -225,7 +231,7 @@ export default function Navbar() {
                   </Link>
                 ))}
 
-                {/* Submenu for Stores */}
+                {/* Подменю для "Магазины" */}
                 {currentBreakpoint === 'lg' && (
                   <div className="w-full px-4">
                     <button
@@ -248,7 +254,7 @@ export default function Navbar() {
                           className="mt-4 space-y-4"
                         >
                           {storeLinks.map((store) => (
-                            <Link key={store.name} href={store.href} passHref>
+                            <Link key={store.name} href={store.href}>
                               <a
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -270,4 +276,5 @@ export default function Navbar() {
           )}
         </AnimatePresence>
       </>
-    }
+    );
+}
