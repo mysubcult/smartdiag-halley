@@ -107,7 +107,7 @@ export default function Navbar() {
               <div className="hidden lg:flex flex-wrap items-center space-x-5 ml-4">
                 {navigation.map((item) => (
                   <Link key={item.name} href={item.href} passHref>
-                    <a className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out">
+                    <a className="relative text-xl font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out">
                       {item.name}
                     </a>
                   </Link>
@@ -118,7 +118,7 @@ export default function Navbar() {
                   <div className="relative">
                     <button
                       onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                      className="flex items-center text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none"
+                      className="flex items-center text-xl font-medium text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none"
                       aria-haspopup="true"
                       aria-expanded={isSubMenuOpen}
                     >
@@ -233,11 +233,10 @@ export default function Navbar() {
               ))}
 
               {/* Подменю для "Магазины" */}
-              {/* Удалено условие currentBreakpoint === 'lg' */}
               <div className="w-full px-4">
                 <button
                   onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                  className="flex items-center justify-between w-full text-lg font-medium hover:text-red-500 focus:outline-none"
+                  className="flex items-center justify-between w-full text-xl font-medium hover:text-red-500 focus:outline-none"
                   aria-haspopup="true"
                   aria-expanded={isSubMenuOpen}
                 >
@@ -259,7 +258,7 @@ export default function Navbar() {
                           <a
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out hover:scale-105"
+                            className="flex items-center justify-center w-full text-xl font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out hover:scale-105"
                             onClick={() => setIsMenuOpen(false)}
                           >
                             <Image src={store.iconSrc} alt={store.name} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
