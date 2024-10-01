@@ -1,5 +1,3 @@
-// components/About.tsx
-
 import Image from 'next/image';
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -75,7 +73,6 @@ const ServiceCard: React.FC<Service> = React.memo(({ title, description, image, 
         height={96}
         quality={75}
         sizes="100vw"
-        priority // Приоритетная загрузка для улучшения LCP
       />
     </div>
     <h2 className="font-bold text-lg text-center mt-4">{title}</h2>
@@ -89,41 +86,39 @@ ServiceCard.displayName = 'ServiceCard';
 
 // Trademark Component
 const Trademark: React.FC = () => (
-  <div className="mt-12">
-    <motion.div
-      className="max-w-3xl mx-auto p-6 bg-blue-50 dark:bg-blue-900 rounded-lg shadow-lg flex flex-col md:flex-row items-center justify-between"
-      initial={{ opacity: 0, x: -50 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="prose dark:prose-dark mb-4 md:mb-0">
-        <h3 className="text-xl font-semibold">Наш товарный знак</h3>
-        <p>
-          Мы гордимся нашим товарным знаком, который символизирует качество и надёжность нашей продукции.
-        </p>
-      </div>
-      <Link href="/docs/certificate.pdf" passHref>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300"
-          aria-label="Просмотреть сертификат товарного знака"
+  <motion.div
+    className="mt-12 max-w-3xl mx-auto p-6 bg-blue-50 dark:bg-blue-900 rounded-lg shadow-lg flex flex-col md:flex-row items-center justify-between"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6 }}
+  >
+    <div className="prose dark:prose-dark mb-4 md:mb-0">
+      <h3 className="text-xl font-semibold">Наш товарный знак</h3>
+      <p>
+        Мы гордимся нашим товарным знаком, который символизирует качество и надёжность нашей продукции.
+      </p>
+    </div>
+    <Link href="/docs/certificate.pdf" passHref>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300"
+        aria-label="Просмотреть сертификат товарного знака"
+      >
+        <span>Сертификат</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5 ml-2"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
         >
-          <span>Сертификат</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 ml-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-          </svg>
-        </a>
-      </Link>
-    </motion.div>
-  </div>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        </svg>
+      </a>
+    </Link>
+  </motion.div>
 );
 
 // About Component
@@ -149,7 +144,6 @@ export function About() {
           Мы специализируемся на продаже оборудования для диагностики автомобилей уже на протяжении многих лет. За это время мы зарекомендировали себя как надежный поставщик высококачественного оборудования.
         </motion.p>
 
-        {/* Перемещаем секцию Trademark сюда */}
         <Trademark />
       </div>
 
