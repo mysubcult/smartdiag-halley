@@ -30,14 +30,12 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer
-      className="bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-neutral-400"
-    >
-      <div className="container mx-auto px-6 lg:px-8 py-6 flex flex-col lg:flex-row justify-between items-center">
+    <footer className="bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-neutral-400">
+      <div className="container mx-auto px-6 lg:px-8 py-4 flex flex-col lg:flex-row justify-between items-center">
         {/* Раздел авторских прав */}
         <div className="text-center lg:text-left mb-4 lg:mb-0">
           <Link href="/">
-            <a className="hover:text-red-500 font-medium transition-colors duration-300">
+            <a className="hover:text-red-500 font-medium">
               SmartDiag &copy; 2023-{currentYear}
             </a>
           </Link>
@@ -49,7 +47,7 @@ export default function Footer() {
             {menus.map(({ title, url }) => (
               <li key={title}>
                 <Link href={url}>
-                  <a className="hover:text-red-500 font-medium transition-colors duration-300">
+                  <a className="hover:text-red-500 font-medium">
                     {title}
                   </a>
                 </Link>
@@ -59,7 +57,7 @@ export default function Footer() {
         </nav>
 
         {/* Раздел социальных ссылок */}
-        <div className="flex space-x-6 justify-center lg:justify-end">
+        <div className="flex space-x-4 justify-center lg:justify-end">
           {socialLinks.map(({ name, href, iconPath }) => (
             <a
               key={name}
@@ -67,7 +65,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               title={name}
-              className="hover:text-red-500 transition-colors duration-300 transform hover:scale-110"
+              className="hover:text-red-500"
             >
               <svg
                 width="24"
