@@ -30,12 +30,14 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white dark:bg-neutral-900 border-t border-neutral-200">
+    <footer className="bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-neutral-400">
       <div className="container mx-auto px-6 lg:px-8 py-4 flex flex-col lg:flex-row justify-between items-center">
         {/* Раздел авторских прав */}
         <div className="text-center lg:text-left mb-4 lg:mb-0">
-          <Link href="/" className="hover:text-red-500">
-            SmartDiag &copy; 2023-{currentYear}
+          <Link href="/">
+            <a className="hover:text-red-500 font-medium">
+              SmartDiag &copy; 2023-{currentYear}
+            </a>
           </Link>
         </div>
 
@@ -44,8 +46,10 @@ export default function Footer() {
           <ul className="flex flex-wrap gap-6 justify-center">
             {menus.map(({ title, url }) => (
               <li key={title}>
-                <Link href={url} className="hover:text-red-500 font-medium">
-                  {title}
+                <Link href={url}>
+                  <a className="hover:text-red-500 font-medium">
+                    {title}
+                  </a>
                 </Link>
               </li>
             ))}
