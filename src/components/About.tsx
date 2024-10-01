@@ -87,14 +87,14 @@ ServiceCard.displayName = 'ServiceCard';
 // Trademark Component
 const Trademark: React.FC = () => (
   <motion.div
-    className="mt-12 max-w-3xl mx-auto p-6 bg-blue-50 dark:bg-blue-900 rounded-lg shadow-lg flex flex-col md:flex-row items-center justify-between"
+    className="mt-12 max-w-3xl mx-auto p-6 bg-gray-100 dark:bg-neutral-800 rounded-lg shadow-lg flex flex-col md:flex-row items-center justify-between"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6 }}
   >
     <div className="prose dark:prose-dark mb-4 md:mb-0">
-      <h3 className="text-xl font-semibold">Наш товарный знак</h3>
-      <p>
+      <h3 className="text-xl font-semibold text-black dark:text-white">Наш товарный знак</h3>
+      <p className="text-gray-700 dark:text-gray-300">
         Мы гордимся нашим товарным знаком, который символизирует качество и надёжность нашей продукции.
       </p>
     </div>
