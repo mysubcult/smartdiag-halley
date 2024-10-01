@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+// Удаляем импорт Link, если он больше не нужен для внешних ссылок
 import Link from 'next/link';
 import ThemeSwitchButton from './ThemeSwitchButton';
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
@@ -134,16 +135,17 @@ export default function Navbar() {
                           className="absolute mt-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg py-2 w-48"
                         >
                           {storeLinks.map((store) => (
-                            <Link key={store.name} href={store.href} passHref>
-                              <a
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center px-4 py-2 text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
-                              >
-                                <Image src={store.iconSrc} alt={store.name} className="w-5 h-5 mr-2" width={20} height={20} loading="lazy" />
-                                {store.name}
-                              </a>
-                            </Link>
+                            // Заменяем Link на <a> для внешних ссылок
+                            <a
+                              key={store.name}
+                              href={store.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center px-4 py-2 text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                            >
+                              <Image src={store.iconSrc} alt={store.name} className="w-5 h-5 mr-2" width={20} height={20} loading="lazy" />
+                              {store.name}
+                            </a>
                           ))}
                         </motion.div>
                       )}
@@ -156,23 +158,24 @@ export default function Navbar() {
               {currentBreakpoint !== 'lg' && (
                 <div className="hidden xl:flex space-x-2 ml-4">
                   {storeLinks.map((store) => (
-                    <Link key={store.name} href={store.href} passHref>
-                      <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`flex items-center justify-center ${store.bgGradient} ${store.textColor} px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105`}
-                      >
-                        <Image
-                          src={store.iconSrc}
-                          alt={store.name}
-                          className="w-5 h-5 mr-2"
-                          width={20}
-                          height={20}
-                          loading="lazy"
-                        />
-                        {store.name}
-                      </a>
-                    </Link>
+                    // Заменяем Link на <a> для внешних ссылок
+                    <a
+                      key={store.name}
+                      href={store.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`flex items-center justify-center ${store.bgGradient} ${store.textColor} px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105`}
+                    >
+                      <Image
+                        src={store.iconSrc}
+                        alt={store.name}
+                        className="w-5 h-5 mr-2"
+                        width={20}
+                        height={20}
+                        loading="lazy"
+                      />
+                      {store.name}
+                    </a>
                   ))}
                 </div>
               )}
@@ -258,17 +261,17 @@ export default function Navbar() {
                       {/* Контейнер для кнопок магазинов с фиксированной шириной */}
                       <div className="w-full max-w-xs mx-auto flex flex-col space-y-4">
                         {storeLinks.map((store) => (
-                          <Link key={store.name} href={store.href} passHref>
-                            <a
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out hover:scale-105"
-                              onClick={() => setIsMenuOpen(false)}
-                            >
-                              <Image src={store.iconSrc} alt={store.name} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
-                              {store.name}
-                            </a>
-                          </Link>
+                          // Заменяем Link на <a> для внешних ссылок и удаляем onClick
+                          <a
+                            key={store.name}
+                            href={store.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out hover:scale-105"
+                          >
+                            <Image src={store.iconSrc} alt={store.name} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
+                            {store.name}
+                          </a>
                         ))}
                       </div>
                     </motion.div>
