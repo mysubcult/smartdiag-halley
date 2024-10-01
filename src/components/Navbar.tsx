@@ -100,6 +100,20 @@ export default function Navbar() {
     };
   }, [isSubMenuOpen]);
 
+  // Управление прокруткой основного содержимого при открытом мобильном меню
+  useEffect(() => {
+    if (isMenuOpen) {
+      // Сохраняем текущий стиль overflow
+      const originalStyle = window.getComputedStyle(document.body).overflow;
+      // Устанавливаем overflow: hidden
+      document.body.style.overflow = 'hidden';
+      // Восстанавливаем стиль при очистке
+      return () => {
+        document.body.style.overflow = originalStyle;
+      };
+    }
+  }, [isMenuOpen]);
+
   if (!mounted) {
     return null;
   }
