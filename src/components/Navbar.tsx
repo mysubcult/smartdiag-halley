@@ -1,8 +1,7 @@
 // components/Navbar.tsx
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-// Удаляем импорт Link, если он больше не нужен для внешних ссылок
 import Link from 'next/link';
 import ThemeSwitchButton from './ThemeSwitchButton';
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
@@ -46,6 +45,10 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [currentBreakpoint, setCurrentBreakpoint] = useState('');
 
+  // Создаем ссылки для кнопки и выпадающего меню
+  const subMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const subMenuRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -74,6 +77,28 @@ export default function Navbar() {
 
     return () => window.removeEventListener('resize', updateBreakpoint);
   }, [mounted]);
+
+  // Обработчик кликов вне выпадающего меню
+  useEffect(() => {
+    if (!isSubMenuOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      const button = subMenuButtonRef.current;
+      const menu = subMenuRef.current;
+      if (button && menu) {
+        if (!button.contains(event.target as Node) && !menu.contains(event.target as Node)) {
+          setIsSubMenuOpen(false);
+        }
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    // Очистка обработчика при закрытии меню или размонтировании
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isSubMenuOpen]);
 
   if (!mounted) {
     return null;
@@ -118,6 +143,7 @@ export default function Navbar() {
                 {currentBreakpoint === 'lg' && (
                   <div className="relative">
                     <button
+                      ref={subMenuButtonRef} // Привязываем ref к кнопке
                       onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
                       className="flex items-center text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none"
                       aria-haspopup="true"
@@ -129,6 +155,7 @@ export default function Navbar() {
                     <AnimatePresence>
                       {isSubMenuOpen && (
                         <motion.div
+                          ref={subMenuRef} // Привязываем ref к выпадающему меню
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
