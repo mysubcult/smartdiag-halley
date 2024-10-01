@@ -236,7 +236,7 @@ export default function Navbar() {
                   <div className="w-full px-4">
                     <button
                       onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                      className="flex items-center justify-between w-full text-xl font-medium hover:text-red-500 focus:outline-none"
+                      className="flex items-center justify-between w-full text-lg font-medium hover:text-red-500 focus:outline-none"
                       aria-haspopup="true"
                       aria-expanded={isSubMenuOpen}
                     >
