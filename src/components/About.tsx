@@ -73,7 +73,7 @@ const ServiceCard: React.FC<Service> = React.memo(({ title, description, image, 
       />
     </div>
     <h2 className="font-bold text-lg text-center mt-4">{title}</h2>
-    <p className="pt-2 text-sm text-center dark:text-neutral-400 mt-2">
+    <p className="pt-2 text-sm text-center text-gray-700 dark:text-gray-300 mt-2">
       {description}
     </p>
   </div>
@@ -96,7 +96,7 @@ export function About() {
         {mounted ? (
           <>
             <motion.h2
-              className="text-4xl font-bold"
+              className="text-4xl font-bold text-black dark:text-white"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -105,7 +105,7 @@ export function About() {
             </motion.h2>
 
             <motion.p
-              className="pt-6 pb-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400"
+              className="pt-6 text-lg max-w-2xl text-center m-auto text-gray-700 dark:text-gray-300"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -118,8 +118,8 @@ export function About() {
           </>
         ) : (
           <>
-            <h2 className="text-4xl font-bold">О нас 👋</h2>
-            <p className="pt-6 pb-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400">
+            <h2 className="text-4xl font-bold text-black dark:text-white">О нас 👋</h2>
+            <p className="pt-6 text-lg max-w-2xl text-center m-auto text-gray-700 dark:text-gray-300">
               Мы специализируемся на продаже оборудования для диагностики
               автомобилей уже на протяжении многих лет. За это время мы
               зарекомендировали себя как надежный поставщик высококачественного
