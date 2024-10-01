@@ -318,9 +318,9 @@ function Modal({ modalLinks, onCloseModal }: ModalProps) {
             <Link
               href={link}
               key={link}
+              className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300 text-center"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300 text-center"
             >
               {label}
             </Link>
@@ -485,7 +485,7 @@ export default function Soft() {
             <input
               type="text"
               placeholder="Поиск..."
-              id="mobile-search" // Add an id or name here
+              id="mobile-search"
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
@@ -524,7 +524,7 @@ export default function Soft() {
             <input
               type="text"
               placeholder="Поиск..."
-              id="desktop-search" // Add an id or name here
+              id="desktop-search"
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
