@@ -53,13 +53,8 @@ export default function Footer() {
           </Link>
         </motion.div>
 
-        {/* Раздел меню */}
-        <motion.nav
-          className="mb-4 lg:mb-0"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
+        {/* Раздел меню без анимации */}
+        <nav className="mb-4 lg:mb-0">
           <ul className="flex flex-wrap gap-6 justify-center">
             {menus.map(({ title, url }) => (
               <li key={title}>
@@ -71,7 +66,7 @@ export default function Footer() {
               </li>
             ))}
           </ul>
-        </motion.nav>
+        </nav>
 
         {/* Раздел социальных ссылок */}
         <motion.div
