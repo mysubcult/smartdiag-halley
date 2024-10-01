@@ -58,9 +58,9 @@ const services: Service[] = [
 // ServiceCard Component
 const ServiceCard: React.FC<Service> = React.memo(({ title, description, image, alt }) => (
   <motion.div
-    className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md transition duration-300 ease-in-out hover:bg-gray-200 hover:dark:bg-neutral-700"
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
+    className="bg-white dark:bg-neutral-800 p-6 rounded-lg shadow-md border border-gray-200 dark:border-neutral-700 transition duration-200 ease-out hover:shadow-lg"
+    whileHover={{ scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
