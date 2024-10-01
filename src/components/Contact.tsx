@@ -1,4 +1,5 @@
-// components/contact.tsx
+// components/Contact.tsx
+
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import PrivacyPolicyModal from './PrivacyPolicyModal';
@@ -85,7 +86,7 @@ export default function Contact() {
         </motion.h2>
 
         <motion.p
-          className="pt-6 pb-6 text-base max-w-2xl text-center m-auto dark:text-neutral-400"
+          className="pt-6 text-lg max-w-2xl text-center m-auto text-gray-700 dark:text-gray-300"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -135,7 +136,7 @@ export default function Contact() {
                     }}
                   >
                     <path
-                      d="M18.384,15a1.992,1.992,0,0,0,.1-1c0-.3-.05-.59-.14-.87l2.12-1.65a.5.5,0,0,0,.11-.7l-2-3.464a.5.5,0,0,0-.6-.2l-2.49,1a7.014,7.014,0,0,0-1.6-.93l-.38-2.65A.5.5,0,0,0,14,4h-4a.5.5,0,0,0-.5.42l-.38,2.65c-.56.24-1.09.56-1.6.93l-2.49-1a.5.5,0,0,0-.6.22l-2,3.464a.5.5,0,0,0,.12.63l2.12,1.65c-.09.28-.14.58-.14.87 0,.3.05.59.14.87l-2.12,1.65a.5.5,0,0,0-.12.63l2,3.464c.12.2.38.3.6.2l2.49-1c.51.37,1.04.69,1.6.93l.38,2.65c.04.23.24.42.5.42h4c.26,0,.46-.19,.5-.42l.38-2.65c.56-.24,1.09-.56,1.6-.93l2.49,1c.22.1,.48,0,.6-.2l2-3.464a.5.5,0,0,0-.12-.63l-2.12-1.65c.09-.28,.14-.58,.14-.87Zm-7.14,2.564a3,3,0,1,1,3-3A3,3,0,0,1,12,15.5Z"
+                      d="M18.384,15a1.992,1.992,0,0,0,.1-1c0-.3-.05-.59-.14-.87l2.12-1.65a.5.5,0,0,0,.11-.7l-2-3.464a.5.5,0,0,0-.6-.2l-2.49,1a7.014,7.014,0,0,0-1.6-.93l-.38-2.65A.5.5,0,0,0,14,4h-4a.5.5,0,0,0-.5.42l-.38,2.65c-.56.24-1.09.56-1.6.93l-2.49-1a.5.5,0,0,0-.6.22l-2,3.464a.5.5,0,0,0,.12.63l2.12,1.65c-.09.28-.14.58-.14.87 0,.3.05,.59.14,.87l-2.12,1.65a.5.5,0,0,0-.12.63l2,3.464c.12.2.38.3.6.2l2.49-1c.51.37,1.04.69,1.6,.93l.38,2.65c.04,.23,.24,.42,.5,.42h4c.26,0,.46-.19,.5-.42l.38-2.65c.56-.24,1.09-.56,1.6-.93l2.49,1c.22,.1,.48,0,.6-.2l2-3.464a.5.5,0,0,0-.12-.63l-2.12-1.65c.09-.28,.14-.58,.14-.87Zm-7.14,2.564a3,3,0,1,1,3-3A3,3,0,0,1,12,15.5Z"
                     />
                   </svg>
                 }
@@ -196,7 +197,11 @@ export default function Contact() {
           {!isSubmitSuccessful && (
             <form onSubmit={handleSubmit(onSubmit)}>
               <input type="hidden" value="c39d2187-6537-4c0b-87e1-3cff0bf0c1c3" {...register('access_key')} />
-              <input type="hidden" value="Обращение через форму обратной связи на сайте SmartDiag" {...register('subject')} />
+              <input
+                type="hidden"
+                value="Обращение через форму обратной связи на сайте SmartDiag"
+                {...register('subject')}
+              />
               <input type="hidden" value="SmartDiag" {...register('from_name')} />
               <input type="checkbox" className="hidden" {...register('botcheck')} />
 
@@ -265,14 +270,18 @@ export default function Contact() {
                   id="agree"
                   className="mr-2 cursor-pointer rounded text-red-600 focus:ring-red-500 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700"
                   checked={modalState.isChecked}
-                  onChange={(e) => setModalState({ ...modalState, isChecked: e.target.checked })}
+                  onChange={(e) =>
+                    setModalState({ ...modalState, isChecked: e.target.checked })
+                  }
                   required
                 />
                 <span className="text-sm text-gray-700 dark:text-gray-300">
                   Я прочитал и согласен с{' '}
                   <button
                     type="button"
-                    onClick={() => setModalState({ ...modalState, isModalOpen: true })}
+                    onClick={() =>
+                      setModalState({ ...modalState, isModalOpen: true })
+                    }
                     className="text-red-600 hover:underline"
                   >
                     правилами на обработку персональных данных
@@ -292,7 +301,14 @@ export default function Contact() {
                     fill="none"
                     viewBox="0 0 24 24"
                   >
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
                     <path
                       className="opacity-75"
                       fill="currentColor"
@@ -327,7 +343,14 @@ interface ContactInfoProps {
   hoverColor: string;
 }
 
-const ContactInfo: React.FC<ContactInfoProps> = ({ href, imageSrc, alt, platform, icon, hoverColor }) => (
+const ContactInfo: React.FC<ContactInfoProps> = ({
+  href,
+  imageSrc,
+  alt,
+  platform,
+  icon,
+  hoverColor,
+}) => (
   <div className="flex flex-col items-center space-y-2">
     <div className="flex items-center space-x-2">
       <span className={`${hoverColor}`}>{icon}</span> {/* Оборачиваем иконку в span для управления цветом */}
@@ -464,7 +487,7 @@ const SuccessMessage: React.FC<MessageProps> = ({ onReset }) => (
       />
     </svg>
     <h3 className="py-5 text-2xl font-extrabold text-green-500">Успешно!</h3>
-    <p className="text-neutral-900 dark:text-neutral-300 md:px-4">Ваше сообщение отправлено.</p>
+    <p className="text-gray-700 dark:text-gray-300 md:px-4">Ваше сообщение отправлено.</p>
     <button
       className="mt-6 py-2 px-4 bg-red-500 rounded-full focus:outline-none text-neutral-100"
       onClick={onReset}
@@ -492,7 +515,7 @@ const ErrorMessage: React.FC<MessageProps> = ({ onReset }) => (
       />
     </svg>
     <h3 className="py-5 text-2xl font-extrabold text-rose-500">Ошибка</h3>
-    <p className="text-neutral-900 dark:text-neutral-300 md:px-4">
+    <p className="text-gray-700 dark:text-gray-300 md:px-4">
       Ваше сообщение не было отправлено. Пожалуйста, попробуйте снова позже.
     </p>
     <button
