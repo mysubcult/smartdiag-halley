@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import { ReactNode } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 
 interface LayoutProps {
   children: ReactNode;
@@ -48,19 +47,9 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
         <meta name="author" content="SmartDiag Team" />
       </Head>
       <Navbar />
-      {/* Только контент страницы будет анимирован */}
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.main
-          key={router.asPath}
-          className="flex-grow flex items-center justify-center"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 50 }}
-          transition={{ duration: 0.5 }}
-        >
-          {children}
-        </motion.main>
-      </AnimatePresence>
+      <main className="flex-grow flex items-center justify-center">
+        {children}
+      </main>
       <Footer />
     </div>
   );
