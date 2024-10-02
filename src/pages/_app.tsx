@@ -1,3 +1,5 @@
+// pages/_app.tsx
+
 import Head from 'next/head';
 import React from 'react';
 import "@/styles/globals.css";
@@ -5,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import Script from 'next/script'; // Using Script tag correctly
+import Layout from "@/components/Layout";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,8 +21,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ThemeProvider attribute="class">
-        {/* React.StrictMode could be added in development */}
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
         <Script
           id="lhc-widget-script"
           strategy="afterInteractive"
