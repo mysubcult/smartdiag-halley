@@ -1,14 +1,12 @@
-// pages/index.tsx
-
 import { Hero } from "../components/Hero";
+import Layout from "../components/Layout";
 import Head from "next/head";
 
 export default function Home() {
   return (
-    <>
+    <Layout title="SmartDiag - Ваш проводник в мире автодиагностики">
       <Head>
         {/* Мета-теги для поисковых систем */}
-        <title>SmartDiag - Ваш проводник в мире автодиагностики</title>
         <meta
           name="description"
           content="SmartDiag предлагает широкий выбор диагностических приборов и программ для автосервиса. Подключение и диагностика автомобилей через VCDS, Вася, Autocom CDP+, Delphi DS150, ELM 327, Wurth WoW Snooper, Mucar, Thinkdiag, Diagzone, X-DIAG, ProDiag, Galletto 1260, BMW E-NET (E-Sys), K-Dcan INPA, ELS 27, Mini-VCI, Lexia 3/PP2000, Kingbolen, Thinkcar."
@@ -30,6 +28,6 @@ export default function Home() {
 
       {/* Компоненты страницы */}
       <Hero />
-    </>
+    </Layout>
   );
 }
