@@ -7,7 +7,7 @@ import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import Script from 'next/script'; // Using Script tag correctly
-import Layout from "@/components/Layout";
+import Layout from "../components/Layout"; // или '@/components/Layout' если настроен алиас
 
 const inter = Inter({
   subsets: ["latin"],
