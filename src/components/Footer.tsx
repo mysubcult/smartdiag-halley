@@ -6,7 +6,7 @@ import Link from 'next/link';
 const menus = [
   { title: 'Главная', url: '/' },
   { title: 'Программы', url: '/soft' },
-  { title: 'О нас', url: '/services' },
+  { title: 'О нас', url: '/about' },
   { title: 'Статьи', url: '/articles' },
   { title: 'Обратная связь', url: '/contact' },
 ];
