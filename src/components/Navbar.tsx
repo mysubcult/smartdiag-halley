@@ -224,10 +224,6 @@ export default function Navbar() {
   // Мемоизация навигационных ссылок
   const memoizedNavLinks = useMemo(() => <NavLinks items={navigation} />, []);
 
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-30">
@@ -236,18 +232,16 @@ export default function Navbar() {
             {/* Логотип и основные ссылки */}
             <div className="flex items-center">
               <Link href="/">
-                <a>
-                  <Image
-                    src="/images/logos/logo.png"
-                    alt="SmartDiag Logo"
-                    width={256}
-                    height={117}
-                    quality={100}
-                    sizes="100vw"
-                    priority
-                    className="h-12 w-auto"
-                  />
-                </a>
+                <Image
+                  src="/images/logos/logo.png"
+                  alt="SmartDiag Logo"
+                  width={256}
+                  height={117}
+                  quality={100}
+                  sizes="100vw"
+                  priority
+                  className="h-12 w-auto"
+                />
               </Link>
               {/* Навигационные ссылки для больших экранов */}
               <div className="hidden lg:flex items-center space-x-3 ml-4">
@@ -330,13 +324,13 @@ export default function Navbar() {
             <div className="flex flex-col items-center space-y-4 py-8 px-4">
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href}>
-                  <a
-                    className="w-full flex items-center justify-center text-xl font-medium hover:text-red-500"
+                  <span
+                    className="w-full flex items-center justify-center text-xl font-medium hover:text-red-500 cursor-pointer"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.emoji && <span className="mr-2 text-2xl">{item.emoji}</span>}
                     {item.name}
-                  </a>
+                  </span>
                 </Link>
               ))}
 
