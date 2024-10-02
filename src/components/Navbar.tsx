@@ -137,7 +137,7 @@ export default function Navbar() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out"
+                    className="relative text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out whitespace-nowrap"
                   >
                     {item.name}
                   </Link>
@@ -148,7 +148,7 @@ export default function Navbar() {
                     <button
                       ref={subMenuButtonRef}
                       onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-                      className="flex items-center text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none"
+                      className="flex items-center text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none whitespace-nowrap"
                       aria-haspopup="true"
                       aria-expanded={isSubMenuOpen}
                     >
@@ -191,7 +191,7 @@ export default function Navbar() {
                       href={store.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex items-center justify-center ${store.bgGradient} ${store.textColor} px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105`}
+                      className={`flex items-center justify-center ${store.bgGradient} ${store.textColor} px-4 py-2 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 whitespace-nowrap`}
                     >
                       <Image
                         src={store.iconSrc}
@@ -312,7 +312,7 @@ export default function Navbar() {
                             href={store.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out hover:scale-105"
+                            className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-all duration-300 ease-in-out hover:scale-105 whitespace-nowrap"
                           >
                             <Image src={store.iconSrc} alt={store.name} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
                             {store.name}
