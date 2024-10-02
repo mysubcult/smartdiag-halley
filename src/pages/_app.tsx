@@ -1,13 +1,13 @@
 // pages/_app.tsx
 
+import '@/styles/globals.css';
+import type { AppProps } from 'next/app';
+import { ThemeProvider } from 'next-themes';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+import Script from 'next/script';
 import Head from 'next/head';
-import React from 'react';
-import "@/styles/globals.css";
-import { ThemeProvider } from "next-themes";
-import type { AppProps } from "next/app";
-import { Inter } from "next/font/google";
-import Script from 'next/script'; // Using Script tag correctly
-import Layout from "../components/Layout"; // или '@/components/Layout' если настроен алиас
+import { Inter } from 'next/font/google';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,15 +15,25 @@ const inter = Inter({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
   return (
     <main className={`${inter.variable} font-sans relative`}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ThemeProvider attribute="class">
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={router.route}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 50 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Component {...pageProps} />
+          </motion.div>
+        </AnimatePresence>
         <Script
           id="lhc-widget-script"
           strategy="afterInteractive"
