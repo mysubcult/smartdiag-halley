@@ -1,14 +1,12 @@
+// src/pages/404.tsx
 
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "../components/Layout";
 
 export default function NotFound() {
-  const pageTitle = "404 - Упс! Что-то пошло не так";
-  const pageDescription = "Страница, которую вы ищете, не найдена. Возможно, она была удалена или вы ввели неправильный адрес.";
-
   return (
-    <Layout title={pageTitle} description={pageDescription}>
+    <Layout>
       <div
         className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16"
         id="faq"
