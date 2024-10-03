@@ -1,14 +1,14 @@
-// pages/about.tsx
+// src/pages/about.tsx
 
 import Head from "next/head";
-import Layout from "../components/Layout";
 import { About } from "../components/About";
 
 const AboutPage: React.FC = () => {
   return (
-    <Layout title="О нас - SmartDiag">
+    <>
       <Head>
         {/* Мета-теги для SEO */}
+        <title>О нас - SmartDiag</title>
         <meta
           name="description"
           content="SmartDiag предлагает широкий выбор диагностических приборов и программ для автосервиса. Узнайте больше о наших услугах."
@@ -30,7 +30,7 @@ const AboutPage: React.FC = () => {
 
       {/* Компонент Услуг */}
       <About />
-    </Layout>
+    </>
   );
 };
 
