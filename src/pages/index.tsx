@@ -1,10 +1,11 @@
+// src/pages/index.tsx
+
 import { Hero } from "../components/Hero";
-import Layout from "../components/Layout";
 import Head from "next/head";
 
 export default function Home() {
   return (
-    <Layout title="SmartDiag - Ваш проводник в мире автодиагностики">
+    <>
       <Head>
         {/* Мета-теги для поисковых систем */}
         <meta
@@ -28,6 +29,6 @@ export default function Home() {
 
       {/* Компоненты страницы */}
       <Hero />
-    </Layout>
+    </>
   );
 }
