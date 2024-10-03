@@ -11,6 +11,11 @@ interface LayoutProps {
   children: ReactNode;
   image?: string;
   type?: string;
+  metadata?: {
+    title?: string;
+    description?: string;
+    keywords?: string;
+  };
 }
 
 const variants = {
@@ -19,13 +24,22 @@ const variants = {
   exit: { opacity: 0 },
 };
 
-const Layout = ({ children, image, type }: LayoutProps) => {
+const Layout = ({ children, image, type, metadata }: LayoutProps) => {
   const router = useRouter();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
 
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
+        {/* Мета-данные страницы */}
+        {metadata && (
+          <>
+            <title>{metadata.title}</title>
+            <meta name="description" content={metadata.description} />
+            <meta name="keywords" content={metadata.keywords} />
+          </>
+        )}
+        {/* Open Graph и другие мета-данные */}
         <meta property="og:type" content={type || 'website'} />
         <meta property="og:url" content={`${siteUrl}${router.asPath}`} />
         <meta property="og:image" content={image || '/images/seo/halley-banner.png'} />
