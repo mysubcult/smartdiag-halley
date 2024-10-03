@@ -1,7 +1,10 @@
+// src/pages/articles/archive.tsx
+
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
+import Head from 'next/head'; // Импортируем Head
 
 export const metadata = {
   description: 'Руководство по устранению ошибок при открытии архивов, связанных с антивирусами, устаревшим ПО и другими проблемами.',
@@ -43,7 +46,12 @@ export default function BlogPost() {
   if (!isClient) return null;
 
   return (
-    <Layout title={currentTitle} description={metadata.description} keywords={metadata.keywords}>
+    <Layout>
+      <Head>
+        <title>{currentTitle}</title>
+        <meta name="description" content={metadata.description} />
+        <meta name="keywords" content={metadata.keywords} />
+      </Head>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           <div className="lg:hidden w-full flex justify-center mb-4">
