@@ -1,9 +1,9 @@
-// src/pages/articles/archive.tsx
+// src/pages/articles/errors/archive.tsx
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Layout from '../../components/Layout';
+import Layout from '../../../components/Layout'; // Проверьте правильность пути
 import Head from 'next/head'; // Импортируем Head
 
 export const metadata = {
