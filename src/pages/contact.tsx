@@ -1,14 +1,14 @@
-// pages/contact.tsx
+// src/pages/contact.tsx
 
 import Head from "next/head";
-import Layout from "../components/Layout";
 import Contact from "../components/Contact";
 
 const ContactPage: React.FC = () => {
   return (
-    <Layout title="Контакты - SmartDiag">
+    <>
       <Head>
         {/* Мета-теги для SEO */}
+        <title>Контакты - SmartDiag</title>
         <meta
           name="description"
           content="Свяжитесь с нами для получения поддержки, заказов или любых вопросов. SmartDiag всегда готов помочь вам с диагностическими решениями для автомобилей."
@@ -28,7 +28,7 @@ const ContactPage: React.FC = () => {
 
       {/* Компонент Контактов */}
       <Contact />
-    </Layout>
+    </>
   );
 };
 
