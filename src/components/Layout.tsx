@@ -17,9 +17,9 @@ interface LayoutProps {
 }
 
 const variants = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -20 },
+  initial: { opacity: 0 }, // Убираем смещение по y
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
 };
 
 const Layout = ({ children, title, description, keywords, image, type }: LayoutProps) => {
