@@ -1,9 +1,22 @@
 // components/Footer.tsx
 
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
-// Define menus and socialLinks outside the component to prevent re-creation on each render
-const menus = [
+// Определение интерфейсов внутри файла
+interface MenuItem {
+  title: string;
+  url: string;
+}
+
+interface SocialLink {
+  name: string;
+  href: string;
+  iconPath: string;
+}
+
+// Определение меню
+const menus: MenuItem[] = [
   { title: 'Главная', url: '/' },
   { title: 'Программы', url: '/soft' },
   { title: 'О нас', url: '/about' },
@@ -11,7 +24,8 @@ const menus = [
   { title: 'Обратная связь', url: '/contact' },
 ];
 
-const socialLinks = [
+// Определение социальных ссылок с SVG путями
+const socialLinks: SocialLink[] = [
   {
     name: 'Telegram',
     href: 'https://смартдиаг-поддержка.рф/telegram',
@@ -26,6 +40,9 @@ const socialLinks = [
   },
 ];
 
+// Начальный год
+const startYear = 2023;
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -35,7 +52,7 @@ export default function Footer() {
         {/* Раздел авторских прав */}
         <div className="text-center lg:text-left mb-4 lg:mb-0">
           <Link href="/" className="hover:text-red-500 font-medium">
-            SmartDiag &copy; 2023-{currentYear}
+            SmartDiag &copy; {startYear}-{currentYear}
           </Link>
         </div>
 
@@ -55,13 +72,15 @@ export default function Footer() {
         {/* Раздел социальных ссылок */}
         <div className="flex space-x-4 justify-center lg:justify-end">
           {socialLinks.map(({ name, href, iconPath }) => (
-            <a
+            <motion.a
               key={name}
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              title={name}
+              aria-label={name}
               className="hover:text-red-500"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
               <svg
                 width="24"
@@ -69,10 +88,11 @@ export default function Footer() {
                 viewBox="0 0 24 24"
                 fill="currentColor"
                 className="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path d={iconPath} />
               </svg>
-            </a>
+            </motion.a>
           ))}
         </div>
       </div>
