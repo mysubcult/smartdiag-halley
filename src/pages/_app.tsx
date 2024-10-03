@@ -8,6 +8,8 @@ import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import Script from 'next/script';
 import Layout from '@/components/Layout'; // Убедитесь, что путь корректный
+import { useRouter } from 'next/router';
+import { AnimatePresence } from 'framer-motion';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,15 +17,19 @@ const inter = Inter({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
   return (
     <main className={`${inter.variable} font-sans relative`}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ThemeProvider attribute="class">
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <AnimatePresence mode="wait" initial={false}>
+          <Layout key={router.asPath}>
+            <Component {...pageProps} />
+          </Layout>
+        </AnimatePresence>
         <Script
           id="lhc-widget-script"
           strategy="afterInteractive"
