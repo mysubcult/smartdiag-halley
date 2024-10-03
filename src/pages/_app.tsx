@@ -4,7 +4,9 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
-import Script from 'next/script'; // Using Script tag correctly
+import Script from 'next/script';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,14 +14,25 @@ const inter = Inter({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
   return (
     <main className={`${inter.variable} font-sans relative`}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ThemeProvider attribute="class">
-        {/* React.StrictMode could be added in development */}
-        <Component {...pageProps} />
+        <AnimatePresence exitBeforeEnter>
+          <motion.div
+            key={router.route}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Component {...pageProps} />
+          </motion.div>
+        </AnimatePresence>
         <Script
           id="lhc-widget-script"
           strategy="afterInteractive"
