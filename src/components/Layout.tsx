@@ -1,9 +1,10 @@
+// components/Layout.tsx
+
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import { ReactNode } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 
 interface LayoutProps {
   children: ReactNode;
@@ -46,18 +47,9 @@ const Layout = ({ children, title, description, keywords, image, type }: LayoutP
         <meta name="author" content="SmartDiag Team" />
       </Head>
       <Navbar />
-      <AnimatePresence exitBeforeEnter>
-        <motion.main
-          key={router.route}
-          className="flex-grow flex items-center justify-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5 }}
-        >
-          {children}
-        </motion.main>
-      </AnimatePresence>
+      <main className="flex-grow flex items-center justify-center">
+        {children}
+      </main>
       <Footer />
     </div>
   );
