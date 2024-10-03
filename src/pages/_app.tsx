@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ThemeProvider attribute="class">
-        <AnimatePresence mode="wait" initial={false}>
+        <AnimatePresence mode="wait">
           <Layout key={router.asPath}>
             <Component {...pageProps} />
           </Layout>
