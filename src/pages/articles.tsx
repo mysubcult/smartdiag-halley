@@ -1,14 +1,14 @@
-// pages/articles.tsx
+// src/pages/articles.tsx
 
 import Head from "next/head";
-import Layout from "../components/Layout";
 import Articles from "../components/Articles";
 
 const ArticlesPage: React.FC = () => {
   return (
-    <Layout title="Статьи - SmartDiag">
+    <>
       <Head>
         {/* Мета-теги для SEO */}
+        <title>Статьи - SmartDiag</title>
         <meta
           name="description"
           content="Читайте наши статьи и получайте советы по диагностике автомобилей и программному обеспечению от SmartDiag."
@@ -28,7 +28,7 @@ const ArticlesPage: React.FC = () => {
 
       {/* Компонент Статей */}
       <Articles />
-    </Layout>
+    </>
   );
 };
 
