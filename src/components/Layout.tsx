@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface LayoutProps {
@@ -18,15 +18,24 @@ interface LayoutProps {
   };
 }
 
-const variants = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
-};
-
 const Layout = ({ children, image, type, metadata }: LayoutProps) => {
   const router = useRouter();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
+
+  // State to store the current scroll position
+  const [scrollY, setScrollY] = useState(0);
+
+  // Get current scroll position on component mount
+  useEffect(() => {
+    setScrollY(window.scrollY);
+  }, []);
+
+  // Variants for animation with scroll position as initial
+  const variants = {
+    initial: { opacity: 0, y: scrollY }, // Start from current scroll position
+    animate: { opacity: 1, y: 0 },       // Animate to the normal position
+    exit: { opacity: 0, y: 50 },         // Animate to move down on exit
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
