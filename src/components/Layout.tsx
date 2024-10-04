@@ -1,11 +1,9 @@
-// src/components/Layout.tsx
-
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import { ReactNode } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface LayoutProps {
   children: ReactNode;
@@ -48,16 +46,19 @@ const Layout = ({ children, image, type, metadata }: LayoutProps) => {
         <meta name="author" content="SmartDiag Team" />
       </Head>
       <Navbar />
-      <motion.main
-        className="flex-grow"
-        variants={variants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        transition={{ duration: 0.5, ease: 'easeInOut' }}
-      >
-        {children}
-      </motion.main>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.main
+          key={router.asPath}
+          className="flex-grow"
+          variants={variants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
+        >
+          {children}
+        </motion.main>
+      </AnimatePresence>
       <Footer />
     </div>
   );
