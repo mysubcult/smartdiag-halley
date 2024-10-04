@@ -1,3 +1,5 @@
+// src/components/Layout.tsx
+
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Footer from './Footer';
@@ -22,19 +24,25 @@ const variants = {
   exit: { opacity: 0 },
 };
 
-const Layout = ({ children, image = '/images/seo/halley-banner.png', type = 'website', metadata }: LayoutProps) => {
+const Layout = ({ children, image, type, metadata }: LayoutProps) => {
   const router = useRouter();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
 
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
-        {metadata?.title && <title>{metadata.title}</title>}
-        {metadata?.description && <meta name="description" content={metadata.description} />}
-        {metadata?.keywords && <meta name="keywords" content={metadata.keywords} />}
-        <meta property="og:type" content={type} />
+        {/* Мета-данные страницы */}
+        {metadata && (
+          <>
+            <title>{metadata.title}</title>
+            <meta name="description" content={metadata.description} />
+            <meta name="keywords" content={metadata.keywords} />
+          </>
+        )}
+        {/* Open Graph и другие мета-данные */}
+        <meta property="og:type" content={type || 'website'} />
         <meta property="og:url" content={`${siteUrl}${router.asPath}`} />
-        <meta property="og:image" content={image} />
+        <meta property="og:image" content={image || '/images/seo/halley-banner.png'} />
         <link rel="canonical" href={`${siteUrl}${router.asPath}`} />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="SmartDiag Team" />
@@ -47,12 +55,6 @@ const Layout = ({ children, image = '/images/seo/halley-banner.png', type = 'web
         animate="animate"
         exit="exit"
         transition={{ duration: 0.5, ease: 'easeInOut' }}
-        onAnimationStart={() => {
-          // Предотвращаем прокрутку вверх при начале анимации
-          if (typeof window !== 'undefined') {
-            window.scrollTo({ top: window.scrollY });
-          }
-        }}
       >
         {children}
       </motion.main>
