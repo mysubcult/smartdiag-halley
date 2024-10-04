@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface LayoutProps {
@@ -26,6 +26,29 @@ const variants = {
 
 const Layout = ({ children, image, type, metadata }: LayoutProps) => {
   const router = useRouter();
+
+  useEffect(() => {
+    // При сохранении позиции прокрутки страницы
+    const handleRouteChangeStart = () => {
+      sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+    };
+
+    const handleRouteChangeComplete = () => {
+      const savedPosition = sessionStorage.getItem('scrollPosition');
+      if (savedPosition) {
+        window.scrollTo(0, parseInt(savedPosition, 10));
+      }
+    };
+
+    router.events.on('routeChangeStart', handleRouteChangeStart);
+    router.events.on('routeChangeComplete', handleRouteChangeComplete);
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChangeStart);
+      router.events.off('routeChangeComplete', handleRouteChangeComplete);
+    };
+  }, [router]);
+
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
 
   return (
