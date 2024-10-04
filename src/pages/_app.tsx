@@ -1,7 +1,7 @@
 // src/pages/_app.tsx
 
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect } from 'react';
 import "@/styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
@@ -18,6 +18,12 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
 
   return (
     <main className={`${inter.variable} font-sans relative`}>
