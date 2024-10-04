@@ -1,3 +1,5 @@
+// components/Navbar.tsx
+
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -16,6 +18,8 @@ interface StoreLink {
   name: string;
   href: string;
   iconSrc: string;
+  bgGradient: string;
+  textColor: string;
 }
 
 // Навигационные элементы
@@ -33,16 +37,22 @@ const storeLinks: StoreLink[] = [
     name: 'OZON',
     href: 'https://www.ozon.ru/seller/smartdiag-862410/',
     iconSrc: '/images/logos/favicon.ico',
+    bgGradient: 'bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900',
+    textColor: 'text-white',
   },
   {
     name: 'Яндекс Маркет',
     href: 'https://market.yandex.ru/business--smartdiag/50025236',
     iconSrc: 'https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico',
+    bgGradient: 'bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700',
+    textColor: 'text-black',
   },
   {
     name: 'Wildberries',
     href: 'https://www.wildberries.ru/seller/1343369',
     iconSrc: '/images/logos/favicon.ico',
+    bgGradient: 'bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900',
+    textColor: 'text-white',
   },
 ];
 
@@ -53,7 +63,7 @@ const NavLinks: React.FC<{ items: NavItem[] }> = ({ items }) => (
       <Link
         key={item.name}
         href={item.href}
-        className="relative text-base lg:text-lg font-medium text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white rounded-full px-4 py-2 transition duration-200"
+        className="relative text-base lg:text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out whitespace-nowrap"
       >
         {item.name}
       </Link>
@@ -70,7 +80,7 @@ const StoreButtons: React.FC = () => (
         href={store.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center justify-center bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-full transition-transform duration-300 hover:scale-105 shadow-sm"
+        className={`flex items-center justify-center ${store.bgGradient} ${store.textColor} px-4 py-2 rounded-full transition-transform duration-300 hover:scale-105 whitespace-nowrap`}
       >
         <Image
           src={store.iconSrc}
@@ -98,7 +108,7 @@ const StoreDropdown: React.FC<{ isOpen: boolean; toggle: () => void; breakpoint:
     <div className="relative">
       <button
         onClick={toggle}
-        className="flex items-center text-lg font-medium text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white focus:outline-none whitespace-nowrap"
+        className="flex items-center text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none whitespace-nowrap"
         aria-haspopup="true"
         aria-expanded={isOpen}
       >
@@ -112,7 +122,7 @@ const StoreDropdown: React.FC<{ isOpen: boolean; toggle: () => void; breakpoint:
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute mt-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl shadow-lg py-2 w-48 backdrop-blur-lg bg-white/60 dark:bg-neutral-900/60"
+            className="absolute mt-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg py-2 w-48"
           >
             {storeLinks.map((store) => (
               <a
@@ -120,16 +130,9 @@ const StoreDropdown: React.FC<{ isOpen: boolean; toggle: () => void; breakpoint:
                 href={store.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center px-4 py-2 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg"
+                className="flex items-center px-4 py-2 text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
               >
-                <Image
-                  src={store.iconSrc}
-                  alt={store.name}
-                  className="w-5 h-5 mr-2"
-                  width={20}
-                  height={20}
-                  loading="lazy"
-                />
+                <Image src={store.iconSrc} alt={store.name} className="w-5 h-5 mr-2" width={20} height={20} loading="lazy" />
                 {store.name}
               </a>
             ))}
@@ -148,6 +151,7 @@ export default function Navbar() {
   const subMenuButtonRef = useRef<HTMLButtonElement>(null);
   const subMenuRef = useRef<HTMLDivElement>(null);
 
+  // Определение брейкпоинта
   const getBreakpoint = useCallback((width: number): string => {
     if (width >= 1536) return '2xl';
     if (width >= 1280) return 'xl';
@@ -157,6 +161,7 @@ export default function Navbar() {
     return 'xs';
   }, []);
 
+  // Обновление брейкпоинта при изменении размера окна
   useEffect(() => {
     const updateBreakpoint = () => {
       const width = window.innerWidth;
@@ -165,12 +170,16 @@ export default function Navbar() {
     };
 
     updateBreakpoint();
+
     window.addEventListener('resize', updateBreakpoint);
+
     return () => window.removeEventListener('resize', updateBreakpoint);
   }, [getBreakpoint]);
 
+  // Закрытие подменю при клике вне его
   useEffect(() => {
     if (!isSubMenuOpen) return;
+
     const handleClickOutside = (event: MouseEvent) => {
       const button = subMenuButtonRef.current;
       const menu = subMenuRef.current;
@@ -178,10 +187,13 @@ export default function Navbar() {
         setIsSubMenuOpen(false);
       }
     };
+
     document.addEventListener('click', handleClickOutside);
+
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isSubMenuOpen]);
 
+  // Блокировка прокрутки при открытом мобильном меню
   useEffect(() => {
     if (isMenuOpen) {
       const originalStyle = window.getComputedStyle(document.body).overflow;
@@ -192,27 +204,32 @@ export default function Navbar() {
     }
   }, [isMenuOpen]);
 
+  // Закрытие мобильного меню при смене брейкпоинта на больший
   useEffect(() => {
     if (currentBreakpoint === 'lg' && isMenuOpen) {
       setIsMenuOpen(false);
     }
   }, [currentBreakpoint, isMenuOpen]);
 
+  // Оптимизация переключения мобильного меню
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
+  // Оптимизация переключения подменю
   const toggleSubMenu = useCallback(() => {
     setIsSubMenuOpen((prev) => !prev);
   }, []);
 
+  // Мемоизация навигационных ссылок
   const memoizedNavLinks = useMemo(() => <NavLinks items={navigation} />, []);
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-30">
+      <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/80 z-30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
+            {/* Логотип и основные ссылки */}
             <div className="flex items-center">
               <Link href="/">
                 <Image
@@ -226,24 +243,32 @@ export default function Navbar() {
                   className="h-12 w-auto"
                 />
               </Link>
+              {/* Навигационные ссылки для больших экранов */}
               <div className="hidden lg:flex items-center space-x-3 ml-4">
                 {memoizedNavLinks}
                 {currentBreakpoint === 'lg' && (
                   <StoreDropdown isOpen={isSubMenuOpen} toggle={toggleSubMenu} breakpoint={currentBreakpoint} />
                 )}
               </div>
+              {/* Ссылки магазинов для больших экранов */}
               {currentBreakpoint !== 'lg' && <StoreButtons />}
             </div>
+
+            {/* Кнопки справа */}
             <div className="flex items-center space-x-2">
               <ThemeSwitchButton />
+
+              {/* Отображение брейкпоинта на больших экранах */}
               <div className="hidden lg:flex items-center ml-2">
                 <span className="px-2 py-1 text-xs font-semibold text-white bg-blue-500 rounded-full">
                   {currentBreakpoint.toUpperCase()}
                 </span>
               </div>
+
+              {/* Кнопка мобильного меню */}
               <div className="lg:hidden">
                 <button
-                  className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-700 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors relative"
+                  className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors relative"
                   onClick={toggleMenu}
                   aria-label="Toggle Menu"
                   aria-expanded={isMenuOpen}
@@ -284,6 +309,8 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+
+      {/* Мобильное меню */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -298,7 +325,7 @@ export default function Navbar() {
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href}>
                   <span
-                    className="w-full flex items-center justify-center text-xl font-medium hover:text-neutral-900 dark:hover:text-white cursor-pointer rounded-full px-4 py-2"
+                    className="w-full flex items-center justify-center text-xl font-medium hover:text-red-500 cursor-pointer"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.emoji && <span className="mr-2 text-2xl">{item.emoji}</span>}
@@ -306,10 +333,12 @@ export default function Navbar() {
                   </span>
                 </Link>
               ))}
+
+              {/* Подменю магазинов в мобильном меню */}
               <div className="w-full">
                 <button
                   onClick={toggleSubMenu}
-                  className="w-full flex items-center justify-center text-xl font-medium text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white focus:outline-none rounded-full py-2 px-4 transition-all duration-200"
+                  className="w-full flex items-center justify-center text-xl font-medium hover:text-red-500 focus:outline-none"
                   aria-haspopup="true"
                   aria-expanded={isSubMenuOpen}
                 >
@@ -336,14 +365,7 @@ export default function Navbar() {
                             rel="noopener noreferrer"
                             className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-transform duration-300 hover:scale-105 whitespace-nowrap"
                           >
-                            <Image
-                              src={store.iconSrc}
-                              alt={store.name}
-                              className="w-6 h-6 mr-3"
-                              width={24}
-                              height={24}
-                              loading="lazy"
-                            />
+                            <Image src={store.iconSrc} alt={store.name} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
                             {store.name}
                           </a>
                         ))}
