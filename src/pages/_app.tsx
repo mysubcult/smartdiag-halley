@@ -1,13 +1,13 @@
 // src/pages/_app.tsx
 
 import Head from 'next/head';
-import React, { useEffect } from 'react';
+import React from 'react';
 import "@/styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import Script from 'next/script';
-import Layout from '@/components/Layout';
+import Layout from '@/components/Layout'; // Убедитесь, что путь корректный
 import { useRouter } from 'next/router';
 import { AnimatePresence } from 'framer-motion';
 
@@ -18,26 +18,6 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-
-  useEffect(() => {
-    let restoreScrollPosition = 0;
-
-    const handleRouteChangeStart = () => {
-      restoreScrollPosition = window.scrollY;
-    };
-
-    const handleRouteChangeComplete = () => {
-      window.scrollTo(0, restoreScrollPosition);
-    };
-
-    router.events.on('routeChangeStart', handleRouteChangeStart);
-    router.events.on('routeChangeComplete', handleRouteChangeComplete);
-
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChangeStart);
-      router.events.off('routeChangeComplete', handleRouteChangeComplete);
-    };
-  }, [router]);
 
   return (
     <main className={`${inter.variable} font-sans relative`}>
