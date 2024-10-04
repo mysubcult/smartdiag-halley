@@ -47,7 +47,12 @@ const Layout = ({ children, image = '/images/seo/halley-banner.png', type = 'web
         animate="animate"
         exit="exit"
         transition={{ duration: 0.5, ease: 'easeInOut' }}
-        onAnimationComplete={() => window.scrollTo(0, 0)} // Прокрутка в начало после завершения анимации
+        onAnimationStart={() => {
+          // Предотвращаем прокрутку вверх при начале анимации
+          if (typeof window !== 'undefined') {
+            window.scrollTo({ top: window.scrollY });
+          }
+        }}
       >
         {children}
       </motion.main>
