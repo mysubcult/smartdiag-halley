@@ -63,6 +63,7 @@ const NavLinks: React.FC<{ items: NavItem[] }> = ({ items }) => (
       <Link
         key={item.name}
         href={item.href}
+        scroll={false} // Добавлено свойство scroll
         className="relative text-base lg:text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out whitespace-nowrap"
       >
         {item.name}
