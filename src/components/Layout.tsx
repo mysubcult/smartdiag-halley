@@ -19,9 +19,9 @@ interface LayoutProps {
 }
 
 const variants = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
+  initial: { opacity: 0, y: 0 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: 0 },
 };
 
 const Layout = ({ children, image, type, metadata }: LayoutProps) => {
@@ -55,6 +55,7 @@ const Layout = ({ children, image, type, metadata }: LayoutProps) => {
         animate="animate"
         exit="exit"
         transition={{ duration: 0.5, ease: 'easeInOut' }}
+        style={{ position: 'relative' }}
       >
         {children}
       </motion.main>
