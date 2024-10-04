@@ -1,5 +1,3 @@
-// src/components/Layout.tsx
-
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Footer from './Footer';
@@ -49,6 +47,7 @@ const Layout = ({ children, image = '/images/seo/halley-banner.png', type = 'web
         animate="animate"
         exit="exit"
         transition={{ duration: 0.5, ease: 'easeInOut' }}
+        onAnimationComplete={() => window.scrollTo(0, 0)} // Прокрутка в начало после завершения анимации
       >
         {children}
       </motion.main>
