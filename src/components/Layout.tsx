@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 
 interface LayoutProps {
@@ -27,18 +27,6 @@ const variants = {
 const Layout = ({ children, image, type, metadata }: LayoutProps) => {
   const router = useRouter();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
-
-  useEffect(() => {
-    // Отключаем автоматическую прокрутку вверх при переходах
-    const handleRouteChange = () => {
-      window.scrollTo(0, window.scrollY);
-    };
-
-    router.events.on('routeChangeStart', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChange);
-    };
-  }, [router.events]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -67,7 +55,6 @@ const Layout = ({ children, image, type, metadata }: LayoutProps) => {
         animate="animate"
         exit="exit"
         transition={{ duration: 0.5, ease: 'easeInOut' }}
-        style={{ position: 'relative' }}
       >
         {children}
       </motion.main>
