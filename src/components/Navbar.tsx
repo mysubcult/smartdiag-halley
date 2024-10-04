@@ -73,7 +73,7 @@ const NavLinks: React.FC<{ items: NavItem[] }> = ({ items }) => (
 
 // Подкомпонент для ссылок магазинов
 const StoreButtons: React.FC = () => (
-  <div className="hidden xl:flex space-x-2">
+  <div className="hidden xl:flex space-x-2 ml-4">
     {storeLinks.map((store) => (
       <a
         key={store.name}
@@ -250,50 +250,61 @@ export default function Navbar() {
                   <StoreDropdown isOpen={isSubMenuOpen} toggle={toggleSubMenu} breakpoint={currentBreakpoint} />
                 )}
               </div>
+              {/* Ссылки магазинов для больших экранов */}
+              {currentBreakpoint !== 'lg' && <StoreButtons />}
             </div>
 
             {/* Кнопки справа */}
-            <div className="flex items-center space-x-4 lg:ml-auto">
-              <StoreButtons />
+            <div className="flex items-center space-x-2">
               <ThemeSwitchButton />
-            </div>
 
-            {/* Кнопка мобильного меню */}
-            <div className="lg:hidden">
-              <button
-                className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors relative"
-                onClick={toggleMenu}
-                aria-label="Toggle Menu"
-                aria-expanded={isMenuOpen}
-              >
-                <div className="relative w-6 h-6">
-                  <AnimatePresence mode="wait" initial={false}>
-                    {isMenuOpen ? (
-                      <motion.div
-                        key="xmark"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="absolute inset-0"
-                      >
-                        <XMarkIcon className="h-6 w-6" />
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="bars"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="absolute inset-0"
-                      >
-                        <Bars3Icon className="h-6 w-6" />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </button>
+              {/* Отображение брейкпоинта на больших экранах */}
+              <div className="hidden lg:flex items-center ml-2">
+                <span className="px-2 py-1 text-xs font-semibold text-white bg-blue-500 rounded-full">
+                  {currentBreakpoint.toUpperCase()}
+                </span>
+              </div>
+
+              {/* Кнопка мобильного меню */}
+              <div className="lg:hidden">
+                <button
+                  className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors relative"
+                  onClick={toggleMenu}
+                  aria-label="Toggle Menu"
+                  aria-expanded={isMenuOpen}
+                >
+                  <div className="relative w-6 h-6">
+                    <AnimatePresence mode="wait" initial={false}>
+                      {isMenuOpen ? (
+                        <motion.div
+                          key="xmark"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="absolute inset-0"
+                        >
+                          <XMarkIcon className="h-6 w-6" />
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="bars"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="absolute inset-0"
+                        >
+                          <Bars3Icon className="h-6 w-6" />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                  <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1">
+                    {currentBreakpoint.toUpperCase()}
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
