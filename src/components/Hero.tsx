@@ -8,7 +8,7 @@ export const Hero: FC = () => {
   return (
     <section
       id="hero"
-      className="w-full pt-24 pb-16 lg:pt-32 lg:pb-24 flex items-center justify-center flex-1"
+      className="min-h-screen w-full flex items-center justify-center pt-24 pb-16 lg:pt-32 lg:pb-24"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-center gap-8 w-full">
         <div className="flex flex-col justify-center text-center lg:text-left space-y-6 lg:w-1/2 w-full">
