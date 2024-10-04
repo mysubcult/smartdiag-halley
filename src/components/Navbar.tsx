@@ -1,5 +1,3 @@
-// components/Navbar.tsx
-
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -73,7 +71,7 @@ const NavLinks: React.FC<{ items: NavItem[] }> = ({ items }) => (
 
 // Подкомпонент для ссылок магазинов
 const StoreButtons: React.FC = () => (
-  <div className="hidden xl:flex space-x-2 ml-4">
+  <div className="hidden xl:flex space-x-2 mr-4">
     {storeLinks.map((store) => (
       <a
         key={store.name}
@@ -95,53 +93,6 @@ const StoreButtons: React.FC = () => (
     ))}
   </div>
 );
-
-// Подкомпонент для выпадающего меню магазинов
-const StoreDropdown: React.FC<{ isOpen: boolean; toggle: () => void; breakpoint: string }> = ({
-  isOpen,
-  toggle,
-  breakpoint,
-}) => {
-  const subMenuRef = useRef<HTMLDivElement>(null);
-
-  return (
-    <div className="relative">
-      <button
-        onClick={toggle}
-        className="flex items-center text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 focus:outline-none whitespace-nowrap"
-        aria-haspopup="true"
-        aria-expanded={isOpen}
-      >
-        Магазины
-        <ChevronDownIcon className={`h-5 w-5 ml-1 transition-transform ${isOpen ? 'rotate-180' : 'rotate-0'}`} />
-      </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            ref={subMenuRef}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="absolute mt-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg py-2 w-48"
-          >
-            {storeLinks.map((store) => (
-              <a
-                key={store.name}
-                href={store.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center px-4 py-2 text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
-              >
-                <Image src={store.iconSrc} alt={store.name} className="w-5 h-5 mr-2" width={20} height={20} loading="lazy" />
-                {store.name}
-              </a>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -250,13 +201,12 @@ export default function Navbar() {
                   <StoreDropdown isOpen={isSubMenuOpen} toggle={toggleSubMenu} breakpoint={currentBreakpoint} />
                 )}
               </div>
-              {/* Ссылки магазинов для больших экранов */}
-              {currentBreakpoint !== 'lg' && <StoreButtons />}
             </div>
 
             {/* Кнопки справа */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
               <ThemeSwitchButton />
+              <StoreButtons />
 
               {/* Отображение брейкпоинта на больших экранах */}
               <div className="hidden lg:flex items-center ml-2">
