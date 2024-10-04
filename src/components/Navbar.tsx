@@ -259,8 +259,7 @@ export default function Navbar() {
             </div>
 
             {/* Кнопка мобильного меню */}
-            <div className="lg:hidden flex items-center space-x-4">
-              <ThemeSwitchButton />
+            <div className="lg:hidden">
               <button
                 className="inline-flex items-center justify-center p-2 rounded-full h-10 w-10 text-neutral-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors relative"
                 onClick={toggleMenu}
