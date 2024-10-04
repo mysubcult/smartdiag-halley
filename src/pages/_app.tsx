@@ -1,3 +1,5 @@
+// src/pages/_app.tsx
+
 import Head from 'next/head';
 import React from 'react';
 import "@/styles/globals.css";
@@ -23,11 +25,11 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ThemeProvider attribute="class">
-        <Layout>
-          <AnimatePresence mode="wait" initial={false}>
-            <Component key={router.asPath} {...pageProps} />
-          </AnimatePresence>
-        </Layout>
+        <AnimatePresence mode="wait">
+          <Layout key={router.asPath}>
+            <Component {...pageProps} />
+          </Layout>
+        </AnimatePresence>
         <Script
           id="lhc-widget-script"
           strategy="afterInteractive"
