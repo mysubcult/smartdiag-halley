@@ -6,10 +6,10 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
-import Layout from '@/components/Layout';
+import Script from 'next/script';
+import Layout from '@/components/Layout'; // Убедитесь, что путь корректный
 import { useRouter } from 'next/router';
 import { AnimatePresence } from 'framer-motion';
-import Script from 'next/script';
 
 const inter = Inter({
   subsets: ["latin"],
