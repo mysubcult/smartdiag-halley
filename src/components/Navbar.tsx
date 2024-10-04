@@ -39,7 +39,6 @@ const storeLinks: StoreLink[] = [
     iconSrc: '/images/logos/favicon.ico',
     bgGradient: 'bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900',
     textColor: 'text-white',
-    external: true, // Добавлено поле для определения внешних ссылок
   },
   {
     name: 'Яндекс Маркет',
@@ -47,7 +46,6 @@ const storeLinks: StoreLink[] = [
     iconSrc: 'https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico',
     bgGradient: 'bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700',
     textColor: 'text-black',
-    external: true,
   },
   {
     name: 'Wildberries',
@@ -55,7 +53,6 @@ const storeLinks: StoreLink[] = [
     iconSrc: '/images/logos/favicon.ico',
     bgGradient: 'bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900',
     textColor: 'text-white',
-    external: true,
   },
 ];
 
@@ -326,7 +323,7 @@ export default function Navbar() {
           >
             <div className="flex flex-col items-center space-y-4 py-8 px-4">
               {navigation.map((item) => (
-                <Link key={item.name} href={item.href} className="w-full">
+                <Link key={item.name} href={item.href}>
                   <span
                     className="w-full flex items-center justify-center text-xl font-medium hover:text-red-500 cursor-pointer"
                     onClick={() => setIsMenuOpen(false)}
