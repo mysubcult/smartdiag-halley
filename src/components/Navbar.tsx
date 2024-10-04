@@ -1,29 +1,11 @@
-// components/Navbar.tsx
-
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import ThemeSwitchButton from './ThemeSwitchButton';
-import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import { motion, AnimatePresence } from 'framer-motion';
-
-// Типизация для навигационных ссылок
-interface NavItem {
-  name: string;
-  href: string;
-  emoji?: string;
-}
-
-interface StoreLink {
-  name: string;
-  href: string;
-  iconSrc: string;
-  bgGradient: string;
-  textColor: string;
-}
+import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 
 // Навигационные элементы
-const navigation: NavItem[] = [
+const navigation = [
   { name: 'Главная', href: '/', emoji: '🏠' },
   { name: 'Программы', href: '/soft', emoji: '💻' },
   { name: 'Статьи', href: '/articles', emoji: '📝' },
@@ -32,7 +14,7 @@ const navigation: NavItem[] = [
 ];
 
 // Ссылки магазинов
-const storeLinks: StoreLink[] = [
+const storeLinks = [
   {
     name: 'OZON',
     href: 'https://www.ozon.ru/seller/smartdiag-862410/',
@@ -57,7 +39,7 @@ const storeLinks: StoreLink[] = [
 ];
 
 // Подкомпонент для навигационных ссылок
-const NavLinks: React.FC<{ items: NavItem[] }> = ({ items }) => (
+const NavLinks: React.FC<{ items: typeof navigation }> = ({ items }) => (
   <>
     {items.map((item) => (
       <Link
