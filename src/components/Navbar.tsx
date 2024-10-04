@@ -39,6 +39,7 @@ const storeLinks: StoreLink[] = [
     iconSrc: '/images/logos/favicon.ico',
     bgGradient: 'bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-900',
     textColor: 'text-white',
+    external: true, // Добавлено поле для определения внешних ссылок
   },
   {
     name: 'Яндекс Маркет',
@@ -46,6 +47,7 @@ const storeLinks: StoreLink[] = [
     iconSrc: 'https://yastatic.net/market-export/_/i/favicon/ymnew/favicon.ico',
     bgGradient: 'bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700',
     textColor: 'text-black',
+    external: true,
   },
   {
     name: 'Wildberries',
@@ -53,6 +55,7 @@ const storeLinks: StoreLink[] = [
     iconSrc: '/images/logos/favicon.ico',
     bgGradient: 'bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-900',
     textColor: 'text-white',
+    external: true,
   },
 ];
 
@@ -75,23 +78,23 @@ const NavLinks: React.FC<{ items: NavItem[] }> = ({ items }) => (
 const StoreButtons: React.FC = () => (
   <div className="hidden xl:flex space-x-2 ml-4">
     {storeLinks.map((store) => (
-      <a
+      <Link
         key={store.name}
         href={store.href}
+        className={`flex items-center justify-center ${store.bgGradient} ${store.textColor} px-4 py-2 rounded-full transition-transform duration-300 hover:scale-105 whitespace-nowrap`}
         target="_blank"
         rel="noopener noreferrer"
-        className={`flex items-center justify-center ${store.bgGradient} ${store.textColor} px-4 py-2 rounded-full transition-transform duration-300 hover:scale-105 whitespace-nowrap`}
       >
         <Image
           src={store.iconSrc}
-          alt={store.name}
+          alt={`${store.name} Icon`}
           className="w-5 h-5 mr-2"
           width={20}
           height={20}
           loading="lazy"
         />
         {store.name}
-      </a>
+      </Link>
     ))}
   </div>
 );
@@ -125,16 +128,16 @@ const StoreDropdown: React.FC<{ isOpen: boolean; toggle: () => void; breakpoint:
             className="absolute mt-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-lg py-2 w-48"
           >
             {storeLinks.map((store) => (
-              <a
+              <Link
                 key={store.name}
                 href={store.href}
+                className="flex items-center px-4 py-2 text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center px-4 py-2 text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
               >
-                <Image src={store.iconSrc} alt={store.name} className="w-5 h-5 mr-2" width={20} height={20} loading="lazy" />
+                <Image src={store.iconSrc} alt={`${store.name} Icon`} className="w-5 h-5 mr-2" width={20} height={20} loading="lazy" />
                 {store.name}
-              </a>
+              </Link>
             ))}
           </motion.div>
         )}
@@ -323,7 +326,7 @@ export default function Navbar() {
           >
             <div className="flex flex-col items-center space-y-4 py-8 px-4">
               {navigation.map((item) => (
-                <Link key={item.name} href={item.href}>
+                <Link key={item.name} href={item.href} className="w-full">
                   <span
                     className="w-full flex items-center justify-center text-xl font-medium hover:text-red-500 cursor-pointer"
                     onClick={() => setIsMenuOpen(false)}
@@ -358,16 +361,16 @@ export default function Navbar() {
                     >
                       <div className="w-full max-w-xs mx-auto flex flex-col space-y-4">
                         {storeLinks.map((store) => (
-                          <a
+                          <Link
                             key={store.name}
                             href={store.href}
+                            className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-transform duration-300 hover:scale-105 whitespace-nowrap"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-transform duration-300 hover:scale-105 whitespace-nowrap"
                           >
-                            <Image src={store.iconSrc} alt={store.name} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
+                            <Image src={store.iconSrc} alt={`${store.name} Icon`} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
                             {store.name}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </motion.div>
