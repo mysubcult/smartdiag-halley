@@ -1,4 +1,4 @@
-// components/Navbar.tsx
+// src/components/Navbar.tsx
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
@@ -63,6 +63,7 @@ const NavLinks: React.FC<{ items: NavItem[] }> = ({ items }) => (
       <Link
         key={item.name}
         href={item.href}
+        scroll={false} // Added this prop
         className="relative text-base lg:text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out whitespace-nowrap"
       >
         {item.name}
@@ -78,6 +79,7 @@ const StoreButtons: React.FC = () => (
       <Link
         key={store.name}
         href={store.href}
+        scroll={false} // Added this prop
         className={`flex items-center justify-center ${store.bgGradient} ${store.textColor} px-4 py-2 rounded-full transition-transform duration-300 hover:scale-105 whitespace-nowrap`}
         target="_blank"
         rel="noopener noreferrer"
@@ -128,6 +130,7 @@ const StoreDropdown: React.FC<{ isOpen: boolean; toggle: () => void; breakpoint:
               <Link
                 key={store.name}
                 href={store.href}
+                scroll={false} // Added this prop
                 className="flex items-center px-4 py-2 text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -231,7 +234,7 @@ export default function Navbar() {
           <div className="flex h-16 items-center justify-between">
             {/* Логотип и основные ссылки */}
             <div className="flex items-center">
-              <Link href="/">
+              <Link href="/" scroll={false}>
                 <Image
                   src="/images/logos/logo.png"
                   alt="SmartDiag Logo"
@@ -323,7 +326,7 @@ export default function Navbar() {
           >
             <div className="flex flex-col items-center space-y-4 py-8 px-4">
               {navigation.map((item) => (
-                <Link key={item.name} href={item.href}>
+                <Link key={item.name} href={item.href} scroll={false}>
                   <span
                     className="w-full flex items-center justify-center text-xl font-medium hover:text-red-500 cursor-pointer"
                     onClick={() => setIsMenuOpen(false)}
@@ -361,6 +364,7 @@ export default function Navbar() {
                           <Link
                             key={store.name}
                             href={store.href}
+                            scroll={false}
                             className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-transform duration-300 hover:scale-105 whitespace-nowrap"
                             target="_blank"
                             rel="noopener noreferrer"
