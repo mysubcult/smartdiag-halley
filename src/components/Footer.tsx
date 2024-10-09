@@ -1,4 +1,4 @@
-// components/Footer.tsx
+// src/components/Footer.tsx
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -51,7 +51,7 @@ export default function Footer() {
       <div className="container mx-auto px-6 lg:px-8 py-4 flex flex-col lg:flex-row justify-between items-center">
         {/* Раздел авторских прав */}
         <div className="text-center lg:text-left mb-4 lg:mb-0">
-          <Link href="/" className="hover:text-red-500 font-medium">
+          <Link href="/" scroll={false} className="hover:text-red-500 font-medium">
             SmartDiag &copy; {startYear}-{currentYear}
           </Link>
         </div>
@@ -61,7 +61,7 @@ export default function Footer() {
           <ul className="flex flex-wrap gap-6 justify-center">
             {menus.map(({ title, url }) => (
               <li key={title}>
-                <Link href={url} className="hover:text-red-500 font-medium">
+                <Link href={url} scroll={false} className="hover:text-red-500 font-medium">
                   {title}
                 </Link>
               </li>
