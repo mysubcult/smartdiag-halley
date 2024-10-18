@@ -9,7 +9,7 @@ import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import Layout from '@/components/Layout';
 import { useRouter } from 'next/router';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -18,44 +18,11 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const [isHashChange, setIsHashChange] = useState(false);
+  const [prevPath, setPrevPath] = useState<string | null>(null);
 
   useEffect(() => {
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
-    }
-  }, []);
-
-  // Handle route change start to detect hash changes
-  useEffect(() => {
-    const handleStart = (url: string) => {
-      const urlObject = new URL(url, window.location.origin);
-      const isSamePath = urlObject.pathname === window.location.pathname;
-      
-      if (urlObject.hash && isSamePath) {
-        setIsHashChange(true);
-      } else {
-        setIsHashChange(false);
-      }
-    };
-
-    router.events.on('routeChangeStart', handleStart);
-    return () => {
-      router.events.off('routeChangeStart', handleStart);
-    };
-  }, [router.events]);
-
-  // Scroll to top on route change complete
-  useEffect(() => {
-    const handleRouteChange = () => {
-      window.scrollTo(0, 0);
-    };
-
-    router.events.on('routeChangeComplete', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, [router.events]);
+    setPrevPath(router.asPath.split('#')[0]); // Save path without hash
+  }, [router.asPath]);
 
   return (
     <main className={`${inter.variable} font-sans relative`}>
@@ -64,17 +31,14 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider attribute="class">
         <Layout>
-          <AnimatePresence exitBeforeEnter mode="wait" initial={false}>
-            <motion.div
-              key={router.asPath}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: isHashChange ? 0 : 0.5, ease: 'easeInOut' }}
-            >
-              <Component {...pageProps} />
-            </motion.div>
-          </AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: prevPath === router.asPath.split('#')[0] ? 0 : 0.5 }}
+          >
+            <Component {...pageProps} />
+          </motion.div>
 
           <Script
             id="lhc-widget-script"
