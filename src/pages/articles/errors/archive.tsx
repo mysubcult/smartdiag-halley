@@ -1,4 +1,4 @@
-# /src/pages/articles/errors/archive.tsx
+// /src/pages/articles/errors/archive.tsx
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
