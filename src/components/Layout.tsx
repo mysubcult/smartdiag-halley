@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import { ReactNode } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 
 interface LayoutProps {
   children: ReactNode;
@@ -46,17 +45,7 @@ const Layout = ({ children, image, type, metadata }: LayoutProps) => {
       </Head>
       <Navbar />
       <main className="flex-grow">
-        <AnimatePresence exitBeforeEnter mode="wait" initial={false}>
-          <motion.div
-            key={router.asPath}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
-          >
-            {children}
-          </motion.div>
-        </AnimatePresence>
+        {children}
       </main>
       <Footer />
     </div>
