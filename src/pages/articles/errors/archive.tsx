@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Layout from '../../../components/Layout';
 
 export const metadata = {
   title: 'Как справиться с ошибкой при открытии архива',
@@ -36,7 +35,7 @@ export default function BlogPost() {
   if (!isClient) return null;
 
   return (
-    <Layout>
+    <>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
           
@@ -164,6 +163,6 @@ export default function BlogPost() {
           <div className="lg:w-1/6 hidden lg:block"></div>
         </div>
       </main>
-    </Layout>
+    </>
   );
 }
