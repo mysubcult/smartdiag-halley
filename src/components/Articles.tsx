@@ -182,7 +182,7 @@ export default function Blog() {
       </div>
 
       {/* Desktop Filters and Search */}
-      <div className="hidden lg:block max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+      <div className="hidden lg:block max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div className="max-w-max mx-auto flex flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow space-x-4">
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
