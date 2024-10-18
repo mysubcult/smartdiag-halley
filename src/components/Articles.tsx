@@ -140,10 +140,10 @@ export default function Blog() {
             {categories.map((category, index) => (
               <li
                 key={category.value}
-                className={`text-black dark:text-white px-4 py-2 leading-tight hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer rounded-none ${
-                  index === 0 ? "first:rounded-t-none" : ""
+                className={`text-black dark:text-white px-4 py-2 leading-tight hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer ${
+                  index === 0 ? "rounded-t-lg" : ""
                 } ${
-                  index === categories.length - 1 ? "last:rounded-b-none" : ""
+                  index === categories.length - 1 ? "rounded-b-lg" : ""
                 }`}
                 onClick={() => {
                   setSelectedCategory(category.value);
@@ -204,7 +204,7 @@ export default function Blog() {
               </motion.button>
             ))}
           </div>
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 ml-4">
             <input
               type="text"
               placeholder="Поиск..."
