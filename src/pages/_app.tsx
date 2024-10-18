@@ -1,6 +1,6 @@
 // src/pages/_app.tsx
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import '@/styles/globals.css';
 import { ThemeProvider } from 'next-themes';
@@ -9,7 +9,7 @@ import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import Layout from '@/components/Layout';
 import { useRouter } from 'next/router';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -18,11 +18,25 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const [prevPath, setPrevPath] = useState<string | null>(null);
 
+  // Prevent automatic scroll restoration
   useEffect(() => {
-    setPrevPath(router.asPath.split('#')[0]); // Save path without hash
-  }, [router.asPath]);
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  // Scroll to top on route change complete
+  useEffect(() => {
+    const handleRouteChange = () => {
+      window.scrollTo(0, 0);
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
 
   return (
     <main className={`${inter.variable} font-sans relative`}>
@@ -31,14 +45,17 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider attribute="class">
         <Layout>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: prevPath === router.asPath.split('#')[0] ? 0 : 0.5 }}
-          >
-            <Component {...pageProps} />
-          </motion.div>
+          <AnimatePresence exitBeforeEnter mode="wait" initial={false}>
+            <motion.div
+              key={router.asPath}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease: 'easeInOut' }}
+            >
+              <Component {...pageProps} />
+            </motion.div>
+          </AnimatePresence>
 
           <Script
             id="lhc-widget-script"
