@@ -182,9 +182,9 @@ export default function Blog() {
       </div>
 
       {/* Desktop Filters and Search */}
-      <div className="hidden lg:block max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="flex flex-wrap md:flex-nowrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow space-x-4">
-          <div className="flex gap-2 flex-grow">
+      <div className="hidden lg:block max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div className="max-w-max mx-auto flex flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow space-x-4">
+          <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <motion.button
                 key={category.value}
@@ -204,7 +204,7 @@ export default function Blog() {
               </motion.button>
             ))}
           </div>
-          <div className="flex-shrink-0 ml-4">
+          <div className="w-full sm:w-auto mt-4 sm:mt-0">
             <input
               type="text"
               placeholder="Поиск..."
