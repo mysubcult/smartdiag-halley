@@ -182,42 +182,40 @@ export default function Blog() {
       </div>
 
       {/* Desktop Filters and Search */}
-      <div className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow space-y-4 sm:space-y-0 overflow-x-auto">
-          <div className="flex items-center space-x-2">
-            <div className="flex space-x-2 flex-shrink-0">
-              {categories.map((category) => (
-                <motion.button
-                  key={category.value}
-                  onClick={() => {
-                    setSelectedCategory(category.value);
-                    setCurrentPage(1);
-                  }}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
-                    selectedCategory === category.value
-                      ? "bg-red-500 text-white shadow-lg"
-                      : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {category.name}
-                </motion.button>
-              ))}
-            </div>
-            <div className="ml-auto flex-shrink-0">
-              <input
-                type="text"
-                placeholder="Поиск..."
-                id="desktop-search"
-                value={searchTerm}
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
+      <div className="hidden lg:block max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <div className="flex flex-wrap md:flex-nowrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow space-y-4 sm:space-y-0 sm:space-x-4">
+          <div className="flex flex-wrap gap-2 flex-grow">
+            {categories.map((category) => (
+              <motion.button
+                key={category.value}
+                onClick={() => {
+                  setSelectedCategory(category.value);
                   setCurrentPage(1);
                 }}
-                className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
-              />
-            </div>
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                  selectedCategory === category.value
+                    ? "bg-red-500 text-white shadow-lg"
+                    : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {category.name}
+              </motion.button>
+            ))}
+          </div>
+          <div className="w-full md:w-auto mt-4 md:mt-0 flex-shrink-0">
+            <input
+              type="text"
+              placeholder="Поиск..."
+              id="desktop-search"
+              value={searchTerm}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setCurrentPage(1);
+              }}
+              className="w-full sm:w-64 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
+            />
           </div>
         </div>
       </div>
