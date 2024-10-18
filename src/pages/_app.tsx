@@ -1,6 +1,6 @@
 // src/pages/_app.tsx
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import '@/styles/globals.css';
 import { ThemeProvider } from 'next-themes';
@@ -18,13 +18,32 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  const [isHashChange, setIsHashChange] = useState(false);
 
-  // Prevent automatic scroll restoration
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
   }, []);
+
+  // Handle route change start to detect hash changes
+  useEffect(() => {
+    const handleStart = (url: string) => {
+      const urlObject = new URL(url, window.location.origin);
+      const isSamePath = urlObject.pathname === window.location.pathname;
+      
+      if (urlObject.hash && isSamePath) {
+        setIsHashChange(true);
+      } else {
+        setIsHashChange(false);
+      }
+    };
+
+    router.events.on('routeChangeStart', handleStart);
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+    };
+  }, [router.events]);
 
   // Scroll to top on route change complete
   useEffect(() => {
@@ -51,7 +70,7 @@ export default function App({ Component, pageProps }: AppProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
+              transition={{ duration: isHashChange ? 0 : 0.5, ease: 'easeInOut' }}
             >
               <Component {...pageProps} />
             </motion.div>
