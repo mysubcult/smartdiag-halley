@@ -238,11 +238,12 @@ export default function Navbar() {
             </div>
 
             {/* Кнопки справа */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              {/* Theme Switch Button остается здесь */}
+              <ThemeSwitchButton />
+
               {/* Ссылки магазинов для больших экранов */}
               <StoreButtons />
-
-              <ThemeSwitchButton />
 
               {/* Отображение брейкпоинта на больших экранах */}
               <div className="hidden lg:flex items-center ml-2">
