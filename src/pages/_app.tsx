@@ -23,18 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
-
-    const handleRouteChange = () => {
-      // Прокручиваем новое содержимое к началу после завершения перехода
-      window.scrollTo(0, 0);
-    };
-
-    router.events.on('routeChangeComplete', handleRouteChange);
-    // Чистим подписку на событие
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, [router.events]);
+  }, []);
 
   const currentPathname = router.pathname;
 
@@ -48,9 +37,9 @@ export default function App({ Component, pageProps }: AppProps) {
           <AnimatePresence exitBeforeEnter mode="wait" initial={false}>
             <motion.div
               key={currentPathname}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, y: 20 }} // Новая страница появляется чуть ниже и сдвигается вверх
+              animate={{ opacity: 1, y: 0 }}  // Плавное появление
+              exit={{ opacity: 0 }} // Старая страница просто исчезает
               transition={{ duration: 0.5, ease: 'easeInOut' }}
             >
               <Component {...pageProps} />
