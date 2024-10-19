@@ -34,12 +34,12 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider attribute="class">
         <Layout>
-          <AnimatePresence exitBeforeEnter mode="wait" initial={false}>
+          <AnimatePresence mode="wait">
             <motion.div
               key={currentPathname}
-              initial={{ opacity: 0, y: 20 }} // Новая страница появляется чуть ниже и сдвигается вверх
-              animate={{ opacity: 1, y: 0 }}  // Плавное появление
-              exit={{ opacity: 0 }} // Старая страница просто исчезает
+              initial={{ opacity: 0, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.5, ease: 'easeInOut' }}
             >
               <Component {...pageProps} />
