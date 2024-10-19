@@ -7,7 +7,6 @@ import ThemeSwitchButton from './ThemeSwitchButton';
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Типизация для навигационных ссылок
 interface NavItem {
   name: string;
   href: string;
@@ -22,7 +21,6 @@ interface StoreLink {
   textColor: string;
 }
 
-// Навигационные элементы
 const navigation: NavItem[] = [
   { name: 'Главная', href: '/', emoji: '🏠' },
   { name: 'Программы', href: '/soft', emoji: '💻' },
@@ -31,7 +29,6 @@ const navigation: NavItem[] = [
   { name: 'Обратная связь', href: '/contact', emoji: '📩' },
 ];
 
-// Ссылки магазинов
 const storeLinks: StoreLink[] = [
   {
     name: 'OZON',
@@ -56,14 +53,13 @@ const storeLinks: StoreLink[] = [
   },
 ];
 
-// Подкомпонент для навигационных ссылок
 const NavLinks: React.FC<{ items: NavItem[] }> = ({ items }) => (
   <>
     {items.map((item) => (
       <Link
         key={item.name}
         href={item.href}
-        scroll={false} // Added this prop
+        scroll={false} 
         className="relative text-base lg:text-lg font-bold text-neutral-900 dark:text-neutral-400 hover:text-red-500 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-500 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out whitespace-nowrap"
       >
         {item.name}
@@ -72,14 +68,13 @@ const NavLinks: React.FC<{ items: NavItem[] }> = ({ items }) => (
   </>
 );
 
-// Подкомпонент для ссылок магазинов
 const StoreButtons: React.FC = () => (
   <div className="hidden xl:flex space-x-2 ml-4">
     {storeLinks.map((store) => (
       <Link
         key={store.name}
         href={store.href}
-        scroll={false} // Added this prop
+        scroll={false}
         className={`flex items-center justify-center ${store.bgGradient} ${store.textColor} px-4 py-2 rounded-full transition-transform duration-300 hover:scale-105 whitespace-nowrap`}
         target="_blank"
         rel="noopener noreferrer"
@@ -98,11 +93,9 @@ const StoreButtons: React.FC = () => (
   </div>
 );
 
-// Подкомпонент для выпадающего меню магазинов
 const StoreDropdown: React.FC<{ isOpen: boolean; toggle: () => void; breakpoint: string }> = ({
   isOpen,
   toggle,
-  breakpoint,
 }) => {
   const subMenuRef = useRef<HTMLDivElement>(null);
 
@@ -130,7 +123,7 @@ const StoreDropdown: React.FC<{ isOpen: boolean; toggle: () => void; breakpoint:
               <Link
                 key={store.name}
                 href={store.href}
-                scroll={false} // Added this prop
+                scroll={false}
                 className="flex items-center px-4 py-2 text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -154,7 +147,6 @@ export default function Navbar() {
   const subMenuButtonRef = useRef<HTMLButtonElement>(null);
   const subMenuRef = useRef<HTMLDivElement>(null);
 
-  // Определение брейкпоинта
   const getBreakpoint = useCallback((width: number): string => {
     if (width >= 1536) return '2xl';
     if (width >= 1280) return 'xl';
@@ -164,7 +156,6 @@ export default function Navbar() {
     return 'xs';
   }, []);
 
-  // Обновление брейкпоинта при изменении размера окна
   useEffect(() => {
     const updateBreakpoint = () => {
       const width = window.innerWidth;
@@ -179,7 +170,6 @@ export default function Navbar() {
     return () => window.removeEventListener('resize', updateBreakpoint);
   }, [getBreakpoint]);
 
-  // Закрытие подменю при клике вне его
   useEffect(() => {
     if (!isSubMenuOpen) return;
 
@@ -196,7 +186,6 @@ export default function Navbar() {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isSubMenuOpen]);
 
-  // Блокировка прокрутки при открытом мобильном меню
   useEffect(() => {
     if (isMenuOpen) {
       const originalStyle = window.getComputedStyle(document.body).overflow;
@@ -207,24 +196,20 @@ export default function Navbar() {
     }
   }, [isMenuOpen]);
 
-  // Закрытие мобильного меню при смене брейкпоинта на больший
   useEffect(() => {
     if (currentBreakpoint === 'lg' && isMenuOpen) {
       setIsMenuOpen(false);
     }
   }, [currentBreakpoint, isMenuOpen]);
 
-  // Оптимизация переключения мобильного меню
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
-  // Оптимизация переключения подменю
   const toggleSubMenu = useCallback(() => {
     setIsSubMenuOpen((prev) => !prev);
   }, []);
 
-  // Мемоизация навигационных ссылок
   const memoizedNavLinks = useMemo(() => <NavLinks items={navigation} />, []);
 
   return (
