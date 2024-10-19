@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Head from 'next/head';
 
 export const metadata = {
   title: 'Как справиться с ошибкой при открытии архива',
@@ -24,7 +25,6 @@ export default function BlogPost() {
   const [isClient, setIsClient] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentTitle, setCurrentTitle] = useState(metadata.title);
 
   useEffect(() => {
     setIsClient(true);
@@ -36,9 +36,14 @@ export default function BlogPost() {
 
   return (
     <>
+      <Head>
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+        <meta name="keywords" content={metadata.keywords} />
+      </Head>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
-          
+
           {/* Панель навигации */}
           <div className="lg:hidden w-full flex justify-center mb-4">
             <button
@@ -69,10 +74,7 @@ export default function BlogPost() {
             <nav className="space-y-3">
               {navItems.map((item) => (
                 <Link href={item.href} key={item.href}>
-                  <a
-                    onClick={() => item.href === "#introduction" ? setCurrentTitle(metadata.title) : setCurrentTitle(`${metadata.title} | ${item.label}`)}
-                    className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300"
-                  >
+                  <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
                     {item.label}
                   </a>
                 </Link>
