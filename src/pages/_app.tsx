@@ -38,6 +38,8 @@ export default function App({ Component, pageProps }: AppProps) {
     };
   }, [router.events]);
 
+  const currentPathname = router.pathname;
+
   return (
     <main className={`${inter.variable} font-sans relative`}>
       <Head>
@@ -47,7 +49,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Layout>
           <AnimatePresence exitBeforeEnter mode="wait" initial={false}>
             <motion.div
-              key={router.asPath}
+              key={currentPathname} // Use pathname without hash for animation key
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -80,7 +82,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 (function() {
                   var po = document.createElement('script');
                   po.type = 'text/javascript';
-                  po.setAttribute('crossorigin', 'anonymous');
+                  po.setAttribute("crossorigin", "anonymous");
                   po.async = true;
                   var date = new Date();
                   po.src = 'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js?' + ("" + date.getFullYear() + date.getMonth() + date.getDate());
