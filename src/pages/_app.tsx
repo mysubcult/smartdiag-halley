@@ -37,9 +37,9 @@ export default function App({ Component, pageProps }: AppProps) {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentPathname}
-              initial={{ opacity: 0, y: 0 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, y: '-100%' }} // Новая страница появляется сверху
+              animate={{ opacity: 1, y: 0 }}        // Новая страница анимируется в нормальное положение
+              exit={{ opacity: 0, y: 0 }}           // Текущая страница затухает, оставаясь на месте
               transition={{ duration: 0.5, ease: 'easeInOut' }}
             >
               <Component {...pageProps} />
