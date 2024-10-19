@@ -26,18 +26,6 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, []);
 
-  // Scroll to top on route change complete
-  useEffect(() => {
-    const handleRouteChange = () => {
-      window.scrollTo(0, 0);
-    };
-
-    router.events.on('routeChangeComplete', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, [router.events]);
-
   const currentPathname = router.pathname;
 
   return (
@@ -49,10 +37,10 @@ export default function App({ Component, pageProps }: AppProps) {
         <Layout>
           <AnimatePresence exitBeforeEnter mode="wait" initial={false}>
             <motion.div
-              key={currentPathname} // Use pathname without hash for animation key
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              key={currentPathname} // Use pathname for animation key
+              initial={{ opacity: 0, y: -50 }} // Starts new page slightly above
+              animate={{ opacity: 1, y: 0 }}  // Smooth transition to normal position
+              exit={{ opacity: 0 }} // Fades out current page at its place
               transition={{ duration: 0.5, ease: 'easeInOut' }}
             >
               <Component {...pageProps} />
