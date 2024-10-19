@@ -239,10 +239,10 @@ export default function Navbar() {
 
             {/* Кнопки справа */}
             <div className="flex items-center space-x-2">
-              {/* Theme Switch Button остается здесь */}
+              {/* Theme Switch Button остаётся здесь */}
               <ThemeSwitchButton />
 
-              {/* Ссылки магазинов для больших экранов */}
+              {/* Добавляем StoreButtons здесь */}
               <StoreButtons />
 
               {/* Отображение брейкпоинта на больших экранах */}
