@@ -16,6 +16,28 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+// Определение вариантов анимации
+const pageVariants = {
+  initial: {
+    opacity: 0,
+    y: '-100vh', // Новая страница начинает за пределами экрана сверху
+  },
+  animate: {
+    opacity: 1,
+    y: '0vh', // Новая страница перемещается в свою нормальную позицию
+  },
+  exit: {
+    opacity: 0,
+    y: '0vh', // Текущая страница просто затухает без изменения позиции
+  },
+};
+
+// Настройки перехода
+const pageTransition = {
+  duration: 0.5,
+  ease: 'easeInOut',
+};
+
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
@@ -28,19 +50,28 @@ export default function App({ Component, pageProps }: AppProps) {
   const currentPathname = router.pathname;
 
   return (
-    <main className={`${inter.variable} font-sans relative`}>
+    <main className={`${inter.variable} font-sans relative overflow-hidden`}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ThemeProvider attribute="class">
         <Layout>
-          <AnimatePresence mode="wait">
+          {/* AnimatePresence управляет присутствием компонентов */}
+          <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={currentPathname}
-              initial={{ opacity: 0, y: '-100%' }} // Новая страница появляется сверху
-              animate={{ opacity: 1, y: 0 }}        // Новая страница анимируется в нормальное положение
-              exit={{ opacity: 0, y: 0 }}           // Текущая страница затухает, оставаясь на месте
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={pageTransition}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+              }}
             >
               <Component {...pageProps} />
             </motion.div>
