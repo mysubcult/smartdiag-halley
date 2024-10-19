@@ -1,6 +1,6 @@
 // src/pages/_app.tsx
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import '@/styles/globals.css';
 import { ThemeProvider } from 'next-themes';
@@ -8,8 +8,6 @@ import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import Layout from '@/components/Layout';
-import { useRouter } from 'next/router';
-import { AnimatePresence, motion } from 'framer-motion';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -17,27 +15,6 @@ const inter = Inter({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-  const router = useRouter();
-
-  // Prevent automatic scroll restoration
-  useEffect(() => {
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
-    }
-  }, []);
-
-  // Scroll to top on route change complete
-  useEffect(() => {
-    const handleRouteChange = () => {
-      window.scrollTo(0, 0);
-    };
-
-    router.events.on('routeChangeComplete', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, [router.events]);
-
   return (
     <main className={`${inter.variable} font-sans relative`}>
       <Head>
@@ -45,17 +22,8 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider attribute="class">
         <Layout>
-          <AnimatePresence exitBeforeEnter mode="wait" initial={false}>
-            <motion.div
-              key={router.asPath}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
-            >
-              <Component {...pageProps} />
-            </motion.div>
-          </AnimatePresence>
+          {/* Прямой рендеринг компонента страницы без анимации */}
+          <Component {...pageProps} />
 
           <Script
             id="lhc-widget-script"
@@ -80,7 +48,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 (function() {
                   var po = document.createElement('script');
                   po.type = 'text/javascript';
-                  po.setAttribute('crossorigin', 'anonymous');
+                  po.setAttribute("crossorigin", "anonymous");
                   po.async = true;
                   var date = new Date();
                   po.src = 'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js?' + ("" + date.getFullYear() + date.getMonth() + date.getDate());
