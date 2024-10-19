@@ -16,62 +16,42 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
-// Определение вариантов анимации
-const pageVariants = {
-  initial: {
-    opacity: 0,
-    y: '-100vh', // Новая страница начинает за пределами экрана сверху
-  },
-  animate: {
-    opacity: 1,
-    y: '0vh', // Новая страница перемещается в свою нормальную позицию
-  },
-  exit: {
-    opacity: 0,
-    y: '0vh', // Текущая страница просто затухает без изменения позиции
-  },
-};
-
-// Настройки перехода
-const pageTransition = {
-  duration: 0.5,
-  ease: 'easeInOut',
-};
-
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
+  // Prevent automatic scroll restoration
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
   }, []);
 
-  const currentPathname = router.pathname;
+  // Scroll to top on route change complete
+  useEffect(() => {
+    const handleRouteChange = () => {
+      window.scrollTo(0, 0);
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
 
   return (
-    <main className={`${inter.variable} font-sans relative overflow-hidden`}>
+    <main className={`${inter.variable} font-sans relative`}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ThemeProvider attribute="class">
         <Layout>
-          {/* AnimatePresence управляет присутствием компонентов */}
-          <AnimatePresence mode="wait" initial={false}>
+          <AnimatePresence exitBeforeEnter mode="wait" initial={false}>
             <motion.div
-              key={currentPathname}
-              variants={pageVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              transition={pageTransition}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-              }}
+              key={router.asPath}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease: 'easeInOut' }}
             >
               <Component {...pageProps} />
             </motion.div>
@@ -100,7 +80,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 (function() {
                   var po = document.createElement('script');
                   po.type = 'text/javascript';
-                  po.setAttribute("crossorigin", "anonymous");
+                  po.setAttribute('crossorigin', 'anonymous');
                   po.async = true;
                   var date = new Date();
                   po.src = 'https://xn----7sbabnedajkp5ap8aokkew.xn--p1ai/design/defaulttheme/js/widgetv2/index.js?' + ("" + date.getFullYear() + date.getMonth() + date.getDate());
