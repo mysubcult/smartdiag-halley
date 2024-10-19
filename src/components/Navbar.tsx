@@ -68,7 +68,7 @@ const NavLinks: React.FC<{ items: NavItem[] }> = ({ items }) => (
 );
 
 const StoreButtons: React.FC = () => (
-  <div className="hidden xl:flex space-x-2 ml-4">
+  <div className="hidden xl:flex space-x-2">
     {storeLinks.map((store) => (
       <Link
         key={store.name}
@@ -235,12 +235,13 @@ export default function Navbar() {
                   <StoreDropdown isOpen={isSubMenuOpen} toggle={toggleSubMenu} breakpoint={currentBreakpoint} />
                 )}
               </div>
-              {/* Ссылки магазинов для больших экранов */}
-              {currentBreakpoint !== 'lg' && <StoreButtons />}
             </div>
 
             {/* Кнопки справа */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-4">
+              {/* Ссылки магазинов для больших экранов */}
+              <StoreButtons />
+
               <ThemeSwitchButton />
 
               {/* Отображение брейкпоинта на больших экранах */}
