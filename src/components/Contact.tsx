@@ -122,12 +122,12 @@ export default function Contact() {
                 platform="Telegram"
                 icon={
                   <svg
-                    width="28" // Увеличенный размер иконки
-                    height="28"
+                    width="24"
+                    height="24"
                     viewBox="0 0 32 32"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="text-blue-500"
+                    className="transform scale-110 text-blue-500"  // Легкое увеличение размера через transform
                   >
                     <circle cx="16" cy="16" r="14" fill="url(#paint0_linear_87_7225)" />
                     <path
@@ -266,7 +266,7 @@ export default function Contact() {
                 })}
               />
 
-              <div className="flex items-center mb-4 mt-4 text-sm text-gray-700 dark:text-gray-300 flex-wrap">
+              <div className="flex items-center mb-4 mt-4 text-sm text-gray-700 dark:text-gray-300">
                 <input
                   type="checkbox"
                   id="agree"
@@ -275,7 +275,7 @@ export default function Contact() {
                   onChange={(e) => setIsChecked(e.target.checked)}
                   required
                 />
-                <span>
+                <span className="whitespace-nowrap">
                   Я прочитал и согласен с{' '}
                   <button
                     type="button"
