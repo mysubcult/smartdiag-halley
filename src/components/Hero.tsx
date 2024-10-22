@@ -3,6 +3,7 @@
 import { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export const Hero: FC = () => {
   return (
@@ -12,21 +13,31 @@ export const Hero: FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-center gap-8 w-full">
         <div className="flex flex-col justify-center text-center lg:text-left space-y-6 lg:w-1/2 w-full">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl mx-auto lg:mx-0">
+          <motion.h1
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl mx-auto lg:mx-0"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             Добро пожаловать в<br />
             <span className="text-red-600 font-extrabold">
               SmartDiag <span className="wave">👋</span>
             </span>
-          </h1>
+          </motion.h1>
 
-          <p className="text-base sm:text-lg dark:text-neutral-400 mx-auto lg:mx-0">
+          <motion.p
+            className="text-base sm:text-lg dark:text-neutral-400 mx-auto lg:mx-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Здесь вы найдёте всё необходимое программное обеспечение для
             диагностики и обслуживания вашего автомобиля. Мы предлагаем
             высококачественное и надёжное оборудование, которое поможет вам
             быстро и эффективно провести анализ и ремонт вашего авто. Мы уверены,
             что техническое обслуживание автомобиля может быть простым и
             доступным для каждого.
-          </p>
+          </motion.p>
 
           <div className="flex flex-col items-center gap-4 mb-6 sm:flex-row sm:justify-center lg:justify-start">
             <div className="bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 mx-auto sm:mx-0 inline-block hover:scale-105">
