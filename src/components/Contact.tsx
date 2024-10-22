@@ -122,8 +122,8 @@ export default function Contact() {
                 platform="Telegram"
                 icon={
                   <svg
-                    width="24"
-                    height="24"
+                    width="28" // Увеличенный размер иконки
+                    height="28"
                     viewBox="0 0 32 32"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -266,7 +266,7 @@ export default function Contact() {
                 })}
               />
 
-              <div className="flex items-center mb-4 mt-4 text-sm text-gray-700 dark:text-gray-300">
+              <div className="flex items-center mb-4 mt-4 text-sm text-gray-700 dark:text-gray-300 flex-wrap">
                 <input
                   type="checkbox"
                   id="agree"
@@ -275,12 +275,12 @@ export default function Contact() {
                   onChange={(e) => setIsChecked(e.target.checked)}
                   required
                 />
-                <span className="flex">
+                <span>
                   Я прочитал и согласен с{' '}
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(true)}
-                    className="text-red-600 hover:underline ml-1"
+                    className="text-red-600 hover:underline"
                   >
                     правилами на обработку персональных данных
                   </button>
