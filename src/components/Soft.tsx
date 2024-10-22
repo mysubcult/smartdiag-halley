@@ -2,12 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import {
-  CheckIcon,
-  XMarkIcon,
-  MagnifyingGlassIcon,
-  ChevronDownIcon,
-} from "@heroicons/react/24/solid";
+import { CheckIcon, XMarkIcon, MagnifyingGlassIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
 
 // Types and Interfaces
@@ -31,12 +26,13 @@ interface DownloadLink {
 
 interface ProductCardProps {
   product: Product;
-  onDownloadClick: (links: DownloadLink[]) => void;
+  onDownloadClick: (links: DownloadLink[], isDocs: boolean) => void;
 }
 
 interface ModalProps {
   modalLinks: DownloadLink[] | null;
   onCloseModal: () => void;
+  isDocs?: boolean;
 }
 
 // Static Content
@@ -224,8 +220,7 @@ const deviceTypes: ProductType[] = [
 // Helper Components
 function ProductCard({ product, onDownloadClick }: ProductCardProps) {
   const { title, mostPopular, description, features, downloadLinks, docs, docsLinks } = product;
-  const displayedFeatures =
-    features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
+  const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
 
   return (
     <motion.div
@@ -247,7 +242,7 @@ function ProductCard({ product, onDownloadClick }: ProductCardProps) {
       </p>
       <div className="flex space-x-2 mb-4">
         <motion.button
-          onClick={() => onDownloadClick(downloadLinks)}
+          onClick={() => onDownloadClick(downloadLinks, false)}
           className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -256,7 +251,7 @@ function ProductCard({ product, onDownloadClick }: ProductCardProps) {
         </motion.button>
         {docs && docsLinks.length > 0 && (
           <motion.button
-            onClick={() => onDownloadClick(docsLinks)}
+            onClick={() => onDownloadClick(docsLinks, true)}
             className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -284,7 +279,7 @@ function ProductCard({ product, onDownloadClick }: ProductCardProps) {
   );
 }
 
-function Modal({ modalLinks, onCloseModal }: ModalProps) {
+function Modal({ modalLinks, onCloseModal, isDocs }: ModalProps) {
   if (!modalLinks) return null;
 
   return (
@@ -311,7 +306,7 @@ function Modal({ modalLinks, onCloseModal }: ModalProps) {
           <XMarkIcon className="w-6 h-6" />
         </button>
         <h3 className="text-lg font-semibold text-black dark:text-white text-center mb-4">
-          Выберите ссылку для скачивания
+          {isDocs ? "Выберите инструкцию для просмотра" : "Выберите ссылку для скачивания"}
         </h3>
         <div className="flex flex-col space-y-3">
           {modalLinks.map(({ link, label }) => (
@@ -335,6 +330,7 @@ function Modal({ modalLinks, onCloseModal }: ModalProps) {
 export default function Soft() {
   const [selectedType, setSelectedType] = useState<ProductType>("Все");
   const [modalLinks, setModalLinks] = useState<DownloadLink[] | null>(null);
+  const [isDocs, setIsDocs] = useState<boolean>(false); 
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -342,7 +338,8 @@ export default function Soft() {
 
   const productsPerPage = 8;
 
-  const handleDownloadClick = (links: DownloadLink[]) => {
+  const handleDownloadClick = (links: DownloadLink[], docs: boolean) => {
+    setIsDocs(docs);
     if (links.length === 1) {
       window.open(links[0].link, "_blank", "noopener noreferrer");
     } else {
@@ -601,7 +598,7 @@ export default function Soft() {
       )}
 
       {/* Modal */}
-      {modalLinks && <Modal modalLinks={modalLinks} onCloseModal={closeModal} />}
+      {modalLinks && <Modal modalLinks={modalLinks} onCloseModal={closeModal} isDocs={isDocs} />}
     </div>
   );
 }
