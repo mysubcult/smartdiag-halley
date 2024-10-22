@@ -116,31 +116,23 @@ export default function Contact() {
             <h3 className="text-md font-semibold mb-4 text-red-600">Мы доступны в мессенджерах:</h3>
             <div className="flex justify-center space-x-8">
               <ContactInfo
-                href="https://смартдиаг-поддержка.рф/telegram"
-                imageSrc="/images/hero/telegram-qr.svg"
-                alt="QR Code Telegram"
-                platform="Telegram"
-                icon={
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    className="text-blue-500"
-                    style={{
-                      fillRule: 'evenodd',
-                      clipRule: 'evenodd',
-                      strokeLinejoin: 'round',
-                      strokeMiterlimit: 1.41421,
-                      fill: 'currentColor',
-                    }}
-                  >
-                    <path
-                      d="M18.384,15a1.992,1.992,0,0,0,.1-1c0-.3-.05-.59-.14-.87l2.12-1.65a.5.5,0,0,0,.11-.7l-2-3.464a.5.5,0,0,0-.6-.2l-2.49,1a7.014,7.014,0,0,0-1.6-.93l-.38-2.65A.5.5,0,0,0,14,4h-4a.5.5,0,0,0-.5.42l-.38,2.65c-.56.24-1.09.56-1.6.93l-2.49-1a.5.5,0,0,0-.6.22l-2,3.464a.5.5,0,0,0,.12.63l2.12,1.65c-.09.28-.14.58-.14.87 0,.3.05,.59.14,.87l-2.12,1.65a.5.5,0,0,0-.12.63l2,3.464c.12.2.38.3.6.2l2.49-1c.51.37,1.04.69,1.6.93l.38,2.65c.04,.23,.24,.42,.5,.42h4c.26,0,.46-.19,.5-.42l.38-2.65c.56-.24,1.09-.56,1.6-.93l2.49,1c.22,.1,.48,0,.6-.2l2-3.464a.5.5,0,0,0-.12-.63l-2.12-1.65c.09-.28,.14-.58,.14-.87Zm-7.14,2.564a3,3,0,1,1,3-3A3,3,0,0,1,12,15.5Z"
-                    />
-                  </svg>
-                }
-                hoverColor="hover:text-blue-500"
-              />
+  href="https://смартдиаг-поддержка.рф/telegram"
+  imageSrc="/images/hero/telegram-qr.svg"
+  alt="QR Code Telegram"
+  platform="Telegram"
+  icon={
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      className="text-blue-500"
+      fill="currentColor"
+    >
+      <path d="M12 2c5.525 0 10 4.475 10 10s-4.475 10-10 10-10-4.475-10-10 4.475-10 10-10zm4.364 7.1l-8.64 3.44c-.353.141-.06.666.217.546l2.413-1.012 5.591-3.933c.188-.133.4.071.261.21l-5.204 5.318c-.288.295-.075.681.184.656l2.616-1.065 2.358-1.176c.141-.071.238.086.186.21l-2.084 4.973c-.061.146-.223.081-.259-.024l-1.572-4.407-1.728.732c-.241.101-.06.405.108.382z"/>
+    </svg>
+  }
+  hoverColor="hover:text-blue-500"
+/>
               <ContactInfo
                 href="https://смартдиаг-поддержка.рф/whatsapp"
                 imageSrc="/images/hero/whatsapp-qr.svg"
