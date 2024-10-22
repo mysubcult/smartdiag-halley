@@ -116,23 +116,34 @@ export default function Contact() {
             <h3 className="text-md font-semibold mb-4 text-red-600">Мы доступны в мессенджерах:</h3>
             <div className="flex justify-center space-x-8">
               <ContactInfo
-  href="https://смартдиаг-поддержка.рф/telegram"
-  imageSrc="/images/hero/telegram-qr.svg"
-  alt="QR Code Telegram"
-  platform="Telegram"
-  icon={
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      className="text-blue-500"
-      fill="currentColor"
-    >
-      <path d="M12 2c5.525 0 10 4.475 10 10s-4.475 10-10 10-10-4.475-10-10 4.475-10 10-10zm4.364 7.1l-8.64 3.44c-.353.141-.06.666.217.546l2.413-1.012 5.591-3.933c.188-.133.4.071.261.21l-5.204 5.318c-.288.295-.075.681.184.656l2.616-1.065 2.358-1.176c.141-.071.238.086.186.21l-2.084 4.973c-.061.146-.223.081-.259-.024l-1.572-4.407-1.728.732c-.241.101-.06.405.108.382z"/>
-    </svg>
-  }
-  hoverColor="hover:text-blue-500"
-/>
+                href="https://смартдиаг-поддержка.рф/telegram"
+                imageSrc="/images/hero/telegram-qr.svg"
+                alt="QR Code Telegram"
+                platform="Telegram"
+                icon={
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 32 32"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="text-blue-500"
+                  >
+                    <circle cx="16" cy="16" r="14" fill="url(#paint0_linear_87_7225)" />
+                    <path
+                      d="M22.9866 10.2088C23.1112 9.40332 22.3454 8.76755 21.6292 9.082L7.36482 15.3448C6.85123 15.5703 6.8888 16.3483 7.42147 16.5179L10.3631 17.4547C10.9246 17.6335 11.5325 17.541 12.0228 17.2023L18.655 12.6203C18.855 12.4821 19.073 12.7665 18.9021 12.9426L14.1281 17.8646C13.665 18.3421 13.7569 19.1512 14.314 19.5005L19.659 22.8523C20.2585 23.2282 21.0297 22.8506 21.1418 22.1261L22.9866 10.2088Z"
+                      fill="white"
+                    />
+                    <defs>
+                      <linearGradient id="paint0_linear_87_7225" x1="16" y1="2" x2="16" y2="30" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#37BBFE" />
+                        <stop offset="1" stop-color="#007DBB" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                }
+                hoverColor="hover:text-blue-500"
+              />
               <ContactInfo
                 href="https://смартдиаг-поддержка.рф/whatsapp"
                 imageSrc="/images/hero/whatsapp-qr.svg"
@@ -255,7 +266,7 @@ export default function Contact() {
                 })}
               />
 
-              <div className="flex items-center mb-4 mt-4">
+              <div className="flex items-center mb-4 mt-4 text-sm text-gray-700 dark:text-gray-300">
                 <input
                   type="checkbox"
                   id="agree"
@@ -264,12 +275,12 @@ export default function Contact() {
                   onChange={(e) => setIsChecked(e.target.checked)}
                   required
                 />
-                <span className="text-sm text-gray-700 dark:text-gray-300">
+                <span className="flex">
                   Я прочитал и согласен с{' '}
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(true)}
-                    className="text-red-600 hover:underline"
+                    className="text-red-600 hover:underline ml-1"
                   >
                     правилами на обработку персональных данных
                   </button>
