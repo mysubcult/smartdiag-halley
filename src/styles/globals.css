@@ -6,6 +6,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.scroll-section {
+  scroll-margin-top: 80px; /* Замените 80px на высоту вашего navbar */
+}
+
 body {
   @apply bg-white dark:bg-neutral-900;
 }
