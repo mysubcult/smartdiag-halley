@@ -57,9 +57,9 @@ export default function Contact() {
         },
         body: JSON.stringify(data),
       });
-      
+
       const json = await response.json();
-      
+
       if (response.ok && json.success) {
         setIsSuccess(true);
         reset();
@@ -266,21 +266,22 @@ export default function Contact() {
                 })}
               />
 
-              <div className="flex items-center mb-4 mt-4 text-sm text-gray-700 dark:text-gray-300">
+              <div className="flex items-start mb-4 mt-4 text-sm text-gray-700 dark:text-gray-300">
                 <input
                   type="checkbox"
                   id="agree"
-                  className="mr-2 cursor-pointer rounded text-red-600 focus:ring-red-500 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700"
+                  className="mr-2 cursor-pointer rounded text-red-600 focus:ring-red-500 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 mt-0.5"
                   checked={isChecked}
                   onChange={(e) => setIsChecked(e.target.checked)}
                   required
                 />
-                <span className="flex-wrap break-words">
+                <span>
                   Я прочитал и согласен с{' '}
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(true)}
-                    className="text-red-600 hover:underline break-words"
+                    className="text-red-600 hover:underline"
+                    style={{ whiteSpace: 'normal', textAlign: 'left' }}
                   >
                     правилами на обработку персональных данных
                   </button>
