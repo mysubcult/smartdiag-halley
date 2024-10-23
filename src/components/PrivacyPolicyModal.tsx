@@ -19,7 +19,10 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70"
       onClick={handleOverlayClick}
     >
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg max-w-full w-full sm:max-w-3xl mx-4 relative overflow-hidden transition-colors duration-300">
+      <div
+        className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg max-w-full w-full sm:max-w-3xl mx-4 relative overflow-hidden transition-colors duration-300"
+        style={{ width: '90vw', maxHeight: '80vh', overflowY: 'auto' }}
+      >
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-500 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95"
