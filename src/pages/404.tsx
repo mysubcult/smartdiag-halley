@@ -2,11 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import Layout from "../components/Layout";
 
 export default function NotFound() {
   return (
-    <Layout>
       <div
         className="bg-white dark:bg-neutral-900 w-full px-4 pt-32 pb-16"
         id="faq"
@@ -32,6 +30,5 @@ export default function NotFound() {
           </Link>
         </div>
       </div>
-    </Layout>
   );
 }
