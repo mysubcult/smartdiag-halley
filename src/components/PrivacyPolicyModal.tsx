@@ -19,21 +19,19 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70"
       onClick={handleOverlayClick}
     >
-      <div
-        className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg max-w-full w-full sm:max-w-3xl mx-4 relative overflow-hidden transition-colors duration-300"
-        style={{ width: '90vw', maxHeight: '80vh', overflowY: 'auto' }}
+      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-3xl mx-4 relative overflow-hidden transition-colors duration-300"
+           style={{ maxHeight: '80vh' }}
       >
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-500 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95"
-          style={{ fontSize: '2rem' }}
         >
           ×
         </button>
         <h4 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
           Политика в отношении обработки персональных данных
         </h4>
-        <div className="overflow-y-auto max-h-96" style={{ padding: '0 16px', marginBottom: '16px' }}>
+        <div className="overflow-y-auto" style={{ maxHeight: 'calc(80vh - 5rem)' }}>
           <ol className="list-decimal pl-5 space-y-2">
             <li className="text-gray-700 dark:text-gray-300">1. Общие положения</li>
             <li className="text-gray-700 dark:text-gray-300">
