@@ -175,8 +175,6 @@ export default function Contact() {
               </a>
             </p>
           </div>
-
-          <hr className="border-gray-300 dark:border-gray-700 mb-6" />
         </div>
 
         {/* Правая часть с формой обратной связи */}
