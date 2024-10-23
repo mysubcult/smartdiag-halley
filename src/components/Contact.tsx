@@ -275,13 +275,17 @@ export default function Contact() {
                   onChange={(e) => setIsChecked(e.target.checked)}
                   required
                 />
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(true)}
-                  className="text-left text-red-600 hover:underline"
-                >
-                  Я прочитал и согласен с правилами на обработку персональных данных
-                </button>
+                <span>
+                  Я прочитал и согласен с{' '}
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(true)}
+                    className="text-red-600 hover:underline"
+                  >
+                    правилами
+                  </button>{' '}
+                  на обработку персональных данных
+                </span>
               </div>
 
               <button
