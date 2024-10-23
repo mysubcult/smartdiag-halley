@@ -127,7 +127,7 @@ export default function Contact() {
                     viewBox="0 0 32 32"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="transform scale-110 text-blue-500"  // Легкое увеличение размера через transform
+                    className="transform scale-110 text-blue-500"
                   >
                     <circle cx="16" cy="16" r="14" fill="url(#paint0_linear_87_7225)" />
                     <path
@@ -266,22 +266,21 @@ export default function Contact() {
                 })}
               />
 
-              <div className="flex items-start mb-4 mt-4 text-sm text-gray-700 dark:text-gray-300">
+              <div className="flex items-center mb-4 mt-4 text-sm text-gray-700 dark:text-gray-300">
                 <input
                   type="checkbox"
                   id="agree"
-                  className="mr-2 cursor-pointer rounded text-red-600 focus:ring-red-500 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 mt-0.5"
+                  className="mr-2 cursor-pointer rounded text-red-600 focus:ring-red-500 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700"
                   checked={isChecked}
                   onChange={(e) => setIsChecked(e.target.checked)}
                   required
                 />
-                <span>
+                <span className="inline-flex flex-wrap">
                   Я прочитал и согласен с{' '}
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(true)}
                     className="text-red-600 hover:underline"
-                    style={{ whiteSpace: 'normal', textAlign: 'left' }}
                   >
                     правилами на обработку персональных данных
                   </button>
