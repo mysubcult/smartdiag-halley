@@ -277,16 +277,13 @@ export default function Contact() {
                 />
                 <span>
                   Я прочитал и согласен с{' '}
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setIsModalOpen(true);
-                    }}
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(true)}
                     className="text-red-600 hover:underline"
                   >
                     правилами
-                  </a>{' '}
+                  </button>{' '}
                   на обработку персональных данных
                 </span>
               </div>
