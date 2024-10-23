@@ -168,15 +168,6 @@ export default function Contact() {
           <hr className="border-gray-300 dark:border-gray-700 mb-6" />
 
           <div className="mb-6">
-            <h3 className="text-md font-semibold mb-2 text-red-600">Email отдела продаж:</h3>
-            <p className="text-sm text-gray-700 dark:text-gray-300">
-              <a href="mailto:sales@смартдиаг.рф" className="text-blue-600 hover:underline">
-                sales@смартдиаг.рф
-              </a>
-            </p>
-          </div>
-
-          <div className="mb-6">
             <h3 className="text-md font-semibold mb-2 text-red-600">Email технической поддержки:</h3>
             <p className="text-sm text-gray-700 dark:text-gray-300">
               <a href="mailto:support@смартдиаг.рф" className="text-blue-600 hover:underline">
@@ -186,11 +177,6 @@ export default function Contact() {
           </div>
 
           <hr className="border-gray-300 dark:border-gray-700 mb-6" />
-
-          <div>
-            <h3 className="text-md font-semibold mb-2 text-red-600">Адрес компании:</h3>
-            <p className="text-sm text-gray-700 dark:text-gray-300">📍 г. Тольятти, ул. Ленинградская 68</p>
-          </div>
         </div>
 
         {/* Правая часть с формой обратной связи */}
