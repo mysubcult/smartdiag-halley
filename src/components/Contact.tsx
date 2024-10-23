@@ -136,8 +136,8 @@ export default function Contact() {
                     />
                     <defs>
                       <linearGradient id="paint0_linear_87_7225" x1="16" y1="2" x2="16" y2="30" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#37BBFE" />
-                        <stop offset="1" stop-color="#007DBB" />
+                        <stop stopColor="#37BBFE" />
+                        <stop offset="1" stopColor="#007DBB" />
                       </linearGradient>
                     </defs>
                   </svg>
@@ -275,12 +275,12 @@ export default function Contact() {
                   onChange={(e) => setIsChecked(e.target.checked)}
                   required
                 />
-                <span className="whitespace-nowrap">
+                <span className="flex-wrap break-words">
                   Я прочитал и согласен с{' '}
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(true)}
-                    className="text-red-600 hover:underline"
+                    className="text-red-600 hover:underline break-words"
                   >
                     правилами на обработку персональных данных
                   </button>
