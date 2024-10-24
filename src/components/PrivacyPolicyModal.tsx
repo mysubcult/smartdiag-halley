@@ -19,7 +19,7 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70"
       onClick={handleOverlayClick}
     >
-      <div 
+      <div
         className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-3xl mx-4 relative overflow-hidden transition-colors duration-300"
         style={{ maxHeight: '80vh' }}
       >
@@ -32,7 +32,7 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
         <h4 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
           Политика в отношении обработки персональных данных
         </h4>
-        <div className="overflow-y-auto pt-8 pb-8" style={{ maxHeight: 'calc(80vh - 5rem)' }}>
+        <div className="overflow-y-auto" style={{ maxHeight: 'calc(80vh - 5rem)' }}>
           <ul className="pl-5 space-y-2">
             <li className="text-gray-700 dark:text-gray-300">1. Общие положения</li>
             <li className="text-gray-700 dark:text-gray-300">
@@ -86,6 +86,8 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
             <li className="text-gray-700 dark:text-gray-300">
               — исполнять иные обязанности, предусмотренные Законом о персональных данных.
             </li>
+            {/* Нижний заполнитель для отступа */}
+            <li className="pt-8"></li>
           </ul>
         </div>
       </div>
