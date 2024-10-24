@@ -86,9 +86,9 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
             <li className="text-gray-700 dark:text-gray-300">
               — исполнять иные обязанности, предусмотренные Законом о персональных данных.
             </li>
-            {/* Нижний заполнитель для отступа */}
-            <li className="pt-8"></li>
           </ul>
+          {/* Нижний заполнитель для создания постоянного отступа снизу */}
+          <div className="pb-8"></div>
         </div>
       </div>
     </div>
