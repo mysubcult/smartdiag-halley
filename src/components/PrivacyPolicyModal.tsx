@@ -32,7 +32,7 @@ const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ isOpen, onClose
         <h4 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
           Политика в отношении обработки персональных данных
         </h4>
-        <div className="overflow-y-auto pb-8" style={{ maxHeight: 'calc(80vh - 5rem)' }}>
+        <div className="overflow-y-auto pt-8 pb-8" style={{ maxHeight: 'calc(80vh - 5rem)' }}>
           <ul className="pl-5 space-y-2">
             <li className="text-gray-700 dark:text-gray-300">1. Общие положения</li>
             <li className="text-gray-700 dark:text-gray-300">
