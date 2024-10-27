@@ -1,9 +1,8 @@
-// /src/pages/articles/errors/archive.tsx
-
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
+import classNames from 'classnames';
 
 export const metadata = {
   title: 'Как справиться с ошибкой при открытии архива',
@@ -22,17 +21,10 @@ const navItems = [
 ];
 
 export default function BlogPost() {
-  const [isClient, setIsClient] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
   const closeModal = () => setIsModalOpen(false);
-
-  if (!isClient) return null;
 
   return (
     <>
@@ -40,6 +32,9 @@ export default function BlogPost() {
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
         <meta name="keywords" content={metadata.keywords} />
+        <meta property="og:title" content={metadata.title} />
+        <meta property="og:description" content={metadata.description} />
+        <meta property="og:image" content="/images/blog/post1.jpg" />
       </Head>
       <main className="bg-white dark:bg-neutral-900 w-full px-4 pt-24 pb-16">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between lg:space-x-6">
@@ -68,10 +63,15 @@ export default function BlogPost() {
               Меню навигации
             </button>
           </div>
-          <div className={`lg:w-1/6 w-full text-center lg:text-left ${isMenuOpen ? 'block' : 'hidden'} lg:block lg:sticky top-24 h-max self-start bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300 px-4 mx-auto shadow-lg rounded-lg border border-neutral-200 dark:border-neutral-700 py-4 transition-all duration-300 ease-in-out`}>
+          <nav className={classNames('lg:w-1/6 w-full text-center lg:text-left', {
+              'block': isMenuOpen,
+              'hidden': !isMenuOpen,
+              'lg:block': true,
+            })}
+            >
             <h3 className="text-center text-xl font-bold mb-3">Навигация</h3>
             <hr className="border-b-2 border-rose-500 mr-[-16px] ml-[-16px] mb-4" />
-            <nav className="space-y-3">
+            <div className="space-y-3">
               {navItems.map((item) => (
                 <Link href={item.href} key={item.href}>
                   <a className="flex items-center text-base text-left justify-start text-inherit hover:text-rose-500 cursor-pointer transition-colors duration-300">
@@ -79,17 +79,17 @@ export default function BlogPost() {
                   </a>
                 </Link>
               ))}
-            </nav>
-          </div>
+            </div>
+          </nav>
 
           <div className="lg:w-4/6 w-full lg:max-w-4xl mx-auto px-4 pt-6 lg:pt-0">
             {/* Статичный заголовок */}
-            <div id="introduction" className="scroll-section">
+            <section id="introduction" className="scroll-section">
               <h2 className="text-4xl font-bold text-center">{metadata.title}</h2>
               <p className="pt-6 pb-8 text-base dark:text-neutral-400">
                 В этой статье мы рассмотрим наиболее частые причины ошибок при открытии архивов и предложим решения для их устранения.
               </p>
-            </div>
+            </section>
 
             {/* Изображение с одинаковой рамкой */}
             <div className="border-4 border-neutral-300 rounded-lg overflow-hidden">
@@ -127,31 +127,25 @@ export default function BlogPost() {
             )}
 
             <div className="max-w-4xl mx-auto text-lg leading-relaxed">
-              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="antivirus-issue">Проблема с антивирусом</h3>
-              <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4">
-                Одной из наиболее частых причин, почему архив не открывается, может быть блокировка со стороны антивирусного программного обеспечения. Некоторые антивирусы могут определять архивы как потенциальную угрозу и блокировать их запуск. Рекомендуется проверить настройки антивируса и убедиться, что он не блокирует открытие архивов.
-              </p>
-              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="outdated-software">Устаревшее программное обеспечение</h3>
-              <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4">
-                Еще одной причиной может быть использование устаревшего программного обеспечения для работы с архивами, например, старых версий WinRAR или WinZip. Убедитесь, что у вас установлена актуальная версия программы для разархивации. Обновления программ часто включают поддержку новых форматов архивов.
-              </p>
-              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="download-errors">Ошибки при загрузке</h3>
-              <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4">
-                Ошибки при загрузке файла также могут стать причиной проблемы с открытием архива. Проверьте, что архив был загружен полностью. Попробуйте перезагрузить его в случае ошибок при первой попытке.
-              </p>
-              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="yandex-tips">Советы для пользователей Яндекс Браузера</h3>
-              <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4">
-                Если вы используете Яндекс Браузер, иногда защита может блокировать архивы при скачивании. Для решения этой проблемы, попробуйте отключить проверку безопасности скачиваемых файлов в настройках браузера. Перейдите в настройки, откройте вкладку «Безопасность», и снимите галочку с опции «Проверять безопасность скачиваемых файлов».
-              </p>
-              <h3 className="text-2xl font-semibold mt-8 scroll-section" id="support">Поддержка</h3>
-              <hr className="border-neutral-300 mb-4" />
-              <p className="mb-4">
-                Если указанные выше шаги не помогли, обратитесь в службу поддержки или попробуйте скачать архив снова.
-              </p>
+              {navItems.slice(1).map(({ href, label }, index) => (
+                <section key={href} className="scroll-section" id={href.replace('#', '')}>
+                  <h3 className="text-2xl font-semibold mt-8">{label.split(' ')[1]}</h3>
+                  <hr className="border-neutral-300 mb-4" />
+                  <p className="mb-4">
+                    {index === 0 ? (
+                      "Одной из наиболее частых причин, почему архив не открывается, может быть блокировка со стороны антивирусного программного обеспечения. Некоторые антивирусы могут определять архивы как потенциальную угрозу и блокировать их запуск. Рекомендуется проверить настройки антивируса и убедиться, что он не блокирует открытие архивов."
+                    ) : index === 1 ? (
+                      "Еще одной причиной может быть использование устаревшего программного обеспечения для работы с архивами, например, старых версий WinRAR или WinZip. Убедитесь, что у вас установлена актуальная версия программы для разархивации. Обновления программ часто включают поддержку новых форматов архивов."
+                    ) : index === 2 ? (
+                      "Ошибки при загрузке файла также могут стать причиной проблемы с открытием архива. Проверьте, что архив был загружен полностью. Попробуйте перезагрузить его в случае ошибок при первой попытке."
+                    ) : index === 3 ? (
+                      "Если вы используете Яндекс Браузер, иногда защита может блокировать архивы при скачивании. Для решения этой проблемы, попробуйте отключить проверку безопасности скачиваемых файлов в настройках браузера. Перейдите в настройки, откройте вкладку «Безопасность», и снимите галочку с опции «Проверять безопасность скачиваемых файлов»."
+                    ) : (
+                      "Если указанные выше шаги не помогли, обратитесь в службу поддержки или попробуйте скачать архив снова."
+                    )}
+                  </p>
+                </section>
+              ))}
             </div>
 
             <div className="mt-16 flex justify-center">
