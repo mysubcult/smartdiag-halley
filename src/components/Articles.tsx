@@ -76,7 +76,7 @@ export default function Blog() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Статьи 💻
+          Статьи 💻 (в разработке)
         </motion.h2>
         <motion.p
           className="pt-6 text-lg max-w-2xl text-center m-auto text-gray-700 dark:text-gray-300"
