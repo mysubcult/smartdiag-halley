@@ -47,15 +47,17 @@ export const Hero: FC = () => {
                   <svg
                     className="w-5 h-5 ml-2 transform transition-transform duration-1000"
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 100 60" // Устанавливаем размер представления SVG
+                    viewBox="0 0 100 60"
                   >
-                    {/* Розетка */}
+                    {/* Outlet */}
                     <rect className="fill-current text-black" x="70" y="20" width="20" height="20" />
-                    
-                    {/* Вилка */}
-                    <rect className="fill-current text-gray-500 group-hover:translate-x-3 transition-transform duration-500" x="0" y="20" width="30" height="20" />
-                    <rect className="fill-current text-gray-500 group-hover:translate-x-3 transition-transform duration-500" x="30" y="25" width="5" height="5" />
-                    <rect className="fill-current text-gray-500 group-hover:translate-x-3 transition-transform duration-500" x="30" y="30" width="5" height="5" />
+
+                    {/* Plug */}
+                    <g className="group-hover:translate-x-12 transition-transform duration-500">
+                      <rect className="fill-current text-gray-500" x="0" y="22" width="30" height="16" />
+                      <rect className="fill-current text-gray-500" x="30" y="26" width="5" height="4" />
+                      <rect className="fill-current text-gray-500" x="30" y="30" width="5" height="4" />
+                    </g>
                   </svg>
                 </span>
               </div>
