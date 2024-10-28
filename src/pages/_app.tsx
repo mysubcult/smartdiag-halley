@@ -8,6 +8,8 @@ import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import Layout from '@/components/Layout';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -15,6 +17,8 @@ const inter = Inter({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
   return (
     <main className={`${inter.variable} font-sans relative`}>
       <Head>
@@ -22,9 +26,20 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider attribute="class">
         <Layout>
-          {/* Прямой рендеринг компонента страницы без анимации */}
-          <Component {...pageProps} />
-
+          {/* Оборачиваем компонент в AnimatePresence и motion.div для анимации */}
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={router.route}
+              initial={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 0 }}
+              transition={{ duration: 0.5 }}
+              style={{ position: 'absolute', width: '100%' }}
+            >
+              <Component {...pageProps} />
+            </motion.div>
+          </AnimatePresence>
+          
           <Script
             id="lhc-widget-script"
             strategy="afterInteractive"
