@@ -348,13 +348,19 @@ const ContactInfo: React.FC<ContactInfoProps> = ({
     </div>
     <div>
       <a href={href} target="_blank" rel="noopener noreferrer">
-        <Image
-          src={imageSrc}
-          alt={alt}
-          className="rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-110"
-          width={100}
-          height={100}
-        />
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <Image
+            src={imageSrc}
+            alt={alt}
+            className="rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-110"
+            width={100}
+            height={100}
+          />
+        </motion.div>
       </a>
     </div>
   </div>
