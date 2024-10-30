@@ -486,7 +486,7 @@ const SuccessMessage: React.FC<MessageProps> = ({ onReset }) => (
   </div>
 );
 
-// Компонент ErrorMessage
+// Компонент ErrorMessage 
 const ErrorMessage: React.FC<MessageProps> = ({ onReset }) => (
   <div className="flex flex-col items-center justify-center text-center text-neutral-900 dark:text-neutral-300 rounded-md">
     <svg
