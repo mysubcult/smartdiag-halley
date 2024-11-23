@@ -136,6 +136,42 @@ const StoreDropdown: React.FC<{ isOpen: boolean; toggle: () => void }> = ({
   );
 };
 
+const MobileMenu: React.FC<{ isOpen: boolean; toggle: () => void; items: NavItem[] }> = ({
+  isOpen,
+  toggle,
+  items,
+}) => (
+  <AnimatePresence>
+    {isOpen && (
+      <motion.div
+        key="mobile-menu"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3 }}
+        className="fixed inset-0 bg-white dark:bg-neutral-900 z-20 pt-16 overflow-y-auto"
+      >
+        <div className="flex flex-col items-center space-y-4 py-8 px-4">
+          {items.map((item) => (
+            <Link key={item.name} href={item.href}>
+              <span
+                className="w-full flex items-center justify-center text-xl font-medium hover:text-red-500 cursor-pointer"
+                onClick={toggle}
+              >
+                {item.emoji && <span className="mr-2 text-2xl">{item.emoji}</span>}
+                {item.name}
+              </span>
+            </Link>
+          ))}
+
+          {/* Подменю магазинов в мобильном меню */}
+          <StoreDropdown isOpen={false} toggle={() => {}} />
+        </div>
+      </motion.div>
+    )}
+  </AnimatePresence>
+);
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
@@ -231,7 +267,7 @@ export default function Navbar() {
               {/* Навигационные ссылки для больших экранов */}
               <div className="hidden lg:flex items-center space-x-3 ml-4">
                 {memoizedNavLinks}
-                {currentBreakpoint === 'lg' && (
+                {currentBreakpoint !== 'lg' && (
                   <StoreDropdown isOpen={isSubMenuOpen} toggle={toggleSubMenu} />
                 )}
               </div>
@@ -240,7 +276,7 @@ export default function Navbar() {
             {/* Кнопки справа */}
             <div className="flex items-center space-x-2">
               {/* Theme Switch Button остается здесь */}
-              {currentBreakpoint !== 'lg' && <StoreButtons />}
+              {currentBreakpoint === 'lg' && <StoreButtons />}
 
               {/* Ссылки магазинов для больших экранов */}
               <ThemeSwitchButton />
@@ -288,73 +324,7 @@ export default function Navbar() {
       </nav>
 
       {/* Мобильное меню */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            key="mobile-menu"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-white dark:bg-neutral-900 z-20 pt-16 overflow-y-auto"
-          >
-            <div className="flex flex-col items-center space-y-4 py-8 px-4">
-              {navigation.map((item) => (
-                <Link key={item.name} href={item.href}>
-                  <span
-                    className="w-full flex items-center justify-center text-xl font-medium hover:text-red-500 cursor-pointer"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.emoji && <span className="mr-2 text-2xl">{item.emoji}</span>}
-                    {item.name}
-                  </span>
-                </Link>
-              ))}
-
-              {/* Подменю магазинов в мобильном меню */}
-              <div className="w-full">
-                <button
-                  onClick={toggleSubMenu}
-                  className="w-full flex items-center justify-center text-xl font-medium hover:text-red-500 focus:outline-none"
-                  aria-haspopup="true"
-                  aria-expanded={isSubMenuOpen}
-                >
-                  <span className="mr-2 text-2xl">🛒</span>
-                  Магазины
-                  <ChevronDownIcon className={`h-6 w-6 ml-1 transition-transform ${isSubMenuOpen ? 'rotate-180' : 'rotate-0'}`} />
-                </button>
-                <AnimatePresence>
-                  {isSubMenuOpen && (
-                    <motion.div
-                      key="submenu"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="flex flex-col items-center mt-4 space-y-4"
-                    >
-                      <div className="w-full max-w-xs mx-auto flex flex-col space-y-4">
-                        {storeLinks.map((store) => (
-                          <Link
-                            key={store.name}
-                            href={store.href}
-                            className="flex items-center justify-center w-full text-lg font-medium px-4 py-2 bg-neutral-100 dark:bg-neutral-700 rounded-md transition-transform duration-300 hover:scale-105 whitespace-nowrap"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <Image src={store.iconSrc} alt={`${store.name} Icon`} className="w-6 h-6 mr-3" width={24} height={24} loading="lazy" />
-                            {store.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <MobileMenu isOpen={isMenuOpen} toggle={toggleMenu} items={navigation} />
     </>
   );
 }
