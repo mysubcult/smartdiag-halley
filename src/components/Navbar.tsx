@@ -139,9 +139,33 @@ const StoreDropdown: React.FC<{ isOpen: boolean; toggle: () => void }> = ({
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+  const [currentBreakpoint, setCurrentBreakpoint] = useState('');
 
   const subMenuButtonRef = useRef<HTMLButtonElement>(null);
   const subMenuRef = useRef<HTMLDivElement>(null);
+
+  const getBreakpoint = useCallback((width: number): string => {
+    if (width >= 1536) return '2xl';
+    if (width >= 1280) return 'xl';
+    if (width >= 1024) return 'lg';
+    if (width >= 768) return 'md';
+    if (width >= 640) return 'sm';
+    return 'xs';
+  }, []);
+
+  useEffect(() => {
+    const updateBreakpoint = () => {
+      const width = window.innerWidth;
+      const bp = getBreakpoint(width);
+      setCurrentBreakpoint(bp);
+    };
+
+    updateBreakpoint();
+
+    window.addEventListener('resize', updateBreakpoint);
+
+    return () => window.removeEventListener('resize', updateBreakpoint);
+  }, [getBreakpoint]);
 
   useEffect(() => {
     if (!isSubMenuOpen) return;
@@ -168,6 +192,12 @@ export default function Navbar() {
       };
     }
   }, [isMenuOpen]);
+
+  useEffect(() => {
+    if (currentBreakpoint === 'lg' && isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }, [currentBreakpoint, isMenuOpen]);
 
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
@@ -201,14 +231,16 @@ export default function Navbar() {
               {/* Навигационные ссылки для больших экранов */}
               <div className="hidden lg:flex items-center space-x-3 ml-4">
                 {memoizedNavLinks}
-                <StoreDropdown isOpen={isSubMenuOpen} toggle={toggleSubMenu} />
+                {currentBreakpoint === 'lg' && (
+                  <StoreDropdown isOpen={isSubMenuOpen} toggle={toggleSubMenu} />
+                )}
               </div>
             </div>
 
             {/* Кнопки справа */}
             <div className="flex items-center space-x-2">
               {/* Theme Switch Button остается здесь */}
-              <StoreButtons />
+              {currentBreakpoint !== 'lg' && <StoreButtons />}
 
               {/* Ссылки магазинов для больших экранов */}
               <ThemeSwitchButton />
