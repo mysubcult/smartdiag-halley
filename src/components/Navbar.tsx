@@ -91,7 +91,7 @@ const StoreButtons: React.FC = () => (
   </div>
 );
 
-const StoreDropdown: React.FC<{ isOpen: boolean; toggle: () => void; breakpoint: string }> = ({
+const StoreDropdown: React.FC<{ isOpen: boolean; toggle: () => void }> = ({
   isOpen,
   toggle,
 }) => {
@@ -139,33 +139,9 @@ const StoreDropdown: React.FC<{ isOpen: boolean; toggle: () => void; breakpoint:
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
-  const [currentBreakpoint, setCurrentBreakpoint] = useState('');
 
   const subMenuButtonRef = useRef<HTMLButtonElement>(null);
   const subMenuRef = useRef<HTMLDivElement>(null);
-
-  const getBreakpoint = useCallback((width: number): string => {
-    if (width >= 1536) return '2xl';
-    if (width >= 1280) return 'xl';
-    if (width >= 1024) return 'lg';
-    if (width >= 768) return 'md';
-    if (width >= 640) return 'sm';
-    return 'xs';
-  }, []);
-
-  useEffect(() => {
-    const updateBreakpoint = () => {
-      const width = window.innerWidth;
-      const bp = getBreakpoint(width);
-      setCurrentBreakpoint(bp);
-    };
-
-    updateBreakpoint();
-
-    window.addEventListener('resize', updateBreakpoint);
-
-    return () => window.removeEventListener('resize', updateBreakpoint);
-  }, [getBreakpoint]);
 
   useEffect(() => {
     if (!isSubMenuOpen) return;
@@ -192,12 +168,6 @@ export default function Navbar() {
       };
     }
   }, [isMenuOpen]);
-
-  useEffect(() => {
-    if (currentBreakpoint === 'lg' && isMenuOpen) {
-      setIsMenuOpen(false);
-    }
-  }, [currentBreakpoint, isMenuOpen]);
 
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
@@ -231,9 +201,7 @@ export default function Navbar() {
               {/* Навигационные ссылки для больших экранов */}
               <div className="hidden lg:flex items-center space-x-3 ml-4">
                 {memoizedNavLinks}
-                {currentBreakpoint === 'lg' && (
-                  <StoreDropdown isOpen={isSubMenuOpen} toggle={toggleSubMenu} breakpoint={currentBreakpoint} />
-                )}
+                <StoreDropdown isOpen={isSubMenuOpen} toggle={toggleSubMenu} />
               </div>
             </div>
 
@@ -244,13 +212,6 @@ export default function Navbar() {
 
               {/* Ссылки магазинов для больших экранов */}
               <ThemeSwitchButton />
-
-              {/* Отображение брейкпоинта на больших экранах */}
-              <div className="hidden lg:flex items-center ml-2">
-                <span className="px-2 py-1 text-xs font-semibold text-white bg-blue-500 rounded-full">
-                  {currentBreakpoint.toUpperCase()}
-                </span>
-              </div>
 
               {/* Кнопка мобильного меню */}
               <div className="lg:hidden">
@@ -287,9 +248,6 @@ export default function Navbar() {
                       )}
                     </AnimatePresence>
                   </div>
-                  <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1">
-                    {currentBreakpoint.toUpperCase()}
-                  </span>
                 </button>
               </div>
             </div>
