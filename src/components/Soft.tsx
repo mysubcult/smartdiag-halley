@@ -76,7 +76,7 @@ const products: Product[] = [
       { link: "https://nch.pl/s/KCCEPPDbpb7j7oJ", label: "Скачать с сервера 2" },
     ],
     mostPopular: false,
-    docs: false,
+    docs: true,
     docsLinks: [
       { link: "https://docs.смартдиаг.рф/docs/category/wow-snooper", label: "Инструкция по установке Wurth WoW" },
     ],
