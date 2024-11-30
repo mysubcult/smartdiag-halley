@@ -8,7 +8,7 @@ const AboutPage: React.FC = () => {
     <>
       <Head>
         {/* Мета-теги для SEO */}
-        <title>О нас - SmartDiag</title>
+        <title>О нас | SmartDiag</title>
         <meta
           name="description"
           content="SmartDiag предлагает широкий выбор диагностических приборов и программ для автосервиса. Узнайте больше о наших услугах."
@@ -20,7 +20,7 @@ const AboutPage: React.FC = () => {
         <meta name="robots" content="index, follow" />
         <meta
           property="og:title"
-          content="О нас - SmartDiag"
+          content="О нас | SmartDiag"
         />
         <meta
           property="og:description"
