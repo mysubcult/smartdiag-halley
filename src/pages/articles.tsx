@@ -8,7 +8,7 @@ const ArticlesPage: React.FC = () => {
     <>
       <Head>
         {/* Мета-теги для SEO */}
-        <title>Статьи - SmartDiag</title>
+        <title>Статьи | SmartDiag</title>
         <meta
           name="description"
           content="Читайте наши статьи и получайте советы по диагностике автомобилей и программному обеспечению от SmartDiag."
@@ -18,7 +18,7 @@ const ArticlesPage: React.FC = () => {
           content="статьи, автодиагностика, программное обеспечение, советы, SmartDiag"
         />
         <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="Статьи - SmartDiag" />
+        <meta property="og:title" content="Статьи | SmartDiag" />
         <meta
           property="og:description"
           content="Читайте наши статьи и получайте советы по диагностике автомобилей и программному обеспечению от SmartDiag."
