@@ -48,8 +48,7 @@ const products: Product[] = [
     mostPopular: false,
     docs: true,
     docsLinks: [
-      { link: "https://i.getspace.us/cloud/s/7BwyBJf2YHxEkaC", label: "Инструкция по установке Delphi 2020.23" },
-      { link: "https://i.getspace.us/cloud/s/qJRfJdgjsqkPxme", label: "Инструкция по установке Delphi 2021.10b" }
+      { link: "https://docs.смартдиаг.рф/docs/category/delphi-ds150e", label: "Инструкция по установке Delphi 2020.23" },
     ],
     type: "Мультимарочные"
   },
@@ -64,8 +63,7 @@ const products: Product[] = [
     mostPopular: true,
     docs: true,
     docsLinks: [
-      { link: "https://i.getspace.us/cloud/s/xdr4QZqwsR6k8rr", label: "Инструкция по установке Autocom 2020.23" },
-      { link: "https://i.getspace.us/cloud/s/bbRzaksyH6LkSg4", label: "Инструкция по установке Autocom 2021.11" },
+      { link: "https://docs.смартдиаг.рф/docs/category/autocom-cdp", label: "Инструкция по установке Autocom 2020.23" },
     ],
     type: "Мультимарочные"
   },
@@ -79,7 +77,9 @@ const products: Product[] = [
     ],
     mostPopular: false,
     docs: false,
-    docsLinks: [],
+    docsLinks: [
+      { link: "https://docs.смартдиаг.рф/docs/category/wow-snooper", label: "Инструкция по установке Wurth WoW" },
+    ],
     type: "Мультимарочные"
   },
   {
@@ -118,7 +118,7 @@ const products: Product[] = [
     mostPopular: true,
     docs: true,
     docsLinks: [
-      { link: "https://i.getspace.us/cloud/s/bmi7a7zdHbXHMnB", label: "Инструкция 1" },
+      { link: "https://docs.смартдиаг.рф/docs/category/vcdsвася", label: "Инструкция 1" },
     ],
     type: "Марочные"
   },
