@@ -24,7 +24,7 @@ interface StoreLink {
 const navigation: NavItem[] = [
   { name: 'Главная', href: '/', emoji: '🏠' },
   { name: 'Программы', href: '/soft', emoji: '💻' },
-  { name: 'Инструкции', href: 'https://docs.смартдиаг.рф/', emoji: '📝' },
+  { name: 'Инструкции', href: 'https://docs.смартдиаг.рф/docs/intro', emoji: '📝' },
   { name: 'О нас', href: '/about', emoji: 'ℹ️' },
   { name: 'Обратная связь', href: '/contact', emoji: '📩' },
 ];
