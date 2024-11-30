@@ -8,7 +8,7 @@ const SoftPage: React.FC = () => {
     <>
       <Head>
         {/* Мета-теги для SEO */}
-        <title>Программы - SmartDiag</title>
+        <title>Программы | SmartDiag</title>
         <meta
           name="description"
           content="SmartDiag предлагает широкий выбор диагностических приборов и программ для автосервиса. Узнайте больше о наших услугах."
@@ -20,7 +20,7 @@ const SoftPage: React.FC = () => {
         <meta name="robots" content="index, follow" />
         <meta
           property="og:title"
-          content="Программы - SmartDiag"
+          content="Программы | SmartDiag"
         />
         <meta
           property="og:description"
