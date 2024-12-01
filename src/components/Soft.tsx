@@ -191,8 +191,10 @@ const products: Product[] = [
       { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 1" },
     ],
     mostPopular: true,
-    docs: false,
-    docsLinks: [],
+    docs: true,
+    docsLinks: [
+      { link: "https://docs.смартдиаг.рф/category/адаптеры-elm", label: "Инструкция 1" },
+    ],
     type: "Адаптеры elm"
   },
   {
@@ -204,8 +206,10 @@ const products: Product[] = [
       { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 1" },
     ],
     mostPopular: false,
-    docs: false,
-    docsLinks: [],
+    docs: true,
+    docsLinks: [
+      { link: "https://docs.смартдиаг.рф/category/адаптеры-elm", label: "Инструкция 1" },
+    ],
     type: "Адаптеры elm"
   }
 ];
