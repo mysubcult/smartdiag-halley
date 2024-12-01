@@ -19,7 +19,7 @@ interface SocialLink {
 const menus: MenuItem[] = [
   { title: 'Главная', url: '/' },
   { title: 'Программы', url: '/soft' },
-  { title: 'Инструкции', url: 'https://docs.смартдиаг.рф/intro' },
+  { title: 'Инструкции', url: 'https://docs.смартдиаг.рф/' },
   { title: 'О нас', url: '/about' },
   { title: 'Обратная связь', url: '/contact' },
 ];
