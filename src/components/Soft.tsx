@@ -48,7 +48,7 @@ const products: Product[] = [
     mostPopular: false,
     docs: true,
     docsLinks: [
-      { link: "https://docs.смартдиаг.рф/docs/category/delphi-ds150e", label: "Инструкция по установке Delphi 2020.23" },
+      { link: "https://docs.смартдиаг.рф/category/delphi-ds150e", label: "Инструкция по установке Delphi 2020.23" },
     ],
     type: "Мультимарочные"
   },
@@ -63,7 +63,7 @@ const products: Product[] = [
     mostPopular: true,
     docs: true,
     docsLinks: [
-      { link: "https://docs.смартдиаг.рф/docs/category/autocom-cdp", label: "Инструкция по установке Autocom 2020.23" },
+      { link: "https://docs.смартдиаг.рф/category/autocom-cdp", label: "Инструкция по установке Autocom 2020.23" },
     ],
     type: "Мультимарочные"
   },
@@ -78,7 +78,7 @@ const products: Product[] = [
     mostPopular: false,
     docs: true,
     docsLinks: [
-      { link: "https://docs.смартдиаг.рф/docs/category/wow-snooper", label: "Инструкция по установке Wurth WoW" },
+      { link: "https://docs.смартдиаг.рф/category/wow-snooper", label: "Инструкция по установке Wurth WoW" },
     ],
     type: "Мультимарочные"
   },
@@ -118,7 +118,7 @@ const products: Product[] = [
     mostPopular: true,
     docs: true,
     docsLinks: [
-      { link: "https://docs.смартдиаг.рф/docs/category/vcdsвася", label: "Инструкция 1" },
+      { link: "https://docs.смартдиаг.рф/category/vcdsвася", label: "Инструкция 1" },
     ],
     type: "Марочные"
   },
