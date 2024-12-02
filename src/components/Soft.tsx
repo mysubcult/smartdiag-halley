@@ -83,7 +83,7 @@ const products: Product[] = [
     type: "Мультимарочные"
   },
   {
-    title: "MUCAR BT200/Thinkcar Mini/Thinkdiag",
+    title: "MUCAC/Thinkcar/Thinkdiag",
     description: "Универсальные мобильные приборы для диагностики автомобилей.",
     features: ["Diagzone", "ProDiag", "X-DIAG", "X-PRO5"],
     downloadLinks: [
@@ -91,8 +91,10 @@ const products: Product[] = [
       { link: "https://nch.pl/s/T6c4C7Gj5Me3mGF", label: "Скачать с сервера 2" },
     ],
     mostPopular: false,
-    docs: false,
-    docsLinks: [],
+    docs: true,
+    docsLinks: [
+      { link: "https://docs.смартдиаг.рф/mucar-thinkdiag/install", label: "Инструкция по активации приборов Thinkdiag, Mucar" },
+    ],
     type: "Мультимарочные"
   },
   {
