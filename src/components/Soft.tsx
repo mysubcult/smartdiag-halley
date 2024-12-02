@@ -83,7 +83,7 @@ const products: Product[] = [
     type: "Мультимарочные"
   },
   {
-    title: "MUCAC/Thinkcar/Thinkdiag",
+    title: "MUCAR/Thinkcar/Thinkdiag",
     description: "Универсальные мобильные приборы для диагностики автомобилей.",
     features: ["Diagzone", "ProDiag", "X-DIAG", "X-PRO5"],
     downloadLinks: [
