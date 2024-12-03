@@ -283,6 +283,7 @@ const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, onDownloa
     </motion.div>
   );
 });
+ProductCard.displayName = "ProductCard";
 
 const Modal: React.FC<ModalProps> = React.memo(({ modalLinks, onCloseModal, isDocs }) => {
   useEffect(() => {
@@ -347,6 +348,7 @@ const Modal: React.FC<ModalProps> = React.memo(({ modalLinks, onCloseModal, isDo
     </motion.div>
   );
 });
+Modal.displayName = "Modal";
 
 // Main Component
 export default function Soft() {
