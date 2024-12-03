@@ -1,8 +1,8 @@
-// soft.tsx
+// src/components/Soft.tsx
 
 import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { CheckIcon, XMarkIcon, MagnifyingGlassIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Types and Interfaces
 type ProductType = "Все" | "Мультимарочные" | "Марочные" | "Адаптеры elm";
@@ -229,7 +229,7 @@ const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, onDownloa
 
   return (
     <motion.div
-      className="relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-700"
+      className="relative rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col h-full border border-gray-300 dark:border-gray-700"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.02 }}
@@ -265,7 +265,7 @@ const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, onDownloa
           </motion.button>
         )}
       </div>
-      <div className="mt-auto">
+      <div>
         <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
           В комплекте:
         </h4>
@@ -304,48 +304,50 @@ const Modal: React.FC<ModalProps> = React.memo(({ modalLinks, onCloseModal, isDo
   if (!modalLinks) return null;
 
   return (
-    <motion.div
-      role="dialog"
-      aria-modal="true"
-      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      onClick={onCloseModal}
-    >
+    <AnimatePresence>
       <motion.div
-        className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative"
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.8, opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onCloseModal}
       >
-        <button
-          onClick={onCloseModal}
-          aria-label="Закрыть"
-          className="absolute top-3 right-3 text-gray-500 dark:text-gray-400 hover:text-red-500 transition-colors duration-300"
+        <motion.div
+          className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full relative"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.8, opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          onClick={(e) => e.stopPropagation()}
         >
-          <XMarkIcon className="w-6 h-6" />
-        </button>
-        <h3 className="text-lg font-semibold text-black dark:text-white text-center mb-4">
-          {isDocs ? "Выберите инструкцию для просмотра" : "Выберите ссылку для скачивания"}
-        </h3>
-        <div className="flex flex-col space-y-3">
-          {modalLinks.map(({ link, label }) => (
-            <a
-              href={link}
-              key={link}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300 text-center"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {label}
-            </a>
-          ))}
-        </div>
+          <button
+            onClick={onCloseModal}
+            aria-label="Закрыть"
+            className="absolute top-3 right-3 text-gray-500 dark:text-gray-400 hover:text-red-500 transition-colors duration-300"
+          >
+            <XMarkIcon className="w-6 h-6" />
+          </button>
+          <h3 className="text-lg font-semibold text-black dark:text-white text-center mb-4">
+            {isDocs ? "Выберите инструкцию для просмотра" : "Выберите ссылку для скачивания"}
+          </h3>
+          <div className="flex flex-col space-y-3">
+            {modalLinks.map(({ link, label }) => (
+              <a
+                href={link}
+                key={link}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300 text-center"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </AnimatePresence>
   );
 });
 Modal.displayName = "Modal";
@@ -560,7 +562,7 @@ export default function Soft() {
 
       {/* Product Cards */}
       <motion.div
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-16 items-stretch"
         initial={false}
         animate="visible"
         variants={{
@@ -623,7 +625,9 @@ export default function Soft() {
       )}
 
       {/* Modal */}
-      {modalLinks && <Modal modalLinks={modalLinks} onCloseModal={closeModal} isDocs={isDocs} />}
+      <AnimatePresence>
+        {modalLinks && <Modal modalLinks={modalLinks} onCloseModal={closeModal} isDocs={isDocs} />}
+      </AnimatePresence>
     </div>
   );
 }
