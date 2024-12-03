@@ -1,7 +1,6 @@
 // soft.tsx
 
-import { useState, useMemo } from "react";
-import Link from "next/link";
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { CheckIcon, XMarkIcon, MagnifyingGlassIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
 
@@ -40,17 +39,17 @@ const products: Product[] = [
   {
     title: "Delphi DS150e",
     description: "Многофункциональный диагностический инструмент для легковых и грузовых автомобилей.",
-    features: ["Delphi 2021.10b, Delphi + Delphi 2020.23", "Инструкции по установке ПО", "Руководство пользователя", "Руководство пользователя"],
+    features: ["Delphi 2021.10b, Delphi + Delphi 2020.23", "Инструкции по установке ПО", "Руководство пользователя"],
     downloadLinks: [
       { link: "https://i.getspace.us/cloud/s/BiaqYzKpxZRTc58", label: "Скачать с сервера 1" },
-      { link: "https://nch.pl/s/8MZQfLRjSy9z4Bk", label: "Скачать с сервера 2" }
+      { link: "https://nch.pl/s/8MZQfLRjSy9z4Bk", label: "Скачать с сервера 2" },
     ],
     mostPopular: false,
     docs: true,
     docsLinks: [
       { link: "https://docs.смартдиаг.рф/category/delphi-ds150e", label: "Инструкция по установке Delphi 2020.23" },
     ],
-    type: "Мультимарочные"
+    type: "Мультимарочные",
   },
   {
     title: "Autocom CDP+",
@@ -58,14 +57,14 @@ const products: Product[] = [
     features: ["Autocom 2021.11, Delphi + Autocom 2020.23"],
     downloadLinks: [
       { link: "https://i.getspace.us/cloud/s/S9CKwWMNDbeB2XH", label: "Скачать с сервера 1" },
-      { link: "https://nch.pl/s/XbJnfSYNiw3dzFm", label: "Скачать с сервера 2" }
+      { link: "https://nch.pl/s/XbJnfSYNiw3dzFm", label: "Скачать с сервера 2" },
     ],
     mostPopular: true,
     docs: true,
     docsLinks: [
       { link: "https://docs.смартдиаг.рф/category/autocom-cdp", label: "Инструкция по установке Autocom 2020.23" },
     ],
-    type: "Мультимарочные"
+    type: "Мультимарочные",
   },
   {
     title: "Wurth WoW Snooper+",
@@ -80,7 +79,7 @@ const products: Product[] = [
     docsLinks: [
       { link: "https://docs.смартдиаг.рф/category/wow-snooper", label: "Инструкция по установке Wurth WoW" },
     ],
-    type: "Мультимарочные"
+    type: "Мультимарочные",
   },
   {
     title: "MUCAR/Thinkcar/Thinkdiag",
@@ -95,19 +94,19 @@ const products: Product[] = [
     docsLinks: [
       { link: "https://docs.смартдиаг.рф/mucar-thinkdiag/install", label: "Инструкция по активации приборов Thinkdiag, Mucar" },
     ],
-    type: "Мультимарочные"
+    type: "Мультимарочные",
   },
   {
     title: "Galletto 1260",
     description: "Универсальный программатор для чип-тюнинга, чтения и удаления кодов неисправностей.",
     features: ["Galletto 1260", "Драйвер"],
     downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/dfYejQP9rZGK9Td", label: "Скачать с сервера 1" }
+      { link: "https://i.getspace.us/cloud/s/dfYejQP9rZGK9Td", label: "Скачать с сервера 1" },
     ],
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "Мультимарочные"
+    type: "Мультимарочные",
   },
   {
     title: "VCDS + Вася",
@@ -122,67 +121,67 @@ const products: Product[] = [
     docsLinks: [
       { link: "https://docs.смартдиаг.рф/category/vcdsвася", label: "Инструкция 1" },
     ],
-    type: "Марочные"
+    type: "Марочные",
   },
   {
     title: "BMW E-NET (E-Sys)",
     description: "Диагностическая система для автомобилей BMW.",
     features: ["E-SYS", "Rheingold", "ISTA+", "ISTA-P", "Инструкции по установке ПО"],
     downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS", label: "Скачать с сервера 1" }
+      { link: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS", label: "Скачать с сервера 1" },
     ],
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "Марочные"
+    type: "Марочные",
   },
   {
     title: "K-Dcan INPA",
     description: "Диагностическая система для автомобилей BMW.",
     features: ["Rheingold", "INPA", "ISTA-D", "DIS", "NCS", "Инструкции по установке ПО"],
     downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS", label: "Скачать с сервера 1" }
+      { link: "https://i.getspace.us/cloud/s/jiiandKXdi6BEJS", label: "Скачать с сервера 1" },
     ],
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "Марочные"
+    type: "Марочные",
   },
   {
     title: "ELS 27",
     description: "Диагностический интерфейс для автомобилей Ford и Mazda.",
     features: ["FORScan", "FoCCCus", "ELMConfig", "Инструкции по установке ПО"],
     downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/oBNcC2w85wnj2Lx", label: "Скачать с сервера 1" }
+      { link: "https://i.getspace.us/cloud/s/oBNcC2w85wnj2Lx", label: "Скачать с сервера 1" },
     ],
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "Марочные"
+    type: "Марочные",
   },
   {
     title: "Mini-VCI",
     description: "Диагностический инструмент для автомобилей Toyota и Lexus.",
-    features: ["Techstream ", "Инструкция по установке ПО"],
+    features: ["Techstream", "Инструкция по установке ПО"],
     downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/Q3kWQ8ajB8WdF5g", label: "Скачать с сервера 1" }
+      { link: "https://i.getspace.us/cloud/s/Q3kWQ8ajB8WdF5g", label: "Скачать с сервера 1" },
     ],
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "Марочные"
+    type: "Марочные",
   },
   {
     title: "Lexia 3/PP2000",
     description: "Диагностический инструмент для автомобилей Peugeot и Citroen.",
     features: ["Diagbox", "Инструкция по установке ПО"],
     downloadLinks: [
-      { link: "https://i.getspace.us/cloud/s/eBmZpZWza2kt2Dc", label: "Скачать с сервера 1" }
+      { link: "https://i.getspace.us/cloud/s/eBmZpZWza2kt2Dc", label: "Скачать с сервера 1" },
     ],
     mostPopular: false,
     docs: false,
     docsLinks: [],
-    type: "Марочные"
+    type: "Марочные",
   },
   {
     title: "ELM 327 Mini",
@@ -190,14 +189,14 @@ const products: Product[] = [
     features: ["EOBD Facile", "Car Scanner", "Torque", "ELMScan", "Carista", "BimmerCode", "LeafSpy", "и т.д."],
     downloadLinks: [
       { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" },
-      { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 1" },
+      { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 2" },
     ],
     mostPopular: true,
     docs: true,
     docsLinks: [
       { link: "https://docs.смартдиаг.рф/category/адаптеры-elm", label: "Инструкция 1" },
     ],
-    type: "Адаптеры elm"
+    type: "Адаптеры elm",
   },
   {
     title: "Kingbolen ELM",
@@ -205,15 +204,15 @@ const products: Product[] = [
     features: ["EOBD Facile", "Car Scanner", "Torque", "ELMScan", "Carista", "BimmerCode", "LeafSpy", "и т.д."],
     downloadLinks: [
       { link: "https://i.getspace.us/cloud/s/Xg9rLCQgfZbedxe", label: "Скачать с сервера 1" },
-      { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 1" },
+      { link: "https://nch.pl/s/7jirqk7RWaqYwCM", label: "Скачать с сервера 2" },
     ],
     mostPopular: false,
     docs: true,
     docsLinks: [
       { link: "https://docs.смартдиаг.рф/category/адаптеры-elm", label: "Инструкция 1" },
     ],
-    type: "Адаптеры elm"
-  }
+    type: "Адаптеры elm",
+  },
 ];
 
 const deviceTypes: ProductType[] = [
@@ -224,7 +223,7 @@ const deviceTypes: ProductType[] = [
 ];
 
 // Helper Components
-function ProductCard({ product, onDownloadClick }: ProductCardProps) {
+const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, onDownloadClick }) => {
   const { title, mostPopular, description, features, downloadLinks, docs, docsLinks } = product;
   const displayedFeatures = features.length > 4 ? [...features.slice(0, 3), "и т.д."] : features;
 
@@ -270,11 +269,11 @@ function ProductCard({ product, onDownloadClick }: ProductCardProps) {
         <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
           В комплекте:
         </h4>
-        <ul className="space-y-1 h-24 overflow-y-auto">
+        <ul className="space-y-1">
           {displayedFeatures.map((feature, index) => (
             <li key={index} className="flex items-start">
               <CheckIcon className="w-5 h-5 text-red-500 mt-1 shrink-0" />
-              <span className="ml-2 text-gray-700 dark:text-gray-400 line-clamp-2">
+              <span className="ml-2 text-gray-700 dark:text-gray-400">
                 {feature}
               </span>
             </li>
@@ -283,13 +282,30 @@ function ProductCard({ product, onDownloadClick }: ProductCardProps) {
       </div>
     </motion.div>
   );
-}
+});
 
-function Modal({ modalLinks, onCloseModal, isDocs }: ModalProps) {
+const Modal: React.FC<ModalProps> = React.memo(({ modalLinks, onCloseModal, isDocs }) => {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onCloseModal();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    // Prevent background scrolling when modal is open
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "auto";
+    };
+  }, [onCloseModal]);
+
   if (!modalLinks) return null;
 
   return (
     <motion.div
+      role="dialog"
+      aria-modal="true"
       className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -316,7 +332,7 @@ function Modal({ modalLinks, onCloseModal, isDocs }: ModalProps) {
         </h3>
         <div className="flex flex-col space-y-3">
           {modalLinks.map(({ link, label }) => (
-            <Link
+            <a
               href={link}
               key={link}
               className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-colors duration-300 text-center"
@@ -324,19 +340,19 @@ function Modal({ modalLinks, onCloseModal, isDocs }: ModalProps) {
               rel="noopener noreferrer"
             >
               {label}
-            </Link>
+            </a>
           ))}
         </div>
       </motion.div>
     </motion.div>
   );
-}
+});
 
 // Main Component
 export default function Soft() {
   const [selectedType, setSelectedType] = useState<ProductType>("Все");
   const [modalLinks, setModalLinks] = useState<DownloadLink[] | null>(null);
-  const [isDocs, setIsDocs] = useState<boolean>(false); 
+  const [isDocs, setIsDocs] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -344,16 +360,16 @@ export default function Soft() {
 
   const productsPerPage = 8;
 
-  const handleDownloadClick = (links: DownloadLink[], docs: boolean) => {
+  const handleDownloadClick = useCallback((links: DownloadLink[], docs: boolean) => {
     setIsDocs(docs);
     if (links.length === 1) {
-      window.open(links[0].link, "_blank", "noopener noreferrer");
+      window.open(links[0].link, "_blank", "noopener,noreferrer");
     } else {
       setModalLinks(links);
     }
-  };
+  }, []);
 
-  const closeModal = () => setModalLinks(null);
+  const closeModal = useCallback(() => setModalLinks(null), []);
 
   const filteredProducts = useMemo(
     () =>
@@ -459,14 +475,15 @@ export default function Soft() {
             {deviceTypes.map((type, index) => (
               <li
                 key={type}
-                className={`text-black dark:text-white px-4 py-2 leading-tight hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer rounded-none ${
-                  index === 0 ? "first:rounded-t-none" : ""
+                className={`text-black dark:text-white px-4 py-2 leading-tight hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer ${
+                  index === 0 ? "first:rounded-t-lg" : ""
                 } ${
-                  index === deviceTypes.length - 1 ? "last:rounded-b-none" : ""
+                  index === deviceTypes.length - 1 ? "last:rounded-b-lg" : ""
                 }`}
                 onClick={() => {
                   setSelectedType(type);
                   setIsMobileMenuOpen(false);
+                  setCurrentPage(1);
                 }}
               >
                 {type}
@@ -502,7 +519,7 @@ export default function Soft() {
 
       {/* Desktop Filters and Search */}
       <div className="hidden lg:block max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="max-w-max mx-auto flex flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow space-y-4 sm:space-y-0 sm:space-x-4">
+        <div className="max-w-max mx-auto flex flex-wrap items-center bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow space-y-4 sm:space-y-0 sm:space-x-4">
           <div className="flex flex-wrap gap-2">
             {deviceTypes.map((type) => (
               <motion.button
