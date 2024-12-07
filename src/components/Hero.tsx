@@ -56,7 +56,7 @@ export const Hero: FC = () => {
               </div>
             </Link>
 
-            <Link href="http://docs.смартдиаг.рф">
+            <Link href="http://docs.смартдиаг.рф" target="_blank" rel="noopener noreferrer">
               <div className="bg-black text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-gray-800 hover:bg-opacity-90 mx-auto sm:mx-0 inline-block cursor-pointer">
                 <span className="flex items-center whitespace-nowrap">
                   Инструкции
