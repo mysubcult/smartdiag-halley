@@ -43,7 +43,7 @@ export const Hero: FC = () => {
             <Link href="/soft">
               <div className="bg-gradient-to-r from-[#ff4b2b] to-[#ff416c] text-white rounded-full py-3 px-6 text-base font-medium items-center group shadow-lg transform transition-transform duration-300 mx-auto sm:mx-0 inline-block hover:scale-105 cursor-pointer">
                 <span className="flex items-center whitespace-nowrap">
-                  Программы для приборов
+                  Программы для приборовввв
                   <svg
                     className="w-5 h-5 ml-2 transform group-hover:rotate-180 transition-transform duration-1000"
                     xmlns="http://www.w3.org/2000/svg"
