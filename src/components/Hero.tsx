@@ -14,10 +14,11 @@ export const Hero: FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-center gap-8 w-full">
         <div className="flex flex-col justify-center text-center lg:text-left space-y-6 lg:w-1/2 w-full">
           <motion.h1
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl mx-auto lg:mx-0"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 max-w-xl mx-auto lg:mx-0 will-change-transform"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            layout
           >
             Добро пожаловать в<br />
             <span className="text-red-600 font-extrabold">
